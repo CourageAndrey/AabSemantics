@@ -3,3 +3,4 @@ Code/*.sln.DotSettings.user
 Code/*/*.csproj.user
 Code/*/bin
 Code/*/obj
+Code/packages
