@@ -1,0 +1,12 @@
+﻿<Window x:Class="Inventor.Client.UI.FormattedTextDialog"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:forms="clr-namespace:System.Windows.Forms;assembly=System.Windows.Forms"
+        MinWidth="200" MaxWidth="800" MaxHeight="600"
+        Loaded="dialogLoaded" Icon="/Inventor.Client;component/Inventor.ico">
+    <DockPanel LastChildFill="True">
+        <WindowsFormsHost Name="windowsFormsHost">
+            <forms:WebBrowser />
+        </WindowsFormsHost>
+    </DockPanel>
+</Window>
