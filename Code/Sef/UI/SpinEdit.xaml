@@ -1,0 +1,18 @@
+﻿<ui:EditorBase x:Class="Sef.UI.SpinEdit"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:ui="clr-namespace:Sef.UI">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="Auto" />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*" />
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <TextBox Grid.Row="0" Grid.Column="0" Grid.RowSpan="2" Name="textBox" TextChanged="textChanged" />
+        <Button Grid.Row="0" Grid.Column="1" MinWidth="20" FontFamily="Webdings" Content="" Padding="-2,-6,-3,-6" Name="buttonUp" Click="upClick" />
+        <Button Grid.Row="1" Grid.Column="1" MinWidth="20" FontFamily="Webdings" Content="" Padding="-2,-6,-3,-6" Name="buttonDown" Click="downClick" />
+    </Grid>
+</ui:EditorBase>

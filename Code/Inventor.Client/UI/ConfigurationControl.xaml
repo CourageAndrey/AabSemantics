@@ -1,0 +1,15 @@
+﻿<ui:EditorBase x:Class="Inventor.Client.UI.ConfigurationControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:localization="clr-namespace:Inventor.Core.Localization;assembly=Inventor.Core"
+             xmlns:ui="clr-namespace:Sef.UI;assembly=Sef">
+    <UserControl.Resources>
+        <ObjectDataProvider x:Key="language" ObjectType="{x:Type localization:LocalizatorEx}" />
+    </UserControl.Resources>
+    <StackPanel Orientation="Vertical" Name="contextControl">
+        <CheckBox Margin="5" Content="{Binding Source={StaticResource language}, Path=Configuration.IncludeExplaining, Mode=OneTime}"
+                           IsChecked="{Binding Path=IncludeExplaining, Mode=TwoWay}"/>
+        <CheckBox Margin="5" Content="{Binding Source={StaticResource language}, Path=Configuration.AutoValidate, Mode=OneTime}"
+                           IsChecked="{Binding Path=AutoValidate, Mode=TwoWay}"/>
+    </StackPanel>
+</ui:EditorBase>

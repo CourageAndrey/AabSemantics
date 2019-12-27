@@ -1,0 +1,18 @@
+﻿<Window x:Class="Sef.UI.AutoWaitDialog"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        SizeToContent="WidthAndHeight"
+        ResizeMode="NoResize"
+        WindowStyle="None"
+        WindowStartupLocation ="CenterScreen"
+        MinWidth="200"
+        MinHeight="100"
+        ShowInTaskbar="False"
+        Loaded="form_Loaded">
+    <StackPanel>
+        <Label Name="labelCaption" Padding="5" HorizontalAlignment="Center" FontWeight="Bold" Margin="20,5" />
+        <ProgressBar Name="progressBar" HorizontalAlignment="Stretch" Height="15" Margin="20,5" />
+        <TextBlock Name="textBlockDescription" Padding="5" Margin="20,5" HorizontalAlignment="Stretch" TextWrapping="Wrap" />
+        <Button Name="buttonCancel" Click="buttonCancel_OnClick" HorizontalAlignment="Center" Margin="1,1,1,15" MinHeight="10" MinWidth="20" />
+    </StackPanel>
+</Window>

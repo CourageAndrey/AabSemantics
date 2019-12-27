@@ -1,0 +1,172 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{BC52F2B4-9F80-42D7-B799-6AD860013D8C}</ProjectGuid>
+    <OutputType>library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Sef</RootNamespace>
+    <AssemblyName>Sef</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Xaml">
+      <RequiredTargetFramework>4.0</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="WindowsBase" />
+    <Reference Include="PresentationCore" />
+    <Reference Include="PresentationFramework" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Common\DisposableBase.cs" />
+    <Compile Include="Common\EditableBase.cs" />
+    <Compile Include="Common\EventList.cs" />
+    <Compile Include="Common\FileSystemHelper.cs" />
+    <Compile Include="Common\SecurityHelper.cs" />
+    <Compile Include="Common\Utility.cs" />
+    <Compile Include="Exceptions\ExceptionDialog.xaml.cs">
+      <DependentUpon>ExceptionDialog.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Exceptions\ExceptionWrapper.cs" />
+    <Compile Include="Exceptions\WarningException.cs" />
+    <Compile Include="Interfaces\IEditable.cs" />
+    <Compile Include="Interfaces\IEditor.cs" />
+    <Compile Include="Interfaces\IHasImage.cs" />
+    <Compile Include="Localization\ILocalizable.cs" />
+    <Compile Include="Interfaces\IComplexFocus.cs" />
+    <Compile Include="Interfaces\ISupportsValidation.cs" />
+    <Compile Include="Localization\Language.cs" />
+    <Compile Include="Localization\LanguageCommon.cs" />
+    <Compile Include="Localization\LanguageEditor.cs" />
+    <Compile Include="Localization\LanguageErrors.cs" />
+    <Compile Include="Program\Configuration.cs" />
+    <Compile Include="Program\IChangeable.cs" />
+    <Compile Include="Program\SaveLoadController.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+    <Compile Include="UI\AutoWaitCursor.cs" />
+    <Compile Include="UI\AutoWaitDialog.xaml.cs">
+      <DependentUpon>AutoWaitDialog.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UI\CommonDialog.xaml.cs">
+      <DependentUpon>CommonDialog.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UI\DataGridImagePopupColumn.cs" />
+    <Compile Include="UI\EditorBase.cs" />
+    <Compile Include="Program\ExtendedApplication.cs" />
+    <Compile Include="UI\ExtendedTreeNode.cs" />
+    <Compile Include="UI\HighlightConverter.cs" />
+    <Compile Include="UI\ImageConverter.cs" />
+    <Compile Include="UI\DataGridImageColumn.cs" />
+    <Compile Include="UI\SpinEdit.xaml.cs">
+      <DependentUpon>SpinEdit.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UI\TableController.cs" />
+    <Compile Include="UI\UiHelper.cs" />
+    <Compile Include="Xml\Convertors\BoolConvertor.cs" />
+    <Compile Include="Xml\Convertors\ByteConvertor.cs" />
+    <Compile Include="Xml\Convertors\DateTimeConvertor.cs" />
+    <Compile Include="Xml\Convertors\DecimalConvertor.cs" />
+    <Compile Include="Xml\Convertors\DoubleConvertor.cs" />
+    <Compile Include="Xml\Convertors\Int16Convertor.cs" />
+    <Compile Include="Xml\Convertors\Int32Convertor.cs" />
+    <Compile Include="Xml\Convertors\Int64Convertor.cs" />
+    <Compile Include="Xml\Convertors\SbyteConvertor.cs" />
+    <Compile Include="Xml\Convertors\SingleConvertor.cs" />
+    <Compile Include="Xml\Convertors\StringConvertor.cs" />
+    <Compile Include="Xml\Convertors\TimeSpanConvertor.cs" />
+    <Compile Include="Xml\Convertors\Uint16Convertor.cs" />
+    <Compile Include="Xml\Convertors\Uint32Convertor.cs" />
+    <Compile Include="Xml\Convertors\Uint64Convertor.cs" />
+    <Compile Include="Xml\IXmlConvertor.cs" />
+    <Compile Include="Xml\XmlConvertorBase.cs" />
+    <Compile Include="Xml\XmlHelper.cs" />
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <AppDesigner Include="Properties\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Page Include="Exceptions\ExceptionDialog.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="UI\AutoWaitDialog.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="UI\CommonDialog.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UI\SpinEdit.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Collapse.png" />
+    <Resource Include="Resources\Configuration.png" />
+    <Resource Include="Resources\Continue.png" />
+    <Resource Include="Resources\Error.ico" />
+    <Resource Include="Resources\Error.png" />
+    <Resource Include="Resources\Save.png" />
+    <Resource Include="Resources\Stop.png" />
+    <Resource Include="Resources\Warning.png" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
