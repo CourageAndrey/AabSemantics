@@ -1,16 +1,15 @@
 ﻿using System.Linq;
 
+using NUnit.Framework;
+
 using Inventor.Core;
 using Inventor.Core.Localization;
 
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-
 namespace Inventor.Test
 {
-    [TestClass]
     public class ConsistencyTest
     {
-        [TestMethod]
+        [Test]
         public void TestLanguageNames()
         {
             var questionType = typeof (Question);
