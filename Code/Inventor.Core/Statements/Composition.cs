@@ -4,14 +4,14 @@ using System.Linq;
 
 using Inventor.Core.Localization;
 
-namespace Inventor.Core.Propositions
+namespace Inventor.Core.Statements
 {
-    public sealed class Composition : Proposition<Composition>
+    public sealed class Composition : Statement<Composition>
     {
         #region Properties
 
         public override string Hint
-        { get { return LanguageEx.CurrentEx.PropositionHints.Composition; } }
+        { get { return LanguageEx.CurrentEx.StatementHints.Composition; } }
 
         public Concept Parent
         { get { return parent; } }
@@ -24,7 +24,7 @@ namespace Inventor.Core.Propositions
         #endregion
 
         public Composition(Concept parent, Concept child)
-            : base(() => LanguageEx.CurrentEx.PropositionNames.Composition)
+            : base(() => LanguageEx.CurrentEx.StatementNames.Composition)
         {
             if (parent == null) throw new ArgumentNullException("parent");
             if (child == null) throw new ArgumentNullException("child");
@@ -38,7 +38,7 @@ namespace Inventor.Core.Propositions
 
         #region Description
 
-        protected override Func<string> GetDescriptionText(ILanguagePropositionFormatStrings language)
+        protected override Func<string> GetDescriptionText(ILanguageStatementFormatStrings language)
         {
             return () => language.Composition;
         }
@@ -71,14 +71,14 @@ namespace Inventor.Core.Propositions
 
         #region Lookup
 
-        public static List<Concept> GetContainingParents(IEnumerable<Proposition> relapropositions, Concept concept)
+        public static List<Concept> GetContainingParents(IEnumerable<Statement> statements, Concept concept)
         {
-            return relapropositions.OfType<Composition>().Where(c => c.Child == concept).Select(c => c.Parent).ToList();
+            return statements.OfType<Composition>().Where(c => c.Child == concept).Select(c => c.Parent).ToList();
         }
 
-        public static List<Concept> GetContainingParts(IEnumerable<Proposition> propositions, Concept concept)
+        public static List<Concept> GetContainingParts(IEnumerable<Statement> statements, Concept concept)
         {
-            return propositions.OfType<Composition>().Where(c => c.Parent == concept).Select(c => c.Child).ToList();
+            return statements.OfType<Composition>().Where(c => c.Parent == concept).Select(c => c.Child).ToList();
         }
 
         #endregion

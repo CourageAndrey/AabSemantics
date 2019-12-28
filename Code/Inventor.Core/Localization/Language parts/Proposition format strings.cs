@@ -2,7 +2,7 @@
 
 namespace Inventor.Core.Localization
 {
-    public interface ILanguagePropositionFormatStrings
+    public interface ILanguageStatementFormatStrings
     {
         string SubjectArea
         { get; }
@@ -20,7 +20,7 @@ namespace Inventor.Core.Localization
         { get; }
     }
 
-    public class LanguagePropositionFormatStrings : ILanguagePropositionFormatStrings
+    public class LanguageStatementFormatStrings : ILanguageStatementFormatStrings
     {
         #region Properties
 
@@ -46,9 +46,9 @@ namespace Inventor.Core.Localization
 
         #endregion
 
-        internal static LanguagePropositionFormatStrings CreateDefaultTrue()
+        internal static LanguageStatementFormatStrings CreateDefaultTrue()
         {
-            return new LanguagePropositionFormatStrings
+            return new LanguageStatementFormatStrings
             {
                 SubjectArea = string.Format("Понятие {0} входит в предметную область {1}.", Strings.ParamConcept, Strings.ParamArea),
                 Clasification = string.Format("{0} есть {1}.", Strings.ParamChild, Strings.ParamParent),
@@ -58,9 +58,9 @@ namespace Inventor.Core.Localization
             };
         }
 
-        internal static LanguagePropositionFormatStrings CreateDefaultFalse()
+        internal static LanguageStatementFormatStrings CreateDefaultFalse()
         {
-            return new LanguagePropositionFormatStrings
+            return new LanguageStatementFormatStrings
             {
                 SubjectArea = string.Format("Понятие {0} не входит в предметную область {1}.", Strings.ParamConcept, Strings.ParamArea),
                 Clasification = string.Format("{0} не есть {1}.", Strings.ParamChild, Strings.ParamParent),
@@ -70,9 +70,9 @@ namespace Inventor.Core.Localization
             };
         }
 
-        internal static LanguagePropositionFormatStrings CreateDefaultQuestion()
+        internal static LanguageStatementFormatStrings CreateDefaultQuestion()
         {
-            return new LanguagePropositionFormatStrings
+            return new LanguageStatementFormatStrings
             {
                 SubjectArea = string.Format("Входит ли понятие {0} в предметную область {1}?", Strings.ParamConcept, Strings.ParamArea),
                 Clasification = string.Format("На самом ли деле {0} есть {1}?", Strings.ParamChild, Strings.ParamParent),

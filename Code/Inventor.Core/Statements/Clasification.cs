@@ -4,14 +4,14 @@ using System.Linq;
 
 using Inventor.Core.Localization;
 
-namespace Inventor.Core.Propositions
+namespace Inventor.Core.Statements
 {
-    public sealed class Clasification : Proposition<Clasification>
+    public sealed class Clasification : Statement<Clasification>
     {
         #region Properties
 
         public override string Hint
-        { get { return LanguageEx.CurrentEx.PropositionHints.Clasification; } }
+        { get { return LanguageEx.CurrentEx.StatementHints.Clasification; } }
 
         public Concept Parent
         { get { return parent; } }
@@ -24,7 +24,7 @@ namespace Inventor.Core.Propositions
         #endregion
 
         public Clasification(Concept parent, Concept child)
-            : base(() => LanguageEx.CurrentEx.PropositionNames.Clasification)
+            : base(() => LanguageEx.CurrentEx.StatementNames.Clasification)
         {
             if (parent == null) throw new ArgumentNullException("parent");
             if (child == null) throw new ArgumentNullException("child");
@@ -38,7 +38,7 @@ namespace Inventor.Core.Propositions
 
         #region Description
 
-        protected override Func<string> GetDescriptionText(ILanguagePropositionFormatStrings language)
+        protected override Func<string> GetDescriptionText(ILanguageStatementFormatStrings language)
         {
             return () => language.Clasification;
         }
@@ -67,9 +67,9 @@ namespace Inventor.Core.Propositions
             else return false;
         }
 
-        public bool CheckCyclic(IEnumerable<Clasification> propositions)
+        public bool CheckCyclic(IEnumerable<Clasification> statements)
         {
-            return !isCyclic(propositions, child, new List<Concept>());
+            return !isCyclic(statements, child, new List<Concept>());
         }
 
         private bool isCyclic(IEnumerable<Clasification> allClasifications, Concept concept, List<Concept> chain)
@@ -98,14 +98,14 @@ namespace Inventor.Core.Propositions
 
         #region Lookup
 
-        public static List<Concept> GetParentsTree(IEnumerable<Proposition> propositions, Concept concept)
+        public static List<Concept> GetParentsTree(IEnumerable<Statement> statements, Concept concept)
         {
-            return GetParentsTree(propositions.OfType<Clasification>(), concept);
+            return GetParentsTree(statements.OfType<Clasification>(), concept);
         }
 
-        public static List<Concept> GetParentsPlainList(IEnumerable<Proposition> propositions, Concept concept)
+        public static List<Concept> GetParentsPlainList(IEnumerable<Statement> statements, Concept concept)
         {
-            return GetParentsPlainList(propositions.OfType<Clasification>(), concept);
+            return GetParentsPlainList(statements.OfType<Clasification>(), concept);
         }
 
         public static List<Concept> GetParentsTree(IEnumerable<Clasification> clasifications, Concept concept)

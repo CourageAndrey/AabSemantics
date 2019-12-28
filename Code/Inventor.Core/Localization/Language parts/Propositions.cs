@@ -2,7 +2,7 @@
 
 namespace Inventor.Core.Localization
 {
-    public interface ILanguagePropositions
+    public interface ILanguageStatements
     {
         string SubjectArea
         { get; }
@@ -20,7 +20,7 @@ namespace Inventor.Core.Localization
         { get; }
     }
 
-    public class LanguagePropositions : ILanguagePropositions
+    public class LanguageStatements : ILanguageStatements
     {
         #region Properties
 
@@ -46,9 +46,9 @@ namespace Inventor.Core.Localization
 
         #endregion
 
-        public static LanguagePropositions CreateDefaultNames()
+        public static LanguageStatements CreateDefaultNames()
         {
-            return new LanguagePropositions
+            return new LanguageStatements
             {
                 SubjectArea = "Предметная область",
                 Clasification = "Классификация",
@@ -58,9 +58,9 @@ namespace Inventor.Core.Localization
             };
         }
 
-        internal static LanguagePropositions CreateDefaultHints()
+        internal static LanguageStatements CreateDefaultHints()
         {
-            return new LanguagePropositions
+            return new LanguageStatements
             {
                 SubjectArea = "Отношение описывает вхождение терминов в некоторую предметную область.",
                 Clasification = "Отношение описывает связь между родительским и дочерним (подчинённым) понятиями.",
