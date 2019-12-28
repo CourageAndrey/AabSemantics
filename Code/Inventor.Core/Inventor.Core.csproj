@@ -58,14 +58,14 @@
     <Compile Include="Localization\Strings.cs" />
     <Compile Include="Localization\Language parts\Ui.cs" />
     <Compile Include="Answering mechanish.cs" />
-    <Compile Include="Processing\CheckPropositionProcessor.cs" />
+    <Compile Include="Processing\CheckStatementProcessor.cs" />
     <Compile Include="Processing\IsSubjectAreaQuestion.cs" />
     <Compile Include="Processing\EnumerateContainersProcessor.cs" />
     <Compile Include="Processing\EnumeratePartsProcessor.cs" />
     <Compile Include="Processing\IsPartOfProcessor.cs" />
     <Compile Include="Processing\IsValueProcessor.cs" />
     <Compile Include="Question.cs" />
-    <Compile Include="Questions\CheckPropositionQuestion.cs" />
+    <Compile Include="Questions\CheckStatementQuestion.cs" />
     <Compile Include="Questions\IsSubjectAreaQuestion.cs" />
     <Compile Include="Questions\EnumerateContainersQuestion.cs" />
     <Compile Include="Questions\EnumeratePartsQuestion.cs" />
@@ -92,12 +92,12 @@
     <Compile Include="Processing\WhatProcessor.cs" />
     <Compile Include="Questions\WhatQuestion.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Proposition.cs" />
-    <Compile Include="Propositions\Clasification.cs" />
-    <Compile Include="Propositions\Composition.cs" />
-    <Compile Include="Propositions\HasSign.cs" />
-    <Compile Include="Propositions\SignValue.cs" />
-    <Compile Include="Propositions\SubjectArea.cs" />
+    <Compile Include="Statement.cs" />
+    <Compile Include="Statements\Clasification.cs" />
+    <Compile Include="Statements\Composition.cs" />
+    <Compile Include="Statements\HasSign.cs" />
+    <Compile Include="Statements\SignValue.cs" />
+    <Compile Include="Statements\SubjectArea.cs" />
     <Compile Include="InventorConfiguration.cs" />
   </ItemGroup>
   <ItemGroup>

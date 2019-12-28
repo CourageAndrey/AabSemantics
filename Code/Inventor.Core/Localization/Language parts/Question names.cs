@@ -49,7 +49,7 @@ namespace Inventor.Core.Localization
         string IsSubjectAreaQuestion
         { get; }
 
-        string CheckPropositionQuestion
+        string CheckStatementQuestion
         { get; }
 
         string ParamParent
@@ -136,7 +136,7 @@ namespace Inventor.Core.Localization
         { get; set; }
 
         [XmlElement]
-        public string CheckPropositionQuestion
+        public string CheckStatementQuestion
         { get; set; }
 
         [XmlElement]
@@ -184,7 +184,7 @@ namespace Inventor.Core.Localization
                 EnumeratePartsQuestion = "Из каких составных частей состоит ПОНЯТИЕ?",
                 EnumerateContainersQuestion = "Составной частью чего может являться ПОНЯТИЕ?",
                 IsSubjectAreaQuestion = "Входит ли ПОНЯТИЕ в ПРЕДМЕТНАЯ_ОБЛАСТЬ?",
-                CheckPropositionQuestion = "Верно ли, что...",
+                CheckStatementQuestion = "Верно ли, что...",
                 ParamParent = "РОДИТЕЛЬСКОЕ_ПОНЯТИЕ",
                 ParamChild = "ДОЧЕРНЕЕ_ПОНЯТИЕ",
                 ParamConcept = "ПОНЯТИЕ",

@@ -4,14 +4,14 @@ using System.Linq;
 
 using Inventor.Core.Localization;
 
-namespace Inventor.Core.Propositions
+namespace Inventor.Core.Statements
 {
-    public sealed class SignValue : Proposition<SignValue>
+    public sealed class SignValue : Statement<SignValue>
     {
         #region Properties
 
         public override string Hint
-        { get { return LanguageEx.CurrentEx.PropositionHints.SignValue; } }
+        { get { return LanguageEx.CurrentEx.StatementHints.SignValue; } }
 
         public Concept Concept
         { get { return concept; } }
@@ -27,7 +27,7 @@ namespace Inventor.Core.Propositions
         #endregion
 
         public SignValue(Concept concept, Concept sign, Concept value)
-            : base(() => LanguageEx.CurrentEx.PropositionNames.SignValue)
+            : base(() => LanguageEx.CurrentEx.StatementNames.SignValue)
         {
             if (concept == null) throw new ArgumentNullException("concept");
             if (sign == null) throw new ArgumentNullException("sign");
@@ -43,7 +43,7 @@ namespace Inventor.Core.Propositions
 
         #region Description
 
-        protected override Func<string> GetDescriptionText(ILanguagePropositionFormatStrings language)
+        protected override Func<string> GetDescriptionText(ILanguageStatementFormatStrings language)
         {
             return () => language.SignValue;
         }
@@ -74,16 +74,16 @@ namespace Inventor.Core.Propositions
             else return false;
         }
 
-        public bool CheckHasSign(IEnumerable<Proposition> propositions)
+        public bool CheckHasSign(IEnumerable<Statement> statements)
         {
-            return HasSign.GetSigns(propositions, concept, true).Select(hs => hs.Sign).Contains(sign);
+            return HasSign.GetSigns(statements, concept, true).Select(hs => hs.Sign).Contains(sign);
         }
 
         #endregion
 
-        public static SignValue GetSignValue(IEnumerable<Proposition> propositions, Concept concept, Concept sign)
+        public static SignValue GetSignValue(IEnumerable<Statement> statements, Concept concept, Concept sign)
         {
-            var signValues = propositions.OfType<SignValue>().ToList();
+            var signValues = statements.OfType<SignValue>().ToList();
             var signValue = signValues.FirstOrDefault(sv => sv.Concept == concept && sv.Sign == sign);
             if (signValue != null)
             {
@@ -91,9 +91,9 @@ namespace Inventor.Core.Propositions
             }
             else
             {
-                foreach (var parent in Clasification.GetParentsPlainList(propositions, concept))
+                foreach (var parent in Clasification.GetParentsPlainList(statements, concept))
                 {
-                    var parentValue = GetSignValue(propositions, parent, sign);
+                    var parentValue = GetSignValue(statements, parent, sign);
                     if (parentValue != null)
                     {
                         return parentValue;
@@ -103,14 +103,14 @@ namespace Inventor.Core.Propositions
             }
         }
 
-        public static List<SignValue> GetSignValues(IEnumerable<Proposition> propositions, Concept concept, bool recursive)
+        public static List<SignValue> GetSignValues(IEnumerable<Statement> statements, Concept concept, bool recursive)
         {
             var result = new List<SignValue>();
-            var signValues = propositions.OfType<SignValue>().ToList();
+            var signValues = statements.OfType<SignValue>().ToList();
             result.AddRange(signValues.Where(sv => sv.Concept == concept));
             if (recursive)
             {
-                foreach (var parentSigns in Clasification.GetParentsPlainList(propositions, concept).Select(c => GetSignValues(propositions, c, true)))
+                foreach (var parentSigns in Clasification.GetParentsPlainList(statements, concept).Select(c => GetSignValues(statements, c, true)))
                 {
                     foreach (var signValue in parentSigns)
                     {

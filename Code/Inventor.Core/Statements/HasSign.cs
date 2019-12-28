@@ -4,14 +4,14 @@ using System.Linq;
 
 using Inventor.Core.Localization;
 
-namespace Inventor.Core.Propositions
+namespace Inventor.Core.Statements
 {
-    public sealed class HasSign : Proposition<HasSign>
+    public sealed class HasSign : Statement<HasSign>
     {
         #region Properties
 
         public override string Hint
-        { get { return LanguageEx.CurrentEx.PropositionHints.HasSign; } }
+        { get { return LanguageEx.CurrentEx.StatementHints.HasSign; } }
 
         public Concept Concept
         { get { return concept; } }
@@ -24,7 +24,7 @@ namespace Inventor.Core.Propositions
         #endregion
 
         public HasSign(Concept concept, Concept sign)
-            : base(() => LanguageEx.CurrentEx.PropositionNames.HasSign)
+            : base(() => LanguageEx.CurrentEx.StatementNames.HasSign)
         {
             if (concept == null) throw new ArgumentNullException("concept");
             if (sign == null) throw new ArgumentNullException("sign");
@@ -38,7 +38,7 @@ namespace Inventor.Core.Propositions
 
         #region Description
 
-        protected override Func<string> GetDescriptionText(ILanguagePropositionFormatStrings language)
+        protected override Func<string> GetDescriptionText(ILanguageStatementFormatStrings language)
         {
             return () => language.HasSign;
         }
@@ -85,14 +85,14 @@ namespace Inventor.Core.Propositions
 
         #endregion
 
-        public static List<HasSign> GetSigns(IEnumerable<Proposition> propositions, Concept concept, bool recursive)
+        public static List<HasSign> GetSigns(IEnumerable<Statement> statements, Concept concept, bool recursive)
         {
             var result = new List<HasSign>();
-            var hasSigns = propositions.OfType<HasSign>().ToList();
+            var hasSigns = statements.OfType<HasSign>().ToList();
             result.AddRange(hasSigns.Where(sv => sv.Concept == concept));
             if (recursive)
             {
-                foreach (var parentSigns in Clasification.GetParentsPlainList(propositions, concept).Select(c => GetSigns(propositions, c, true)))
+                foreach (var parentSigns in Clasification.GetParentsPlainList(statements, concept).Select(c => GetSigns(statements, c, true)))
                 {
                     result.AddRange(parentSigns);
                 }

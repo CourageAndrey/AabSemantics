@@ -5,7 +5,7 @@
         public const string TostringKnowledgeBase = "KNOWLEDGE_BASE";
         public const string TostringKbCategory = "KNOWLEDGE_BASE_CATEGORY";
         public const string TostringConcept = "CONCEPT";
-        public const string TostringProposition = "PROPOSITION";
+        public const string TostringStatement = "STATEMENT";
         public const string TostringFormatted = "FORMATTED_STRING";
         public const string TostringLocalized = "LOCALIZED_STRING";
 
@@ -15,6 +15,6 @@
         public const string ParamParent = "#PARENT#";
         public const string ParamSign = "#SIGN#";
         public const string ParamValue = "#VALUE#";
-        public const string ParamProposition = "#PROPOSITION#";
+        public const string ParamStatement = "#STATEMENT#";
     }
 }

@@ -30,7 +30,7 @@ namespace Inventor.Client.UI
         private static ImageSource icon;
         private readonly KnowledgeBase knowledgeBase;
         private readonly KnowledgeBaseConceptsNode concepts;
-        private readonly KnowledgeBasePropositionsNode propositions;
+        private readonly KnowledgeBaseStatementsNode _statements;
 
         #endregion
 
@@ -38,7 +38,7 @@ namespace Inventor.Client.UI
         {
             this.knowledgeBase = knowledgeBase;
             Сhildren.Add(concepts = new KnowledgeBaseConceptsNode(knowledgeBase));
-            Сhildren.Add(propositions = new KnowledgeBasePropositionsNode(knowledgeBase));
+            Сhildren.Add(_statements = new KnowledgeBaseStatementsNode(knowledgeBase));
         }
 
         public List<ExtendedTreeNode> Find(object obj)
@@ -47,9 +47,9 @@ namespace Inventor.Client.UI
             {
                 return concepts.Find(obj as Concept, this);
             }
-            else if (obj is Proposition)
+            else if (obj is Statement)
             {
-                return propositions.Find(obj as Proposition, this);
+                return _statements.Find(obj as Statement, this);
             }
             else
             {
@@ -60,7 +60,7 @@ namespace Inventor.Client.UI
         public void Clear()
         {
             concepts.Clear();
-            propositions.Clear();
+            _statements.Clear();
         }
     }
 
@@ -121,15 +121,15 @@ namespace Inventor.Client.UI
         }
     }
 
-    public sealed class KnowledgeBasePropositionsNode : ExtendedTreeNode
+    public sealed class KnowledgeBaseStatementsNode : ExtendedTreeNode
     {
         #region Properties
 
         public override string Text
-        { get { return LanguageEx.CurrentEx.Misc.NameCategoryPropositions; } }
+        { get { return LanguageEx.CurrentEx.Misc.NameCategoryStatements; } }
 
         public override string Tooltip
-        { get { return LanguageEx.CurrentEx.Misc.NameCategoryPropositions; } }
+        { get { return LanguageEx.CurrentEx.Misc.NameCategoryStatements; } }
 
         public override ImageSource Icon
         { get { return icon ?? (icon = Resources.Folder.ToSource()); } }
@@ -142,36 +142,36 @@ namespace Inventor.Client.UI
 
         #endregion
 
-        public KnowledgeBasePropositionsNode(KnowledgeBase knowledgeBase)
+        public KnowledgeBaseStatementsNode(KnowledgeBase knowledgeBase)
         {
             this.knowledgeBase = knowledgeBase;
-            foreach (var proposition in knowledgeBase.Propositions)
+            foreach (var statement in knowledgeBase.Statements)
             {
-                Сhildren.Add(new PropositionNode(proposition));
+                Сhildren.Add(new StatementNode(statement));
             }
-            knowledgeBase.PropositionAdded += propositionAdded;
-            knowledgeBase.PropositionRemoved += propositionRemoved;
+            knowledgeBase.StatementAdded += StatementAdded;
+            knowledgeBase.StatementRemoved += StatementRemoved;
         }
 
-        private void propositionAdded(IList<Proposition> list, Proposition item)
+        private void StatementAdded(IList<Statement> list, Statement item)
         {
-            Сhildren.Add(new PropositionNode(item));
+            Сhildren.Add(new StatementNode(item));
         }
 
-        private void propositionRemoved(IList<Proposition> list, Proposition item)
+        private void StatementRemoved(IList<Statement> list, Statement item)
         {
-            Сhildren.Remove(Сhildren.OfType<PropositionNode>().First(r => r.Proposition == item));
+            Сhildren.Remove(Сhildren.OfType<StatementNode>().First(r => r.Statement == item));
         }
 
         public void Clear()
         {
-            knowledgeBase.PropositionAdded -= propositionAdded;
-            knowledgeBase.PropositionRemoved -= propositionRemoved;
+            knowledgeBase.StatementAdded -= StatementAdded;
+            knowledgeBase.StatementRemoved -= StatementRemoved;
         }
 
-        public List<ExtendedTreeNode> Find(Proposition proposition, ExtendedTreeNode parent)
+        public List<ExtendedTreeNode> Find(Statement statement, ExtendedTreeNode parent)
         {
-            var child = Сhildren.OfType<PropositionNode>().FirstOrDefault(rn => rn.Proposition == proposition);
+            var child = Сhildren.OfType<StatementNode>().FirstOrDefault(rn => rn.Statement == statement);
             return child != null
                 ? new List<ExtendedTreeNode> { parent, this, child }
                 : new List<ExtendedTreeNode>();
@@ -205,34 +205,34 @@ namespace Inventor.Client.UI
         }
     }
 
-    public sealed class PropositionNode : ExtendedTreeNode
+    public sealed class StatementNode : ExtendedTreeNode
     {
         #region Properties
 
         public override string Text
-        { get { return proposition.DescribeTrue().GetPlainText(); } }
+        { get { return statement.DescribeTrue().GetPlainText(); } }
 
         public override string Tooltip
-        { get { return LanguageEx.CurrentEx.Misc.NameProposition; } }
+        { get { return LanguageEx.CurrentEx.Misc.NameStatement; } }
 
         public override ImageSource Icon
-        { get { return icon ?? (icon = Resources.Proposition.ToSource()); } }
+        { get { return icon ?? (icon = Resources.Statement.ToSource()); } }
 
-        public Proposition Proposition
-        { get { return proposition; } }
+        public Statement Statement
+        { get { return statement; } }
 
         private static ImageSource icon;
-        private readonly Proposition proposition;
+        private readonly Statement statement;
 
         #endregion
 
-        public PropositionNode(Proposition proposition)
+        public StatementNode(Statement statement)
         {
-            this.proposition = proposition;
-            /*foreach (var concept in proposition.ChildConcepts)
+            this.statement = statement;
+			/*foreach (var concept in statement.ChildConcepts)
             {
                 children.Add(new ConceptNode(concept));
             }*/
-        }
-    }
+		}
+	}
 }
