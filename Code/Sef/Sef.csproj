@@ -50,7 +50,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Common\EventList.cs" />
-    <Compile Include="Common\Utility.cs" />
     <Compile Include="Exceptions\ExceptionDialog.xaml.cs">
       <DependentUpon>ExceptionDialog.xaml</DependentUpon>
     </Compile>
