@@ -61,9 +61,6 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <Compile Include="UI\ConfigurationControl.xaml.cs">
-      <DependentUpon>ConfigurationControl.xaml</DependentUpon>
-    </Compile>
     <Compile Include="UI\Extended tree nodes.cs" />
     <Compile Include="UI\FormattedTextDialog.xaml.cs">
       <DependentUpon>FormattedTextDialog.xaml</DependentUpon>
@@ -72,10 +69,6 @@
       <DependentUpon>QuestionDialog.xaml</DependentUpon>
     </Compile>
     <Compile Include="UI\UiHelper.cs" />
-    <Page Include="UI\ConfigurationControl.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="UI\MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -172,9 +165,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Languages\" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Resources\Configuration.png" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Inventor.Core\Inventor.Core.csproj">

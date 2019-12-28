@@ -140,21 +140,5 @@ namespace Inventor.Client.UI
         }
 
         #endregion
-
-        private void configurationClick(object sender, RoutedEventArgs e)
-        {
-            var configControl = new ConfigurationControl();
-            var config = new InventorConfiguration();
-            config.UpdateFrom(InventorApplication.Singleton.Configuration);
-            configControl.EditValueEx = config;
-            if (CommonDialog.ShowControlDialog(
-                configControl,
-                () => Sef.Localization.Language.Current.Common.Configuration,
-                Icon) == true)
-            {
-                InventorApplication.Singleton.Configuration.UpdateFrom(config);
-                InventorApplication.Singleton.SaveConfiguration();
-            }
-        }
     }
 }
