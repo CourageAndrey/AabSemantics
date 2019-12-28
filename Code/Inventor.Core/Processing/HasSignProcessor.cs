@@ -11,7 +11,7 @@ namespace Inventor.Core.Processing
     {
         protected override FormattedText ProcessImplementation(KnowledgeBase knowledgeBase, HasSignQuestion question)
         {
-            bool yes = HasSign.GetSigns(knowledgeBase.Statements, question.Concept, question.Recursive).Select(hs => hs.Sign).Contains(question.Sign);
+            bool yes = HasSignStatement.GetSigns(knowledgeBase.Statements, question.Concept, question.Recursive).Select(hs => hs.Sign).Contains(question.Sign);
             var language = LanguageEx.CurrentEx.Answers;
             return new FormattedText(
                 () => string.Format(yes ? language.HasSignTrue : language.HasSignFalse, question.Recursive ? language.RecursiveTrue : language.RecursiveFalse),

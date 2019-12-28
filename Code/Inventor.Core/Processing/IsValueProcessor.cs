@@ -12,7 +12,7 @@ namespace Inventor.Core.Processing
     {
         protected override FormattedText ProcessImplementation(KnowledgeBase knowledgeBase, IsValueQuestion question)
         {
-            bool yes = knowledgeBase.Statements.OfType<SignValue>().FirstOrDefault(r => r.Value == question.Concept) != null;
+            bool yes = knowledgeBase.Statements.OfType<SignValueStatement>().FirstOrDefault(r => r.Value == question.Concept) != null;
             var language = LanguageEx.CurrentEx.Answers;
             return new FormattedText(
                 yes ? new Func<string>(() => language.ValueTrue) : () => language.ValueFalse,

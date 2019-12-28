@@ -6,7 +6,7 @@ using Inventor.Core.Localization;
 
 namespace Inventor.Core.Statements
 {
-    public sealed class HasSign : Statement<HasSign>
+    public sealed class HasSignStatement : Statement<HasSignStatement>
     {
         #region Properties
 
@@ -23,7 +23,7 @@ namespace Inventor.Core.Statements
 
         #endregion
 
-        public HasSign(Concept concept, Concept sign)
+        public HasSignStatement(Concept concept, Concept sign)
             : base(() => LanguageEx.CurrentEx.StatementNames.HasSign)
         {
             if (concept == null) throw new ArgumentNullException("concept");
@@ -56,7 +56,7 @@ namespace Inventor.Core.Statements
 
         #region Consistency checking
 
-        public override bool Equals(HasSign other)
+        public override bool Equals(HasSignStatement other)
         {
             if (ReferenceEquals(this, other)) return true;
             if (other != null)
@@ -67,10 +67,10 @@ namespace Inventor.Core.Statements
             else return false;
         }
 
-        public bool CheckSignDuplication(IEnumerable<HasSign> hasSigns, IEnumerable<Clasification> clasifications)
+        public bool CheckSignDuplication(IEnumerable<HasSignStatement> hasSigns, IEnumerable<IsStatement> clasifications)
         {
             var signs = hasSigns.Where(hs => hs.Concept == concept).Select(hs => hs.Sign).ToList();
-            foreach (var parent in Clasification.GetParentsTree(clasifications, concept))
+            foreach (var parent in IsStatement.GetParentsTree(clasifications, concept))
             {
                 foreach (var parentSign in hasSigns.Where(hs => hs.Concept == parent).Select(hs => hs.Sign))
                 {
@@ -85,14 +85,14 @@ namespace Inventor.Core.Statements
 
         #endregion
 
-        public static List<HasSign> GetSigns(IEnumerable<Statement> statements, Concept concept, bool recursive)
+        public static List<HasSignStatement> GetSigns(IEnumerable<Statement> statements, Concept concept, bool recursive)
         {
-            var result = new List<HasSign>();
-            var hasSigns = statements.OfType<HasSign>().ToList();
+            var result = new List<HasSignStatement>();
+            var hasSigns = statements.OfType<HasSignStatement>().ToList();
             result.AddRange(hasSigns.Where(sv => sv.Concept == concept));
             if (recursive)
             {
-                foreach (var parentSigns in Clasification.GetParentsPlainList(statements, concept).Select(c => GetSigns(statements, c, true)))
+                foreach (var parentSigns in IsStatement.GetParentsPlainList(statements, concept).Select(c => GetSigns(statements, c, true)))
                 {
                     result.AddRange(parentSigns);
                 }

@@ -12,7 +12,7 @@ namespace Inventor.Core.Processing
     {
         protected override FormattedText ProcessImplementation(KnowledgeBase knowledgeBase, IsSubjectAreaQuestion question)
         {
-            bool yes = knowledgeBase.Statements.OfType<SubjectArea>().Any(sa => sa.Area == question.Area && sa.Concept == question.Concept);
+            bool yes = knowledgeBase.Statements.OfType<GroupStatement>().Any(sa => sa.Area == question.Area && sa.Concept == question.Concept);
             var language = LanguageEx.CurrentEx.Answers;
             return new FormattedText(
                 yes ? new Func<string>(() => language.IsSubjectAreaTrue) : () => language.IsSubjectAreaFalse,
