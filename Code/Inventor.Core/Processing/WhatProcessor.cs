@@ -12,16 +12,16 @@ namespace Inventor.Core.Processing
         protected override FormattedText ProcessImplementation(KnowledgeBase knowledgeBase, WhatQuestion question)
         {
             var language = LanguageEx.CurrentEx.Answers;
-            var statements = knowledgeBase.Statements.OfType<Clasification>().Where(c => c.Child == question.Concept);
+            var statements = knowledgeBase.Statements.OfType<IsStatement>().Where(c => c.Child == question.Concept);
             if (statements.Any())
             {
                 var result = new FormattedText();
                 foreach (var statement in statements)
                 {
-                    var difference = new List<SignValue>();
-                    foreach (var sign in HasSign.GetSigns(knowledgeBase.Statements, statement.Parent, false))
+                    var difference = new List<SignValueStatement>();
+                    foreach (var sign in HasSignStatement.GetSigns(knowledgeBase.Statements, statement.Parent, false))
                     {
-                        var diff = SignValue.GetSignValue(knowledgeBase.Statements, question.Concept, sign.Sign);
+                        var diff = SignValueStatement.GetSignValue(knowledgeBase.Statements, question.Concept, sign.Sign);
                         if (diff != null)
                         {
                             difference.Add(diff);

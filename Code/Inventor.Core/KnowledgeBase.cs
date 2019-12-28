@@ -350,62 +350,62 @@ namespace Inventor.Core
             })));
 
             // statements
-            knowledgeBase.Statements.Add(new SubjectArea(transport, vehicle));
-            knowledgeBase.Statements.Add(new SubjectArea(transport, motorType));
-            knowledgeBase.Statements.Add(new SubjectArea(transport, mtMucles));
-            knowledgeBase.Statements.Add(new SubjectArea(transport, mtSteam));
-            knowledgeBase.Statements.Add(new SubjectArea(transport, mtCombusion));
-            knowledgeBase.Statements.Add(new SubjectArea(transport, mtJet));
-            knowledgeBase.Statements.Add(new SubjectArea(transport, areaType));
-            knowledgeBase.Statements.Add(new SubjectArea(transport, atGround));
-            knowledgeBase.Statements.Add(new SubjectArea(transport, atWater));
-            knowledgeBase.Statements.Add(new SubjectArea(transport, atAir));
-            knowledgeBase.Statements.Add(new SubjectArea(transport, bicycle));
-            knowledgeBase.Statements.Add(new SubjectArea(transport, courag));
-            knowledgeBase.Statements.Add(new SubjectArea(transport, steamLocomotive));
-            knowledgeBase.Statements.Add(new SubjectArea(transport, steamboat));
-            knowledgeBase.Statements.Add(new SubjectArea(transport, car));
-            knowledgeBase.Statements.Add(new SubjectArea(transport, motorcycle));
-            knowledgeBase.Statements.Add(new SubjectArea(transport, fighter));
-            knowledgeBase.Statements.Add(new SubjectArea(transport, airbus));
-            knowledgeBase.Statements.Add(new SubjectArea(transport, jetFighter));
-            knowledgeBase.Statements.Add(new HasSign(vehicle, motorType));
-            knowledgeBase.Statements.Add(new HasSign(vehicle, areaType));
-            knowledgeBase.Statements.Add(new Clasification(motorType, mtMucles));
-            knowledgeBase.Statements.Add(new Clasification(motorType, mtSteam));
-            knowledgeBase.Statements.Add(new Clasification(motorType, mtCombusion));
-            knowledgeBase.Statements.Add(new Clasification(motorType, mtJet));
-            knowledgeBase.Statements.Add(new Clasification(areaType, atGround));
-            knowledgeBase.Statements.Add(new Clasification(areaType, atWater));
-            knowledgeBase.Statements.Add(new Clasification(areaType, atAir));
-            knowledgeBase.Statements.Add(new Clasification(vehicle, bicycle));
-            knowledgeBase.Statements.Add(new Clasification(vehicle, courag));
-            knowledgeBase.Statements.Add(new Clasification(vehicle, steamLocomotive));
-            knowledgeBase.Statements.Add(new Clasification(vehicle, steamboat));
-            knowledgeBase.Statements.Add(new Clasification(vehicle, car));
-            knowledgeBase.Statements.Add(new Clasification(vehicle, motorcycle));
-            knowledgeBase.Statements.Add(new Clasification(vehicle, fighter));
-            knowledgeBase.Statements.Add(new Clasification(vehicle, airbus));
-            knowledgeBase.Statements.Add(new Clasification(vehicle, jetFighter));
-            knowledgeBase.Statements.Add(new SignValue(bicycle, motorType, mtMucles));
-            knowledgeBase.Statements.Add(new SignValue(courag, motorType, mtMucles));
-            knowledgeBase.Statements.Add(new SignValue(steamLocomotive, motorType, mtSteam));
-            knowledgeBase.Statements.Add(new SignValue(steamboat, motorType, mtSteam));
-            knowledgeBase.Statements.Add(new SignValue(car, motorType, mtCombusion));
-            knowledgeBase.Statements.Add(new SignValue(motorcycle, motorType, mtCombusion));
-            knowledgeBase.Statements.Add(new SignValue(fighter, motorType, mtCombusion));
-            knowledgeBase.Statements.Add(new SignValue(airbus, motorType, mtJet));
-            knowledgeBase.Statements.Add(new SignValue(jetFighter, motorType, mtJet));
-            knowledgeBase.Statements.Add(new SignValue(bicycle, areaType, atGround));
-            knowledgeBase.Statements.Add(new SignValue(courag, areaType, atWater));
-            knowledgeBase.Statements.Add(new SignValue(steamLocomotive, areaType, atGround));
-            knowledgeBase.Statements.Add(new SignValue(steamboat, areaType, atWater));
-            knowledgeBase.Statements.Add(new SignValue(car, areaType, atGround));
-            knowledgeBase.Statements.Add(new SignValue(motorcycle, areaType, atGround));
-            knowledgeBase.Statements.Add(new SignValue(fighter, areaType, atAir));
-            knowledgeBase.Statements.Add(new SignValue(airbus, areaType, atAir));
-            knowledgeBase.Statements.Add(new SignValue(jetFighter, areaType, atAir));
-            knowledgeBase.Statements.Add(new Composition(vehicle, motorType));
+            knowledgeBase.Statements.Add(new GroupStatement(transport, vehicle));
+            knowledgeBase.Statements.Add(new GroupStatement(transport, motorType));
+            knowledgeBase.Statements.Add(new GroupStatement(transport, mtMucles));
+            knowledgeBase.Statements.Add(new GroupStatement(transport, mtSteam));
+            knowledgeBase.Statements.Add(new GroupStatement(transport, mtCombusion));
+            knowledgeBase.Statements.Add(new GroupStatement(transport, mtJet));
+            knowledgeBase.Statements.Add(new GroupStatement(transport, areaType));
+            knowledgeBase.Statements.Add(new GroupStatement(transport, atGround));
+            knowledgeBase.Statements.Add(new GroupStatement(transport, atWater));
+            knowledgeBase.Statements.Add(new GroupStatement(transport, atAir));
+            knowledgeBase.Statements.Add(new GroupStatement(transport, bicycle));
+            knowledgeBase.Statements.Add(new GroupStatement(transport, courag));
+            knowledgeBase.Statements.Add(new GroupStatement(transport, steamLocomotive));
+            knowledgeBase.Statements.Add(new GroupStatement(transport, steamboat));
+            knowledgeBase.Statements.Add(new GroupStatement(transport, car));
+            knowledgeBase.Statements.Add(new GroupStatement(transport, motorcycle));
+            knowledgeBase.Statements.Add(new GroupStatement(transport, fighter));
+            knowledgeBase.Statements.Add(new GroupStatement(transport, airbus));
+            knowledgeBase.Statements.Add(new GroupStatement(transport, jetFighter));
+            knowledgeBase.Statements.Add(new HasSignStatement(vehicle, motorType));
+            knowledgeBase.Statements.Add(new HasSignStatement(vehicle, areaType));
+            knowledgeBase.Statements.Add(new IsStatement(motorType, mtMucles));
+            knowledgeBase.Statements.Add(new IsStatement(motorType, mtSteam));
+            knowledgeBase.Statements.Add(new IsStatement(motorType, mtCombusion));
+            knowledgeBase.Statements.Add(new IsStatement(motorType, mtJet));
+            knowledgeBase.Statements.Add(new IsStatement(areaType, atGround));
+            knowledgeBase.Statements.Add(new IsStatement(areaType, atWater));
+            knowledgeBase.Statements.Add(new IsStatement(areaType, atAir));
+            knowledgeBase.Statements.Add(new IsStatement(vehicle, bicycle));
+            knowledgeBase.Statements.Add(new IsStatement(vehicle, courag));
+            knowledgeBase.Statements.Add(new IsStatement(vehicle, steamLocomotive));
+            knowledgeBase.Statements.Add(new IsStatement(vehicle, steamboat));
+            knowledgeBase.Statements.Add(new IsStatement(vehicle, car));
+            knowledgeBase.Statements.Add(new IsStatement(vehicle, motorcycle));
+            knowledgeBase.Statements.Add(new IsStatement(vehicle, fighter));
+            knowledgeBase.Statements.Add(new IsStatement(vehicle, airbus));
+            knowledgeBase.Statements.Add(new IsStatement(vehicle, jetFighter));
+            knowledgeBase.Statements.Add(new SignValueStatement(bicycle, motorType, mtMucles));
+            knowledgeBase.Statements.Add(new SignValueStatement(courag, motorType, mtMucles));
+            knowledgeBase.Statements.Add(new SignValueStatement(steamLocomotive, motorType, mtSteam));
+            knowledgeBase.Statements.Add(new SignValueStatement(steamboat, motorType, mtSteam));
+            knowledgeBase.Statements.Add(new SignValueStatement(car, motorType, mtCombusion));
+            knowledgeBase.Statements.Add(new SignValueStatement(motorcycle, motorType, mtCombusion));
+            knowledgeBase.Statements.Add(new SignValueStatement(fighter, motorType, mtCombusion));
+            knowledgeBase.Statements.Add(new SignValueStatement(airbus, motorType, mtJet));
+            knowledgeBase.Statements.Add(new SignValueStatement(jetFighter, motorType, mtJet));
+            knowledgeBase.Statements.Add(new SignValueStatement(bicycle, areaType, atGround));
+            knowledgeBase.Statements.Add(new SignValueStatement(courag, areaType, atWater));
+            knowledgeBase.Statements.Add(new SignValueStatement(steamLocomotive, areaType, atGround));
+            knowledgeBase.Statements.Add(new SignValueStatement(steamboat, areaType, atWater));
+            knowledgeBase.Statements.Add(new SignValueStatement(car, areaType, atGround));
+            knowledgeBase.Statements.Add(new SignValueStatement(motorcycle, areaType, atGround));
+            knowledgeBase.Statements.Add(new SignValueStatement(fighter, areaType, atAir));
+            knowledgeBase.Statements.Add(new SignValueStatement(airbus, areaType, atAir));
+            knowledgeBase.Statements.Add(new SignValueStatement(jetFighter, areaType, atAir));
+            knowledgeBase.Statements.Add(new ConsistsOfStatement(vehicle, motorType));
 
             return knowledgeBase;
         }
@@ -437,7 +437,7 @@ namespace Inventor.Core
             }
 
             // 2. check cyclic parents
-            var clasifications = _statements.OfType<Clasification>().ToList();
+            var clasifications = _statements.OfType<IsStatement>().ToList();
             foreach (var clasification in clasifications)
             {
                 if (!clasification.CheckCyclic(clasifications))
@@ -449,14 +449,14 @@ namespace Inventor.Core
             }
 
             // 4. check multi values
-            var signValues = _statements.OfType<SignValue>().ToList();
+            var signValues = _statements.OfType<SignValueStatement>().ToList();
             foreach (var concept in concepts)
             {
-                var parents = Clasification.GetParentsPlainList(clasifications, concept);
-                foreach (var sign in HasSign.GetSigns(_statements, concept, true))
+                var parents = IsStatement.GetParentsPlainList(clasifications, concept);
+                foreach (var sign in HasSignStatement.GetSigns(_statements, concept, true))
                 {
                     if (signValues.FirstOrDefault(sv => sv.Concept == concept && sv.Sign == sign.Sign) == null &&
-                        parents.Select(p => SignValue.GetSignValue(_statements, p, sign.Sign)).Count(r => r != null) > 1)
+                        parents.Select(p => SignValueStatement.GetSignValue(_statements, p, sign.Sign)).Count(r => r != null) > 1)
                     {
                         result.Add(
                             () => language.ConsistencyErrorMultipleSignValue,
@@ -481,7 +481,7 @@ namespace Inventor.Core
             }
 
             // 6. check sign duplications
-            var hasSigns = _statements.OfType<HasSign>().ToList();
+            var hasSigns = _statements.OfType<HasSignStatement>().ToList();
             foreach (var hasSign in hasSigns)
             {
                 if (!hasSign.CheckSignDuplication(hasSigns, clasifications))

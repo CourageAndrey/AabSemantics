@@ -11,7 +11,7 @@ namespace Inventor.Core.Processing
     {
         protected override FormattedText ProcessImplementation(KnowledgeBase knowledgeBase, SignValueQuestion question)
         {
-            var signValues = knowledgeBase.Statements.OfType<SignValue>();
+            var signValues = knowledgeBase.Statements.OfType<SignValueStatement>();
             var result = getSignValue(signValues, question.Concept, question.Sign, question.Concept);
             if (result != null)
             {
@@ -19,7 +19,7 @@ namespace Inventor.Core.Processing
             }
             else
             {
-                var parents = Clasification.GetParentsTree(knowledgeBase.Statements, question.Concept);
+                var parents = IsStatement.GetParentsTree(knowledgeBase.Statements, question.Concept);
                 foreach (var parent in parents)
                 {
                     result = getSignValue(signValues, parent, question.Sign, question.Concept);
@@ -32,7 +32,7 @@ namespace Inventor.Core.Processing
             return AnswerHelper.CreateUnknown();
         }
 
-        private static FormattedText getSignValue(IEnumerable<SignValue> statements, Concept concept, Concept sign, Concept original)
+        private static FormattedText getSignValue(IEnumerable<SignValueStatement> statements, Concept concept, Concept sign, Concept original)
         {
             var language = LanguageEx.CurrentEx.Answers;
             var value = statements.FirstOrDefault(v => v.Concept == concept && v.Sign == sign);

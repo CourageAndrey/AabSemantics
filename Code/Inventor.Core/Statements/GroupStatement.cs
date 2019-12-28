@@ -5,7 +5,7 @@ using Inventor.Core.Localization;
 
 namespace Inventor.Core.Statements
 {
-    public sealed class SubjectArea : Statement<SubjectArea>
+    public sealed class GroupStatement : Statement<GroupStatement>
     {
         #region Properties
 
@@ -23,7 +23,7 @@ namespace Inventor.Core.Statements
 
         #endregion
 
-        public SubjectArea(Concept area, Concept concept)
+        public GroupStatement(Concept area, Concept concept)
             : base(() => LanguageEx.CurrentEx.StatementNames.SubjectArea)
         {
             if (area == null) throw new ArgumentNullException("area");
@@ -56,7 +56,7 @@ namespace Inventor.Core.Statements
 
         #region Consistency checking
 
-        public override bool Equals(SubjectArea other)
+        public override bool Equals(GroupStatement other)
         {
             if (ReferenceEquals(this, other)) return true;
             if (other != null)

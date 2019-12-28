@@ -6,7 +6,7 @@ using Inventor.Core.Localization;
 
 namespace Inventor.Core.Statements
 {
-    public sealed class Composition : Statement<Composition>
+    public sealed class ConsistsOfStatement : Statement<ConsistsOfStatement>
     {
         #region Properties
 
@@ -23,7 +23,7 @@ namespace Inventor.Core.Statements
 
         #endregion
 
-        public Composition(Concept parent, Concept child)
+        public ConsistsOfStatement(Concept parent, Concept child)
             : base(() => LanguageEx.CurrentEx.StatementNames.Composition)
         {
             if (parent == null) throw new ArgumentNullException("parent");
@@ -56,7 +56,7 @@ namespace Inventor.Core.Statements
 
         #region Consistency checking
 
-        public override bool Equals(Composition other)
+        public override bool Equals(ConsistsOfStatement other)
         {
             if (ReferenceEquals(this, other)) return true;
             if (other != null)
@@ -73,12 +73,12 @@ namespace Inventor.Core.Statements
 
         public static List<Concept> GetContainingParents(IEnumerable<Statement> statements, Concept concept)
         {
-            return statements.OfType<Composition>().Where(c => c.Child == concept).Select(c => c.Parent).ToList();
+            return statements.OfType<ConsistsOfStatement>().Where(c => c.Child == concept).Select(c => c.Parent).ToList();
         }
 
         public static List<Concept> GetContainingParts(IEnumerable<Statement> statements, Concept concept)
         {
-            return statements.OfType<Composition>().Where(c => c.Parent == concept).Select(c => c.Child).ToList();
+            return statements.OfType<ConsistsOfStatement>().Where(c => c.Parent == concept).Select(c => c.Child).ToList();
         }
 
         #endregion
