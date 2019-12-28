@@ -58,7 +58,7 @@
     <Compile Include="Localization\Language parts\Question names.cs" />
     <Compile Include="Localization\Strings.cs" />
     <Compile Include="Localization\Language parts\Ui.cs" />
-    <Compile Include="Answering mechanish.cs" />
+    <Compile Include="Answering mechanishm.cs" />
     <Compile Include="Processing\CheckStatementProcessor.cs" />
     <Compile Include="Processing\IsSubjectAreaQuestion.cs" />
     <Compile Include="Processing\EnumerateContainersProcessor.cs" />
