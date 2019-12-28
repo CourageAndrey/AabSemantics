@@ -5,9 +5,6 @@ namespace Sef.Localization
 {
     public interface ILanguageErrors
 	{
-		String TypeNotSerializable
-        { get; }
-
         String Warning
         { get; }
 
@@ -52,10 +49,6 @@ namespace Sef.Localization
     public sealed class LanguageErrors : ILanguageErrors
     {
         #region Properties
-
-        [XmlElement]
-        public String TypeNotSerializable
-        { get; set; }
 
         [XmlElement]
         public String Warning
@@ -115,7 +108,6 @@ namespace Sef.Localization
 		{
             return new LanguageErrors
 			{
-                TypeNotSerializable = "Нет преобразователя для типа {0}.",
                 Warning = "Внимание",
                 InnerException = "Вложенное исключение",
                 DialogHeader = "Во время выполнения программы произошла ошибка",
