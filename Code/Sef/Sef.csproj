@@ -49,11 +49,7 @@
     <Reference Include="PresentationFramework" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Common\DisposableBase.cs" />
-    <Compile Include="Common\EditableBase.cs" />
     <Compile Include="Common\EventList.cs" />
-    <Compile Include="Common\FileSystemHelper.cs" />
-    <Compile Include="Common\SecurityHelper.cs" />
     <Compile Include="Common\Utility.cs" />
     <Compile Include="Exceptions\ExceptionDialog.xaml.cs">
       <DependentUpon>ExceptionDialog.xaml</DependentUpon>
@@ -86,25 +82,13 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
-    <Compile Include="UI\AutoWaitCursor.cs" />
-    <Compile Include="UI\AutoWaitDialog.xaml.cs">
-      <DependentUpon>AutoWaitDialog.xaml</DependentUpon>
-    </Compile>
     <Compile Include="UI\CommonDialog.xaml.cs">
       <DependentUpon>CommonDialog.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UI\DataGridImagePopupColumn.cs" />
     <Compile Include="UI\EditorBase.cs" />
     <Compile Include="Program\ExtendedApplication.cs" />
     <Compile Include="UI\ExtendedTreeNode.cs" />
-    <Compile Include="UI\HighlightConverter.cs" />
     <Compile Include="UI\ImageConverter.cs" />
-    <Compile Include="UI\DataGridImageColumn.cs" />
-    <Compile Include="UI\SpinEdit.xaml.cs">
-      <DependentUpon>SpinEdit.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="UI\TableController.cs" />
-    <Compile Include="UI\UiHelper.cs" />
     <Compile Include="Xml\Convertors\BoolConvertor.cs" />
     <Compile Include="Xml\Convertors\ByteConvertor.cs" />
     <Compile Include="Xml\Convertors\DateTimeConvertor.cs" />
@@ -138,15 +122,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="UI\AutoWaitDialog.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
     <Page Include="UI\CommonDialog.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="UI\SpinEdit.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
