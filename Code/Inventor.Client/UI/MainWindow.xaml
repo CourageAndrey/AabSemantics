@@ -59,9 +59,6 @@
                     <TextBlock Text="{Binding Source={StaticResource language}, Path=Ui.MainForm.SelectLanguage, Mode=OneTime}" Margin="2"/>
                     <ComboBox ItemsSource="{Binding Path=Languages, Mode=OneTime}" SelectedItem="{Binding Path=CurrentLanguage, Mode=TwoWay}" DisplayMemberPath="Name" MinWidth="100" />
                 </StackPanel>
-                <Button ToolTip="{Binding Source={StaticResource language}, Path=Ui.MainForm.Configuration, Mode=OneTime}" Click="configurationClick" Margin="2">
-                    <Image Source="../Resources/Configuration.png" Width="24" Height="24" />
-                </Button>
             </ToolBar>
         </ToolBarPanel>
         <TreeView Name="treeViewKnowledgeBase" Margin="2" />
