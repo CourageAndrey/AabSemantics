@@ -6,7 +6,7 @@ using Inventor.Core.Localization;
 
 namespace Inventor.Core.Statements
 {
-    public sealed class Clasification : Statement<Clasification>
+    public sealed class IsStatement : Statement<IsStatement>
     {
         #region Properties
 
@@ -23,7 +23,7 @@ namespace Inventor.Core.Statements
 
         #endregion
 
-        public Clasification(Concept parent, Concept child)
+        public IsStatement(Concept parent, Concept child)
             : base(() => LanguageEx.CurrentEx.StatementNames.Clasification)
         {
             if (parent == null) throw new ArgumentNullException("parent");
@@ -56,7 +56,7 @@ namespace Inventor.Core.Statements
 
         #region Consistency checking
 
-        public override bool Equals(Clasification other)
+        public override bool Equals(IsStatement other)
         {
             if (ReferenceEquals(this, other)) return true;
             if (other != null)
@@ -67,12 +67,12 @@ namespace Inventor.Core.Statements
             else return false;
         }
 
-        public bool CheckCyclic(IEnumerable<Clasification> statements)
+        public bool CheckCyclic(IEnumerable<IsStatement> statements)
         {
             return !isCyclic(statements, child, new List<Concept>());
         }
 
-        private bool isCyclic(IEnumerable<Clasification> allClasifications, Concept concept, List<Concept> chain)
+        private bool isCyclic(IEnumerable<IsStatement> allClasifications, Concept concept, List<Concept> chain)
         {
             if (chain.Contains(concept)) return true;
 
@@ -100,15 +100,15 @@ namespace Inventor.Core.Statements
 
         public static List<Concept> GetParentsTree(IEnumerable<Statement> statements, Concept concept)
         {
-            return GetParentsTree(statements.OfType<Clasification>(), concept);
+            return GetParentsTree(statements.OfType<IsStatement>(), concept);
         }
 
         public static List<Concept> GetParentsPlainList(IEnumerable<Statement> statements, Concept concept)
         {
-            return GetParentsPlainList(statements.OfType<Clasification>(), concept);
+            return GetParentsPlainList(statements.OfType<IsStatement>(), concept);
         }
 
-        public static List<Concept> GetParentsTree(IEnumerable<Clasification> clasifications, Concept concept)
+        public static List<Concept> GetParentsTree(IEnumerable<IsStatement> clasifications, Concept concept)
         {
             var result = new List<Concept>();
             foreach (var parent in GetParentsPlainList(clasifications, concept))
@@ -121,7 +121,7 @@ namespace Inventor.Core.Statements
             return result;
         }
 
-        public static List<Concept> GetParentsPlainList(IEnumerable<Clasification> clasifications, Concept concept)
+        public static List<Concept> GetParentsPlainList(IEnumerable<IsStatement> clasifications, Concept concept)
         {
             return clasifications.Where(c => c.Child == concept).Select(c => c.Parent).ToList();
         }

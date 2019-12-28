@@ -94,11 +94,11 @@
     <Compile Include="Questions\WhatQuestion.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Statement.cs" />
-    <Compile Include="Statements\Clasification.cs" />
-    <Compile Include="Statements\Composition.cs" />
-    <Compile Include="Statements\HasSign.cs" />
-    <Compile Include="Statements\SignValue.cs" />
-    <Compile Include="Statements\SubjectArea.cs" />
+    <Compile Include="Statements\IsStatement.cs" />
+    <Compile Include="Statements\ConsistsOfStatement.cs" />
+    <Compile Include="Statements\HasSignStatement.cs" />
+    <Compile Include="Statements\SignValueStatement.cs" />
+    <Compile Include="Statements\GroupStatement.cs" />
     <Compile Include="InventorConfiguration.cs" />
   </ItemGroup>
   <ItemGroup>

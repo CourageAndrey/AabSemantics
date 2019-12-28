@@ -12,7 +12,7 @@ namespace Inventor.Core.Processing
         protected override FormattedText ProcessImplementation(KnowledgeBase knowledgeBase, FindSubjectAreaQuestion question)
         {
             var language = LanguageEx.CurrentEx.Answers;
-            var statements = knowledgeBase.Statements.OfType<SubjectArea>().Where(c => c.Concept == question.Concept);
+            var statements = knowledgeBase.Statements.OfType<GroupStatement>().Where(c => c.Concept == question.Concept);
             if (statements.Any())
             {
                 var result = new FormattedText();

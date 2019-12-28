@@ -11,7 +11,7 @@ namespace Inventor.Core.Processing
     {
         protected override FormattedText ProcessImplementation(KnowledgeBase knowledgeBase, IsQuestion question)
         {
-            bool yes = Clasification.GetParentsTree(knowledgeBase.Statements, question.ChildConcept).Contains(question.ParentConcept);
+            bool yes = IsStatement.GetParentsTree(knowledgeBase.Statements, question.ChildConcept).Contains(question.ParentConcept);
             var language = LanguageEx.CurrentEx.Answers;
             return new FormattedText(
                 yes ? new Func<string>(() => language.IsTrue) : () => language.IsFalse,
