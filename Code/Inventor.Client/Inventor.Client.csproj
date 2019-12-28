@@ -116,7 +116,7 @@
     <Resource Include="Resources\KnowledgeBase.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Resources\Proposition.png" />
+    <Resource Include="Resources\Statement.png" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Resources\CreateTest.png" />

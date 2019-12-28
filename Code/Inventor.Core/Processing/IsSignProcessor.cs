@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 
 using Inventor.Core.Localization;
-using Inventor.Core.Propositions;
+using Inventor.Core.Statements;
 using Inventor.Core.Questions;
 
 namespace Inventor.Core.Processing
@@ -12,7 +12,7 @@ namespace Inventor.Core.Processing
     {
         protected override FormattedText ProcessImplementation(KnowledgeBase knowledgeBase, IsSignQuestion question)
         {
-            bool yes = knowledgeBase.Propositions.OfType<HasSign>().FirstOrDefault(r => r.Sign == question.Concept) != null;
+            bool yes = knowledgeBase.Statements.OfType<HasSign>().FirstOrDefault(r => r.Sign == question.Concept) != null;
             var language = LanguageEx.CurrentEx.Answers;
             return new FormattedText(
                 yes ? new Func<string>(() => language.SignTrue) : () => language.SignFalse,

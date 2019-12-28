@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-using Inventor.Core.Propositions;
+using Inventor.Core.Statements;
 using Inventor.Core.Localization;
 using Inventor.Core.Questions;
 
@@ -11,7 +11,7 @@ namespace Inventor.Core.Processing
     {
         protected override FormattedText ProcessImplementation(KnowledgeBase knowledgeBase, IsQuestion question)
         {
-            bool yes = Clasification.GetParentsTree(knowledgeBase.Propositions, question.ChildConcept).Contains(question.ParentConcept);
+            bool yes = Clasification.GetParentsTree(knowledgeBase.Statements, question.ChildConcept).Contains(question.ParentConcept);
             var language = LanguageEx.CurrentEx.Answers;
             return new FormattedText(
                 yes ? new Func<string>(() => language.IsTrue) : () => language.IsFalse,

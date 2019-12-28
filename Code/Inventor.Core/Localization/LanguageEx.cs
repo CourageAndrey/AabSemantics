@@ -7,19 +7,19 @@ namespace Inventor.Core.Localization
 {
     public interface ILanguageEx : ILanguage
     {
-        ILanguagePropositions PropositionNames
+        ILanguageStatements StatementNames
         { get; }
 
-        ILanguagePropositions PropositionHints
+        ILanguageStatements StatementHints
         { get; }
 
-        ILanguagePropositionFormatStrings TruePropositionFormatStrings
+        ILanguageStatementFormatStrings TrueStatementFormatStrings
         { get; }
 
-        ILanguagePropositionFormatStrings FalsePropositionFormatStrings
+        ILanguageStatementFormatStrings FalseStatementFormatStrings
         { get; }
 
-        ILanguagePropositionFormatStrings QuestionPropositionFormatStrings
+        ILanguageStatementFormatStrings QuestionStatementFormatStrings
         { get; }
 
         ILanguageQuestionNames QuestionNames
@@ -46,11 +46,11 @@ namespace Inventor.Core.Localization
     {
         #region Xml Properties
 
-        private const string ElementPropositionNames = "PropositionNames";
-        private const string ElementPropositionHints = "PropositionHints";
-        private const string ElementPropositionTrueFormatStrings = "PropositionTrueFormatStrings";
-        private const string ElementPropositionFalseFormatStrings = "PropositionFalseFormatStrings";
-        private const string ElementPropositionQuestionFormatStrings = "PropositionQuestionFormatStrings";
+        private const string ElementStatementNames = "StatementNames";
+        private const string ElementStatementHints = "StatementHints";
+        private const string ElementStatementTrueFormatStrings = "StatementTrueFormatStrings";
+        private const string ElementStatementFalseFormatStrings = "StatementFalseFormatStrings";
+        private const string ElementStatementQuestionFormatStrings = "StatementQuestionFormatStrings";
         private const string ElementQuestionNames = "QuestionNames";
         private const string ElementAnswers = "Answers";
         private const string ElementUi = "Ui";
@@ -58,24 +58,24 @@ namespace Inventor.Core.Localization
         private const string ElementConfiguration = "Configuration";
         private const string ElementMisc = "Misc";
 
-        [XmlElement(ElementPropositionNames)]
-        public LanguagePropositions PropositionNamesXml
+        [XmlElement(ElementStatementNames)]
+        public LanguageStatements StatementNamesXml
         { get; set; }
 
-        [XmlElement(ElementPropositionHints)]
-        public LanguagePropositions PropositionHintsXml
+        [XmlElement(ElementStatementHints)]
+        public LanguageStatements StatementHintsXml
         { get; set; }
 
-        [XmlElement(ElementPropositionTrueFormatStrings)]
-        public LanguagePropositionFormatStrings TruePropositionFormatStringsXml
+        [XmlElement(ElementStatementTrueFormatStrings)]
+        public LanguageStatementFormatStrings TrueStatementFormatStringsXml
         { get; set; }
 
-        [XmlElement(ElementPropositionFalseFormatStrings)]
-        public LanguagePropositionFormatStrings FalsePropositionFormatStringsXml
+        [XmlElement(ElementStatementFalseFormatStrings)]
+        public LanguageStatementFormatStrings FalseStatementFormatStringsXml
         { get; set; }
 
-        [XmlElement(ElementPropositionQuestionFormatStrings)]
-        public LanguagePropositionFormatStrings QuestionPropositionFormatStringsXml
+        [XmlElement(ElementStatementQuestionFormatStrings)]
+        public LanguageStatementFormatStrings QuestionStatementFormatStringsXml
         { get; set; }
 
         [XmlElement(ElementQuestionNames)]
@@ -107,24 +107,24 @@ namespace Inventor.Core.Localization
         #region Interface Properties
 
         [XmlIgnore]
-        public ILanguagePropositions PropositionNames
-        { get { return PropositionNamesXml; } }
+        public ILanguageStatements StatementNames
+        { get { return StatementNamesXml; } }
 
         [XmlIgnore]
-        public ILanguagePropositions PropositionHints
-        { get { return PropositionHintsXml; } }
+        public ILanguageStatements StatementHints
+        { get { return StatementHintsXml; } }
 
         [XmlIgnore]
-        public ILanguagePropositionFormatStrings TruePropositionFormatStrings
-        { get { return TruePropositionFormatStringsXml; } }
+        public ILanguageStatementFormatStrings TrueStatementFormatStrings
+        { get { return TrueStatementFormatStringsXml; } }
 
         [XmlIgnore]
-        public ILanguagePropositionFormatStrings FalsePropositionFormatStrings
-        { get { return FalsePropositionFormatStringsXml; } }
+        public ILanguageStatementFormatStrings FalseStatementFormatStrings
+        { get { return FalseStatementFormatStringsXml; } }
 
         [XmlIgnore]
-        public ILanguagePropositionFormatStrings QuestionPropositionFormatStrings
-        { get { return QuestionPropositionFormatStringsXml; } }
+        public ILanguageStatementFormatStrings QuestionStatementFormatStrings
+        { get { return QuestionStatementFormatStringsXml; } }
 
         [XmlIgnore]
         public ILanguageQuestionNames QuestionNames
@@ -181,11 +181,11 @@ namespace Inventor.Core.Localization
                 CommonXml = Default.CommonXml,
                 ErrorsXml = Default.ErrorsXml,
                 EditorXml = Default.EditorXml,
-                PropositionNamesXml = LanguagePropositions.CreateDefaultNames(),
-                PropositionHintsXml = LanguagePropositions.CreateDefaultHints(),
-                TruePropositionFormatStringsXml = LanguagePropositionFormatStrings.CreateDefaultTrue(),
-                FalsePropositionFormatStringsXml = LanguagePropositionFormatStrings.CreateDefaultFalse(),
-                QuestionPropositionFormatStringsXml = LanguagePropositionFormatStrings.CreateDefaultQuestion(),
+                StatementNamesXml = LanguageStatements.CreateDefaultNames(),
+                StatementHintsXml = LanguageStatements.CreateDefaultHints(),
+                TrueStatementFormatStringsXml = LanguageStatementFormatStrings.CreateDefaultTrue(),
+                FalseStatementFormatStringsXml = LanguageStatementFormatStrings.CreateDefaultFalse(),
+                QuestionStatementFormatStringsXml = LanguageStatementFormatStrings.CreateDefaultQuestion(),
                 QuestionNamesXml = LanguageQuestionNames.CreateDefault(),
                 AnswersXml = LanguageAnswers.CreateDefault(),
                 UiXml = LanguageUi.CreateDefault(),
@@ -200,52 +200,52 @@ namespace Inventor.Core.Localization
 
     public sealed class LocalizatorEx : Localizator, ILanguageEx
     {
-        public ILanguagePropositions PropositionNames
+        public ILanguageStatements StatementNames
         {
             get
             {
                 return LanguageEx.CurrentEx != null
-                    ? LanguageEx.CurrentEx.PropositionNames
+                    ? LanguageEx.CurrentEx.StatementNames
                     : null;
             }
         }
 
-        public ILanguagePropositions PropositionHints
+        public ILanguageStatements StatementHints
         {
             get
             {
                 return LanguageEx.CurrentEx != null
-                    ? LanguageEx.CurrentEx.PropositionHints
+                    ? LanguageEx.CurrentEx.StatementHints
                     : null;
             }
         }
 
-        public ILanguagePropositionFormatStrings TruePropositionFormatStrings
+        public ILanguageStatementFormatStrings TrueStatementFormatStrings
         {
             get
             {
                 return LanguageEx.CurrentEx != null
-                    ? LanguageEx.CurrentEx.TruePropositionFormatStrings
+                    ? LanguageEx.CurrentEx.TrueStatementFormatStrings
                     : null;
             }
         }
 
-        public ILanguagePropositionFormatStrings FalsePropositionFormatStrings
+        public ILanguageStatementFormatStrings FalseStatementFormatStrings
         {
             get
             {
                 return LanguageEx.CurrentEx != null
-                    ? LanguageEx.CurrentEx.FalsePropositionFormatStrings
+                    ? LanguageEx.CurrentEx.FalseStatementFormatStrings
                     : null;
             }
         }
 
-        public ILanguagePropositionFormatStrings QuestionPropositionFormatStrings
+        public ILanguageStatementFormatStrings QuestionStatementFormatStrings
         {
             get
             {
                 return LanguageEx.CurrentEx != null
-                    ? LanguageEx.CurrentEx.QuestionPropositionFormatStrings
+                    ? LanguageEx.CurrentEx.QuestionStatementFormatStrings
                     : null;
             }
         }

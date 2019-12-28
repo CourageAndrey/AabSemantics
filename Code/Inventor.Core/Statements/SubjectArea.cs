@@ -3,14 +3,14 @@ using System.Collections.Generic;
 
 using Inventor.Core.Localization;
 
-namespace Inventor.Core.Propositions
+namespace Inventor.Core.Statements
 {
-    public sealed class SubjectArea : Proposition<SubjectArea>
+    public sealed class SubjectArea : Statement<SubjectArea>
     {
         #region Properties
 
         public override string Hint
-        { get { return LanguageEx.CurrentEx.PropositionHints.SubjectArea; } }
+        { get { return LanguageEx.CurrentEx.StatementHints.SubjectArea; } }
 
         public Concept Area
         { get { return area; } }
@@ -24,7 +24,7 @@ namespace Inventor.Core.Propositions
         #endregion
 
         public SubjectArea(Concept area, Concept concept)
-            : base(() => LanguageEx.CurrentEx.PropositionNames.SubjectArea)
+            : base(() => LanguageEx.CurrentEx.StatementNames.SubjectArea)
         {
             if (area == null) throw new ArgumentNullException("area");
             if (concept == null) throw new ArgumentNullException("concept");
@@ -38,7 +38,7 @@ namespace Inventor.Core.Propositions
 
         #region Description
 
-        protected override Func<string> GetDescriptionText(ILanguagePropositionFormatStrings language)
+        protected override Func<string> GetDescriptionText(ILanguageStatementFormatStrings language)
         {
             return () => language.SubjectArea;
         }

@@ -1,10 +1,10 @@
 ﻿namespace Inventor.Core.Questions
 {
     [QuestionDescriptor]
-    public sealed class CheckPropositionQuestion : Question
+    public sealed class CheckStatementQuestion : Question
     {
         //[PropertyDescriptor(, )]
-        public Proposition Proposition
+        public Statement Statement
         { get; set; }
     }
 }

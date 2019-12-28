@@ -10,13 +10,13 @@ namespace Inventor.Core.Localization
         string NameConcept
         { get; }
 
-        string NameProposition
+        string NameStatement
         { get; }
 
         string NameCategoryConcepts
         { get; }
 
-        string NameCategoryPropositions
+        string NameCategoryStatements
         { get; }
 
         string StrictEnumeration
@@ -96,7 +96,7 @@ namespace Inventor.Core.Localization
         { get; set; }
 
         [XmlElement]
-        public string NameProposition
+        public string NameStatement
         { get; set; }
 
         [XmlElement]
@@ -104,7 +104,7 @@ namespace Inventor.Core.Localization
         { get; set; }
 
         [XmlElement]
-        public string NameCategoryPropositions
+        public string NameCategoryStatements
         { get; set; }
 
         [XmlElement]
@@ -199,9 +199,9 @@ namespace Inventor.Core.Localization
             {
                 NameKnowledgeBase = "База знаний",
                 NameConcept = "Понятие",
-                NameProposition = "Высказывание",
+                NameStatement = "Утверждение",
                 NameCategoryConcepts = "Понятия",
-                NameCategoryPropositions = "Высказывания",
+                NameCategoryStatements = "Утверждения",
                 StrictEnumeration = " и не может принимать другое значение",
                 ClasificationSign = " по признаку \"{0}\"",
                 NewKbName = "Новая база знаний",
@@ -213,12 +213,12 @@ namespace Inventor.Core.Localization
                 DialogKbOpenTitle = "Загрузка базы знаний",
                 DialogKbSaveTitle = "Сохранение базы знаний",
                 DialogKbFileFilter = "XML с базой знаний|*.xml",
-                ConsistencyErrorDuplicate = "Дублирование отношения #PROPOSITION#.",
-                ConsistencyErrorCyclic = "Отношение #PROPOSITION# приводит к циклической ссылке понятий друг на друга.",
+                ConsistencyErrorDuplicate = "Дублирование отношения #STATEMENT#.",
+                ConsistencyErrorCyclic = "Отношение #STATEMENT# приводит к циклической ссылке понятий друг на друга.",
                 ConsistencyErrorMultipleSubjectArea = "Предметная область #AREA# задана более одного раза.",
-                ConsistencyErrorMultipleSign = "#PROPOSITION# приводит к повторному определению признака у понятия.",
+                ConsistencyErrorMultipleSign = "#STATEMENT# приводит к повторному определению признака у понятия.",
                 ConsistencyErrorMultipleSignValue = "Значение признака #SIGN# понятия #CONCEPT# не может быть корректно определено, так как задано в нескольких его предках.",
-                ConsistencyErrorSignWithoutValue = "#PROPOSITION# задаёт значение признака, который отсутствует у понятия.",
+                ConsistencyErrorSignWithoutValue = "#STATEMENT# задаёт значение признака, который отсутствует у понятия.",
                 True = "Да",
                 False = "Нет",
                 TrueHint = "Логическое значение: истина.",

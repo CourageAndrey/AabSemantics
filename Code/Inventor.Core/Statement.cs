@@ -6,7 +6,7 @@ using Inventor.Core.Localization;
 
 namespace Inventor.Core
 {
-    public abstract class Proposition : INamed
+    public abstract class Statement : INamed
     {
         #region Properties
 
@@ -25,10 +25,10 @@ namespace Inventor.Core
 
         public sealed override string ToString()
         {
-            return string.Format("{0} \"{1}\"", Strings.TostringProposition, Name);
+            return string.Format("{0} \"{1}\"", Strings.TostringStatement, Name);
         }
 
-        protected Proposition(Func<string> name)
+        protected Statement(Func<string> name)
         {
             if (name != null)
             {
@@ -44,26 +44,26 @@ namespace Inventor.Core
 
         public FormattedLine DescribeTrue()
         {
-            return new FormattedLine(GetDescriptionText(LanguageEx.CurrentEx.TruePropositionFormatStrings), GetDescriptionParameters());
+            return new FormattedLine(GetDescriptionText(LanguageEx.CurrentEx.TrueStatementFormatStrings), GetDescriptionParameters());
         }
 
         public FormattedLine DescribeFalse()
         {
-            return new FormattedLine(GetDescriptionText(LanguageEx.CurrentEx.FalsePropositionFormatStrings), GetDescriptionParameters());
+            return new FormattedLine(GetDescriptionText(LanguageEx.CurrentEx.FalseStatementFormatStrings), GetDescriptionParameters());
         }
 
         public FormattedLine DescribeQuestion()
         {
-            return new FormattedLine(GetDescriptionText(LanguageEx.CurrentEx.QuestionPropositionFormatStrings), GetDescriptionParameters());
+            return new FormattedLine(GetDescriptionText(LanguageEx.CurrentEx.QuestionStatementFormatStrings), GetDescriptionParameters());
         }
 
-        protected abstract Func<string> GetDescriptionText(ILanguagePropositionFormatStrings language);
+        protected abstract Func<string> GetDescriptionText(ILanguageStatementFormatStrings language);
 
         protected abstract IDictionary<string, INamed> GetDescriptionParameters();
 
         #endregion
 
-        public abstract bool CheckUnique(IEnumerable<Proposition> propositions);
+        public abstract bool CheckUnique(IEnumerable<Statement> statements);
 
 #pragma warning disable 659
         public abstract override bool Equals(object obj);
@@ -76,23 +76,23 @@ namespace Inventor.Core
 #pragma warning restore 659
     }
 
-    public abstract class Proposition<PropositionT> : Proposition, IEquatable<PropositionT>
-        where PropositionT : Proposition<PropositionT>
+    public abstract class Statement<StatementT> : Statement, IEquatable<StatementT>
+        where StatementT : Statement<StatementT>
     {
-        protected Proposition(Func<string> name) : base(name)
+        protected Statement(Func<string> name) : base(name)
         { }
 
-        public override sealed bool CheckUnique(IEnumerable<Proposition> propositions)
+        public override sealed bool CheckUnique(IEnumerable<Statement> statements)
         {
-            return propositions.OfType<PropositionT>().Count(Equals) == 1;
+            return statements.OfType<StatementT>().Count(Equals) == 1;
         }
 
-        public abstract bool Equals(PropositionT other);
+        public abstract bool Equals(StatementT other);
 
 #pragma warning disable 659
         public sealed override bool Equals(object obj)
         {
-            return Equals(obj as PropositionT);
+            return Equals(obj as StatementT);
         }
 
         public override int GetHashCode()

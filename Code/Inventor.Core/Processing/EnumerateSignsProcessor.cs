@@ -1,7 +1,7 @@
 ﻿using System.Linq;
 
 using Inventor.Core.Localization;
-using Inventor.Core.Propositions;
+using Inventor.Core.Statements;
 using Inventor.Core.Questions;
 
 namespace Inventor.Core.Processing
@@ -10,7 +10,7 @@ namespace Inventor.Core.Processing
     {
         protected override FormattedText ProcessImplementation(KnowledgeBase knowledgeBase, EnumerateSignsQuestion question)
         {
-            var signs = HasSign.GetSigns(knowledgeBase.Propositions, question.Concept, question.Recursive).Select(hs => hs.Sign).ToList();
+            var signs = HasSign.GetSigns(knowledgeBase.Statements, question.Concept, question.Recursive).Select(hs => hs.Sign).ToList();
             if (signs.Count > 0)
             {
                 var language = LanguageEx.CurrentEx.Answers;
