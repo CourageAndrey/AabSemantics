@@ -1,66 +1,66 @@
-﻿<Window x:Class="Inventor.Client.UI.MainWindow"
-        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:localization="clr-namespace:Inventor.Core.Localization;assembly=Inventor.Core"
-        xmlns:ui="clr-namespace:Sef.UI;assembly=Sef"
-        Width="1024" Height="768" WindowStartupLocation="CenterScreen" Loaded="MainWindow_Loaded" Icon="..\Inventor.ico">
-    <Window.Resources>
-        <ObjectDataProvider x:Key="language" ObjectType="{x:Type localization:LocalizatorEx}" />
-        <Style x:Key="bigTextStyle">
-            <Setter Property="TextBlock.FontSize" Value="14" />
-            <Setter Property="TextBlock.VerticalAlignment" Value="Center" />
-        </Style>
-        <Style TargetType="{x:Type TreeViewItem}">
-            <Setter Property="IsExpanded" Value="{Binding IsExpanded, Mode=TwoWay}" />
-            <Setter Property="IsSelected" Value="{Binding IsSelected, Mode=TwoWay}" />
-        </Style>
-        <HierarchicalDataTemplate DataType="{x:Type ui:ExtendedTreeNode}">
-            <StackPanel Orientation="Horizontal" ToolTip="{Binding Path=Tooltip}">
-                <Image Source="{Binding Path=Icon, Mode=OneWay}" Width="24" Height="24" Margin="0,0,3,0" />
-                <TextBlock Style="{StaticResource bigTextStyle}" Text="{Binding Path=Text, Mode=OneWay}"/>
-            </StackPanel>
-            <HierarchicalDataTemplate.ItemsSource>
-                <Binding Path="Children" />
-            </HierarchicalDataTemplate.ItemsSource>
-        </HierarchicalDataTemplate>
-    </Window.Resources>
-    <DockPanel LastChildFill="True" Name="dockPanelMain">
-        <ToolBarPanel Orientation="Horizontal" DockPanel.Dock="Top">
-            <ToolBar>
-                <Button ToolTip="{Binding Source={StaticResource language}, Path=Ui.MainForm.CreateNew, Mode=OneTime}" Name="buttonNew"  Margin="2">
-                    <Image Source="../Resources/New.png" Width="24" Height="24" />
-                </Button>
-                <Button ToolTip="{Binding Source={StaticResource language}, Path=Ui.MainForm.Load, Mode=OneTime}" Name="buttonLoad" Margin="2">
-                    <Image Source="../Resources/Open.png" Width="24" Height="24" />
-                </Button>
-                <Button ToolTip="{Binding Source={StaticResource language}, Path=Ui.MainForm.Save, Mode=OneTime}" Name="buttonSave" Margin="2">
-                    <Image Source="../Resources/Save.png" Width="24" Height="24" />
-                </Button>
-                <Button ToolTip="{Binding Source={StaticResource language}, Path=Ui.MainForm.SaveAs, Mode=OneTime}" Name="buttonSaveAs" Margin="2">
-                    <Image Source="../Resources/SaveAs.png" Width="24" Height="24" />
-                </Button>
-                <Button ToolTip="{Binding Source={StaticResource language}, Path=Ui.MainForm.CreateTest, Mode=OneTime}" Click="createTestClick" Margin="2">
-                    <Image Source="../Resources/CreateTest.png" Width="24" Height="24" />
-                </Button>
-            </ToolBar>
-            <ToolBar>
-                <Button ToolTip="{Binding Source={StaticResource language}, Path=Ui.MainForm.AskQuestion, Mode=OneTime}" Click="askQuestionClick" Margin="2">
-                    <Image Source="../Resources/KbQuestion.png" Width="24" Height="24" />
-                </Button>
-                <Button ToolTip="{Binding Source={StaticResource language}, Path=Ui.MainForm.DescribeKnowledge, Mode=OneTime}" Click="showAllKnowledgeClick" Margin="2">
-                    <Image Source="../Resources/KbDescribe.png" Width="24" Height="24" />
-                </Button>
-                <Button ToolTip="{Binding Source={StaticResource language}, Path=Ui.MainForm.CheckKnowledge, Mode=OneTime}" Click="checkKnowledgeClick" Margin="2">
-                    <Image Source="../Resources/KbCheck.png" Width="24" Height="24" />
-                </Button>
-            </ToolBar>
-            <ToolBar>
-                <StackPanel Orientation="Vertical" Margin="10,0,5,0">
-                    <TextBlock Text="{Binding Source={StaticResource language}, Path=Ui.MainForm.SelectLanguage, Mode=OneTime}" Margin="2"/>
-                    <ComboBox ItemsSource="{Binding Path=Languages, Mode=OneTime}" SelectedItem="{Binding Path=CurrentLanguage, Mode=TwoWay}" DisplayMemberPath="Name" MinWidth="100" />
-                </StackPanel>
-            </ToolBar>
-        </ToolBarPanel>
-        <TreeView Name="treeViewKnowledgeBase" Margin="2" />
-    </DockPanel>
+﻿<Window	x:Class="Inventor.Client.UI.MainWindow"
+		xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+		xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+		xmlns:localization="clr-namespace:Inventor.Core.Localization;assembly=Inventor.Core"
+		xmlns:ui="clr-namespace:Sef.UI;assembly=Sef"
+		Width="1024" Height="768" WindowStartupLocation="CenterScreen" Loaded="MainWindow_Loaded" Icon="..\Inventor.ico">
+	<Window.Resources>
+		<ObjectDataProvider x:Key="language" ObjectType="{x:Type localization:LocalizatorEx}" />
+		<Style x:Key="bigTextStyle">
+			<Setter Property="TextBlock.FontSize" Value="14" />
+			<Setter Property="TextBlock.VerticalAlignment" Value="Center" />
+		</Style>
+		<Style TargetType="{x:Type TreeViewItem}">
+			<Setter Property="IsExpanded" Value="{Binding IsExpanded, Mode=TwoWay}" />
+			<Setter Property="IsSelected" Value="{Binding IsSelected, Mode=TwoWay}" />
+		</Style>
+		<HierarchicalDataTemplate DataType="{x:Type ui:ExtendedTreeNode}">
+			<StackPanel Orientation="Horizontal" ToolTip="{Binding Path=Tooltip}">
+				<Image Source="{Binding Path=Icon, Mode=OneWay}" Width="24" Height="24" Margin="0,0,3,0" />
+				<TextBlock Style="{StaticResource bigTextStyle}" Text="{Binding Path=Text, Mode=OneWay}"/>
+			</StackPanel>
+			<HierarchicalDataTemplate.ItemsSource>
+				<Binding Path="Children" />
+			</HierarchicalDataTemplate.ItemsSource>
+		</HierarchicalDataTemplate>
+	</Window.Resources>
+	<DockPanel LastChildFill="True" Name="dockPanelMain">
+		<ToolBarPanel Orientation="Horizontal" DockPanel.Dock="Top">
+			<ToolBar>
+				<Button ToolTip="{Binding Source={StaticResource language}, Path=Ui.MainForm.CreateNew, Mode=OneTime}" Name="buttonNew"  Margin="2">
+					<Image Source="../Resources/New.png" Width="24" Height="24" />
+				</Button>
+				<Button ToolTip="{Binding Source={StaticResource language}, Path=Ui.MainForm.Load, Mode=OneTime}" Name="buttonLoad" Margin="2">
+					<Image Source="../Resources/Open.png" Width="24" Height="24" />
+				</Button>
+				<Button ToolTip="{Binding Source={StaticResource language}, Path=Ui.MainForm.Save, Mode=OneTime}" Name="buttonSave" Margin="2">
+					<Image Source="../Resources/Save.png" Width="24" Height="24" />
+				</Button>
+				<Button ToolTip="{Binding Source={StaticResource language}, Path=Ui.MainForm.SaveAs, Mode=OneTime}" Name="buttonSaveAs" Margin="2">
+					<Image Source="../Resources/SaveAs.png" Width="24" Height="24" />
+				</Button>
+				<Button ToolTip="{Binding Source={StaticResource language}, Path=Ui.MainForm.CreateTest, Mode=OneTime}" Click="createTestClick" Margin="2">
+					<Image Source="../Resources/CreateTest.png" Width="24" Height="24" />
+				</Button>
+			</ToolBar>
+			<ToolBar>
+				<Button ToolTip="{Binding Source={StaticResource language}, Path=Ui.MainForm.AskQuestion, Mode=OneTime}" Click="askQuestionClick" Margin="2">
+					<Image Source="../Resources/KbQuestion.png" Width="24" Height="24" />
+				</Button>
+				<Button ToolTip="{Binding Source={StaticResource language}, Path=Ui.MainForm.DescribeKnowledge, Mode=OneTime}" Click="showAllKnowledgeClick" Margin="2">
+					<Image Source="../Resources/KbDescribe.png" Width="24" Height="24" />
+				</Button>
+				<Button ToolTip="{Binding Source={StaticResource language}, Path=Ui.MainForm.CheckKnowledge, Mode=OneTime}" Click="checkKnowledgeClick" Margin="2">
+					<Image Source="../Resources/KbCheck.png" Width="24" Height="24" />
+				</Button>
+			</ToolBar>
+			<ToolBar>
+				<StackPanel Orientation="Vertical" Margin="10,0,5,0">
+				<TextBlock Text="{Binding Source={StaticResource language}, Path=Ui.MainForm.SelectLanguage, Mode=OneTime}" Margin="2"/>
+				<ComboBox ItemsSource="{Binding Path=Languages, Mode=OneTime}" SelectedItem="{Binding Path=CurrentLanguage, Mode=TwoWay}" DisplayMemberPath="Name" MinWidth="100" />
+				</StackPanel>
+			</ToolBar>
+		</ToolBarPanel>
+		<TreeView Name="treeViewKnowledgeBase" Margin="2" />
+	</DockPanel>
 </Window>

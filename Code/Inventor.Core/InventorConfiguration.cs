@@ -5,12 +5,12 @@ using Sef.Program;
 
 namespace Inventor.Core
 {
-    [XmlRoot]
-    public class InventorConfiguration : Configuration, IEditable<InventorConfiguration>
-    {
-        public void UpdateFrom(InventorConfiguration other)
-        {
-            SelectedLanguage = other.SelectedLanguage;
-        }
-    }
+	[XmlRoot]
+	public class InventorConfiguration : Configuration, IEditable<InventorConfiguration>
+	{
+		public void UpdateFrom(InventorConfiguration other)
+		{
+			SelectedLanguage = other.SelectedLanguage;
+		}
+	}
 }

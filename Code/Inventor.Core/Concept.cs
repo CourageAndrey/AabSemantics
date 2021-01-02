@@ -2,41 +2,41 @@
 
 namespace Inventor.Core
 {
-    public sealed class Concept : INamed
-    {
-        #region Properties
+	public sealed class Concept : INamed
+	{
+		#region Properties
 
-        public LocalizedString Name
-        { get { return name; } }
+		public LocalizedString Name
+		{ get { return name; } }
 
-        public LocalizedString Hint
-        { get { return hint; } }
+		public LocalizedString Hint
+		{ get { return hint; } }
 
-        internal ConceptType Type = ConceptType.Usual;
+		internal ConceptType Type = ConceptType.Usual;
 
-        private readonly LocalizedString name, hint;
+		private readonly LocalizedString name, hint;
 
-        #endregion
+		#endregion
 
-        #region Constructors
+		#region Constructors
 
-        public Concept(LocalizedString name = null, LocalizedString hint = null)
-        {
-            this.name = name ?? new LocalizedStringVariable();
-            this.hint = hint ?? new LocalizedStringVariable();
-        }
+		public Concept(LocalizedString name = null, LocalizedString hint = null)
+		{
+			this.name = name ?? new LocalizedStringVariable();
+			this.hint = hint ?? new LocalizedStringVariable();
+		}
 
-        #endregion
+		#endregion
 
-        public override string ToString()
-        {
-            return string.Format("{0} : {1}", Strings.TostringConcept, Name.Value);
-        }
-    }
+		public override string ToString()
+		{
+			return string.Format("{0} : {1}", Strings.TostringConcept, Name.Value);
+		}
+	}
 
-    internal enum ConceptType
-    {
-        System,
-        Usual,
-    }
+	internal enum ConceptType
+	{
+		System,
+		Usual,
+	}
 }

@@ -1,10 +1,10 @@
 ﻿namespace Inventor.Core.Questions
 {
-    [QuestionDescriptor]
-    public sealed class WhatQuestion : Question
-    {
-        [PropertyDescriptor(true, "QuestionNames.ParamConcept")]
-        public Concept Concept
-        { get; set; }
-    }
+	[QuestionDescriptor]
+	public sealed class WhatQuestion : Question
+	{
+		[PropertyDescriptor(true, "QuestionNames.ParamConcept")]
+		public Concept Concept
+		{ get; set; }
+	}
 }
