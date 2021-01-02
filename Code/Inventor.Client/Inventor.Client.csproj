@@ -62,10 +62,14 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <Compile Include="UI\Extended tree nodes.cs" />
+    <Compile Include="UI\Nodes\ConceptNode.cs" />
+    <Compile Include="UI\Nodes\StatementNode.cs" />
     <Compile Include="UI\FormattedTextDialog.xaml.cs">
       <DependentUpon>FormattedTextDialog.xaml</DependentUpon>
     </Compile>
+    <Compile Include="UI\Nodes\KnowledgeBaseConceptsNode.cs" />
+    <Compile Include="UI\Nodes\KnowledgeBaseNode.cs" />
+    <Compile Include="UI\Nodes\KnowledgeBaseStatementsNode.cs" />
     <Compile Include="UI\QuestionDialog.xaml.cs">
       <DependentUpon>QuestionDialog.xaml</DependentUpon>
     </Compile>
