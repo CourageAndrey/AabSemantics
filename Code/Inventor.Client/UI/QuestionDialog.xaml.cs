@@ -9,7 +9,6 @@ using System.Windows.Controls.Primitives;
 using System.Windows.Data;
 
 using Inventor.Core;
-using Inventor.Core.Processing;
 
 namespace Inventor.Client.UI
 {

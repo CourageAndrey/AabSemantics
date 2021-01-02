@@ -4,10 +4,8 @@ using System.Windows.Data;
 
 using Inventor.Core;
 using Inventor.Core.Localization;
-using Inventor.Core.Processing;
 
 using Sef.Program;
-using Sef.UI;
 
 namespace Inventor.Client.UI
 {
