@@ -45,9 +45,9 @@ namespace Inventor.Client
 			var application = new InventorApplication
 			{
 #if DEBUG
-				KnowledgeBase = KnowledgeBase.CreateTest()
+				KnowledgeBase = KnowledgeBase.CreateTest(LanguageEx.CurrentEx)
 #else
-				KnowledgeBase = KnowledgeBase.New()
+				KnowledgeBase = KnowledgeBase.New(LanguageEx.CurrentEx)
 #endif
 			};
 			application.MainWindow.Show();

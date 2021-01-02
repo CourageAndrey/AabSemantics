@@ -10,12 +10,11 @@ namespace Inventor.Core.Processing
 {
 	public sealed class IsSubjectAreaProcessor : QuestionProcessor<IsSubjectAreaQuestion>
 	{
-		protected override FormattedText ProcessImplementation(KnowledgeBase knowledgeBase, IsSubjectAreaQuestion question)
+		protected override FormattedText ProcessImplementation(KnowledgeBase knowledgeBase, IsSubjectAreaQuestion question, ILanguageEx language)
 		{
 			bool yes = knowledgeBase.Statements.OfType<GroupStatement>().Any(sa => sa.Area == question.Area && sa.Concept == question.Concept);
-			var language = LanguageEx.CurrentEx.Answers;
 			return new FormattedText(
-				yes ? new Func<string>(() => language.IsSubjectAreaTrue) : () => language.IsSubjectAreaFalse,
+				yes ? new Func<string>(() => language.Answers.IsSubjectAreaTrue) : () => language.Answers.IsSubjectAreaFalse,
 				new Dictionary<string, INamed>
 				{
 					{ "#AREA#", question.Area },

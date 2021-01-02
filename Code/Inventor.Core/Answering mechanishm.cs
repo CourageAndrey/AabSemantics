@@ -9,16 +9,16 @@ namespace Inventor.Core
 {
 	public abstract class QuestionProcessor
 	{
-		public static FormattedText Process(KnowledgeBase knowledgeBase, Question question)
+		public static FormattedText Process(KnowledgeBase knowledgeBase, Question question, ILanguageEx language)
 		{
 			QuestionProcessor processor;
 			if (_allProcessors.TryGetValue(question.GetType(), out processor))
 			{
-				return processor.ProcessInternal(knowledgeBase, question);
+				return processor.ProcessInternal(knowledgeBase, question, language);
 			}
 			else
 			{
-				throw new KeyNotFoundException(LanguageEx.CurrentEx.ErrorsInventor.UnknownQuestion);
+				throw new KeyNotFoundException(language.ErrorsInventor.UnknownQuestion);
 			}
 		}
 
@@ -37,19 +37,19 @@ namespace Inventor.Core
 			}
 		}
 
-		protected abstract FormattedText ProcessInternal(KnowledgeBase knowledgeBase, Question question);
+		protected abstract FormattedText ProcessInternal(KnowledgeBase knowledgeBase, Question question, ILanguageEx language);
 	}
 
 	public abstract class QuestionProcessor<QuestionT> : QuestionProcessor
 		where QuestionT : Question
 	{
-		protected abstract FormattedText ProcessImplementation(KnowledgeBase knowledgeBase, QuestionT question);
+		protected abstract FormattedText ProcessImplementation(KnowledgeBase knowledgeBase, QuestionT question, ILanguageEx language);
 
-		protected override FormattedText ProcessInternal(KnowledgeBase knowledgeBase, Question question)
+		protected override FormattedText ProcessInternal(KnowledgeBase knowledgeBase, Question question, ILanguageEx language)
 		{
 			if (question.GetType() == typeof (QuestionT))
 			{
-				return ProcessImplementation(knowledgeBase, question as QuestionT);
+				return ProcessImplementation(knowledgeBase, question as QuestionT, language);
 			}
 			else
 			{
@@ -60,9 +60,9 @@ namespace Inventor.Core
 
 	public static class AnswerHelper
 	{
-		public static FormattedText CreateUnknown()
+		public static FormattedText CreateUnknown(ILanguageEx language)
 		{
-			return new FormattedText(() => LanguageEx.CurrentEx.Answers.Unknown, new Dictionary<string, INamed>());
+			return new FormattedText(() => language.Answers.Unknown, new Dictionary<string, INamed>());
 		}
 	}
 }

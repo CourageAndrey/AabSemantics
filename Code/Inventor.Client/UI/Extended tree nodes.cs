@@ -210,7 +210,7 @@ namespace Inventor.Client.UI
 		#region Properties
 
 		public override string Text
-		{ get { return _statement.DescribeTrue().GetPlainText(); } }
+		{ get { return _statement.DescribeTrue(LanguageEx.CurrentEx).GetPlainText(); } }
 
 		public override string Tooltip
 		{ get { return LanguageEx.CurrentEx.Misc.NameStatement; } }

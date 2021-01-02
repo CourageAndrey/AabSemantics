@@ -42,19 +42,19 @@ namespace Inventor.Core
 
 		#region Description
 
-		public FormattedLine DescribeTrue()
+		public FormattedLine DescribeTrue(ILanguageEx language)
 		{
-			return new FormattedLine(GetDescriptionText(LanguageEx.CurrentEx.TrueStatementFormatStrings), GetDescriptionParameters());
+			return new FormattedLine(GetDescriptionText(language.TrueStatementFormatStrings), GetDescriptionParameters());
 		}
 
-		public FormattedLine DescribeFalse()
+		public FormattedLine DescribeFalse(ILanguageEx language)
 		{
-			return new FormattedLine(GetDescriptionText(LanguageEx.CurrentEx.FalseStatementFormatStrings), GetDescriptionParameters());
+			return new FormattedLine(GetDescriptionText(language.FalseStatementFormatStrings), GetDescriptionParameters());
 		}
 
-		public FormattedLine DescribeQuestion()
+		public FormattedLine DescribeQuestion(ILanguageEx language)
 		{
-			return new FormattedLine(GetDescriptionText(LanguageEx.CurrentEx.QuestionStatementFormatStrings), GetDescriptionParameters());
+			return new FormattedLine(GetDescriptionText(language.QuestionStatementFormatStrings), GetDescriptionParameters());
 		}
 
 		protected abstract Func<string> GetDescriptionText(ILanguageStatementFormatStrings language);

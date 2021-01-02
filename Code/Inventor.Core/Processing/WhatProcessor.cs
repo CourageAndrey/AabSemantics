@@ -9,9 +9,8 @@ namespace Inventor.Core.Processing
 {
 	public sealed class WhatProcessor : QuestionProcessor<WhatQuestion>
 	{
-		protected override FormattedText ProcessImplementation(KnowledgeBase knowledgeBase, WhatQuestion question)
+		protected override FormattedText ProcessImplementation(KnowledgeBase knowledgeBase, WhatQuestion question, ILanguageEx language)
 		{
-			var language = LanguageEx.CurrentEx.Answers;
 			var statements = knowledgeBase.Statements.OfType<IsStatement>().Where(c => c.Child == question.Concept);
 			if (statements.Any())
 			{
@@ -29,14 +28,14 @@ namespace Inventor.Core.Processing
 					}
 					if (difference.Count > 0)
 					{
-						result.Add(() => language.IsDescriptionWithSign, new Dictionary<string, INamed>
+						result.Add(() => language.Answers.IsDescriptionWithSign, new Dictionary<string, INamed>
 						{
 							{ "#CHILD#", question.Concept },
 							{ "#PARENT#", statement.Parent },
 						});
 						foreach (var diff in difference)
 						{
-							result.Add(() => language.IsDescriptionWithSignValue, new Dictionary<string, INamed>
+							result.Add(() => language.Answers.IsDescriptionWithSignValue, new Dictionary<string, INamed>
 							{
 								{ "#SIGN#", diff.Sign },
 								{ "#VALUE#", diff.Value },
@@ -45,7 +44,7 @@ namespace Inventor.Core.Processing
 					}
 					else
 					{
-						result.Add(() => language.IsDescription, new Dictionary<string, INamed>
+						result.Add(() => language.Answers.IsDescription, new Dictionary<string, INamed>
 						{
 							{ "#CHILD#", question.Concept },
 							{ "#PARENT#", statement.Parent },
@@ -57,7 +56,7 @@ namespace Inventor.Core.Processing
 			}
 			else
 			{
-				return AnswerHelper.CreateUnknown();
+				return AnswerHelper.CreateUnknown(language);
 			}
 		}
 	}
