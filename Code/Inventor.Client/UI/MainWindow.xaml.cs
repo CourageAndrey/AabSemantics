@@ -85,7 +85,6 @@ namespace Inventor.Client.UI
 			var dialog = new QuestionDialog(InventorApplication.Singleton.KnowledgeBase, LanguageEx.CurrentEx)
 			{
 				Owner = this,
-				Title = LanguageEx.CurrentEx.Ui.QuestionDialog.Title,
 			};
 			if (dialog.ShowDialog() == true)
 			{
