@@ -18,16 +18,14 @@ namespace Sef.UI
         public abstract ImageSource Icon
         { get; }
 
-        public IEnumerable<ExtendedTreeNode> Children
-        { get { return Сhildren; } }
+        public ICollection<ExtendedTreeNode> Children
+        { get; } = new ObservableCollection<ExtendedTreeNode>();
 
         public Boolean IsSelected
         { get; set; }
 
         public Boolean IsExpanded
         { get; set; }
-
-        protected readonly ObservableCollection<ExtendedTreeNode> Сhildren = new ObservableCollection<ExtendedTreeNode>();
 
         #endregion
     }
