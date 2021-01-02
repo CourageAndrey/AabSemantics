@@ -8,20 +8,19 @@ namespace Inventor.Core.Processing
 {
 	public sealed class EnumerateChildrenProcessor : QuestionProcessor<EnumerateChildrenQuestion>
 	{
-		protected override FormattedText ProcessImplementation(KnowledgeBase knowledgeBase, EnumerateChildrenQuestion question)
+		protected override FormattedText ProcessImplementation(KnowledgeBase knowledgeBase, EnumerateChildrenQuestion question, ILanguageEx language)
 		{
-			var language = LanguageEx.CurrentEx.Answers;
 			var statements = knowledgeBase.Statements.OfType<IsStatement>().Where(c => c.Parent == question.Concept);
 			if (statements.Any())
 			{
 				string format;
 				var parameters = statements.Select(r => r.Child).ToList().Enumerate(out format);
 				parameters.Add("#PARENT#", question.Concept);
-				return new FormattedText(() => language.Enumerate + format + ".", parameters);
+				return new FormattedText(() => language.Answers.Enumerate + format + ".", parameters);
 			}
 			else
 			{
-				return AnswerHelper.CreateUnknown();
+				return AnswerHelper.CreateUnknown(language);
 			}
 		}
 	}

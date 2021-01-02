@@ -9,10 +9,10 @@ namespace Inventor.Core.Processing
 {
 	public sealed class SignValueProcessor : QuestionProcessor<SignValueQuestion>
 	{
-		protected override FormattedText ProcessImplementation(KnowledgeBase knowledgeBase, SignValueQuestion question)
+		protected override FormattedText ProcessImplementation(KnowledgeBase knowledgeBase, SignValueQuestion question, ILanguageEx language)
 		{
 			var signValues = knowledgeBase.Statements.OfType<SignValueStatement>();
-			var result = getSignValue(signValues, question.Concept, question.Sign, question.Concept);
+			var result = getSignValue(signValues, question.Concept, question.Sign, question.Concept, language);
 			if (result != null)
 			{
 				return result;
@@ -22,23 +22,22 @@ namespace Inventor.Core.Processing
 				var parents = IsStatement.GetParentsTree(knowledgeBase.Statements, question.Concept);
 				foreach (var parent in parents)
 				{
-					result = getSignValue(signValues, parent, question.Sign, question.Concept);
+					result = getSignValue(signValues, parent, question.Sign, question.Concept, language);
 					if (result != null)
 					{
 						return result;
 					}
 				}
 			}
-			return AnswerHelper.CreateUnknown();
+			return AnswerHelper.CreateUnknown(language);
 		}
 
-		private static FormattedText getSignValue(IEnumerable<SignValueStatement> statements, Concept concept, Concept sign, Concept original)
+		private static FormattedText getSignValue(IEnumerable<SignValueStatement> statements, Concept concept, Concept sign, Concept original, ILanguageEx language)
 		{
-			var language = LanguageEx.CurrentEx.Answers;
 			var value = statements.FirstOrDefault(v => v.Concept == concept && v.Sign == sign);
 			return value != null
 				? new FormattedText(
-					() => language.SignValue,
+					() => language.Answers.SignValue,
 					new Dictionary<string, INamed>
 					{
 						{ "#CONCEPT#", original },
