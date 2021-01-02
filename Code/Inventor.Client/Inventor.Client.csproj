@@ -62,6 +62,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <Compile Include="UI\NamedConverter.cs" />
     <Compile Include="UI\Nodes\ConceptNode.cs" />
     <Compile Include="UI\Nodes\StatementNode.cs" />
     <Compile Include="UI\FormattedTextDialog.xaml.cs">

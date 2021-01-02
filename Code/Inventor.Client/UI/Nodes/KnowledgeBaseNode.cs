@@ -15,7 +15,7 @@ namespace Inventor.Client.UI.Nodes
 		#region Properties
 
 		public override string Text
-		{ get { return _knowledgeBase.Name.Value; } }
+		{ get { return _knowledgeBase.Name.GetValue(LanguageEx.CurrentEx); } }
 
 		public override string Tooltip
 		{ get { return LanguageEx.CurrentEx.Misc.NameKnowledgeBase; } }

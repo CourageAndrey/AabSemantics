@@ -26,7 +26,7 @@ namespace Inventor.Core.Statements
 		#endregion
 
 		public SignValueStatement(Concept concept, Concept sign, Concept value)
-			: base(() => LanguageEx.CurrentEx.StatementNames.SignValue, () => LanguageEx.CurrentEx.StatementHints.SignValue)
+			: base(language => language.StatementNames.SignValue, language => language.StatementHints.SignValue)
 		{
 			if (concept == null) throw new ArgumentNullException("concept");
 			if (sign == null) throw new ArgumentNullException("sign");

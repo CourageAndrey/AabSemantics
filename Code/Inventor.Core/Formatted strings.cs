@@ -28,24 +28,24 @@ namespace Inventor.Core
 			_parameters = new Dictionary<string, INamed>(parameters);
 		}
 
-		public string GetPlainText()
+		public string GetPlainText(ILanguageEx language)
 		{
 			string result = _formatter();
 			foreach (var parameter in _parameters)
 			{
-				result = result.Replace(parameter.Key, string.Format("\"{0}\"", parameter.Value.Name.Value));
+				result = result.Replace(parameter.Key, string.Format("\"{0}\"", parameter.Value.Name.GetValue(language)));
 			}
 			return result;
 		}
 
-		public string GetHtml(int lineNumber)
+		public string GetHtml(ILanguageEx language, int lineNumber)
 		{
 			string result = _formatter();
 			foreach (var parameter in _parameters)
 			{
 				result = result.Replace(
 					parameter.Key,
-					String.Format("<a href=\"{0}\">{1}</a>", GetParam(lineNumber, parameter.Key), HttpUtility.HtmlEncode(parameter.Value.Name.Value)));
+					String.Format("<a href=\"{0}\">{1}</a>", GetParam(lineNumber, parameter.Key), HttpUtility.HtmlEncode(parameter.Value.Name.GetValue(language))));
 			}
 			return result + @"<br/><br/>";
 		}
@@ -81,7 +81,7 @@ namespace Inventor.Core
 
 		public override string ToString()
 		{
-			return Strings.TostringFormatted + " : " + GetPlainText();
+			return Strings.TostringFormatted + " : " + GetPlainText(LanguageEx.CurrentEx);
 		}
 
 		#region Text
@@ -96,24 +96,24 @@ namespace Inventor.Core
 			_lines.Add(new FormattedLine(formatter, parameters));
 		}
 
-		public StringBuilder GetPlainText()
+		public StringBuilder GetPlainText(ILanguageEx language)
 		{
 			var result = new StringBuilder();
 			foreach (var line in _lines)
 			{
-				result.AppendLine(line.GetPlainText());
+				result.AppendLine(line.GetPlainText(language));
 				result.AppendLine();
 			}
 			return result;
 		}
 
-		public StringBuilder GetHtml()
+		public StringBuilder GetHtml(ILanguageEx language)
 		{
 			var result = new StringBuilder(@"<html><head><title>Inventor</title></head><body>");
 			result.AppendLine();
 			for (int l = 0; l < _lines.Count; l++)
 			{
-				result.AppendLine(_lines[l].GetHtml(l));
+				result.AppendLine(_lines[l].GetHtml(language, l));
 			}
 			result.Append(@"</body></html>");
 			return result;

@@ -22,7 +22,7 @@ namespace Inventor.Core.Statements
 		#endregion
 
 		public IsStatement(Concept parent, Concept child)
-			: base(() => LanguageEx.CurrentEx.StatementNames.Clasification, () => LanguageEx.CurrentEx.StatementHints.Clasification)
+			: base(language => language.StatementNames.Clasification, language => language.StatementHints.Clasification)
 		{
 			if (parent == null) throw new ArgumentNullException("parent");
 			if (child == null) throw new ArgumentNullException("child");
