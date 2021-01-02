@@ -18,16 +18,16 @@ namespace Inventor.Core
 		#region Properties
 
 		public LocalizedString Name
-		{ get { return name; } }
+		{ get { return _name; } }
 
 		public IList<Concept> Concepts
-		{ get { return concepts; } }
+		{ get { return _concepts; } }
 
 		public IList<Statement> Statements
 		{ get { return _statements; } }
 
-		private readonly LocalizedStringVariable name;
-		private readonly EventList<Concept> concepts;
+		private readonly LocalizedStringVariable _name;
+		private readonly EventList<Concept> _concepts;
 		private readonly EventList<Statement> _statements;
 
 		public event EventList<Concept>.ItemDelegate ConceptAdded;
@@ -49,10 +49,10 @@ namespace Inventor.Core
 
 		public KnowledgeBase(bool initialize = true)
 		{
-			name = new LocalizedStringVariable();
+			_name = new LocalizedStringVariable();
 
-			concepts = new EventList<Concept>();
-			concepts.Added += (list, concept) =>
+			_concepts = new EventList<Concept>();
+			_concepts.Added += (list, concept) =>
 			{
 				var handler = Volatile.Read(ref ConceptAdded);
 				if (handler != null)
@@ -60,7 +60,7 @@ namespace Inventor.Core
 					handler(list, concept);
 				}
 			};
-			concepts.Removed += (list, concept) =>
+			_concepts.Removed += (list, concept) =>
 			{
 				var handler = Volatile.Read(ref ConceptRemoved);
 				if (handler != null)
@@ -83,9 +83,9 @@ namespace Inventor.Core
 				}
 				foreach (var concept in statement.ChildConcepts)
 				{
-					if (!concepts.Contains(concept))
+					if (!_concepts.Contains(concept))
 					{
-						concepts.Add(concept);
+						_concepts.Add(concept);
 					}
 				}
 			};
@@ -109,16 +109,16 @@ namespace Inventor.Core
 					allowed = false;
 				}
 			};
-			concepts.Adding += systemConceptProtector;
-			concepts.Removing += systemConceptProtector;
+			_concepts.Adding += systemConceptProtector;
+			_concepts.Removing += systemConceptProtector;
 		}
 
 		public void Initialize()
 		{
-			concepts.Add(True = new Concept(
+			_concepts.Add(True = new Concept(
 				new LocalizedStringConstant(() => LanguageEx.CurrentEx.Misc.True),
 				new LocalizedStringConstant(() => LanguageEx.CurrentEx.Misc.TrueHint)) {Type = ConceptType.System});
-			concepts.Add(False = new Concept(
+			_concepts.Add(False = new Concept(
 				new LocalizedStringConstant(() => LanguageEx.CurrentEx.Misc.False),
 				new LocalizedStringConstant(() => LanguageEx.CurrentEx.Misc.FalseHint)) {Type = ConceptType.System});
 		}
@@ -188,8 +188,8 @@ namespace Inventor.Core
 		{
 			// knowledge base
 			var knowledgeBase = new KnowledgeBase();
-			knowledgeBase.name.SetLocale("ru-RU", "Тестовая база знаний");
-			knowledgeBase.name.SetLocale("en-US", "Test knowledgebase");
+			knowledgeBase._name.SetLocale("ru-RU", "Тестовая база знаний");
+			knowledgeBase._name.SetLocale("en-US", "Test knowledgebase");
 
 			// subject areas
 			Concept transport;
@@ -450,7 +450,7 @@ namespace Inventor.Core
 
 			// 4. check multi values
 			var signValues = _statements.OfType<SignValueStatement>().ToList();
-			foreach (var concept in concepts)
+			foreach (var concept in _concepts)
 			{
 				var parents = IsStatement.GetParentsPlainList(clasifications, concept);
 				foreach (var sign in HasSignStatement.GetSigns(_statements, concept, true))

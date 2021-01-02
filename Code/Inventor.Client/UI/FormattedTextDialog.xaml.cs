@@ -14,8 +14,8 @@ namespace Inventor.Client.UI
 		{
 			InitializeComponent();
 
-			parameters = text.GetAllParameters();
-			this.linkClicked = linkClicked;
+			_parameters = text.GetAllParameters();
+			_linkClicked = linkClicked;
 
 			var browser = (WebBrowser) windowsFormsHost.Child;
 			browser.DocumentText = text.GetHtml().ToString();
@@ -24,15 +24,15 @@ namespace Inventor.Client.UI
 
 		private void browserNavigating(object sender, WebBrowserNavigatingEventArgs webBrowserNavigatingEventArgs)
 		{
-			if (linkClicked != null)
+			if (_linkClicked != null)
 			{
-				linkClicked(parameters[webBrowserNavigatingEventArgs.Url.Fragment]);
+				_linkClicked(_parameters[webBrowserNavigatingEventArgs.Url.Fragment]);
 			}
 			webBrowserNavigatingEventArgs.Cancel = true;
 		}
 
-		private readonly IDictionary<string, INamed> parameters;
-		private readonly Action<INamed> linkClicked;
+		private readonly IDictionary<string, INamed> _parameters;
+		private readonly Action<INamed> _linkClicked;
 
 		private void dialogLoaded(object sender, RoutedEventArgs e)
 		{

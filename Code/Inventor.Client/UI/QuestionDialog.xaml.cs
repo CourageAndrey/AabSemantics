@@ -31,29 +31,29 @@ namespace Inventor.Client.UI
 			panelSelectQuestion.Visibility = Visibility.Visible;
 			panelQuestionParams.Visibility = Visibility.Hidden;
 
-			this.knowledgeBase = knowledgeBase;
+			this._knowledgeBase = knowledgeBase;
 			foreach (var questionDraft in Question.AllSupportedTypes)
 			{
-				questions[questionDraft.Key()] = questionDraft.Value;
+				_questions[questionDraft.Key()] = questionDraft.Value;
 			}
-			comboBoxQuestion.ItemsSource = questions.Keys.OrderBy(q => q);
+			comboBoxQuestion.ItemsSource = _questions.Keys.OrderBy(q => q);
 
-			propertySelectorCreators = new Dictionary<Type, CreatePropertySelectorDelegate>
+			_propertySelectorCreators = new Dictionary<Type, CreatePropertySelectorDelegate>
 			{
 				{ typeof (Concept), createConceptSelector },
 				{ typeof (bool), createCheckBox },
 			};
 		}
 
-		private readonly Dictionary<string, Func<Question>> questions = new Dictionary<string, Func<Question>>();
-		private readonly KnowledgeBase knowledgeBase;
-		private readonly List<ComboBox> requiredFieldSelectors = new List<ComboBox>();
+		private readonly Dictionary<string, Func<Question>> _questions = new Dictionary<string, Func<Question>>();
+		private readonly KnowledgeBase _knowledgeBase;
+		private readonly List<ComboBox> _requiredFieldSelectors = new List<ComboBox>();
 
 		private void buttonCreateClick(object sender, RoutedEventArgs e)
 		{
 			panelSelectQuestion.Visibility = Visibility.Collapsed;
 			panelQuestionParams.Visibility = Visibility.Visible;
-			Question = questions[comboBoxQuestion.Text]();
+			Question = _questions[comboBoxQuestion.Text]();
 			textBoxQuestion.Text = comboBoxQuestion.Text;
 
 			int gridRow = 1;
@@ -63,17 +63,17 @@ namespace Inventor.Client.UI
 				if (propertyDescriptor != null)
 				{
 					panelQuestionParams.RowDefinitions.Insert(gridRow, new RowDefinition { Height = GridLength.Auto });
-					propertySelectorCreators[property.PropertyType](propertyDescriptor, property, gridRow);
+					_propertySelectorCreators[property.PropertyType](propertyDescriptor, property, gridRow);
 					gridRow++;
 				}
 			}
-			buttonOk.IsEnabled = Question != null && requiredFieldSelectors.TrueForAll(cb => cb.SelectedValue != null);
+			buttonOk.IsEnabled = Question != null && _requiredFieldSelectors.TrueForAll(cb => cb.SelectedValue != null);
 		}
 
 		#region Property selectors
 
 		private delegate void CreatePropertySelectorDelegate(PropertyDescriptorAttribute propertyDescriptor, PropertyInfo propertyInfo, int gridRow);
-		private readonly Dictionary<Type, CreatePropertySelectorDelegate> propertySelectorCreators;
+		private readonly Dictionary<Type, CreatePropertySelectorDelegate> _propertySelectorCreators;
 
 		private void createConceptSelector(PropertyDescriptorAttribute propertyDescriptor, PropertyInfo propertyInfo, int gridRow)
 		{
@@ -95,7 +95,7 @@ namespace Inventor.Client.UI
 			ComboBox comboBox;
 			panelQuestionParams.Children.Add(comboBox = new ComboBox
 			{
-				ItemsSource = knowledgeBase.Concepts,
+				ItemsSource = _knowledgeBase.Concepts,
 				Margin = new Thickness(2),
 				MinWidth = 50,
 				DataContext = Question,
@@ -105,7 +105,7 @@ namespace Inventor.Client.UI
 			comboBox.SetValue(Grid.ColumnProperty, 1);
 			if (propertyDescriptor.Required)
 			{
-				requiredFieldSelectors.Add(comboBox);
+				_requiredFieldSelectors.Add(comboBox);
 				comboBox.SelectionChanged += propertyValueSelected;
 			}
 			comboBox.SetBinding(Selector.SelectedItemProperty, new Binding {Path = new PropertyPath(propertyInfo.Name), Mode = BindingMode.TwoWay});
@@ -146,7 +146,7 @@ namespace Inventor.Client.UI
 
 		private void propertyValueSelected(object sender, SelectionChangedEventArgs e)
 		{
-			buttonOk.IsEnabled = Question != null && requiredFieldSelectors.TrueForAll(cb => cb.SelectedValue != null);
+			buttonOk.IsEnabled = Question != null && _requiredFieldSelectors.TrueForAll(cb => cb.SelectedValue != null);
 		}
 
 		private void questionTypeSelected(object sender, SelectionChangedEventArgs e)
@@ -173,7 +173,7 @@ namespace Inventor.Client.UI
 			panelQuestionParams.Visibility = Visibility.Collapsed;
 			Question = null;
 			comboBoxQuestion.SelectedItem = null;
-			requiredFieldSelectors.Clear();
+			_requiredFieldSelectors.Clear();
 		}
 
 		private class FormatConverter : IValueConverter

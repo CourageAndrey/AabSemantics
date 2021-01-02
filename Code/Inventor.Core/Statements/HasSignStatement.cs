@@ -14,12 +14,13 @@ namespace Inventor.Core.Statements
 		{ get { return LanguageEx.CurrentEx.StatementHints.HasSign; } }
 
 		public Concept Concept
-		{ get { return concept; } }
+		{ get { return _concept; } }
 
 		public Concept Sign
-		{ get { return sign; } }
+		{ get { return _sign; } }
 
-		private readonly Concept concept, sign;
+		private readonly Concept _concept;
+		private readonly Concept _sign;
 
 		#endregion
 
@@ -29,12 +30,12 @@ namespace Inventor.Core.Statements
 			if (concept == null) throw new ArgumentNullException("concept");
 			if (sign == null) throw new ArgumentNullException("sign");
 
-			this.concept = concept;
-			this.sign = sign;
+			_concept = concept;
+			_sign = sign;
 		}
 
 		public override IList<Concept> ChildConcepts
-		{ get { return new List<Concept> { concept, sign }.AsReadOnly(); } }
+		{ get { return new List<Concept> { _concept, _sign }.AsReadOnly(); } }
 
 		#region Description
 
@@ -47,8 +48,8 @@ namespace Inventor.Core.Statements
 		{
 			return new Dictionary<string, INamed>
 			{
-				{ "#CONCEPT#", concept },
-				{ "#SIGN#", sign },
+				{ "#CONCEPT#", _concept },
+				{ "#SIGN#", _sign },
 			};
 		}
 
@@ -61,16 +62,16 @@ namespace Inventor.Core.Statements
 			if (ReferenceEquals(this, other)) return true;
 			if (other != null)
 			{
-				return	other.concept == concept &&
-						other.sign == sign;
+				return	other._concept == _concept &&
+						other._sign == _sign;
 			}
 			else return false;
 		}
 
 		public bool CheckSignDuplication(IEnumerable<HasSignStatement> hasSigns, IEnumerable<IsStatement> clasifications)
 		{
-			var signs = hasSigns.Where(hs => hs.Concept == concept).Select(hs => hs.Sign).ToList();
-			foreach (var parent in IsStatement.GetParentsTree(clasifications, concept))
+			var signs = hasSigns.Where(hs => hs.Concept == _concept).Select(hs => hs.Sign).ToList();
+			foreach (var parent in IsStatement.GetParentsTree(clasifications, _concept))
 			{
 				foreach (var parentSign in hasSigns.Where(hs => hs.Concept == parent).Select(hs => hs.Sign))
 				{

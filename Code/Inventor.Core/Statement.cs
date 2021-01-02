@@ -11,7 +11,7 @@ namespace Inventor.Core
 		#region Properties
 
 		public LocalizedString Name
-		{ get { return name; } }
+		{ get { return _name; } }
 
 		public abstract string Hint
 		{ get; }
@@ -19,7 +19,7 @@ namespace Inventor.Core
 		public abstract IList<Concept> ChildConcepts
 		{ get; }
 
-		private readonly LocalizedStringConstant name;
+		private readonly LocalizedStringConstant _name;
 
 		#endregion
 
@@ -32,7 +32,7 @@ namespace Inventor.Core
 		{
 			if (name != null)
 			{
-				this.name = new LocalizedStringConstant(name);
+				_name = new LocalizedStringConstant(name);
 			}
 			else
 			{

@@ -16,16 +16,16 @@ namespace Inventor.Core.Localization
 	{
 		#region Properties
 
-		private readonly IDictionary<string, string> values = new SortedDictionary<string, string>();
+		private readonly IDictionary<string, string> _values = new SortedDictionary<string, string>();
 
 		public override string Value
 		{
 			get
 			{
-				if (values.Count == 0) return null;
+				if (_values.Count == 0) return null;
 
 				string result, locale = LanguageEx.CurrentEx.Culture;
-				if (values.TryGetValue(locale, out result))
+				if (_values.TryGetValue(locale, out result))
 				{
 					return result;
 				}
@@ -45,7 +45,7 @@ namespace Inventor.Core.Localization
 
 		public LocalizedStringVariable(string culture, string text)
 		{
-			values[culture] = text;
+			_values[culture] = text;
 		}
 
 		public LocalizedStringVariable(IEnumerable<KeyValuePair<string, string>> values)
@@ -53,7 +53,7 @@ namespace Inventor.Core.Localization
 		{
 			foreach (var pair in values)
 			{
-				this.values[pair.Key] = pair.Value;
+				_values[pair.Key] = pair.Value;
 			}
 		}
 
@@ -61,10 +61,10 @@ namespace Inventor.Core.Localization
 
 		public override string ToString()
 		{
-			string result = string.Format("{0} ({1} values)", Strings.TostringLocalized, values.Count);
-			if (values.Count > 0)
+			string result = string.Format("{0} ({1} values)", Strings.TostringLocalized, _values.Count);
+			if (_values.Count > 0)
 			{
-				result += string.Format(" ([0] = \"{0}\")", values.Values.First());
+				result += string.Format(" ([0] = \"{0}\")", _values.Values.First());
 			}
 			return result;
 		}
@@ -73,17 +73,17 @@ namespace Inventor.Core.Localization
 
 		public void SetLocale(string locale, string value)
 		{
-			values[locale] = value;
+			_values[locale] = value;
 		}
 
 		public void RemoveLocale(string locale)
 		{
-			values.Remove(locale);
+			_values.Remove(locale);
 		}
 
 		public void Clear()
 		{
-			values.Clear();
+			_values.Clear();
 		}
 
 		#endregion
@@ -93,21 +93,21 @@ namespace Inventor.Core.Localization
 	{
 		#region Properties
 
-		private readonly Func<string> getter;
+		private readonly Func<string> _getter;
 
 		public override string Value
-		{ get { return getter(); } }
+		{ get { return _getter(); } }
 
 		#endregion
 
 		public LocalizedStringConstant(Func<string> getter)
 		{
-			this.getter = getter;
+			_getter = getter;
 		}
 
 		public override string ToString()
 		{
-			return string.Format("{0} \"{1}\"", Strings.TostringLocalized, getter());
+			return string.Format("{0} \"{1}\"", Strings.TostringLocalized, _getter());
 		}
 	}
 }

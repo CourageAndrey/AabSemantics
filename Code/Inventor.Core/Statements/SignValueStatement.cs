@@ -14,15 +14,17 @@ namespace Inventor.Core.Statements
 		{ get { return LanguageEx.CurrentEx.StatementHints.SignValue; } }
 
 		public Concept Concept
-		{ get { return concept; } }
+		{ get { return _concept; } }
 
 		public Concept Sign
-		{ get { return sign; } }
+		{ get { return _sign; } }
 
 		public Concept Value
-		{ get { return value; } }
+		{ get { return _value; } }
 
-		private readonly Concept concept, sign, value;
+		private readonly Concept _concept;
+		private readonly Concept _sign;
+		private readonly Concept _value;
 
 		#endregion
 
@@ -33,13 +35,13 @@ namespace Inventor.Core.Statements
 			if (sign == null) throw new ArgumentNullException("sign");
 			if (value == null) throw new ArgumentNullException("value");
 
-			this.concept = concept;
-			this.sign = sign;
-			this.value = value;
+			_concept = concept;
+			_sign = sign;
+			_value = value;
 		}
 
 		public override IList<Concept> ChildConcepts
-		{ get { return new List<Concept> { concept, sign, value }.AsReadOnly(); } }
+		{ get { return new List<Concept> { _concept, _sign, _value }.AsReadOnly(); } }
 
 		#region Description
 
@@ -52,9 +54,9 @@ namespace Inventor.Core.Statements
 		{
 			return new Dictionary<string, INamed>
 			{
-				{ "#CONCEPT#", concept },
-				{ "#SIGN#", sign },
-				{ "#VALUE#", value },
+				{ "#CONCEPT#", _concept },
+				{ "#SIGN#", _sign },
+				{ "#VALUE#", _value },
 			};
 		}
 
@@ -67,16 +69,16 @@ namespace Inventor.Core.Statements
 			if (ReferenceEquals(this, other)) return true;
 			if (other != null)
 			{
-				return	other.concept == concept &&
-						other.sign == sign &&
-						other.value == value;
+				return	other._concept == _concept &&
+						other._sign == _sign &&
+						other._value == _value;
 			}
 			else return false;
 		}
 
 		public bool CheckHasSign(IEnumerable<Statement> statements)
 		{
-			return HasSignStatement.GetSigns(statements, concept, true).Select(hs => hs.Sign).Contains(sign);
+			return HasSignStatement.GetSigns(statements, _concept, true).Select(hs => hs.Sign).Contains(_sign);
 		}
 
 		#endregion
