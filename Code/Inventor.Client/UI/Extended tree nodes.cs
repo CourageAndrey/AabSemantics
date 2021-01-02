@@ -37,8 +37,8 @@ namespace Inventor.Client.UI
 		public KnowledgeBaseNode(KnowledgeBase knowledgeBase)
 		{
 			_knowledgeBase = knowledgeBase;
-			Сhildren.Add(_concepts = new KnowledgeBaseConceptsNode(knowledgeBase));
-			Сhildren.Add(_statements = new KnowledgeBaseStatementsNode(knowledgeBase));
+			Children.Add(_concepts = new KnowledgeBaseConceptsNode(knowledgeBase));
+			Children.Add(_statements = new KnowledgeBaseStatementsNode(knowledgeBase));
 		}
 
 		public List<ExtendedTreeNode> Find(object obj)
@@ -90,7 +90,7 @@ namespace Inventor.Client.UI
 			_knowledgeBase = knowledgeBase;
 			foreach (var concept in knowledgeBase.Concepts)
 			{
-				Сhildren.Add(new ConceptNode(concept));
+				Children.Add(new ConceptNode(concept));
 			}
 			knowledgeBase.ConceptAdded += conceptAdded;
 			knowledgeBase.ConceptRemoved += conceptRemoved;
@@ -98,12 +98,12 @@ namespace Inventor.Client.UI
 
 		private void conceptAdded(IList<Concept> list, Concept item)
 		{
-			Сhildren.Add(new ConceptNode(item));
+			Children.Add(new ConceptNode(item));
 		}
 
 		private void conceptRemoved(IList<Concept> list, Concept item)
 		{
-			Сhildren.Remove(Сhildren.OfType<ConceptNode>().First(c => c.Concept == item));
+			Children.Remove(Children.OfType<ConceptNode>().First(c => c.Concept == item));
 		}
 
 		public void Clear()
@@ -114,7 +114,7 @@ namespace Inventor.Client.UI
 
 		public List<ExtendedTreeNode> Find(Concept concept, ExtendedTreeNode parent)
 		{
-			var child = Сhildren.OfType<ConceptNode>().FirstOrDefault(c => c.Concept == concept);
+			var child = Children.OfType<ConceptNode>().FirstOrDefault(c => c.Concept == concept);
 			return child != null
 				? new List<ExtendedTreeNode> {parent, this, child}
 				: new List<ExtendedTreeNode>();
@@ -147,7 +147,7 @@ namespace Inventor.Client.UI
 			_knowledgeBase = knowledgeBase;
 			foreach (var statement in knowledgeBase.Statements)
 			{
-				Сhildren.Add(new StatementNode(statement));
+				Children.Add(new StatementNode(statement));
 			}
 			knowledgeBase.StatementAdded += StatementAdded;
 			knowledgeBase.StatementRemoved += StatementRemoved;
@@ -155,12 +155,12 @@ namespace Inventor.Client.UI
 
 		private void StatementAdded(IList<Statement> list, Statement item)
 		{
-			Сhildren.Add(new StatementNode(item));
+			Children.Add(new StatementNode(item));
 		}
 
 		private void StatementRemoved(IList<Statement> list, Statement item)
 		{
-			Сhildren.Remove(Сhildren.OfType<StatementNode>().First(r => r.Statement == item));
+			Children.Remove(Children.OfType<StatementNode>().First(r => r.Statement == item));
 		}
 
 		public void Clear()
@@ -171,7 +171,7 @@ namespace Inventor.Client.UI
 
 		public List<ExtendedTreeNode> Find(Statement statement, ExtendedTreeNode parent)
 		{
-			var child = Сhildren.OfType<StatementNode>().FirstOrDefault(rn => rn.Statement == statement);
+			var child = Children.OfType<StatementNode>().FirstOrDefault(rn => rn.Statement == statement);
 			return child != null
 				? new List<ExtendedTreeNode> {parent, this, child}
 				: new List<ExtendedTreeNode>();
