@@ -2,6 +2,7 @@
 using System.Windows;
 using System.Windows.Data;
 
+using Inventor.Client.UI.Nodes;
 using Inventor.Core;
 using Inventor.Core.Localization;
 
