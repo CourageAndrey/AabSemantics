@@ -7,12 +7,6 @@ namespace Inventor.Core.Localization
 		string NameKnowledgeBase
 		{ get; }
 
-		string NameConcept
-		{ get; }
-
-		string NameStatement
-		{ get; }
-
 		string NameCategoryConcepts
 		{ get; }
 
@@ -89,14 +83,6 @@ namespace Inventor.Core.Localization
 
 		[XmlElement]
 		public string NameKnowledgeBase
-		{ get; set; }
-
-		[XmlElement]
-		public string NameConcept
-		{ get; set; }
-
-		[XmlElement]
-		public string NameStatement
 		{ get; set; }
 
 		[XmlElement]
@@ -198,8 +184,6 @@ namespace Inventor.Core.Localization
 			return new LanguageMisc
 			{
 				NameKnowledgeBase = "База знаний",
-				NameConcept = "Понятие",
-				NameStatement = "Утверждение",
 				NameCategoryConcepts = "Понятия",
 				NameCategoryStatements = "Утверждения",
 				StrictEnumeration = " и не может принимать другое значение",
