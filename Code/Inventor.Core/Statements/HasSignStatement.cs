@@ -10,9 +10,6 @@ namespace Inventor.Core.Statements
 	{
 		#region Properties
 
-		public override string Hint
-		{ get { return LanguageEx.CurrentEx.StatementHints.HasSign; } }
-
 		public Concept Concept
 		{ get { return _concept; } }
 
@@ -25,7 +22,7 @@ namespace Inventor.Core.Statements
 		#endregion
 
 		public HasSignStatement(Concept concept, Concept sign)
-			: base(() => LanguageEx.CurrentEx.StatementNames.HasSign)
+			: base(() => LanguageEx.CurrentEx.StatementNames.HasSign, () => LanguageEx.CurrentEx.StatementHints.HasSign)
 		{
 			if (concept == null) throw new ArgumentNullException("concept");
 			if (sign == null) throw new ArgumentNullException("sign");
