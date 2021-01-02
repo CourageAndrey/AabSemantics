@@ -20,7 +20,7 @@ namespace Sef.Program
         #region Properties
 
         public String StartupPath
-        { get { return System.Windows.Forms.Application.StartupPath; } }
+        { get { return AppDomain.CurrentDomain.BaseDirectory; } }
 
         public abstract LanguageT CurrentLanguage
         { get; set; }
