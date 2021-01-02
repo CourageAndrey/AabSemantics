@@ -16,7 +16,7 @@ namespace Inventor.Client.UI.Nodes
 		{ get { return _concept.Name.Value; } }
 
 		public override string Tooltip
-		{ get { return LanguageEx.CurrentEx.Misc.NameConcept; } }
+		{ get { return _concept.Hint.Value; } }
 
 		public override ImageSource Icon
 		{ get { return _icon ?? (_icon = Resources.Concept.ToSource()); } }
