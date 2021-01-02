@@ -47,7 +47,7 @@ namespace Inventor.Core
 
 		#endregion
 
-		public KnowledgeBase(ILanguageEx language, bool initialize = true)
+		public KnowledgeBase(bool initialize = true)
 		{
 			_name = new LocalizedStringVariable();
 
@@ -100,7 +100,7 @@ namespace Inventor.Core
 
 			if (initialize)
 			{
-				Initialize(language);
+				Initialize();
 			}
 			EventList<Concept>.ItemQueryDelegate systemConceptProtector = (IList<Concept> list, Concept item, ref bool allowed) =>
 			{
@@ -113,26 +113,26 @@ namespace Inventor.Core
 			_concepts.Removing += systemConceptProtector;
 		}
 
-		public void Initialize(ILanguageEx language)
+		public void Initialize()
 		{
 			_concepts.Add(True = new Concept(
-				new LocalizedStringConstant(() => language.Misc.True),
-				new LocalizedStringConstant(() => language.Misc.TrueHint)) {Type = ConceptType.System});
+				new LocalizedStringConstant(language => language.Misc.True),
+				new LocalizedStringConstant(language => language.Misc.TrueHint)) {Type = ConceptType.System});
 			_concepts.Add(False = new Concept(
-				new LocalizedStringConstant(() => language.Misc.False),
-				new LocalizedStringConstant(() => language.Misc.FalseHint)) {Type = ConceptType.System});
+				new LocalizedStringConstant(language => language.Misc.False),
+				new LocalizedStringConstant(language => language.Misc.FalseHint)) {Type = ConceptType.System});
 		}
 
 		public override string ToString()
 		{
-			return string.Format("{0} : {1}", Strings.TostringKnowledgeBase, Name.Value);
+			return string.Format("{0} : {1}", Strings.TostringKnowledgeBase, Name.GetValue(LanguageEx.CurrentEx));
 		}
 
 		#region Serialization
 
 		public static KnowledgeBase New(ILanguageEx language)
 		{
-			var result = new KnowledgeBase(language, true);
+			var result = new KnowledgeBase(true);
 			((LocalizedStringVariable) result.Name).SetLocale(language.Culture, language.Misc.NewKbName);
 			return result;
 		}
@@ -182,10 +182,10 @@ namespace Inventor.Core
 
 		#endregion
 
-		public static KnowledgeBase CreateTest(ILanguageEx language)
+		public static KnowledgeBase CreateTest()
 		{
 			// knowledge base
-			var knowledgeBase = new KnowledgeBase(language);
+			var knowledgeBase = new KnowledgeBase();
 			knowledgeBase._name.SetLocale("ru-RU", "Тестовая база знаний");
 			knowledgeBase._name.SetLocale("en-US", "Test knowledgebase");
 

@@ -18,7 +18,7 @@ namespace Inventor.Client.UI
 			_linkClicked = linkClicked;
 
 			var browser = (WebBrowser) windowsFormsHost.Child;
-			browser.DocumentText = text.GetHtml().ToString();
+			browser.DocumentText = text.GetHtml(LanguageEx.CurrentEx).ToString();
 			browser.Navigating += browserNavigating;
 		}
 

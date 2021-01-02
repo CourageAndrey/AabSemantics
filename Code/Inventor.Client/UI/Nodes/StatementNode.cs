@@ -13,10 +13,10 @@ namespace Inventor.Client.UI.Nodes
 		#region Properties
 
 		public override string Text
-		{ get { return _statement.DescribeTrue(LanguageEx.CurrentEx).GetPlainText(); } }
+		{ get { return _statement.DescribeTrue(LanguageEx.CurrentEx).GetPlainText(LanguageEx.CurrentEx); } }
 
 		public override string Tooltip
-		{ get { return _statement.Hint?.Value; } }
+		{ get { return _statement.Hint?.GetValue(LanguageEx.CurrentEx); } }
 
 		public override ImageSource Icon
 		{ get { return _icon ?? (_icon = Resources.Statement.ToSource()); } }
