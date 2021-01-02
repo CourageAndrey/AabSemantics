@@ -2,28 +2,28 @@
 
 namespace Inventor.Core.Localization
 {
-    public interface ILanguageErrorsInventor
-    {
-        string UnknownQuestion
-        { get; }
-    }
+	public interface ILanguageErrorsInventor
+	{
+		string UnknownQuestion
+		{ get; }
+	}
 
-    public class LanguageErrorsInventor : ILanguageErrorsInventor
-    {
-        #region Properties
+	public class LanguageErrorsInventor : ILanguageErrorsInventor
+	{
+		#region Properties
 
-        [XmlElement]
-        public string UnknownQuestion
-        { get; set; }
+		[XmlElement]
+		public string UnknownQuestion
+		{ get; set; }
 
-        #endregion
+		#endregion
 
-        internal static LanguageErrorsInventor CreateDefault()
-        {
-            return new LanguageErrorsInventor
-            {
-                UnknownQuestion = "Неизвестный тип вопроса.",
-            };
-        }
-    }
+		internal static LanguageErrorsInventor CreateDefault()
+		{
+			return new LanguageErrorsInventor
+			{
+				UnknownQuestion = "Неизвестный тип вопроса.",
+			};
+		}
+	}
 }
