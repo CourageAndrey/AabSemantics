@@ -9,9 +9,6 @@ namespace Inventor.Core.Statements
 	{
 		#region Properties
 
-		public override string Hint
-		{ get { return LanguageEx.CurrentEx.StatementHints.SubjectArea; } }
-
 		public Concept Area
 		{ get { return _area; } }
 
@@ -24,7 +21,7 @@ namespace Inventor.Core.Statements
 		#endregion
 
 		public GroupStatement(Concept area, Concept concept)
-			: base(() => LanguageEx.CurrentEx.StatementNames.SubjectArea)
+			: base(() => LanguageEx.CurrentEx.StatementNames.SubjectArea, () => LanguageEx.CurrentEx.StatementHints.SubjectArea)
 		{
 			if (area == null) throw new ArgumentNullException("area");
 			if (concept == null) throw new ArgumentNullException("concept");

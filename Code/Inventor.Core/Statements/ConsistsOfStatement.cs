@@ -10,9 +10,6 @@ namespace Inventor.Core.Statements
 	{
 		#region Properties
 
-		public override string Hint
-		{ get { return LanguageEx.CurrentEx.StatementHints.Composition; } }
-
 		public Concept Parent
 		{ get { return _parent; } }
 
@@ -25,7 +22,7 @@ namespace Inventor.Core.Statements
 		#endregion
 
 		public ConsistsOfStatement(Concept parent, Concept child)
-			: base(() => LanguageEx.CurrentEx.StatementNames.Composition)
+			: base(() => LanguageEx.CurrentEx.StatementNames.Composition, () => LanguageEx.CurrentEx.StatementHints.Composition)
 		{
 			if (parent == null) throw new ArgumentNullException("parent");
 			if (child == null) throw new ArgumentNullException("child");
