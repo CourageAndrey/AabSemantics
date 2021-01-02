@@ -16,28 +16,28 @@ namespace Inventor.Client.UI
 		#region Properties
 
 		public override string Text
-		{ get { return knowledgeBase.Name.Value; } }
+		{ get { return _knowledgeBase.Name.Value; } }
 
 		public override string Tooltip
 		{ get { return LanguageEx.CurrentEx.Misc.NameKnowledgeBase; } }
 
 		public override ImageSource Icon
-		{ get { return icon ?? (icon = Resources.KnowledgeBase.ToSource()); } }
+		{ get { return _icon ?? (_icon = Resources.KnowledgeBase.ToSource()); } }
 
 		public KnowledgeBase KnowledgeBase
-		{ get { return knowledgeBase; } }
+		{ get { return _knowledgeBase; } }
 
-		private static ImageSource icon;
-		private readonly KnowledgeBase knowledgeBase;
-		private readonly KnowledgeBaseConceptsNode concepts;
+		private static ImageSource _icon;
+		private readonly KnowledgeBase _knowledgeBase;
+		private readonly KnowledgeBaseConceptsNode _concepts;
 		private readonly KnowledgeBaseStatementsNode _statements;
 
 		#endregion
 
 		public KnowledgeBaseNode(KnowledgeBase knowledgeBase)
 		{
-			this.knowledgeBase = knowledgeBase;
-			Сhildren.Add(concepts = new KnowledgeBaseConceptsNode(knowledgeBase));
+			_knowledgeBase = knowledgeBase;
+			Сhildren.Add(_concepts = new KnowledgeBaseConceptsNode(knowledgeBase));
 			Сhildren.Add(_statements = new KnowledgeBaseStatementsNode(knowledgeBase));
 		}
 
@@ -45,7 +45,7 @@ namespace Inventor.Client.UI
 		{
 			if (obj is Concept)
 			{
-				return concepts.Find(obj as Concept, this);
+				return _concepts.Find(obj as Concept, this);
 			}
 			else if (obj is Statement)
 			{
@@ -59,7 +59,7 @@ namespace Inventor.Client.UI
 
 		public void Clear()
 		{
-			concepts.Clear();
+			_concepts.Clear();
 			_statements.Clear();
 		}
 	}
@@ -75,19 +75,19 @@ namespace Inventor.Client.UI
 		{ get { return LanguageEx.CurrentEx.Misc.NameCategoryConcepts; } }
 
 		public override ImageSource Icon
-		{ get { return icon ?? (icon = Resources.Folder.ToSource()); } }
+		{ get { return _icon ?? (_icon = Resources.Folder.ToSource()); } }
 
 		public KnowledgeBase KnowledgeBase
-		{ get { return knowledgeBase; } }
+		{ get { return _knowledgeBase; } }
 
-		private static ImageSource icon;
-		private readonly KnowledgeBase knowledgeBase;
+		private static ImageSource _icon;
+		private readonly KnowledgeBase _knowledgeBase;
 
 		#endregion
 
 		public KnowledgeBaseConceptsNode(KnowledgeBase knowledgeBase)
 		{
-			this.knowledgeBase = knowledgeBase;
+			_knowledgeBase = knowledgeBase;
 			foreach (var concept in knowledgeBase.Concepts)
 			{
 				Сhildren.Add(new ConceptNode(concept));
@@ -108,8 +108,8 @@ namespace Inventor.Client.UI
 
 		public void Clear()
 		{
-			knowledgeBase.ConceptAdded -= conceptAdded;
-			knowledgeBase.ConceptRemoved -= conceptRemoved;
+			_knowledgeBase.ConceptAdded -= conceptAdded;
+			_knowledgeBase.ConceptRemoved -= conceptRemoved;
 		}
 
 		public List<ExtendedTreeNode> Find(Concept concept, ExtendedTreeNode parent)
@@ -132,19 +132,19 @@ namespace Inventor.Client.UI
 		{ get { return LanguageEx.CurrentEx.Misc.NameCategoryStatements; } }
 
 		public override ImageSource Icon
-		{ get { return icon ?? (icon = Resources.Folder.ToSource()); } }
+		{ get { return _icon ?? (_icon = Resources.Folder.ToSource()); } }
 
 		public KnowledgeBase KnowledgeBase
-		{ get { return knowledgeBase; } }
+		{ get { return _knowledgeBase; } }
 
-		private static ImageSource icon;
-		private readonly KnowledgeBase knowledgeBase;
+		private static ImageSource _icon;
+		private readonly KnowledgeBase _knowledgeBase;
 
 		#endregion
 
 		public KnowledgeBaseStatementsNode(KnowledgeBase knowledgeBase)
 		{
-			this.knowledgeBase = knowledgeBase;
+			_knowledgeBase = knowledgeBase;
 			foreach (var statement in knowledgeBase.Statements)
 			{
 				Сhildren.Add(new StatementNode(statement));
@@ -165,8 +165,8 @@ namespace Inventor.Client.UI
 
 		public void Clear()
 		{
-			knowledgeBase.StatementAdded -= StatementAdded;
-			knowledgeBase.StatementRemoved -= StatementRemoved;
+			_knowledgeBase.StatementAdded -= StatementAdded;
+			_knowledgeBase.StatementRemoved -= StatementRemoved;
 		}
 
 		public List<ExtendedTreeNode> Find(Statement statement, ExtendedTreeNode parent)
@@ -183,25 +183,25 @@ namespace Inventor.Client.UI
 		#region Properties
 
 		public override string Text
-		{ get { return concept.Name.Value; } }
+		{ get { return _concept.Name.Value; } }
 
 		public override string Tooltip
 		{ get { return LanguageEx.CurrentEx.Misc.NameConcept; } }
 
 		public override ImageSource Icon
-		{ get { return icon ?? (icon = Resources.Concept.ToSource()); } }
+		{ get { return _icon ?? (_icon = Resources.Concept.ToSource()); } }
 
 		public Concept Concept
-		{ get { return concept; } }
+		{ get { return _concept; } }
 
-		private static ImageSource icon;
-		private readonly Concept concept;
+		private static ImageSource _icon;
+		private readonly Concept _concept;
 
 		#endregion
 
 		public ConceptNode(Concept concept)
 		{
-			this.concept = concept;
+			_concept = concept;
 		}
 	}
 
@@ -210,26 +210,26 @@ namespace Inventor.Client.UI
 		#region Properties
 
 		public override string Text
-		{ get { return statement.DescribeTrue().GetPlainText(); } }
+		{ get { return _statement.DescribeTrue().GetPlainText(); } }
 
 		public override string Tooltip
 		{ get { return LanguageEx.CurrentEx.Misc.NameStatement; } }
 
 		public override ImageSource Icon
-		{ get { return icon ?? (icon = Resources.Statement.ToSource()); } }
+		{ get { return _icon ?? (_icon = Resources.Statement.ToSource()); } }
 
 		public Statement Statement
-		{ get { return statement; } }
+		{ get { return _statement; } }
 
-		private static ImageSource icon;
-		private readonly Statement statement;
+		private static ImageSource _icon;
+		private readonly Statement _statement;
 
 		#endregion
 
 		public StatementNode(Statement statement)
 		{
-			this.statement = statement;
-			/*foreach (var concept in statement.ChildConcepts)
+			_statement = statement;
+			/*foreach (var concept in _statement.ChildConcepts)
 			{
 				children.Add(new ConceptNode(concept));
 			}*/

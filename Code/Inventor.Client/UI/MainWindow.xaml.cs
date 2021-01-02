@@ -25,7 +25,7 @@ namespace Inventor.Client.UI
 		private void MainWindow_Loaded(object sender, RoutedEventArgs e)
 		{
 			dockPanelMain.DataContext = InventorApplication.Singleton;
-			saveLoadController = new SaveLoadController(buttonNew, buttonLoad, buttonSave, buttonSaveAs,
+			_saveLoadController = new SaveLoadController(buttonNew, buttonLoad, buttonSave, buttonSaveAs,
 				createNew, loadFromFile, saveToFile,
 				KnowledgeBase.CreateOpenFileDialog, KnowledgeBase.CreateSaveFileDialog,
 				(s, a) => { },
@@ -33,14 +33,14 @@ namespace Inventor.Client.UI
 			realoadKnowledgeBaseTree();
 		}
 
-		private KnowledgeBaseNode knowledgeBaseNode;
-		private SaveLoadController saveLoadController;
+		private KnowledgeBaseNode _knowledgeBaseNode;
+		private SaveLoadController _saveLoadController;
 
 		#region Main menu
 
 		private void saveToFile(IChangeable changeable, string fileName)
 		{
-			knowledgeBaseNode.KnowledgeBase.Save(fileName);
+			_knowledgeBaseNode.KnowledgeBase.Save(fileName);
 		}
 
 		private IChangeable loadFromFile(string fileName)
@@ -61,18 +61,18 @@ namespace Inventor.Client.UI
 		{
 			InventorApplication.Singleton.KnowledgeBase = KnowledgeBase.CreateTest();
 			realoadKnowledgeBaseTree();
-			saveLoadController.ChangeEntity(InventorApplication.Singleton.KnowledgeBase);
+			_saveLoadController.ChangeEntity(InventorApplication.Singleton.KnowledgeBase);
 		}
 
 		private void realoadKnowledgeBaseTree()
 		{
 			treeViewKnowledgeBase.Items.Clear();
-			if (knowledgeBaseNode != null)
+			if (_knowledgeBaseNode != null)
 			{
-				knowledgeBaseNode.Clear();
+				_knowledgeBaseNode.Clear();
 			}
-			treeViewKnowledgeBase.Items.Add(knowledgeBaseNode = new KnowledgeBaseNode(InventorApplication.Singleton.KnowledgeBase));
-			knowledgeBaseNode.IsExpanded = true;
+			treeViewKnowledgeBase.Items.Add(_knowledgeBaseNode = new KnowledgeBaseNode(InventorApplication.Singleton.KnowledgeBase));
+			_knowledgeBaseNode.IsExpanded = true;
 		}
 
 		#endregion
@@ -126,7 +126,7 @@ namespace Inventor.Client.UI
 
 		private void knowledgeObjectPicked(INamed entity)
 		{
-			var path = knowledgeBaseNode.Find(entity).OfType<object>().ToList();
+			var path = _knowledgeBaseNode.Find(entity).OfType<object>().ToList();
 			if (path.Count > 0)
 			{
 				treeViewKnowledgeBase.ExecuteWithItem(path, item =>

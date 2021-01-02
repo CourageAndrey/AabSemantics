@@ -7,14 +7,15 @@ namespace Inventor.Core
 		#region Properties
 
 		public LocalizedString Name
-		{ get { return name; } }
+		{ get { return _name; } }
 
 		public LocalizedString Hint
-		{ get { return hint; } }
+		{ get { return _hint; } }
 
 		internal ConceptType Type = ConceptType.Usual;
 
-		private readonly LocalizedString name, hint;
+		private readonly LocalizedString _name;
+		private readonly LocalizedString _hint;
 
 		#endregion
 
@@ -22,8 +23,8 @@ namespace Inventor.Core
 
 		public Concept(LocalizedString name = null, LocalizedString hint = null)
 		{
-			this.name = name ?? new LocalizedStringVariable();
-			this.hint = hint ?? new LocalizedStringVariable();
+			_name = name ?? new LocalizedStringVariable();
+			_hint = hint ?? new LocalizedStringVariable();
 		}
 
 		#endregion

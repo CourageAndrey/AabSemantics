@@ -13,13 +13,13 @@ namespace Inventor.Core.Statements
 		{ get { return LanguageEx.CurrentEx.StatementHints.SubjectArea; } }
 
 		public Concept Area
-		{ get { return area; } }
+		{ get { return _area; } }
 
 		public Concept Concept
-		{ get { return concept; } }
+		{ get { return _concept; } }
 
-		private readonly Concept area;
-		private readonly Concept concept;
+		private readonly Concept _area;
+		private readonly Concept _concept;
 
 		#endregion
 
@@ -29,12 +29,12 @@ namespace Inventor.Core.Statements
 			if (area == null) throw new ArgumentNullException("area");
 			if (concept == null) throw new ArgumentNullException("concept");
 
-			this.area = area;
-			this.concept = concept;
+			_area = area;
+			_concept = concept;
 		}
 
 		public override IList<Concept> ChildConcepts
-		{ get { return new List<Concept> { area, concept }.AsReadOnly(); } }
+		{ get { return new List<Concept> { _area, _concept }.AsReadOnly(); } }
 
 		#region Description
 
@@ -47,8 +47,8 @@ namespace Inventor.Core.Statements
 		{
 			return new Dictionary<string, INamed>
 			{
-				{ "#AREA#", area },
-				{ "#CONCEPT#", concept },
+				{ "#AREA#", _area },
+				{ "#CONCEPT#", _concept },
 			};
 		}
 
@@ -61,8 +61,8 @@ namespace Inventor.Core.Statements
 			if (ReferenceEquals(this, other)) return true;
 			if (other != null)
 			{
-				return	other.area == area &&
-						other.concept == concept;
+				return	other._area == _area &&
+						other._concept == _concept;
 			}
 			else return false;
 		}

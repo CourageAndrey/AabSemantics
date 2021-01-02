@@ -12,7 +12,7 @@ namespace Inventor.Core
 		public static FormattedText Process(KnowledgeBase knowledgeBase, Question question)
 		{
 			QuestionProcessor processor;
-			if (allProcessors.TryGetValue(question.GetType(), out processor))
+			if (_allProcessors.TryGetValue(question.GetType(), out processor))
 			{
 				return processor.ProcessInternal(knowledgeBase, question);
 			}
@@ -22,7 +22,7 @@ namespace Inventor.Core
 			}
 		}
 
-		private static readonly IDictionary<Type, QuestionProcessor> allProcessors = new Dictionary<Type, QuestionProcessor>();
+		private static readonly IDictionary<Type, QuestionProcessor> _allProcessors = new Dictionary<Type, QuestionProcessor>();
 
 		static QuestionProcessor()
 		{
@@ -33,7 +33,7 @@ namespace Inventor.Core
 				{
 					type = type.BaseType;
 				}
-				allProcessors[type.GetGenericArguments()[0]] = Activator.CreateInstance(processorType) as QuestionProcessor;
+				_allProcessors[type.GetGenericArguments()[0]] = Activator.CreateInstance(processorType) as QuestionProcessor;
 			}
 		}
 

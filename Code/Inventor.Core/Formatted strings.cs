@@ -12,26 +12,26 @@ namespace Inventor.Core
 		#region Properties
 
 		public Func<string> Formatter
-		{ get { return formatter; } }
+		{ get { return _formatter; } }
 
 		public IDictionary<string, INamed> Parameters
-		{ get { return parameters; } }
+		{ get { return _parameters; } }
 
-		private readonly Func<string> formatter;
-		private readonly IDictionary<string, INamed> parameters;
+		private readonly Func<string> _formatter;
+		private readonly IDictionary<string, INamed> _parameters;
 
 		#endregion
 
 		public FormattedLine(Func<string> formatter, IDictionary<string, INamed> parameters)
 		{
-			this.formatter = formatter;
-			this.parameters = new Dictionary<string, INamed>(parameters);
+			_formatter = formatter;
+			_parameters = new Dictionary<string, INamed>(parameters);
 		}
 
 		public string GetPlainText()
 		{
-			string result = formatter();
-			foreach (var parameter in parameters)
+			string result = _formatter();
+			foreach (var parameter in _parameters)
 			{
 				result = result.Replace(parameter.Key, string.Format("\"{0}\"", parameter.Value.Name.Value));
 			}
@@ -40,8 +40,8 @@ namespace Inventor.Core
 
 		public string GetHtml(int lineNumber)
 		{
-			string result = formatter();
-			foreach (var parameter in parameters)
+			string result = _formatter();
+			foreach (var parameter in _parameters)
 			{
 				result = result.Replace(
 					parameter.Key,
@@ -60,10 +60,10 @@ namespace Inventor.Core
 	{
 		#region Properties
 
-		private readonly List<FormattedLine> lines = new List<FormattedLine>();
+		private readonly List<FormattedLine> _lines = new List<FormattedLine>();
 
 		public int LinesCount
-		{ get { return lines.Count; } }
+		{ get { return _lines.Count; } }
 
 		#endregion
 
@@ -88,18 +88,18 @@ namespace Inventor.Core
 
 		public void Add(FormattedLine line)
 		{
-			lines.Add(line);
+			_lines.Add(line);
 		}
 
 		public void Add(Func<string> formatter, IDictionary<string, INamed> parameters)
 		{
-			lines.Add(new FormattedLine(formatter, parameters));
+			_lines.Add(new FormattedLine(formatter, parameters));
 		}
 
 		public StringBuilder GetPlainText()
 		{
 			var result = new StringBuilder();
-			foreach (var line in lines)
+			foreach (var line in _lines)
 			{
 				result.AppendLine(line.GetPlainText());
 				result.AppendLine();
@@ -111,9 +111,9 @@ namespace Inventor.Core
 		{
 			var result = new StringBuilder(@"<html><head><title>Inventor</title></head><body>");
 			result.AppendLine();
-			for (int l = 0; l < lines.Count; l++)
+			for (int l = 0; l < _lines.Count; l++)
 			{
-				result.AppendLine(lines[l].GetHtml(l));
+				result.AppendLine(_lines[l].GetHtml(l));
 			}
 			result.Append(@"</body></html>");
 			return result;
@@ -122,9 +122,9 @@ namespace Inventor.Core
 		public IDictionary<string, INamed> GetAllParameters()
 		{
 			var result = new SortedDictionary<string, INamed>();
-			for (int l = 0; l < lines.Count; l++)
+			for (int l = 0; l < _lines.Count; l++)
 			{
-				var line = lines[l];
+				var line = _lines[l];
 				foreach (var parameter in line.Parameters)
 				{
 					result[FormattedLine.GetParam(l, parameter.Key)] = parameter.Value;
