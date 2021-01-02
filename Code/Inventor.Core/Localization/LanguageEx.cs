@@ -154,21 +154,21 @@ namespace Inventor.Core.Localization
 
 		#region Singleton
 
-		private static LanguageEx defaultEx;
-		private static LanguageEx currentEx;
+		private static LanguageEx _defaultEx;
+		private static LanguageEx _currentEx;
 
 		[XmlIgnore]
 		public static LanguageEx CurrentEx
 		{
-			get { return currentEx; }
-			set { Current = currentEx = value; }
+			get { return _currentEx; }
+			set { Current = _currentEx = value; }
 		}
 
 		[XmlIgnore]
 		public static LanguageEx DefaultEx
 		{
-			get { return defaultEx; }
-			private set { Default = defaultEx = value; }
+			get { return _defaultEx; }
+			private set { Default = _defaultEx = value; }
 		}
 
 		static LanguageEx()

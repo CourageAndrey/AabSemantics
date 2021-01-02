@@ -14,12 +14,13 @@ namespace Inventor.Core.Statements
 		{ get { return LanguageEx.CurrentEx.StatementHints.Clasification; } }
 
 		public Concept Parent
-		{ get { return parent; } }
+		{ get { return _parent; } }
 
 		public Concept Child
-		{ get { return child; } }
+		{ get { return _child; } }
 
-		private readonly Concept parent, child;
+		private readonly Concept _parent;
+		private readonly Concept _child;
 
 		#endregion
 
@@ -29,12 +30,12 @@ namespace Inventor.Core.Statements
 			if (parent == null) throw new ArgumentNullException("parent");
 			if (child == null) throw new ArgumentNullException("child");
 
-			this.parent = parent;
-			this.child = child;
+			_parent = parent;
+			_child = child;
 		}
 
 		public override IList<Concept> ChildConcepts
-		{ get { return new List<Concept> { parent, child }.AsReadOnly(); } }
+		{ get { return new List<Concept> { _parent, _child }.AsReadOnly(); } }
 
 		#region Description
 
@@ -47,8 +48,8 @@ namespace Inventor.Core.Statements
 		{
 			return new Dictionary<string, INamed>
 			{
-				{ "#PARENT#", parent },
-				{ "#CHILD#", child },
+				{ "#PARENT#", _parent },
+				{ "#CHILD#", _child },
 			};
 		}
 
@@ -61,15 +62,15 @@ namespace Inventor.Core.Statements
 			if (ReferenceEquals(this, other)) return true;
 			if (other != null)
 			{
-				return	other.parent == parent &&
-						other.child == child;
+				return	other._parent == _parent &&
+						other._child == _child;
 			}
 			else return false;
 		}
 
 		public bool CheckCyclic(IEnumerable<IsStatement> statements)
 		{
-			return !isCyclic(statements, child, new List<Concept>());
+			return !isCyclic(statements, _child, new List<Concept>());
 		}
 
 		private bool isCyclic(IEnumerable<IsStatement> allClasifications, Concept concept, List<Concept> chain)
