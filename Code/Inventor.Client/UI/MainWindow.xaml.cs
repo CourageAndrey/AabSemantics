@@ -27,7 +27,7 @@ namespace Inventor.Client.UI
 			dockPanelMain.DataContext = InventorApplication.Singleton;
 			_saveLoadController = new SaveLoadController(buttonNew, buttonLoad, buttonSave, buttonSaveAs,
 				createNew, loadFromFile, saveToFile,
-				KnowledgeBase.CreateOpenFileDialog, KnowledgeBase.CreateSaveFileDialog,
+				() => KnowledgeBase.CreateOpenFileDialog(LanguageEx.CurrentEx), () => KnowledgeBase.CreateSaveFileDialog(LanguageEx.CurrentEx),
 				(s, a) => { },
 				InventorApplication.Singleton.KnowledgeBase);
 			realoadKnowledgeBaseTree();
@@ -52,14 +52,14 @@ namespace Inventor.Client.UI
 
 		private IChangeable createNew()
 		{
-			InventorApplication.Singleton.KnowledgeBase = KnowledgeBase.New();
+			InventorApplication.Singleton.KnowledgeBase = KnowledgeBase.New(LanguageEx.CurrentEx);
 			realoadKnowledgeBaseTree();
 			return InventorApplication.Singleton.KnowledgeBase;
 		}
 
 		private void createTestClick(object sender, RoutedEventArgs e)
 		{
-			InventorApplication.Singleton.KnowledgeBase = KnowledgeBase.CreateTest();
+			InventorApplication.Singleton.KnowledgeBase = KnowledgeBase.CreateTest(LanguageEx.CurrentEx);
 			realoadKnowledgeBaseTree();
 			_saveLoadController.ChangeEntity(InventorApplication.Singleton.KnowledgeBase);
 		}
@@ -89,7 +89,7 @@ namespace Inventor.Client.UI
 			if (dialog.ShowDialog() == true)
 			{
 				new FormattedTextDialog(
-					QuestionProcessor.Process(InventorApplication.Singleton.KnowledgeBase, dialog.Question),
+					QuestionProcessor.Process(InventorApplication.Singleton.KnowledgeBase, dialog.Question, LanguageEx.CurrentEx),
 					knowledgeObjectPicked)
 				{
 					Owner = this,
@@ -101,7 +101,7 @@ namespace Inventor.Client.UI
 		private void showAllKnowledgeClick(object sender, RoutedEventArgs e)
 		{
 			new FormattedTextDialog(
-				InventorApplication.Singleton.KnowledgeBase.DescribeRules(),
+				InventorApplication.Singleton.KnowledgeBase.DescribeRules(LanguageEx.CurrentEx),
 				knowledgeObjectPicked)
 			{
 				Owner = this,
@@ -112,7 +112,7 @@ namespace Inventor.Client.UI
 		private void checkKnowledgeClick(object sender, RoutedEventArgs e)
 		{
 			new FormattedTextDialog(
-				InventorApplication.Singleton.KnowledgeBase.CheckConsistensy(),
+				InventorApplication.Singleton.KnowledgeBase.CheckConsistensy(LanguageEx.CurrentEx),
 				knowledgeObjectPicked)
 			{
 				Owner = this,

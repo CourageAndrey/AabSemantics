@@ -47,7 +47,7 @@ namespace Inventor.Core
 
 		#endregion
 
-		public KnowledgeBase(bool initialize = true)
+		public KnowledgeBase(ILanguageEx language, bool initialize = true)
 		{
 			_name = new LocalizedStringVariable();
 
@@ -100,7 +100,7 @@ namespace Inventor.Core
 
 			if (initialize)
 			{
-				Initialize();
+				Initialize(language);
 			}
 			EventList<Concept>.ItemQueryDelegate systemConceptProtector = (IList<Concept> list, Concept item, ref bool allowed) =>
 			{
@@ -113,14 +113,14 @@ namespace Inventor.Core
 			_concepts.Removing += systemConceptProtector;
 		}
 
-		public void Initialize()
+		public void Initialize(ILanguageEx language)
 		{
 			_concepts.Add(True = new Concept(
-				new LocalizedStringConstant(() => LanguageEx.CurrentEx.Misc.True),
-				new LocalizedStringConstant(() => LanguageEx.CurrentEx.Misc.TrueHint)) {Type = ConceptType.System});
+				new LocalizedStringConstant(() => language.Misc.True),
+				new LocalizedStringConstant(() => language.Misc.TrueHint)) {Type = ConceptType.System});
 			_concepts.Add(False = new Concept(
-				new LocalizedStringConstant(() => LanguageEx.CurrentEx.Misc.False),
-				new LocalizedStringConstant(() => LanguageEx.CurrentEx.Misc.FalseHint)) {Type = ConceptType.System});
+				new LocalizedStringConstant(() => language.Misc.False),
+				new LocalizedStringConstant(() => language.Misc.FalseHint)) {Type = ConceptType.System});
 		}
 
 		public override string ToString()
@@ -130,10 +130,10 @@ namespace Inventor.Core
 
 		#region Serialization
 
-		public static KnowledgeBase New()
+		public static KnowledgeBase New(ILanguageEx language)
 		{
-			var result = new KnowledgeBase(true);
-			((LocalizedStringVariable) result.Name).SetLocale(Sef.Localization.Language.Current.Culture, LanguageEx.CurrentEx.Misc.NewKbName);
+			var result = new KnowledgeBase(language, true);
+			((LocalizedStringVariable) result.Name).SetLocale(language.Culture, language.Misc.NewKbName);
 			return result;
 		}
 
@@ -147,27 +147,25 @@ namespace Inventor.Core
 			throw new NotImplementedException();
 		}
 
-		internal static OpenFileDialog CreateOpenFileDialog()
+		internal static OpenFileDialog CreateOpenFileDialog(ILanguageEx language)
 		{
-			var language = LanguageEx.CurrentEx.Misc;
 			return new OpenFileDialog
 			{
 				DefaultExt = ".xml",
-				Filter = language.DialogKbFileFilter,
+				Filter = language.Misc.DialogKbFileFilter,
 				RestoreDirectory = true,
-				Title = language.DialogKbOpenTitle,
+				Title = language.Misc.DialogKbOpenTitle,
 			};
 		}
 
-		internal static SaveFileDialog CreateSaveFileDialog()
+		internal static SaveFileDialog CreateSaveFileDialog(ILanguageEx language)
 		{
-			var language = LanguageEx.CurrentEx.Misc;
 			return new SaveFileDialog
 			{
 				DefaultExt = ".xml",
-				Filter = language.DialogKbFileFilter,
+				Filter = language.Misc.DialogKbFileFilter,
 				RestoreDirectory = true,
-				Title = language.DialogKbSaveTitle,
+				Title = language.Misc.DialogKbSaveTitle,
 			};
 		}
 
@@ -184,10 +182,10 @@ namespace Inventor.Core
 
 		#endregion
 
-		public static KnowledgeBase CreateTest()
+		public static KnowledgeBase CreateTest(ILanguageEx language)
 		{
 			// knowledge base
-			var knowledgeBase = new KnowledgeBase();
+			var knowledgeBase = new KnowledgeBase(language);
 			knowledgeBase._name.SetLocale("ru-RU", "Тестовая база знаний");
 			knowledgeBase._name.SetLocale("en-US", "Test knowledgebase");
 
@@ -410,20 +408,19 @@ namespace Inventor.Core
 			return knowledgeBase;
 		}
 
-		public FormattedText DescribeRules()
+		public FormattedText DescribeRules(ILanguageEx language)
 		{
 			var result = new FormattedText();
 			foreach (var statement in Statements)
 			{
-				result.Add(statement.DescribeTrue());
+				result.Add(statement.DescribeTrue(language));
 			}
 			return result;
 		}
 
-		public FormattedText CheckConsistensy()
+		public FormattedText CheckConsistensy(ILanguageEx language)
 		{
 			var result = new FormattedText();
-			var language = LanguageEx.CurrentEx.Misc;
 
 			// 1. check all duplicates
 			foreach (var statement in _statements)
@@ -431,7 +428,7 @@ namespace Inventor.Core
 				if (!statement.CheckUnique(_statements))
 				{
 					result.Add(
-						() => language.ConsistencyErrorDuplicate,
+						() => language.Misc.ConsistencyErrorDuplicate,
 						new Dictionary<string, INamed> { { "#STATEMENT#", statement } });
 				}
 			}
@@ -443,7 +440,7 @@ namespace Inventor.Core
 				if (!clasification.CheckCyclic(clasifications))
 				{
 					result.Add(
-						() => language.ConsistencyErrorCyclic,
+						() => language.Misc.ConsistencyErrorCyclic,
 						new Dictionary<string, INamed> { { "#STATEMENT#", clasification } });
 				}
 			}
@@ -459,7 +456,7 @@ namespace Inventor.Core
 					    parents.Select(p => SignValueStatement.GetSignValue(_statements, p, sign.Sign)).Count(r => r != null) > 1)
 					{
 						result.Add(
-							() => language.ConsistencyErrorMultipleSignValue,
+							() => language.Misc.ConsistencyErrorMultipleSignValue,
 							new Dictionary<string, INamed>
 							{
 								{ "#CONCEPT#", concept },
@@ -475,7 +472,7 @@ namespace Inventor.Core
 				if (!signValue.CheckHasSign(_statements))
 				{
 					result.Add(
-						() => language.ConsistencyErrorSignWithoutValue,
+						() => language.Misc.ConsistencyErrorSignWithoutValue,
 						new Dictionary<string, INamed> { { "#STATEMENT#", signValue } });
 				}
 			}
@@ -487,14 +484,14 @@ namespace Inventor.Core
 				if (!hasSign.CheckSignDuplication(hasSigns, clasifications))
 				{
 					result.Add(
-						() => language.ConsistencyErrorMultipleSign,
+						() => language.Misc.ConsistencyErrorMultipleSign,
 						new Dictionary<string, INamed> { { "#STATEMENT#", hasSign } });
 				}
 			}
 
 			if (result.LinesCount == 0)
 			{
-				result.Add(() => LanguageEx.CurrentEx.Misc.CheckOk, new Dictionary<string, INamed>());
+				result.Add(() => language.Misc.CheckOk, new Dictionary<string, INamed>());
 			}
 			return result;
 		}
