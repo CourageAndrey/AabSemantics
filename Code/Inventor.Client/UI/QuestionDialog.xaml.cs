@@ -25,6 +25,8 @@ namespace Inventor.Client.UI
 		{
 			InitializeComponent();
 
+			((NamedConverter) Resources["namedConverter"]).Language = Core.Localization.LanguageEx.CurrentEx;
+
 			Title = Core.Localization.LanguageEx.CurrentEx.Ui.QuestionDialog.Title;
 
 			panelSelectQuestion.DataContext = Question = null;
@@ -99,7 +101,6 @@ namespace Inventor.Client.UI
 				Margin = new Thickness(2),
 				MinWidth = 50,
 				DataContext = Question,
-				DisplayMemberPath = "Name.Value",
 			});
 			comboBox.SetValue(Grid.RowProperty, gridRow);
 			comboBox.SetValue(Grid.ColumnProperty, 1);

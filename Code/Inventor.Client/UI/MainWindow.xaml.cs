@@ -60,7 +60,7 @@ namespace Inventor.Client.UI
 
 		private void createTestClick(object sender, RoutedEventArgs e)
 		{
-			InventorApplication.Singleton.KnowledgeBase = KnowledgeBase.CreateTest(LanguageEx.CurrentEx);
+			InventorApplication.Singleton.KnowledgeBase = KnowledgeBase.CreateTest();
 			realoadKnowledgeBaseTree();
 			_saveLoadController.ChangeEntity(InventorApplication.Singleton.KnowledgeBase);
 		}
