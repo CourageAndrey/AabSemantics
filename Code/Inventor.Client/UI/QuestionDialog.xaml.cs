@@ -9,6 +9,7 @@ using System.Windows.Controls.Primitives;
 using System.Windows.Data;
 
 using Inventor.Core;
+using Inventor.Core.Localization;
 
 namespace Inventor.Client.UI
 {
@@ -19,15 +20,19 @@ namespace Inventor.Client.UI
 		public Question Question
 		{ get; private set; }
 
+		private readonly ILanguageEx _language;
+
 		#endregion
 
-		public QuestionDialog(KnowledgeBase knowledgeBase)
+		public QuestionDialog(KnowledgeBase knowledgeBase, ILanguageEx language)
 		{
+			_language = language;
+
 			InitializeComponent();
 
-			((NamedConverter) Resources["namedConverter"]).Language = Core.Localization.LanguageEx.CurrentEx;
+			((NamedConverter) Resources["namedConverter"]).Language = _language;
 
-			Title = Core.Localization.LanguageEx.CurrentEx.Ui.QuestionDialog.Title;
+			Title = _language.Ui.QuestionDialog.Title;
 
 			panelSelectQuestion.DataContext = Question = null;
 			panelSelectQuestion.Visibility = Visibility.Visible;
@@ -83,13 +88,13 @@ namespace Inventor.Client.UI
 			panelQuestionParams.Children.Add(textLabel = new TextBlock
 			{
 				Margin = new Thickness(2),
-				DataContext = Core.Localization.LanguageEx.CurrentEx,
+				DataContext = _language,
 			});
 			textLabel.SetBinding(TextBlock.TextProperty, new Binding
 			{
 				Path = new PropertyPath(propertyDescriptor.NamePath),
 				Mode = BindingMode.OneWay,
-				Converter = new FormatConverter { Required = propertyDescriptor.Required },
+				Converter = new FormatConverter(propertyDescriptor.Required, _language),
 			});
 			textLabel.SetValue(Grid.RowProperty, gridRow);
 			textLabel.SetValue(Grid.ColumnProperty, 0);
@@ -132,13 +137,13 @@ namespace Inventor.Client.UI
 			var textLabel = new TextBlock
 			{
 				Margin = new Thickness(0, 0, 0, 2),
-				DataContext = Core.Localization.LanguageEx.CurrentEx,
+				DataContext = _language,
 			};
 			textLabel.SetBinding(TextBlock.TextProperty, new Binding
 			{
 				Path = new PropertyPath(propertyDescriptor.NamePath),
 				Mode = BindingMode.OneWay,
-				Converter = new FormatConverter { Required = propertyDescriptor.Required },
+				Converter = new FormatConverter(propertyDescriptor.Required, _language),
 			});
 			checkBox.Content = textLabel;
 		}
@@ -179,12 +184,19 @@ namespace Inventor.Client.UI
 
 		private class FormatConverter : IValueConverter
 		{
-			public bool Required;
+			private readonly bool _required;
+			private readonly ILanguageEx _language;
+
+			public FormatConverter(bool required, ILanguageEx language)
+			{
+				_required = required;
+				_language = language;
+			}
 
 			public Object Convert(Object value, Type targetType, Object parameter, CultureInfo culture)
 			{
-				return string.Format("{0}{1} :", (string) value, Required
-					? string.Format(" ({0})", Core.Localization.LanguageEx.CurrentEx.Misc.Required)
+				return string.Format("{0}{1} :", (string) value, _required
+					? string.Format(" ({0})", _language.Misc.Required)
 					: string.Empty);
 			}
 

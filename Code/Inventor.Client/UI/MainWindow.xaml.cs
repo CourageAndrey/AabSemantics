@@ -82,7 +82,7 @@ namespace Inventor.Client.UI
 
 		private void askQuestionClick(object sender, RoutedEventArgs e)
 		{
-			var dialog = new QuestionDialog(InventorApplication.Singleton.KnowledgeBase)
+			var dialog = new QuestionDialog(InventorApplication.Singleton.KnowledgeBase, LanguageEx.CurrentEx)
 			{
 				Owner = this,
 				Title = LanguageEx.CurrentEx.Ui.QuestionDialog.Title,
