@@ -23,17 +23,18 @@ namespace Inventor.Client.UI
 			});
 		}
 
-		private void MainWindow_Loaded(object sender, RoutedEventArgs e)
+		internal void Initialize(InventorApplication application)
 		{
-			dockPanelMain.DataContext = InventorApplication.Singleton;
+			dockPanelMain.DataContext = _application = application;
 			_saveLoadController = new SaveLoadController(buttonNew, buttonLoad, buttonSave, buttonSaveAs,
 				createNew, loadFromFile, saveToFile,
 				() => KnowledgeBase.CreateOpenFileDialog(LanguageEx.CurrentEx), () => KnowledgeBase.CreateSaveFileDialog(LanguageEx.CurrentEx),
 				(s, a) => { },
-				InventorApplication.Singleton.KnowledgeBase);
+				application.KnowledgeBase);
 			realoadKnowledgeBaseTree();
 		}
 
+		private InventorApplication _application;
 		private KnowledgeBaseNode _knowledgeBaseNode;
 		private SaveLoadController _saveLoadController;
 
@@ -46,23 +47,23 @@ namespace Inventor.Client.UI
 
 		private IChangeable loadFromFile(string fileName)
 		{
-			InventorApplication.Singleton.KnowledgeBase = KnowledgeBase.Load(fileName);
+			_application.KnowledgeBase = KnowledgeBase.Load(fileName);
 			realoadKnowledgeBaseTree();
-			return InventorApplication.Singleton.KnowledgeBase;
+			return _application.KnowledgeBase;
 		}
 
 		private IChangeable createNew()
 		{
-			InventorApplication.Singleton.KnowledgeBase = KnowledgeBase.New(LanguageEx.CurrentEx);
+			_application.KnowledgeBase = KnowledgeBase.New(LanguageEx.CurrentEx);
 			realoadKnowledgeBaseTree();
-			return InventorApplication.Singleton.KnowledgeBase;
+			return _application.KnowledgeBase;
 		}
 
 		private void createTestClick(object sender, RoutedEventArgs e)
 		{
-			InventorApplication.Singleton.KnowledgeBase = KnowledgeBase.CreateTest();
+			_application.KnowledgeBase = KnowledgeBase.CreateTest();
 			realoadKnowledgeBaseTree();
-			_saveLoadController.ChangeEntity(InventorApplication.Singleton.KnowledgeBase);
+			_saveLoadController.ChangeEntity(_application.KnowledgeBase);
 		}
 
 		private void realoadKnowledgeBaseTree()
@@ -72,7 +73,7 @@ namespace Inventor.Client.UI
 			{
 				_knowledgeBaseNode.Clear();
 			}
-			treeViewKnowledgeBase.Items.Add(_knowledgeBaseNode = new KnowledgeBaseNode(InventorApplication.Singleton.KnowledgeBase));
+			treeViewKnowledgeBase.Items.Add(_knowledgeBaseNode = new KnowledgeBaseNode(_application.KnowledgeBase));
 			_knowledgeBaseNode.IsExpanded = true;
 		}
 
@@ -82,14 +83,14 @@ namespace Inventor.Client.UI
 
 		private void askQuestionClick(object sender, RoutedEventArgs e)
 		{
-			var dialog = new QuestionDialog(InventorApplication.Singleton.KnowledgeBase, LanguageEx.CurrentEx)
+			var dialog = new QuestionDialog(_application.KnowledgeBase, LanguageEx.CurrentEx)
 			{
 				Owner = this,
 			};
 			if (dialog.ShowDialog() == true)
 			{
 				new FormattedTextDialog(
-					QuestionProcessor.Process(InventorApplication.Singleton.KnowledgeBase, dialog.Question, LanguageEx.CurrentEx),
+					QuestionProcessor.Process(_application.KnowledgeBase, dialog.Question, LanguageEx.CurrentEx),
 					knowledgeObjectPicked)
 				{
 					Owner = this,
@@ -101,7 +102,7 @@ namespace Inventor.Client.UI
 		private void showAllKnowledgeClick(object sender, RoutedEventArgs e)
 		{
 			new FormattedTextDialog(
-				InventorApplication.Singleton.KnowledgeBase.DescribeRules(LanguageEx.CurrentEx),
+				_application.KnowledgeBase.DescribeRules(LanguageEx.CurrentEx),
 				knowledgeObjectPicked)
 			{
 				Owner = this,
@@ -112,7 +113,7 @@ namespace Inventor.Client.UI
 		private void checkKnowledgeClick(object sender, RoutedEventArgs e)
 		{
 			new FormattedTextDialog(
-				InventorApplication.Singleton.KnowledgeBase.CheckConsistensy(LanguageEx.CurrentEx),
+				_application.KnowledgeBase.CheckConsistensy(LanguageEx.CurrentEx),
 				knowledgeObjectPicked)
 			{
 				Owner = this,

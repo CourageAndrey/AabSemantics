@@ -15,9 +15,6 @@ namespace Inventor.Client
 		public KnowledgeBase KnowledgeBase
 		{ get; internal set; }
 
-		public static InventorApplication Singleton
-		{ get; private set; }
-
 		public override LanguageEx CurrentLanguage
 		{
 			get { return LanguageEx.CurrentEx; }
@@ -33,8 +30,6 @@ namespace Inventor.Client
 		public InventorApplication()
 			: base(AppDomain.CurrentDomain)
 		{
-			Singleton = this;
-
 			MainWindow = MainForm;
 			ShutdownMode = System.Windows.ShutdownMode.OnMainWindowClose;
 		}
@@ -50,6 +45,7 @@ namespace Inventor.Client
 				KnowledgeBase = KnowledgeBase.New(LanguageEx.CurrentEx)
 #endif
 			};
+			application.MainForm.Initialize(application);
 			application.MainWindow.Show();
 			application.Run();
 		}
