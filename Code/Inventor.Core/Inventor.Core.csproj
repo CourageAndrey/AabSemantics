@@ -38,14 +38,19 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Concept.cs" />
+    <Compile Include="EventList.cs" />
     <Compile Include="Formatted strings.cs" />
     <Compile Include="IChangeable.cs" />
     <Compile Include="KnowledgeBase.cs" />
     <Compile Include="Localization\AbsentLocaleException.cs" />
+    <Compile Include="Localization\ILocalizable.cs" />
     <Compile Include="Localization\Language parts\Answers.cs" />
     <Compile Include="Localization\Language parts\Configuration.cs" />
     <Compile Include="Localization\Language parts\Errors.cs" />
     <Compile Include="Localization\INamed.cs" />
+    <Compile Include="Localization\Language.cs" />
+    <Compile Include="Localization\LanguageCommon.cs" />
+    <Compile Include="Localization\LanguageErrors.cs" />
     <Compile Include="Localization\LanguageEx.cs" />
     <Compile Include="Localization\Language parts\Misc.cs" />
     <Compile Include="Localization\Language parts\Proposition format strings.cs" />
@@ -96,12 +101,7 @@
     <Compile Include="Statements\SignValueStatement.cs" />
     <Compile Include="Statements\GroupStatement.cs" />
     <Compile Include="InventorConfiguration.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\Sef\Sef.csproj">
-      <Project>{bc52f2b4-9f80-42d7-b799-6ad860013d8c}</Project>
-      <Name>Sef</Name>
-    </ProjectReference>
+    <Compile Include="XmlHelper.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

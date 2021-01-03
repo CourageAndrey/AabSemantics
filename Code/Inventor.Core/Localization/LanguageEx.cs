@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Xml.Serialization;
 
-using Sef.Localization;
-
 namespace Inventor.Core.Localization
 {
 	public interface ILanguageEx : ILanguage
