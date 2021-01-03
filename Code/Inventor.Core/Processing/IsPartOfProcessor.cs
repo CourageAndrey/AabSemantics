@@ -10,7 +10,7 @@ namespace Inventor.Core.Processing
 {
 	public sealed class IsPartOfProcessor : QuestionProcessor<IsPartOfQuestion>
 	{
-		protected override FormattedText ProcessImplementation(KnowledgeBase knowledgeBase, IsPartOfQuestion question, ILanguageEx language)
+		protected override FormattedText ProcessImplementation(KnowledgeBase knowledgeBase, IsPartOfQuestion question, ILanguage language)
 		{
 			bool yes = knowledgeBase.Statements.OfType<ConsistsOfStatement>().Any(c => c.Parent == question.Parent && c.Child == question.Child);
 			return new FormattedText(yes ? new Func<string>(() => language.Answers.IsPartOfTrue) : () => language.Answers.IsPartOfFalse, new Dictionary<string, INamed>

@@ -6,7 +6,7 @@
 		xmlns:ui="clr-namespace:Inventor.Client.UI"
 		SizeToContent="WidthAndHeight" MinWidth="350" MaxWidth="1200" MaxHeight="600" WindowStartupLocation="CenterOwner" Icon="/Inventor.Client;component/Inventor.ico">
 	<Window.Resources>
-		<ObjectDataProvider x:Key="language" ObjectType="{x:Type localization:LocalizatorEx}" />
+		<ObjectDataProvider x:Key="language" ObjectType="{x:Type localization:Localizator}" />
 		<ui:NamedConverter x:Key="namedConverter" />
 		<DataTemplate DataType="{x:Type core:Concept}">
 			<TextBlock Text="{Binding Converter={StaticResource namedConverter}, Mode=OneTime}"/>

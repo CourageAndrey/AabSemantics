@@ -28,7 +28,7 @@ namespace Inventor.Client.UI
 			dockPanelMain.DataContext = _application = application;
 			_saveLoadController = new SaveLoadController(buttonNew, buttonLoad, buttonSave, buttonSaveAs,
 				createNew, loadFromFile, saveToFile,
-				() => createOpenFileDialog(LanguageEx.CurrentEx), () => createSaveFileDialog(LanguageEx.CurrentEx),
+				() => createOpenFileDialog(Core.Localization.Language.Current), () => createSaveFileDialog(Core.Localization.Language.Current),
 				(s, a) => { },
 				application.KnowledgeBase);
 			realoadKnowledgeBaseTree();
@@ -54,7 +54,7 @@ namespace Inventor.Client.UI
 
 		private IChangeable createNew()
 		{
-			_application.KnowledgeBase = KnowledgeBase.New(LanguageEx.CurrentEx);
+			_application.KnowledgeBase = KnowledgeBase.New(Core.Localization.Language.Current);
 			realoadKnowledgeBaseTree();
 			return _application.KnowledgeBase;
 		}
@@ -83,18 +83,18 @@ namespace Inventor.Client.UI
 
 		private void askQuestionClick(object sender, RoutedEventArgs e)
 		{
-			var dialog = new QuestionDialog(_application.KnowledgeBase, LanguageEx.CurrentEx)
+			var dialog = new QuestionDialog(_application.KnowledgeBase, Core.Localization.Language.Current)
 			{
 				Owner = this,
 			};
 			if (dialog.ShowDialog() == true)
 			{
 				new FormattedTextDialog(
-					QuestionProcessor.Process(_application.KnowledgeBase, dialog.Question, LanguageEx.CurrentEx),
+					QuestionProcessor.Process(_application.KnowledgeBase, dialog.Question, Core.Localization.Language.Current),
 					knowledgeObjectPicked)
 				{
 					Owner = this,
-					Title = LanguageEx.CurrentEx.Misc.Answer,
+					Title = Core.Localization.Language.Current.Misc.Answer,
 				}.Show();
 			}
 		}
@@ -102,26 +102,26 @@ namespace Inventor.Client.UI
 		private void showAllKnowledgeClick(object sender, RoutedEventArgs e)
 		{
 			new FormattedTextDialog(
-				_application.KnowledgeBase.DescribeRules(LanguageEx.CurrentEx),
+				_application.KnowledgeBase.DescribeRules(Core.Localization.Language.Current),
 				knowledgeObjectPicked)
 			{
 				Owner = this,
-				Title = LanguageEx.CurrentEx.Misc.Rules,
+				Title = Core.Localization.Language.Current.Misc.Rules,
 			}.Show();
 		}
 
 		private void checkKnowledgeClick(object sender, RoutedEventArgs e)
 		{
 			new FormattedTextDialog(
-				_application.KnowledgeBase.CheckConsistensy(LanguageEx.CurrentEx),
+				_application.KnowledgeBase.CheckConsistensy(Core.Localization.Language.Current),
 				knowledgeObjectPicked)
 			{
 				Owner = this,
-				Title = LanguageEx.CurrentEx.Misc.CheckResult,
+				Title = Core.Localization.Language.Current.Misc.CheckResult,
 			}.Show();
 		}
 
-		private static OpenFileDialog createOpenFileDialog(ILanguageEx language)
+		private static OpenFileDialog createOpenFileDialog(ILanguage language)
 		{
 			return new OpenFileDialog
 			{
@@ -132,7 +132,7 @@ namespace Inventor.Client.UI
 			};
 		}
 
-		private static SaveFileDialog createSaveFileDialog(ILanguageEx language)
+		private static SaveFileDialog createSaveFileDialog(ILanguage language)
 		{
 			return new SaveFileDialog
 			{

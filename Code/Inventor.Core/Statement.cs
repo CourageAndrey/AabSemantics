@@ -29,7 +29,7 @@ namespace Inventor.Core
 			return string.Format("{0} \"{1}\"", Strings.TostringStatement, Name);
 		}
 
-		protected Statement(Func<ILanguageEx, string> name, Func<ILanguageEx, string> hint = null)
+		protected Statement(Func<ILanguage, string> name, Func<ILanguage, string> hint = null)
 		{
 			if (name != null)
 			{
@@ -45,17 +45,17 @@ namespace Inventor.Core
 
 		#region Description
 
-		public FormattedLine DescribeTrue(ILanguageEx language)
+		public FormattedLine DescribeTrue(ILanguage language)
 		{
 			return new FormattedLine(GetDescriptionText(language.TrueStatementFormatStrings), GetDescriptionParameters());
 		}
 
-		public FormattedLine DescribeFalse(ILanguageEx language)
+		public FormattedLine DescribeFalse(ILanguage language)
 		{
 			return new FormattedLine(GetDescriptionText(language.FalseStatementFormatStrings), GetDescriptionParameters());
 		}
 
-		public FormattedLine DescribeQuestion(ILanguageEx language)
+		public FormattedLine DescribeQuestion(ILanguage language)
 		{
 			return new FormattedLine(GetDescriptionText(language.QuestionStatementFormatStrings), GetDescriptionParameters());
 		}
@@ -82,7 +82,7 @@ namespace Inventor.Core
 	public abstract class Statement<StatementT> : Statement, IEquatable<StatementT>
 		where StatementT : Statement<StatementT>
 	{
-		protected Statement(Func<ILanguageEx, string> name, Func<ILanguageEx, string> hint = null) : base(name, hint)
+		protected Statement(Func<ILanguage, string> name, Func<ILanguage, string> hint = null) : base(name, hint)
 		{ }
 
 		public override sealed bool CheckUnique(IEnumerable<Statement> statements)

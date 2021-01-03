@@ -28,7 +28,7 @@ namespace Inventor.Core
 			_parameters = new Dictionary<string, INamed>(parameters);
 		}
 
-		public string GetPlainText(ILanguageEx language)
+		public string GetPlainText(ILanguage language)
 		{
 			string result = _formatter();
 			foreach (var parameter in _parameters)
@@ -38,7 +38,7 @@ namespace Inventor.Core
 			return result;
 		}
 
-		public string GetHtml(ILanguageEx language, int lineNumber)
+		public string GetHtml(ILanguage language, int lineNumber)
 		{
 			string result = _formatter();
 			foreach (var parameter in _parameters)
@@ -81,7 +81,7 @@ namespace Inventor.Core
 
 		public override string ToString()
 		{
-			return Strings.TostringFormatted + " : " + GetPlainText(LanguageEx.CurrentEx);
+			return Strings.TostringFormatted + " : " + GetPlainText(Language.Current);
 		}
 
 		#region Text
@@ -96,7 +96,7 @@ namespace Inventor.Core
 			_lines.Add(new FormattedLine(formatter, parameters));
 		}
 
-		public StringBuilder GetPlainText(ILanguageEx language)
+		public StringBuilder GetPlainText(ILanguage language)
 		{
 			var result = new StringBuilder();
 			foreach (var line in _lines)
@@ -107,7 +107,7 @@ namespace Inventor.Core
 			return result;
 		}
 
-		public StringBuilder GetHtml(ILanguageEx language)
+		public StringBuilder GetHtml(ILanguage language)
 		{
 			var result = new StringBuilder(@"<html><head><title>Inventor</title></head><body>");
 			result.AppendLine();
