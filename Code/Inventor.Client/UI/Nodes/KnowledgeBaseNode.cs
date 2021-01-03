@@ -6,8 +6,6 @@ using Inventor.Client.Properties;
 using Inventor.Core;
 using Inventor.Core.Localization;
 
-using Sef.UI;
-
 namespace Inventor.Client.UI.Nodes
 {
 	public sealed class KnowledgeBaseNode : ExtendedTreeNode

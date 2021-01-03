@@ -4,8 +4,8 @@ using System.Windows.Data;
 
 using Microsoft.Win32;
 
-using Sef.Localization;
-using Sef.Xml;
+using Inventor.Core;
+using Inventor.Core.Localization;
 
 namespace Inventor.Client.UI
 {
@@ -73,22 +73,22 @@ namespace Inventor.Client.UI
 			switch (_mode)
 			{
 				case Mode.ViewOnly:
-					labelCommonMessage.Text = Sef.Localization.Language.Current.Errors.DialogMessageView;
+					labelCommonMessage.Text = Core.Localization.Language.Current.Errors.DialogMessageView;
 					break;
 				case Mode.ShowInnerExeption:
-					labelCommonMessage.Text = Sef.Localization.Language.Current.Errors.DialogMessageInner;
+					labelCommonMessage.Text = Core.Localization.Language.Current.Errors.DialogMessageInner;
 					break;
 				case Mode.ProcessError:
-					labelCommonMessage.Text = Sef.Localization.Language.Current.Errors.DialogMessageCommon;
+					labelCommonMessage.Text = Core.Localization.Language.Current.Errors.DialogMessageCommon;
 					break;
 				case Mode.ProcessFatalError:
-					labelCommonMessage.Text = Sef.Localization.Language.Current.Errors.DialogMessageFatal;
+					labelCommonMessage.Text = Core.Localization.Language.Current.Errors.DialogMessageFatal;
 					break;
 				default:
 					throw new NotSupportedException();
 			}
-			saveDialog.Title = Sef.Localization.Language.Current.Common.SaveFile;
-			saveDialog.Filter = Sef.Localization.Language.Current.Errors.SaveFilter;
+			saveDialog.Title = Core.Localization.Language.Current.Common.SaveFile;
+			saveDialog.Filter = Core.Localization.Language.Current.Errors.SaveFilter;
 		}
 
 		#endregion
