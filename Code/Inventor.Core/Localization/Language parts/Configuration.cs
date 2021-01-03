@@ -1,5 +1,4 @@
 ﻿using System.Xml.Serialization;
-using Sef.Interfaces;
 
 namespace Inventor.Core.Localization
 {

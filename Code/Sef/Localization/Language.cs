@@ -22,9 +22,6 @@ namespace Sef.Localization
 
         ILanguageErrors Errors
         { get; }
-
-        ILanguageEditor Editor
-        { get; }
     }
 
     [Serializable, XmlRoot(RootName)]
@@ -77,10 +74,6 @@ namespace Sef.Localization
         public LanguageErrors ErrorsXml
         { get; set; }
 
-        [XmlElement(ElementEditor)]
-        public LanguageEditor EditorXml
-        { get; set; }
-
         [XmlIgnore]
         public ILanguageCommon Common
         { get { return CommonXml; } }
@@ -88,10 +81,6 @@ namespace Sef.Localization
         [XmlIgnore]
         public ILanguageErrors Errors
         { get { return ErrorsXml; } }
-
-        [XmlIgnore]
-        public ILanguageEditor Editor
-        { get { return EditorXml; } }
 
         #endregion
 
@@ -114,7 +103,6 @@ namespace Sef.Localization
                 Culture = DefaultCulture,
                 CommonXml = LanguageCommon.CreateDefault(),
                 ErrorsXml = LanguageErrors.CreateDefault(),
-                EditorXml = LanguageEditor.CreateDefault(),
             };
         }
 
@@ -188,16 +176,6 @@ namespace Sef.Localization
             {
                 return Language.Current != null
                     ? Language.Current.Errors
-                    : null;
-            }
-        }
-
-        public ILanguageEditor Editor
-        {
-            get
-            {
-                return Language.Current != null
-                    ? Language.Current.Editor
                     : null;
             }
         }
