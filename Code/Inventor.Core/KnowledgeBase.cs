@@ -9,7 +9,6 @@ using Inventor.Core.Localization;
 using Inventor.Core.Statements;
 
 using Sef.Common;
-using Sef.Program;
 
 namespace Inventor.Core
 {
