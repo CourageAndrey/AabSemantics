@@ -8,7 +8,7 @@ namespace Inventor.Core.Processing
 {
 	public sealed class CheckStatementProcessor : QuestionProcessor<CheckStatementQuestion>
 	{
-		protected override FormattedText ProcessImplementation(KnowledgeBase knowledgeBase, CheckStatementQuestion question, ILanguageEx language)
+		protected override FormattedText ProcessImplementation(KnowledgeBase knowledgeBase, CheckStatementQuestion question, ILanguage language)
 		{
 			var assertion = knowledgeBase.Statements.FirstOrDefault(p => p.Equals(question.Statement));
 			var result = new FormattedText(

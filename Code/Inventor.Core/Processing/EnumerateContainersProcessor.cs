@@ -8,7 +8,7 @@ namespace Inventor.Core.Processing
 {
 	public sealed class EnumerateContainersProcessor : QuestionProcessor<EnumerateContainersQuestion>
 	{
-		protected override FormattedText ProcessImplementation(KnowledgeBase knowledgeBase, EnumerateContainersQuestion question, ILanguageEx language)
+		protected override FormattedText ProcessImplementation(KnowledgeBase knowledgeBase, EnumerateContainersQuestion question, ILanguage language)
 		{
 			var statements = knowledgeBase.Statements.OfType<ConsistsOfStatement>().Where(c => c.Child == question.Concept);
 			if (statements.Any())

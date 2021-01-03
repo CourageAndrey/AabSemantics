@@ -19,17 +19,17 @@ namespace Inventor.Client
 		public String StartupPath
 		{ get { return AppDomain.CurrentDomain.BaseDirectory; } }
 
-		public LanguageEx CurrentLanguage
+		public Language CurrentLanguage
 		{
-			get { return LanguageEx.CurrentEx; }
+			get { return Language.Current; }
 			set
 			{
-				LanguageEx.CurrentEx = value;
+				Language.Current = value;
 				Configuration.SelectedLanguage = value.Culture;
 			}
 		}
 
-		public IList<LanguageEx> Languages
+		public IList<Language> Languages
 		{ get; }
 
 		public InventorConfiguration Configuration
@@ -53,7 +53,7 @@ namespace Inventor.Client
 			AppDomain.CurrentDomain.UnhandledException += dispatcherAppDomainException;
 
 			// addition languages
-			var languages = Language.LoadAdditional<LanguageEx>(StartupPath);
+			var languages = Language.LoadAdditional<Language>(StartupPath);
 			languages.Add(CurrentLanguage);
 			Languages = languages.AsReadOnly();
 

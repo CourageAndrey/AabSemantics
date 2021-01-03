@@ -8,7 +8,7 @@ namespace Inventor.Core.Processing
 {
 	public sealed class DescribeSubjectAreaProcessor : QuestionProcessor<DescribeSubjectAreaQuestion>
 	{
-		protected override FormattedText ProcessImplementation(KnowledgeBase knowledgeBase, DescribeSubjectAreaQuestion question, ILanguageEx language)
+		protected override FormattedText ProcessImplementation(KnowledgeBase knowledgeBase, DescribeSubjectAreaQuestion question, ILanguage language)
 		{
 			var statements = knowledgeBase.Statements.OfType<GroupStatement>().Where(c => c.Area == question.Concept);
 			if (statements.Any())

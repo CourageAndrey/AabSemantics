@@ -18,7 +18,7 @@ namespace Inventor.Core
 			var propertyNames = new Dictionary<string, Func<string>>();
 			foreach (var property in typeof (LanguageQuestionNames).GetProperties())
 			{
-				propertyNames[property.Name] = () => (string) property.GetValue(LanguageEx.CurrentEx.QuestionNames);
+				propertyNames[property.Name] = () => (string) property.GetValue(Language.Current.QuestionNames);
 			}
 			foreach (var questionType in Assembly.GetExecutingAssembly().GetTypes().Where(t => typeof (Question).IsAssignableFrom(t) && !t.IsAbstract))
 			{

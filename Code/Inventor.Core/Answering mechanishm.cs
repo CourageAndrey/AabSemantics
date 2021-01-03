@@ -9,7 +9,7 @@ namespace Inventor.Core
 {
 	public abstract class QuestionProcessor
 	{
-		public static FormattedText Process(KnowledgeBase knowledgeBase, Question question, ILanguageEx language)
+		public static FormattedText Process(KnowledgeBase knowledgeBase, Question question, ILanguage language)
 		{
 			QuestionProcessor processor;
 			if (_allProcessors.TryGetValue(question.GetType(), out processor))
@@ -37,15 +37,15 @@ namespace Inventor.Core
 			}
 		}
 
-		protected abstract FormattedText ProcessInternal(KnowledgeBase knowledgeBase, Question question, ILanguageEx language);
+		protected abstract FormattedText ProcessInternal(KnowledgeBase knowledgeBase, Question question, ILanguage language);
 	}
 
 	public abstract class QuestionProcessor<QuestionT> : QuestionProcessor
 		where QuestionT : Question
 	{
-		protected abstract FormattedText ProcessImplementation(KnowledgeBase knowledgeBase, QuestionT question, ILanguageEx language);
+		protected abstract FormattedText ProcessImplementation(KnowledgeBase knowledgeBase, QuestionT question, ILanguage language);
 
-		protected override FormattedText ProcessInternal(KnowledgeBase knowledgeBase, Question question, ILanguageEx language)
+		protected override FormattedText ProcessInternal(KnowledgeBase knowledgeBase, Question question, ILanguage language)
 		{
 			if (question.GetType() == typeof (QuestionT))
 			{
@@ -60,7 +60,7 @@ namespace Inventor.Core
 
 	public static class AnswerHelper
 	{
-		public static FormattedText CreateUnknown(ILanguageEx language)
+		public static FormattedText CreateUnknown(ILanguage language)
 		{
 			return new FormattedText(() => language.Answers.Unknown, new Dictionary<string, INamed>());
 		}

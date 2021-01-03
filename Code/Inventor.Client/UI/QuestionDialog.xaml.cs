@@ -20,11 +20,11 @@ namespace Inventor.Client.UI
 		public Question Question
 		{ get; private set; }
 
-		private readonly ILanguageEx _language;
+		private readonly ILanguage _language;
 
 		#endregion
 
-		public QuestionDialog(KnowledgeBase knowledgeBase, ILanguageEx language)
+		public QuestionDialog(KnowledgeBase knowledgeBase, ILanguage language)
 		{
 			_language = language;
 
@@ -185,9 +185,9 @@ namespace Inventor.Client.UI
 		private class FormatConverter : IValueConverter
 		{
 			private readonly bool _required;
-			private readonly ILanguageEx _language;
+			private readonly ILanguage _language;
 
-			public FormatConverter(bool required, ILanguageEx language)
+			public FormatConverter(bool required, ILanguage language)
 			{
 				_required = required;
 				_language = language;

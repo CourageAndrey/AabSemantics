@@ -120,12 +120,12 @@ namespace Inventor.Core
 
 		public override string ToString()
 		{
-			return string.Format("{0} : {1}", Strings.TostringKnowledgeBase, Name.GetValue(LanguageEx.CurrentEx));
+			return string.Format("{0} : {1}", Strings.TostringKnowledgeBase, Name.GetValue(Language.Current));
 		}
 
 		#region Serialization
 
-		public static KnowledgeBase New(ILanguageEx language)
+		public static KnowledgeBase New(ILanguage language)
 		{
 			var result = new KnowledgeBase(true);
 			((LocalizedStringVariable) result.Name).SetLocale(language.Culture, language.Misc.NewKbName);
@@ -381,7 +381,7 @@ namespace Inventor.Core
 			return knowledgeBase;
 		}
 
-		public FormattedText DescribeRules(ILanguageEx language)
+		public FormattedText DescribeRules(ILanguage language)
 		{
 			var result = new FormattedText();
 			foreach (var statement in Statements)
@@ -391,7 +391,7 @@ namespace Inventor.Core
 			return result;
 		}
 
-		public FormattedText CheckConsistensy(ILanguageEx language)
+		public FormattedText CheckConsistensy(ILanguage language)
 		{
 			var result = new FormattedText();
 
