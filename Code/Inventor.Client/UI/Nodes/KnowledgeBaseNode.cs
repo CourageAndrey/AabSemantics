@@ -4,7 +4,6 @@ using System.Windows.Media;
 
 using Inventor.Client.Properties;
 using Inventor.Core;
-using Inventor.Core.Localization;
 
 namespace Inventor.Client.UI.Nodes
 {
@@ -13,10 +12,10 @@ namespace Inventor.Client.UI.Nodes
 		#region Properties
 
 		public override string Text
-		{ get { return _knowledgeBase.Name.GetValue(Language.Current); } }
+		{ get { return _knowledgeBase.Name.GetValue(_application.CurrentLanguage); } }
 
 		public override string Tooltip
-		{ get { return Language.Current.Misc.NameKnowledgeBase; } }
+		{ get { return _application.CurrentLanguage.Misc.NameKnowledgeBase; } }
 
 		public override ImageSource Icon
 		{ get { return _icon ?? (_icon = Resources.KnowledgeBase.ToSource()); } }
@@ -28,14 +27,16 @@ namespace Inventor.Client.UI.Nodes
 		private readonly KnowledgeBase _knowledgeBase;
 		private readonly KnowledgeBaseConceptsNode _concepts;
 		private readonly KnowledgeBaseStatementsNode _statements;
+		private readonly InventorApplication _application;
 
 		#endregion
 
-		public KnowledgeBaseNode(KnowledgeBase knowledgeBase)
+		public KnowledgeBaseNode(KnowledgeBase knowledgeBase, InventorApplication application)
 		{
 			_knowledgeBase = knowledgeBase;
-			Children.Add(_concepts = new KnowledgeBaseConceptsNode(knowledgeBase));
-			Children.Add(_statements = new KnowledgeBaseStatementsNode(knowledgeBase));
+			_application = application;
+			Children.Add(_concepts = new KnowledgeBaseConceptsNode(knowledgeBase, application));
+			Children.Add(_statements = new KnowledgeBaseStatementsNode(knowledgeBase, application));
 		}
 
 		public List<ExtendedTreeNode> Find(object obj)

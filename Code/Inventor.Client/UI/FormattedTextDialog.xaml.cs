@@ -10,7 +10,7 @@ namespace Inventor.Client.UI
 {
 	public partial class FormattedTextDialog
 	{
-		public FormattedTextDialog(FormattedText text, Action<INamed> linkClicked)
+		public FormattedTextDialog(ILanguage language, FormattedText text, Action<INamed> linkClicked)
 		{
 			InitializeComponent();
 
@@ -18,7 +18,7 @@ namespace Inventor.Client.UI
 			_linkClicked = linkClicked;
 
 			var browser = (WebBrowser) windowsFormsHost.Child;
-			browser.DocumentText = text.GetHtml(Core.Localization.Language.Current).ToString();
+			browser.DocumentText = text.GetHtml(language).ToString();
 			browser.Navigating += browserNavigating;
 		}
 

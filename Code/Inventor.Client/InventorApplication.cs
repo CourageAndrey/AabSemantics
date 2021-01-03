@@ -19,17 +19,19 @@ namespace Inventor.Client
 		public String StartupPath
 		{ get { return AppDomain.CurrentDomain.BaseDirectory; } }
 
-		public Language CurrentLanguage
+		private ILanguage _currentLanguage;
+
+		public ILanguage CurrentLanguage
 		{
-			get { return Language.Current; }
+			get { return _currentLanguage; }
 			set
 			{
-				Language.Current = value;
+				_currentLanguage = value;
 				Configuration.SelectedLanguage = value.Culture;
 			}
 		}
 
-		public IList<Language> Languages
+		public ICollection<ILanguage> Languages
 		{ get; }
 
 		public InventorConfiguration Configuration
@@ -53,9 +55,9 @@ namespace Inventor.Client
 			AppDomain.CurrentDomain.UnhandledException += dispatcherAppDomainException;
 
 			// addition languages
-			var languages = Language.LoadAdditional<Language>(StartupPath);
-			languages.Add(CurrentLanguage);
-			Languages = languages.AsReadOnly();
+			var languages = Language.LoadAdditional(StartupPath);
+			languages.Add(Language.Default);
+			Languages = languages.ToArray();
 
 			// configuration
 			try
@@ -66,6 +68,25 @@ namespace Inventor.Client
 			{
 				Configuration = new InventorConfiguration();
 				SaveConfiguration();
+			}
+
+			// select language
+			if (!String.IsNullOrEmpty(Configuration.SelectedLanguage))
+			{
+				var storedLanguage = Languages.FirstOrDefault(l => l.Culture == Configuration.SelectedLanguage);
+				if (storedLanguage != null)
+				{
+					CurrentLanguage = storedLanguage;
+				}
+				else
+				{
+					Configuration.SelectedLanguage = CurrentLanguage.Culture;
+				}
+			}
+			else
+			{
+				CurrentLanguage = Languages.FindAppropriate(Language.Default);
+				Configuration.SelectedLanguage = CurrentLanguage.Culture;
 			}
 
 			// form
@@ -93,17 +114,17 @@ namespace Inventor.Client
 
 		#region Exception handling
 
-		private static void dispatcherAppDomainException(object sender, UnhandledExceptionEventArgs e)
+		private void dispatcherAppDomainException(object sender, UnhandledExceptionEventArgs e)
 		{
 			if (e.ExceptionObject is Exception)
 			{
-				new ExceptionDialog(new ExceptionWrapper(e.ExceptionObject as Exception), ExceptionDialog.Mode.ProcessFatalError).ShowDialog();
+				new ExceptionDialog(new ExceptionWrapper(e.ExceptionObject as Exception), ExceptionDialogMode.ProcessFatalError, CurrentLanguage).ShowDialog();
 			}
 		}
 
 		private void dispatcherUnhandledException(object sender, DispatcherUnhandledExceptionEventArgs e)
 		{
-			if (new ExceptionDialog(e.Exception, false).ShowDialog() == true)
+			if (new ExceptionDialog(e.Exception, false, CurrentLanguage).ShowDialog() == true)
 			{
 				Shutdown();
 			}
@@ -111,30 +132,6 @@ namespace Inventor.Client
 		}
 
 		#endregion
-
-		protected override void OnLoadCompleted(NavigationEventArgs e)
-		{
-			base.OnLoadCompleted(e);
-
-			// select language
-			if (!String.IsNullOrEmpty(Configuration.SelectedLanguage))
-			{
-				var storedLanguage = Languages.FirstOrDefault(l => l.Culture == Configuration.SelectedLanguage);
-				if (storedLanguage != null)
-				{
-					CurrentLanguage = storedLanguage;
-				}
-				else
-				{
-					Configuration.SelectedLanguage = CurrentLanguage.Culture;
-				}
-			}
-			else
-			{
-				CurrentLanguage = Language.FindAppropriate(Languages, CurrentLanguage);
-				Configuration.SelectedLanguage = CurrentLanguage.Culture;
-			}
-		}
 
 		public void SaveConfiguration()
 		{

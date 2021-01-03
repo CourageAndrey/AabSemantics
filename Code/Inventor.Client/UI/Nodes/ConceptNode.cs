@@ -2,7 +2,6 @@
 
 using Inventor.Client.Properties;
 using Inventor.Core;
-using Inventor.Core.Localization;
 
 namespace Inventor.Client.UI.Nodes
 {
@@ -11,10 +10,10 @@ namespace Inventor.Client.UI.Nodes
 		#region Properties
 
 		public override string Text
-		{ get { return _concept.Name.GetValue(Language.Current); } }
+		{ get { return _concept.Name.GetValue(_application.CurrentLanguage); } }
 
 		public override string Tooltip
-		{ get { return _concept.Hint.GetValue(Language.Current); } }
+		{ get { return _concept.Hint.GetValue(_application.CurrentLanguage); } }
 
 		public override ImageSource Icon
 		{ get { return _icon ?? (_icon = Resources.Concept.ToSource()); } }
@@ -24,12 +23,14 @@ namespace Inventor.Client.UI.Nodes
 
 		private static ImageSource _icon;
 		private readonly Concept _concept;
+		private readonly InventorApplication _application;
 
 		#endregion
 
-		public ConceptNode(Concept concept)
+		public ConceptNode(Concept concept, InventorApplication application)
 		{
 			_concept = concept;
+			_application = application;
 		}
 	}
 }

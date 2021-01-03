@@ -105,7 +105,7 @@ namespace Inventor.Core.Localization
 
 		public override string ToString()
 		{
-			return string.Format("{0} \"{1}\"", Strings.TostringLocalized, _getter(Language.Current));
+			return string.Format("{0} \"{1}\"", Strings.TostringLocalized, _getter(Language.Default));
 		}
 	}
 }
