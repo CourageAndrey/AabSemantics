@@ -39,6 +39,7 @@
   <ItemGroup>
     <Compile Include="Concept.cs" />
     <Compile Include="Formatted strings.cs" />
+    <Compile Include="IChangeable.cs" />
     <Compile Include="KnowledgeBase.cs" />
     <Compile Include="Localization\AbsentLocaleException.cs" />
     <Compile Include="Localization\Language parts\Answers.cs" />

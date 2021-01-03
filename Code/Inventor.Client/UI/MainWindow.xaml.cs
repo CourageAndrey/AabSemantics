@@ -6,8 +6,6 @@ using Inventor.Client.UI.Nodes;
 using Inventor.Core;
 using Inventor.Core.Localization;
 
-using Sef.Program;
-
 namespace Inventor.Client.UI
 {
 	public partial class MainWindow
