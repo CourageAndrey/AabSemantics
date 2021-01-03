@@ -2,6 +2,8 @@
 using System.Windows;
 using System.Windows.Data;
 
+using Microsoft.Win32;
+
 using Inventor.Client.UI.Nodes;
 using Inventor.Core;
 using Inventor.Core.Localization;
@@ -26,7 +28,7 @@ namespace Inventor.Client.UI
 			dockPanelMain.DataContext = _application = application;
 			_saveLoadController = new SaveLoadController(buttonNew, buttonLoad, buttonSave, buttonSaveAs,
 				createNew, loadFromFile, saveToFile,
-				() => KnowledgeBase.CreateOpenFileDialog(LanguageEx.CurrentEx), () => KnowledgeBase.CreateSaveFileDialog(LanguageEx.CurrentEx),
+				() => createOpenFileDialog(LanguageEx.CurrentEx), () => createSaveFileDialog(LanguageEx.CurrentEx),
 				(s, a) => { },
 				application.KnowledgeBase);
 			realoadKnowledgeBaseTree();
@@ -117,6 +119,28 @@ namespace Inventor.Client.UI
 				Owner = this,
 				Title = LanguageEx.CurrentEx.Misc.CheckResult,
 			}.Show();
+		}
+
+		private static OpenFileDialog createOpenFileDialog(ILanguageEx language)
+		{
+			return new OpenFileDialog
+			{
+				DefaultExt = ".xml",
+				Filter = language.Misc.DialogKbFileFilter,
+				RestoreDirectory = true,
+				Title = language.Misc.DialogKbOpenTitle,
+			};
+		}
+
+		private static SaveFileDialog createSaveFileDialog(ILanguageEx language)
+		{
+			return new SaveFileDialog
+			{
+				DefaultExt = ".xml",
+				Filter = language.Misc.DialogKbFileFilter,
+				RestoreDirectory = true,
+				Title = language.Misc.DialogKbSaveTitle,
+			};
 		}
 
 		#endregion
