@@ -8,8 +8,6 @@ using Microsoft.Win32;
 using Inventor.Core.Localization;
 using Inventor.Core.Statements;
 
-using Sef.Common;
-
 namespace Inventor.Core
 {
 	public sealed class KnowledgeBase : INamed, IChangeable

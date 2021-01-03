@@ -4,7 +4,7 @@ using System.IO;
 using System.Xml;
 using System.Xml.Serialization;
 
-namespace Sef.Xml
+namespace Inventor.Core
 {
 	public static class XmlHelper
 	{
@@ -65,7 +65,7 @@ namespace Sef.Xml
 
 		#endregion
 
-        #region Deserialization
+		#region Deserialization
 
 		public static T DeserializeFromStream<T>(this XmlReader reader)
 		{

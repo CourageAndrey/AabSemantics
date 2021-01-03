@@ -10,9 +10,6 @@ using Inventor.Client.UI;
 using Inventor.Core;
 using Inventor.Core.Localization;
 
-using Sef.Localization;
-using Sef.Xml;
-
 namespace Inventor.Client
 {
 	public class InventorApplication : Application
