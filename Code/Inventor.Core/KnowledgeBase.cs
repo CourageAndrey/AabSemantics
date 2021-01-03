@@ -3,8 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 
-using Microsoft.Win32;
-
 using Inventor.Core.Localization;
 using Inventor.Core.Statements;
 
@@ -142,28 +140,6 @@ namespace Inventor.Core
 		public void Save(string fileName)
 		{
 			throw new NotImplementedException();
-		}
-
-		internal static OpenFileDialog CreateOpenFileDialog(ILanguageEx language)
-		{
-			return new OpenFileDialog
-			{
-				DefaultExt = ".xml",
-				Filter = language.Misc.DialogKbFileFilter,
-				RestoreDirectory = true,
-				Title = language.Misc.DialogKbOpenTitle,
-			};
-		}
-
-		internal static SaveFileDialog CreateSaveFileDialog(ILanguageEx language)
-		{
-			return new SaveFileDialog
-			{
-				DefaultExt = ".xml",
-				Filter = language.Misc.DialogKbFileFilter,
-				RestoreDirectory = true,
-				Title = language.Misc.DialogKbSaveTitle,
-			};
 		}
 
 		public event EventHandler Changed;
