@@ -50,11 +50,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Common\EventList.cs" />
-    <Compile Include="Exceptions\ExceptionDialog.xaml.cs">
-      <DependentUpon>ExceptionDialog.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Exceptions\ExceptionWrapper.cs" />
-    <Compile Include="Exceptions\WarningException.cs" />
     <Compile Include="Interfaces\IEditable.cs" />
     <Compile Include="Interfaces\IEditor.cs" />
     <Compile Include="Interfaces\IHasImage.cs" />
@@ -65,7 +60,6 @@
     <Compile Include="Localization\LanguageCommon.cs" />
     <Compile Include="Localization\LanguageEditor.cs" />
     <Compile Include="Localization\LanguageErrors.cs" />
-    <Compile Include="Program\Configuration.cs" />
     <Compile Include="Program\IChangeable.cs" />
     <Compile Include="Program\SaveLoadController.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
@@ -85,13 +79,13 @@
       <DependentUpon>CommonDialog.xaml</DependentUpon>
     </Compile>
     <Compile Include="UI\EditorBase.cs" />
-    <Compile Include="Program\ExtendedApplication.cs" />
     <Compile Include="UI\ExtendedTreeNode.cs" />
     <Compile Include="UI\ImageConverter.cs" />
     <Compile Include="Xml\XmlHelper.cs" />
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -100,24 +94,10 @@
     <AppDesigner Include="Properties\" />
   </ItemGroup>
   <ItemGroup>
-    <Page Include="Exceptions\ExceptionDialog.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
     <Page Include="UI\CommonDialog.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Resources\Collapse.png" />
-    <Resource Include="Resources\Configuration.png" />
-    <Resource Include="Resources\Continue.png" />
-    <Resource Include="Resources\Error.ico" />
-    <Resource Include="Resources\Error.png" />
-    <Resource Include="Resources\Save.png" />
-    <Resource Include="Resources\Stop.png" />
-    <Resource Include="Resources\Warning.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

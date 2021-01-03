@@ -1,13 +1,20 @@
-﻿using System.Xml.Serialization;
+﻿using System;
+using System.Xml.Serialization;
 
 using Sef.Interfaces;
-using Sef.Program;
 
 namespace Inventor.Core
 {
-	[XmlRoot]
-	public class InventorConfiguration : Configuration, IEditable<InventorConfiguration>
+	[Serializable, XmlRoot]
+	public class InventorConfiguration : IEditable<InventorConfiguration>
 	{
+		[XmlElement]
+		public String SelectedLanguage
+		{ get; set; }
+
+		[XmlIgnore]
+		internal const string FileName = "Configuration.xml";
+
 		public void UpdateFrom(InventorConfiguration other)
 		{
 			SelectedLanguage = other.SelectedLanguage;
