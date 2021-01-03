@@ -4,7 +4,6 @@ using System.Windows.Media;
 
 using Inventor.Client.Properties;
 using Inventor.Core;
-using Inventor.Core.Localization;
 
 namespace Inventor.Client.UI.Nodes
 {
@@ -13,10 +12,10 @@ namespace Inventor.Client.UI.Nodes
 		#region Properties
 
 		public override string Text
-		{ get { return Language.Current.Misc.NameCategoryConcepts; } }
+		{ get { return _application.CurrentLanguage.Misc.NameCategoryConcepts; } }
 
 		public override string Tooltip
-		{ get { return Language.Current.Misc.NameCategoryConcepts; } }
+		{ get { return _application.CurrentLanguage.Misc.NameCategoryConcepts; } }
 
 		public override ImageSource Icon
 		{ get { return _icon ?? (_icon = Resources.Folder.ToSource()); } }
@@ -26,15 +25,17 @@ namespace Inventor.Client.UI.Nodes
 
 		private static ImageSource _icon;
 		private readonly KnowledgeBase _knowledgeBase;
+		private readonly InventorApplication _application;
 
 		#endregion
 
-		public KnowledgeBaseConceptsNode(KnowledgeBase knowledgeBase)
+		public KnowledgeBaseConceptsNode(KnowledgeBase knowledgeBase, InventorApplication application)
 		{
 			_knowledgeBase = knowledgeBase;
+			_application = application;
 			foreach (var concept in knowledgeBase.Concepts)
 			{
-				Children.Add(new ConceptNode(concept));
+				Children.Add(new ConceptNode(concept, application));
 			}
 			knowledgeBase.ConceptAdded += conceptAdded;
 			knowledgeBase.ConceptRemoved += conceptRemoved;
@@ -42,7 +43,7 @@ namespace Inventor.Client.UI.Nodes
 
 		private void conceptAdded(IList<Concept> list, Concept item)
 		{
-			Children.Add(new ConceptNode(item));
+			Children.Add(new ConceptNode(item, _application));
 		}
 
 		private void conceptRemoved(IList<Concept> list, Concept item)

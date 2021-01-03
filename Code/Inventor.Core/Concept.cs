@@ -31,7 +31,7 @@ namespace Inventor.Core
 
 		public override string ToString()
 		{
-			return string.Format("{0} : {1}", Strings.TostringConcept, Name.GetValue(Language.Current));
+			return string.Format("{0} : {1}", Strings.TostringConcept, Name);
 		}
 	}
 

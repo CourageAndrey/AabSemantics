@@ -112,15 +112,15 @@ namespace Inventor.Core
 		{
 			_concepts.Add(True = new Concept(
 				new LocalizedStringConstant(language => language.Misc.True),
-				new LocalizedStringConstant(language => language.Misc.TrueHint)) {Type = ConceptType.System});
+				new LocalizedStringConstant(language => language.Misc.TrueHint)) { Type = ConceptType.System });
 			_concepts.Add(False = new Concept(
 				new LocalizedStringConstant(language => language.Misc.False),
-				new LocalizedStringConstant(language => language.Misc.FalseHint)) {Type = ConceptType.System});
+				new LocalizedStringConstant(language => language.Misc.FalseHint)) { Type = ConceptType.System });
 		}
 
 		public override string ToString()
 		{
-			return string.Format("{0} : {1}", Strings.TostringKnowledgeBase, Name.GetValue(Language.Current));
+			return string.Format("{0} : {1}", Strings.TostringKnowledgeBase, Name);
 		}
 
 		#region Serialization

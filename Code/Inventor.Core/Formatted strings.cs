@@ -81,7 +81,7 @@ namespace Inventor.Core
 
 		public override string ToString()
 		{
-			return Strings.TostringFormatted + " : " + GetPlainText(Language.Current);
+			return Strings.TostringFormatted + " : " + GetPlainText(Language.Default);
 		}
 
 		#region Text

@@ -2,7 +2,6 @@
 
 using Inventor.Client.Properties;
 using Inventor.Core;
-using Inventor.Core.Localization;
 
 namespace Inventor.Client.UI.Nodes
 {
@@ -11,10 +10,10 @@ namespace Inventor.Client.UI.Nodes
 		#region Properties
 
 		public override string Text
-		{ get { return _statement.DescribeTrue(Language.Current).GetPlainText(Language.Current); } }
+		{ get { return _statement.DescribeTrue(_application.CurrentLanguage).GetPlainText(_application.CurrentLanguage); } }
 
 		public override string Tooltip
-		{ get { return _statement.Hint?.GetValue(Language.Current); } }
+		{ get { return _statement.Hint?.GetValue(_application.CurrentLanguage); } }
 
 		public override ImageSource Icon
 		{ get { return _icon ?? (_icon = Resources.Statement.ToSource()); } }
@@ -24,12 +23,15 @@ namespace Inventor.Client.UI.Nodes
 
 		private static ImageSource _icon;
 		private readonly Statement _statement;
+		private readonly InventorApplication _application;
+
 
 		#endregion
 
-		public StatementNode(Statement statement)
+		public StatementNode(Statement statement, InventorApplication application)
 		{
 			_statement = statement;
+			_application = application;
 			/*foreach (var concept in _statement.ChildConcepts)
 			{
 				children.Add(new ConceptNode(concept));

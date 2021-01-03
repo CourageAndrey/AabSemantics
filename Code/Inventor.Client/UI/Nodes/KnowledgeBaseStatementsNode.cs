@@ -13,10 +13,10 @@ namespace Inventor.Client.UI.Nodes
 		#region Properties
 
 		public override string Text
-		{ get { return Language.Current.Misc.NameCategoryStatements; } }
+		{ get { return _application.CurrentLanguage.Misc.NameCategoryStatements; } }
 
 		public override string Tooltip
-		{ get { return Language.Current.Misc.NameCategoryStatements; } }
+		{ get { return _application.CurrentLanguage.Misc.NameCategoryStatements; } }
 
 		public override ImageSource Icon
 		{ get { return _icon ?? (_icon = Resources.Folder.ToSource()); } }
@@ -26,15 +26,17 @@ namespace Inventor.Client.UI.Nodes
 
 		private static ImageSource _icon;
 		private readonly KnowledgeBase _knowledgeBase;
+		private readonly InventorApplication _application;
 
 		#endregion
 
-		public KnowledgeBaseStatementsNode(KnowledgeBase knowledgeBase)
+		public KnowledgeBaseStatementsNode(KnowledgeBase knowledgeBase, InventorApplication application)
 		{
 			_knowledgeBase = knowledgeBase;
+			_application = application;
 			foreach (var statement in knowledgeBase.Statements)
 			{
-				Children.Add(new StatementNode(statement));
+				Children.Add(new StatementNode(statement, application));
 			}
 			knowledgeBase.StatementAdded += StatementAdded;
 			knowledgeBase.StatementRemoved += StatementRemoved;
@@ -42,7 +44,7 @@ namespace Inventor.Client.UI.Nodes
 
 		private void StatementAdded(IList<Statement> list, Statement item)
 		{
-			Children.Add(new StatementNode(item));
+			Children.Add(new StatementNode(item, _application));
 		}
 
 		private void StatementRemoved(IList<Statement> list, Statement item)

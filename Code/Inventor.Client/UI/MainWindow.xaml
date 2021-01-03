@@ -57,7 +57,7 @@
 			<ToolBar>
 				<StackPanel Orientation="Vertical" Margin="10,0,5,0">
 				<TextBlock Text="{Binding Source={StaticResource language}, Path=Ui.MainForm.SelectLanguage, Mode=OneTime}" Margin="2"/>
-				<ComboBox ItemsSource="{Binding Path=Languages, Mode=OneTime}" SelectedItem="{Binding Path=CurrentLanguage, Mode=TwoWay}" DisplayMemberPath="Name" MinWidth="100" />
+				<ComboBox ItemsSource="{Binding Path=Languages, Mode=OneTime}" SelectedItem="{Binding Path=CurrentLanguage, Mode=TwoWay}" DisplayMemberPath="Name" MinWidth="100" SelectionChanged="selectedLanguageChanged" />
 				</StackPanel>
 			</ToolBar>
 		</ToolBarPanel>

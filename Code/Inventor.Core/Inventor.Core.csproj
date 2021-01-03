@@ -42,7 +42,6 @@
     <Compile Include="IChangeable.cs" />
     <Compile Include="KnowledgeBase.cs" />
     <Compile Include="Localization\AbsentLocaleException.cs" />
-    <Compile Include="Localization\ILocalizable.cs" />
     <Compile Include="Localization\Language parts\Answers.cs" />
     <Compile Include="Localization\Language parts\Configuration.cs" />
     <Compile Include="Localization\Language parts\Errors.cs" />
