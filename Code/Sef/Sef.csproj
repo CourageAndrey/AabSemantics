@@ -50,15 +50,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Common\EventList.cs" />
-    <Compile Include="Interfaces\IEditable.cs" />
-    <Compile Include="Interfaces\IEditor.cs" />
-    <Compile Include="Interfaces\IHasImage.cs" />
     <Compile Include="Localization\ILocalizable.cs" />
-    <Compile Include="Interfaces\IComplexFocus.cs" />
-    <Compile Include="Interfaces\ISupportsValidation.cs" />
     <Compile Include="Localization\Language.cs" />
     <Compile Include="Localization\LanguageCommon.cs" />
-    <Compile Include="Localization\LanguageEditor.cs" />
     <Compile Include="Localization\LanguageErrors.cs" />
     <Compile Include="Program\IChangeable.cs" />
     <Compile Include="Program\SaveLoadController.cs" />
@@ -75,10 +69,6 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
-    <Compile Include="UI\CommonDialog.xaml.cs">
-      <DependentUpon>CommonDialog.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="UI\EditorBase.cs" />
     <Compile Include="UI\ExtendedTreeNode.cs" />
     <Compile Include="UI\ImageConverter.cs" />
     <Compile Include="Xml\XmlHelper.cs" />
@@ -92,12 +82,6 @@
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
     <AppDesigner Include="Properties\" />
-  </ItemGroup>
-  <ItemGroup>
-    <Page Include="UI\CommonDialog.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

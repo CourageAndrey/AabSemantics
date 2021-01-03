@@ -180,7 +180,6 @@ namespace Inventor.Core.Localization
 				FileName = Default.FileName,
 				CommonXml = Default.CommonXml,
 				ErrorsXml = Default.ErrorsXml,
-				EditorXml = Default.EditorXml,
 				StatementNamesXml = LanguageStatements.CreateDefaultNames(),
 				StatementHintsXml = LanguageStatements.CreateDefaultHints(),
 				TrueStatementFormatStringsXml = LanguageStatementFormatStrings.CreateDefaultTrue(),
