@@ -78,6 +78,7 @@
     <Compile Include="UI\QuestionDialog.xaml.cs">
       <DependentUpon>QuestionDialog.xaml</DependentUpon>
     </Compile>
+    <Compile Include="UI\SaveLoadController.cs" />
     <Compile Include="UI\UiHelper.cs" />
     <Page Include="UI\ExceptionDialog.xaml">
       <Generator>MSBuild:Compile</Generator>

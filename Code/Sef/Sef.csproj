@@ -54,8 +54,6 @@
     <Compile Include="Localization\Language.cs" />
     <Compile Include="Localization\LanguageCommon.cs" />
     <Compile Include="Localization\LanguageErrors.cs" />
-    <Compile Include="Program\IChangeable.cs" />
-    <Compile Include="Program\SaveLoadController.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
