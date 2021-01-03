@@ -30,6 +30,8 @@ namespace Inventor.Client.UI
 
 			InitializeComponent();
 
+			var localizationProvider = (ObjectDataProvider) Resources["language"];
+			localizationProvider.ConstructorParameters.Add(_language);
 			((NamedConverter) Resources["namedConverter"]).Language = _language;
 
 			Title = _language.Ui.QuestionDialog.Title;
@@ -38,10 +40,10 @@ namespace Inventor.Client.UI
 			panelSelectQuestion.Visibility = Visibility.Visible;
 			panelQuestionParams.Visibility = Visibility.Hidden;
 
-			this._knowledgeBase = knowledgeBase;
+			_knowledgeBase = knowledgeBase;
 			foreach (var questionDraft in Question.AllSupportedTypes)
 			{
-				_questions[questionDraft.Key()] = questionDraft.Value;
+				_questions[questionDraft.Key(_language)] = questionDraft.Value;
 			}
 			comboBoxQuestion.ItemsSource = _questions.Keys.OrderBy(q => q);
 

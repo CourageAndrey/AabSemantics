@@ -9,22 +9,23 @@ using Inventor.Core.Localization;
 
 namespace Inventor.Client.UI
 {
-	public partial class ExceptionDialog : ILocalizable
+	public enum ExceptionDialogMode
 	{
-		public enum Mode
-		{
-			ViewOnly,
-			ShowInnerExeption,
-			ProcessError,
-			ProcessFatalError
-		}
+		ViewOnly,
+		ShowInnerExeption,
+		ProcessError,
+		ProcessFatalError
+	}
 
-		private readonly Mode _mode;
+	public partial class ExceptionDialog
+	{
+		private readonly ExceptionDialogMode _mode;
 		private readonly IExceptionWrapper _exception;
+		private readonly ILanguage _language;
 
 		#region Constructor
 
-		public ExceptionDialog(IExceptionWrapper exception, Mode mode)
+		public ExceptionDialog(IExceptionWrapper exception, ExceptionDialogMode mode, ILanguage language)
 		{
 			_mode = mode;
 
@@ -39,56 +40,61 @@ namespace Inventor.Client.UI
 			buttonInnerException.Visibility = (exception.InnerException == null) ? Visibility.Collapsed : Visibility.Visible;
 			switch (mode)
 			{
-				case Mode.ViewOnly:
-				case Mode.ShowInnerExeption:
-				case Mode.ProcessFatalError:
+				case ExceptionDialogMode.ViewOnly:
+				case ExceptionDialogMode.ShowInnerExeption:
+				case ExceptionDialogMode.ProcessFatalError:
 					buttonAbort.Visibility = Visibility.Collapsed;
 					buttonIgnore.Visibility = Visibility.Collapsed;
 					break;
-				case Mode.ProcessError:
+				case ExceptionDialogMode.ProcessError:
 					buttonClose.Visibility = Visibility.Collapsed;
 					break;
 				default:
 					throw new NotSupportedException();
 			}
-			Localize();
+
+			_language = language;
+			localize();
+
 			gridData.DataContext = _exception = exception;
 		}
 
-		public ExceptionDialog(IExceptionWrapper exception, Boolean viewOnly)
-			: this(exception, viewOnly ? Mode.ViewOnly : Mode.ProcessError)
+		public ExceptionDialog(IExceptionWrapper exception, Boolean viewOnly, ILanguage language)
+			: this(exception, viewOnly ? ExceptionDialogMode.ViewOnly : ExceptionDialogMode.ProcessError, language)
 		{ }
 
-		public ExceptionDialog(Exception exception, Boolean viewOnly)
-			: this(new ExceptionWrapper(exception), viewOnly)
+		public ExceptionDialog(Exception exception, Boolean viewOnly, ILanguage language)
+			: this(new ExceptionWrapper(exception), viewOnly, language)
 		{ }
 
 		#endregion
 
 		#region Implementation of ILocalizable
 
-		public void Localize()
+		private void localize()
 		{
-			((ObjectDataProvider) Resources["language"]).Refresh();
+			var localizationProvider = (ObjectDataProvider) Resources["language"];
+			localizationProvider.ConstructorParameters.Add(_language);
+
 			switch (_mode)
 			{
-				case Mode.ViewOnly:
-					labelCommonMessage.Text = Core.Localization.Language.Current.Errors.DialogMessageView;
+				case ExceptionDialogMode.ViewOnly:
+					labelCommonMessage.Text = _language.Errors.DialogMessageView;
 					break;
-				case Mode.ShowInnerExeption:
-					labelCommonMessage.Text = Core.Localization.Language.Current.Errors.DialogMessageInner;
+				case ExceptionDialogMode.ShowInnerExeption:
+					labelCommonMessage.Text = _language.Errors.DialogMessageInner;
 					break;
-				case Mode.ProcessError:
-					labelCommonMessage.Text = Core.Localization.Language.Current.Errors.DialogMessageCommon;
+				case ExceptionDialogMode.ProcessError:
+					labelCommonMessage.Text = _language.Errors.DialogMessageCommon;
 					break;
-				case Mode.ProcessFatalError:
-					labelCommonMessage.Text = Core.Localization.Language.Current.Errors.DialogMessageFatal;
+				case ExceptionDialogMode.ProcessFatalError:
+					labelCommonMessage.Text = _language.Errors.DialogMessageFatal;
 					break;
 				default:
 					throw new NotSupportedException();
 			}
-			saveDialog.Title = Core.Localization.Language.Current.Common.SaveFile;
-			saveDialog.Filter = Core.Localization.Language.Current.Errors.SaveFilter;
+			saveDialog.Title = _language.Common.SaveFile;
+			saveDialog.Filter = _language.Errors.SaveFilter;
 		}
 
 		#endregion
@@ -115,7 +121,7 @@ namespace Inventor.Client.UI
 
 		private void buttonInnerException_Click(Object sender, RoutedEventArgs e)
 		{
-			new ExceptionDialog(_exception.InnerException, Mode.ShowInnerExeption).ShowDialog();
+			new ExceptionDialog(_exception.InnerException, ExceptionDialogMode.ShowInnerExeption, _language).ShowDialog();
 		}
 
 		#endregion

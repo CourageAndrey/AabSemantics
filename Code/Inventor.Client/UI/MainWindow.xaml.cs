@@ -1,5 +1,6 @@
 ﻿using System.Linq;
 using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Data;
 
 using Microsoft.Win32;
@@ -16,9 +17,12 @@ namespace Inventor.Client.UI
 		{
 			InitializeComponent();
 
+			_localizationProvider = (ObjectDataProvider) Resources["language"];
+			_localizator = (Localizator) _localizationProvider.Data;
+
 			SetBinding(TitleProperty, new Binding("Ui.MainForm.Title")
 			{
-				Source = Resources["language"],
+				Source = _localizationProvider,
 				Mode = BindingMode.OneTime,
 			});
 		}
@@ -28,15 +32,23 @@ namespace Inventor.Client.UI
 			dockPanelMain.DataContext = _application = application;
 			_saveLoadController = new SaveLoadController(buttonNew, buttonLoad, buttonSave, buttonSaveAs,
 				createNew, loadFromFile, saveToFile,
-				() => createOpenFileDialog(Core.Localization.Language.Current), () => createSaveFileDialog(Core.Localization.Language.Current),
+				() => createOpenFileDialog(_application.CurrentLanguage), () => createSaveFileDialog(_application.CurrentLanguage),
 				(s, a) => { },
 				application.KnowledgeBase);
 			realoadKnowledgeBaseTree();
 		}
 
+		private readonly ObjectDataProvider _localizationProvider;
+		private readonly Localizator _localizator;
 		private InventorApplication _application;
 		private KnowledgeBaseNode _knowledgeBaseNode;
 		private SaveLoadController _saveLoadController;
+
+		private void selectedLanguageChanged(object sender, SelectionChangedEventArgs e)
+		{
+			_localizator.Change(_application.CurrentLanguage);
+			_localizationProvider.Refresh();
+		}
 
 		#region Main menu
 
@@ -54,7 +66,7 @@ namespace Inventor.Client.UI
 
 		private IChangeable createNew()
 		{
-			_application.KnowledgeBase = KnowledgeBase.New(Core.Localization.Language.Current);
+			_application.KnowledgeBase = KnowledgeBase.New(_application.CurrentLanguage);
 			realoadKnowledgeBaseTree();
 			return _application.KnowledgeBase;
 		}
@@ -73,7 +85,7 @@ namespace Inventor.Client.UI
 			{
 				_knowledgeBaseNode.Clear();
 			}
-			treeViewKnowledgeBase.Items.Add(_knowledgeBaseNode = new KnowledgeBaseNode(_application.KnowledgeBase));
+			treeViewKnowledgeBase.Items.Add(_knowledgeBaseNode = new KnowledgeBaseNode(_application.KnowledgeBase, _application));
 			_knowledgeBaseNode.IsExpanded = true;
 		}
 
@@ -83,18 +95,19 @@ namespace Inventor.Client.UI
 
 		private void askQuestionClick(object sender, RoutedEventArgs e)
 		{
-			var dialog = new QuestionDialog(_application.KnowledgeBase, Core.Localization.Language.Current)
+			var dialog = new QuestionDialog(_application.KnowledgeBase, _application.CurrentLanguage)
 			{
 				Owner = this,
 			};
 			if (dialog.ShowDialog() == true)
 			{
 				new FormattedTextDialog(
-					QuestionProcessor.Process(_application.KnowledgeBase, dialog.Question, Core.Localization.Language.Current),
+					_application.CurrentLanguage,
+					QuestionProcessor.Process(_application.KnowledgeBase, dialog.Question, _application.CurrentLanguage),
 					knowledgeObjectPicked)
 				{
 					Owner = this,
-					Title = Core.Localization.Language.Current.Misc.Answer,
+					Title = _application.CurrentLanguage.Misc.Answer,
 				}.Show();
 			}
 		}
@@ -102,22 +115,24 @@ namespace Inventor.Client.UI
 		private void showAllKnowledgeClick(object sender, RoutedEventArgs e)
 		{
 			new FormattedTextDialog(
-				_application.KnowledgeBase.DescribeRules(Core.Localization.Language.Current),
+				_application.CurrentLanguage,
+				_application.KnowledgeBase.DescribeRules(_application.CurrentLanguage),
 				knowledgeObjectPicked)
 			{
 				Owner = this,
-				Title = Core.Localization.Language.Current.Misc.Rules,
+				Title = _application.CurrentLanguage.Misc.Rules,
 			}.Show();
 		}
 
 		private void checkKnowledgeClick(object sender, RoutedEventArgs e)
 		{
 			new FormattedTextDialog(
-				_application.KnowledgeBase.CheckConsistensy(Core.Localization.Language.Current),
+				_application.CurrentLanguage,
+				_application.KnowledgeBase.CheckConsistensy(_application.CurrentLanguage),
 				knowledgeObjectPicked)
 			{
 				Owner = this,
-				Title = Core.Localization.Language.Current.Misc.CheckResult,
+				Title = _application.CurrentLanguage.Misc.CheckResult,
 			}.Show();
 		}
 

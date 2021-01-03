@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.IO;
 using System.Linq;
 using System.Threading;
@@ -232,16 +233,12 @@ namespace Inventor.Core.Localization
 		#region Singleton
 
 		[XmlIgnore]
-		public static Language Current
-		{ get; protected internal set; }
-
-		[XmlIgnore]
 		public static Language Default
 		{ get; protected set; }
 
 		static Language()
 		{
-			Current = Default = new Language
+			Default = new Language
 			{
 				FileName = String.Empty,
 				Name = DefaultName,
@@ -264,28 +261,21 @@ namespace Inventor.Core.Localization
 			};
 		}
 
-		public static List<LanguageT> LoadAdditional<LanguageT>(String applicationPath)
-			where LanguageT : Language, new()
+		public static ICollection<ILanguage> LoadAdditional(String applicationPath)
 		{
 			var languagesFolder = new DirectoryInfo(Path.Combine(applicationPath, FolderPath));
 			if (languagesFolder.Exists)
 			{
 				var languageFiles = languagesFolder.GetFiles(FileFormat);
 				return languageFiles.Length > 0
-					? languageFiles.Select(f => f.FullName.DeserializeFromFile<LanguageT>()).ToList()
-					: new List<LanguageT>();
+					? languageFiles.Select(f => f.FullName.DeserializeFromFile<Language>() as ILanguage).ToList()
+					: new List<ILanguage>();
 			}
 			else
 			{
 				languagesFolder.Create();
-				return new List<LanguageT>();
+				return new List<ILanguage>();
 			}
-		}
-
-		public static LanguageT FindAppropriate<LanguageT>(IEnumerable<LanguageT> all, LanguageT defaultValue)
-			where LanguageT : Language
-		{
-			return all.FirstOrDefault(l => l.Culture == Thread.CurrentThread.CurrentUICulture.Name) ?? defaultValue;
 		}
 
 		#endregion
@@ -296,156 +286,79 @@ namespace Inventor.Core.Localization
 		}
 	}
 
+	public static class LanguageExtensions
+	{
+		public static ILanguage FindAppropriate(this IEnumerable<ILanguage> languages, ILanguage @default)
+		{
+			return languages.FirstOrDefault(l => l.Culture == Thread.CurrentThread.CurrentUICulture.Name) ?? @default;
+		}
+	}
+
 	public class Localizator : ILanguage
 	{
-		public string Name
+		private ILanguage _language;
+
+		public Localizator()
+			: this(null)
+		{ }
+
+		public Localizator(ILanguage language)
 		{
-			get
-			{
-				return Language.Current != null
-					? Language.Current.Name
-					: null;
-			}
+			_language = language;
 		}
+
+		#region Properties
+
+		public string Name
+		{ get { return _language?.Name; } }
 
 		public string Culture
-		{
-			get
-			{
-				return Language.Current != null
-					? Language.Current.Culture
-					: null;
-			}
-		}
+		{ get { return _language?.Culture; } }
 
 		public ILanguageCommon Common
-		{
-			get
-			{
-				return Language.Current != null
-					? Language.Current.Common
-					: null;
-			}
-		}
+		{ get { return _language?.Common; } }
 
 		public ILanguageErrors Errors
-		{
-			get
-			{
-				return Language.Current != null
-					? Language.Current.Errors
-					: null;
-			}
-		}
+		{ get { return _language?.Errors; } }
 
 		public ILanguageStatements StatementNames
-		{
-			get
-			{
-				return Language.Current != null
-					? Language.Current.StatementNames
-					: null;
-			}
-		}
+		{ get { return _language?.StatementNames; } }
 
 		public ILanguageStatements StatementHints
-		{
-			get
-			{
-				return Language.Current != null
-					? Language.Current.StatementHints
-					: null;
-			}
-		}
+		{ get { return _language?.StatementHints; } }
 
 		public ILanguageStatementFormatStrings TrueStatementFormatStrings
-		{
-			get
-			{
-				return Language.Current != null
-					? Language.Current.TrueStatementFormatStrings
-					: null;
-			}
-		}
+		{ get { return _language?.TrueStatementFormatStrings; } }
 
 		public ILanguageStatementFormatStrings FalseStatementFormatStrings
-		{
-			get
-			{
-				return Language.Current != null
-					? Language.Current.FalseStatementFormatStrings
-					: null;
-			}
-		}
+		{ get { return _language?.FalseStatementFormatStrings; } }
 
 		public ILanguageStatementFormatStrings QuestionStatementFormatStrings
-		{
-			get
-			{
-				return Language.Current != null
-					? Language.Current.QuestionStatementFormatStrings
-					: null;
-			}
-		}
+		{ get { return _language?.QuestionStatementFormatStrings; } }
 
 		public ILanguageQuestionNames QuestionNames
-		{
-			get
-			{
-				return Language.Current != null
-					? Language.Current.QuestionNames
-					: null;
-			}
-		}
+		{ get { return _language?.QuestionNames; } }
 
 		public ILanguageAnswers Answers
-		{
-			get
-			{
-				return Language.Current != null
-					? Language.Current.Answers
-					: null;
-			}
-		}
+		{ get { return _language?.Answers; } }
 
 		public ILanguageUi Ui
-		{
-			get
-			{
-				return Language.Current != null
-					? Language.Current.Ui
-					: null;
-			}
-		}
+		{ get { return _language?.Ui; } }
 
 		public ILanguageErrorsInventor ErrorsInventor
-		{
-			get
-			{
-				return Language.Current != null
-					? Language.Current.ErrorsInventor
-					: null;
-			}
-		}
+		{ get { return _language?.ErrorsInventor; } }
 
 		public ILanguageConfiguration Configuration
-		{
-			get
-			{
-				return Language.Current != null
-					? Language.Current.Configuration
-					: null;
-			}
-		}
+		{ get { return _language?.Configuration; } }
 
 		public ILanguageMisc Misc
+		{ get { return _language?.Misc; } }
+
+		#endregion
+
+		public void Change(ILanguage language)
 		{
-			get
-			{
-				return Language.Current != null
-					? Language.Current.Misc
-					: null;
-			}
+			_language = language;
 		}
 	}
 }
