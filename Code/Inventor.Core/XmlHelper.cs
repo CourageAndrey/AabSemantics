@@ -10,9 +10,8 @@ namespace Inventor.Core
 	{
 		#region Serializers cache
 
-		private static readonly Dictionary<Type, XmlSerializer> serializers = new Dictionary<Type, XmlSerializer>();
-
-		private static readonly Object serializersLock = new Object();
+		private static readonly Dictionary<Type, XmlSerializer> _serializers = new Dictionary<Type, XmlSerializer>();
+		private static readonly Object _serializersLock = new Object();
 
 		public static XmlSerializer AcquireSerializer<T>()
 		{
@@ -21,12 +20,12 @@ namespace Inventor.Core
 
 		public static XmlSerializer AcquireSerializer(Type type)
 		{
-			lock (serializersLock)
+			lock (_serializersLock)
 			{
 				XmlSerializer serializer;
-				if (!serializers.TryGetValue(type, out serializer))
+				if (!_serializers.TryGetValue(type, out serializer))
 				{
-					serializer = serializers[type] = new XmlSerializer(type);
+					serializer = _serializers[type] = new XmlSerializer(type);
 				}
 				return serializer;
 			}
