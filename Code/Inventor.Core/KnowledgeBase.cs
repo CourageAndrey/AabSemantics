@@ -255,7 +255,7 @@ namespace Inventor.Core
 				{ "ru-RU", "Возможность полёта." },
 			})));
 
-			Concept bicycle, courag, steamLocomotive, steamboat, car, motorcycle, fighter, airbus, jetFighter;
+			Concept bicycle, curragh, steamLocomotive, steamboat, car, motorcycle, fighter, airbus, jetFighter;
 			knowledgeBase.Concepts.Add(bicycle = new Concept(new LocalizedStringVariable(new Dictionary<string, string>
 			{
 				{ "ru-RU", "Велосипед" },
@@ -263,9 +263,9 @@ namespace Inventor.Core
 			{
 				{ "ru-RU", "Двухколёсный даритель радости." },
 			})));
-			knowledgeBase.Concepts.Add(courag = new Concept(new LocalizedStringVariable(new Dictionary<string, string>
+			knowledgeBase.Concepts.Add(curragh = new Concept(new LocalizedStringVariable(new Dictionary<string, string>
 			{
-				{ "ru-RU", "Курагг" },
+				{ "ru-RU", "Курага" },
 			}), new LocalizedStringVariable(new Dictionary<string, string>
 			{
 				{ "ru-RU", "Первая человеческая потуга создать лодку." },
@@ -332,7 +332,7 @@ namespace Inventor.Core
 			knowledgeBase.Statements.Add(new GroupStatement(transport, atWater));
 			knowledgeBase.Statements.Add(new GroupStatement(transport, atAir));
 			knowledgeBase.Statements.Add(new GroupStatement(transport, bicycle));
-			knowledgeBase.Statements.Add(new GroupStatement(transport, courag));
+			knowledgeBase.Statements.Add(new GroupStatement(transport, curragh));
 			knowledgeBase.Statements.Add(new GroupStatement(transport, steamLocomotive));
 			knowledgeBase.Statements.Add(new GroupStatement(transport, steamboat));
 			knowledgeBase.Statements.Add(new GroupStatement(transport, car));
@@ -350,7 +350,7 @@ namespace Inventor.Core
 			knowledgeBase.Statements.Add(new IsStatement(areaType, atWater));
 			knowledgeBase.Statements.Add(new IsStatement(areaType, atAir));
 			knowledgeBase.Statements.Add(new IsStatement(vehicle, bicycle));
-			knowledgeBase.Statements.Add(new IsStatement(vehicle, courag));
+			knowledgeBase.Statements.Add(new IsStatement(vehicle, curragh));
 			knowledgeBase.Statements.Add(new IsStatement(vehicle, steamLocomotive));
 			knowledgeBase.Statements.Add(new IsStatement(vehicle, steamboat));
 			knowledgeBase.Statements.Add(new IsStatement(vehicle, car));
@@ -359,7 +359,7 @@ namespace Inventor.Core
 			knowledgeBase.Statements.Add(new IsStatement(vehicle, airbus));
 			knowledgeBase.Statements.Add(new IsStatement(vehicle, jetFighter));
 			knowledgeBase.Statements.Add(new SignValueStatement(bicycle, motorType, mtMucles));
-			knowledgeBase.Statements.Add(new SignValueStatement(courag, motorType, mtMucles));
+			knowledgeBase.Statements.Add(new SignValueStatement(curragh, motorType, mtMucles));
 			knowledgeBase.Statements.Add(new SignValueStatement(steamLocomotive, motorType, mtSteam));
 			knowledgeBase.Statements.Add(new SignValueStatement(steamboat, motorType, mtSteam));
 			knowledgeBase.Statements.Add(new SignValueStatement(car, motorType, mtCombusion));
@@ -368,7 +368,7 @@ namespace Inventor.Core
 			knowledgeBase.Statements.Add(new SignValueStatement(airbus, motorType, mtJet));
 			knowledgeBase.Statements.Add(new SignValueStatement(jetFighter, motorType, mtJet));
 			knowledgeBase.Statements.Add(new SignValueStatement(bicycle, areaType, atGround));
-			knowledgeBase.Statements.Add(new SignValueStatement(courag, areaType, atWater));
+			knowledgeBase.Statements.Add(new SignValueStatement(curragh, areaType, atWater));
 			knowledgeBase.Statements.Add(new SignValueStatement(steamLocomotive, areaType, atGround));
 			knowledgeBase.Statements.Add(new SignValueStatement(steamboat, areaType, atWater));
 			knowledgeBase.Statements.Add(new SignValueStatement(car, areaType, atGround));
