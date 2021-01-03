@@ -48,9 +48,8 @@
     <Compile Include="Localization\Language parts\Errors.cs" />
     <Compile Include="Localization\INamed.cs" />
     <Compile Include="Localization\Language.cs" />
-    <Compile Include="Localization\LanguageCommon.cs" />
-    <Compile Include="Localization\LanguageErrors.cs" />
-    <Compile Include="Localization\LanguageEx.cs" />
+    <Compile Include="Localization\Language parts\LanguageCommon.cs" />
+    <Compile Include="Localization\Language parts\LanguageErrors.cs" />
     <Compile Include="Localization\Language parts\Misc.cs" />
     <Compile Include="Localization\Language parts\Proposition format strings.cs" />
     <Compile Include="Localization\Language parts\Propositions.cs" />

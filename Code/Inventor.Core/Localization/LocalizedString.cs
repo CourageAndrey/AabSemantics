@@ -6,7 +6,7 @@ namespace Inventor.Core.Localization
 {
 	public abstract class LocalizedString
 	{
-		public abstract string GetValue(ILanguageEx language);
+		public abstract string GetValue(ILanguage language);
 
 		public abstract override string ToString();
 	}
@@ -17,7 +17,7 @@ namespace Inventor.Core.Localization
 
 		private readonly IDictionary<string, string> _values = new SortedDictionary<string, string>();
 
-		public override string GetValue(ILanguageEx language)
+		public override string GetValue(ILanguage language)
 		{
 			if (_values.Count == 0) return null;
 
@@ -89,23 +89,23 @@ namespace Inventor.Core.Localization
 	{
 		#region Properties
 
-		private readonly Func<ILanguageEx, string> _getter;
+		private readonly Func<ILanguage, string> _getter;
 
-		public override string GetValue(ILanguageEx language)
+		public override string GetValue(ILanguage language)
 		{
 			return _getter(language);
 		}
 
 		#endregion
 
-		public LocalizedStringConstant(Func<ILanguageEx, string> getter)
+		public LocalizedStringConstant(Func<ILanguage, string> getter)
 		{
 			_getter = getter;
 		}
 
 		public override string ToString()
 		{
-			return string.Format("{0} \"{1}\"", Strings.TostringLocalized, _getter(LanguageEx.CurrentEx));
+			return string.Format("{0} \"{1}\"", Strings.TostringLocalized, _getter(Language.Current));
 		}
 	}
 }

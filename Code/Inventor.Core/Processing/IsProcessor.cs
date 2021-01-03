@@ -9,7 +9,7 @@ namespace Inventor.Core.Processing
 {
 	public sealed class IsProcessor : QuestionProcessor<IsQuestion>
 	{
-		protected override FormattedText ProcessImplementation(KnowledgeBase knowledgeBase, IsQuestion question, ILanguageEx language)
+		protected override FormattedText ProcessImplementation(KnowledgeBase knowledgeBase, IsQuestion question, ILanguage language)
 		{
 			bool yes = IsStatement.GetParentsTree(knowledgeBase.Statements, question.ChildConcept).Contains(question.ParentConcept);
 			return new FormattedText(

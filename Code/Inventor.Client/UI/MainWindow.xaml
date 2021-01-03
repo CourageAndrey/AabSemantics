@@ -5,7 +5,7 @@
 		xmlns:ui="clr-namespace:Inventor.Client.UI"
 		Width="1024" Height="768" WindowStartupLocation="CenterScreen" Icon="..\Inventor.ico">
 	<Window.Resources>
-		<ObjectDataProvider x:Key="language" ObjectType="{x:Type localization:LocalizatorEx}" />
+		<ObjectDataProvider x:Key="language" ObjectType="{x:Type localization:Localizator}" />
 		<Style x:Key="bigTextStyle">
 			<Setter Property="TextBlock.FontSize" Value="14" />
 			<Setter Property="TextBlock.VerticalAlignment" Value="Center" />

@@ -9,7 +9,7 @@ namespace Inventor.Core.Processing
 {
 	public sealed class SignValueProcessor : QuestionProcessor<SignValueQuestion>
 	{
-		protected override FormattedText ProcessImplementation(KnowledgeBase knowledgeBase, SignValueQuestion question, ILanguageEx language)
+		protected override FormattedText ProcessImplementation(KnowledgeBase knowledgeBase, SignValueQuestion question, ILanguage language)
 		{
 			var signValues = knowledgeBase.Statements.OfType<SignValueStatement>();
 			var result = getSignValue(signValues, question.Concept, question.Sign, question.Concept, language);
@@ -32,7 +32,7 @@ namespace Inventor.Core.Processing
 			return AnswerHelper.CreateUnknown(language);
 		}
 
-		private static FormattedText getSignValue(IEnumerable<SignValueStatement> statements, Concept concept, Concept sign, Concept original, ILanguageEx language)
+		private static FormattedText getSignValue(IEnumerable<SignValueStatement> statements, Concept concept, Concept sign, Concept original, ILanguage language)
 		{
 			var value = statements.FirstOrDefault(v => v.Concept == concept && v.Sign == sign);
 			return value != null

@@ -8,7 +8,7 @@ namespace Inventor.Client.UI
 {
 	public class NamedConverter : IValueConverter
 	{
-		public ILanguageEx Language
+		public ILanguage Language
 		{ get; set; }
 
 		public Object Convert(Object value, Type targetType, Object parameter, CultureInfo culture)
