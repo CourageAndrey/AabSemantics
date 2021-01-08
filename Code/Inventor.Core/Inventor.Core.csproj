@@ -37,7 +37,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Basic\Concept.cs" />
-    <Compile Include="Utils\EventList.cs" />
+    <Compile Include="Utils\EventCollection.cs" />
     <Compile Include="Utils\Formatted strings.cs" />
     <Compile Include="Utils\IChangeable.cs" />
     <Compile Include="Basic\KnowledgeBase.cs" />

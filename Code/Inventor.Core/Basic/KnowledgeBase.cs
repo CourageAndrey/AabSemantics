@@ -15,20 +15,20 @@ namespace Inventor.Core
 		public LocalizedString Name
 		{ get { return _name; } }
 
-		public IList<Concept> Concepts
+		public ICollection<Concept> Concepts
 		{ get { return _concepts; } }
 
-		public IList<Statement> Statements
+		public ICollection<Statement> Statements
 		{ get { return _statements; } }
 
 		private readonly LocalizedStringVariable _name;
-		private readonly EventList<Concept> _concepts;
-		private readonly EventList<Statement> _statements;
+		private readonly EventCollection<Concept> _concepts;
+		private readonly EventCollection<Statement> _statements;
 
-		public event EventList<Concept>.ItemDelegate ConceptAdded;
-		public event EventList<Concept>.ItemDelegate ConceptRemoved;
-		public event EventList<Statement>.ItemDelegate StatementAdded;
-		public event EventList<Statement>.ItemDelegate StatementRemoved;
+		public event EventHandler<ItemEventArgs<Concept>> ConceptAdded;
+		public event EventHandler<ItemEventArgs<Concept>> ConceptRemoved;
+		public event EventHandler<ItemEventArgs<Statement>> StatementAdded;
+		public event EventHandler<ItemEventArgs<Statement>> StatementRemoved;
 
 		#region System
 
@@ -46,37 +46,37 @@ namespace Inventor.Core
 		{
 			_name = new LocalizedStringVariable();
 
-			_concepts = new EventList<Concept>();
-			_concepts.Added += (list, concept) =>
+			_concepts = new EventCollection<Concept>();
+			_concepts.ItemAdded += (sender, args) =>
 			{
 				var handler = Volatile.Read(ref ConceptAdded);
 				if (handler != null)
 				{
-					handler(list, concept);
+					handler(sender, args);
 				}
 			};
-			_concepts.Removed += (list, concept) =>
+			_concepts.ItemRemoved += (sender, args) =>
 			{
 				var handler = Volatile.Read(ref ConceptRemoved);
 				if (handler != null)
 				{
-					handler(list, concept);
+					handler(sender, args);
 				}
-				foreach (var statement in _statements.Where(r => r.ChildConcepts.Contains(concept)).ToList())
+				foreach (var statement in _statements.Where(r => r.ChildConcepts.Contains(args.Item)).ToList())
 				{
 					_statements.Remove(statement);
 				}
 			};
 
-			_statements = new EventList<Statement>();
-			_statements.Added += (list, statement) =>
+			_statements = new EventCollection<Statement>();
+			_statements.ItemAdded += (sender, args) =>
 			{
 				var handler = Volatile.Read(ref StatementAdded);
 				if (handler != null)
 				{
-					handler(list, statement);
+					handler(sender, args);
 				}
-				foreach (var concept in statement.ChildConcepts)
+				foreach (var concept in args.Item.ChildConcepts)
 				{
 					if (!_concepts.Contains(concept))
 					{
@@ -84,12 +84,12 @@ namespace Inventor.Core
 					}
 				}
 			};
-			_statements.Removed += (list, statement) =>
+			_statements.ItemRemoved += (sender, args) =>
 			{
 				var handler = Volatile.Read(ref StatementRemoved);
 				if (handler != null)
 				{
-					handler(list, statement);
+					handler(sender, args);
 				}
 			};
 
@@ -97,15 +97,15 @@ namespace Inventor.Core
 			{
 				Initialize();
 			}
-			EventList<Concept>.ItemQueryDelegate systemConceptProtector = (IList<Concept> list, Concept item, ref bool allowed) =>
+			EventHandler<CancelableItemEventArgs<Concept>> systemConceptProtector = (sender, args) =>
 			{
-				if (item.Type == ConceptType.System)
+				if (args.Item.Type == ConceptType.System)
 				{
-					allowed = false;
+					args.IsCanceled = true;
 				}
 			};
-			_concepts.Adding += systemConceptProtector;
-			_concepts.Removing += systemConceptProtector;
+			_concepts.ItemAdding += systemConceptProtector;
+			_concepts.ItemRemoving += systemConceptProtector;
 		}
 
 		public void Initialize()

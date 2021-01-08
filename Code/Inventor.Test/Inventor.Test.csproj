@@ -64,6 +64,7 @@
   <ItemGroup>
     <Compile Include="ConsistencyTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Utils\EventCollectionTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Inventor.Client\Inventor.Client.csproj">

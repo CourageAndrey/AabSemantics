@@ -41,14 +41,14 @@ namespace Inventor.Client.UI.Nodes
 			knowledgeBase.ConceptRemoved += conceptRemoved;
 		}
 
-		private void conceptAdded(IList<Concept> list, Concept item)
+		private void conceptAdded(object sender, ItemEventArgs<Concept> args)
 		{
-			Children.Add(new ConceptNode(item, _application));
+			Children.Add(new ConceptNode(args.Item, _application));
 		}
 
-		private void conceptRemoved(IList<Concept> list, Concept item)
+		private void conceptRemoved(object sender, ItemEventArgs<Concept> args)
 		{
-			Children.Remove(Children.OfType<ConceptNode>().First(c => c.Concept == item));
+			Children.Remove(Children.OfType<ConceptNode>().First(c => c.Concept == args.Item));
 		}
 
 		public void Clear()
