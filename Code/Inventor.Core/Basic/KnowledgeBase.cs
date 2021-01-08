@@ -62,7 +62,7 @@ namespace Inventor.Core
 				{
 					handler(sender, args);
 				}
-				foreach (var statement in _statements.Where(r => r.ChildConcepts.Contains(args.Item)).ToList())
+				foreach (var statement in _statements.Where(r => r.GetChildConcepts().Contains(args.Item)).ToList())
 				{
 					_statements.Remove(statement);
 				}
@@ -76,7 +76,7 @@ namespace Inventor.Core
 				{
 					handler(sender, args);
 				}
-				foreach (var concept in args.Item.ChildConcepts)
+				foreach (var concept in args.Item.GetChildConcepts())
 				{
 					if (!_concepts.Contains(concept))
 					{

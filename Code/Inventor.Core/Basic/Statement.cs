@@ -16,10 +16,9 @@ namespace Inventor.Core
 		public LocalizedString Hint
 		{ get; }
 
-		public abstract IList<Concept> ChildConcepts
-		{ get; }
-
 		#endregion
+
+		public abstract IEnumerable<Concept> GetChildConcepts();
 
 		public override sealed string ToString()
 		{

@@ -31,8 +31,11 @@ namespace Inventor.Core.Statements
 			_sign = sign;
 		}
 
-		public override IList<Concept> ChildConcepts
-		{ get { return new List<Concept> { _concept, _sign }.AsReadOnly(); } }
+		public override IEnumerable<Concept> GetChildConcepts()
+		{
+			yield return _concept;
+			yield return _sign;
+		}
 
 		#region Description
 

@@ -32,7 +32,7 @@ namespace Inventor.Client.UI.Nodes
 		{
 			_statement = statement;
 			_application = application;
-			/*foreach (var concept in _statement.ChildConcepts)
+			/*foreach (var concept in _statement.GetChildConcepts)
 			{
 				children.Add(new ConceptNode(concept));
 			}*/
