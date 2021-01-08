@@ -36,6 +36,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Basic\AnswerHelper.cs" />
     <Compile Include="Basic\Concept.cs" />
     <Compile Include="Utils\EventCollection.cs" />
     <Compile Include="Utils\Formatted strings.cs" />
@@ -56,7 +57,7 @@
     <Compile Include="Localization\Language parts\Question names.cs" />
     <Compile Include="Localization\Strings.cs" />
     <Compile Include="Localization\Language parts\Ui.cs" />
-    <Compile Include="Basic\Answering mechanishm.cs" />
+    <Compile Include="Basic\QuestionProcessor.cs" />
     <Compile Include="Processing\CheckStatementProcessor.cs" />
     <Compile Include="Processing\IsSubjectAreaQuestion.cs" />
     <Compile Include="Processing\EnumerateContainersProcessor.cs" />
