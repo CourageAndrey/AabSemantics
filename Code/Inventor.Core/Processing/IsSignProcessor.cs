@@ -10,7 +10,7 @@ namespace Inventor.Core.Processing
 {
 	public sealed class IsSignProcessor : QuestionProcessor<IsSignQuestion>
 	{
-		protected override FormattedText ProcessImplementation(KnowledgeBase knowledgeBase, IsSignQuestion question, ILanguage language)
+		protected override FormattedText ProcessImplementation(QuestionProcessingMechanism processingMechanism, KnowledgeBase knowledgeBase, IsSignQuestion question, ILanguage language)
 		{
 			bool yes = knowledgeBase.Statements.OfType<HasSignStatement>().FirstOrDefault(r => r.Sign == question.Concept) != null;
 			return new FormattedText(

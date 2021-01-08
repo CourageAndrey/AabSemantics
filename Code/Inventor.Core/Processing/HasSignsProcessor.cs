@@ -9,7 +9,7 @@ namespace Inventor.Core.Processing
 {
 	public sealed class HasSignsProcessor : QuestionProcessor<HasSignsQuestion>
 	{
-		protected override FormattedText ProcessImplementation(KnowledgeBase knowledgeBase, HasSignsQuestion question, ILanguage language)
+		protected override FormattedText ProcessImplementation(QuestionProcessingMechanism processingMechanism, KnowledgeBase knowledgeBase, HasSignsQuestion question, ILanguage language)
 		{
 			bool yes = HasSignStatement.GetSigns(knowledgeBase.Statements, question.Concept, question.Recursive).Select(hs => hs.Sign).Any();
 			return new FormattedText(

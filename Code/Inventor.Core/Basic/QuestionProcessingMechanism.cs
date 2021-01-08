@@ -40,7 +40,7 @@ namespace Inventor.Core
 			if (_allProcessors.TryGetValue(question.GetType(), out processorFactory))
 			{
 				var processor = processorFactory();
-				return processor.Process(knowledgeBase, question, language);
+				return processor.Process(this, knowledgeBase, question, language);
 			}
 			else
 			{
