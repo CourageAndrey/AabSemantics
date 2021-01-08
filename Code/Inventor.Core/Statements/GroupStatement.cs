@@ -30,8 +30,11 @@ namespace Inventor.Core.Statements
 			_concept = concept;
 		}
 
-		public override IList<Concept> ChildConcepts
-		{ get { return new List<Concept> { _area, _concept }.AsReadOnly(); } }
+		public override IEnumerable<Concept> GetChildConcepts()
+		{
+			yield return _area;
+			yield return _concept;
+		}
 
 		#region Description
 
