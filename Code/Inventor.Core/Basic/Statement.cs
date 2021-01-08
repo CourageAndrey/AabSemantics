@@ -11,16 +11,13 @@ namespace Inventor.Core
 		#region Properties
 
 		public LocalizedString Name
-		{ get { return _name; } }
+		{ get; }
 
 		public LocalizedString Hint
-		{ get { return _hint; } }
+		{ get; }
 
 		public abstract IList<Concept> ChildConcepts
 		{ get; }
-
-		private readonly LocalizedStringConstant _name;
-		private readonly LocalizedStringConstant _hint;
 
 		#endregion
 
@@ -29,18 +26,18 @@ namespace Inventor.Core
 			return string.Format("{0} \"{1}\"", Strings.TostringStatement, Name);
 		}
 
-		protected Statement(Func<ILanguage, string> name, Func<ILanguage, string> hint = null)
+		protected Statement(LocalizedString name, LocalizedString hint = null)
 		{
 			if (name != null)
 			{
-				_name = new LocalizedStringConstant(name);
+				Name = name;
 			}
 			else
 			{
 				throw new ArgumentNullException("name");
 			}
 
-			_hint = new LocalizedStringConstant(hint ?? (language => string.Empty));
+			Hint = hint ?? LocalizedString.Empty;
 		}
 
 		#region Description
@@ -82,7 +79,7 @@ namespace Inventor.Core
 	public abstract class Statement<StatementT> : Statement, IEquatable<StatementT>
 		where StatementT : Statement<StatementT>
 	{
-		protected Statement(Func<ILanguage, string> name, Func<ILanguage, string> hint = null) : base(name, hint)
+		protected Statement(LocalizedString name, LocalizedString hint = null) : base(name, hint)
 		{ }
 
 		public override sealed bool CheckUnique(IEnumerable<Statement> statements)

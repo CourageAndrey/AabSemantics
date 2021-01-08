@@ -9,6 +9,13 @@ namespace Inventor.Core.Localization
 		public abstract string GetValue(ILanguage language);
 
 		public abstract override string ToString();
+
+		public static readonly LocalizedString Empty = new LocalizedStringConstant(language => string.Empty);
+
+		public static implicit operator LocalizedString(Func<ILanguage, string> getter)
+		{
+			return new LocalizedStringConstant(getter);
+		}
 	}
 
 	public sealed class LocalizedStringVariable : LocalizedString
