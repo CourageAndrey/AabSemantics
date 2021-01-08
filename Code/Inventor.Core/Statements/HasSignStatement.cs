@@ -22,7 +22,7 @@ namespace Inventor.Core.Statements
 		#endregion
 
 		public HasSignStatement(Concept concept, Concept sign)
-			: base(language => language.StatementNames.HasSign, language => language.StatementHints.HasSign)
+			: base(new Func<ILanguage, string>(language => language.StatementNames.HasSign), new Func<ILanguage, string>(language => language.StatementHints.HasSign))
 		{
 			if (concept == null) throw new ArgumentNullException("concept");
 			if (sign == null) throw new ArgumentNullException("sign");
