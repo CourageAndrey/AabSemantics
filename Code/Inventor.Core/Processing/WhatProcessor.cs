@@ -9,7 +9,7 @@ namespace Inventor.Core.Processing
 {
 	public sealed class WhatProcessor : QuestionProcessor<WhatQuestion>
 	{
-		protected override FormattedText ProcessImplementation(KnowledgeBase knowledgeBase, WhatQuestion question, ILanguage language)
+		protected override FormattedText ProcessImplementation(QuestionProcessingMechanism processingMechanism, KnowledgeBase knowledgeBase, WhatQuestion question, ILanguage language)
 		{
 			var statements = knowledgeBase.Statements.OfType<IsStatement>().Where(c => c.Child == question.Concept);
 			if (statements.Any())

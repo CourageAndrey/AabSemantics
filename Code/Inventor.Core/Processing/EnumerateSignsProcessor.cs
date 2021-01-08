@@ -8,7 +8,7 @@ namespace Inventor.Core.Processing
 {
 	public sealed class EnumerateSignsProcessor : QuestionProcessor<EnumerateSignsQuestion>
 	{
-		protected override FormattedText ProcessImplementation(KnowledgeBase knowledgeBase, EnumerateSignsQuestion question, ILanguage language)
+		protected override FormattedText ProcessImplementation(QuestionProcessingMechanism processingMechanism, KnowledgeBase knowledgeBase, EnumerateSignsQuestion question, ILanguage language)
 		{
 			var signs = HasSignStatement.GetSigns(knowledgeBase.Statements, question.Concept, question.Recursive).Select(hs => hs.Sign).ToList();
 			if (signs.Count > 0)

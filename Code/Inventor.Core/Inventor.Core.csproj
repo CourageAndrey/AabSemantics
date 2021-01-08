@@ -38,7 +38,7 @@
   <ItemGroup>
     <Compile Include="Basic\AnswerHelper.cs" />
     <Compile Include="Basic\Concept.cs" />
-    <Compile Include="Basic\ProcessingMechanism.cs" />
+    <Compile Include="Basic\QuestionProcessingMechanism.cs" />
     <Compile Include="Utils\EventCollection.cs" />
     <Compile Include="Utils\Formatted strings.cs" />
     <Compile Include="Utils\IChangeable.cs" />
