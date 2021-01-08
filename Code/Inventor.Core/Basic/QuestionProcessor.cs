@@ -4,17 +4,17 @@ namespace Inventor.Core
 {
 	public abstract class QuestionProcessor
 	{
-		public abstract FormattedText Process(KnowledgeBase knowledgeBase, Question question, ILanguage language);
+		public abstract FormattedText Process(QuestionProcessingMechanism processingMechanism, KnowledgeBase knowledgeBase, Question question, ILanguage language);
 	}
 
 	public abstract class QuestionProcessor<QuestionT> : QuestionProcessor
 		where QuestionT : Question
 	{
-		protected abstract FormattedText ProcessImplementation(KnowledgeBase knowledgeBase, QuestionT question, ILanguage language);
+		protected abstract FormattedText ProcessImplementation(QuestionProcessingMechanism processingMechanism, KnowledgeBase knowledgeBase, QuestionT question, ILanguage language);
 
-		public override FormattedText Process(KnowledgeBase knowledgeBase, Question question, ILanguage language)
+		public override FormattedText Process(QuestionProcessingMechanism processingMechanism, KnowledgeBase knowledgeBase, Question question, ILanguage language)
 		{
-			return ProcessImplementation(knowledgeBase, (QuestionT) question, language);
+			return ProcessImplementation(processingMechanism, knowledgeBase, (QuestionT) question, language);
 		}
 	}
 }

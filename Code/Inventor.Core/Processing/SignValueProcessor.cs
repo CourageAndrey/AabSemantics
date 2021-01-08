@@ -9,7 +9,7 @@ namespace Inventor.Core.Processing
 {
 	public sealed class SignValueProcessor : QuestionProcessor<SignValueQuestion>
 	{
-		protected override FormattedText ProcessImplementation(KnowledgeBase knowledgeBase, SignValueQuestion question, ILanguage language)
+		protected override FormattedText ProcessImplementation(QuestionProcessingMechanism processingMechanism, KnowledgeBase knowledgeBase, SignValueQuestion question, ILanguage language)
 		{
 			var signValues = knowledgeBase.Statements.OfType<SignValueStatement>();
 			var result = getSignValue(signValues, question.Concept, question.Sign, question.Concept, language);
