@@ -93,6 +93,8 @@ namespace Inventor.Client.UI
 
 		#region Knowledgebase actions
 
+		private readonly QuestionProcessingMechanism _questionProcessingMechanism = new QuestionProcessingMechanism();
+
 		private void askQuestionClick(object sender, RoutedEventArgs e)
 		{
 			var dialog = new QuestionDialog(_application.KnowledgeBase, _application.CurrentLanguage)
@@ -103,7 +105,7 @@ namespace Inventor.Client.UI
 			{
 				new FormattedTextDialog(
 					_application.CurrentLanguage,
-					QuestionProcessor.Process(_application.KnowledgeBase, dialog.Question, _application.CurrentLanguage),
+					_questionProcessingMechanism.Process(_application.KnowledgeBase, dialog.Question, _application.CurrentLanguage),
 					knowledgeObjectPicked)
 				{
 					Owner = this,
