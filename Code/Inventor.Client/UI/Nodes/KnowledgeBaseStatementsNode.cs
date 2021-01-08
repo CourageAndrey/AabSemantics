@@ -4,7 +4,6 @@ using System.Windows.Media;
 
 using Inventor.Client.Properties;
 using Inventor.Core;
-using Inventor.Core.Localization;
 
 namespace Inventor.Client.UI.Nodes
 {
@@ -42,14 +41,14 @@ namespace Inventor.Client.UI.Nodes
 			knowledgeBase.StatementRemoved += StatementRemoved;
 		}
 
-		private void StatementAdded(IList<Statement> list, Statement item)
+		private void StatementAdded(object sender, ItemEventArgs<Statement> args)
 		{
-			Children.Add(new StatementNode(item, _application));
+			Children.Add(new StatementNode(args.Item, _application));
 		}
 
-		private void StatementRemoved(IList<Statement> list, Statement item)
+		private void StatementRemoved(object sender, ItemEventArgs<Statement> args)
 		{
-			Children.Remove(Children.OfType<StatementNode>().First(r => r.Statement == item));
+			Children.Remove(Children.OfType<StatementNode>().First(r => r.Statement == args.Item));
 		}
 
 		public void Clear()
