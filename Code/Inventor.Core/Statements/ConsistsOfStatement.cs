@@ -22,7 +22,7 @@ namespace Inventor.Core.Statements
 		#endregion
 
 		public ConsistsOfStatement(Concept parent, Concept child)
-			: base(language => language.StatementNames.Composition, language => language.StatementHints.Composition)
+			: base(new Func<ILanguage, string>(language => language.StatementNames.Composition), new Func<ILanguage, string>(language => language.StatementHints.Composition))
 		{
 			if (parent == null) throw new ArgumentNullException("parent");
 			if (child == null) throw new ArgumentNullException("child");

@@ -21,7 +21,7 @@ namespace Inventor.Core.Statements
 		#endregion
 
 		public GroupStatement(Concept area, Concept concept)
-			: base(language => language.StatementNames.SubjectArea, language => language.StatementHints.SubjectArea)
+			: base(new Func<ILanguage, string>(language => language.StatementNames.SubjectArea), new Func<ILanguage, string>(language => language.StatementHints.SubjectArea))
 		{
 			if (area == null) throw new ArgumentNullException("area");
 			if (concept == null) throw new ArgumentNullException("concept");
