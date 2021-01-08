@@ -5,25 +5,6 @@ namespace Inventor.Core.Localization
 {
 	public interface ILanguageCommon
 	{
-		#region Data size
-
-		String DataSizeB
-		{ get; }
-
-		String DataSizeKB
-		{ get; }
-
-		String DataSizeMB
-		{ get; }
-
-		String DataSizeGB
-		{ get; }
-
-		String DataSizeTB
-		{ get; }
-
-		#endregion
-
 		#region Buttons
 
 		String Close
@@ -82,30 +63,6 @@ namespace Inventor.Core.Localization
 	public sealed class LanguageCommon : ILanguageCommon
 	{
 		#region Properties
-
-		#region Data size
-
-		[XmlElement]
-		public String DataSizeB
-		{ get; set; }
-
-		[XmlElement]
-		public String DataSizeKB
-		{ get; set; }
-
-		[XmlElement]
-		public String DataSizeMB
-		{ get; set; }
-
-		[XmlElement]
-		public String DataSizeGB
-		{ get; set; }
-
-		[XmlElement]
-		public String DataSizeTB
-		{ get; set; }
-
-		#endregion
 
 		#region Buttons
 
@@ -181,12 +138,6 @@ namespace Inventor.Core.Localization
 		{
 			return new LanguageCommon
 			{
-				DataSizeB = "б",
-				DataSizeKB = "Кб",
-				DataSizeMB = "Мб",
-				DataSizeGB = "Гб",
-				DataSizeTB = "Тб",
-
 				Close = "Закрыть",
 				Ok = "ОК",
 				Cancel = "Отмена",
