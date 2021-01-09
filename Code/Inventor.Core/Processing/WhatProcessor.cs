@@ -9,18 +9,19 @@ namespace Inventor.Core.Processing
 {
 	public sealed class WhatProcessor : QuestionProcessor<WhatQuestion>
 	{
-		protected override Answer ProcessImplementation(QuestionProcessingMechanism processingMechanism, KnowledgeBase knowledgeBase, WhatQuestion question, ILanguage language)
+		public override Answer Process(ProcessingContext<WhatQuestion> context)
 		{
-			var statements = knowledgeBase.Statements.OfType<IsStatement>().Where(c => c.Child == question.Concept).ToList();
+			var question = context.QuestionX;
+			var statements = context.KnowledgeBase.Statements.OfType<IsStatement>().Where(c => c.Child == question.Concept).ToList();
 			if (statements.Any())
 			{
 				var result = new FormattedText();
 				var difference = new List<SignValueStatement>();
 				foreach (var statement in statements)
 				{
-					foreach (var sign in HasSignStatement.GetSigns(knowledgeBase.Statements, statement.Parent, false))
+					foreach (var sign in HasSignStatement.GetSigns(context.KnowledgeBase.Statements, statement.Parent, false))
 					{
-						var diff = SignValueStatement.GetSignValue(knowledgeBase.Statements, question.Concept, sign.Sign);
+						var diff = SignValueStatement.GetSignValue(context.KnowledgeBase.Statements, question.Concept, sign.Sign);
 						if (diff != null)
 						{
 							difference.Add(diff);
@@ -28,14 +29,14 @@ namespace Inventor.Core.Processing
 					}
 					if (difference.Count > 0)
 					{
-						result.Add(() => language.Answers.IsDescriptionWithSign, new Dictionary<string, INamed>
+						result.Add(() => context.Language.Answers.IsDescriptionWithSign, new Dictionary<string, INamed>
 						{
 							{ "#CHILD#", question.Concept },
 							{ "#PARENT#", statement.Parent },
 						});
 						foreach (var diff in difference)
 						{
-							result.Add(() => language.Answers.IsDescriptionWithSignValue, new Dictionary<string, INamed>
+							result.Add(() => context.Language.Answers.IsDescriptionWithSignValue, new Dictionary<string, INamed>
 							{
 								{ "#SIGN#", diff.Sign },
 								{ "#VALUE#", diff.Value },
@@ -44,7 +45,7 @@ namespace Inventor.Core.Processing
 					}
 					else
 					{
-						result.Add(() => language.Answers.IsDescription, new Dictionary<string, INamed>
+						result.Add(() => context.Language.Answers.IsDescription, new Dictionary<string, INamed>
 						{
 							{ "#CHILD#", question.Concept },
 							{ "#PARENT#", statement.Parent },
@@ -56,7 +57,7 @@ namespace Inventor.Core.Processing
 			}
 			else
 			{
-				return Answer.CreateUnknown(language);
+				return Answer.CreateUnknown(context.Language);
 			}
 		}
 	}

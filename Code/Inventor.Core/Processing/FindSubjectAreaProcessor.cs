@@ -9,15 +9,16 @@ namespace Inventor.Core.Processing
 {
 	public sealed class FindSubjectAreaProcessor : QuestionProcessor<FindSubjectAreaQuestion>
 	{
-		protected override Answer ProcessImplementation(QuestionProcessingMechanism processingMechanism, KnowledgeBase knowledgeBase, FindSubjectAreaQuestion question, ILanguage language)
+		public override Answer Process(ProcessingContext<FindSubjectAreaQuestion> context)
 		{
-			var statements = knowledgeBase.Statements.OfType<GroupStatement>().Where(c => c.Concept == question.Concept).ToList();
+			var question = context.QuestionX;
+			var statements = context.KnowledgeBase.Statements.OfType<GroupStatement>().Where(c => c.Concept == question.Concept).ToList();
 			if (statements.Any())
 			{
 				var result = new FormattedText();
 				foreach (var statement in statements)
 				{
-					result.Add(() => language.Answers.SubjectArea, new Dictionary<string, INamed>
+					result.Add(() => context.Language.Answers.SubjectArea, new Dictionary<string, INamed>
 					{
 						{ "#CONCEPT#", question.Concept },
 						{ "#AREA#", statement.Area },
@@ -30,7 +31,7 @@ namespace Inventor.Core.Processing
 			}
 			else
 			{
-				return Answer.CreateUnknown(language);
+				return Answer.CreateUnknown(context.Language);
 			}
 		}
 	}

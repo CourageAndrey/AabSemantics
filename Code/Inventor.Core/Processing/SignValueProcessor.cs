@@ -9,31 +9,32 @@ namespace Inventor.Core.Processing
 {
 	public sealed class SignValueProcessor : QuestionProcessor<SignValueQuestion>
 	{
-		protected override Answer ProcessImplementation(QuestionProcessingMechanism processingMechanism, KnowledgeBase knowledgeBase, SignValueQuestion question, ILanguage language)
+		public override Answer Process(ProcessingContext<SignValueQuestion> context)
 		{
-			var signValues = knowledgeBase.Statements.OfType<SignValueStatement>().ToList();
+			var question = context.QuestionX;
+			var signValues = context.KnowledgeBase.Statements.OfType<SignValueStatement>().ToList();
 			var statement = getSignValue(signValues, question.Concept, question.Sign);
 			FormattedText description = null;
 			if (statement != null)
 			{
-				description = formatSignValue(statement, question.Concept, language);
+				description = formatSignValue(statement, question.Concept, context.Language);
 			}
 			else
 			{
-				var parents = knowledgeBase.Statements.GetParentsAllLevels<Concept, IsStatement>(question.Concept);
+				var parents = context.KnowledgeBase.Statements.GetParentsAllLevels<Concept, IsStatement>(question.Concept);
 				foreach (var parent in parents)
 				{
 					statement = getSignValue(signValues, parent, question.Sign);
 					if (statement != null)
 					{
-						description = formatSignValue(statement, question.Concept, language);
+						description = formatSignValue(statement, question.Concept, context.Language);
 						break;
 					}
 				}
 			}
 			return description != null
 				? new Answer(null, description, new Explanation(statement))
-				: Answer.CreateUnknown(language);
+				: Answer.CreateUnknown(context.Language);
 		}
 
 		private static SignValueStatement getSignValue(IEnumerable<SignValueStatement> statements, Concept concept, Concept sign)

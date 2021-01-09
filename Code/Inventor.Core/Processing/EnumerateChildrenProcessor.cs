@@ -8,9 +8,10 @@ namespace Inventor.Core.Processing
 {
 	public sealed class EnumerateChildrenProcessor : QuestionProcessor<EnumerateChildrenQuestion>
 	{
-		protected override Answer ProcessImplementation(QuestionProcessingMechanism processingMechanism, KnowledgeBase knowledgeBase, EnumerateChildrenQuestion question, ILanguage language)
+		public override Answer Process(ProcessingContext<EnumerateChildrenQuestion> context)
 		{
-			var statements = knowledgeBase.Statements.OfType<IsStatement>().Where(c => c.Parent == question.Concept).ToList();
+			var question = context.QuestionX;
+			var statements = context.KnowledgeBase.Statements.OfType<IsStatement>().Where(c => c.Parent == question.Concept).ToList();
 			if (statements.Any())
 			{
 				string format;
@@ -18,12 +19,12 @@ namespace Inventor.Core.Processing
 				parameters.Add("#PARENT#", question.Concept);
 				return new Answer(
 					statements.Select(s => s.Child),
-					new FormattedText(() => language.Answers.Enumerate + format + ".", parameters),
+					new FormattedText(() => context.Language.Answers.Enumerate + format + ".", parameters),
 					new Explanation(statements));
 			}
 			else
 			{
-				return Answer.CreateUnknown(language);
+				return Answer.CreateUnknown(context.Language);
 			}
 		}
 	}

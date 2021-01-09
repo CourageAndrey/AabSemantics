@@ -10,12 +10,13 @@ namespace Inventor.Core.Processing
 {
 	public sealed class IsPartOfProcessor : QuestionProcessor<IsPartOfQuestion>
 	{
-		protected override Answer ProcessImplementation(QuestionProcessingMechanism processingMechanism, KnowledgeBase knowledgeBase, IsPartOfQuestion question, ILanguage language)
+		public override Answer Process(ProcessingContext<IsPartOfQuestion> context)
 		{
-			var statements = knowledgeBase.Statements.OfType<ConsistsOfStatement>().Where(c => c.Parent == question.Parent && c.Child == question.Child).ToList();
+			var question = context.QuestionX;
+			var statements = context.KnowledgeBase.Statements.OfType<ConsistsOfStatement>().Where(c => c.Parent == question.Parent && c.Child == question.Child).ToList();
 			return new Answer(
 				statements.Any(),
-				new FormattedText(statements.Any() ? new Func<string>(() => language.Answers.IsPartOfTrue) : () => language.Answers.IsPartOfFalse, new Dictionary<string, INamed>
+				new FormattedText(statements.Any() ? new Func<string>(() => context.Language.Answers.IsPartOfTrue) : () => context.Language.Answers.IsPartOfFalse, new Dictionary<string, INamed>
 				{
 					{ "#PARENT#", question.Parent },
 					{ "#CHILD#", question.Child },
