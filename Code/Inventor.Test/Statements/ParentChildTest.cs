@@ -14,13 +14,13 @@ namespace Inventor.Test.Statements
 		{
 			foreach (string node in All)
 			{
-				Assert.AreEqual(0, new TestParentChild[0].GetParentsPlainList(node).Count);
-				Assert.AreEqual(0, new TestParentChild[0].GetParentsTree(node).Count);
+				Assert.AreEqual(0, new TestParentChild[0].GetParentsOneLevel(node).Count);
+				Assert.AreEqual(0, new TestParentChild[0].GetParentsAllLevels(node).Count);
 			}
 
 			var allRelationships = createTestSet();
-			Assert.AreEqual(0, allRelationships.GetParentsPlainList("Absent").Count);
-			Assert.AreEqual(0, allRelationships.GetParentsTree("Absent").Count);
+			Assert.AreEqual(0, allRelationships.GetParentsOneLevel("Absent").Count);
+			Assert.AreEqual(0, allRelationships.GetParentsAllLevels("Absent").Count);
 		}
 
 		[Test]
@@ -28,13 +28,13 @@ namespace Inventor.Test.Statements
 		{
 			foreach (string node in All)
 			{
-				Assert.AreEqual(0, new TestParentChild[0].GetChildrenPlainList(node).Count);
-				Assert.AreEqual(0, new TestParentChild[0].GetChildrenTree(node).Count);
+				Assert.AreEqual(0, new TestParentChild[0].GetChildrenOnLevel(node).Count);
+				Assert.AreEqual(0, new TestParentChild[0].GetChildrenAllLevels(node).Count);
 			}
 
 			var allRelationships = createTestSet();
-			Assert.AreEqual(0, allRelationships.GetChildrenPlainList("Absent").Count);
-			Assert.AreEqual(0, allRelationships.GetChildrenTree("Absent").Count);
+			Assert.AreEqual(0, allRelationships.GetChildrenOnLevel("Absent").Count);
+			Assert.AreEqual(0, allRelationships.GetChildrenAllLevels("Absent").Count);
 		}
 
 		[Test]
@@ -42,38 +42,38 @@ namespace Inventor.Test.Statements
 		{
 			var allRelationships = createTestSet();
 
-			var relationships = allRelationships.GetParentsPlainList(Parent1);
+			var relationships = allRelationships.GetParentsOneLevel(Parent1);
 			Assert.AreEqual(0, relationships.Count);
 
-			relationships = allRelationships.GetParentsPlainList(Parent2);
+			relationships = allRelationships.GetParentsOneLevel(Parent2);
 			Assert.AreEqual(0, relationships.Count);
 
-			relationships = allRelationships.GetParentsPlainList(Child1);
+			relationships = allRelationships.GetParentsOneLevel(Child1);
 			Assert.AreEqual(3, relationships.Count);
 			Assert.IsTrue(relationships.Contains(Medium1));
 			Assert.IsTrue(relationships.Contains(Medium2));
 			Assert.IsTrue(relationships.Contains(Single1));
 
-			relationships = allRelationships.GetParentsPlainList(Child2);
+			relationships = allRelationships.GetParentsOneLevel(Child2);
 			Assert.AreEqual(3, relationships.Count);
 			Assert.IsTrue(relationships.Contains(Medium1));
 			Assert.IsTrue(relationships.Contains(Medium2));
 			Assert.IsTrue(relationships.Contains(Single2));
 
-			relationships = allRelationships.GetParentsPlainList(Medium1);
+			relationships = allRelationships.GetParentsOneLevel(Medium1);
 			Assert.AreEqual(2, relationships.Count);
 			Assert.IsTrue(relationships.Contains(Parent1));
 			Assert.IsTrue(relationships.Contains(Parent2));
 
-			relationships = allRelationships.GetParentsPlainList(Medium2);
+			relationships = allRelationships.GetParentsOneLevel(Medium2);
 			Assert.AreEqual(2, relationships.Count);
 			Assert.IsTrue(relationships.Contains(Parent1));
 			Assert.IsTrue(relationships.Contains(Parent2));
 
-			relationships = allRelationships.GetParentsPlainList(Single1);
+			relationships = allRelationships.GetParentsOneLevel(Single1);
 			Assert.AreEqual(Parent1, relationships.Single());
 
-			relationships = allRelationships.GetParentsPlainList(Single2);
+			relationships = allRelationships.GetParentsOneLevel(Single2);
 			Assert.AreEqual(Parent2, relationships.Single());
 		}
 
@@ -82,38 +82,38 @@ namespace Inventor.Test.Statements
 		{
 			var allRelationships = createTestSet();
 
-			var relationships = allRelationships.GetChildrenPlainList(Parent1);
+			var relationships = allRelationships.GetChildrenOnLevel(Parent1);
 			Assert.AreEqual(3, relationships.Count);
 			Assert.IsTrue(relationships.Contains(Medium1));
 			Assert.IsTrue(relationships.Contains(Medium2));
 			Assert.IsTrue(relationships.Contains(Single1));
 
-			relationships = allRelationships.GetChildrenPlainList(Parent2);
+			relationships = allRelationships.GetChildrenOnLevel(Parent2);
 			Assert.AreEqual(3, relationships.Count);
 			Assert.IsTrue(relationships.Contains(Medium1));
 			Assert.IsTrue(relationships.Contains(Medium2));
 			Assert.IsTrue(relationships.Contains(Single2));
 
-			relationships = allRelationships.GetChildrenPlainList(Child1);
+			relationships = allRelationships.GetChildrenOnLevel(Child1);
 			Assert.AreEqual(0, relationships.Count);
 
-			relationships = allRelationships.GetChildrenPlainList(Child2);
+			relationships = allRelationships.GetChildrenOnLevel(Child2);
 			Assert.AreEqual(0, relationships.Count);
 
-			relationships = allRelationships.GetChildrenPlainList(Medium1);
+			relationships = allRelationships.GetChildrenOnLevel(Medium1);
 			Assert.AreEqual(2, relationships.Count);
 			Assert.IsTrue(relationships.Contains(Child1));
 			Assert.IsTrue(relationships.Contains(Child2));
 
-			relationships = allRelationships.GetChildrenPlainList(Medium2);
+			relationships = allRelationships.GetChildrenOnLevel(Medium2);
 			Assert.AreEqual(2, relationships.Count);
 			Assert.IsTrue(relationships.Contains(Child1));
 			Assert.IsTrue(relationships.Contains(Child2));
 
-			relationships = allRelationships.GetChildrenPlainList(Single1);
+			relationships = allRelationships.GetChildrenOnLevel(Single1);
 			Assert.AreEqual(Child1, relationships.Single());
 
-			relationships = allRelationships.GetChildrenPlainList(Single2);
+			relationships = allRelationships.GetChildrenOnLevel(Single2);
 			Assert.AreEqual(Child2, relationships.Single());
 		}
 
@@ -122,13 +122,13 @@ namespace Inventor.Test.Statements
 		{
 			var allRelationships = createTestSet();
 
-			var relationships = allRelationships.GetParentsTree(Parent1);
+			var relationships = allRelationships.GetParentsAllLevels(Parent1);
 			Assert.AreEqual(0, relationships.Count);
 
-			relationships = allRelationships.GetParentsTree(Parent2);
+			relationships = allRelationships.GetParentsAllLevels(Parent2);
 			Assert.AreEqual(0, relationships.Count);
 
-			relationships = allRelationships.GetParentsTree(Child1);
+			relationships = allRelationships.GetParentsAllLevels(Child1);
 			Assert.AreEqual(5, relationships.Count);
 			Assert.IsTrue(relationships.Contains(Parent1));
 			Assert.IsTrue(relationships.Contains(Parent2));
@@ -136,7 +136,7 @@ namespace Inventor.Test.Statements
 			Assert.IsTrue(relationships.Contains(Medium2));
 			Assert.IsTrue(relationships.Contains(Single1));
 
-			relationships = allRelationships.GetParentsTree(Child2);
+			relationships = allRelationships.GetParentsAllLevels(Child2);
 			Assert.AreEqual(5, relationships.Count);
 			Assert.IsTrue(relationships.Contains(Parent1));
 			Assert.IsTrue(relationships.Contains(Parent2));
@@ -144,20 +144,20 @@ namespace Inventor.Test.Statements
 			Assert.IsTrue(relationships.Contains(Medium2));
 			Assert.IsTrue(relationships.Contains(Single2));
 
-			relationships = allRelationships.GetParentsTree(Medium1);
+			relationships = allRelationships.GetParentsAllLevels(Medium1);
 			Assert.AreEqual(2, relationships.Count);
 			Assert.IsTrue(relationships.Contains(Parent1));
 			Assert.IsTrue(relationships.Contains(Parent2));
 
-			relationships = allRelationships.GetParentsTree(Medium2);
+			relationships = allRelationships.GetParentsAllLevels(Medium2);
 			Assert.AreEqual(2, relationships.Count);
 			Assert.IsTrue(relationships.Contains(Parent1));
 			Assert.IsTrue(relationships.Contains(Parent2));
 
-			relationships = allRelationships.GetParentsTree(Single1);
+			relationships = allRelationships.GetParentsAllLevels(Single1);
 			Assert.AreEqual(Parent1, relationships.Single());
 
-			relationships = allRelationships.GetParentsTree(Single2);
+			relationships = allRelationships.GetParentsAllLevels(Single2);
 			Assert.AreEqual(Parent2, relationships.Single());
 		}
 
@@ -166,7 +166,7 @@ namespace Inventor.Test.Statements
 		{
 			var allRelationships = createTestSet();
 
-			var relationships = allRelationships.GetChildrenTree(Parent1);
+			var relationships = allRelationships.GetChildrenAllLevels(Parent1);
 			Assert.AreEqual(5, relationships.Count);
 			Assert.IsTrue(relationships.Contains(Medium1));
 			Assert.IsTrue(relationships.Contains(Medium2));
@@ -174,7 +174,7 @@ namespace Inventor.Test.Statements
 			Assert.IsTrue(relationships.Contains(Child1));
 			Assert.IsTrue(relationships.Contains(Child2));
 
-			relationships = allRelationships.GetChildrenTree(Parent2);
+			relationships = allRelationships.GetChildrenAllLevels(Parent2);
 			Assert.AreEqual(5, relationships.Count);
 			Assert.IsTrue(relationships.Contains(Medium1));
 			Assert.IsTrue(relationships.Contains(Medium2));
@@ -182,26 +182,26 @@ namespace Inventor.Test.Statements
 			Assert.IsTrue(relationships.Contains(Child1));
 			Assert.IsTrue(relationships.Contains(Child2));
 
-			relationships = allRelationships.GetChildrenTree(Child1);
+			relationships = allRelationships.GetChildrenAllLevels(Child1);
 			Assert.AreEqual(0, relationships.Count);
 
-			relationships = allRelationships.GetChildrenTree(Child2);
+			relationships = allRelationships.GetChildrenAllLevels(Child2);
 			Assert.AreEqual(0, relationships.Count);
 
-			relationships = allRelationships.GetChildrenTree(Medium1);
+			relationships = allRelationships.GetChildrenAllLevels(Medium1);
 			Assert.AreEqual(2, relationships.Count);
 			Assert.IsTrue(relationships.Contains(Child1));
 			Assert.IsTrue(relationships.Contains(Child2));
 
-			relationships = allRelationships.GetChildrenTree(Medium2);
+			relationships = allRelationships.GetChildrenAllLevels(Medium2);
 			Assert.AreEqual(2, relationships.Count);
 			Assert.IsTrue(relationships.Contains(Child1));
 			Assert.IsTrue(relationships.Contains(Child2));
 
-			relationships = allRelationships.GetChildrenTree(Single1);
+			relationships = allRelationships.GetChildrenAllLevels(Single1);
 			Assert.AreEqual(Child1, relationships.Single());
 
-			relationships = allRelationships.GetChildrenTree(Single2);
+			relationships = allRelationships.GetChildrenAllLevels(Single2);
 			Assert.AreEqual(Child2, relationships.Single());
 		}
 
@@ -213,8 +213,8 @@ namespace Inventor.Test.Statements
 			var relationshipsLoop1 = new[] { new TestParentChild(x, x) };
 			foreach (var list1 in new[]
 			{
-				relationshipsLoop1.GetChildrenTree(x),
-				relationshipsLoop1.GetParentsTree(x),
+				relationshipsLoop1.GetChildrenAllLevels(x),
+				relationshipsLoop1.GetParentsAllLevels(x),
 			})
 			{
 				Assert.AreEqual(x, list1.Single());
@@ -225,8 +225,8 @@ namespace Inventor.Test.Statements
 			var relationshipsLoop2 = new[] { new TestParentChild(x, y), new TestParentChild(y, x) };
 			foreach (var list2 in new[]
 			{
-				relationshipsLoop2.GetChildrenTree(x),
-				relationshipsLoop2.GetParentsTree(x),
+				relationshipsLoop2.GetChildrenAllLevels(x),
+				relationshipsLoop2.GetParentsAllLevels(x),
 			})
 			{
 				Assert.AreEqual(2, list2.Count);
@@ -235,8 +235,8 @@ namespace Inventor.Test.Statements
 			}
 			foreach (var list2 in new[]
 			{
-				relationshipsLoop2.GetChildrenTree(y),
-				relationshipsLoop2.GetParentsTree(y),
+				relationshipsLoop2.GetChildrenAllLevels(y),
+				relationshipsLoop2.GetParentsAllLevels(y),
 			})
 			{
 				Assert.AreEqual(2, list2.Count);
@@ -247,32 +247,32 @@ namespace Inventor.Test.Statements
 			// 3 variables loop
 			const string z = "z";
 			var relationshipsLoop3 = new[] { new TestParentChild(x, y), new TestParentChild(y, z), new TestParentChild(z, x) };
-			var list3 = relationshipsLoop3.GetChildrenTree(x);
+			var list3 = relationshipsLoop3.GetChildrenAllLevels(x);
 			Assert.AreEqual(3, list3.Count);
 			Assert.AreEqual(y, list3[0]);
 			Assert.AreEqual(z, list3[1]);
 			Assert.AreEqual(x, list3[2]);
-			list3 = relationshipsLoop3.GetParentsTree(x);
+			list3 = relationshipsLoop3.GetParentsAllLevels(x);
 			Assert.AreEqual(3, list3.Count);
 			Assert.AreEqual(z, list3[0]);
 			Assert.AreEqual(y, list3[1]);
 			Assert.AreEqual(x, list3[2]);
-			list3 = relationshipsLoop3.GetChildrenTree(y);
+			list3 = relationshipsLoop3.GetChildrenAllLevels(y);
 			Assert.AreEqual(3, list3.Count);
 			Assert.AreEqual(z, list3[0]);
 			Assert.AreEqual(x, list3[1]);
 			Assert.AreEqual(y, list3[2]);
-			list3 = relationshipsLoop3.GetParentsTree(y);
+			list3 = relationshipsLoop3.GetParentsAllLevels(y);
 			Assert.AreEqual(3, list3.Count);
 			Assert.AreEqual(x, list3[0]);
 			Assert.AreEqual(z, list3[1]);
 			Assert.AreEqual(y, list3[2]);
-			list3 = relationshipsLoop3.GetChildrenTree(z);
+			list3 = relationshipsLoop3.GetChildrenAllLevels(z);
 			Assert.AreEqual(3, list3.Count);
 			Assert.AreEqual(x, list3[0]);
 			Assert.AreEqual(y, list3[1]);
 			Assert.AreEqual(z, list3[2]);
-			list3 = relationshipsLoop3.GetParentsTree(z);
+			list3 = relationshipsLoop3.GetParentsAllLevels(z);
 			Assert.AreEqual(3, list3.Count);
 			Assert.AreEqual(y, list3[0]);
 			Assert.AreEqual(x, list3[1]);
