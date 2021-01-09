@@ -29,20 +29,22 @@ namespace Inventor.Core.Localization
 			return paremeters;
 		}
 
-		public static Dictionary<string, INamed> Enumerate<T>(this IList<T> list, out string format)
+		public static Dictionary<string, INamed> Enumerate<T>(this IEnumerable<T> amount, out string format)
 			where T : INamed
 		{
 			var formatText = new StringBuilder();
 			var paremeters = new Dictionary<string, INamed>();
-			for (int i = 0; i < list.Count; i++)
+			int index = 0;
+			foreach (var item in amount)
 			{
-				string param = string.Format("#ENUMITEM{0:00000000}#", i);
-				paremeters[param] = list[i];
-				formatText.Append(param);
-				if (i != list.Count - 1)
+				if (index > 0)
 				{
 					formatText.Append(", ");
 				}
+				string param = string.Format("#ENUMITEM{0:00000000}#", index);
+				paremeters[param] = item;
+				formatText.Append(param);
+				index++;
 			}
 			format = formatText.ToString();
 			return paremeters;
