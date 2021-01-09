@@ -45,12 +45,13 @@ namespace Inventor.Core.Statements
 			where T : class
 		{
 			var result = new List<T>();
-			foreach (var parent in GetParentsPlainList(relationships, concept))
+			var parentsToCheck = new List<T> { concept };
+			while (parentsToCheck.Count > 0)
 			{
-				var list = new List<T> { parent };
-				list.AddRange(GetParentsTree(relationships, parent));
-				list.RemoveAll(result.Contains);
-				result.AddRange(list);
+				var nextGeneration = parentsToCheck.Aggregate(new List<T>(), (list, parent) => { list.AddRange(GetParentsPlainList(relationships, parent)); return list; });
+				nextGeneration.RemoveAll(result.Contains);
+				parentsToCheck = nextGeneration.Distinct().ToList();
+				result.AddRange(parentsToCheck);
 			}
 			return result;
 		}
@@ -60,12 +61,13 @@ namespace Inventor.Core.Statements
 			where T : class
 		{
 			var result = new List<T>();
-			foreach (var child in GetChildrenPlainList(relationships, concept))
+			var childrenToCheck = new List<T> { concept };
+			while (childrenToCheck.Count > 0)
 			{
-				var list = new List<T> { child };
-				list.AddRange(GetChildrenTree(relationships, child));
-				list.RemoveAll(result.Contains);
-				result.AddRange(list);
+				var nextGeneration = childrenToCheck.Aggregate(new List<T>(), (list, child) => { list.AddRange(GetChildrenPlainList(relationships, child)); return list; });
+				nextGeneration.RemoveAll(result.Contains);
+				childrenToCheck = nextGeneration.Distinct().ToList();
+				result.AddRange(childrenToCheck);
 			}
 			return result;
 		}
