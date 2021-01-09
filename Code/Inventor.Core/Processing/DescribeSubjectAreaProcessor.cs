@@ -8,7 +8,7 @@ namespace Inventor.Core.Processing
 {
 	public sealed class DescribeSubjectAreaProcessor : QuestionProcessor<DescribeSubjectAreaQuestion>
 	{
-		protected override FormattedText ProcessImplementation(QuestionProcessingMechanism processingMechanism, KnowledgeBase knowledgeBase, DescribeSubjectAreaQuestion question, ILanguage language)
+		protected override Answer ProcessImplementation(QuestionProcessingMechanism processingMechanism, KnowledgeBase knowledgeBase, DescribeSubjectAreaQuestion question, ILanguage language)
 		{
 			var statements = knowledgeBase.Statements.OfType<GroupStatement>().Where(c => c.Area == question.Concept).ToList();
 			if (statements.Any())
@@ -16,11 +16,14 @@ namespace Inventor.Core.Processing
 				string format;
 				var parameters = statements.Select(r => r.Concept).ToList().Enumerate(out format);
 				parameters.Add("#AREA#", question.Concept);
-				return new FormattedText(() => language.Answers.SubjectAreaConcepts + format + ".", parameters);
+				return new Answer(
+					statements.Select(s => s.Concept),
+					new FormattedText(() => language.Answers.SubjectAreaConcepts + format + ".", parameters),
+					new Explanation(statements));
 			}
 			else
 			{
-				return AnswerHelper.CreateUnknown(language);
+				return Answer.CreateUnknown(language);
 			}
 		}
 	}

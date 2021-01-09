@@ -9,15 +9,15 @@ namespace Inventor.Core.Processing
 {
 	public sealed class WhatProcessor : QuestionProcessor<WhatQuestion>
 	{
-		protected override FormattedText ProcessImplementation(QuestionProcessingMechanism processingMechanism, KnowledgeBase knowledgeBase, WhatQuestion question, ILanguage language)
+		protected override Answer ProcessImplementation(QuestionProcessingMechanism processingMechanism, KnowledgeBase knowledgeBase, WhatQuestion question, ILanguage language)
 		{
 			var statements = knowledgeBase.Statements.OfType<IsStatement>().Where(c => c.Child == question.Concept).ToList();
 			if (statements.Any())
 			{
 				var result = new FormattedText();
+				var difference = new List<SignValueStatement>();
 				foreach (var statement in statements)
 				{
-					var difference = new List<SignValueStatement>();
 					foreach (var sign in HasSignStatement.GetSigns(knowledgeBase.Statements, statement.Parent, false))
 					{
 						var diff = SignValueStatement.GetSignValue(knowledgeBase.Statements, question.Concept, sign.Sign);
@@ -52,11 +52,11 @@ namespace Inventor.Core.Processing
 					}
 					result.Add(() => string.Empty, new Dictionary<string, INamed>());
 				}
-				return result;
+				return new Answer(result, result, new Explanation(difference));
 			}
 			else
 			{
-				return AnswerHelper.CreateUnknown(language);
+				return Answer.CreateUnknown(language);
 			}
 		}
 	}
