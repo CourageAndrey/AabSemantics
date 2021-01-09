@@ -6,7 +6,7 @@ using Inventor.Core.Localization;
 
 namespace Inventor.Core.Statements
 {
-	public sealed class IsStatement : Statement<IsStatement>
+	public sealed class IsStatement : Statement<IsStatement>, IParentChild<Concept>
 	{
 		#region Properties
 
@@ -93,38 +93,6 @@ namespace Inventor.Core.Statements
 				}
 				return false;
 			}
-		}
-
-		#endregion
-
-		#region Lookup
-
-		public static List<Concept> GetParentsTree(IEnumerable<Statement> statements, Concept concept)
-		{
-			return GetParentsTree(statements.OfType<IsStatement>(), concept);
-		}
-
-		public static List<Concept> GetParentsPlainList(IEnumerable<Statement> statements, Concept concept)
-		{
-			return GetParentsPlainList(statements.OfType<IsStatement>(), concept);
-		}
-
-		public static List<Concept> GetParentsTree(IEnumerable<IsStatement> clasifications, Concept concept)
-		{
-			var result = new List<Concept>();
-			foreach (var parent in GetParentsPlainList(clasifications, concept))
-			{
-				var list = new List<Concept> {parent};
-				list.AddRange(GetParentsTree(clasifications, parent));
-				list.RemoveAll(result.Contains);
-				result.AddRange(list);
-			}
-			return result;
-		}
-
-		public static List<Concept> GetParentsPlainList(IEnumerable<IsStatement> clasifications, Concept concept)
-		{
-			return clasifications.Where(c => c.Child == concept).Select(c => c.Parent).ToList();
 		}
 
 		#endregion
