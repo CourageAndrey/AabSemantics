@@ -205,6 +205,80 @@ namespace Inventor.Test.Statements
 			Assert.AreEqual(Child2, relationships.Single());
 		}
 
+		[Test]
+		public void AllMethodsSupportRecursion()
+		{
+			// 1 variable loop
+			const string x = "x";
+			var relationshipsLoop1 = new[] { new TestParentChild(x, x) };
+			foreach (var list1 in new[]
+			{
+				relationshipsLoop1.GetChildrenTree(x),
+				relationshipsLoop1.GetParentsTree(x),
+			})
+			{
+				Assert.AreEqual(x, list1.Single());
+			}
+
+			// 2 variables loop
+			const string y = "y";
+			var relationshipsLoop2 = new[] { new TestParentChild(x, y), new TestParentChild(y, x) };
+			foreach (var list2 in new[]
+			{
+				relationshipsLoop2.GetChildrenTree(x),
+				relationshipsLoop2.GetParentsTree(x),
+			})
+			{
+				Assert.AreEqual(2, list2.Count);
+				Assert.AreEqual(y, list2[0]);
+				Assert.AreEqual(x, list2[1]);
+			}
+			foreach (var list2 in new[]
+			{
+				relationshipsLoop2.GetChildrenTree(y),
+				relationshipsLoop2.GetParentsTree(y),
+			})
+			{
+				Assert.AreEqual(2, list2.Count);
+				Assert.AreEqual(x, list2[0]);
+				Assert.AreEqual(y, list2[1]);
+			}
+
+			// 3 variables loop
+			const string z = "z";
+			var relationshipsLoop3 = new[] { new TestParentChild(x, y), new TestParentChild(y, z), new TestParentChild(z, x) };
+			var list3 = relationshipsLoop3.GetChildrenTree(x);
+			Assert.AreEqual(3, list3.Count);
+			Assert.AreEqual(y, list3[0]);
+			Assert.AreEqual(z, list3[1]);
+			Assert.AreEqual(x, list3[2]);
+			list3 = relationshipsLoop3.GetParentsTree(x);
+			Assert.AreEqual(3, list3.Count);
+			Assert.AreEqual(z, list3[0]);
+			Assert.AreEqual(y, list3[1]);
+			Assert.AreEqual(x, list3[2]);
+			list3 = relationshipsLoop3.GetChildrenTree(y);
+			Assert.AreEqual(3, list3.Count);
+			Assert.AreEqual(z, list3[0]);
+			Assert.AreEqual(x, list3[1]);
+			Assert.AreEqual(y, list3[2]);
+			list3 = relationshipsLoop3.GetParentsTree(y);
+			Assert.AreEqual(3, list3.Count);
+			Assert.AreEqual(x, list3[0]);
+			Assert.AreEqual(z, list3[1]);
+			Assert.AreEqual(y, list3[2]);
+			list3 = relationshipsLoop3.GetChildrenTree(z);
+			Assert.AreEqual(3, list3.Count);
+			Assert.AreEqual(x, list3[0]);
+			Assert.AreEqual(y, list3[1]);
+			Assert.AreEqual(z, list3[2]);
+			list3 = relationshipsLoop3.GetParentsTree(z);
+			Assert.AreEqual(3, list3.Count);
+			Assert.AreEqual(y, list3[0]);
+			Assert.AreEqual(x, list3[1]);
+			Assert.AreEqual(z, list3[2]);
+		}
+
 		private const string Parent1 = "Parent 1";
 		private const string Parent2 = "Parent 2";
 		private const string Child1 = "Child 1";
