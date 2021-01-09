@@ -103,9 +103,10 @@ namespace Inventor.Client.UI
 			};
 			if (dialog.ShowDialog() == true)
 			{
+				var answer = _questionProcessingMechanism.Process(_application.KnowledgeBase, dialog.Question, _application.CurrentLanguage);
 				new FormattedTextDialog(
 					_application.CurrentLanguage,
-					_questionProcessingMechanism.Process(_application.KnowledgeBase, dialog.Question, _application.CurrentLanguage),
+					answer.Description,
 					knowledgeObjectPicked)
 				{
 					Owner = this,

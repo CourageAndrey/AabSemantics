@@ -34,7 +34,7 @@ namespace Inventor.Core
 			_allProcessors[questionType] = processorFactory;
 		}
 
-		public FormattedText Process(KnowledgeBase knowledgeBase, Question question, ILanguage language)
+		public Answer Process(KnowledgeBase knowledgeBase, Question question, ILanguage language)
 		{
 			Func<QuestionProcessor> processorFactory;
 			if (_allProcessors.TryGetValue(question.GetType(), out processorFactory))
