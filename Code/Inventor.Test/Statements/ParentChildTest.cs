@@ -279,6 +279,24 @@ namespace Inventor.Test.Statements
 			Assert.AreEqual(z, list3[2]);
 		}
 
+		[Test]
+		public void CheckExplanation()
+		{
+			var allRelationships = createTestSet();
+			var explanation = new List<TestParentChild>();
+
+			allRelationships.GetParentsAllLevels(Child1, explanation);
+			Assert.AreEqual(8, explanation.Count);
+			Assert.IsTrue(explanation.Any(relationship => relationship.Parent == Medium1 && relationship.Child == Child1));
+			Assert.IsTrue(explanation.Any(relationship => relationship.Parent == Medium2 && relationship.Child == Child1));
+			Assert.IsTrue(explanation.Any(relationship => relationship.Parent == Single1 && relationship.Child == Child1));
+			Assert.IsTrue(explanation.Any(relationship => relationship.Parent == Parent1 && relationship.Child == Medium1));
+			Assert.IsTrue(explanation.Any(relationship => relationship.Parent == Parent2 && relationship.Child == Medium1));
+			Assert.IsTrue(explanation.Any(relationship => relationship.Parent == Parent1 && relationship.Child == Medium2));
+			Assert.IsTrue(explanation.Any(relationship => relationship.Parent == Parent2 && relationship.Child == Medium2));
+			Assert.IsTrue(explanation.Any(relationship => relationship.Parent == Parent1 && relationship.Child == Single1));
+		}
+
 		private const string Parent1 = "Parent 1";
 		private const string Parent2 = "Parent 2";
 		private const string Child1 = "Child 1";
