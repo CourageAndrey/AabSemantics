@@ -10,11 +10,11 @@ namespace Inventor.Core.Processing
 	{
 		protected override FormattedText ProcessImplementation(QuestionProcessingMechanism processingMechanism, KnowledgeBase knowledgeBase, CheckStatementQuestion question, ILanguage language)
 		{
-			var assertion = knowledgeBase.Statements.FirstOrDefault(p => p.Equals(question.Statement));
+			var statement = knowledgeBase.Statements.FirstOrDefault(p => p.Equals(question.Statement));
 			var result = new FormattedText(
 				() => "#ANSWER#.",
-				new Dictionary<string, INamed> { { "#ANSWER#", assertion != null ? knowledgeBase.True : knowledgeBase.False } });
-			result.Add(assertion != null ? assertion.DescribeTrue(language) : question.Statement.DescribeFalse(language));
+				new Dictionary<string, INamed> { { "#ANSWER#", statement != null ? knowledgeBase.True : knowledgeBase.False } });
+			result.Add(statement != null ? statement.DescribeTrue(language) : question.Statement.DescribeFalse(language));
 			return result;
 		}
 	}

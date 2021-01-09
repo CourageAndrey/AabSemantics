@@ -12,9 +12,9 @@ namespace Inventor.Core.Processing
 	{
 		protected override FormattedText ProcessImplementation(QuestionProcessingMechanism processingMechanism, KnowledgeBase knowledgeBase, IsSignQuestion question, ILanguage language)
 		{
-			bool yes = knowledgeBase.Statements.OfType<HasSignStatement>().FirstOrDefault(r => r.Sign == question.Concept) != null;
+			var statements = knowledgeBase.Statements.OfType<HasSignStatement>().Where(r => r.Sign == question.Concept).ToList();
 			return new FormattedText(
-				yes ? new Func<string>(() => language.Answers.SignTrue) : () => language.Answers.SignFalse,
+				statements.Any() ? new Func<string>(() => language.Answers.SignTrue) : () => language.Answers.SignFalse,
 				new Dictionary<string, INamed>
 				{
 					{ "#CONCEPT#", question.Concept },
