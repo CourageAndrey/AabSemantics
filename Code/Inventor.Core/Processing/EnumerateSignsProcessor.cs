@@ -10,9 +10,10 @@ namespace Inventor.Core.Processing
 	{
 		protected override FormattedText ProcessImplementation(QuestionProcessingMechanism processingMechanism, KnowledgeBase knowledgeBase, EnumerateSignsQuestion question, ILanguage language)
 		{
-			var signs = HasSignStatement.GetSigns(knowledgeBase.Statements, question.Concept, question.Recursive).Select(hs => hs.Sign).ToList();
-			if (signs.Count > 0)
+			var statements = HasSignStatement.GetSigns(knowledgeBase.Statements, question.Concept, question.Recursive);
+			if (statements.Any())
 			{
+				var signs = statements.Select(hs => hs.Sign);
 				string format;
 				var parameters = signs.Enumerate(out format);
 				parameters["#CONCEPT#"] = question.Concept;
