@@ -422,7 +422,7 @@ namespace Inventor.Core
 			var signValues = _statements.OfType<SignValueStatement>().ToList();
 			foreach (var concept in _concepts)
 			{
-				var parents = IsStatement.GetParentsPlainList(clasifications, concept);
+				var parents = clasifications.GetParentsPlainList(concept);
 				foreach (var sign in HasSignStatement.GetSigns(_statements, concept, true))
 				{
 					if (signValues.FirstOrDefault(sv => sv.Concept == concept && sv.Sign == sign.Sign) == null &&

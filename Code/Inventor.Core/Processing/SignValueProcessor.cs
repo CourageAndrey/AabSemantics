@@ -19,7 +19,7 @@ namespace Inventor.Core.Processing
 			}
 			else
 			{
-				var parents = IsStatement.GetParentsTree(knowledgeBase.Statements, question.Concept);
+				var parents = knowledgeBase.Statements.GetParentsTree<Concept, IsStatement>(question.Concept);
 				foreach (var parent in parents)
 				{
 					result = getSignValue(signValues, parent, question.Sign, question.Concept, language);
