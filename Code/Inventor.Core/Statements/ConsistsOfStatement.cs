@@ -6,7 +6,7 @@ using Inventor.Core.Localization;
 
 namespace Inventor.Core.Statements
 {
-	public sealed class ConsistsOfStatement : Statement<ConsistsOfStatement>
+	public sealed class ConsistsOfStatement : Statement<ConsistsOfStatement>, IParentChild<Concept>
 	{
 		#region Properties
 

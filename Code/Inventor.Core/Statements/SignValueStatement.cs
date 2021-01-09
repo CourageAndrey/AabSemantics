@@ -94,7 +94,7 @@ namespace Inventor.Core.Statements
 			}
 			else
 			{
-				foreach (var parent in IsStatement.GetParentsPlainList(statements, concept))
+				foreach (var parent in statements.GetParentsPlainList<Concept, IsStatement>(concept))
 				{
 					var parentValue = GetSignValue(statements, parent, sign);
 					if (parentValue != null)
@@ -113,7 +113,7 @@ namespace Inventor.Core.Statements
 			result.AddRange(signValues.Where(sv => sv.Concept == concept));
 			if (recursive)
 			{
-				foreach (var parentSigns in IsStatement.GetParentsPlainList(statements, concept).Select(c => GetSignValues(statements, c, true)))
+				foreach (var parentSigns in statements.GetParentsPlainList<Concept, IsStatement>(concept).Select(c => GetSignValues(statements, c, true)))
 				{
 					foreach (var signValue in parentSigns)
 					{
