@@ -71,7 +71,7 @@ namespace Inventor.Core.Statements
 		public bool CheckSignDuplication(IEnumerable<HasSignStatement> hasSigns, IEnumerable<IsStatement> clasifications)
 		{
 			var signs = hasSigns.Where(hs => hs.Concept == _concept).Select(hs => hs.Sign).ToList();
-			foreach (var parent in clasifications.GetParentsTree(_concept))
+			foreach (var parent in clasifications.GetParentsAllLevels(_concept))
 			{
 				foreach (var parentSign in hasSigns.Where(hs => hs.Concept == parent).Select(hs => hs.Sign))
 				{
@@ -93,7 +93,7 @@ namespace Inventor.Core.Statements
 			result.AddRange(hasSigns.Where(sv => sv.Concept == concept));
 			if (recursive)
 			{
-				foreach (var parentSigns in statements.GetParentsPlainList<Concept, IsStatement>(concept).Select(c => GetSigns(statements, c, true)))
+				foreach (var parentSigns in statements.GetParentsOneLevel<Concept, IsStatement>(concept).Select(c => GetSigns(statements, c, true)))
 				{
 					result.AddRange(parentSigns);
 				}
