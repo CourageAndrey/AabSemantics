@@ -8,13 +8,14 @@ namespace Inventor.Core.Processing
 {
 	public sealed class CheckStatementProcessor : QuestionProcessor<CheckStatementQuestion>
 	{
-		protected override Answer ProcessImplementation(QuestionProcessingMechanism processingMechanism, KnowledgeBase knowledgeBase, CheckStatementQuestion question, ILanguage language)
+		public override Answer Process(ProcessingContext<CheckStatementQuestion> context)
 		{
-			var statement = knowledgeBase.Statements.FirstOrDefault(p => p.Equals(question.Statement));
+			var question = context.QuestionX;
+			var statement = context.KnowledgeBase.Statements.FirstOrDefault(p => p.Equals(question.Statement));
 			var result = new FormattedText(
 				() => "#ANSWER#.",
-				new Dictionary<string, INamed> { { "#ANSWER#", statement != null ? knowledgeBase.True : knowledgeBase.False } });
-			result.Add(statement != null ? statement.DescribeTrue(language) : question.Statement.DescribeFalse(language));
+				new Dictionary<string, INamed> { { "#ANSWER#", statement != null ? context.KnowledgeBase.True : context.KnowledgeBase.False } });
+			result.Add(statement != null ? statement.DescribeTrue(context.Language) : question.Statement.DescribeFalse(context.Language));
 			return new Answer(
 				statement != null,
 				result,

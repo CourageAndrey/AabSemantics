@@ -8,9 +8,10 @@ namespace Inventor.Core.Processing
 {
 	public sealed class EnumerateSignsProcessor : QuestionProcessor<EnumerateSignsQuestion>
 	{
-		protected override Answer ProcessImplementation(QuestionProcessingMechanism processingMechanism, KnowledgeBase knowledgeBase, EnumerateSignsQuestion question, ILanguage language)
+		public override Answer Process(ProcessingContext<EnumerateSignsQuestion> context)
 		{
-			var statements = HasSignStatement.GetSigns(knowledgeBase.Statements, question.Concept, question.Recursive);
+			var question = context.QuestionX;
+			var statements = HasSignStatement.GetSigns(context.KnowledgeBase.Statements, question.Concept, question.Recursive);
 			if (statements.Any())
 			{
 				var signs = statements.Select(hs => hs.Sign);
@@ -20,13 +21,13 @@ namespace Inventor.Core.Processing
 				return new Answer(
 					signs,
 					new FormattedText(
-						() => string.Format(language.Answers.ConceptSigns, question.Recursive ? language.Answers.RecursiveTrue : language.Answers.RecursiveFalse, format),
+						() => string.Format(context.Language.Answers.ConceptSigns, question.Recursive ? context.Language.Answers.RecursiveTrue : context.Language.Answers.RecursiveFalse, format),
 						parameters),
 					new Explanation(statements));
 			}
 			else
 			{
-				return Answer.CreateUnknown(language);
+				return Answer.CreateUnknown(context.Language);
 			}
 		}
 	}
