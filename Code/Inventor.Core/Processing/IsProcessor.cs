@@ -9,14 +9,15 @@ namespace Inventor.Core.Processing
 {
 	public sealed class IsProcessor : QuestionProcessor<IsQuestion>
 	{
-		protected override Answer ProcessImplementation(QuestionProcessingMechanism processingMechanism, KnowledgeBase knowledgeBase, IsQuestion question, ILanguage language)
+		public override Answer Process(ProcessingContext<IsQuestion> context)
 		{
+			var question = context.QuestionX;
 			var explanation = new List<IsStatement>();
-			bool yes = knowledgeBase.Statements.GetParentsAllLevels(question.ChildConcept, explanation).Contains(question.ParentConcept);
+			bool yes = context.KnowledgeBase.Statements.GetParentsAllLevels(question.ChildConcept, explanation).Contains(question.ParentConcept);
 			return new Answer(
 				yes,
 				new FormattedText(
-					yes ? new Func<string>(() => language.Answers.IsTrue) : () => language.Answers.IsFalse,
+					yes ? new Func<string>(() => context.Language.Answers.IsTrue) : () => context.Language.Answers.IsFalse,
 					new Dictionary<string, INamed>
 					{
 						{ "#CHILD#", question.ChildConcept },

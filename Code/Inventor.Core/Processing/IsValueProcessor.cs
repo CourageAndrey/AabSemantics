@@ -10,13 +10,14 @@ namespace Inventor.Core.Processing
 {
 	public sealed class IsValueProcessor : QuestionProcessor<IsValueQuestion>
 	{
-		protected override Answer ProcessImplementation(QuestionProcessingMechanism processingMechanism, KnowledgeBase knowledgeBase, IsValueQuestion question, ILanguage language)
+		public override Answer Process(ProcessingContext<IsValueQuestion> context)
 		{
-			var statements = knowledgeBase.Statements.OfType<SignValueStatement>().Where(r => r.Value == question.Concept).ToList();
+			var question = context.QuestionX;
+			var statements = context.KnowledgeBase.Statements.OfType<SignValueStatement>().Where(r => r.Value == question.Concept).ToList();
 			return new Answer(
 				statements.Any(),
 				new FormattedText(
-					statements.Any() ? new Func<string>(() => language.Answers.ValueTrue) : () => language.Answers.ValueFalse,
+					statements.Any() ? new Func<string>(() => context.Language.Answers.ValueTrue) : () => context.Language.Answers.ValueFalse,
 					new Dictionary<string, INamed>
 					{
 						{ "#CONCEPT#", question.Concept },

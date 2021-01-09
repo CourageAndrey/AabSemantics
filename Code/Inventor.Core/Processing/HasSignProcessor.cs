@@ -9,13 +9,14 @@ namespace Inventor.Core.Processing
 {
 	public sealed class HasSignProcessor : QuestionProcessor<HasSignQuestion>
 	{
-		protected override Answer ProcessImplementation(QuestionProcessingMechanism processingMechanism, KnowledgeBase knowledgeBase, HasSignQuestion question, ILanguage language)
+		public override Answer Process(ProcessingContext<HasSignQuestion> context)
 		{
-			var statements = HasSignStatement.GetSigns(knowledgeBase.Statements, question.Concept, question.Recursive).Where(hasSign => hasSign.Sign == question.Sign).ToList();
+			var question = context.QuestionX;
+			var statements = HasSignStatement.GetSigns(context.KnowledgeBase.Statements, question.Concept, question.Recursive).Where(hasSign => hasSign.Sign == question.Sign).ToList();
 			return new Answer(
 				statements.Any(),
 				new FormattedText(
-					() => string.Format(statements.Any() ? language.Answers.HasSignTrue : language.Answers.HasSignFalse, question.Recursive ? language.Answers.RecursiveTrue : language.Answers.RecursiveFalse),
+					() => string.Format(statements.Any() ? context.Language.Answers.HasSignTrue : context.Language.Answers.HasSignFalse, question.Recursive ? context.Language.Answers.RecursiveTrue : context.Language.Answers.RecursiveFalse),
 					new Dictionary<string, INamed>
 					{
 						{ "#CONCEPT#", question.Concept },

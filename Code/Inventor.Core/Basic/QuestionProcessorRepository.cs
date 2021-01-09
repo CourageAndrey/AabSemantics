@@ -7,14 +7,14 @@ using Inventor.Core.Localization;
 
 namespace Inventor.Core
 {
-	public class QuestionProcessingMechanism
+	public class QuestionProcessorRepository
 	{
 		public ICollection<Type> SupportedQuestionTypes
 		{ get { return _allProcessors.Keys; } }
 
 		private readonly IDictionary<Type, Func<QuestionProcessor>> _allProcessors = new Dictionary<Type, Func<QuestionProcessor>>();
 
-		public QuestionProcessingMechanism()
+		public QuestionProcessorRepository()
 		{
 			foreach (var processorType in Assembly.GetExecutingAssembly().GetTypes().Where(t => typeof(QuestionProcessor).IsAssignableFrom(t) && !t.IsAbstract))
 			{
@@ -34,13 +34,12 @@ namespace Inventor.Core
 			_allProcessors[questionType] = processorFactory;
 		}
 
-		public Answer Process(KnowledgeBase knowledgeBase, Question question, ILanguage language)
+		public QuestionProcessor CreateQuestionProcessor(Question question, ILanguage language)
 		{
 			Func<QuestionProcessor> processorFactory;
 			if (_allProcessors.TryGetValue(question.GetType(), out processorFactory))
 			{
-				var processor = processorFactory();
-				return processor.Process(this, knowledgeBase, question, language);
+				return processorFactory();
 			}
 			else
 			{

@@ -10,13 +10,14 @@ namespace Inventor.Core.Processing
 {
 	public sealed class IsSubjectAreaProcessor : QuestionProcessor<IsSubjectAreaQuestion>
 	{
-		protected override Answer ProcessImplementation(QuestionProcessingMechanism processingMechanism, KnowledgeBase knowledgeBase, IsSubjectAreaQuestion question, ILanguage language)
+		public override Answer Process(ProcessingContext<IsSubjectAreaQuestion> context)
 		{
-			var statements = knowledgeBase.Statements.OfType<GroupStatement>().Where(sa => sa.Area == question.Area && sa.Concept == question.Concept).ToList();
+			var question = context.QuestionX;
+			var statements = context.KnowledgeBase.Statements.OfType<GroupStatement>().Where(sa => sa.Area == question.Area && sa.Concept == question.Concept).ToList();
 			return new Answer(
 				statements.Any(),
 				new FormattedText(
-					statements.Any() ? new Func<string>(() => language.Answers.IsSubjectAreaTrue) : () => language.Answers.IsSubjectAreaFalse,
+					statements.Any() ? new Func<string>(() => context.Language.Answers.IsSubjectAreaTrue) : () => context.Language.Answers.IsSubjectAreaFalse,
 					new Dictionary<string, INamed>
 					{
 						{ "#AREA#", question.Area },
