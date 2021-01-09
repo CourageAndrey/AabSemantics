@@ -4,9 +4,6 @@ namespace Inventor.Core.Localization
 {
 	public interface ILanguageConfiguration
 	{
-		string IncludeExplaining
-		{ get; }
-
 		string AutoValidate
 		{ get; }
 	}
@@ -14,10 +11,6 @@ namespace Inventor.Core.Localization
 	public class LanguageConfiguration : ILanguageConfiguration
 	{
 		#region Properties
-
-		[XmlElement]
-		public string IncludeExplaining
-		{ get; set; }
 
 		[XmlElement]
 		public string AutoValidate
@@ -29,7 +22,6 @@ namespace Inventor.Core.Localization
 		{
 			return new LanguageConfiguration
 			{
-				IncludeExplaining = "Включать объяснение в ответ.",
 				AutoValidate = "Автоматическая проверка вносимых знаний.",
 			};
 		}

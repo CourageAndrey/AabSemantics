@@ -10,15 +10,18 @@ namespace Inventor.Core.Processing
 {
 	public sealed class IsSignProcessor : QuestionProcessor<IsSignQuestion>
 	{
-		protected override FormattedText ProcessImplementation(QuestionProcessingMechanism processingMechanism, KnowledgeBase knowledgeBase, IsSignQuestion question, ILanguage language)
+		protected override Answer ProcessImplementation(QuestionProcessingMechanism processingMechanism, KnowledgeBase knowledgeBase, IsSignQuestion question, ILanguage language)
 		{
 			var statements = knowledgeBase.Statements.OfType<HasSignStatement>().Where(r => r.Sign == question.Concept).ToList();
-			return new FormattedText(
-				statements.Any() ? new Func<string>(() => language.Answers.SignTrue) : () => language.Answers.SignFalse,
-				new Dictionary<string, INamed>
-				{
-					{ "#CONCEPT#", question.Concept },
-				});
+			return new Answer(
+				statements.Any(),
+				new FormattedText(
+					statements.Any() ? new Func<string>(() => language.Answers.SignTrue) : () => language.Answers.SignFalse,
+					new Dictionary<string, INamed>
+					{
+						{ "#CONCEPT#", question.Concept },
+					}),
+				new Explanation(statements));
 		}
 	}
 }

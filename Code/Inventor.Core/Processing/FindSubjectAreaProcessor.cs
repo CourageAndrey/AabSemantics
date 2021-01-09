@@ -9,7 +9,7 @@ namespace Inventor.Core.Processing
 {
 	public sealed class FindSubjectAreaProcessor : QuestionProcessor<FindSubjectAreaQuestion>
 	{
-		protected override FormattedText ProcessImplementation(QuestionProcessingMechanism processingMechanism, KnowledgeBase knowledgeBase, FindSubjectAreaQuestion question, ILanguage language)
+		protected override Answer ProcessImplementation(QuestionProcessingMechanism processingMechanism, KnowledgeBase knowledgeBase, FindSubjectAreaQuestion question, ILanguage language)
 		{
 			var statements = knowledgeBase.Statements.OfType<GroupStatement>().Where(c => c.Concept == question.Concept).ToList();
 			if (statements.Any())
@@ -23,11 +23,14 @@ namespace Inventor.Core.Processing
 						{ "#AREA#", statement.Area },
 					});
 				}
-				return result;
+				return new Answer(
+					statements.Select(s => s.Area),
+					result,
+					new Explanation(statements));
 			}
 			else
 			{
-				return AnswerHelper.CreateUnknown(language);
+				return Answer.CreateUnknown(language);
 			}
 		}
 	}
