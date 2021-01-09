@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 
 using Inventor.Core.Localization;
 
@@ -66,20 +65,6 @@ namespace Inventor.Core.Statements
 						other._child == _child;
 			}
 			else return false;
-		}
-
-		#endregion
-
-		#region Lookup
-
-		public static List<Concept> GetContainingParents(IEnumerable<Statement> statements, Concept concept)
-		{
-			return statements.OfType<ConsistsOfStatement>().Where(c => c.Child == concept).Select(c => c.Parent).ToList();
-		}
-
-		public static List<Concept> GetContainingParts(IEnumerable<Statement> statements, Concept concept)
-		{
-			return statements.OfType<ConsistsOfStatement>().Where(c => c.Parent == concept).Select(c => c.Child).ToList();
 		}
 
 		#endregion
