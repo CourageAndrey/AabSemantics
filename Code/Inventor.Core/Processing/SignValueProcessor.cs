@@ -11,39 +11,43 @@ namespace Inventor.Core.Processing
 	{
 		protected override FormattedText ProcessImplementation(QuestionProcessingMechanism processingMechanism, KnowledgeBase knowledgeBase, SignValueQuestion question, ILanguage language)
 		{
-			var signValues = knowledgeBase.Statements.OfType<SignValueStatement>();
-			var result = getSignValue(signValues, question.Concept, question.Sign, question.Concept, language);
-			if (result != null)
+			var signValues = knowledgeBase.Statements.OfType<SignValueStatement>().ToList();
+			var statement = getSignValue(signValues, question.Concept, question.Sign);
+			if (statement != null)
 			{
-				return result;
+				return formatSignValue(statement, question.Concept, language);
 			}
 			else
 			{
 				var parents = knowledgeBase.Statements.GetParentsAllLevels<Concept, IsStatement>(question.Concept);
 				foreach (var parent in parents)
 				{
-					result = getSignValue(signValues, parent, question.Sign, question.Concept, language);
-					if (result != null)
+					statement = getSignValue(signValues, parent, question.Sign);
+					if (statement != null)
 					{
-						return result;
+						return formatSignValue(statement, question.Concept, language);
 					}
 				}
 			}
 			return AnswerHelper.CreateUnknown(language);
 		}
 
-		private static FormattedText getSignValue(IEnumerable<SignValueStatement> statements, Concept concept, Concept sign, Concept original, ILanguage language)
+		private static SignValueStatement getSignValue(IEnumerable<SignValueStatement> statements, Concept concept, Concept sign)
 		{
-			var value = statements.FirstOrDefault(v => v.Concept == concept && v.Sign == sign);
+			return statements.FirstOrDefault(v => v.Concept == concept && v.Sign == sign);
+		}
+
+		private static FormattedText formatSignValue(SignValueStatement value, Concept original, ILanguage language)
+		{
 			return value != null
 				? new FormattedText(
 					() => language.Answers.SignValue,
 					new Dictionary<string, INamed>
 					{
 						{ "#CONCEPT#", original },
-						{ "#SIGN#", sign },
+						{ "#SIGN#", value.Sign },
 						{ "#VALUE#", value.Value },
-						{ "#DEFINED#", concept },
+						{ "#DEFINED#", value.Concept },
 					})
 				: null;
 		}

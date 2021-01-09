@@ -12,8 +12,8 @@ namespace Inventor.Core.Processing
 	{
 		protected override FormattedText ProcessImplementation(QuestionProcessingMechanism processingMechanism, KnowledgeBase knowledgeBase, IsPartOfQuestion question, ILanguage language)
 		{
-			bool yes = knowledgeBase.Statements.OfType<ConsistsOfStatement>().Any(c => c.Parent == question.Parent && c.Child == question.Child);
-			return new FormattedText(yes ? new Func<string>(() => language.Answers.IsPartOfTrue) : () => language.Answers.IsPartOfFalse, new Dictionary<string, INamed>
+			var statements = knowledgeBase.Statements.OfType<ConsistsOfStatement>().Where(c => c.Parent == question.Parent && c.Child == question.Child).ToList();
+			return new FormattedText(statements.Any() ? new Func<string>(() => language.Answers.IsPartOfTrue) : () => language.Answers.IsPartOfFalse, new Dictionary<string, INamed>
 			{
 				{ "#PARENT#", question.Parent },
 				{ "#CHILD#", question.Child },
