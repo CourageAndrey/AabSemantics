@@ -2,15 +2,6 @@ using System;
 
 namespace Inventor.Core
 {
-	public abstract class Question : IQuestion
-	{ }
-
-	#region Attributes
-
-	[AttributeUsage(AttributeTargets.Class, AllowMultiple = false, Inherited = false)]
-	public class QuestionDescriptorAttribute : Attribute
-	{ }
-
 	[AttributeUsage(AttributeTargets.Property, AllowMultiple = false, Inherited = false)]
 	public class PropertyDescriptorAttribute : Attribute
 	{
@@ -30,6 +21,4 @@ namespace Inventor.Core
 			NamePath = namePath;
 		}
 	}
-
-	#endregion
 }

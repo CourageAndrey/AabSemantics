@@ -9,7 +9,6 @@ using System.Windows.Controls.Primitives;
 using System.Windows.Data;
 
 using Inventor.Core;
-using Inventor.Core.Localization;
 
 namespace Inventor.Client.UI
 {
@@ -17,7 +16,7 @@ namespace Inventor.Client.UI
 	{
 		#region Properties
 
-		public Question Question
+		public IQuestion Question
 		{ get; private set; }
 
 		private readonly ILanguage _language;
@@ -54,7 +53,7 @@ namespace Inventor.Client.UI
 			};
 		}
 
-		private readonly Dictionary<string, Func<Question>> _questions = new Dictionary<string, Func<Question>>();
+		private readonly Dictionary<string, Func<IQuestion>> _questions = new Dictionary<string, Func<IQuestion>>();
 		private readonly KnowledgeBase _knowledgeBase;
 		private readonly List<ComboBox> _requiredFieldSelectors = new List<ComboBox>();
 

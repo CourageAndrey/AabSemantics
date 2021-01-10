@@ -28,7 +28,7 @@
 	}
 
 	public class ProcessingContext<QuestionT> : ProcessingContext, IProcessingContext<QuestionT>
-		where QuestionT : Question
+		where QuestionT : IQuestion
 	{
 		public QuestionT QuestionX
 		{ get; }

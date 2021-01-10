@@ -1,7 +1,7 @@
 ﻿namespace Inventor.Core.Questions
 {
 	[QuestionDescriptor]
-	public sealed class SignValueQuestion : Question
+	public sealed class SignValueQuestion : IQuestion
 	{
 		[PropertyDescriptor(true, "QuestionNames.ParamConcept")]
 		public IConcept Concept
