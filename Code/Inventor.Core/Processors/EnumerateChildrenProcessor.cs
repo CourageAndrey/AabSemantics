@@ -4,14 +4,14 @@ using System.Linq;
 using Inventor.Core.Statements;
 using Inventor.Core.Questions;
 
-namespace Inventor.Core.Processing
+namespace Inventor.Core.Processors
 {
-	public sealed class EnumeratePartsProcessor : QuestionProcessor<EnumeratePartsQuestion>
+	public sealed class EnumerateChildrenProcessor : QuestionProcessor<EnumerateChildrenQuestion>
 	{
-		public override IAnswer Process(IProcessingContext<EnumeratePartsQuestion> context)
+		public override IAnswer Process(IProcessingContext<EnumerateChildrenQuestion> context)
 		{
 			var question = context.QuestionX;
-			var statements = context.KnowledgeBase.Statements.OfType<ConsistsOfStatement>().Where(c => c.Parent == question.Concept).ToList();
+			var statements = context.KnowledgeBase.Statements.OfType<IsStatement>().Where(c => c.Parent == question.Concept).ToList();
 			if (statements.Any())
 			{
 				String format;
@@ -19,7 +19,7 @@ namespace Inventor.Core.Processing
 				parameters.Add("#PARENT#", question.Concept);
 				return new Answer(
 					statements.Select(s => s.Child),
-					new FormattedText(() => context.Language.Answers.EnumerateParts + format + ".", parameters),
+					new FormattedText(() => context.Language.Answers.Enumerate + format + ".", parameters),
 					new Explanation(statements));
 			}
 			else
