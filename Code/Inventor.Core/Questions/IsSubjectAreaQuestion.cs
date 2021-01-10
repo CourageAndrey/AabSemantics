@@ -4,11 +4,11 @@
 	public sealed class IsSubjectAreaQuestion : Question
 	{
 		[PropertyDescriptor(true, "QuestionNames.ParamConcept")]
-		public Concept Concept
+		public IConcept Concept
 		{ get; set; }
 
 		[PropertyDescriptor(true, "QuestionNames.ParamArea")]
-		public Concept Area
+		public IConcept Area
 		{ get; set; }
 	}
 }

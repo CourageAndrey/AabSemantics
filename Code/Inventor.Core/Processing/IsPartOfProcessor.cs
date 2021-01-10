@@ -3,14 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 
 using Inventor.Core.Statements;
-using Inventor.Core.Localization;
 using Inventor.Core.Questions;
 
 namespace Inventor.Core.Processing
 {
 	public sealed class IsPartOfProcessor : QuestionProcessor<IsPartOfQuestion>
 	{
-		public override Answer Process(ProcessingContext<IsPartOfQuestion> context)
+		public override IAnswer Process(IProcessingContext<IsPartOfQuestion> context)
 		{
 			var question = context.QuestionX;
 			var statements = context.KnowledgeBase.Statements.OfType<ConsistsOfStatement>().Where(c => c.Parent == question.Parent && c.Child == question.Child).ToList();

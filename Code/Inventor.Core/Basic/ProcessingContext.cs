@@ -4,13 +4,13 @@
 	{
 		#region Properties
 
-		public KnowledgeBase KnowledgeBase
+		public IKnowledgeBase KnowledgeBase
 		{ get; }
 
-		public Question Question
+		public IQuestion Question
 		{ get; }
 
-		public QuestionRepository QuestionRepository
+		public IQuestionRepository QuestionRepository
 		{ get; }
 
 		public ILanguage Language
@@ -18,7 +18,7 @@
 
 		#endregion
 
-		public ProcessingContext(KnowledgeBase knowledgeBase, Question question, QuestionRepository questionRepository, ILanguage language)
+		public ProcessingContext(IKnowledgeBase knowledgeBase, IQuestion question, IQuestionRepository questionRepository, ILanguage language)
 		{
 			KnowledgeBase = knowledgeBase;
 			Question = question;
@@ -33,7 +33,7 @@
 		public QuestionT QuestionX
 		{ get; }
 
-		public ProcessingContext(KnowledgeBase knowledgeBase, QuestionT question, QuestionRepository questionRepository, ILanguage language)
+		public ProcessingContext(IKnowledgeBase knowledgeBase, QuestionT question, IQuestionRepository questionRepository, ILanguage language)
 			: base(knowledgeBase, question, questionRepository, language)
 		{
 			QuestionX = question;

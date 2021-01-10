@@ -2,26 +2,24 @@
 using System.Collections.Generic;
 using System.Linq;
 
-using Inventor.Core.Localization;
-
 namespace Inventor.Core.Statements
 {
-	public sealed class IsStatement : Statement<IsStatement>, IParentChild<Concept>
+	public sealed class IsStatement : Statement<IsStatement>, IParentChild<IConcept>
 	{
 		#region Properties
 
-		public Concept Parent
+		public IConcept Parent
 		{ get { return _parent; } }
 
-		public Concept Child
+		public IConcept Child
 		{ get { return _child; } }
 
-		private readonly Concept _parent;
-		private readonly Concept _child;
+		private readonly IConcept _parent;
+		private readonly IConcept _child;
 
 		#endregion
 
-		public IsStatement(Concept parent, Concept child)
+		public IsStatement(IConcept parent, IConcept child)
 			: base(new Func<ILanguage, String>(language => language.StatementNames.Clasification), new Func<ILanguage, String>(language => language.StatementHints.Clasification))
 		{
 			if (parent == null) throw new ArgumentNullException("parent");
@@ -31,7 +29,7 @@ namespace Inventor.Core.Statements
 			_child = child;
 		}
 
-		public override IEnumerable<Concept> GetChildConcepts()
+		public override IEnumerable<IConcept> GetChildConcepts()
 		{
 			yield return _parent;
 			yield return _child;
@@ -70,10 +68,10 @@ namespace Inventor.Core.Statements
 
 		public Boolean CheckCyclic(IEnumerable<IsStatement> statements)
 		{
-			return !isCyclic(statements, _child, new List<Concept>());
+			return !isCyclic(statements, _child, new List<IConcept>());
 		}
 
-		private Boolean isCyclic(IEnumerable<IsStatement> allClasifications, Concept concept, List<Concept> chain)
+		private Boolean isCyclic(IEnumerable<IsStatement> allClasifications, IConcept concept, List<IConcept> chain)
 		{
 			if (chain.Contains(concept)) return true;
 
@@ -86,7 +84,7 @@ namespace Inventor.Core.Statements
 			{
 				foreach (var clasification in clasifications)
 				{
-					if (isCyclic(allClasifications, clasification.Parent, new List<Concept>(chain) {clasification.Child}))
+					if (isCyclic(allClasifications, clasification.Parent, new List<IConcept>(chain) { clasification.Child }))
 					{
 						return true;
 					}

@@ -4,7 +4,7 @@
 	public sealed class CheckStatementQuestion : Question
 	{
 		//[PropertyDescriptor(, )]
-		public Statement Statement
+		public IStatement Statement
 		{ get; set; }
 	}
 }

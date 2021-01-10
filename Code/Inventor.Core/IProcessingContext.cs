@@ -2,13 +2,13 @@
 {
 	public interface IProcessingContext
 	{
-		KnowledgeBase KnowledgeBase
+		IKnowledgeBase KnowledgeBase
 		{ get; }
 
-		Question Question
+		IQuestion Question
 		{ get; }
 
-		QuestionRepository QuestionRepository
+		IQuestionRepository QuestionRepository
 		{ get; }
 
 		ILanguage Language

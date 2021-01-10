@@ -13,19 +13,19 @@ namespace Inventor.Core
 		public FormattedText Description
 		{ get; }
 
-		public Explanation Explanation
+		public IExplanation Explanation
 		{ get; }
 
 		#endregion
 
-		public Answer(Object result, FormattedText description, Explanation explanation)
+		public Answer(Object result, FormattedText description, IExplanation explanation)
 		{
 			Result = result;
 			Description = description;
 			Explanation = explanation;
 		}
 
-		public static Answer CreateUnknown(ILanguage language)
+		public static IAnswer CreateUnknown(ILanguage language)
 		{
 			return new Answer(
 				null,

@@ -12,28 +12,28 @@ namespace Inventor.Core.Statements
 
 	public static class ParentChildHelper
 	{
-		public static List<T> GetParentsAllLevels<T, RelationshipT>(this IEnumerable<Statement> statements, T item, List<RelationshipT> involvedRelationships = null)
+		public static List<T> GetParentsAllLevels<T, RelationshipT>(this IEnumerable<IStatement> statements, T item, List<RelationshipT> involvedRelationships = null)
 			where RelationshipT : IParentChild<T>
 			where T : class
 		{
 			return GetParentsAllLevels(statements.OfType<RelationshipT>(), item, involvedRelationships);
 		}
 
-		public static List<T> GetChildrenAllLevels<T, RelationshipT>(this IEnumerable<Statement> statements, T item, List<RelationshipT> involvedRelationships = null)
+		public static List<T> GetChildrenAllLevels<T, RelationshipT>(this IEnumerable<IStatement> statements, T item, List<RelationshipT> involvedRelationships = null)
 			where RelationshipT : IParentChild<T>
 			where T : class
 		{
 			return GetChildrenAllLevels(statements.OfType<RelationshipT>(), item, involvedRelationships);
 		}
 
-		public static List<T> GetParentsOneLevel<T, RelationshipT>(this IEnumerable<Statement> statements, T item, List<RelationshipT> involvedRelationships = null)
+		public static List<T> GetParentsOneLevel<T, RelationshipT>(this IEnumerable<IStatement> statements, T item, List<RelationshipT> involvedRelationships = null)
 			where RelationshipT : IParentChild<T>
 			where T : class
 		{
 			return GetParentsOneLevel(statements.OfType<RelationshipT>(), item, involvedRelationships);
 		}
 
-		public static List<T> GetChildrenOnLevel<T, RelationshipT>(this IEnumerable<Statement> statements, T item, List<RelationshipT> involvedRelationships = null)
+		public static List<T> GetChildrenOnLevel<T, RelationshipT>(this IEnumerable<IStatement> statements, T item, List<RelationshipT> involvedRelationships = null)
 			where RelationshipT : IParentChild<T>
 			where T : class
 		{

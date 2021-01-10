@@ -41,12 +41,12 @@ namespace Inventor.Client.UI.Nodes
 			knowledgeBase.StatementRemoved += StatementRemoved;
 		}
 
-		private void StatementAdded(object sender, ItemEventArgs<Statement> args)
+		private void StatementAdded(object sender, ItemEventArgs<IStatement> args)
 		{
 			Children.Add(new StatementNode(args.Item, _application));
 		}
 
-		private void StatementRemoved(object sender, ItemEventArgs<Statement> args)
+		private void StatementRemoved(object sender, ItemEventArgs<IStatement> args)
 		{
 			Children.Remove(Children.OfType<StatementNode>().First(r => r.Statement == args.Item));
 		}
@@ -57,7 +57,7 @@ namespace Inventor.Client.UI.Nodes
 			_knowledgeBase.StatementRemoved -= StatementRemoved;
 		}
 
-		public List<ExtendedTreeNode> Find(Statement statement, ExtendedTreeNode parent)
+		public List<ExtendedTreeNode> Find(IStatement statement, ExtendedTreeNode parent)
 		{
 			var child = Children.OfType<StatementNode>().FirstOrDefault(rn => rn.Statement == statement);
 			return child != null

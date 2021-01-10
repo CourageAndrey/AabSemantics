@@ -4,11 +4,11 @@
 	public sealed class IsQuestion : Question
 	{
 		[PropertyDescriptor(true, "QuestionNames.ParamChild")]
-		public Concept ChildConcept
+		public IConcept ChildConcept
 		{ get; set; }
 
 		[PropertyDescriptor(true, "QuestionNames.ParamParent")]
-		public Concept ParentConcept
+		public IConcept ParentConcept
 		{ get; set; }
 	}
 }

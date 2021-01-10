@@ -4,7 +4,7 @@
 	public sealed class DescribeSubjectAreaQuestion : Question
 	{
 		[PropertyDescriptor(true, "QuestionNames.ParamConcept")]
-		public Concept Concept
+		public IConcept Concept
 		{ get; set; }
 	}
 }

@@ -11,7 +11,7 @@ namespace Inventor.Core
 		public ILocalizedString Name
 		{ get; }
 
-		public LocalizedString Hint
+		public ILocalizedString Hint
 		{ get; }
 
 		public ConceptType Type
@@ -21,7 +21,7 @@ namespace Inventor.Core
 
 		#region Constructors
 
-		public Concept(LocalizedString name = null, LocalizedString hint = null)
+		public Concept(ILocalizedString name = null, ILocalizedString hint = null)
 		{
 			Name = name ?? new LocalizedStringVariable();
 			Hint = hint ?? new LocalizedStringVariable();

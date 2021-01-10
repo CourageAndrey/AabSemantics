@@ -18,17 +18,17 @@ namespace Inventor.Client.UI.Nodes
 		public override ImageSource Icon
 		{ get { return _icon ?? (_icon = Resources.Statement.ToSource()); } }
 
-		public Statement Statement
+		public IStatement Statement
 		{ get { return _statement; } }
 
 		private static ImageSource _icon;
-		private readonly Statement _statement;
+		private readonly IStatement _statement;
 		private readonly InventorApplication _application;
 
 
 		#endregion
 
-		public StatementNode(Statement statement, InventorApplication application)
+		public StatementNode(IStatement statement, InventorApplication application)
 		{
 			_statement = statement;
 			_application = application;
