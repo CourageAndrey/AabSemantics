@@ -41,6 +41,7 @@
     <Compile Include="Basic\Explanation.cs" />
     <Compile Include="Basic\ProcessingContext.cs" />
     <Compile Include="Basic\QuestionDefinition.cs" />
+    <Compile Include="Basic\QuestionDescriptorAttribute.cs" />
     <Compile Include="Basic\QuestionRepository.cs" />
     <Compile Include="IAnswer.cs" />
     <Compile Include="IConcept.cs" />
@@ -83,7 +84,7 @@
     <Compile Include="Processing\EnumeratePartsProcessor.cs" />
     <Compile Include="Processing\IsPartOfProcessor.cs" />
     <Compile Include="Processing\IsValueProcessor.cs" />
-    <Compile Include="Basic\Question.cs" />
+    <Compile Include="Basic\PropertyDescriptorAttribute.cs" />
     <Compile Include="Questions\CheckStatementQuestion.cs" />
     <Compile Include="Questions\IsSubjectAreaQuestion.cs" />
     <Compile Include="Questions\EnumerateContainersQuestion.cs" />

@@ -10,14 +10,14 @@ namespace Inventor.Core
 		{ get; }
 
 		private readonly Func<ILanguage, String> _questionNameGetter;
-		private readonly Func<Question> _questionFactory;
+		private readonly Func<IQuestion> _questionFactory;
 		private readonly Func<QuestionProcessor> _processorFactory;
 
 		#endregion
 
 		#region Constructors
 
-		public QuestionDefinition(Type questionType, Func<ILanguage, String> questionNameGetter, Func<Question> questionFactory, Func<QuestionProcessor> processorFactory)
+		public QuestionDefinition(Type questionType, Func<ILanguage, String> questionNameGetter, Func<IQuestion> questionFactory, Func<QuestionProcessor> processorFactory)
 		{
 			QuestionType = questionType;
 			_questionNameGetter = questionNameGetter;
@@ -29,7 +29,7 @@ namespace Inventor.Core
 			: this(
 				questionType,
 				language => (String) typeof(ILanguageQuestionNames).GetProperty(questionType.Name).GetValue(language.QuestionNames),
-				() => Activator.CreateInstance(questionType) as Question,
+				() => Activator.CreateInstance(questionType) as IQuestion,
 				() => Activator.CreateInstance(processorType) as QuestionProcessor)
 		{ }
 
@@ -40,7 +40,7 @@ namespace Inventor.Core
 			return _questionNameGetter(language);
 		}
 
-		public Question CreateQuestion()
+		public IQuestion CreateQuestion()
 		{
 			return _questionFactory();
 		}
