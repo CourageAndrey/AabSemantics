@@ -1,4 +1,6 @@
-﻿using Inventor.Core.Localization;
+﻿using System;
+
+using Inventor.Core.Localization;
 
 namespace Inventor.Core
 {
@@ -26,7 +28,7 @@ namespace Inventor.Core
 
 		#endregion
 
-		public override string ToString()
+		public override String ToString()
 		{
 			return string.Format("{0} : {1}", Strings.TostringConcept, Name);
 		}

@@ -6,16 +6,16 @@ namespace Inventor.Core.Localization
 	{
 		#region Properties
 
-		public string Locale
+		public String Locale
 		{ get { return _locale; } }
 
-		private readonly string _locale;
+		private readonly String _locale;
 
 		#endregion
 
 		#region Constructors
 
-		public AbsentLocaleException(string locale)
+		public AbsentLocaleException(String locale)
 		{
 			_locale = locale;
 		}

@@ -1,73 +1,74 @@
-﻿using System.Xml.Serialization;
+﻿using System;
+using System.Xml.Serialization;
 
 namespace Inventor.Core.Localization
 {
 	public interface ILanguageQuestionNames
 	{
-		string EnumerateChildrenQuestion
+		String EnumerateChildrenQuestion
 		{ get; }
 
-		string IsQuestion
+		String IsQuestion
 		{ get; }
 
-		string WhatQuestion
+		String WhatQuestion
 		{ get; }
 
-		string FindSubjectAreaQuestion
+		String FindSubjectAreaQuestion
 		{ get; }
 
-		string DescribeSubjectAreaQuestion
+		String DescribeSubjectAreaQuestion
 		{ get; }
 
-		string SignValueQuestion
+		String SignValueQuestion
 		{ get; }
 
-		string EnumerateSignsQuestion
+		String EnumerateSignsQuestion
 		{ get; }
 
-		string HasSignQuestion
+		String HasSignQuestion
 		{ get; }
 
-		string HasSignsQuestion
+		String HasSignsQuestion
 		{ get; }
 
-		string IsSignQuestion
+		String IsSignQuestion
 		{ get; }
 
-		string IsValueQuestion
+		String IsValueQuestion
 		{ get; }
 
-		string IsPartOfQuestion
+		String IsPartOfQuestion
 		{ get; }
 
-		string EnumeratePartsQuestion
+		String EnumeratePartsQuestion
 		{ get; }
 
-		string EnumerateContainersQuestion
+		String EnumerateContainersQuestion
 		{ get; }
 
-		string IsSubjectAreaQuestion
+		String IsSubjectAreaQuestion
 		{ get; }
 
-		string CheckStatementQuestion
+		String CheckStatementQuestion
 		{ get; }
 
-		string ParamParent
+		String ParamParent
 		{ get; }
 
-		string ParamChild
+		String ParamChild
 		{ get; }
 
-		string ParamConcept
+		String ParamConcept
 		{ get; }
 
-		string ParamSign
+		String ParamSign
 		{ get; }
 
-		string ParamRecursive
+		String ParamRecursive
 		{ get; }
 
-		string ParamArea
+		String ParamArea
 		{ get; }
 	}
 
@@ -76,91 +77,91 @@ namespace Inventor.Core.Localization
 		#region Properties
 
 		[XmlElement]
-		public string EnumerateChildrenQuestion
+		public String EnumerateChildrenQuestion
 		{ get; set; }
 
 		[XmlElement]
-		public string IsQuestion
+		public String IsQuestion
 		{ get; set; }
 
 		[XmlElement]
-		public string WhatQuestion
+		public String WhatQuestion
 		{ get; set; }
 
 		[XmlElement]
-		public string FindSubjectAreaQuestion
+		public String FindSubjectAreaQuestion
 		{ get; set; }
 
 		[XmlElement]
-		public string DescribeSubjectAreaQuestion
+		public String DescribeSubjectAreaQuestion
 		{ get; set; }
 
 		[XmlElement]
-		public string SignValueQuestion
+		public String SignValueQuestion
 		{ get; set; }
 
 		[XmlElement]
-		public string EnumerateSignsQuestion
+		public String EnumerateSignsQuestion
 		{ get; set; }
 
 		[XmlElement]
-		public string HasSignQuestion
+		public String HasSignQuestion
 		{ get; set; }
 
 		[XmlElement]
-		public string HasSignsQuestion
+		public String HasSignsQuestion
 		{ get; set; }
 
 		[XmlElement]
-		public string IsSignQuestion
+		public String IsSignQuestion
 		{ get; set; }
 
 		[XmlElement]
-		public string IsValueQuestion
+		public String IsValueQuestion
 		{ get; set; }
 
 		[XmlElement]
-		public string IsPartOfQuestion
+		public String IsPartOfQuestion
 		{ get; set; }
 
 		[XmlElement]
-		public string EnumeratePartsQuestion
+		public String EnumeratePartsQuestion
 		{ get; set; }
 
 		[XmlElement]
-		public string EnumerateContainersQuestion
+		public String EnumerateContainersQuestion
 		{ get; set; }
 
 		[XmlElement]
-		public string IsSubjectAreaQuestion
+		public String IsSubjectAreaQuestion
 		{ get; set; }
 
 		[XmlElement]
-		public string CheckStatementQuestion
+		public String CheckStatementQuestion
 		{ get; set; }
 
 		[XmlElement]
-		public string ParamParent
+		public String ParamParent
 		{ get; set; }
 
 		[XmlElement]
-		public string ParamChild
+		public String ParamChild
 		{ get; set; }
 
 		[XmlElement]
-		public string ParamConcept
+		public String ParamConcept
 		{ get; set; }
 
 		[XmlElement]
-		public string ParamSign
+		public String ParamSign
 		{ get; set; }
 
 		[XmlElement]
-		public string ParamRecursive
+		public String ParamRecursive
 		{ get; set; }
 
 		[XmlElement]
-		public string ParamArea
+		public String ParamArea
 		{ get; set; }
 
 		#endregion

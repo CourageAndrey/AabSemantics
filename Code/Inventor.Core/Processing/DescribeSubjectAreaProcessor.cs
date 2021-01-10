@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 
 using Inventor.Core.Localization;
 using Inventor.Core.Statements;
@@ -14,7 +15,7 @@ namespace Inventor.Core.Processing
 			var statements = context.KnowledgeBase.Statements.OfType<GroupStatement>().Where(c => c.Area == question.Concept).ToList();
 			if (statements.Any())
 			{
-				string format;
+				String format;
 				var parameters = statements.Select(r => r.Concept).ToList().Enumerate(out format);
 				parameters.Add("#AREA#", question.Concept);
 				return new Answer(

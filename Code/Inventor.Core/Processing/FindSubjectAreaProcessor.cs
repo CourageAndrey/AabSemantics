@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 
 using Inventor.Core.Localization;
@@ -18,7 +19,7 @@ namespace Inventor.Core.Processing
 				var result = new FormattedText();
 				foreach (var statement in statements)
 				{
-					result.Add(() => context.Language.Answers.SubjectArea, new Dictionary<string, INamed>
+					result.Add(() => context.Language.Answers.SubjectArea, new Dictionary<String, INamed>
 					{
 						{ "#CONCEPT#", question.Concept },
 						{ "#AREA#", statement.Area },

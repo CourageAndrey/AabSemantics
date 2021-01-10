@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 
 using Inventor.Core.Localization;
@@ -47,7 +48,7 @@ namespace Inventor.Core.Processing
 			return value != null
 				? new FormattedText(
 					() => language.Answers.SignValue,
-					new Dictionary<string, INamed>
+					new Dictionary<String, INamed>
 					{
 						{ "#CONCEPT#", original },
 						{ "#SIGN#", value.Sign },

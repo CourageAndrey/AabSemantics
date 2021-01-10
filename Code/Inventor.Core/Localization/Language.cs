@@ -82,27 +82,27 @@ namespace Inventor.Core.Localization
 		[XmlIgnore]
 		private const String FolderPath = "Localization";
 		[XmlIgnore]
-		private const string ElementStatementNames = "StatementNames";
+		private const String ElementStatementNames = "StatementNames";
 		[XmlIgnore]
-		private const string ElementStatementHints = "StatementHints";
+		private const String ElementStatementHints = "StatementHints";
 		[XmlIgnore]
-		private const string ElementStatementTrueFormatStrings = "StatementTrueFormatStrings";
+		private const String ElementStatementTrueFormatStrings = "StatementTrueFormatStrings";
 		[XmlIgnore]
-		private const string ElementStatementFalseFormatStrings = "StatementFalseFormatStrings";
+		private const String ElementStatementFalseFormatStrings = "StatementFalseFormatStrings";
 		[XmlIgnore]
-		private const string ElementStatementQuestionFormatStrings = "StatementQuestionFormatStrings";
+		private const String ElementStatementQuestionFormatStrings = "StatementQuestionFormatStrings";
 		[XmlIgnore]
-		private const string ElementQuestionNames = "QuestionNames";
+		private const String ElementQuestionNames = "QuestionNames";
 		[XmlIgnore]
-		private const string ElementAnswers = "Answers";
+		private const String ElementAnswers = "Answers";
 		[XmlIgnore]
-		private const string ElementUi = "Ui";
+		private const String ElementUi = "Ui";
 		[XmlIgnore]
-		private const string ElementErrorsInventor = "ErrorsInventor";
+		private const String ElementErrorsInventor = "ErrorsInventor";
 		[XmlIgnore]
-		private const string ElementConfiguration = "Configuration";
+		private const String ElementConfiguration = "Configuration";
 		[XmlIgnore]
-		private const string ElementMisc = "Misc";
+		private const String ElementMisc = "Misc";
 
 		#endregion
 
@@ -280,7 +280,7 @@ namespace Inventor.Core.Localization
 
 		#endregion
 
-		public override string ToString()
+		public override String ToString()
 		{
 			return Name;
 		}
@@ -309,10 +309,10 @@ namespace Inventor.Core.Localization
 
 		#region Properties
 
-		public string Name
+		public String Name
 		{ get { return _language?.Name; } }
 
-		public string Culture
+		public String Culture
 		{ get { return _language?.Culture; } }
 
 		public ILanguageCommon Common

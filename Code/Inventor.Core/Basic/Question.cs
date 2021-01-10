@@ -16,15 +16,15 @@ namespace Inventor.Core
 	{
 		#region Properties
 
-		public bool Required
+		public Boolean Required
 		{ get; set; }
 
-		public string NamePath
+		public String NamePath
 		{ get; set; }
 
 		#endregion
 
-		public PropertyDescriptorAttribute(bool required, string namePath)
+		public PropertyDescriptorAttribute(Boolean required, String namePath)
 		{
 			Required = required;
 			NamePath = namePath;

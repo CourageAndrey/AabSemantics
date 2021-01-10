@@ -6,13 +6,13 @@ namespace Inventor.Core.Localization
 {
 	public abstract class LocalizedString
 	{
-		public abstract string GetValue(ILanguage language);
+		public abstract String GetValue(ILanguage language);
 
-		public abstract override string ToString();
+		public abstract override String ToString();
 
-		public static readonly LocalizedString Empty = new LocalizedStringConstant(language => string.Empty);
+		public static readonly LocalizedString Empty = new LocalizedStringConstant(language => String.Empty);
 
-		public static implicit operator LocalizedString(Func<ILanguage, string> getter)
+		public static implicit operator LocalizedString(Func<ILanguage, String> getter)
 		{
 			return new LocalizedStringConstant(getter);
 		}
@@ -22,13 +22,13 @@ namespace Inventor.Core.Localization
 	{
 		#region Properties
 
-		private readonly IDictionary<string, string> _values = new SortedDictionary<string, string>();
+		private readonly IDictionary<String, String> _values = new SortedDictionary<String, String>();
 
-		public override string GetValue(ILanguage language)
+		public override String GetValue(ILanguage language)
 		{
 			if (_values.Count == 0) return null;
 
-			string result, locale = language.Culture;
+			String result, locale = language.Culture;
 			if (_values.TryGetValue(locale, out result))
 			{
 				return result;
@@ -46,12 +46,12 @@ namespace Inventor.Core.Localization
 		public LocalizedStringVariable()
 		{ }
 
-		public LocalizedStringVariable(string culture, string text)
+		public LocalizedStringVariable(String culture, String text)
 		{
 			_values[culture] = text;
 		}
 
-		public LocalizedStringVariable(IEnumerable<KeyValuePair<string, string>> values)
+		public LocalizedStringVariable(IEnumerable<KeyValuePair<String, String>> values)
 			: this()
 		{
 			foreach (var pair in values)
@@ -62,24 +62,24 @@ namespace Inventor.Core.Localization
 
 		#endregion
 
-		public override string ToString()
+		public override String ToString()
 		{
-			string result = string.Format("{0} ({1} values)", Strings.TostringLocalized, _values.Count);
+			String result = String.Format("{0} ({1} values)", Strings.TostringLocalized, _values.Count);
 			if (_values.Count > 0)
 			{
-				result += string.Format(" ([0] = \"{0}\")", _values.Values.First());
+				result += String.Format(" ([0] = \"{0}\")", _values.Values.First());
 			}
 			return result;
 		}
 
 		#region Editing
 
-		public void SetLocale(string locale, string value)
+		public void SetLocale(String locale, String value)
 		{
 			_values[locale] = value;
 		}
 
-		public void RemoveLocale(string locale)
+		public void RemoveLocale(String locale)
 		{
 			_values.Remove(locale);
 		}
@@ -96,21 +96,21 @@ namespace Inventor.Core.Localization
 	{
 		#region Properties
 
-		private readonly Func<ILanguage, string> _getter;
+		private readonly Func<ILanguage, String> _getter;
 
-		public override string GetValue(ILanguage language)
+		public override String GetValue(ILanguage language)
 		{
 			return _getter(language);
 		}
 
 		#endregion
 
-		public LocalizedStringConstant(Func<ILanguage, string> getter)
+		public LocalizedStringConstant(Func<ILanguage, String> getter)
 		{
 			_getter = getter;
 		}
 
-		public override string ToString()
+		public override String ToString()
 		{
 			return string.Format("{0} \"{1}\"", Strings.TostringLocalized, _getter(Language.Default));
 		}

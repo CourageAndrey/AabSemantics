@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 
 using Inventor.Core.Localization;
 using Inventor.Core.Statements;
@@ -14,7 +15,7 @@ namespace Inventor.Core.Processing
 			var statements = context.KnowledgeBase.Statements.OfType<ConsistsOfStatement>().Where(c => c.Child == question.Concept).ToList();
 			if (statements.Any())
 			{
-				string format;
+				String format;
 				var parameters = statements.Select(r => r.Parent).ToList().Enumerate(out format);
 				parameters.Add("#CHILD#", question.Concept);
 				return new Answer(
