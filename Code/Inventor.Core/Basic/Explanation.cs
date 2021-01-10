@@ -3,7 +3,7 @@ using System.Linq;
 
 namespace Inventor.Core
 {
-	public class Explanation
+	public class Explanation : IExplanation
 	{
 		#region Properties
 
