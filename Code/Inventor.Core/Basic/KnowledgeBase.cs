@@ -12,7 +12,7 @@ namespace Inventor.Core
 	{
 		#region Properties
 
-		public LocalizedString Name
+		public ILocalizedString Name
 		{ get { return _name; } }
 
 		public ICollection<Concept> Concepts

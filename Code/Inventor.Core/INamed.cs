@@ -2,13 +2,11 @@
 using System.Collections.Generic;
 using System.Text;
 
-using Inventor.Core.Localization;
-
 namespace Inventor.Core
 {
 	public interface INamed
 	{
-		LocalizedString Name
+		ILocalizedString Name
 		{ get; }
 	}
 
