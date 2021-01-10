@@ -1,79 +1,80 @@
-﻿using System.Xml.Serialization;
+﻿using System;
+using System.Xml.Serialization;
 
 namespace Inventor.Core.Localization
 {
 	public interface ILanguageMisc
 	{
-		string NameKnowledgeBase
+		String NameKnowledgeBase
 		{ get; }
 
-		string NameCategoryConcepts
+		String NameCategoryConcepts
 		{ get; }
 
-		string NameCategoryStatements
+		String NameCategoryStatements
 		{ get; }
 
-		string StrictEnumeration
+		String StrictEnumeration
 		{ get; }
 
-		string ClasificationSign
+		String ClasificationSign
 		{ get; }
 
-		string NewKbName
+		String NewKbName
 		{ get; }
 
-		string Rules
+		String Rules
 		{ get; }
 
-		string Answer
+		String Answer
 		{ get; }
 
-		string Required
+		String Required
 		{ get; }
 
-		string CheckResult
+		String CheckResult
 		{ get; }
 
-		string CheckOk
+		String CheckOk
 		{ get; }
 
-		string DialogKbOpenTitle
+		String DialogKbOpenTitle
 		{ get; }
 
-		string DialogKbSaveTitle
+		String DialogKbSaveTitle
 		{ get; }
 
-		string DialogKbFileFilter
+		String DialogKbFileFilter
 		{ get; }
 
-		string ConsistencyErrorDuplicate
+		String ConsistencyErrorDuplicate
 		{ get; }
 
-		string ConsistencyErrorCyclic
+		String ConsistencyErrorCyclic
 		{ get; }
 
-		string ConsistencyErrorMultipleSubjectArea
+		String ConsistencyErrorMultipleSubjectArea
 		{ get; }
 
-		string ConsistencyErrorMultipleSign
+		String ConsistencyErrorMultipleSign
 		{ get; }
 
-		string ConsistencyErrorMultipleSignValue
+		String ConsistencyErrorMultipleSignValue
 		{ get; }
 
-		string ConsistencyErrorSignWithoutValue
+		String ConsistencyErrorSignWithoutValue
 		{ get; }
 
-		string True
+		String True
 		{ get; }
 
-		string False
+		String False
 		{ get; }
 
-		string TrueHint
+		String TrueHint
 		{ get; }
 
-		string FalseHint
+		String FalseHint
 		{ get; }
 	}
 
@@ -82,99 +83,99 @@ namespace Inventor.Core.Localization
 		#region Properties
 
 		[XmlElement]
-		public string NameKnowledgeBase
+		public String NameKnowledgeBase
 		{ get; set; }
 
 		[XmlElement]
-		public string NameCategoryConcepts
+		public String NameCategoryConcepts
 		{ get; set; }
 
 		[XmlElement]
-		public string NameCategoryStatements
+		public String NameCategoryStatements
 		{ get; set; }
 
 		[XmlElement]
-		public string StrictEnumeration
+		public String StrictEnumeration
 		{ get; set; }
 
 		[XmlElement]
-		public string ClasificationSign
+		public String ClasificationSign
 		{ get; set; }
 
 		[XmlElement]
-		public string NewKbName
+		public String NewKbName
 		{ get; set; }
 
 		[XmlElement]
-		public string Rules
+		public String Rules
 		{ get; set; }
 
 		[XmlElement]
-		public string Answer
+		public String Answer
 		{ get; set; }
 
 		[XmlElement]
-		public string Required
+		public String Required
 		{ get; set; }
 
 		[XmlElement]
-		public string CheckResult
+		public String CheckResult
 		{ get; set; }
 
 		[XmlElement]
-		public string CheckOk
+		public String CheckOk
 		{ get; set; }
 
 		[XmlElement]
-		public string DialogKbOpenTitle
+		public String DialogKbOpenTitle
 		{ get; set; }
 
 		[XmlElement]
-		public string DialogKbSaveTitle
+		public String DialogKbSaveTitle
 		{ get; set; }
 
 		[XmlElement]
-		public string DialogKbFileFilter
+		public String DialogKbFileFilter
 		{ get; set; }
 
 		[XmlElement]
-		public string ConsistencyErrorDuplicate
+		public String ConsistencyErrorDuplicate
 		{ get; set; }
 
 		[XmlElement]
-		public string ConsistencyErrorCyclic
+		public String ConsistencyErrorCyclic
 		{ get; set; }
 
 		[XmlElement]
-		public string ConsistencyErrorMultipleSubjectArea
+		public String ConsistencyErrorMultipleSubjectArea
 		{ get; set; }
 
 		[XmlElement]
-		public string ConsistencyErrorMultipleSign
+		public String ConsistencyErrorMultipleSign
 		{ get; set; }
 
 		[XmlElement]
-		public string ConsistencyErrorMultipleSignValue
+		public String ConsistencyErrorMultipleSignValue
 		{ get; set; }
 
 		[XmlElement]
-		public string ConsistencyErrorSignWithoutValue
+		public String ConsistencyErrorSignWithoutValue
 		{ get; set; }
 
 		[XmlElement]
-		public string True
+		public String True
 		{ get; set; }
 
 		[XmlElement]
-		public string False
+		public String False
 		{ get; set; }
 
 		[XmlElement]
-		public string TrueHint
+		public String TrueHint
 		{ get; set; }
 
 		[XmlElement]
-		public string FalseHint
+		public String FalseHint
 		{ get; set; }
 
 		#endregion

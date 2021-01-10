@@ -21,7 +21,7 @@ namespace Inventor.Core.Statements
 		#endregion
 
 		public ConsistsOfStatement(Concept parent, Concept child)
-			: base(new Func<ILanguage, string>(language => language.StatementNames.Composition), new Func<ILanguage, string>(language => language.StatementHints.Composition))
+			: base(new Func<ILanguage, String>(language => language.StatementNames.Composition), new Func<ILanguage, String>(language => language.StatementHints.Composition))
 		{
 			if (parent == null) throw new ArgumentNullException("parent");
 			if (child == null) throw new ArgumentNullException("child");
@@ -38,14 +38,14 @@ namespace Inventor.Core.Statements
 
 		#region Description
 
-		protected override Func<string> GetDescriptionText(ILanguageStatementFormatStrings language)
+		protected override Func<String> GetDescriptionText(ILanguageStatementFormatStrings language)
 		{
 			return () => language.Composition;
 		}
 
-		protected override IDictionary<string, INamed> GetDescriptionParameters()
+		protected override IDictionary<String, INamed> GetDescriptionParameters()
 		{
-			return new Dictionary<string, INamed>
+			return new Dictionary<String, INamed>
 			{
 				{ "#PARENT#", _parent },
 				{ "#CHILD#", _child },
@@ -56,7 +56,7 @@ namespace Inventor.Core.Statements
 
 		#region Consistency checking
 
-		public override bool Equals(ConsistsOfStatement other)
+		public override Boolean Equals(ConsistsOfStatement other)
 		{
 			if (ReferenceEquals(this, other)) return true;
 			if (other != null)

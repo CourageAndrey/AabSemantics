@@ -1,10 +1,11 @@
-﻿using System.Xml.Serialization;
+﻿using System;
+using System.Xml.Serialization;
 
 namespace Inventor.Core.Localization
 {
 	public interface ILanguageErrorsInventor
 	{
-		string UnknownQuestion
+		String UnknownQuestion
 		{ get; }
 	}
 
@@ -13,7 +14,7 @@ namespace Inventor.Core.Localization
 		#region Properties
 
 		[XmlElement]
-		public string UnknownQuestion
+		public String UnknownQuestion
 		{ get; set; }
 
 		#endregion

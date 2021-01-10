@@ -21,7 +21,7 @@ namespace Inventor.Core.Statements
 		#endregion
 
 		public GroupStatement(Concept area, Concept concept)
-			: base(new Func<ILanguage, string>(language => language.StatementNames.SubjectArea), new Func<ILanguage, string>(language => language.StatementHints.SubjectArea))
+			: base(new Func<ILanguage, String>(language => language.StatementNames.SubjectArea), new Func<ILanguage, String>(language => language.StatementHints.SubjectArea))
 		{
 			if (area == null) throw new ArgumentNullException("area");
 			if (concept == null) throw new ArgumentNullException("concept");
@@ -38,14 +38,14 @@ namespace Inventor.Core.Statements
 
 		#region Description
 
-		protected override Func<string> GetDescriptionText(ILanguageStatementFormatStrings language)
+		protected override Func<String> GetDescriptionText(ILanguageStatementFormatStrings language)
 		{
 			return () => language.SubjectArea;
 		}
 
-		protected override IDictionary<string, INamed> GetDescriptionParameters()
+		protected override IDictionary<String, INamed> GetDescriptionParameters()
 		{
-			return new Dictionary<string, INamed>
+			return new Dictionary<String, INamed>
 			{
 				{ "#AREA#", _area },
 				{ "#CONCEPT#", _concept },
@@ -56,7 +56,7 @@ namespace Inventor.Core.Statements
 
 		#region Consistency checking
 
-		public override bool Equals(GroupStatement other)
+		public override Boolean Equals(GroupStatement other)
 		{
 			if (ReferenceEquals(this, other)) return true;
 			if (other != null)

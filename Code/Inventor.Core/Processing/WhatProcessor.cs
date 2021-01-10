@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 
 using Inventor.Core.Localization;
@@ -29,14 +30,14 @@ namespace Inventor.Core.Processing
 					}
 					if (difference.Count > 0)
 					{
-						result.Add(() => context.Language.Answers.IsDescriptionWithSign, new Dictionary<string, INamed>
+						result.Add(() => context.Language.Answers.IsDescriptionWithSign, new Dictionary<String, INamed>
 						{
 							{ "#CHILD#", question.Concept },
 							{ "#PARENT#", statement.Parent },
 						});
 						foreach (var diff in difference)
 						{
-							result.Add(() => context.Language.Answers.IsDescriptionWithSignValue, new Dictionary<string, INamed>
+							result.Add(() => context.Language.Answers.IsDescriptionWithSignValue, new Dictionary<String, INamed>
 							{
 								{ "#SIGN#", diff.Sign },
 								{ "#VALUE#", diff.Value },
@@ -45,13 +46,13 @@ namespace Inventor.Core.Processing
 					}
 					else
 					{
-						result.Add(() => context.Language.Answers.IsDescription, new Dictionary<string, INamed>
+						result.Add(() => context.Language.Answers.IsDescription, new Dictionary<String, INamed>
 						{
 							{ "#CHILD#", question.Concept },
 							{ "#PARENT#", statement.Parent },
 						});
 					}
-					result.Add(() => string.Empty, new Dictionary<string, INamed>());
+					result.Add(() => String.Empty, new Dictionary<String, INamed>());
 				}
 				return new Answer(result, result, new Explanation(difference));
 			}

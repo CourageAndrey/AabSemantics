@@ -1,22 +1,23 @@
-﻿using System.Xml.Serialization;
+﻿using System;
+using System.Xml.Serialization;
 
 namespace Inventor.Core.Localization
 {
 	public interface ILanguageStatements
 	{
-		string SubjectArea
+		String SubjectArea
 		{ get; }
 
-		string Clasification
+		String Clasification
 		{ get; }
 
-		string HasSign
+		String HasSign
 		{ get; }
 
-		string SignValue
+		String SignValue
 		{ get; }
 
-		string Composition
+		String Composition
 		{ get; }
 	}
 
@@ -25,23 +26,23 @@ namespace Inventor.Core.Localization
 		#region Properties
 
 		[XmlElement]
-		public string SubjectArea
+		public String SubjectArea
 		{ get; set; }
 
 		[XmlElement]
-		public string Clasification
+		public String Clasification
 		{ get; set; }
 
 		[XmlElement]
-		public string HasSign
+		public String HasSign
 		{ get; set; }
 
 		[XmlElement]
-		public string SignValue
+		public String SignValue
 		{ get; set; }
 
 		[XmlElement]
-		public string Composition
+		public String Composition
 		{ get; set; }
 
 		#endregion

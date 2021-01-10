@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 
 using Inventor.Core.Localization;
 using Inventor.Core.Statements;
@@ -15,7 +16,7 @@ namespace Inventor.Core.Processing
 			if (statements.Any())
 			{
 				var signs = statements.Select(hs => hs.Sign);
-				string format;
+				String format;
 				var parameters = signs.Enumerate(out format);
 				parameters["#CONCEPT#"] = question.Concept;
 				return new Answer(

@@ -33,10 +33,10 @@ namespace Inventor.Core
 			return collection.GetEnumerator();
 		}
 
-		public int Count
+		public Int32 Count
 		{ get { return collection.Count; } }
 
-		public bool IsReadOnly
+		public Boolean IsReadOnly
 		{ get { return false; } }
 
 		public void Add(T item)
@@ -87,17 +87,17 @@ namespace Inventor.Core
 			}
 		}
 
-		public bool Contains(T item)
+		public Boolean Contains(T item)
 		{
 			return collection.Contains(item);
 		}
 
-		public void CopyTo(T[] array, int arrayIndex)
+		public void CopyTo(T[] array, Int32 arrayIndex)
 		{
 			collection.CopyTo(array, arrayIndex);
 		}
 
-		public bool Remove(T item)
+		public Boolean Remove(T item)
 		{
 			var beforeHandler = Volatile.Read(ref ItemRemoving);
 			if (beforeHandler != null)
@@ -109,7 +109,7 @@ namespace Inventor.Core
 					return false;
 				}
 			}
-			bool result = collection.Remove(item);
+			Boolean result = collection.Remove(item);
 			Volatile.Read(ref ItemRemoved)?.Invoke(this, new ItemEventArgs<T>(item));
 			return result;
 		}
@@ -132,7 +132,7 @@ namespace Inventor.Core
 
 	public class CancelableItemEventArgs<T> : ItemEventArgs<T>
 	{
-		public bool IsCanceled
+		public Boolean IsCanceled
 		{ get; set; }
 
 		public CancelableItemEventArgs(T item)

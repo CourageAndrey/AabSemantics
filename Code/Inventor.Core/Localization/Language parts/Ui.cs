@@ -1,19 +1,20 @@
-﻿using System.Xml.Serialization;
+﻿using System;
+using System.Xml.Serialization;
 
 namespace Inventor.Core.Localization
 {
 	public interface ILanguageUi
 	{
-		string Ok
+		String Ok
 		{ get; }
 
-		string Cancel
+		String Cancel
 		{ get; }
 
-		string Next
+		String Next
 		{ get; }
 
-		string Back
+		String Back
 		{ get; }
 
 		LanguageMainForm MainForm
@@ -25,46 +26,46 @@ namespace Inventor.Core.Localization
 
 	public interface ILanguageMainForm
 	{
-		string Title
+		String Title
 		{ get; }
 
-		string CreateNew
+		String CreateNew
 		{ get; }
 
-		string Load
+		String Load
 		{ get; }
 
-		string Save
+		String Save
 		{ get; }
 
-		string SaveAs
+		String SaveAs
 		{ get; }
 
-		string CreateTest
+		String CreateTest
 		{ get; }
 
-		string DescribeKnowledge
+		String DescribeKnowledge
 		{ get; }
 
-		string CheckKnowledge
+		String CheckKnowledge
 		{ get; }
 
-		string AskQuestion
+		String AskQuestion
 		{ get; }
 
-		string SelectLanguage
+		String SelectLanguage
 		{ get; }
 
-		string Configuration
+		String Configuration
 		{ get; }
 	}
 
 	public interface ILanguageQuestionDialog
 	{
-		string Title
+		String Title
 		{ get; }
 
-		string SelectQuestion
+		String SelectQuestion
 		{ get; }
 	}
 
@@ -73,19 +74,19 @@ namespace Inventor.Core.Localization
 		#region Properties
 
 		[XmlElement]
-		public string Ok
+		public String Ok
 		{ get; set; }
 
 		[XmlElement]
-		public string Cancel
+		public String Cancel
 		{ get; set; }
 
 		[XmlElement]
-		public string Next
+		public String Next
 		{ get; set; }
 
 		[XmlElement]
-		public string Back
+		public String Back
 		{ get; set; }
 
 		[XmlElement]
@@ -117,47 +118,47 @@ namespace Inventor.Core.Localization
 		#region Properties
 
 		[XmlElement]
-		public string Title
+		public String Title
 		{ get; set; }
 
 		[XmlElement]
-		public string CreateNew
+		public String CreateNew
 		{ get; set; }
 
 		[XmlElement]
-		public string Load
+		public String Load
 		{ get; set; }
 
 		[XmlElement]
-		public string Save
+		public String Save
 		{ get; set; }
 
 		[XmlElement]
-		public string SaveAs
+		public String SaveAs
 		{ get; set; }
 
 		[XmlElement]
-		public string CreateTest
+		public String CreateTest
 		{ get; set; }
 
 		[XmlElement]
-		public string DescribeKnowledge
+		public String DescribeKnowledge
 		{ get; set; }
 
 		[XmlElement]
-		public string CheckKnowledge
+		public String CheckKnowledge
 		{ get; set; }
 
 		[XmlElement]
-		public string AskQuestion
+		public String AskQuestion
 		{ get; set; }
 
 		[XmlElement]
-		public string SelectLanguage
+		public String SelectLanguage
 		{ get; set; }
 
 		[XmlElement]
-		public string Configuration
+		public String Configuration
 		{ get; set; }
 
 		#endregion
@@ -186,11 +187,11 @@ namespace Inventor.Core.Localization
 		#region Properties
 
 		[XmlElement]
-		public string Title
+		public String Title
 		{ get; set; }
 
 		[XmlElement]
-		public string SelectQuestion
+		public String SelectQuestion
 		{ get; set; }
 
 		#endregion

@@ -1,4 +1,6 @@
-﻿namespace Inventor.Core.Questions
+﻿using System;
+
+namespace Inventor.Core.Questions
 {
 	[QuestionDescriptor]
 	public sealed class HasSignQuestion : Question
@@ -12,7 +14,7 @@
 		{ get; set; }
 
 		[PropertyDescriptor(false, "QuestionNames.ParamRecursive")]
-		public bool Recursive
+		public Boolean Recursive
 		{ get; set; }
 	}
 }

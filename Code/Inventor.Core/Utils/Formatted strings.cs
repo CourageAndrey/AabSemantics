@@ -11,36 +11,36 @@ namespace Inventor.Core
 	{
 		#region Properties
 
-		public Func<string> Formatter
+		public Func<String> Formatter
 		{ get { return _formatter; } }
 
-		public IDictionary<string, INamed> Parameters
+		public IDictionary<String, INamed> Parameters
 		{ get { return _parameters; } }
 
-		private readonly Func<string> _formatter;
-		private readonly IDictionary<string, INamed> _parameters;
+		private readonly Func<String> _formatter;
+		private readonly IDictionary<String, INamed> _parameters;
 
 		#endregion
 
-		public FormattedLine(Func<string> formatter, IDictionary<string, INamed> parameters)
+		public FormattedLine(Func<String> formatter, IDictionary<String, INamed> parameters)
 		{
 			_formatter = formatter;
-			_parameters = new Dictionary<string, INamed>(parameters);
+			_parameters = new Dictionary<String, INamed>(parameters);
 		}
 
-		public string GetPlainText(ILanguage language)
+		public String GetPlainText(ILanguage language)
 		{
-			string result = _formatter();
+			String result = _formatter();
 			foreach (var parameter in _parameters)
 			{
-				result = result.Replace(parameter.Key, string.Format("\"{0}\"", parameter.Value.Name.GetValue(language)));
+				result = result.Replace(parameter.Key, String.Format("\"{0}\"", parameter.Value.Name.GetValue(language)));
 			}
 			return result;
 		}
 
-		public string GetHtml(ILanguage language, int lineNumber)
+		public String GetHtml(ILanguage language, Int32 lineNumber)
 		{
-			string result = _formatter();
+			String result = _formatter();
 			foreach (var parameter in _parameters)
 			{
 				result = result.Replace(
@@ -50,7 +50,7 @@ namespace Inventor.Core
 			return result + @"<br/><br/>";
 		}
 
-		public static string GetParam(int line, string param)
+		public static String GetParam(Int32 line, String param)
 		{
 			return String.Format("#{0:00000000}{1}", line, param.Remove(0, 1));
 		}
@@ -62,7 +62,7 @@ namespace Inventor.Core
 
 		private readonly List<FormattedLine> _lines = new List<FormattedLine>();
 
-		public int LinesCount
+		public Int32 LinesCount
 		{ get { return _lines.Count; } }
 
 		#endregion
@@ -72,14 +72,14 @@ namespace Inventor.Core
 		public FormattedText()
 		{ }
 
-		public FormattedText(Func<string> formatter, IDictionary<string, INamed> parameters)
+		public FormattedText(Func<String> formatter, IDictionary<String, INamed> parameters)
 		{
 			Add(formatter, parameters);
 		}
 
 		#endregion
 
-		public override string ToString()
+		public override String ToString()
 		{
 			return Strings.TostringFormatted + " : " + GetPlainText(Language.Default);
 		}
@@ -91,7 +91,7 @@ namespace Inventor.Core
 			_lines.Add(line);
 		}
 
-		public void Add(Func<string> formatter, IDictionary<string, INamed> parameters)
+		public void Add(Func<String> formatter, IDictionary<String, INamed> parameters)
 		{
 			_lines.Add(new FormattedLine(formatter, parameters));
 		}
@@ -111,7 +111,7 @@ namespace Inventor.Core
 		{
 			var result = new StringBuilder(@"<html><head><title>Inventor</title></head><body>");
 			result.AppendLine();
-			for (int l = 0; l < _lines.Count; l++)
+			for (Int32 l = 0; l < _lines.Count; l++)
 			{
 				result.AppendLine(_lines[l].GetHtml(language, l));
 			}
@@ -119,10 +119,10 @@ namespace Inventor.Core
 			return result;
 		}
 
-		public IDictionary<string, INamed> GetAllParameters()
+		public IDictionary<String, INamed> GetAllParameters()
 		{
-			var result = new SortedDictionary<string, INamed>();
-			for (int l = 0; l < _lines.Count; l++)
+			var result = new SortedDictionary<String, INamed>();
+			for (Int32 l = 0; l < _lines.Count; l++)
 			{
 				var line = _lines[l];
 				foreach (var parameter in line.Parameters)

@@ -26,7 +26,7 @@ namespace Inventor.Core.Statements
 		#endregion
 
 		public SignValueStatement(Concept concept, Concept sign, Concept value)
-			: base(new Func<ILanguage, string>(language => language.StatementNames.SignValue), new Func<ILanguage, string>(language => language.StatementHints.SignValue))
+			: base(new Func<ILanguage, String>(language => language.StatementNames.SignValue), new Func<ILanguage, String>(language => language.StatementHints.SignValue))
 		{
 			if (concept == null) throw new ArgumentNullException("concept");
 			if (sign == null) throw new ArgumentNullException("sign");
@@ -46,14 +46,14 @@ namespace Inventor.Core.Statements
 
 		#region Description
 
-		protected override Func<string> GetDescriptionText(ILanguageStatementFormatStrings language)
+		protected override Func<String> GetDescriptionText(ILanguageStatementFormatStrings language)
 		{
 			return () => language.SignValue;
 		}
 
-		protected override IDictionary<string, INamed> GetDescriptionParameters()
+		protected override IDictionary<String, INamed> GetDescriptionParameters()
 		{
-			return new Dictionary<string, INamed>
+			return new Dictionary<String, INamed>
 			{
 				{ "#CONCEPT#", _concept },
 				{ "#SIGN#", _sign },
@@ -65,7 +65,7 @@ namespace Inventor.Core.Statements
 
 		#region Consistency checking
 
-		public override bool Equals(SignValueStatement other)
+		public override Boolean Equals(SignValueStatement other)
 		{
 			if (ReferenceEquals(this, other)) return true;
 			if (other != null)
@@ -77,7 +77,7 @@ namespace Inventor.Core.Statements
 			else return false;
 		}
 
-		public bool CheckHasSign(IEnumerable<Statement> statements)
+		public Boolean CheckHasSign(IEnumerable<Statement> statements)
 		{
 			return HasSignStatement.GetSigns(statements, _concept, true).Select(hs => hs.Sign).Contains(_sign);
 		}
@@ -106,7 +106,7 @@ namespace Inventor.Core.Statements
 			}
 		}
 
-		public static List<SignValueStatement> GetSignValues(IEnumerable<Statement> statements, Concept concept, bool recursive)
+		public static List<SignValueStatement> GetSignValues(IEnumerable<Statement> statements, Concept concept, Boolean recursive)
 		{
 			var result = new List<SignValueStatement>();
 			var signValues = statements.OfType<SignValueStatement>().ToList();

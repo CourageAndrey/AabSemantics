@@ -13,12 +13,12 @@ namespace Inventor.Core.Processing
 		{
 			var question = context.QuestionX;
 			var explanation = new List<IsStatement>();
-			bool yes = context.KnowledgeBase.Statements.GetParentsAllLevels(question.ChildConcept, explanation).Contains(question.ParentConcept);
+			Boolean yes = context.KnowledgeBase.Statements.GetParentsAllLevels(question.ChildConcept, explanation).Contains(question.ParentConcept);
 			return new Answer(
 				yes,
 				new FormattedText(
-					yes ? new Func<string>(() => context.Language.Answers.IsTrue) : () => context.Language.Answers.IsFalse,
-					new Dictionary<string, INamed>
+					yes ? new Func<String>(() => context.Language.Answers.IsTrue) : () => context.Language.Answers.IsFalse,
+					new Dictionary<String, INamed>
 					{
 						{ "#CHILD#", question.ChildConcept },
 						{ "#PARENT#", question.ParentConcept },
