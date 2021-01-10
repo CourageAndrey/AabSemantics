@@ -3,12 +3,6 @@ using System.Xml.Serialization;
 
 namespace Inventor.Core.Localization
 {
-	public interface ILanguageErrorsInventor
-	{
-		String UnknownQuestion
-		{ get; }
-	}
-
 	public class LanguageErrorsInventor : ILanguageErrorsInventor
 	{
 		#region Properties

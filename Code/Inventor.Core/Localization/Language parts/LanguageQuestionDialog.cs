@@ -3,15 +3,6 @@ using System.Xml.Serialization;
 
 namespace Inventor.Core.Localization
 {
-	public interface ILanguageQuestionDialog
-	{
-		String Title
-		{ get; }
-
-		String SelectQuestion
-		{ get; }
-	}
-
 	public class LanguageQuestionDialog : ILanguageQuestionDialog
 	{
 		#region Properties

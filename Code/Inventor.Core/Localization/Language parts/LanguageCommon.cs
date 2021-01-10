@@ -3,62 +3,6 @@ using System.Xml.Serialization;
 
 namespace Inventor.Core.Localization
 {
-	public interface ILanguageCommon
-	{
-		#region Buttons
-
-		String Close
-		{ get; }
-
-		String Ok
-		{ get; }
-
-		String Cancel
-		{ get; }
-
-		String Abort
-		{ get; }
-
-		String Ignore
-		{ get; }
-
-		String Save
-		{ get; }
-
-		String SaveFile
-		{ get; }
-
-		#endregion
-
-		#region MainMenu
-
-		String Exit
-		{ get; }
-
-		String SelectedLanguage
-		{ get; }
-
-		String Help
-		{ get; }
-
-		String About
-		{ get; }
-
-		String Configuration
-		{ get; }
-
-		#endregion
-
-		String WaitPromt
-		{ get; }
-
-		String Question
-		{ get; }
-
-		String ViewPicture
-		{ get; }
-	}
-
 	[Serializable]
 	public sealed class LanguageCommon : ILanguageCommon
 	{
