@@ -56,7 +56,7 @@
     <Compile Include="IStatement.cs" />
     <Compile Include="Localization\LanguageMainForm.cs" />
     <Compile Include="Localization\LanguageQuestionDialog.cs" />
-    <Compile Include="Statements\IParentChild.cs" />
+    <Compile Include="IParentChild.cs" />
     <Compile Include="Utils\EventCollection.cs" />
     <Compile Include="Utils\Formatted strings.cs" />
     <Compile Include="IChangeable.cs" />

@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 
-namespace Inventor.Core.Statements
+namespace Inventor.Core
 {
 	public interface IParentChild<out T>
 	{
