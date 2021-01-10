@@ -6,7 +6,7 @@ namespace Inventor.Core.Questions
 	public sealed class EnumerateSignsQuestion : Question
 	{
 		[PropertyDescriptor(true, "QuestionNames.ParamConcept")]
-		public Concept Concept
+		public IConcept Concept
 		{ get; set; }
 
 		[PropertyDescriptor(false, "QuestionNames.ParamRecursive")]

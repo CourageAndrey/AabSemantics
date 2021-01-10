@@ -49,8 +49,8 @@ namespace Inventor.Client.UI
 
 			_propertySelectorCreators = new Dictionary<Type, CreatePropertySelectorDelegate>
 			{
-				{ typeof (Concept), createConceptSelector },
-				{ typeof (bool), createCheckBox },
+				{ typeof(IConcept), createConceptSelector },
+				{ typeof(bool), createCheckBox },
 			};
 		}
 

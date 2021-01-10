@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Linq;
 
-using Inventor.Core.Localization;
 using Inventor.Core.Statements;
 using Inventor.Core.Questions;
 
@@ -9,7 +8,7 @@ namespace Inventor.Core.Processing
 {
 	public sealed class EnumerateChildrenProcessor : QuestionProcessor<EnumerateChildrenQuestion>
 	{
-		public override Answer Process(ProcessingContext<EnumerateChildrenQuestion> context)
+		public override IAnswer Process(IProcessingContext<EnumerateChildrenQuestion> context)
 		{
 			var question = context.QuestionX;
 			var statements = context.KnowledgeBase.Statements.OfType<IsStatement>().Where(c => c.Parent == question.Concept).ToList();

@@ -2,14 +2,13 @@
 using System.Collections.Generic;
 
 using Inventor.Core.Statements;
-using Inventor.Core.Localization;
 using Inventor.Core.Questions;
 
 namespace Inventor.Core.Processing
 {
 	public sealed class IsProcessor : QuestionProcessor<IsQuestion>
 	{
-		public override Answer Process(ProcessingContext<IsQuestion> context)
+		public override IAnswer Process(IProcessingContext<IsQuestion> context)
 		{
 			var question = context.QuestionX;
 			var explanation = new List<IsStatement>();

@@ -4,7 +4,7 @@ namespace Inventor.Core
 {
 	public interface IExplanation
 	{
-		ICollection<Statement> Statements
+		ICollection<IStatement> Statements
 		{ get; }
 	}
 }

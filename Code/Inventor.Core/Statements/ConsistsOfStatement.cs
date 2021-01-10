@@ -1,26 +1,24 @@
 ﻿using System;
 using System.Collections.Generic;
 
-using Inventor.Core.Localization;
-
 namespace Inventor.Core.Statements
 {
-	public sealed class ConsistsOfStatement : Statement<ConsistsOfStatement>, IParentChild<Concept>
+	public sealed class ConsistsOfStatement : Statement<ConsistsOfStatement>, IParentChild<IConcept>
 	{
 		#region Properties
 
-		public Concept Parent
+		public IConcept Parent
 		{ get { return _parent; } }
 
-		public Concept Child
+		public IConcept Child
 		{ get { return _child; } }
 
-		private readonly Concept _parent;
-		private readonly Concept _child;
+		private readonly IConcept _parent;
+		private readonly IConcept _child;
 
 		#endregion
 
-		public ConsistsOfStatement(Concept parent, Concept child)
+		public ConsistsOfStatement(IConcept parent, IConcept child)
 			: base(new Func<ILanguage, String>(language => language.StatementNames.Composition), new Func<ILanguage, String>(language => language.StatementHints.Composition))
 		{
 			if (parent == null) throw new ArgumentNullException("parent");
@@ -30,7 +28,7 @@ namespace Inventor.Core.Statements
 			_child = child;
 		}
 
-		public override IEnumerable<Concept> GetChildConcepts()
+		public override IEnumerable<IConcept> GetChildConcepts()
 		{
 			yield return _parent;
 			yield return _child;

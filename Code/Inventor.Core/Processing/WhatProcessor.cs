@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 
-using Inventor.Core.Localization;
 using Inventor.Core.Statements;
 using Inventor.Core.Questions;
 
@@ -10,7 +9,7 @@ namespace Inventor.Core.Processing
 {
 	public sealed class WhatProcessor : QuestionProcessor<WhatQuestion>
 	{
-		public override Answer Process(ProcessingContext<WhatQuestion> context)
+		public override IAnswer Process(IProcessingContext<WhatQuestion> context)
 		{
 			var question = context.QuestionX;
 			var statements = context.KnowledgeBase.Statements.OfType<IsStatement>().Where(c => c.Child == question.Concept).ToList();

@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 
-using Inventor.Core.Localization;
 using Inventor.Core.Statements;
 using Inventor.Core.Questions;
 
@@ -10,7 +9,7 @@ namespace Inventor.Core.Processing
 {
 	public sealed class SignValueProcessor : QuestionProcessor<SignValueQuestion>
 	{
-		public override Answer Process(ProcessingContext<SignValueQuestion> context)
+		public override IAnswer Process(IProcessingContext<SignValueQuestion> context)
 		{
 			var question = context.QuestionX;
 			var signValues = context.KnowledgeBase.Statements.OfType<SignValueStatement>().ToList();
@@ -22,7 +21,7 @@ namespace Inventor.Core.Processing
 			}
 			else
 			{
-				var parents = context.KnowledgeBase.Statements.GetParentsAllLevels<Concept, IsStatement>(question.Concept);
+				var parents = context.KnowledgeBase.Statements.GetParentsAllLevels<IConcept, IsStatement>(question.Concept);
 				foreach (var parent in parents)
 				{
 					statement = getSignValue(signValues, parent, question.Sign);
@@ -38,12 +37,12 @@ namespace Inventor.Core.Processing
 				: Answer.CreateUnknown(context.Language);
 		}
 
-		private static SignValueStatement getSignValue(IEnumerable<SignValueStatement> statements, Concept concept, Concept sign)
+		private static SignValueStatement getSignValue(IEnumerable<SignValueStatement> statements, IConcept concept, IConcept sign)
 		{
 			return statements.FirstOrDefault(v => v.Concept == concept && v.Sign == sign);
 		}
 
-		private static FormattedText formatSignValue(SignValueStatement value, Concept original, ILanguage language)
+		private static FormattedText formatSignValue(SignValueStatement value, IConcept original, ILanguage language)
 		{
 			return value != null
 				? new FormattedText(

@@ -2,6 +2,6 @@
 {
 	public interface IQuestionProcessor
 	{
-		Answer Process(ProcessingContext context);
+		IAnswer Process(IProcessingContext context);
 	}
 }

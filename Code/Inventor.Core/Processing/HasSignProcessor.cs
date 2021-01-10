@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 
-using Inventor.Core.Localization;
 using Inventor.Core.Statements;
 using Inventor.Core.Questions;
 
@@ -10,7 +9,7 @@ namespace Inventor.Core.Processing
 {
 	public sealed class HasSignProcessor : QuestionProcessor<HasSignQuestion>
 	{
-		public override Answer Process(ProcessingContext<HasSignQuestion> context)
+		public override IAnswer Process(IProcessingContext<HasSignQuestion> context)
 		{
 			var question = context.QuestionX;
 			var statements = HasSignStatement.GetSigns(context.KnowledgeBase.Statements, question.Concept, question.Recursive).Where(hasSign => hasSign.Sign == question.Sign).ToList();

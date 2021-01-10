@@ -6,11 +6,11 @@ namespace Inventor.Core.Questions
 	public sealed class HasSignQuestion : Question
 	{
 		[PropertyDescriptor(true, "QuestionNames.ParamConcept")]
-		public Concept Concept
+		public IConcept Concept
 		{ get; set; }
 
 		[PropertyDescriptor(true, "QuestionNames.ParamSign")]
-		public Concept Sign
+		public IConcept Sign
 		{ get; set; }
 
 		[PropertyDescriptor(false, "QuestionNames.ParamRecursive")]
