@@ -40,7 +40,8 @@
     <Compile Include="Basic\Concept.cs" />
     <Compile Include="Basic\Explanation.cs" />
     <Compile Include="Basic\ProcessingContext.cs" />
-    <Compile Include="Basic\QuestionProcessorRepository.cs" />
+    <Compile Include="Basic\QuestionDefinition.cs" />
+    <Compile Include="Basic\QuestionRepository.cs" />
     <Compile Include="Statements\IParentChild.cs" />
     <Compile Include="Utils\EventCollection.cs" />
     <Compile Include="Utils\Formatted strings.cs" />
