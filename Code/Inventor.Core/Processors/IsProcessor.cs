@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using Inventor.Core.Statements;
 using Inventor.Core.Questions;
 
-namespace Inventor.Core.Processing
+namespace Inventor.Core.Processors
 {
 	public sealed class IsProcessor : QuestionProcessor<IsQuestion>
 	{
