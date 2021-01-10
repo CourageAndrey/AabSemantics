@@ -3,7 +3,6 @@
 using NUnit.Framework;
 
 using Inventor.Core;
-using Inventor.Core.Localization;
 
 namespace Inventor.Test
 {
@@ -12,8 +11,8 @@ namespace Inventor.Test
 		[Test]
 		public void TestLanguageNames()
 		{
-			var questionType = typeof (Question);
-			var languageNames = typeof (ILanguageQuestionNames).GetProperties().Select(p => p.Name).ToList();
+			var questionType = typeof(IQuestion);
+			var languageNames = typeof(ILanguageQuestionNames).GetProperties().Select(p => p.Name).ToList();
 			languageNames.RemoveAll(p => p.StartsWith("Param"));
 			foreach (var type in questionType.Assembly.GetTypes().Where(t => questionType.IsAssignableFrom(t) && !t.IsAbstract))
 			{

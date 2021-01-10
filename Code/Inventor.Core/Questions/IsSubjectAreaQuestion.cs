@@ -1,7 +1,7 @@
 ﻿namespace Inventor.Core.Questions
 {
 	[QuestionDescriptor]
-	public sealed class IsSubjectAreaQuestion : Question
+	public sealed class IsSubjectAreaQuestion : IQuestion
 	{
 		[PropertyDescriptor(true, "QuestionNames.ParamConcept")]
 		public IConcept Concept

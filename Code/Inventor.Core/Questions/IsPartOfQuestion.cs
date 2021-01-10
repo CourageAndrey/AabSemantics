@@ -1,7 +1,7 @@
 ﻿namespace Inventor.Core.Questions
 {
 	[QuestionDescriptor]
-	public sealed class IsPartOfQuestion : Question
+	public sealed class IsPartOfQuestion : IQuestion
 	{
 		[PropertyDescriptor(true, "QuestionNames.ParamParent")]
 		public IConcept Parent

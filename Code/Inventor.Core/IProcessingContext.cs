@@ -16,7 +16,7 @@
 	}
 
 	public interface IProcessingContext<out QuestionT> : IProcessingContext
-		where QuestionT : Question
+		where QuestionT : IQuestion
 	{
 		QuestionT QuestionX
 		{ get; }
@@ -25,7 +25,7 @@
 	public static class ProcessingContextHelper
 	{
 		public static IProcessingContext<QuestionT> GetExplicit<QuestionT>(this IProcessingContext processingContext)
-			where QuestionT : Question
+			where QuestionT : IQuestion
 		{
 			return new ProcessingContext<QuestionT>(
 				processingContext.KnowledgeBase,

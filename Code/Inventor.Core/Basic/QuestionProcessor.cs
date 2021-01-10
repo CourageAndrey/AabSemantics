@@ -6,7 +6,7 @@ namespace Inventor.Core
 	}
 
 	public abstract class QuestionProcessor<QuestionT> : QuestionProcessor
-		where QuestionT : Question
+		where QuestionT : IQuestion
 	{
 		public abstract IAnswer Process(IProcessingContext<QuestionT> context);
 

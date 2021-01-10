@@ -1,7 +1,7 @@
 ﻿namespace Inventor.Core.Questions
 {
 	[QuestionDescriptor]
-	public sealed class CheckStatementQuestion : Question
+	public sealed class CheckStatementQuestion : IQuestion
 	{
 		//[PropertyDescriptor(, )]
 		public IStatement Statement
