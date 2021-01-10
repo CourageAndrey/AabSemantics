@@ -10,7 +10,7 @@ namespace Inventor.Core
 	{
 		#region Properties
 
-		public LocalizedString Name
+		public ILocalizedString Name
 		{ get; }
 
 		public LocalizedString Hint
