@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 
-namespace Inventor.Core
+namespace Inventor.Core.Base
 {
 	public class Explanation : IExplanation
 	{

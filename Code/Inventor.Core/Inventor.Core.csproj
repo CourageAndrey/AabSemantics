@@ -36,13 +36,13 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Basic\Answer.cs" />
-    <Compile Include="Basic\Concept.cs" />
-    <Compile Include="Basic\Explanation.cs" />
-    <Compile Include="Basic\ProcessingContext.cs" />
+    <Compile Include="Base\Answer.cs" />
+    <Compile Include="Base\Concept.cs" />
+    <Compile Include="Base\Explanation.cs" />
+    <Compile Include="Base\ProcessingContext.cs" />
     <Compile Include="QuestionDefinition.cs" />
     <Compile Include="Questions\QuestionDescriptorAttribute.cs" />
-    <Compile Include="Basic\QuestionRepository.cs" />
+    <Compile Include="Base\QuestionRepository.cs" />
     <Compile Include="IAnswer.cs" />
     <Compile Include="IConcept.cs" />
     <Compile Include="IEventCollection.cs" />
@@ -61,7 +61,7 @@
     <Compile Include="Utils\EventCollection.cs" />
     <Compile Include="FormattedText.cs" />
     <Compile Include="IChangeable.cs" />
-    <Compile Include="Basic\KnowledgeBase.cs" />
+    <Compile Include="Base\KnowledgeBase.cs" />
     <Compile Include="Localization\AbsentLocaleException.cs" />
     <Compile Include="Localization\LanguageAnswers.cs" />
     <Compile Include="Localization\LanguageConfiguration.cs" />
@@ -77,7 +77,7 @@
     <Compile Include="Localization\LanguageQuestionNames.cs" />
     <Compile Include="Localization\Strings.cs" />
     <Compile Include="Localization\LanguageUi.cs" />
-    <Compile Include="Basic\QuestionProcessor.cs" />
+    <Compile Include="Base\QuestionProcessor.cs" />
     <Compile Include="Processors\CheckStatementProcessor.cs" />
     <Compile Include="Processors\IsSubjectAreaQuestion.cs" />
     <Compile Include="Processors\EnumerateContainersProcessor.cs" />
@@ -112,7 +112,7 @@
     <Compile Include="Processors\WhatProcessor.cs" />
     <Compile Include="Questions\WhatQuestion.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Basic\Statement.cs" />
+    <Compile Include="Base\Statement.cs" />
     <Compile Include="Statements\IsStatement.cs" />
     <Compile Include="Statements\ConsistsOfStatement.cs" />
     <Compile Include="Statements\HasSignStatement.cs" />

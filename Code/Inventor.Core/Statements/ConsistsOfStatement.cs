@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 
+using Inventor.Core.Base;
+
 namespace Inventor.Core.Statements
 {
 	public sealed class ConsistsOfStatement : Statement<ConsistsOfStatement>, IParentChild<IConcept>

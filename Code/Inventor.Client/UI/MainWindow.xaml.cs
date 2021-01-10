@@ -59,21 +59,21 @@ namespace Inventor.Client.UI
 
 		private IChangeable loadFromFile(string fileName)
 		{
-			_application.KnowledgeBase = KnowledgeBase.Load(fileName);
+			_application.KnowledgeBase = Core.Base.KnowledgeBase.Load(fileName);
 			realoadKnowledgeBaseTree();
 			return _application.KnowledgeBase;
 		}
 
 		private IChangeable createNew()
 		{
-			_application.KnowledgeBase = KnowledgeBase.New(_application.CurrentLanguage);
+			_application.KnowledgeBase = Core.Base.KnowledgeBase.New(_application.CurrentLanguage);
 			realoadKnowledgeBaseTree();
 			return _application.KnowledgeBase;
 		}
 
 		private void createTestClick(object sender, RoutedEventArgs e)
 		{
-			_application.KnowledgeBase = KnowledgeBase.CreateTest();
+			_application.KnowledgeBase = Core.Base.KnowledgeBase.CreateTest();
 			realoadKnowledgeBaseTree();
 			_saveLoadController.ChangeEntity(_application.KnowledgeBase);
 		}
@@ -93,7 +93,7 @@ namespace Inventor.Client.UI
 
 		#region Knowledgebase actions
 
-		private readonly QuestionRepository _questionRepository = new QuestionRepository();
+		private readonly IQuestionRepository _questionRepository = new Core.Base.QuestionRepository();
 
 		private void askQuestionClick(object sender, RoutedEventArgs e)
 		{
@@ -105,7 +105,7 @@ namespace Inventor.Client.UI
 			{
 				var questionType = dialog.Question.GetType();
 				var questionProcessor = _questionRepository.QuestionDefinitions[questionType].CreateProcessor();
-				var context = new ProcessingContext(_application.KnowledgeBase, dialog.Question, _questionRepository, _application.CurrentLanguage);
+				var context = new Core.Base.ProcessingContext(_application.KnowledgeBase, dialog.Question, _questionRepository, _application.CurrentLanguage);
 				var answer = questionProcessor.Process(context);
 				new FormattedTextDialog(
 					_application.CurrentLanguage,

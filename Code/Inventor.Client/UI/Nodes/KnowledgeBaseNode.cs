@@ -19,19 +19,19 @@ namespace Inventor.Client.UI.Nodes
 
 		public override ImageSource Icon
 		{ get { return _icon ?? (_icon = Resources.KnowledgeBase.ToSource()); } }
-
-		public KnowledgeBase KnowledgeBase
+		
+		public IKnowledgeBase KnowledgeBase
 		{ get { return _knowledgeBase; } }
 
 		private static ImageSource _icon;
-		private readonly KnowledgeBase _knowledgeBase;
+		private readonly IKnowledgeBase _knowledgeBase;
 		private readonly KnowledgeBaseConceptsNode _concepts;
 		private readonly KnowledgeBaseStatementsNode _statements;
 		private readonly InventorApplication _application;
 
 		#endregion
 
-		public KnowledgeBaseNode(KnowledgeBase knowledgeBase, InventorApplication application)
+		public KnowledgeBaseNode(IKnowledgeBase knowledgeBase, InventorApplication application)
 		{
 			_knowledgeBase = knowledgeBase;
 			_application = application;
@@ -41,13 +41,13 @@ namespace Inventor.Client.UI.Nodes
 
 		public List<ExtendedTreeNode> Find(object obj)
 		{
-			if (obj is Concept)
+			if (obj is IConcept)
 			{
-				return _concepts.Find(obj as Concept, this);
+				return _concepts.Find(obj as IConcept, this);
 			}
-			else if (obj is Statement)
+			else if (obj is IStatement)
 			{
-				return _statements.Find(obj as Statement, this);
+				return _statements.Find(obj as IStatement, this);
 			}
 			else
 			{

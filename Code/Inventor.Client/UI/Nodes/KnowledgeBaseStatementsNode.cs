@@ -21,16 +21,16 @@ namespace Inventor.Client.UI.Nodes
 		public override ImageSource Icon
 		{ get { return _icon ?? (_icon = Resources.Folder.ToSource()); } }
 
-		public KnowledgeBase KnowledgeBase
+		public IKnowledgeBase KnowledgeBase
 		{ get { return _knowledgeBase; } }
 
 		private static ImageSource _icon;
-		private readonly KnowledgeBase _knowledgeBase;
+		private readonly IKnowledgeBase _knowledgeBase;
 		private readonly InventorApplication _application;
 
 		#endregion
 
-		public KnowledgeBaseStatementsNode(KnowledgeBase knowledgeBase, InventorApplication application)
+		public KnowledgeBaseStatementsNode(IKnowledgeBase knowledgeBase, InventorApplication application)
 		{
 			_knowledgeBase = knowledgeBase;
 			_application = application;

@@ -1,4 +1,4 @@
-namespace Inventor.Core
+namespace Inventor.Core.Base
 {
 	public abstract class QuestionProcessor : IQuestionProcessor
 	{
