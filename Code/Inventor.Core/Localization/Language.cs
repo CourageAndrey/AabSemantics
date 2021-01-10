@@ -6,6 +6,8 @@ using System.Linq;
 using System.Threading;
 using System.Xml.Serialization;
 
+using Inventor.Core.Utils;
+
 namespace Inventor.Core.Localization
 {
 	[Serializable, XmlRoot(RootName)]
