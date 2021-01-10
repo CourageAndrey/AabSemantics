@@ -3,7 +3,7 @@ using System.Linq;
 
 using NUnit.Framework;
 
-using Inventor.Core.Statements;
+using Inventor.Core;
 
 namespace Inventor.Test.Statements
 {
