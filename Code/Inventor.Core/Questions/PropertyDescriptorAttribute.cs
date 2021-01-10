@@ -1,6 +1,6 @@
 using System;
 
-namespace Inventor.Core
+namespace Inventor.Core.Questions
 {
 	[AttributeUsage(AttributeTargets.Property, AllowMultiple = false, Inherited = false)]
 	public class PropertyDescriptorAttribute : Attribute
