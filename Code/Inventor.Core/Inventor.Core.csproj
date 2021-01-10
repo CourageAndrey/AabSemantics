@@ -47,13 +47,13 @@
     <Compile Include="Statements\IParentChild.cs" />
     <Compile Include="Utils\EventCollection.cs" />
     <Compile Include="Utils\Formatted strings.cs" />
-    <Compile Include="Utils\IChangeable.cs" />
+    <Compile Include="IChangeable.cs" />
     <Compile Include="Basic\KnowledgeBase.cs" />
     <Compile Include="Localization\AbsentLocaleException.cs" />
     <Compile Include="Localization\Language parts\LanguageAnswers.cs" />
     <Compile Include="Localization\Language parts\LanguageConfiguration.cs" />
     <Compile Include="Localization\Language parts\LanguageErrorsInventor.cs" />
-    <Compile Include="Localization\INamed.cs" />
+    <Compile Include="INamed.cs" />
     <Compile Include="Localization\Language.cs" />
     <Compile Include="Localization\Language parts\LanguageCommon.cs" />
     <Compile Include="Localization\Language parts\LanguageErrors.cs" />
