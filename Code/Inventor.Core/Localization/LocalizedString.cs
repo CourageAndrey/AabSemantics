@@ -4,7 +4,7 @@ using System.Linq;
 
 namespace Inventor.Core.Localization
 {
-	public abstract class LocalizedString
+	public abstract class LocalizedString : ILocalizedString
 	{
 		public abstract String GetValue(ILanguage language);
 
