@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Text;
 
 namespace Inventor.Core.Localization
@@ -11,13 +12,13 @@ namespace Inventor.Core.Localization
 
 	public static class NamedHelper
 	{
-		public static Dictionary<string, INamed> Enumerate(this IList<INamed> list, out string format)
+		public static Dictionary<String , INamed> Enumerate(this IList<INamed> list, out String format)
 		{
 			var formatText = new StringBuilder();
-			var paremeters = new Dictionary<string, INamed>();
-			for (int i = 0; i < list.Count; i++)
+			var paremeters = new Dictionary<String , INamed>();
+			for (Int32 i = 0; i < list.Count; i++)
 			{
-				string param = string.Format("#ENUMITEM{0:00000000}#", i);
+				String param = String .Format("#ENUMITEM{0:00000000}#", i);
 				paremeters[param] = list[i];
 				formatText.Append(param);
 				if (i != list.Count - 1)
@@ -29,19 +30,19 @@ namespace Inventor.Core.Localization
 			return paremeters;
 		}
 
-		public static Dictionary<string, INamed> Enumerate<T>(this IEnumerable<T> amount, out string format)
+		public static Dictionary<String , INamed> Enumerate<T>(this IEnumerable<T> amount, out String format)
 			where T : INamed
 		{
 			var formatText = new StringBuilder();
-			var paremeters = new Dictionary<string, INamed>();
-			int index = 0;
+			var paremeters = new Dictionary<String , INamed>();
+			Int32 index = 0;
 			foreach (var item in amount)
 			{
 				if (index > 0)
 				{
 					formatText.Append(", ");
 				}
-				string param = string.Format("#ENUMITEM{0:00000000}#", index);
+				String param = String .Format("#ENUMITEM{0:00000000}#", index);
 				paremeters[param] = item;
 				formatText.Append(param);
 				index++;

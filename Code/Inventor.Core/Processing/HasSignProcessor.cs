@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 
 using Inventor.Core.Localization;
@@ -16,8 +17,8 @@ namespace Inventor.Core.Processing
 			return new Answer(
 				statements.Any(),
 				new FormattedText(
-					() => string.Format(statements.Any() ? context.Language.Answers.HasSignTrue : context.Language.Answers.HasSignFalse, question.Recursive ? context.Language.Answers.RecursiveTrue : context.Language.Answers.RecursiveFalse),
-					new Dictionary<string, INamed>
+					() => String.Format(statements.Any() ? context.Language.Answers.HasSignTrue : context.Language.Answers.HasSignFalse, question.Recursive ? context.Language.Answers.RecursiveTrue : context.Language.Answers.RecursiveFalse),
+					new Dictionary<String, INamed>
 					{
 						{ "#CONCEPT#", question.Concept },
 						{ "#SIGN#", question.Sign },

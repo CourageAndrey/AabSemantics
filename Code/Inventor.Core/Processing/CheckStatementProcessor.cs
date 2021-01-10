@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 
 using Inventor.Core.Localization;
@@ -14,7 +15,7 @@ namespace Inventor.Core.Processing
 			var statement = context.KnowledgeBase.Statements.FirstOrDefault(p => p.Equals(question.Statement));
 			var result = new FormattedText(
 				() => "#ANSWER#.",
-				new Dictionary<string, INamed> { { "#ANSWER#", statement != null ? context.KnowledgeBase.True : context.KnowledgeBase.False } });
+				new Dictionary<String, INamed> { { "#ANSWER#", statement != null ? context.KnowledgeBase.True : context.KnowledgeBase.False } });
 			result.Add(statement != null ? statement.DescribeTrue(context.Language) : question.Statement.DescribeFalse(context.Language));
 			return new Answer(
 				statement != null,

@@ -42,7 +42,7 @@ namespace Inventor.Core
 
 		#endregion
 
-		public KnowledgeBase(bool initialize = true)
+		public KnowledgeBase(Boolean initialize = true)
 		{
 			_name = new LocalizedStringVariable();
 
@@ -118,7 +118,7 @@ namespace Inventor.Core
 				new LocalizedStringConstant(language => language.Misc.FalseHint)) { Type = ConceptType.System });
 		}
 
-		public override string ToString()
+		public override String ToString()
 		{
 			return string.Format("{0} : {1}", Strings.TostringKnowledgeBase, Name);
 		}
@@ -132,12 +132,12 @@ namespace Inventor.Core
 			return result;
 		}
 
-		public static KnowledgeBase Load(string fileName)
+		public static KnowledgeBase Load(String fileName)
 		{
 			throw new NotImplementedException();
 		}
 
-		public void Save(string fileName)
+		public void Save(String fileName)
 		{
 			throw new NotImplementedException();
 		}
@@ -164,11 +164,11 @@ namespace Inventor.Core
 
 			// subject areas
 			Concept transport;
-			knowledgeBase.Concepts.Add(transport = new Concept(new LocalizedStringVariable(new Dictionary<string, string>
+			knowledgeBase.Concepts.Add(transport = new Concept(new LocalizedStringVariable(new Dictionary<String, String>
 			{
 				{ "ru-RU", "Транспорт" },
 				{ "en-US", "Transport" },
-			}), new LocalizedStringVariable(new Dictionary<string, string>
+			}), new LocalizedStringVariable(new Dictionary<String, String>
 			{
 				{ "ru-RU", "Средства передвижения." },
 				{ "en-US", "Vehicles." },
@@ -176,146 +176,146 @@ namespace Inventor.Core
 
 			// concepts
 			Concept vehicle;
-			knowledgeBase.Concepts.Add(vehicle = new Concept(new LocalizedStringVariable(new Dictionary<string, string>
+			knowledgeBase.Concepts.Add(vehicle = new Concept(new LocalizedStringVariable(new Dictionary<String, String>
 			{
 				{ "ru-RU", "Транспортное средство" },
 				{ "en-US", "Vehicle" },
-			}), new LocalizedStringVariable(new Dictionary<string, string>
+			}), new LocalizedStringVariable(new Dictionary<String, String>
 			{
 				{ "ru-RU", "Устройство для перевозки людей и/или грузов." },
 				{ "en-US", "System which is indended for transportation of humans and cargo." },
 			})));
 
 			Concept motorType, mtMucles, mtSteam, mtCombusion, mtJet;
-			knowledgeBase.Concepts.Add(motorType = new Concept(new LocalizedStringVariable(new Dictionary<string, string>
+			knowledgeBase.Concepts.Add(motorType = new Concept(new LocalizedStringVariable(new Dictionary<String, String>
 			{
 				{ "ru-RU", "Движитель" },
 				{ "en-US", "Mover" },
-			}), new LocalizedStringVariable(new Dictionary<string, string>
+			}), new LocalizedStringVariable(new Dictionary<String, String>
 			{
 				{ "ru-RU", "Система, обеспечивающая движение." },
 				{ "en-US", "Initiator of movement." },
 			})));
-			knowledgeBase.Concepts.Add(mtMucles = new Concept(new LocalizedStringVariable(new Dictionary<string, string>
+			knowledgeBase.Concepts.Add(mtMucles = new Concept(new LocalizedStringVariable(new Dictionary<String, String>
 			{
 				{ "ru-RU", "Мускульная сила" },
-			}), new LocalizedStringVariable(new Dictionary<string, string>
+			}), new LocalizedStringVariable(new Dictionary<String, String>
 			{
 				{ "ru-RU", "Использования для приведения в движение мускульной силы: собственной, других людей, животных." },
 			})));
-			knowledgeBase.Concepts.Add(mtSteam = new Concept(new LocalizedStringVariable(new Dictionary<string, string>
+			knowledgeBase.Concepts.Add(mtSteam = new Concept(new LocalizedStringVariable(new Dictionary<String, String>
 			{
 				{ "ru-RU", "Паровая тяга" },
-			}), new LocalizedStringVariable(new Dictionary<string, string>
+			}), new LocalizedStringVariable(new Dictionary<String, String>
 			{
 				{ "ru-RU", "Использование для движения расширяющей силы нагретого пара." },
 			})));
-			knowledgeBase.Concepts.Add(mtCombusion = new Concept(new LocalizedStringVariable(new Dictionary<string, string>
+			knowledgeBase.Concepts.Add(mtCombusion = new Concept(new LocalizedStringVariable(new Dictionary<String, String>
 			{
 				{ "ru-RU", "Внутреннее сгорание" },
-			}), new LocalizedStringVariable(new Dictionary<string, string>
+			}), new LocalizedStringVariable(new Dictionary<String, String>
 			{
 				{ "ru-RU", "Использование для движения расширяющей силы топлива, сжигаемого в закрытых цилиндрах." },
 			})));
-			knowledgeBase.Concepts.Add(mtJet = new Concept(new LocalizedStringVariable(new Dictionary<string, string>
+			knowledgeBase.Concepts.Add(mtJet = new Concept(new LocalizedStringVariable(new Dictionary<String, String>
 			{
 				{ "ru-RU", "Реактивная тяга" },
-			}), new LocalizedStringVariable(new Dictionary<string, string>
+			}), new LocalizedStringVariable(new Dictionary<String, String>
 			{
 				{ "ru-RU", "Выталкивание вещества в обратном направлении, обычно сжигаемого топлива." },
 			})));
 
 			Concept areaType, atGround, atWater, atAir;
-			knowledgeBase.Concepts.Add(areaType = new Concept(new LocalizedStringVariable(new Dictionary<string, string>
+			knowledgeBase.Concepts.Add(areaType = new Concept(new LocalizedStringVariable(new Dictionary<String, String>
 			{
 				{ "ru-RU", "Среда передвижения" },
-			}), new LocalizedStringVariable(new Dictionary<string, string>
+			}), new LocalizedStringVariable(new Dictionary<String, String>
 			{
 				{ "ru-RU", "Среда, для которой предназначено транспортное средство." },
 			})));
-			knowledgeBase.Concepts.Add(atGround = new Concept(new LocalizedStringVariable(new Dictionary<string, string>
+			knowledgeBase.Concepts.Add(atGround = new Concept(new LocalizedStringVariable(new Dictionary<String, String>
 			{
 				{ "ru-RU", "Земля" },
-			}), new LocalizedStringVariable(new Dictionary<string, string>
+			}), new LocalizedStringVariable(new Dictionary<String, String>
 			{
 				{ "ru-RU", "Наземный транспорт." },
 			})));
-			knowledgeBase.Concepts.Add(atWater = new Concept(new LocalizedStringVariable(new Dictionary<string, string>
+			knowledgeBase.Concepts.Add(atWater = new Concept(new LocalizedStringVariable(new Dictionary<String, String>
 			{
 				{ "ru-RU", "Вода" },
-			}), new LocalizedStringVariable(new Dictionary<string, string>
+			}), new LocalizedStringVariable(new Dictionary<String, String>
 			{
 				{ "ru-RU", "Плавучий транспорт." },
 			})));
-			knowledgeBase.Concepts.Add(atAir = new Concept(new LocalizedStringVariable(new Dictionary<string, string>
+			knowledgeBase.Concepts.Add(atAir = new Concept(new LocalizedStringVariable(new Dictionary<String, String>
 			{
 				{ "ru-RU", "Воздух" },
-			}), new LocalizedStringVariable(new Dictionary<string, string>
+			}), new LocalizedStringVariable(new Dictionary<String, String>
 			{
 				{ "ru-RU", "Возможность полёта." },
 			})));
 
 			Concept bicycle, curragh, steamLocomotive, steamboat, car, motorcycle, fighter, airbus, jetFighter;
-			knowledgeBase.Concepts.Add(bicycle = new Concept(new LocalizedStringVariable(new Dictionary<string, string>
+			knowledgeBase.Concepts.Add(bicycle = new Concept(new LocalizedStringVariable(new Dictionary<String, String>
 			{
 				{ "ru-RU", "Велосипед" },
-			}), new LocalizedStringVariable(new Dictionary<string, string>
+			}), new LocalizedStringVariable(new Dictionary<String, String>
 			{
 				{ "ru-RU", "Двухколёсный даритель радости." },
 			})));
-			knowledgeBase.Concepts.Add(curragh = new Concept(new LocalizedStringVariable(new Dictionary<string, string>
+			knowledgeBase.Concepts.Add(curragh = new Concept(new LocalizedStringVariable(new Dictionary<String, String>
 			{
 				{ "ru-RU", "Курага" },
-			}), new LocalizedStringVariable(new Dictionary<string, string>
+			}), new LocalizedStringVariable(new Dictionary<String, String>
 			{
 				{ "ru-RU", "Первая человеческая потуга создать лодку." },
 			})));
-			knowledgeBase.Concepts.Add(steamLocomotive = new Concept(new LocalizedStringVariable(new Dictionary<string, string>
+			knowledgeBase.Concepts.Add(steamLocomotive = new Concept(new LocalizedStringVariable(new Dictionary<String, String>
 			{
 				{ "ru-RU", "Паровоз" },
-			}), new LocalizedStringVariable(new Dictionary<string, string>
+			}), new LocalizedStringVariable(new Dictionary<String, String>
 			{
 				{ "ru-RU", "Устаревший тип локомотива." },
 			})));
-			knowledgeBase.Concepts.Add(steamboat = new Concept(new LocalizedStringVariable(new Dictionary<string, string>
+			knowledgeBase.Concepts.Add(steamboat = new Concept(new LocalizedStringVariable(new Dictionary<String, String>
 			{
 				{ "ru-RU", "Пароход" },
-			}), new LocalizedStringVariable(new Dictionary<string, string>
+			}), new LocalizedStringVariable(new Dictionary<String, String>
 			{
 				{ "ru-RU", "Устаревший тип корабля." },
 			})));
-			knowledgeBase.Concepts.Add(car = new Concept(new LocalizedStringVariable(new Dictionary<string, string>
+			knowledgeBase.Concepts.Add(car = new Concept(new LocalizedStringVariable(new Dictionary<String, String>
 			{
 				{ "ru-RU", "Автомобиль" },
-			}), new LocalizedStringVariable(new Dictionary<string, string>
+			}), new LocalizedStringVariable(new Dictionary<String, String>
 			{
 				{ "ru-RU", "Четырёхколёсное механическое т/с." },
 			})));
-			knowledgeBase.Concepts.Add(motorcycle = new Concept(new LocalizedStringVariable(new Dictionary<string, string>
+			knowledgeBase.Concepts.Add(motorcycle = new Concept(new LocalizedStringVariable(new Dictionary<String, String>
 			{
 				{ "ru-RU", "Мотоцикл" },
-			}), new LocalizedStringVariable(new Dictionary<string, string>
+			}), new LocalizedStringVariable(new Dictionary<String, String>
 			{
 				{ "ru-RU", "Двухколёсное механическое т/с, возможно с коляской." },
 			})));
-			knowledgeBase.Concepts.Add(fighter = new Concept(new LocalizedStringVariable(new Dictionary<string, string>
+			knowledgeBase.Concepts.Add(fighter = new Concept(new LocalizedStringVariable(new Dictionary<String, String>
 			{
 				{ "ru-RU", "Поршневой истребитель" },
-			}), new LocalizedStringVariable(new Dictionary<string, string>
+			}), new LocalizedStringVariable(new Dictionary<String, String>
 			{
 				{ "ru-RU", "Устаревший самолёт для ведения воздушного боя." },
 			})));
-			knowledgeBase.Concepts.Add(airbus = new Concept(new LocalizedStringVariable(new Dictionary<string, string>
+			knowledgeBase.Concepts.Add(airbus = new Concept(new LocalizedStringVariable(new Dictionary<String, String>
 			{
 				{ "ru-RU", "Аэробус" },
-			}), new LocalizedStringVariable(new Dictionary<string, string>
+			}), new LocalizedStringVariable(new Dictionary<String, String>
 			{
 				{ "ru-RU", "Гражданский самолёт для перевозки пассажиров." },
 			})));
-			knowledgeBase.Concepts.Add(jetFighter = new Concept(new LocalizedStringVariable(new Dictionary<string, string>
+			knowledgeBase.Concepts.Add(jetFighter = new Concept(new LocalizedStringVariable(new Dictionary<String, String>
 			{
 				{ "ru-RU", "Реактивный истребитель" },
-			}), new LocalizedStringVariable(new Dictionary<string, string>
+			}), new LocalizedStringVariable(new Dictionary<String, String>
 			{
 				{ "ru-RU", "Современный самолёт для ведения воздушного боя." },
 			})));
@@ -402,7 +402,7 @@ namespace Inventor.Core
 				{
 					result.Add(
 						() => language.Misc.ConsistencyErrorDuplicate,
-						new Dictionary<string, INamed> { { "#STATEMENT#", statement } });
+						new Dictionary<String, INamed> { { "#STATEMENT#", statement } });
 				}
 			}
 
@@ -414,7 +414,7 @@ namespace Inventor.Core
 				{
 					result.Add(
 						() => language.Misc.ConsistencyErrorCyclic,
-						new Dictionary<string, INamed> { { "#STATEMENT#", clasification } });
+						new Dictionary<String, INamed> { { "#STATEMENT#", clasification } });
 				}
 			}
 
@@ -430,7 +430,7 @@ namespace Inventor.Core
 					{
 						result.Add(
 							() => language.Misc.ConsistencyErrorMultipleSignValue,
-							new Dictionary<string, INamed>
+							new Dictionary<String, INamed>
 							{
 								{ "#CONCEPT#", concept },
 								{ "#SIGN#", sign.Sign },
@@ -446,7 +446,7 @@ namespace Inventor.Core
 				{
 					result.Add(
 						() => language.Misc.ConsistencyErrorSignWithoutValue,
-						new Dictionary<string, INamed> { { "#STATEMENT#", signValue } });
+						new Dictionary<String, INamed> { { "#STATEMENT#", signValue } });
 				}
 			}
 
@@ -458,13 +458,13 @@ namespace Inventor.Core
 				{
 					result.Add(
 						() => language.Misc.ConsistencyErrorMultipleSign,
-						new Dictionary<string, INamed> { { "#STATEMENT#", hasSign } });
+						new Dictionary<String, INamed> { { "#STATEMENT#", hasSign } });
 				}
 			}
 
 			if (result.LinesCount == 0)
 			{
-				result.Add(() => language.Misc.CheckOk, new Dictionary<string, INamed>());
+				result.Add(() => language.Misc.CheckOk, new Dictionary<String, INamed>());
 			}
 			return result;
 		}

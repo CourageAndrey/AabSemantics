@@ -17,8 +17,8 @@ namespace Inventor.Core.Processing
 			return new Answer(
 				statements.Any(),
 				new FormattedText(
-					statements.Any() ? new Func<string>(() => context.Language.Answers.SignTrue) : () => context.Language.Answers.SignFalse,
-					new Dictionary<string, INamed>
+					statements.Any() ? new Func<String>(() => context.Language.Answers.SignTrue) : () => context.Language.Answers.SignFalse,
+					new Dictionary<String, INamed>
 					{
 						{ "#CONCEPT#", question.Concept },
 					}),

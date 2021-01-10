@@ -17,8 +17,8 @@ namespace Inventor.Core.Processing
 			return new Answer(
 				statements.Any(),
 				new FormattedText(
-					statements.Any() ? new Func<string>(() => context.Language.Answers.IsSubjectAreaTrue) : () => context.Language.Answers.IsSubjectAreaFalse,
-					new Dictionary<string, INamed>
+					statements.Any() ? new Func<String>(() => context.Language.Answers.IsSubjectAreaTrue) : () => context.Language.Answers.IsSubjectAreaFalse,
+					new Dictionary<String, INamed>
 					{
 						{ "#AREA#", question.Area },
 						{ "#CONCEPT#", question.Concept },

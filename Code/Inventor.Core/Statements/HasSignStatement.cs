@@ -22,7 +22,7 @@ namespace Inventor.Core.Statements
 		#endregion
 
 		public HasSignStatement(Concept concept, Concept sign)
-			: base(new Func<ILanguage, string>(language => language.StatementNames.HasSign), new Func<ILanguage, string>(language => language.StatementHints.HasSign))
+			: base(new Func<ILanguage, String>(language => language.StatementNames.HasSign), new Func<ILanguage, String>(language => language.StatementHints.HasSign))
 		{
 			if (concept == null) throw new ArgumentNullException("concept");
 			if (sign == null) throw new ArgumentNullException("sign");
@@ -39,14 +39,14 @@ namespace Inventor.Core.Statements
 
 		#region Description
 
-		protected override Func<string> GetDescriptionText(ILanguageStatementFormatStrings language)
+		protected override Func<String> GetDescriptionText(ILanguageStatementFormatStrings language)
 		{
 			return () => language.HasSign;
 		}
 
-		protected override IDictionary<string, INamed> GetDescriptionParameters()
+		protected override IDictionary<String, INamed> GetDescriptionParameters()
 		{
-			return new Dictionary<string, INamed>
+			return new Dictionary<String, INamed>
 			{
 				{ "#CONCEPT#", _concept },
 				{ "#SIGN#", _sign },
@@ -57,7 +57,7 @@ namespace Inventor.Core.Statements
 
 		#region Consistency checking
 
-		public override bool Equals(HasSignStatement other)
+		public override Boolean Equals(HasSignStatement other)
 		{
 			if (ReferenceEquals(this, other)) return true;
 			if (other != null)
@@ -68,7 +68,7 @@ namespace Inventor.Core.Statements
 			else return false;
 		}
 
-		public bool CheckSignDuplication(IEnumerable<HasSignStatement> hasSigns, IEnumerable<IsStatement> clasifications)
+		public Boolean CheckSignDuplication(IEnumerable<HasSignStatement> hasSigns, IEnumerable<IsStatement> clasifications)
 		{
 			var signs = hasSigns.Where(hs => hs.Concept == _concept).Select(hs => hs.Sign).ToList();
 			foreach (var parent in clasifications.GetParentsAllLevels(_concept))
@@ -86,7 +86,7 @@ namespace Inventor.Core.Statements
 
 		#endregion
 
-		public static List<HasSignStatement> GetSigns(IEnumerable<Statement> statements, Concept concept, bool recursive)
+		public static List<HasSignStatement> GetSigns(IEnumerable<Statement> statements, Concept concept, Boolean recursive)
 		{
 			var result = new List<HasSignStatement>();
 			var hasSigns = statements.OfType<HasSignStatement>().ToList();

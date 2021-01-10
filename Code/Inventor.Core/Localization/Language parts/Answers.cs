@@ -1,88 +1,89 @@
-﻿using System.Xml.Serialization;
+﻿using System;
+using System.Xml.Serialization;
 
 namespace Inventor.Core.Localization
 {
 	public interface ILanguageAnswers
 	{
-		string Unknown
+		String Unknown
 		{ get; }
 
-		string IsTrue
+		String IsTrue
 		{ get; }
 
-		string IsFalse
+		String IsFalse
 		{ get; }
 
-		string IsSubjectAreaTrue
+		String IsSubjectAreaTrue
 		{ get; }
 
-		string IsSubjectAreaFalse
+		String IsSubjectAreaFalse
 		{ get; }
 
-		string SignTrue
+		String SignTrue
 		{ get; }
 
-		string SignFalse
+		String SignFalse
 		{ get; }
 
-		string ValueTrue
+		String ValueTrue
 		{ get; }
 
-		string ValueFalse
+		String ValueFalse
 		{ get; }
 
-		string HasSignTrue
+		String HasSignTrue
 		{ get; }
 
-		string HasSignFalse
+		String HasSignFalse
 		{ get; }
 
-		string HasSignsTrue
+		String HasSignsTrue
 		{ get; }
 
-		string HasSignsFalse
+		String HasSignsFalse
 		{ get; }
 
-		string IsDescription
+		String IsDescription
 		{ get; }
 
-		string IsDescriptionWithSign
+		String IsDescriptionWithSign
 		{ get; }
 
-		string IsDescriptionWithSignValue
+		String IsDescriptionWithSignValue
 		{ get; }
 
-		string Enumerate
+		String Enumerate
 		{ get; }
 
-		string SubjectArea
+		String SubjectArea
 		{ get; }
 
-		string SubjectAreaConcepts
+		String SubjectAreaConcepts
 		{ get; }
 
-		string ConceptSigns
+		String ConceptSigns
 		{ get; }
 
-		string SignValue
+		String SignValue
 		{ get; }
 
-		string RecursiveTrue
+		String RecursiveTrue
 		{ get; }
 
-		string RecursiveFalse
+		String RecursiveFalse
 		{ get; }
 
-		string IsPartOfTrue
+		String IsPartOfTrue
 		{ get; }
 
-		string IsPartOfFalse
+		String IsPartOfFalse
 		{ get; }
 
-		string EnumerateParts
+		String EnumerateParts
 		{ get; }
 
-		string EnumerateContainers
+		String EnumerateContainers
 		{ get; }
 	}
 
@@ -91,111 +92,111 @@ namespace Inventor.Core.Localization
 		#region Properties
 
 		[XmlElement]
-		public string Unknown
+		public String Unknown
 		{ get; set; }
 
 		[XmlElement]
-		public string IsTrue
+		public String IsTrue
 		{ get; set; }
 
 		[XmlElement]
-		public string IsFalse
+		public String IsFalse
 		{ get; set; }
 
 		[XmlElement]
-		public string IsSubjectAreaTrue
+		public String IsSubjectAreaTrue
 		{ get; set; }
 
 		[XmlElement]
-		public string IsSubjectAreaFalse
+		public String IsSubjectAreaFalse
 		{ get; set; }
 
 		[XmlElement]
-		public string SignTrue
+		public String SignTrue
 		{ get; set; }
 
 		[XmlElement]
-		public string SignFalse
+		public String SignFalse
 		{ get; set; }
 
 		[XmlElement]
-		public string ValueTrue
+		public String ValueTrue
 		{ get; set; }
 
 		[XmlElement]
-		public string ValueFalse
+		public String ValueFalse
 		{ get; set; }
 
 		[XmlElement]
-		public string HasSignTrue
+		public String HasSignTrue
 		{ get; set; }
 
 		[XmlElement]
-		public string HasSignFalse
+		public String HasSignFalse
 		{ get; set; }
 
 		[XmlElement]
-		public string HasSignsTrue
+		public String HasSignsTrue
 		{ get; set; }
 
 		[XmlElement]
-		public string HasSignsFalse
+		public String HasSignsFalse
 		{ get; set; }
 
 		[XmlElement]
-		public string IsDescription
+		public String IsDescription
 		{ get; set; }
 
 		[XmlElement]
-		public string IsDescriptionWithSign
+		public String IsDescriptionWithSign
 		{ get; set; }
 
 		[XmlElement]
-		public string IsDescriptionWithSignValue
+		public String IsDescriptionWithSignValue
 		{ get; set; }
 
 		[XmlElement]
-		public string Enumerate
+		public String Enumerate
 		{ get; set; }
 
 		[XmlElement]
-		public string SubjectArea
+		public String SubjectArea
 		{ get; set; }
 
 		[XmlElement]
-		public string SubjectAreaConcepts
+		public String SubjectAreaConcepts
 		{ get; set; }
 
 		[XmlElement]
-		public string ConceptSigns
+		public String ConceptSigns
 		{ get; set; }
 
 		[XmlElement]
-		public string SignValue
+		public String SignValue
 		{ get; set; }
 
 		[XmlElement]
-		public string RecursiveTrue
+		public String RecursiveTrue
 		{ get; set; }
 
 		[XmlElement]
-		public string RecursiveFalse
+		public String RecursiveFalse
 		{ get; set; }
 
 		[XmlElement]
-		public string IsPartOfTrue
+		public String IsPartOfTrue
 		{ get; set; }
 
 		[XmlElement]
-		public string IsPartOfFalse
+		public String IsPartOfFalse
 		{ get; set; }
 
 		[XmlElement]
-		public string EnumerateParts
+		public String EnumerateParts
 		{ get; set; }
 
 		[XmlElement]
-		public string EnumerateContainers
+		public String EnumerateContainers
 		{ get; set; }
 
 		#endregion

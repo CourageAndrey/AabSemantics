@@ -31,7 +31,7 @@ namespace Inventor.Core
 		{
 			return new Answer(
 				null,
-				new FormattedText(() => language.Answers.Unknown, new Dictionary<string, INamed>()),
+				new FormattedText(() => language.Answers.Unknown, new Dictionary<String, INamed>()),
 				new Explanation(new Statement[0]));
 		}
 	}

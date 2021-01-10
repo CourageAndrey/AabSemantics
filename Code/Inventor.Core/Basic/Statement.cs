@@ -20,7 +20,7 @@ namespace Inventor.Core
 
 		public abstract IEnumerable<Concept> GetChildConcepts();
 
-		public override sealed string ToString()
+		public override sealed String ToString()
 		{
 			return string.Format("{0} \"{1}\"", Strings.TostringStatement, Name);
 		}
@@ -56,18 +56,18 @@ namespace Inventor.Core
 			return new FormattedLine(GetDescriptionText(language.QuestionStatementFormatStrings), GetDescriptionParameters());
 		}
 
-		protected abstract Func<string> GetDescriptionText(ILanguageStatementFormatStrings language);
+		protected abstract Func<String> GetDescriptionText(ILanguageStatementFormatStrings language);
 
-		protected abstract IDictionary<string, INamed> GetDescriptionParameters();
+		protected abstract IDictionary<String, INamed> GetDescriptionParameters();
 
 		#endregion
 
-		public abstract bool CheckUnique(IEnumerable<Statement> statements);
+		public abstract Boolean CheckUnique(IEnumerable<Statement> statements);
 
 #pragma warning disable 659
-		public abstract override bool Equals(object obj);
+		public abstract override Boolean Equals(Object obj);
 
-		public override int GetHashCode()
+		public override Int32 GetHashCode()
 		{
 // ReSharper disable once BaseObjectGetHashCodeCallInGetHashCode
 			return base.GetHashCode();
@@ -81,20 +81,20 @@ namespace Inventor.Core
 		protected Statement(LocalizedString name, LocalizedString hint = null) : base(name, hint)
 		{ }
 
-		public override sealed bool CheckUnique(IEnumerable<Statement> statements)
+		public override sealed Boolean CheckUnique(IEnumerable<Statement> statements)
 		{
 			return statements.OfType<StatementT>().Count(Equals) == 1;
 		}
 
-		public abstract bool Equals(StatementT other);
+		public abstract Boolean Equals(StatementT other);
 
 #pragma warning disable 659
-		public override sealed bool Equals(object obj)
+		public override sealed Boolean Equals(Object obj)
 		{
 			return Equals(obj as StatementT);
 		}
 
-		public override int GetHashCode()
+		public override Int32 GetHashCode()
 		{
 			// ReSharper disable once BaseObjectGetHashCodeCallInGetHashCode
 			return base.GetHashCode();
