@@ -14,7 +14,8 @@ namespace Inventor.Core
 		public LocalizedString Hint
 		{ get; }
 
-		internal ConceptType Type = ConceptType.Usual;
+		public ConceptType Type
+		{ get; internal set; } = ConceptType.Usual;
 
 		#endregion
 
@@ -34,7 +35,7 @@ namespace Inventor.Core
 		}
 	}
 
-	internal enum ConceptType
+	public enum ConceptType
 	{
 		System,
 		Usual,
