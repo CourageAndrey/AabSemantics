@@ -2,7 +2,9 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace Inventor.Core.Localization
+using Inventor.Core.Localization;
+
+namespace Inventor.Core
 {
 	public interface INamed
 	{
