@@ -2,7 +2,7 @@
 
 using NUnit.Framework;
 
-using Inventor.Core;
+using Inventor.Core.Utils;
 
 namespace Inventor.Test.Utils
 {

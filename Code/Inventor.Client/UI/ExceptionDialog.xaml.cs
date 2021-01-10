@@ -5,7 +5,7 @@ using System.Windows.Data;
 using Microsoft.Win32;
 
 using Inventor.Core;
-using Inventor.Core.Localization;
+using Inventor.Core.Utils;
 
 namespace Inventor.Client.UI
 {

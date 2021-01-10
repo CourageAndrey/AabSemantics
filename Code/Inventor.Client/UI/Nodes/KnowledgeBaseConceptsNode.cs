@@ -4,6 +4,7 @@ using System.Windows.Media;
 
 using Inventor.Client.Properties;
 using Inventor.Core;
+using Inventor.Core.Utils;
 
 namespace Inventor.Client.UI.Nodes
 {
