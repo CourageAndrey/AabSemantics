@@ -5,7 +5,7 @@ using System.Threading;
 
 namespace Inventor.Core
 {
-	public class EventCollection<T> : ICollection<T>
+	public class EventCollection<T> : IEventCollection<T>
 	{
 		#region Properties
 
