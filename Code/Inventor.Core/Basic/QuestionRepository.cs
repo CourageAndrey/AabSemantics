@@ -5,7 +5,7 @@ using System.Reflection;
 
 namespace Inventor.Core
 {
-	public class QuestionRepository
+	public class QuestionRepository : IQuestionRepository
 	{
 		public IDictionary<Type, QuestionDefinition> QuestionDefinitions
 		{ get; }

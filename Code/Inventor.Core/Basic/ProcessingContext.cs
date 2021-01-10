@@ -1,8 +1,6 @@
-﻿using Inventor.Core.Localization;
-
-namespace Inventor.Core
+﻿namespace Inventor.Core
 {
-	public class ProcessingContext
+	public class ProcessingContext : IProcessingContext
 	{
 		#region Properties
 
@@ -27,15 +25,9 @@ namespace Inventor.Core
 			QuestionRepository = questionRepository;
 			Language = language;
 		}
-
-		public ProcessingContext<QuestionT> GetExplicit<QuestionT>()
-			where QuestionT : Question
-		{
-			return new ProcessingContext<QuestionT>(KnowledgeBase, (QuestionT) Question, QuestionRepository, Language);
-		}
 	}
 
-	public class ProcessingContext<QuestionT> : ProcessingContext
+	public class ProcessingContext<QuestionT> : ProcessingContext, IProcessingContext<QuestionT>
 		where QuestionT : Question
 	{
 		public QuestionT QuestionX

@@ -8,7 +8,7 @@ using Inventor.Core.Statements;
 
 namespace Inventor.Core
 {
-	public sealed class KnowledgeBase : INamed, IChangeable
+	public sealed class KnowledgeBase : IKnowledgeBase
 	{
 		#region Properties
 
