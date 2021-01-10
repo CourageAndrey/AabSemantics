@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Linq;
 
-using Inventor.Core.Localization;
 using Inventor.Core.Statements;
 using Inventor.Core.Questions;
 
@@ -9,7 +8,7 @@ namespace Inventor.Core.Processing
 {
 	public sealed class EnumerateSignsProcessor : QuestionProcessor<EnumerateSignsQuestion>
 	{
-		public override Answer Process(ProcessingContext<EnumerateSignsQuestion> context)
+		public override IAnswer Process(IProcessingContext<EnumerateSignsQuestion> context)
 		{
 			var question = context.QuestionX;
 			var statements = HasSignStatement.GetSigns(context.KnowledgeBase.Statements, question.Concept, question.Recursive);

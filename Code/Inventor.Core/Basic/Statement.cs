@@ -13,19 +13,19 @@ namespace Inventor.Core
 		public ILocalizedString Name
 		{ get; }
 
-		public LocalizedString Hint
+		public ILocalizedString Hint
 		{ get; }
 
 		#endregion
 
-		public abstract IEnumerable<Concept> GetChildConcepts();
+		public abstract IEnumerable<IConcept> GetChildConcepts();
 
 		public override sealed String ToString()
 		{
 			return string.Format("{0} \"{1}\"", Strings.TostringStatement, Name);
 		}
 
-		protected Statement(LocalizedString name, LocalizedString hint = null)
+		protected Statement(ILocalizedString name, ILocalizedString hint = null)
 		{
 			if (name != null)
 			{
@@ -62,7 +62,7 @@ namespace Inventor.Core
 
 		#endregion
 
-		public abstract Boolean CheckUnique(IEnumerable<Statement> statements);
+		public abstract Boolean CheckUnique(IEnumerable<IStatement> statements);
 
 #pragma warning disable 659
 		public abstract override Boolean Equals(Object obj);
@@ -81,7 +81,7 @@ namespace Inventor.Core
 		protected Statement(LocalizedString name, LocalizedString hint = null) : base(name, hint)
 		{ }
 
-		public override sealed Boolean CheckUnique(IEnumerable<Statement> statements)
+		public override sealed Boolean CheckUnique(IEnumerable<IStatement> statements)
 		{
 			return statements.OfType<StatementT>().Count(Equals) == 1;
 		}

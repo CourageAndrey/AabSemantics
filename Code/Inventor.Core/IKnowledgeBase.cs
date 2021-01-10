@@ -5,15 +5,21 @@ namespace Inventor.Core
 {
 	public interface IKnowledgeBase : INamed, IChangeable
 	{
-		ICollection<Concept> Concepts
+		ICollection<IConcept> Concepts
 		{ get; }
 
-		ICollection<Statement> Statements
+		ICollection<IStatement> Statements
 		{ get; }
 
-		event EventHandler<ItemEventArgs<Concept>> ConceptAdded;
-		event EventHandler<ItemEventArgs<Concept>> ConceptRemoved;
-		event EventHandler<ItemEventArgs<Statement>> StatementAdded;
-		event EventHandler<ItemEventArgs<Statement>> StatementRemoved;
+		event EventHandler<ItemEventArgs<IConcept>> ConceptAdded;
+		event EventHandler<ItemEventArgs<IConcept>> ConceptRemoved;
+		event EventHandler<ItemEventArgs<IStatement>> StatementAdded;
+		event EventHandler<ItemEventArgs<IStatement>> StatementRemoved;
+
+		IConcept True
+		{ get; }
+
+		IConcept False
+		{ get; }
 	}
 }

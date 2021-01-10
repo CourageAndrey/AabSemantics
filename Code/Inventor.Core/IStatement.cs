@@ -1,14 +1,21 @@
-﻿using System.Collections.Generic;
-
-using Inventor.Core.Localization;
+﻿using System;
+using System.Collections.Generic;
 
 namespace Inventor.Core
 {
 	public interface IStatement : INamed
 	{
-		LocalizedString Hint
+		ILocalizedString Hint
 		{ get; }
 
-		IEnumerable<Concept> GetChildConcepts();
+		IEnumerable<IConcept> GetChildConcepts();
+
+		FormattedLine DescribeTrue(ILanguage language);
+
+		FormattedLine DescribeFalse(ILanguage language);
+
+		FormattedLine DescribeQuestion(ILanguage language);
+
+		Boolean CheckUnique(IEnumerable<IStatement> statements);
 	}
 }

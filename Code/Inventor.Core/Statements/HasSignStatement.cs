@@ -2,26 +2,24 @@
 using System.Collections.Generic;
 using System.Linq;
 
-using Inventor.Core.Localization;
-
 namespace Inventor.Core.Statements
 {
 	public sealed class HasSignStatement : Statement<HasSignStatement>
 	{
 		#region Properties
 
-		public Concept Concept
+		public IConcept Concept
 		{ get { return _concept; } }
 
-		public Concept Sign
+		public IConcept Sign
 		{ get { return _sign; } }
 
-		private readonly Concept _concept;
-		private readonly Concept _sign;
+		private readonly IConcept _concept;
+		private readonly IConcept _sign;
 
 		#endregion
 
-		public HasSignStatement(Concept concept, Concept sign)
+		public HasSignStatement(IConcept concept, IConcept sign)
 			: base(new Func<ILanguage, String>(language => language.StatementNames.HasSign), new Func<ILanguage, String>(language => language.StatementHints.HasSign))
 		{
 			if (concept == null) throw new ArgumentNullException("concept");
@@ -31,7 +29,7 @@ namespace Inventor.Core.Statements
 			_sign = sign;
 		}
 
-		public override IEnumerable<Concept> GetChildConcepts()
+		public override IEnumerable<IConcept> GetChildConcepts()
 		{
 			yield return _concept;
 			yield return _sign;
@@ -86,14 +84,14 @@ namespace Inventor.Core.Statements
 
 		#endregion
 
-		public static List<HasSignStatement> GetSigns(IEnumerable<Statement> statements, Concept concept, Boolean recursive)
+		public static List<HasSignStatement> GetSigns(IEnumerable<IStatement> statements, IConcept concept, Boolean recursive)
 		{
 			var result = new List<HasSignStatement>();
 			var hasSigns = statements.OfType<HasSignStatement>().ToList();
 			result.AddRange(hasSigns.Where(sv => sv.Concept == concept));
 			if (recursive)
 			{
-				foreach (var parentSigns in statements.GetParentsOneLevel<Concept, IsStatement>(concept).Select(c => GetSigns(statements, c, true)))
+				foreach (var parentSigns in statements.GetParentsOneLevel<IConcept, IsStatement>(concept).Select(c => GetSigns(statements, c, true)))
 				{
 					result.AddRange(parentSigns);
 				}

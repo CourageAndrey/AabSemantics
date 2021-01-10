@@ -4,11 +4,11 @@
 	public sealed class SignValueQuestion : Question
 	{
 		[PropertyDescriptor(true, "QuestionNames.ParamConcept")]
-		public Concept Concept
+		public IConcept Concept
 		{ get; set; }
 
 		[PropertyDescriptor(true, "QuestionNames.ParamSign")]
-		public Concept Sign
+		public IConcept Sign
 		{ get; set; }
 	}
 }

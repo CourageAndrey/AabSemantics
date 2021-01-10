@@ -10,7 +10,7 @@ namespace Inventor.Core
 		FormattedText Description
 		{ get; }
 
-		Explanation Explanation
+		IExplanation Explanation
 		{ get; }
 	}
 }

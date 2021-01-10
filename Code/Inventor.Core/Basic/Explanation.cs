@@ -7,17 +7,17 @@ namespace Inventor.Core
 	{
 		#region Properties
 
-		public ICollection<Statement> Statements
+		public ICollection<IStatement> Statements
 		{ get; }
 
 		#endregion
 
-		public Explanation(IEnumerable<Statement> statements)
+		public Explanation(IEnumerable<IStatement> statements)
 		{
 			Statements = statements.ToArray();
 		}
 
-		public Explanation(Statement statement)
+		public Explanation(IStatement statement)
 			: this(new[] { statement })
 		{ }
 	}

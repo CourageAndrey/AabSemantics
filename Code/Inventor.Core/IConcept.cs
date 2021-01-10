@@ -1,10 +1,8 @@
-﻿using Inventor.Core.Localization;
-
-namespace Inventor.Core
+﻿namespace Inventor.Core
 {
 	public interface IConcept : INamed
 	{
-		LocalizedString Hint
+		ILocalizedString Hint
 		{ get; }
 
 		ConceptType Type

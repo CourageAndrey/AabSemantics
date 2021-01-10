@@ -18,16 +18,16 @@ namespace Inventor.Client.UI.Nodes
 		public override ImageSource Icon
 		{ get { return _icon ?? (_icon = Resources.Concept.ToSource()); } }
 
-		public Concept Concept
+		public IConcept Concept
 		{ get { return _concept; } }
 
 		private static ImageSource _icon;
-		private readonly Concept _concept;
+		private readonly IConcept _concept;
 		private readonly InventorApplication _application;
 
 		#endregion
 
-		public ConceptNode(Concept concept, InventorApplication application)
+		public ConceptNode(IConcept concept, InventorApplication application)
 		{
 			_concept = concept;
 			_application = application;

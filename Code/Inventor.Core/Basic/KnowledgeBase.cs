@@ -15,27 +15,27 @@ namespace Inventor.Core
 		public ILocalizedString Name
 		{ get { return _name; } }
 
-		public ICollection<Concept> Concepts
+		public ICollection<IConcept> Concepts
 		{ get { return _concepts; } }
 
-		public ICollection<Statement> Statements
+		public ICollection<IStatement> Statements
 		{ get { return _statements; } }
 
 		private readonly LocalizedStringVariable _name;
-		private readonly EventCollection<Concept> _concepts;
-		private readonly EventCollection<Statement> _statements;
+		private readonly EventCollection<IConcept> _concepts;
+		private readonly EventCollection<IStatement> _statements;
 
-		public event EventHandler<ItemEventArgs<Concept>> ConceptAdded;
-		public event EventHandler<ItemEventArgs<Concept>> ConceptRemoved;
-		public event EventHandler<ItemEventArgs<Statement>> StatementAdded;
-		public event EventHandler<ItemEventArgs<Statement>> StatementRemoved;
+		public event EventHandler<ItemEventArgs<IConcept>> ConceptAdded;
+		public event EventHandler<ItemEventArgs<IConcept>> ConceptRemoved;
+		public event EventHandler<ItemEventArgs<IStatement>> StatementAdded;
+		public event EventHandler<ItemEventArgs<IStatement>> StatementRemoved;
 
 		#region System
 
-		public Concept True
+		public IConcept True
 		{ get; private set; }
 
-		public Concept False
+		public IConcept False
 		{ get; private set; }
 
 		#endregion
@@ -46,7 +46,7 @@ namespace Inventor.Core
 		{
 			_name = new LocalizedStringVariable();
 
-			_concepts = new EventCollection<Concept>();
+			_concepts = new EventCollection<IConcept>();
 			_concepts.ItemAdded += (sender, args) =>
 			{
 				var handler = Volatile.Read(ref ConceptAdded);
@@ -68,7 +68,7 @@ namespace Inventor.Core
 				}
 			};
 
-			_statements = new EventCollection<Statement>();
+			_statements = new EventCollection<IStatement>();
 			_statements.ItemAdded += (sender, args) =>
 			{
 				var handler = Volatile.Read(ref StatementAdded);
@@ -97,7 +97,7 @@ namespace Inventor.Core
 			{
 				Initialize();
 			}
-			EventHandler<CancelableItemEventArgs<Concept>> systemConceptProtector = (sender, args) =>
+			EventHandler<CancelableItemEventArgs<IConcept>> systemConceptProtector = (sender, args) =>
 			{
 				if (args.Item.Type == ConceptType.System)
 				{
