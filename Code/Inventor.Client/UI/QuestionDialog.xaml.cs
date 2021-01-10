@@ -24,7 +24,7 @@ namespace Inventor.Client.UI
 
 		#endregion
 
-		public QuestionDialog(QuestionRepository questionRepository, KnowledgeBase knowledgeBase, ILanguage language)
+		public QuestionDialog(IQuestionRepository questionRepository, IKnowledgeBase knowledgeBase, ILanguage language)
 		{
 			_language = language;
 
@@ -55,7 +55,7 @@ namespace Inventor.Client.UI
 		}
 
 		private readonly Dictionary<string, Func<IQuestion>> _questions = new Dictionary<string, Func<IQuestion>>();
-		private readonly KnowledgeBase _knowledgeBase;
+		private readonly IKnowledgeBase _knowledgeBase;
 		private readonly List<ComboBox> _requiredFieldSelectors = new List<ComboBox>();
 
 		private void buttonCreateClick(object sender, RoutedEventArgs e)

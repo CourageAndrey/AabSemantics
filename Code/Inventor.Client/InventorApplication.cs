@@ -43,7 +43,7 @@ namespace Inventor.Client
 		private String ConfigurationFile
 		{ get { return Path.Combine(StartupPath, InventorConfiguration.FileName); } }
 
-		public KnowledgeBase KnowledgeBase
+		public IKnowledgeBase KnowledgeBase
 		{ get; internal set; }
 
 		#endregion
@@ -102,9 +102,9 @@ namespace Inventor.Client
 			var application = new InventorApplication
 			{
 #if DEBUG
-				KnowledgeBase = KnowledgeBase.CreateTest()
+				KnowledgeBase = Core.Base.KnowledgeBase.CreateTest()
 #else
-				KnowledgeBase = KnowledgeBase.New(LanguageEx.CurrentEx)
+				KnowledgeBase = Core.Base.KnowledgeBase.New(LanguageEx.CurrentEx)
 #endif
 			};
 			application.MainForm.Initialize(application);

@@ -4,7 +4,7 @@ using System.Linq;
 
 using Inventor.Core.Localization;
 
-namespace Inventor.Core
+namespace Inventor.Core.Base
 {
 	public abstract class Statement : IStatement
 	{

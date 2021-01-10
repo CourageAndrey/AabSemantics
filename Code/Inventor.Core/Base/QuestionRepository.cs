@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 
-namespace Inventor.Core
+namespace Inventor.Core.Base
 {
 	public class QuestionRepository : IQuestionRepository
 	{
