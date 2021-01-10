@@ -3,27 +3,6 @@ using System.Xml.Serialization;
 
 namespace Inventor.Core.Localization
 {
-	public interface ILanguageUi
-	{
-		String Ok
-		{ get; }
-
-		String Cancel
-		{ get; }
-
-		String Next
-		{ get; }
-
-		String Back
-		{ get; }
-
-		LanguageMainForm MainForm
-		{ get; }
-
-		LanguageQuestionDialog QuestionDialog
-		{ get; }
-	}
-
 	public interface ILanguageMainForm
 	{
 		String Title
@@ -58,59 +37,6 @@ namespace Inventor.Core.Localization
 
 		String Configuration
 		{ get; }
-	}
-
-	public interface ILanguageQuestionDialog
-	{
-		String Title
-		{ get; }
-
-		String SelectQuestion
-		{ get; }
-	}
-
-	public class LanguageUi : ILanguageUi
-	{
-		#region Properties
-
-		[XmlElement]
-		public String Ok
-		{ get; set; }
-
-		[XmlElement]
-		public String Cancel
-		{ get; set; }
-
-		[XmlElement]
-		public String Next
-		{ get; set; }
-
-		[XmlElement]
-		public String Back
-		{ get; set; }
-
-		[XmlElement]
-		public LanguageMainForm MainForm
-		{ get; set; }
-
-		[XmlElement]
-		public LanguageQuestionDialog QuestionDialog
-		{ get; set; }
-
-		#endregion
-
-		internal static LanguageUi CreateDefault()
-		{
-			return new LanguageUi
-			{
-				Ok = "ОК",
-				Cancel = "Отмена",
-				Next = "Далее >",
-				Back = "< Назад",
-				QuestionDialog = LanguageQuestionDialog.CreateDefault(),
-				MainForm = LanguageMainForm.CreateDefault(),
-			};
-		}
 	}
 
 	public class LanguageMainForm : ILanguageMainForm
@@ -178,30 +104,6 @@ namespace Inventor.Core.Localization
 				AskQuestion = "Задать вопрос...",
 				SelectLanguage = "Язык:",
 				Configuration = "Настройки...",
-			};
-		}
-	}
-
-	public class LanguageQuestionDialog : ILanguageQuestionDialog
-	{
-		#region Properties
-
-		[XmlElement]
-		public String Title
-		{ get; set; }
-
-		[XmlElement]
-		public String SelectQuestion
-		{ get; set; }
-
-		#endregion
-
-		internal static LanguageQuestionDialog CreateDefault()
-		{
-			return new LanguageQuestionDialog
-			{
-				Title = "Формирование вопроса",
-				SelectQuestion = "Выберите вопрос: ",
 			};
 		}
 	}
