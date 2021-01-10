@@ -23,5 +23,11 @@ namespace Inventor.Core
 
 		IConcept False
 		{ get; }
+
+		void Save(String fileName);
+
+		FormattedText DescribeRules(ILanguage language);
+
+		FormattedText CheckConsistensy(ILanguage language);
 	}
 }

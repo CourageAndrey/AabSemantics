@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 
+using Inventor.Core.Base;
+
 namespace Inventor.Core.Statements
 {
 	public sealed class SignValueStatement : Statement<SignValueStatement>

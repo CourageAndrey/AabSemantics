@@ -1,4 +1,6 @@
-﻿namespace Inventor.Core
+﻿using Inventor.Core.Base;
+
+namespace Inventor.Core
 {
 	public interface IProcessingContext
 	{

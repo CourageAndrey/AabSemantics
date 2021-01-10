@@ -2,7 +2,7 @@
 
 using Inventor.Core.Localization;
 
-namespace Inventor.Core
+namespace Inventor.Core.Base
 {
 	public sealed class Concept : IConcept
 	{
