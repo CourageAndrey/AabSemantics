@@ -3,48 +3,6 @@ using System.Xml.Serialization;
 
 namespace Inventor.Core.Localization
 {
-	public interface ILanguageErrors
-	{
-		String Warning
-		{ get; }
-
-		String InnerException
-		{ get; }
-
-		String DialogHeader
-		{ get; }
-
-		String DialogMessageCommon
-		{ get; }
-
-		String DialogMessageFatal
-		{ get; }
-
-		String DialogMessageInner
-		{ get; }
-
-		String DialogMessageView
-		{ get; }
-
-		String Class
-		{ get; }
-
-		String Message
-		{ get; }
-
-		String Stack
-		{ get; }
-
-		String SaveFilter
-		{ get; }
-
-		String LocalizationError
-		{ get; }
-
-		String TypeIsntEnumerable
-		{ get; }
-	}
-
 	[Serializable]
 	public sealed class LanguageErrors : ILanguageErrors
 	{

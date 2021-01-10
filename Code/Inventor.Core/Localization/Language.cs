@@ -8,54 +8,6 @@ using System.Xml.Serialization;
 
 namespace Inventor.Core.Localization
 {
-	public interface ILanguage
-	{
-		String Name
-		{ get; }
-
-		String Culture
-		{ get; }
-
-		ILanguageCommon Common
-		{ get; }
-
-		ILanguageErrors Errors
-		{ get; }
-
-		ILanguageStatements StatementNames
-		{ get; }
-
-		ILanguageStatements StatementHints
-		{ get; }
-
-		ILanguageStatementFormatStrings TrueStatementFormatStrings
-		{ get; }
-
-		ILanguageStatementFormatStrings FalseStatementFormatStrings
-		{ get; }
-
-		ILanguageStatementFormatStrings QuestionStatementFormatStrings
-		{ get; }
-
-		ILanguageQuestionNames QuestionNames
-		{ get; }
-
-		ILanguageAnswers Answers
-		{ get; }
-
-		ILanguageUi Ui
-		{ get; }
-
-		ILanguageErrorsInventor ErrorsInventor
-		{ get; }
-
-		ILanguageConfiguration Configuration
-		{ get; }
-
-		ILanguageMisc Misc
-		{ get; }
-	}
-
 	[Serializable, XmlRoot(RootName)]
 	public class Language : ILanguage
 	{

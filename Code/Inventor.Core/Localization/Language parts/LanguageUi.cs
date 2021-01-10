@@ -3,27 +3,6 @@ using System.Xml.Serialization;
 
 namespace Inventor.Core.Localization
 {
-	public interface ILanguageUi
-	{
-		String Ok
-		{ get; }
-
-		String Cancel
-		{ get; }
-
-		String Next
-		{ get; }
-
-		String Back
-		{ get; }
-
-		ILanguageMainForm MainForm
-		{ get; }
-
-		ILanguageQuestionDialog QuestionDialog
-		{ get; }
-	}
-
 	public class LanguageUi : ILanguageUi
 	{
 		#region Constants
