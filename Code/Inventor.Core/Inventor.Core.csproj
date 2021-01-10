@@ -59,7 +59,7 @@
     <Compile Include="Localization\LanguageQuestionDialog.cs" />
     <Compile Include="IParentChild.cs" />
     <Compile Include="Utils\EventCollection.cs" />
-    <Compile Include="Utils\Formatted strings.cs" />
+    <Compile Include="FormattedText.cs" />
     <Compile Include="IChangeable.cs" />
     <Compile Include="Basic\KnowledgeBase.cs" />
     <Compile Include="Localization\AbsentLocaleException.cs" />
@@ -118,6 +118,7 @@
     <Compile Include="Statements\HasSignStatement.cs" />
     <Compile Include="Statements\SignValueStatement.cs" />
     <Compile Include="Statements\GroupStatement.cs" />
+    <Compile Include="FormattedLine.cs" />
     <Compile Include="Utils\XmlHelper.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
