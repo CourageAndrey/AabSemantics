@@ -42,6 +42,7 @@
     <Compile Include="Basic\ProcessingContext.cs" />
     <Compile Include="Basic\QuestionDefinition.cs" />
     <Compile Include="Basic\QuestionRepository.cs" />
+    <Compile Include="IEventCollection.cs" />
     <Compile Include="Localization\Language parts\LanguageMainForm.cs" />
     <Compile Include="Localization\Language parts\LanguageQuestionDialog.cs" />
     <Compile Include="Statements\IParentChild.cs" />
