@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Runtime.Serialization;
 using System.Threading;
 
-namespace Inventor.Core
+namespace Inventor.Core.Utils
 {
 	public class EventCollection<T> : IEventCollection<T>
 	{

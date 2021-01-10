@@ -4,7 +4,7 @@ using System.IO;
 using System.Xml;
 using System.Xml.Serialization;
 
-namespace Inventor.Core
+namespace Inventor.Core.Utils
 {
 	public static class XmlHelper
 	{

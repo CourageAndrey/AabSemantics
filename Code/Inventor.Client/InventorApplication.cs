@@ -3,12 +3,12 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Windows;
-using System.Windows.Navigation;
 using System.Windows.Threading;
 
 using Inventor.Client.UI;
 using Inventor.Core;
 using Inventor.Core.Localization;
+using Inventor.Core.Utils;
 
 namespace Inventor.Client
 {

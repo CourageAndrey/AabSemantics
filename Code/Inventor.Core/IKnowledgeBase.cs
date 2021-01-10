@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 
+using Inventor.Core.Utils;
+
 namespace Inventor.Core
 {
 	public interface IKnowledgeBase : INamed, IChangeable
