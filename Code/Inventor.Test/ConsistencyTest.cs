@@ -19,7 +19,7 @@ namespace Inventor.Test
 			{
 				if (!languageNames.Remove(type.Name))
 				{
-					Assert.IsTrue(false, string.Format("Type {0} hasn't localization name.", type.FullName));
+					Assert.IsTrue(false, string.Format("questionType {0} hasn't localization name.", type.FullName));
 				}
 			}
 			if (languageNames.Count > 0)

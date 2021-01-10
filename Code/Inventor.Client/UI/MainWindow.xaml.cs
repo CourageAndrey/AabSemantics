@@ -93,18 +93,19 @@ namespace Inventor.Client.UI
 
 		#region Knowledgebase actions
 
-		private readonly QuestionProcessorRepository _questionProcessorRepository = new QuestionProcessorRepository();
+		private readonly QuestionRepository _questionRepository = new QuestionRepository();
 
 		private void askQuestionClick(object sender, RoutedEventArgs e)
 		{
-			var dialog = new QuestionDialog(_application.KnowledgeBase, _application.CurrentLanguage)
+			var dialog = new QuestionDialog(_questionRepository, _application.KnowledgeBase, _application.CurrentLanguage)
 			{
 				Owner = this,
 			};
 			if (dialog.ShowDialog() == true)
 			{
-				var questionProcessor = _questionProcessorRepository.CreateQuestionProcessor(dialog.Question, _application.CurrentLanguage);
-				var context = new ProcessingContext(_application.KnowledgeBase, dialog.Question, _questionProcessorRepository, _application.CurrentLanguage);
+				var questionType = dialog.Question.GetType();
+				var questionProcessor = _questionRepository.QuestionDefinitions[questionType].CreateProcessor();
+				var context = new ProcessingContext(_application.KnowledgeBase, dialog.Question, _questionRepository, _application.CurrentLanguage);
 				var answer = questionProcessor.Process(context);
 				new FormattedTextDialog(
 					_application.CurrentLanguage,

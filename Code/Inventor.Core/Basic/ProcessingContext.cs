@@ -12,7 +12,7 @@ namespace Inventor.Core
 		public Question Question
 		{ get; }
 
-		public QuestionProcessorRepository QuestionProcessorRepository
+		public QuestionRepository QuestionRepository
 		{ get; }
 
 		public ILanguage Language
@@ -20,18 +20,18 @@ namespace Inventor.Core
 
 		#endregion
 
-		public ProcessingContext(KnowledgeBase knowledgeBase, Question question, QuestionProcessorRepository questionProcessorRepository, ILanguage language)
+		public ProcessingContext(KnowledgeBase knowledgeBase, Question question, QuestionRepository questionRepository, ILanguage language)
 		{
 			KnowledgeBase = knowledgeBase;
 			Question = question;
-			QuestionProcessorRepository = questionProcessorRepository;
+			QuestionRepository = questionRepository;
 			Language = language;
 		}
 
 		public ProcessingContext<QuestionT> GetExplicit<QuestionT>()
 			where QuestionT : Question
 		{
-			return new ProcessingContext<QuestionT>(KnowledgeBase, (QuestionT) Question, QuestionProcessorRepository, Language);
+			return new ProcessingContext<QuestionT>(KnowledgeBase, (QuestionT) Question, QuestionRepository, Language);
 		}
 	}
 
@@ -41,8 +41,8 @@ namespace Inventor.Core
 		public QuestionT QuestionX
 		{ get; }
 
-		public ProcessingContext(KnowledgeBase knowledgeBase, QuestionT question, QuestionProcessorRepository questionProcessorRepository, ILanguage language)
-			: base(knowledgeBase, question, questionProcessorRepository, language)
+		public ProcessingContext(KnowledgeBase knowledgeBase, QuestionT question, QuestionRepository questionRepository, ILanguage language)
+			: base(knowledgeBase, question, questionRepository, language)
 		{
 			QuestionX = question;
 		}
