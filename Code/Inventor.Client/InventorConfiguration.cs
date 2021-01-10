@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Xml.Serialization;
 
-namespace Inventor.Core
+namespace Inventor.Client
 {
 	[Serializable, XmlRoot]
 	public class InventorConfiguration

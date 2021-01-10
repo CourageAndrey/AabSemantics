@@ -103,7 +103,6 @@
     <Compile Include="Statements\HasSignStatement.cs" />
     <Compile Include="Statements\SignValueStatement.cs" />
     <Compile Include="Statements\GroupStatement.cs" />
-    <Compile Include="InventorConfiguration.cs" />
     <Compile Include="Utils\XmlHelper.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
