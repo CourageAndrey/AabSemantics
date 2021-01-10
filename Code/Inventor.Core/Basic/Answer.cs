@@ -1,11 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 
-using Inventor.Core.Localization;
-
 namespace Inventor.Core
 {
-	public class Answer
+	public class Answer : IAnswer
 	{
 		#region Properties
 

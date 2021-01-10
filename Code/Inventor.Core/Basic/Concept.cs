@@ -4,7 +4,7 @@ using Inventor.Core.Localization;
 
 namespace Inventor.Core
 {
-	public sealed class Concept : INamed
+	public sealed class Concept : IConcept
 	{
 		#region Properties
 
@@ -33,11 +33,5 @@ namespace Inventor.Core
 		{
 			return string.Format("{0} : {1}", Strings.TostringConcept, Name);
 		}
-	}
-
-	public enum ConceptType
-	{
-		System,
-		Usual,
 	}
 }

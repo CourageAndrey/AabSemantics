@@ -2,7 +2,7 @@ using System;
 
 namespace Inventor.Core
 {
-	public abstract class Question
+	public abstract class Question : IQuestion
 	{ }
 
 	#region Attributes

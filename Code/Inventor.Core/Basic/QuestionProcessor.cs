@@ -1,6 +1,6 @@
 namespace Inventor.Core
 {
-	public abstract class QuestionProcessor
+	public abstract class QuestionProcessor : IQuestionProcessor
 	{
 		public abstract Answer Process(ProcessingContext context);
 	}
@@ -12,7 +12,7 @@ namespace Inventor.Core
 
 		public override Answer Process(ProcessingContext context)
 		{
-			return Process(context.GetExplicit<QuestionT>());
+			return Process((ProcessingContext<QuestionT>) context.GetExplicit<QuestionT>());
 		}
 	}
 }

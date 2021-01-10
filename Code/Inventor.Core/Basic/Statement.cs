@@ -6,7 +6,7 @@ using Inventor.Core.Localization;
 
 namespace Inventor.Core
 {
-	public abstract class Statement : INamed
+	public abstract class Statement : IStatement
 	{
 		#region Properties
 
