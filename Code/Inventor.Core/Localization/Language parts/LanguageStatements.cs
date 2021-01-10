@@ -3,24 +3,6 @@ using System.Xml.Serialization;
 
 namespace Inventor.Core.Localization
 {
-	public interface ILanguageStatements
-	{
-		String SubjectArea
-		{ get; }
-
-		String Clasification
-		{ get; }
-
-		String HasSign
-		{ get; }
-
-		String SignValue
-		{ get; }
-
-		String Composition
-		{ get; }
-	}
-
 	public class LanguageStatements : ILanguageStatements
 	{
 		#region Properties

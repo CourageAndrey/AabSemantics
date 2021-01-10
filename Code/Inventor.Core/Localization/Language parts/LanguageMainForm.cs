@@ -3,42 +3,6 @@ using System.Xml.Serialization;
 
 namespace Inventor.Core.Localization
 {
-	public interface ILanguageMainForm
-	{
-		String Title
-		{ get; }
-
-		String CreateNew
-		{ get; }
-
-		String Load
-		{ get; }
-
-		String Save
-		{ get; }
-
-		String SaveAs
-		{ get; }
-
-		String CreateTest
-		{ get; }
-
-		String DescribeKnowledge
-		{ get; }
-
-		String CheckKnowledge
-		{ get; }
-
-		String AskQuestion
-		{ get; }
-
-		String SelectLanguage
-		{ get; }
-
-		String Configuration
-		{ get; }
-	}
-
 	public class LanguageMainForm : ILanguageMainForm
 	{
 		#region Properties

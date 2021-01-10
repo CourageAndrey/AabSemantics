@@ -3,12 +3,6 @@ using System.Xml.Serialization;
 
 namespace Inventor.Core.Localization
 {
-	public interface ILanguageConfiguration
-	{
-		String AutoValidate
-		{ get; }
-	}
-
 	public class LanguageConfiguration : ILanguageConfiguration
 	{
 		#region Properties
