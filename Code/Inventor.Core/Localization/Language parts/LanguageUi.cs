@@ -17,15 +17,24 @@ namespace Inventor.Core.Localization
 		String Back
 		{ get; }
 
-		LanguageMainForm MainForm
+		ILanguageMainForm MainForm
 		{ get; }
 
-		LanguageQuestionDialog QuestionDialog
+		ILanguageQuestionDialog QuestionDialog
 		{ get; }
 	}
 
 	public class LanguageUi : ILanguageUi
 	{
+		#region Constants
+
+		[XmlIgnore]
+		private const String ElementMainForm = "MainForm";
+		[XmlIgnore]
+		private const String ElementQuestionDialog = "QuestionDialog";
+
+		#endregion
+
 		#region Properties
 
 		[XmlElement]
@@ -44,13 +53,21 @@ namespace Inventor.Core.Localization
 		public String Back
 		{ get; set; }
 
-		[XmlElement]
-		public LanguageMainForm MainForm
+		[XmlElement(ElementMainForm)]
+		public LanguageMainForm MainFormXml
 		{ get; set; }
 
-		[XmlElement]
-		public LanguageQuestionDialog QuestionDialog
+		[XmlElement(ElementQuestionDialog)]
+		public LanguageQuestionDialog QuestionDialogXml
 		{ get; set; }
+
+		[XmlIgnore]
+		public ILanguageMainForm MainForm
+		{ get { return MainFormXml; } }
+
+		[XmlIgnore]
+		public ILanguageQuestionDialog QuestionDialog
+		{ get { return QuestionDialogXml; } }
 
 		#endregion
 
@@ -62,8 +79,8 @@ namespace Inventor.Core.Localization
 				Cancel = "Отмена",
 				Next = "Далее >",
 				Back = "< Назад",
-				QuestionDialog = LanguageQuestionDialog.CreateDefault(),
-				MainForm = LanguageMainForm.CreateDefault(),
+				QuestionDialogXml = LanguageQuestionDialog.CreateDefault(),
+				MainFormXml = LanguageMainForm.CreateDefault(),
 			};
 		}
 	}
