@@ -24,7 +24,7 @@ namespace Inventor.Client.UI
 
 		#endregion
 
-		public QuestionDialog(KnowledgeBase knowledgeBase, ILanguage language)
+		public QuestionDialog(QuestionRepository questionRepository, KnowledgeBase knowledgeBase, ILanguage language)
 		{
 			_language = language;
 
@@ -41,9 +41,9 @@ namespace Inventor.Client.UI
 			panelQuestionParams.Visibility = Visibility.Hidden;
 
 			_knowledgeBase = knowledgeBase;
-			foreach (var questionDraft in Question.AllSupportedTypes)
+			foreach (var questionDefinition in questionRepository.QuestionDefinitions.Values)
 			{
-				_questions[questionDraft.Key(_language)] = questionDraft.Value;
+				_questions[questionDefinition.GetName(_language)] = questionDefinition.CreateQuestion;
 			}
 			comboBoxQuestion.ItemsSource = _questions.Keys.OrderBy(q => q);
 

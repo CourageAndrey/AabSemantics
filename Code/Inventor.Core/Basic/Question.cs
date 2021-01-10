@@ -1,33 +1,9 @@
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Reflection;
-
-using Inventor.Core.Localization;
 
 namespace Inventor.Core
 {
 	public abstract class Question
-	{
-		#region Supported questions
-
-		public static readonly IDictionary<Func<ILanguage, string>, Func<Question>> AllSupportedTypes = new Dictionary<Func<ILanguage, string>, Func<Question>>();
-
-		static Question()
-		{
-			var propertyNames = new Dictionary<string, Func<ILanguage, string>>();
-			foreach (var property in typeof (LanguageQuestionNames).GetProperties())
-			{
-				propertyNames[property.Name] = language => (string) property.GetValue(language.QuestionNames);
-			}
-			foreach (var questionType in Assembly.GetExecutingAssembly().GetTypes().Where(t => typeof (Question).IsAssignableFrom(t) && !t.IsAbstract))
-			{
-				AllSupportedTypes[propertyNames[questionType.Name]] = () => Activator.CreateInstance(questionType) as Question;
-			}
-		}
-
-		#endregion
-	}
+	{ }
 
 	#region Attributes
 
