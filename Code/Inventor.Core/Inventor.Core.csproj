@@ -40,7 +40,7 @@
     <Compile Include="Basic\Concept.cs" />
     <Compile Include="Basic\Explanation.cs" />
     <Compile Include="Basic\ProcessingContext.cs" />
-    <Compile Include="Basic\QuestionDefinition.cs" />
+    <Compile Include="QuestionDefinition.cs" />
     <Compile Include="Questions\QuestionDescriptorAttribute.cs" />
     <Compile Include="Basic\QuestionRepository.cs" />
     <Compile Include="IAnswer.cs" />
