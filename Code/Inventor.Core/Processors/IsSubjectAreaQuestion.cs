@@ -10,7 +10,7 @@ namespace Inventor.Core.Processors
 {
 	public sealed class IsSubjectAreaProcessor : QuestionProcessor<IsSubjectAreaQuestion>
 	{
-		public override IAnswer Process(IProcessingContext<IsSubjectAreaQuestion> context)
+		public override IAnswer Process(IQuestionProcessingContext<IsSubjectAreaQuestion> context)
 		{
 			var question = context.QuestionX;
 			var statements = context.KnowledgeBase.Statements.OfType<GroupStatement>().Where(sa => sa.Area == question.Area && sa.Concept == question.Concept).ToList();

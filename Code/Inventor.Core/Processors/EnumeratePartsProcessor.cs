@@ -9,7 +9,7 @@ namespace Inventor.Core.Processors
 {
 	public sealed class EnumeratePartsProcessor : QuestionProcessor<EnumeratePartsQuestion>
 	{
-		public override IAnswer Process(IProcessingContext<EnumeratePartsQuestion> context)
+		public override IAnswer Process(IQuestionProcessingContext<EnumeratePartsQuestion> context)
 		{
 			var question = context.QuestionX;
 			var statements = context.KnowledgeBase.Statements.OfType<ConsistsOfStatement>().Where(c => c.Parent == question.Concept).ToList();

@@ -1,6 +1,6 @@
 ﻿namespace Inventor.Core.Base
 {
-	public class ProcessingContext : IProcessingContext
+	public class QuestionProcessingContext : IQuestionProcessingContext
 	{
 		#region Properties
 
@@ -18,7 +18,7 @@
 
 		#endregion
 
-		public ProcessingContext(IKnowledgeBase knowledgeBase, IQuestion question, IQuestionRepository questionRepository, ILanguage language)
+		public QuestionProcessingContext(IKnowledgeBase knowledgeBase, IQuestion question, IQuestionRepository questionRepository, ILanguage language)
 		{
 			KnowledgeBase = knowledgeBase;
 			Question = question;
@@ -27,13 +27,13 @@
 		}
 	}
 
-	public class ProcessingContext<QuestionT> : ProcessingContext, IProcessingContext<QuestionT>
+	public class QuestionProcessingContext<QuestionT> : QuestionProcessingContext, IQuestionProcessingContext<QuestionT>
 		where QuestionT : IQuestion
 	{
 		public QuestionT QuestionX
 		{ get; }
 
-		public ProcessingContext(IKnowledgeBase knowledgeBase, QuestionT question, IQuestionRepository questionRepository, ILanguage language)
+		public QuestionProcessingContext(IKnowledgeBase knowledgeBase, QuestionT question, IQuestionRepository questionRepository, ILanguage language)
 			: base(knowledgeBase, question, questionRepository, language)
 		{
 			QuestionX = question;

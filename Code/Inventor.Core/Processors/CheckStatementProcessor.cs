@@ -9,7 +9,7 @@ namespace Inventor.Core.Processors
 {
 	public sealed class CheckStatementProcessor : QuestionProcessor<CheckStatementQuestion>
 	{
-		public override IAnswer Process(IProcessingContext<CheckStatementQuestion> context)
+		public override IAnswer Process(IQuestionProcessingContext<CheckStatementQuestion> context)
 		{
 			var question = context.QuestionX;
 			var statement = context.KnowledgeBase.Statements.FirstOrDefault(p => p.Equals(question.Statement));
