@@ -13,7 +13,7 @@ namespace Inventor.Core
 		ICollection<IStatement> Statements
 		{ get; }
 
-		IEnumerable<IKnowledge> EnumerateKnowledge();
+		IEnumerable<IKnowledge> EnumerateKnowledge(IContext context = null);
 
 		event EventHandler<ItemEventArgs<IConcept>> ConceptAdded;
 		event EventHandler<ItemEventArgs<IConcept>> ConceptRemoved;
