@@ -9,7 +9,7 @@ namespace Inventor.Core.Processors
 {
 	public sealed class EnumerateSignsProcessor : QuestionProcessor<EnumerateSignsQuestion>
 	{
-		public override IAnswer Process(IProcessingContext<EnumerateSignsQuestion> context)
+		public override IAnswer Process(IQuestionProcessingContext<EnumerateSignsQuestion> context)
 		{
 			var question = context.QuestionX;
 			var statements = HasSignStatement.GetSigns(context.KnowledgeBase.Statements, question.Concept, question.Recursive);

@@ -39,7 +39,7 @@
     <Compile Include="Base\Answer.cs" />
     <Compile Include="Base\Concept.cs" />
     <Compile Include="Base\Explanation.cs" />
-    <Compile Include="Base\ProcessingContext.cs" />
+    <Compile Include="Base\QuestionProcessingContext.cs" />
     <Compile Include="IContext.cs" />
     <Compile Include="IKnowledge.cs" />
     <Compile Include="QuestionDefinition.cs" />
@@ -52,7 +52,7 @@
     <Compile Include="IKnowledgeBase.cs" />
     <Compile Include="ILanguage.cs" />
     <Compile Include="ILocalizedString.cs" />
-    <Compile Include="IProcessingContext.cs" />
+    <Compile Include="IQuestionProcessingContext.cs" />
     <Compile Include="IQuestion.cs" />
     <Compile Include="IQuestionProcessor.cs" />
     <Compile Include="IQuestionRepository.cs" />
