@@ -10,7 +10,7 @@ namespace Inventor.Core.Processors
 {
 	public sealed class IsPartOfProcessor : QuestionProcessor<IsPartOfQuestion>
 	{
-		public override IAnswer Process(IProcessingContext<IsPartOfQuestion> context)
+		public override IAnswer Process(IQuestionProcessingContext<IsPartOfQuestion> context)
 		{
 			var question = context.QuestionX;
 			var statements = context.KnowledgeBase.Statements.OfType<ConsistsOfStatement>().Where(c => c.Parent == question.Parent && c.Child == question.Child).ToList();

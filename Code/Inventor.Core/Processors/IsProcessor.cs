@@ -9,7 +9,7 @@ namespace Inventor.Core.Processors
 {
 	public sealed class IsProcessor : QuestionProcessor<IsQuestion>
 	{
-		public override IAnswer Process(IProcessingContext<IsQuestion> context)
+		public override IAnswer Process(IQuestionProcessingContext<IsQuestion> context)
 		{
 			var question = context.QuestionX;
 			var explanation = new List<IsStatement>();

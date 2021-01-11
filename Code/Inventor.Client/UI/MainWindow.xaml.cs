@@ -105,7 +105,7 @@ namespace Inventor.Client.UI
 			{
 				var questionType = dialog.Question.GetType();
 				var questionProcessor = _questionRepository.QuestionDefinitions[questionType].CreateProcessor();
-				var context = new Core.Base.ProcessingContext(_application.KnowledgeBase, dialog.Question, _questionRepository, _application.CurrentLanguage);
+				var context = new Core.Base.QuestionProcessingContext(_application.KnowledgeBase, dialog.Question, _questionRepository, _application.CurrentLanguage);
 				var answer = questionProcessor.Process(context);
 				new FormattedTextDialog(
 					_application.CurrentLanguage,

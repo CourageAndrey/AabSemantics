@@ -10,7 +10,7 @@ namespace Inventor.Core.Processors
 {
 	public sealed class SignValueProcessor : QuestionProcessor<SignValueQuestion>
 	{
-		public override IAnswer Process(IProcessingContext<SignValueQuestion> context)
+		public override IAnswer Process(IQuestionProcessingContext<SignValueQuestion> context)
 		{
 			var question = context.QuestionX;
 			var signValues = context.KnowledgeBase.Statements.OfType<SignValueStatement>().ToList();
