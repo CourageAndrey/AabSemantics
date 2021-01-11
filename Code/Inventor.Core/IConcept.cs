@@ -1,6 +1,6 @@
 ﻿namespace Inventor.Core
 {
-	public interface IConcept : INamed
+	public interface IConcept : IKnowledge
 	{
 		ILocalizedString Hint
 		{ get; }
