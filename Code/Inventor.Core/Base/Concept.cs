@@ -11,6 +11,9 @@ namespace Inventor.Core.Base
 		public ILocalizedString Name
 		{ get; }
 
+		public IContext Context
+		{ get; internal set; }
+
 		public ILocalizedString Hint
 		{ get; }
 
