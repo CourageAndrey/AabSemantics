@@ -382,6 +382,18 @@ namespace Inventor.Core.Base
 			return knowledgeBase;
 		}
 
+		public IEnumerable<IKnowledge> EnumerateKnowledge()
+		{
+			foreach (var concept in Concepts)
+			{
+				yield return concept;
+			}
+			foreach (var statement in Statements)
+			{
+				yield return statement;
+			}
+		}
+
 		public FormattedText DescribeRules(ILanguage language)
 		{
 			var result = new FormattedText();

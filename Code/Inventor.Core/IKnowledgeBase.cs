@@ -5,13 +5,15 @@ using Inventor.Core.Utils;
 
 namespace Inventor.Core
 {
-	public interface IKnowledgeBase : INamed, IChangeable
+	public interface IKnowledgeBase : IKnowledge, IChangeable
 	{
 		ICollection<IConcept> Concepts
 		{ get; }
 
 		ICollection<IStatement> Statements
 		{ get; }
+
+		IEnumerable<IKnowledge> EnumerateKnowledge();
 
 		event EventHandler<ItemEventArgs<IConcept>> ConceptAdded;
 		event EventHandler<ItemEventArgs<IConcept>> ConceptRemoved;
