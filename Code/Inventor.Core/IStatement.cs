@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace Inventor.Core
 {
-	public interface IStatement : INamed
+	public interface IStatement : IKnowledge
 	{
 		ILocalizedString Hint
 		{ get; }
