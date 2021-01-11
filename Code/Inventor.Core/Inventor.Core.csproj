@@ -40,6 +40,7 @@
     <Compile Include="Base\Concept.cs" />
     <Compile Include="Base\Explanation.cs" />
     <Compile Include="Base\ProcessingContext.cs" />
+    <Compile Include="IContext.cs" />
     <Compile Include="IKnowledge.cs" />
     <Compile Include="QuestionDefinition.cs" />
     <Compile Include="Questions\QuestionDescriptorAttribute.cs" />

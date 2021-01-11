@@ -16,6 +16,9 @@ namespace Inventor.Core.Base
 		public ILocalizedString Name
 		{ get { return _name; } }
 
+		public IContext Context
+		{ get; internal set; }
+
 		public ICollection<IConcept> Concepts
 		{ get { return _concepts; } }
 
@@ -382,13 +385,13 @@ namespace Inventor.Core.Base
 			return knowledgeBase;
 		}
 
-		public IEnumerable<IKnowledge> EnumerateKnowledge()
+		public IEnumerable<IKnowledge> EnumerateKnowledge(IContext context = null)
 		{
-			foreach (var concept in Concepts)
+			foreach (var concept in Concepts.Where(k => context == null || context == k.Context))
 			{
 				yield return concept;
 			}
-			foreach (var statement in Statements)
+			foreach (var statement in Statements.Where(k => context == null || context == k.Context))
 			{
 				yield return statement;
 			}

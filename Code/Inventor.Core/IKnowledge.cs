@@ -2,5 +2,7 @@
 {
 	public interface IKnowledge : INamed
 	{
+		IContext Context
+		{ get; }
 	}
 }
