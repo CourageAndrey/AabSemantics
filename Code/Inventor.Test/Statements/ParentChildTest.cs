@@ -1,9 +1,12 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 
 using NUnit.Framework;
 
 using Inventor.Core;
+using Inventor.Core.Base;
+using Inventor.Core.Statements;
 
 namespace Inventor.Test.Statements
 {
@@ -297,6 +300,100 @@ namespace Inventor.Test.Statements
 			Assert.IsTrue(explanation.Any(relationship => relationship.Parent == Parent1 && relationship.Child == Single1));
 		}
 
+		[Test]
+		public void CheckPathFinding()
+		{
+			var parent1 = new Concept(null, null);
+			var topMedium1 = new Concept(null, null);
+			var bottomMedium1 = new Concept(null, null);
+			var child1 = new Concept(null, null);
+			var parent2 = new Concept(null, null);
+			var topMedium2 = new Concept(null, null);
+			var bottomMedium2 = new Concept(null, null);
+			var child2 = new Concept(null, null);
+			var parentNoConnection = new Concept(null, null);
+			var childNoConnection = new Concept(null, null);
+			var parent2Path = new Concept(null, null);
+			var medium2Path1 = new Concept(null, null);
+			var medium2Path2 = new Concept(null, null);
+			var child2Path = new Concept(null, null);
+
+			var statements = new IStatement[]
+			{
+				new TestPath(parent1, topMedium1),
+				new TestPath(topMedium1, bottomMedium1),
+				new TestPath(bottomMedium1, child1),
+				new TestPath(parent2, topMedium2),
+				new TestPath(topMedium2, bottomMedium2),
+				new TestPath(bottomMedium2, child2),
+				new IsStatement(parentNoConnection, childNoConnection),
+				new TestPath(parent2Path, medium2Path1),
+				new TestPath(parent2Path, medium2Path2),
+				new TestPath(medium2Path1, child2Path),
+				new TestPath(medium2Path2, child2Path),
+			};
+
+			// valid direct paths
+			Assert.IsTrue(statements.FindPath<IConcept>(typeof(TestPath), parent1, child1).Any());
+			Assert.IsTrue(statements.FindPath<IConcept>(typeof(TestPath), parent2, child2).Any());
+			// invalid direct paths
+			Assert.IsFalse(statements.FindPath<IConcept>(typeof(TestPath), parent1, child2).Any());
+			Assert.IsFalse(statements.FindPath<IConcept>(typeof(TestPath), parent2, child1).Any());
+			// invalid reverted paths
+			Assert.IsFalse(statements.FindPath<IConcept>(typeof(TestPath), child1, parent1).Any());
+			Assert.IsFalse(statements.FindPath<IConcept>(typeof(TestPath), child2, parent2).Any());
+			Assert.IsFalse(statements.FindPath<IConcept>(typeof(TestPath), child1, parent2).Any());
+			Assert.IsFalse(statements.FindPath<IConcept>(typeof(TestPath), child2, parent1).Any());
+			// other type path
+			Assert.IsFalse(statements.FindPath<IConcept>(typeof(TestPath), parentNoConnection, childNoConnection).Any());
+			Assert.IsTrue(statements.FindPath<IConcept>(typeof(IsStatement), parentNoConnection, childNoConnection).Any());
+			// 2 paths
+			Assert.IsTrue(statements.FindPath<IConcept>(typeof(TestPath), parent2Path, child2Path).Any());
+			Assert.IsFalse(statements.FindPath<IConcept>(typeof(TestPath), child2Path, parent2Path).Any());
+		}
+
+		[Test]
+		public void CheckRecursivePaths()
+		{
+			var a = new Concept(null, null);
+			var b = new Concept(null, null);
+			var c = new Concept(null, null);
+
+			var statementsValid1 = new IStatement[]
+			{
+				new TestPath(a, a),
+			};
+			var statementsValid2 = new IStatement[]
+			{
+				new TestPath(a, b),
+				new TestPath(b, a),
+			};
+			var statementsValid3 = new IStatement[]
+			{
+				new TestPath(a, b),
+				new TestPath(b, c),
+				new TestPath(c, a),
+			};
+			var statementsInvalid = new IStatement[]
+			{
+				new TestPath(a, b),
+				new TestPath(b, b),
+			};
+			var statementsValid4 = new IStatement[]
+			{
+				new TestPath(a, b),
+				new TestPath(b, c),
+				new TestPath(c, a),
+			};
+
+			foreach (var statements in new[] { statementsValid1, statementsValid2, statementsValid3, statementsValid4 })
+			{
+				Assert.IsTrue(statements.FindPath<IConcept>(typeof(TestPath), a, a).Any());
+			}
+
+			Assert.IsFalse(statementsInvalid.FindPath<IConcept>(typeof(TestPath), a, a).Any());
+		}
+
 		private const string Parent1 = "Parent 1";
 		private const string Parent2 = "Parent 2";
 		private const string Child1 = "Child 1";
@@ -345,6 +442,55 @@ namespace Inventor.Test.Statements
 			{
 				Parent = parent;
 				Child = child;
+			}
+		}
+
+		private class TestPath : IParentChild<IConcept>, IStatement
+		{
+			public IConcept Parent { get; }
+			public IConcept Child { get; }
+
+			public TestPath(IConcept parent, IConcept child)
+			{
+				Parent = parent;
+				Child = child;
+			}
+
+			public ILocalizedString Name
+			{ get { throw new NotSupportedException(); } }
+
+			public IContext Context
+			{
+				get { throw new NotSupportedException(); }
+				set { throw new NotSupportedException(); }
+			}
+
+			public ILocalizedString Hint
+			{ get { throw new NotSupportedException(); } }
+
+			public IEnumerable<IConcept> GetChildConcepts()
+			{
+				throw new NotSupportedException();
+			}
+
+			public FormattedLine DescribeTrue(ILanguage language)
+			{
+				throw new NotSupportedException();
+			}
+
+			public FormattedLine DescribeFalse(ILanguage language)
+			{
+				throw new NotSupportedException();
+			}
+
+			public FormattedLine DescribeQuestion(ILanguage language)
+			{
+				throw new NotSupportedException();
+			}
+
+			public bool CheckUnique(IEnumerable<IStatement> statements)
+			{
+				throw new NotSupportedException();
 			}
 		}
 	}
