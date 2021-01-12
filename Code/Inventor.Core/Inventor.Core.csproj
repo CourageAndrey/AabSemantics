@@ -82,7 +82,7 @@
     <Compile Include="Localization\LanguageUi.cs" />
     <Compile Include="Base\QuestionProcessor.cs" />
     <Compile Include="Processors\CheckStatementProcessor.cs" />
-    <Compile Include="Processors\IsSubjectAreaQuestion.cs" />
+    <Compile Include="Processors\IsSubjectAreaProcessor.cs" />
     <Compile Include="Processors\EnumerateContainersProcessor.cs" />
     <Compile Include="Processors\EnumeratePartsProcessor.cs" />
     <Compile Include="Processors\IsPartOfProcessor.cs" />
