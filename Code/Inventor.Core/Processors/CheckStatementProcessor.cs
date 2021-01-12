@@ -12,15 +12,26 @@ namespace Inventor.Core.Processors
 		public override IAnswer Process(IQuestionProcessingContext<CheckStatementQuestion> context)
 		{
 			var question = context.QuestionX;
-			var statement = context.KnowledgeBase.Statements.FirstOrDefault(p => p.Equals(question.Statement));
+			IEnumerable<IStatement> statements;
+			var parentChild = question.Statement as IParentChild<IConcept>;
+			if (parentChild != null)
+			{
+				statements = context.KnowledgeBase.Statements.FindPath(question.Statement.GetType(), parentChild.Parent, parentChild.Child);
+			}
+			else
+			{
+				var statement = context.KnowledgeBase.Statements.FirstOrDefault(p => p.Equals(question.Statement));
+				statements = statement != null ? new[] { statement } : new IStatement[0];
+			}
+
 			var result = new FormattedText(
 				() => "#ANSWER#.",
-				new Dictionary<String, INamed> { { "#ANSWER#", statement != null ? context.KnowledgeBase.True : context.KnowledgeBase.False } });
-			result.Add(statement != null ? statement.DescribeTrue(context.Language) : question.Statement.DescribeFalse(context.Language));
+				new Dictionary<String, INamed> { { "#ANSWER#", statements.Any() ? context.KnowledgeBase.True : context.KnowledgeBase.False } });
+			result.Add(statements.Any() ? question.Statement.DescribeTrue(context.Language) : question.Statement.DescribeFalse(context.Language));
 			return new Answer(
-				statement != null,
+				statements.Any(),
 				result,
-				new Explanation(statement));
+				new Explanation(statements));
 		}
 	}
 }

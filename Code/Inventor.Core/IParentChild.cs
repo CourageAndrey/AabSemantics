@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace Inventor.Core
@@ -38,6 +39,34 @@ namespace Inventor.Core
 			where T : class
 		{
 			return GetChildrenOnLevel(statements.OfType<RelationshipT>(), item, involvedRelationships);
+		}
+
+		public static ICollection<IStatement> FindPath<T>(this IEnumerable<IStatement> statements, Type statementType, T parent, T child)
+			where T : class
+		{
+			var typedStatements = statements.OfType<IParentChild<T>>().Where(statement => statement.GetType() == statementType).ToList();
+
+			// search up (child > parent), because search tree has to be smaller in this case
+			var pathsToCheck = typedStatements.Where(statement => statement.Child == child).Select(statement => new List<IParentChild<T>> { statement }).ToList();
+			while (pathsToCheck.Any())
+			{
+				var nextStep = new List<List<IParentChild<T>>>();
+				foreach (var path in pathsToCheck)
+				{
+					var lastParent = path.Last().Parent;
+					if (lastParent == parent)
+					{
+						return path.OfType<IStatement>().ToList();
+					}
+					else if (!path.Select(statement => statement.Child).Contains(lastParent))
+					{
+						nextStep.AddRange(typedStatements.Where(statement => statement.Child == lastParent).Select(statement => new List<IParentChild<T>>(path) { statement }));
+					}
+				}
+				pathsToCheck = nextStep;
+			}
+
+			return new IStatement[0];
 		}
 
 		public static List<T> GetParentsAllLevels<T, RelationshipT>(this IEnumerable<RelationshipT> relationships, T item, List<RelationshipT> involvedRelationships = null)
