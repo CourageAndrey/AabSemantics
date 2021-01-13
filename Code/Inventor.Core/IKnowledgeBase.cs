@@ -121,10 +121,5 @@ namespace Inventor.Core
 			}
 			return result;
 		}
-
-		public static IQuestionProcessingContext AskQuestion(this IKnowledgeBase knowledgeBase, IQuestion question)
-		{
-			return knowledgeBase.Context.AskQuestion(question);
-		}
 	}
 }
