@@ -50,5 +50,17 @@ namespace Inventor.Core
 		{ get; }
 	}
 
-
+	public static class ContextHelper
+	{
+		public static ICollection<IContext> GetHierarchy(this IContext context)
+		{
+			var hierarchy = new HashSet<IContext>();
+			while (context != null)
+			{
+				hierarchy.Add(context);
+				context = context.Parent;
+			}
+			return hierarchy;
+		}
+	}
 }
