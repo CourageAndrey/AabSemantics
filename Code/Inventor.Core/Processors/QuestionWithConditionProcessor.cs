@@ -12,7 +12,7 @@ namespace Inventor.Core.Processors
 			{
 				foreach (var knowledge in question.Conditions)
 				{
-					context.KnowledgeBase.Add(knowledge);
+					context.KnowledgeBase.Statements.Add(knowledge);
 					knowledge.Context = nestedContext;
 				}
 

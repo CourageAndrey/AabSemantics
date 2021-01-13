@@ -103,7 +103,7 @@ namespace Inventor.Client.UI
 				using (var context = _application.KnowledgeBase.AskQuestion(dialog.Question))
 				{
 					var questionType = dialog.Question.GetType();
-					var questionRepository = _application.KnowledgeBase.QuestionRepository;
+					var questionRepository = _application.KnowledgeBase.Context.QuestionRepository;
 					var questionProcessor = questionRepository.QuestionDefinitions[questionType].CreateProcessor();
 					var answer = questionProcessor.Process(context);
 					new FormattedTextDialog(

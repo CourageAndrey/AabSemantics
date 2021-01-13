@@ -16,11 +16,8 @@ namespace Inventor.Core.Base
 		public ILocalizedString Name
 		{ get { return _name; } }
 
-		public IContext Context
-		{
-			get { return _knowledgeBaseContext as IContext ?? _systemContext; }
-			set { throw new NotSupportedException("Impossible to override knowledge base context."); }
-		}
+		public IKnowledgeBaseContext Context
+		{ get; }
 
 		public ICollection<IConcept> Concepts
 		{ get { return _concepts; } }
@@ -28,14 +25,9 @@ namespace Inventor.Core.Base
 		public ICollection<IStatement> Statements
 		{ get { return _statements; } }
 
-		public IQuestionRepository QuestionRepository
-		{ get { return _knowledgeBaseContext.QuestionRepository; } }
-
 		private readonly LocalizedStringVariable _name;
 		private readonly EventCollection<IConcept> _concepts;
 		private readonly EventCollection<IStatement> _statements;
-		private readonly IKnowledgeBaseContext _knowledgeBaseContext;
-		private readonly ISystemContext _systemContext;
 
 		public event EventHandler<ItemEventArgs<IConcept>> ConceptAdded;
 		public event EventHandler<ItemEventArgs<IConcept>> ConceptRemoved;
@@ -52,11 +44,6 @@ namespace Inventor.Core.Base
 
 		#endregion
 
-		public IQuestionProcessingContext AskQuestion(IQuestion question)
-		{
-			return _knowledgeBaseContext.AskQuestion(question);
-		}
-
 		#endregion
 
 		public KnowledgeBase(ILanguage language)
@@ -65,12 +52,11 @@ namespace Inventor.Core.Base
 			name.SetLocale(language.Culture, language.Misc.NewKbName);
 			_name = name;
 
+			var systemContext = new SystemContext(language);
+
 			_concepts = new EventCollection<IConcept>();
 			_concepts.ItemAdded += (sender, args) =>
 			{
-				args.Item.Context = Context;
-				Context.Scope.Add(args.Item);
-
 				var handler = Volatile.Read(ref ConceptAdded);
 				if (handler != null)
 				{
@@ -79,9 +65,6 @@ namespace Inventor.Core.Base
 			};
 			_concepts.ItemRemoved += (sender, args) =>
 			{
-				args.Item.Context = null;
-				Context.Scope.Remove(args.Item);
-
 				var handler = Volatile.Read(ref ConceptRemoved);
 				if (handler != null)
 				{
@@ -96,8 +79,9 @@ namespace Inventor.Core.Base
 			_statements = new EventCollection<IStatement>();
 			_statements.ItemAdded += (sender, args) =>
 			{
-				args.Item.Context = Context;
-				Context.Scope.Add(args.Item);
+				var context = Context as IContext ?? systemContext;
+				args.Item.Context = context;
+				context.Scope.Add(args.Item);
 
 				var handler = Volatile.Read(ref StatementAdded);
 				if (handler != null)
@@ -114,8 +98,9 @@ namespace Inventor.Core.Base
 			};
 			_statements.ItemRemoved += (sender, args) =>
 			{
-				args.Item.Context = null;
-				Context.Scope.Remove(args.Item);
+				var context = Context as IContext ?? systemContext;
+				args.Item.Context = context;
+				context.Scope.Remove(args.Item);
 
 				var handler = Volatile.Read(ref StatementRemoved);
 				if (handler != null)
@@ -124,8 +109,6 @@ namespace Inventor.Core.Base
 				}
 			};
 
-			_systemContext = new SystemContext(language);
-
 			_concepts.Add(True = new Concept(
 				new LocalizedStringConstant(lang => lang.Misc.True),
 				new LocalizedStringConstant(lang => lang.Misc.TrueHint)));
@@ -133,17 +116,17 @@ namespace Inventor.Core.Base
 				new LocalizedStringConstant(lang => lang.Misc.False),
 				new LocalizedStringConstant(lang => lang.Misc.FalseHint)));
 
-			_knowledgeBaseContext = _systemContext.Instantiate(this, new QuestionRepository());
+			Context = systemContext.Instantiate(this, new QuestionRepository());
 
-			EventHandler<CancelableItemEventArgs<IConcept>> systemConceptProtector = (sender, args) =>
+			EventHandler<CancelableItemEventArgs<IStatement>> systemStatementProtector = (sender, args) =>
 			{
 				if (args.Item.Context != null && args.Item.Context.IsSystem)
 				{
 					args.IsCanceled = true;
 				}
 			};
-			_concepts.ItemAdding += systemConceptProtector;
-			_concepts.ItemRemoving += systemConceptProtector;
+			_statements.ItemAdding += systemStatementProtector;
+			_statements.ItemRemoving += systemStatementProtector;
 		}
 
 		public override String ToString()
@@ -402,47 +385,11 @@ namespace Inventor.Core.Base
 			return knowledgeBase;
 		}
 
-		public IEnumerable<IKnowledge> EnumerateKnowledge(Func<IContext, Boolean> contextFilter)
+		public IEnumerable<IStatement> EnumerateKnowledge(Func<IContext, Boolean> contextFilter)
 		{
-			foreach (var concept in Concepts.Where(k => contextFilter(k.Context)))
-			{
-				yield return concept;
-			}
 			foreach (var statement in Statements.Where(k => contextFilter(k.Context)))
 			{
 				yield return statement;
-			}
-		}
-
-		public void Add(IKnowledge knowledge)
-		{
-			if (knowledge is IConcept)
-			{
-				Concepts.Add(knowledge as IConcept);
-			}
-			else if (knowledge is IStatement)
-			{
-				Statements.Add(knowledge as IStatement);
-			}
-			else
-			{
-				throw new NotSupportedException();
-			}
-		}
-
-		public Boolean Remove(IKnowledge knowledge)
-		{
-			if (knowledge is IConcept)
-			{
-				return Concepts.Remove(knowledge as IConcept);
-			}
-			else if (knowledge is IStatement)
-			{
-				return Statements.Remove(knowledge as IStatement);
-			}
-			else
-			{
-				throw new NotSupportedException();
 			}
 		}
 	}
