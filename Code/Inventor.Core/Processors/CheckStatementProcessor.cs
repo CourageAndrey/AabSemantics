@@ -12,15 +12,18 @@ namespace Inventor.Core.Processors
 		public override IAnswer Process(IQuestionProcessingContext<CheckStatementQuestion> context)
 		{
 			var question = context.QuestionX;
+			var activeContexts = context.GetHierarchy();
+			var allStatements = context.KnowledgeBase.Statements.Enumerate(activeContexts);
+
 			IEnumerable<IStatement> statements;
 			var parentChild = question.Statement as IParentChild<IConcept>;
 			if (parentChild != null)
 			{
-				statements = context.KnowledgeBase.Statements.FindPath(question.Statement.GetType(), parentChild.Parent, parentChild.Child);
+				statements = allStatements.FindPath(question.Statement.GetType(), parentChild.Parent, parentChild.Child);
 			}
 			else
 			{
-				var statement = context.KnowledgeBase.Statements.FirstOrDefault(p => p.Equals(question.Statement));
+				var statement = allStatements.FirstOrDefault(p => p.Equals(question.Statement));
 				statements = statement != null ? new[] { statement } : new IStatement[0];
 			}
 

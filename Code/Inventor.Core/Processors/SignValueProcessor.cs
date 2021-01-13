@@ -13,7 +13,10 @@ namespace Inventor.Core.Processors
 		public override IAnswer Process(IQuestionProcessingContext<SignValueQuestion> context)
 		{
 			var question = context.QuestionX;
-			var signValues = context.KnowledgeBase.Statements.OfType<SignValueStatement>().ToList();
+			var activeContexts = context.GetHierarchy();
+			var allStatements = context.KnowledgeBase.Statements.Enumerate(activeContexts);
+
+			var signValues = allStatements.Enumerate<SignValueStatement>(activeContexts).ToList();
 			var statement = getSignValue(signValues, question.Concept, question.Sign);
 			FormattedText description = null;
 			if (statement != null)
@@ -22,7 +25,7 @@ namespace Inventor.Core.Processors
 			}
 			else
 			{
-				var parents = context.KnowledgeBase.Statements.GetParentsAllLevels<IConcept, IsStatement>(question.Concept);
+				var parents = allStatements.GetParentsAllLevels<IConcept, IsStatement>(question.Concept);
 				foreach (var parent in parents)
 				{
 					statement = getSignValue(signValues, parent, question.Sign);
