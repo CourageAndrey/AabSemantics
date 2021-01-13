@@ -13,7 +13,10 @@ namespace Inventor.Core.Processors
 		public override IAnswer Process(IQuestionProcessingContext<HasSignQuestion> context)
 		{
 			var question = context.QuestionX;
-			var statements = HasSignStatement.GetSigns(context.KnowledgeBase.Statements, question.Concept, question.Recursive).Where(hasSign => hasSign.Sign == question.Sign).ToList();
+			var activeContexts = context.GetHierarchy();
+			var allStatements = context.KnowledgeBase.Statements.Enumerate(activeContexts);
+
+			var statements = HasSignStatement.GetSigns(allStatements, question.Concept, question.Recursive).Where(hasSign => hasSign.Sign == question.Sign).ToList();
 			return new Answer(
 				statements.Any(),
 				new FormattedText(

@@ -13,16 +13,19 @@ namespace Inventor.Core.Processors
 		public override IAnswer Process(IQuestionProcessingContext<WhatQuestion> context)
 		{
 			var question = context.QuestionX;
-			var statements = context.KnowledgeBase.Statements.OfType<IsStatement>().Where(c => c.Child == question.Concept).ToList();
+			var activeContexts = context.GetHierarchy();
+			var allStatements = context.KnowledgeBase.Statements.Enumerate(activeContexts);
+
+			var statements = allStatements.Enumerate<IsStatement>(activeContexts).Where(c => c.Child == question.Concept).ToList();
 			if (statements.Any())
 			{
 				var result = new FormattedText();
 				var difference = new List<SignValueStatement>();
 				foreach (var statement in statements)
 				{
-					foreach (var sign in HasSignStatement.GetSigns(context.KnowledgeBase.Statements, statement.Parent, false))
+					foreach (var sign in HasSignStatement.GetSigns(allStatements, statement.Parent, false))
 					{
-						var diff = SignValueStatement.GetSignValue(context.KnowledgeBase.Statements, question.Concept, sign.Sign);
+						var diff = SignValueStatement.GetSignValue(allStatements, question.Concept, sign.Sign);
 						if (diff != null)
 						{
 							difference.Add(diff);

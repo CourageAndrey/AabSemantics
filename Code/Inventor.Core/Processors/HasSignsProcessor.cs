@@ -13,7 +13,9 @@ namespace Inventor.Core.Processors
 		public override IAnswer Process(IQuestionProcessingContext<HasSignsQuestion> context)
 		{
 			var question = context.QuestionX;
-			var statements = HasSignStatement.GetSigns(context.KnowledgeBase.Statements, question.Concept, question.Recursive);
+			var activeContexts = context.GetHierarchy();
+
+			var statements = HasSignStatement.GetSigns(context.KnowledgeBase.Statements.Enumerate(activeContexts), question.Concept, question.Recursive);
 			return new Answer(
 				statements.Any(),
 				new FormattedText(
