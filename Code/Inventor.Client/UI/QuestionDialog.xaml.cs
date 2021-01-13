@@ -41,7 +41,7 @@ namespace Inventor.Client.UI
 			panelQuestionParams.Visibility = Visibility.Hidden;
 
 			_knowledgeBase = knowledgeBase;
-			foreach (var questionDefinition in knowledgeBase.QuestionRepository.QuestionDefinitions.Values)
+			foreach (var questionDefinition in knowledgeBase.Context.QuestionRepository.QuestionDefinitions.Values)
 			{
 				_questions[questionDefinition.GetName(_language)] = questionDefinition.CreateQuestion;
 			}
