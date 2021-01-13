@@ -18,8 +18,6 @@ namespace Inventor.Core
 		ICollection<IStatement> Statements
 		{ get; }
 
-		IEnumerable<IStatement> EnumerateKnowledge(Func<IContext, Boolean> contextFilter);
-
 		event EventHandler<ItemEventArgs<IConcept>> ConceptAdded;
 		event EventHandler<ItemEventArgs<IConcept>> ConceptRemoved;
 		event EventHandler<ItemEventArgs<IStatement>> StatementAdded;
@@ -37,6 +35,14 @@ namespace Inventor.Core
 	public static class KnowledgeBaseHelper
 	{
 		#region Context helpers
+
+		public static IEnumerable<IStatement> EnumerateKnowledge(this IKnowledgeBase knowledgeBase, Func<IContext, Boolean> contextFilter)
+		{
+			foreach (var statement in knowledgeBase.Statements.Where(s => contextFilter(s.Context)))
+			{
+				yield return statement;
+			}
+		}
 
 		public static IEnumerable<IStatement> EnumerateKnowledge(this IKnowledgeBase knowledgeBase)
 		{
