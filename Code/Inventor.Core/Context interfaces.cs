@@ -8,7 +8,7 @@ namespace Inventor.Core
 		ILanguage Language
 		{ get; }
 
-		ICollection<IKnowledge> Scope
+		ICollection<IStatement> Scope
 		{ get; }
 
 		IContext Parent

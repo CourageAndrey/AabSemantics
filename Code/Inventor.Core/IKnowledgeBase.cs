@@ -7,22 +7,18 @@ using Inventor.Core.Utils;
 
 namespace Inventor.Core
 {
-	public interface IKnowledgeBase : IKnowledge, IChangeable
+	public interface IKnowledgeBase : INamed, IChangeable
 	{
+		IKnowledgeBaseContext Context
+		{ get; }
+
 		ICollection<IConcept> Concepts
 		{ get; }
 
 		ICollection<IStatement> Statements
 		{ get; }
 
-		IQuestionRepository QuestionRepository
-		{ get; }
-
-		IQuestionProcessingContext AskQuestion(IQuestion question);
-
-		IEnumerable<IKnowledge> EnumerateKnowledge(Func<IContext, Boolean> contextFilter);
-		void Add(IKnowledge knowledge);
-		Boolean Remove(IKnowledge knowledge);
+		IEnumerable<IStatement> EnumerateKnowledge(Func<IContext, Boolean> contextFilter);
 
 		event EventHandler<ItemEventArgs<IConcept>> ConceptAdded;
 		event EventHandler<ItemEventArgs<IConcept>> ConceptRemoved;
@@ -42,17 +38,17 @@ namespace Inventor.Core
 	{
 		#region Context helpers
 
-		public static IEnumerable<IKnowledge> EnumerateKnowledge(this IKnowledgeBase knowledgeBase)
+		public static IEnumerable<IStatement> EnumerateKnowledge(this IKnowledgeBase knowledgeBase)
 		{
 			return knowledgeBase.EnumerateKnowledge(context => true);
 		}
 
-		public static IEnumerable<IKnowledge> EnumerateKnowledge(this IKnowledgeBase knowledgeBase, IContext certainContext)
+		public static IEnumerable<IStatement> EnumerateKnowledge(this IKnowledgeBase knowledgeBase, IContext certainContext)
 		{
 			return knowledgeBase.EnumerateKnowledge(context => context == certainContext);
 		}
 
-		public static IEnumerable<IKnowledge> EnumerateKnowledge(this IKnowledgeBase knowledgeBase, ICollection<IContext> validContexts)
+		public static IEnumerable<IStatement> EnumerateKnowledge(this IKnowledgeBase knowledgeBase, ICollection<IContext> validContexts)
 		{
 			return knowledgeBase.EnumerateKnowledge(context => validContexts.Contains(context));
 		}
@@ -145,6 +141,11 @@ namespace Inventor.Core
 				result.Add(() => language.Misc.CheckOk, new Dictionary<String, INamed>());
 			}
 			return result;
+		}
+
+		public static IQuestionProcessingContext AskQuestion(this IKnowledgeBase knowledgeBase, IQuestion question)
+		{
+			return knowledgeBase.Context.AskQuestion(question);
 		}
 	}
 }

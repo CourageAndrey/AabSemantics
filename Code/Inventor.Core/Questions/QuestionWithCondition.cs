@@ -6,7 +6,7 @@ namespace Inventor.Core.Questions
 	public sealed class QuestionWithCondition : IQuestion
 	{
 		//[PropertyDescriptor(, )]
-		public ICollection<IKnowledge> Conditions
+		public ICollection<IStatement> Conditions
 		{ get; set; }
 
 		//[PropertyDescriptor(, )]

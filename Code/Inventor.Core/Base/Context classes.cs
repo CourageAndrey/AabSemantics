@@ -11,7 +11,7 @@ namespace Inventor.Core.Base
 		public ILanguage Language
 		{ get; }
 
-		public ICollection<IKnowledge> Scope
+		public ICollection<IStatement> Scope
 		{ get; }
 
 		public IContext Parent
@@ -28,7 +28,7 @@ namespace Inventor.Core.Base
 		protected Context(ILanguage language, IContext parent)
 		{
 			Language = language;
-			Scope = new List<IKnowledge>();
+			Scope = new List<IStatement>();
 			Children = new List<IContext>();
 
 			Parent = parent;
@@ -116,7 +116,7 @@ namespace Inventor.Core.Base
 
 				foreach (var knowledge in Scope)
 				{
-					KnowledgeBase.Remove(knowledge);
+					KnowledgeBase.Statements.Remove(knowledge);
 				}
 
 				_disposed = true;
