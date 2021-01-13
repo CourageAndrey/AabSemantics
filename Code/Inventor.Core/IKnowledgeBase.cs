@@ -18,7 +18,7 @@ namespace Inventor.Core
 
 		IQuestionProcessingContext AskQuestion(IQuestion question);
 
-		IEnumerable<IKnowledge> EnumerateKnowledge(IContext context = null);
+		IEnumerable<IKnowledge> EnumerateKnowledge(Func<IContext, Boolean> contextFilter);
 		void Add(IKnowledge knowledge);
 		Boolean Remove(IKnowledge knowledge);
 
@@ -38,5 +38,23 @@ namespace Inventor.Core
 		FormattedText DescribeRules(ILanguage language);
 
 		FormattedText CheckConsistensy(ILanguage language);
+	}
+
+	public static class KnowledgeBaseHelper
+	{
+		public static IEnumerable<IKnowledge> EnumerateKnowledge(this IKnowledgeBase knowledgeBase)
+		{
+			return knowledgeBase.EnumerateKnowledge(context => true);
+		}
+
+		public static IEnumerable<IKnowledge> EnumerateKnowledge(this IKnowledgeBase knowledgeBase, IContext certainContext)
+		{
+			return knowledgeBase.EnumerateKnowledge(context => context == certainContext);
+		}
+
+		public static IEnumerable<IKnowledge> EnumerateKnowledge(this IKnowledgeBase knowledgeBase, ICollection<IContext> validContexts)
+		{
+			return knowledgeBase.EnumerateKnowledge(context => validContexts.Contains(context));
+		}
 	}
 }

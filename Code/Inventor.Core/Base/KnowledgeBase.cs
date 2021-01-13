@@ -402,13 +402,13 @@ namespace Inventor.Core.Base
 			return knowledgeBase;
 		}
 
-		public IEnumerable<IKnowledge> EnumerateKnowledge(IContext context = null)
+		public IEnumerable<IKnowledge> EnumerateKnowledge(Func<IContext, Boolean> contextFilter)
 		{
-			foreach (var concept in Concepts.Where(k => context == null || context == k.Context))
+			foreach (var concept in Concepts.Where(k => contextFilter(k.Context)))
 			{
 				yield return concept;
 			}
-			foreach (var statement in Statements.Where(k => context == null || context == k.Context))
+			foreach (var statement in Statements.Where(k => contextFilter(k.Context)))
 			{
 				yield return statement;
 			}
