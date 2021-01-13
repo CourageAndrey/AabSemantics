@@ -384,13 +384,5 @@ namespace Inventor.Core.Base
 
 			return knowledgeBase;
 		}
-
-		public IEnumerable<IStatement> EnumerateKnowledge(Func<IContext, Boolean> contextFilter)
-		{
-			foreach (var statement in Statements.Where(k => contextFilter(k.Context)))
-			{
-				yield return statement;
-			}
-		}
 	}
 }
