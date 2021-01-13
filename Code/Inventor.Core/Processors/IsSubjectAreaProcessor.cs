@@ -14,7 +14,9 @@ namespace Inventor.Core.Processors
 		public override IAnswer Process(IQuestionProcessingContext<IsSubjectAreaQuestion> context)
 		{
 			var question = context.QuestionX;
-			var statements = context.KnowledgeBase.Statements.OfType<GroupStatement>().Where(sa => sa.Area == question.Area && sa.Concept == question.Concept).ToList();
+			var activeContexts = context.GetHierarchy();
+
+			var statements = context.KnowledgeBase.Statements.Enumerate<GroupStatement>(activeContexts).Where(sa => sa.Area == question.Area && sa.Concept == question.Concept).ToList();
 			return new Answer(
 				statements.Any(),
 				new FormattedText(

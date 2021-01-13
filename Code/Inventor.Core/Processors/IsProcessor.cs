@@ -13,8 +13,10 @@ namespace Inventor.Core.Processors
 		public override IAnswer Process(IQuestionProcessingContext<IsQuestion> context)
 		{
 			var question = context.QuestionX;
+			var activeContexts = context.GetHierarchy();
+
 			var explanation = new List<IsStatement>();
-			Boolean yes = context.KnowledgeBase.Statements.GetParentsAllLevels(question.ChildConcept, explanation).Contains(question.ParentConcept);
+			Boolean yes = context.KnowledgeBase.Statements.Enumerate(activeContexts).GetParentsAllLevels(question.ChildConcept, explanation).Contains(question.ParentConcept);
 			return new Answer(
 				yes,
 				new FormattedText(
