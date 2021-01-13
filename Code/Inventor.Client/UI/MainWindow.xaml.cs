@@ -100,21 +100,15 @@ namespace Inventor.Client.UI
 			};
 			if (dialog.ShowDialog() == true)
 			{
-				using (var context = _application.KnowledgeBase.AskQuestion(dialog.Question))
-				{
-					var questionType = dialog.Question.GetType();
-					var questionRepository = _application.KnowledgeBase.Context.QuestionRepository;
-					var questionProcessor = questionRepository.QuestionDefinitions[questionType].CreateProcessor();
-					var answer = questionProcessor.Process(context);
-					new FormattedTextDialog(
+				var answer = dialog.Question.Ask(_application.KnowledgeBase.Context);
+				new FormattedTextDialog(
 						_application.CurrentLanguage,
 						answer.Description,
 						knowledgeObjectPicked)
-					{
-						Owner = this,
-						Title = _application.CurrentLanguage.Misc.Answer,
-					}.Show();
-				}
+				{
+					Owner = this,
+					Title = _application.CurrentLanguage.Misc.Answer,
+				}.Show();
 			}
 		}
 

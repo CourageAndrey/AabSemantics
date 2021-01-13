@@ -34,7 +34,7 @@ namespace Inventor.Core
 		IQuestionRepository QuestionRepository
 		{ get; }
 
-		IQuestionProcessingContext AskQuestion(IQuestion question);
+		IQuestionProcessingContext CreateQuestionContext(IQuestion question);
 	}
 
 	public interface IQuestionProcessingContext : IKnowledgeBaseContext, IDisposable
