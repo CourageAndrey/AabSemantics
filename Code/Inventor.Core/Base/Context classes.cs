@@ -82,7 +82,7 @@ namespace Inventor.Core.Base
 			QuestionRepository = questionRepository;
 		}
 
-		public IQuestionProcessingContext AskQuestion(IQuestion question)
+		public IQuestionProcessingContext CreateQuestionContext(IQuestion question)
 		{
 			return new QuestionProcessingContext(this, question);
 		}
