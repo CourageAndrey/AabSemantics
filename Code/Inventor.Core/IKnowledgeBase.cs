@@ -34,33 +34,6 @@ namespace Inventor.Core
 
 	public static class KnowledgeBaseHelper
 	{
-		#region Context helpers
-
-		public static IEnumerable<IStatement> EnumerateKnowledge(this IKnowledgeBase knowledgeBase, Func<IContext, Boolean> contextFilter)
-		{
-			foreach (var statement in knowledgeBase.Statements.Where(s => contextFilter(s.Context)))
-			{
-				yield return statement;
-			}
-		}
-
-		public static IEnumerable<IStatement> EnumerateKnowledge(this IKnowledgeBase knowledgeBase)
-		{
-			return knowledgeBase.EnumerateKnowledge(context => true);
-		}
-
-		public static IEnumerable<IStatement> EnumerateKnowledge(this IKnowledgeBase knowledgeBase, IContext certainContext)
-		{
-			return knowledgeBase.EnumerateKnowledge(context => context == certainContext);
-		}
-
-		public static IEnumerable<IStatement> EnumerateKnowledge(this IKnowledgeBase knowledgeBase, ICollection<IContext> validContexts)
-		{
-			return knowledgeBase.EnumerateKnowledge(context => validContexts.Contains(context));
-		}
-
-		#endregion
-
 		public static FormattedText DescribeRules(this IKnowledgeBase knowledgeBase, ILanguage language)
 		{
 			var result = new FormattedText();
