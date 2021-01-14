@@ -1,11 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
+using System.Threading;
 using System.Windows.Media;
 
 namespace Inventor.Client.UI
 {
-	public abstract class ExtendedTreeNode
+	public abstract class ExtendedTreeNode : INotifyPropertyChanged
 	{
 		#region Properties
 
@@ -26,6 +28,21 @@ namespace Inventor.Client.UI
 
 		public Boolean IsExpanded
 		{ get; set; }
+
+		#endregion
+
+		#region Implementation of INotifyPropertyChanged
+
+		public event PropertyChangedEventHandler PropertyChanged;
+
+		public void RefreshView()
+		{
+			var handler = Volatile.Read(ref PropertyChanged);
+			if (handler != null)
+			{
+				handler(this, new PropertyChangedEventArgs(null));
+			}
+		}
 
 		#endregion
 	}
