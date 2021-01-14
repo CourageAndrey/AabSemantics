@@ -22,13 +22,21 @@ namespace Inventor.Core.Localization
 	{
 		#region Properties
 
+		public ICollection<String> Locales
+		{ get { return _values.Keys; } }
+
 		private readonly IDictionary<String, String> _values = new SortedDictionary<String, String>();
 
 		public override String GetValue(ILanguage language)
 		{
+			return GetValue(language.Culture);
+		}
+
+		public String GetValue(String locale)
+		{
 			if (_values.Count == 0) return null;
 
-			String result, locale = language.Culture;
+			String result;
 			if (_values.TryGetValue(locale, out result))
 			{
 				return result;
