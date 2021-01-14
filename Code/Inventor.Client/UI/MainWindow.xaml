@@ -61,6 +61,14 @@
 				</StackPanel>
 			</ToolBar>
 		</ToolBarPanel>
-		<TreeView Name="treeViewKnowledgeBase" Margin="2" />
+		<TreeView Name="treeViewKnowledgeBase" Margin="2">
+			<TreeView.ContextMenu>
+				<ContextMenu ContextMenuOpening="knowledgeContextMenuOpening">
+					<MenuItem Header="Add" Name="_addKnowledgeItem" Click="addKnowledgeClick" />
+					<MenuItem Header="Edit" Name="_editKnowledgeItem" Click="editKnowledgeClick" />
+					<MenuItem Header="Delete" Name="_deleteKnowledgeItem" Click="deleteKnowledgeClick" />
+				</ContextMenu>
+			</TreeView.ContextMenu>
+		</TreeView>
 	</DockPanel>
 </Window>
