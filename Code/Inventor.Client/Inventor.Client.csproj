@@ -64,11 +64,17 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <Compile Include="UI\ConceptDialog.xaml.cs">
+      <DependentUpon>ConceptDialog.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UI\ExceptionDialog.xaml.cs">
       <DependentUpon>ExceptionDialog.xaml</DependentUpon>
     </Compile>
     <Compile Include="UI\ExtendedTreeNode.cs" />
     <Compile Include="UI\ImageConverter.cs" />
+    <Compile Include="UI\LocalizedStringVariableControl.xaml.cs">
+      <DependentUpon>LocalizedStringVariableControl.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UI\NamedConverter.cs" />
     <Compile Include="UI\Nodes\ConceptNode.cs" />
     <Compile Include="UI\Nodes\StatementNode.cs" />
@@ -83,9 +89,20 @@
     </Compile>
     <Compile Include="UI\SaveLoadController.cs" />
     <Compile Include="UI\UiHelper.cs" />
+    <Compile Include="ViewModels\Concept.cs" />
+    <Compile Include="ViewModels\LocalizedStringValue.cs" />
+    <Compile Include="ViewModels\LocalizedString.cs" />
+    <Page Include="UI\ConceptDialog.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="UI\ExceptionDialog.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="UI\LocalizedStringVariableControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="UI\MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>

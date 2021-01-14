@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
@@ -7,6 +8,8 @@ using Microsoft.Win32;
 
 using Inventor.Client.UI.Nodes;
 using Inventor.Core;
+using Inventor.Core.Base;
+using Inventor.Core.Localization;
 
 namespace Inventor.Client.UI
 {
@@ -173,6 +176,93 @@ namespace Inventor.Client.UI
 					item.BringIntoView();
 				});
 			}
+		}
+
+		#endregion
+
+		#region Knowledge Tree Menu
+
+		private void addKnowledgeClick(object sender, RoutedEventArgs e)
+		{
+			var selectedItem = treeViewKnowledgeBase.SelectedItem;
+			if (selectedItem is ConceptNode || selectedItem is KnowledgeBaseConceptsNode)
+			{
+				var viewModel = new ViewModels.Concept();
+				var editDialog = new ConceptDialog
+				{
+					Owner = this,
+					EditValue = viewModel,
+				};
+				if (editDialog.ShowDialog() == true)
+				{
+					var concept = new Concept(viewModel.Name.Create(), viewModel.Hint.Create());
+					_application.KnowledgeBase.Concepts.Add(concept);
+				}
+			}
+			else if (selectedItem is StatementNode || selectedItem is KnowledgeBaseStatementsNode)
+			{
+				throw new NotImplementedException();
+			}
+		}
+
+		private void editKnowledgeClick(object sender, RoutedEventArgs e)
+		{
+			var conceptNode = treeViewKnowledgeBase.SelectedItem as ConceptNode;
+			if (conceptNode != null)
+			{
+				var viewModel = new ViewModels.Concept((Concept) conceptNode.Concept);
+				var editDialog = new ConceptDialog
+				{
+					Owner = this,
+					EditValue = viewModel,
+				};
+				if (editDialog.ShowDialog() == true)
+				{
+					viewModel.Name?.Apply(conceptNode.Concept.Name);
+					viewModel.Hint?.Apply(conceptNode.Concept.Hint);
+					conceptNode.RefreshView();
+				}
+				return;
+			}
+
+			var statementNode = treeViewKnowledgeBase.SelectedItem as StatementNode;
+			if (statementNode != null)
+			{
+				throw new NotImplementedException();
+			}
+		}
+
+		private void deleteKnowledgeClick(object sender, RoutedEventArgs e)
+		{
+			var conceptNode = treeViewKnowledgeBase.SelectedItem as ConceptNode;
+			if (conceptNode != null)
+			{
+				_application.KnowledgeBase.Concepts.Remove(conceptNode.Concept);
+				return;
+			}
+
+			var statementNode = treeViewKnowledgeBase.SelectedItem as StatementNode;
+			if (statementNode != null)
+			{
+				_application.KnowledgeBase.Statements.Remove(statementNode.Statement);
+				return;
+			}
+		}
+
+		private void knowledgeContextMenuOpening(object sender, ContextMenuEventArgs e)
+		{
+			var selectedItem = treeViewKnowledgeBase.SelectedItem;
+			bool isKnowledgeBaseNode = selectedItem is KnowledgeBaseNode;
+			//bool isConceptsNode = selectedItem is KnowledgeBaseConceptsNode;
+			//bool isStatementsNode = selectedItem is KnowledgeBaseStatementsNode;
+			bool isConceptNode = selectedItem is ConceptNode;
+			var statementNode = selectedItem as StatementNode;
+			_addKnowledgeItem.Visibility = !isKnowledgeBaseNode
+				? Visibility.Visible
+				: Visibility.Collapsed;
+			_editKnowledgeItem.Visibility = _deleteKnowledgeItem.Visibility = isConceptNode || statementNode?.Statement.Context.IsSystem == false
+					? Visibility.Visible
+					: Visibility.Collapsed;
 		}
 
 		#endregion

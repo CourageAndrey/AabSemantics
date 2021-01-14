@@ -1,0 +1,12 @@
+﻿<UserControl x:Class="Inventor.Client.UI.LocalizedStringVariableControl"
+		xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+		xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+	<DockPanel LastChildFill="True" Name="_contextControl">
+		<DataGrid AutoGenerateColumns="False" ItemsSource="{Binding Path=Values, Mode=OneTime}" IsReadOnly="False">
+			<DataGrid.Columns>
+				<DataGridTextColumn Header="Language" Binding="{Binding Path=Locale, Mode=TwoWay}" />
+				<DataGridTextColumn Header="Value" Binding="{Binding Path=Value, Mode=TwoWay}" />
+			</DataGrid.Columns>
+		</DataGrid>
+	</DockPanel>
+</UserControl>
