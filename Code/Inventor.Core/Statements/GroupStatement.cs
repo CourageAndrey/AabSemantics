@@ -15,13 +15,18 @@ namespace Inventor.Core.Statements
 		public IConcept Concept
 		{ get { return _concept; } }
 
-		private readonly IConcept _area;
-		private readonly IConcept _concept;
+		private IConcept _area;
+		private IConcept _concept;
 
 		#endregion
 
 		public GroupStatement(IConcept area, IConcept concept)
 			: base(new Func<ILanguage, String>(language => language.StatementNames.SubjectArea), new Func<ILanguage, String>(language => language.StatementHints.SubjectArea))
+		{
+			Update(area, concept);
+		}
+
+		public void Update(IConcept area, IConcept concept)
 		{
 			if (area == null) throw new ArgumentNullException("area");
 			if (concept == null) throw new ArgumentNullException("concept");

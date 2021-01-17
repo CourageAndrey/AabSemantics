@@ -15,13 +15,18 @@ namespace Inventor.Core.Statements
 		public IConcept Child
 		{ get { return _child; } }
 
-		private readonly IConcept _parent;
-		private readonly IConcept _child;
+		private IConcept _parent;
+		private IConcept _child;
 
 		#endregion
 
 		public ConsistsOfStatement(IConcept parent, IConcept child)
 			: base(new Func<ILanguage, String>(language => language.StatementNames.Composition), new Func<ILanguage, String>(language => language.StatementHints.Composition))
+		{
+			Update(parent, child);
+		}
+
+		public void Update(IConcept parent, IConcept child)
 		{
 			if (parent == null) throw new ArgumentNullException("parent");
 			if (child == null) throw new ArgumentNullException("child");
