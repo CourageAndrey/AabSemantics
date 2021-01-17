@@ -5,7 +5,7 @@ using System.ComponentModel;
 using System.Threading;
 using System.Windows.Media;
 
-namespace Inventor.Client.UI
+namespace Inventor.Client.TreeNodes
 {
 	public abstract class ExtendedTreeNode : INotifyPropertyChanged
 	{

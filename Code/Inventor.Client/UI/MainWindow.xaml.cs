@@ -6,7 +6,7 @@ using System.Windows.Data;
 
 using Microsoft.Win32;
 
-using Inventor.Client.UI.Nodes;
+using Inventor.Client.TreeNodes;
 using Inventor.Core;
 using Inventor.Core.Base;
 using Inventor.Core.Localization;
@@ -61,21 +61,21 @@ namespace Inventor.Client.UI
 
 		private IChangeable loadFromFile(string fileName)
 		{
-			_application.KnowledgeBase = Core.Base.KnowledgeBase.Load(fileName);
+			_application.KnowledgeBase = KnowledgeBase.Load(fileName);
 			realoadKnowledgeBaseTree();
 			return _application.KnowledgeBase;
 		}
 
 		private IChangeable createNew()
 		{
-			_application.KnowledgeBase = new Core.Base.KnowledgeBase(_application.CurrentLanguage);
+			_application.KnowledgeBase = new KnowledgeBase(_application.CurrentLanguage);
 			realoadKnowledgeBaseTree();
 			return _application.KnowledgeBase;
 		}
 
 		private void createTestClick(object sender, RoutedEventArgs e)
 		{
-			_application.KnowledgeBase = Core.Base.KnowledgeBase.CreateTest(_application.CurrentLanguage);
+			_application.KnowledgeBase = KnowledgeBase.CreateTest(_application.CurrentLanguage);
 			realoadKnowledgeBaseTree();
 			_saveLoadController.ChangeEntity(_application.KnowledgeBase);
 		}
