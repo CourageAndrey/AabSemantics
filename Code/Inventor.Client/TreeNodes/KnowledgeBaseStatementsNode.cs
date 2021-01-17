@@ -3,10 +3,11 @@ using System.Linq;
 using System.Windows.Media;
 
 using Inventor.Client.Properties;
+using Inventor.Client.UI;
 using Inventor.Core;
 using Inventor.Core.Utils;
 
-namespace Inventor.Client.UI.Nodes
+namespace Inventor.Client.TreeNodes
 {
 	public sealed class KnowledgeBaseStatementsNode : ExtendedTreeNode
 	{

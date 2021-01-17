@@ -1,9 +1,10 @@
 ﻿using System.Windows.Media;
 
 using Inventor.Client.Properties;
+using Inventor.Client.UI;
 using Inventor.Core;
 
-namespace Inventor.Client.UI.Nodes
+namespace Inventor.Client.TreeNodes
 {
 	public sealed class ConceptNode : ExtendedTreeNode
 	{
