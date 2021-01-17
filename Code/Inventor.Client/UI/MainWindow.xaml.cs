@@ -10,6 +10,7 @@ using Inventor.Client.TreeNodes;
 using Inventor.Core;
 using Inventor.Core.Base;
 using Inventor.Core.Localization;
+using Inventor.Core.Statements;
 
 namespace Inventor.Client.UI
 {
@@ -182,53 +183,119 @@ namespace Inventor.Client.UI
 
 		#region Knowledge Tree Menu
 
+		private static IViewModel viewModelFactory(Type type)
+		{
+			if (type == typeof (Concept))
+			{
+				return new ViewModels.Concept();
+			}
+			else if (type == typeof(ConsistsOfStatement))
+			{
+				return new ViewModels.ConsistsOfStatement();
+			}
+			else if (type == typeof(GroupStatement))
+			{
+				return new ViewModels.GroupStatement();
+			}
+			else if (type == typeof(HasSignStatement))
+			{
+				return new ViewModels.HasSignStatement();
+			}
+			else if (type == typeof(IsStatement))
+			{
+				return new ViewModels.IsStatement();
+			}
+			else if (type == typeof(SignValueStatement))
+			{
+				return new ViewModels.SignValueStatement();
+			}
+			else
+			{
+				throw new NotSupportedException(type.FullName);
+			}
+		}
+
+		private static IViewModel viewModelFactory(ExtendedTreeNode treeNode)
+		{
+			var conceptNode = treeNode as ConceptNode;
+			var statementNode = treeNode as StatementNode;
+
+			if (conceptNode != null)
+			{
+				return new ViewModels.Concept(conceptNode.Concept as Concept);
+			}
+			else if (statementNode != null)
+			{
+				if (statementNode.Statement is ConsistsOfStatement)
+				{
+					return new ViewModels.ConsistsOfStatement(statementNode.Statement as ConsistsOfStatement);
+				}
+				else if (statementNode.Statement is GroupStatement)
+				{
+					return new ViewModels.GroupStatement(statementNode.Statement as GroupStatement);
+				}
+				else if (statementNode.Statement is HasSignStatement)
+				{
+					return new ViewModels.HasSignStatement(statementNode.Statement as HasSignStatement);
+				}
+				else if (statementNode.Statement is IsStatement)
+				{
+					return new ViewModels.IsStatement(statementNode.Statement as IsStatement);
+				}
+				else if (statementNode.Statement is SignValueStatement)
+				{
+					return new ViewModels.SignValueStatement(statementNode.Statement as SignValueStatement);
+				}
+			}
+
+			throw new NotSupportedException(treeNode.GetType().FullName);
+		}
+		
+
 		private void addKnowledgeClick(object sender, RoutedEventArgs e)
 		{
+			Type type = null;
 			var selectedItem = treeViewKnowledgeBase.SelectedItem;
 			if (selectedItem is ConceptNode || selectedItem is KnowledgeBaseConceptsNode)
 			{
-				var viewModel = new ViewModels.Concept();
-				var editDialog = new ConceptDialog
-				{
-					Owner = this,
-					EditValue = viewModel,
-				};
-				if (editDialog.ShowDialog() == true)
-				{
-					var concept = new Concept(viewModel.Name.Create(), viewModel.Hint.Create());
-					_application.KnowledgeBase.Concepts.Add(concept);
-				}
+				type = typeof(Concept);
 			}
 			else if (selectedItem is StatementNode || selectedItem is KnowledgeBaseStatementsNode)
 			{
-				throw new NotImplementedException();
+				var statementTypesDialog = new SelectStatementTypeDialog
+				{
+					Owner = this,
+				};
+				statementTypesDialog.Initialize(_application.CurrentLanguage);
+				if (statementTypesDialog.ShowDialog() == true)
+				{
+					type = statementTypesDialog.SelectedType;
+				}
+			}
+			if (type == null) return;
+
+			IViewModel viewModel = viewModelFactory(type);
+			var editDialog = viewModel.CreateEditDialog(this, _application.KnowledgeBase, _application.CurrentLanguage);
+
+			if (editDialog.ShowDialog() == true)
+			{
+				viewModel.ApplyCreate(_application.KnowledgeBase);
 			}
 		}
 
 		private void editKnowledgeClick(object sender, RoutedEventArgs e)
 		{
-			var conceptNode = treeViewKnowledgeBase.SelectedItem as ConceptNode;
-			if (conceptNode != null)
-			{
-				var viewModel = new ViewModels.Concept((Concept) conceptNode.Concept);
-				var editDialog = new ConceptDialog
-				{
-					Owner = this,
-					EditValue = viewModel,
-				};
-				if (editDialog.ShowDialog() == true)
-				{
-					viewModel.Name?.Apply(conceptNode.Concept.Name);
-					viewModel.Hint?.Apply(conceptNode.Concept.Hint);
-					conceptNode.RefreshView();
-				}
-				return;
-			}
+			var selectedNode = treeViewKnowledgeBase.SelectedItem as ExtendedTreeNode;
+			if (selectedNode == null) return;
+			var viewModel = viewModelFactory(selectedNode);
+			if (viewModel == null) return;
 
-			var statementNode = treeViewKnowledgeBase.SelectedItem as StatementNode;
-			if (statementNode != null)
+			var editDialog = viewModel.CreateEditDialog(this, _application.KnowledgeBase, _application.CurrentLanguage);
+
+			if (editDialog.ShowDialog() == true)
 			{
-				throw new NotImplementedException();
+				viewModel.ApplyUpdate();
+				selectedNode.RefreshView();
 			}
 		}
 
