@@ -16,13 +16,18 @@ namespace Inventor.Core.Statements
 		public IConcept Sign
 		{ get { return _sign; } }
 
-		private readonly IConcept _concept;
-		private readonly IConcept _sign;
+		private IConcept _concept;
+		private IConcept _sign;
 
 		#endregion
 
 		public HasSignStatement(IConcept concept, IConcept sign)
 			: base(new Func<ILanguage, String>(language => language.StatementNames.HasSign), new Func<ILanguage, String>(language => language.StatementHints.HasSign))
+		{
+			Update(concept, sign);
+		}
+
+		public void Update(IConcept concept, IConcept sign)
 		{
 			if (concept == null) throw new ArgumentNullException("concept");
 			if (sign == null) throw new ArgumentNullException("sign");
