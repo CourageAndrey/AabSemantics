@@ -70,20 +70,20 @@
     <Compile Include="UI\ExceptionDialog.xaml.cs">
       <DependentUpon>ExceptionDialog.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UI\ExtendedTreeNode.cs" />
+    <Compile Include="TreeNodes\ExtendedTreeNode.cs" />
     <Compile Include="UI\ImageConverter.cs" />
     <Compile Include="UI\LocalizedStringVariableControl.xaml.cs">
       <DependentUpon>LocalizedStringVariableControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="UI\NamedConverter.cs" />
-    <Compile Include="UI\Nodes\ConceptNode.cs" />
-    <Compile Include="UI\Nodes\StatementNode.cs" />
+    <Compile Include="TreeNodes\ConceptNode.cs" />
+    <Compile Include="TreeNodes\StatementNode.cs" />
     <Compile Include="UI\FormattedTextDialog.xaml.cs">
       <DependentUpon>FormattedTextDialog.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UI\Nodes\KnowledgeBaseConceptsNode.cs" />
-    <Compile Include="UI\Nodes\KnowledgeBaseNode.cs" />
-    <Compile Include="UI\Nodes\KnowledgeBaseStatementsNode.cs" />
+    <Compile Include="TreeNodes\KnowledgeBaseConceptsNode.cs" />
+    <Compile Include="TreeNodes\KnowledgeBaseNode.cs" />
+    <Compile Include="TreeNodes\KnowledgeBaseStatementsNode.cs" />
     <Compile Include="UI\QuestionDialog.xaml.cs">
       <DependentUpon>QuestionDialog.xaml</DependentUpon>
     </Compile>
