@@ -19,14 +19,19 @@ namespace Inventor.Core.Statements
 		public IConcept Value
 		{ get { return _value; } }
 
-		private readonly IConcept _concept;
-		private readonly IConcept _sign;
-		private readonly IConcept _value;
+		private IConcept _concept;
+		private IConcept _sign;
+		private IConcept _value;
 
 		#endregion
 
 		public SignValueStatement(IConcept concept, IConcept sign, IConcept value)
 			: base(new Func<ILanguage, String>(language => language.StatementNames.SignValue), new Func<ILanguage, String>(language => language.StatementHints.SignValue))
+		{
+			Update(concept, sign, value);
+		}
+
+		public void Update(IConcept concept, IConcept sign, IConcept value)
 		{
 			if (concept == null) throw new ArgumentNullException("concept");
 			if (sign == null) throw new ArgumentNullException("sign");
