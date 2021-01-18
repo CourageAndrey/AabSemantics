@@ -2,10 +2,10 @@
 		xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
 		xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
 	<StackPanel Orientation="Vertical" Name="_contextControl">
-		<GroupBox Header="Parent">
+		<GroupBox Name="_groupParent">
 			<ComboBox Name="_comboBoxParent" SelectedItem="{Binding Path=Parent, Mode=TwoWay}" />
 		</GroupBox>
-		<GroupBox Header="Child">
+		<GroupBox Name="_groupChild">
 			<ComboBox Name="_comboBoxChild" SelectedItem="{Binding Path=Child, Mode=TwoWay}" />
 		</GroupBox>
 	</StackPanel>

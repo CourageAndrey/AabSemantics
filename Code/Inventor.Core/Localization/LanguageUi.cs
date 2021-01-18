@@ -11,6 +11,8 @@ namespace Inventor.Core.Localization
 		private const String ElementMainForm = "MainForm";
 		[XmlIgnore]
 		private const String ElementQuestionDialog = "QuestionDialog";
+		[XmlIgnore]
+		private const String ElementEditing = "Editing";
 
 		#endregion
 
@@ -32,12 +34,20 @@ namespace Inventor.Core.Localization
 		public String Back
 		{ get; set; }
 
+		[XmlElement(ElementQuestionDialog)]
+		public String StatementTypeDialogHeader
+		{ get; set; }
+
 		[XmlElement(ElementMainForm)]
 		public LanguageMainForm MainFormXml
 		{ get; set; }
 
 		[XmlElement(ElementQuestionDialog)]
 		public LanguageQuestionDialog QuestionDialogXml
+		{ get; set; }
+
+		[XmlElement(ElementEditing)]
+		public LanguageEditing EditingXml
 		{ get; set; }
 
 		[XmlIgnore]
@@ -47,6 +57,10 @@ namespace Inventor.Core.Localization
 		[XmlIgnore]
 		public ILanguageQuestionDialog QuestionDialog
 		{ get { return QuestionDialogXml; } }
+
+		[XmlIgnore]
+		public ILanguageEditing Editing
+		{ get { return EditingXml; } }
 
 		#endregion
 
@@ -58,8 +72,10 @@ namespace Inventor.Core.Localization
 				Cancel = "Отмена",
 				Next = "Далее >",
 				Back = "< Назад",
+				StatementTypeDialogHeader = "Выберите тип утверждения",
 				QuestionDialogXml = LanguageQuestionDialog.CreateDefault(),
 				MainFormXml = LanguageMainForm.CreateDefault(),
+				EditingXml = LanguageEditing.CreateDefault(),
 			};
 		}
 	}

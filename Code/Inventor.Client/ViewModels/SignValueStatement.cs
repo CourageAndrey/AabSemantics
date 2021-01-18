@@ -56,12 +56,13 @@ namespace Inventor.Client.ViewModels
 			{
 				Owner = owner,
 				Editor = control,
-				Title = "Sign Value",
+				Title = language.StatementNames.SignValue,
 				SizeToContent = SizeToContent.WidthAndHeight,
 				MinWidth = 200,
 				MinHeight = 100,
 				WindowStartupLocation = WindowStartupLocation.CenterOwner,
 			};
+			dialog.Localize(language);
 			return dialog;
 		}
 
