@@ -1,4 +1,4 @@
-﻿<Window x:Class="Inventor.Client.UI.SelectStatementTypeDialog"
+﻿<Window x:Class="Inventor.Client.Dialogs.SelectStatementTypeDialog"
 		xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
 		xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
 		Title="Statement type" SizeToContent="WidthAndHeight" MinHeight="200" MinWidth="100" WindowStartupLocation="CenterOwner">

@@ -1,4 +1,4 @@
-﻿<Window x:Class="Inventor.Client.UI.SignValueStatementDialog"
+﻿<Window x:Class="Inventor.Client.Dialogs.SignValueStatementDialog"
 		xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
 		xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
 		Title="Sign Value" SizeToContent="WidthAndHeight" MinWidth="100" WindowStartupLocation="CenterOwner">

@@ -1,18 +1,18 @@
-﻿<Window x:Class="Inventor.Client.UI.IsStatementDialog"
+﻿<Window x:Class="Inventor.Client.Dialogs.HasSignStatementDialog"
 		xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
 		xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-		Title="Is" SizeToContent="WidthAndHeight" MinWidth="100" WindowStartupLocation="CenterOwner">
+		Title="Has Sign" SizeToContent="WidthAndHeight" MinWidth="100" WindowStartupLocation="CenterOwner">
 	<DockPanel LastChildFill="True">
 		<StackPanel DockPanel.Dock="Bottom" Orientation="Horizontal" Margin="5">
 			<Button Margin="5" Padding="5,2,5,2" Click="okClick">OK</Button>
 			<Button Margin="5" Padding="5,2,5,2" Click="cancelClick">Cancel</Button>
 		</StackPanel>
 		<StackPanel Orientation="Vertical" Name="_contextControl">
-			<GroupBox Header="Parent">
-				<ComboBox Name="_comboBoxParent" SelectedItem="{Binding Path=Parent, Mode=TwoWay}" />
+			<GroupBox Header="Concept">
+				<ComboBox Name="_comboBoxConcept" SelectedItem="{Binding Path=Concept, Mode=TwoWay}" />
 			</GroupBox>
-			<GroupBox Header="Child">
-                <ComboBox Name="_comboBoxChild" SelectedItem="{Binding Path=Child, Mode=TwoWay}" />
+			<GroupBox Header="Sign">
+				<ComboBox Name="_comboBoxSign" SelectedItem="{Binding Path=Sign, Mode=TwoWay}" />
 			</GroupBox>
 		</StackPanel>
 	</DockPanel>

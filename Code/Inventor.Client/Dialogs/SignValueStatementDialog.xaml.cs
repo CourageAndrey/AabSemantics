@@ -2,11 +2,11 @@
 
 using Inventor.Core;
 
-namespace Inventor.Client.UI
+namespace Inventor.Client.Dialogs
 {
-	public partial class HasSignStatementDialog
+	public partial class SignValueStatementDialog
 	{
-		public HasSignStatementDialog()
+		public SignValueStatementDialog()
 		{
 			InitializeComponent();
 		}
@@ -15,11 +15,12 @@ namespace Inventor.Client.UI
 		{
 			_comboBoxConcept.ItemsSource = knowledgeBase.Concepts;
 			_comboBoxSign.ItemsSource = knowledgeBase.Concepts;
+			_comboBoxValue.ItemsSource = knowledgeBase.Concepts;
 		}
 
-		public ViewModels.HasSignStatement EditValue
+		public ViewModels.SignValueStatement EditValue
 		{
-			get { return _contextControl.DataContext as ViewModels.HasSignStatement; }
+			get { return _contextControl.DataContext as ViewModels.SignValueStatement; }
 			set { _contextControl.DataContext = value; }
 		}
 

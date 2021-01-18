@@ -1,7 +1,7 @@
 ﻿using System.Windows.Media;
 
 using Inventor.Client.Properties;
-using Inventor.Client.UI;
+using Inventor.Client.Converters;
 using Inventor.Core;
 
 namespace Inventor.Client.TreeNodes

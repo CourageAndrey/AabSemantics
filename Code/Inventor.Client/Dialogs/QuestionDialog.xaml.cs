@@ -8,10 +8,11 @@ using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
 using System.Windows.Data;
 
+using Inventor.Client.Converters;
 using Inventor.Core;
 using Inventor.Core.Questions;
 
-namespace Inventor.Client.UI
+namespace Inventor.Client.Dialogs
 {
 	public partial class QuestionDialog
 	{
