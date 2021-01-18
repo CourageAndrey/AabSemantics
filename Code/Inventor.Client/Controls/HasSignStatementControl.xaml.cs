@@ -1,4 +1,7 @@
-﻿using Inventor.Core;
+﻿using System.Linq;
+
+using Inventor.Client.ViewModels;
+using Inventor.Core;
 
 namespace Inventor.Client.Controls
 {
@@ -11,8 +14,9 @@ namespace Inventor.Client.Controls
 
 		public void Initialize(IKnowledgeBase knowledgeBase, ILanguage language)
 		{
-			_comboBoxConcept.ItemsSource = knowledgeBase.Concepts;
-			_comboBoxSign.ItemsSource = knowledgeBase.Concepts;
+			var wrappedConcepts = knowledgeBase.Concepts.Select(c => new ConceptItem(c, language)).ToList();
+			_comboBoxConcept.ItemsSource = wrappedConcepts;
+			_comboBoxSign.ItemsSource = wrappedConcepts;
 
 			_groupConcept.Header = language.Ui.Editing.PropertyConcept;
 			_groupSign.Header = language.Ui.Editing.PropertySign;

@@ -2,6 +2,7 @@
 
 using Inventor.Client.Controls;
 using Inventor.Client.Dialogs;
+using Inventor.Core;
 
 namespace Inventor.Client.ViewModels
 {
@@ -9,10 +10,10 @@ namespace Inventor.Client.ViewModels
 	{
 		#region Properties
 
-		public Core.IConcept Parent
+		public ConceptItem Parent
 		{ get; set; }
 
-		public Core.IConcept Child
+		public ConceptItem Child
 		{ get; set; }
 
 		#endregion
@@ -20,16 +21,16 @@ namespace Inventor.Client.ViewModels
 		#region Constructors
 
 		public ConsistsOfStatement()
-			: this(null, null)
+			: this(null as ConceptItem, null)
 		{ }
 
-		public ConsistsOfStatement(Core.Statements.ConsistsOfStatement statement)
-			: this(statement.Parent, statement.Child)
+		public ConsistsOfStatement(Core.Statements.ConsistsOfStatement statement, ILanguage language)
+			: this(new ConceptItem(statement.Parent, language), new ConceptItem(statement.Child, language))
 		{
 			_boundObject = statement;
 		}
 
-		public ConsistsOfStatement(Core.IConcept parent, Core.IConcept child)
+		public ConsistsOfStatement(ConceptItem parent, ConceptItem child)
 		{
 			Parent = parent;
 			Child = child;
@@ -41,7 +42,7 @@ namespace Inventor.Client.ViewModels
 
 		private Core.Statements.ConsistsOfStatement _boundObject;
 
-		public Window CreateEditDialog(Window owner, Core.IKnowledgeBase knowledgeBase, Core.ILanguage language)
+		public Window CreateEditDialog(Window owner, IKnowledgeBase knowledgeBase, ILanguage language)
 		{
 			var control = new ConsistsOfStatementControl
 			{
@@ -62,14 +63,14 @@ namespace Inventor.Client.ViewModels
 			return dialog;
 		}
 
-		public void ApplyCreate(Core.IKnowledgeBase knowledgeBase)
+		public void ApplyCreate(IKnowledgeBase knowledgeBase)
 		{
-			knowledgeBase.Statements.Add(_boundObject = new Core.Statements.ConsistsOfStatement(Parent, Child));
+			knowledgeBase.Statements.Add(_boundObject = new Core.Statements.ConsistsOfStatement(Parent.Concept, Child.Concept));
 		}
 
 		public void ApplyUpdate()
 		{
-			_boundObject.Update(Parent, Child);
+			_boundObject.Update(Parent.Concept, Child.Concept);
 		}
 
 		#endregion

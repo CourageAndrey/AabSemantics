@@ -2,6 +2,7 @@
 
 using Inventor.Client.Controls;
 using Inventor.Client.Dialogs;
+using Inventor.Core;
 
 namespace Inventor.Client.ViewModels
 {
@@ -9,13 +10,13 @@ namespace Inventor.Client.ViewModels
 	{
 		#region Properties
 
-		public Core.IConcept Concept
+		public ConceptItem Concept
 		{ get; set; }
 
-		public Core.IConcept Sign
+		public ConceptItem Sign
 		{ get; set; }
 
-		public Core.IConcept Value
+		public ConceptItem Value
 		{ get; set; }
 
 		#endregion
@@ -23,16 +24,16 @@ namespace Inventor.Client.ViewModels
 		#region Constructors
 
 		public SignValueStatement()
-			: this(null, null, null)
+			: this(null as ConceptItem, null, null)
 		{ }
 
-		public SignValueStatement(Core.Statements.SignValueStatement statement)
-			: this(statement.Concept, statement.Sign, statement.Value)
+		public SignValueStatement(Core.Statements.SignValueStatement statement, ILanguage language)
+			: this(new ConceptItem(statement.Concept, language), new ConceptItem(statement.Sign, language), new ConceptItem(statement.Value, language))
 		{
 			_boundObject = statement;
 		}
 
-		public SignValueStatement(Core.IConcept concept, Core.IConcept sign, Core.IConcept value)
+		public SignValueStatement(ConceptItem concept, ConceptItem sign, ConceptItem value)
 		{
 			Concept = concept;
 			Sign = sign;
@@ -45,7 +46,7 @@ namespace Inventor.Client.ViewModels
 
 		private Core.Statements.SignValueStatement _boundObject;
 
-		public Window CreateEditDialog(Window owner, Core.IKnowledgeBase knowledgeBase, Core.ILanguage language)
+		public Window CreateEditDialog(Window owner, IKnowledgeBase knowledgeBase, ILanguage language)
 		{
 			var control = new SignValueStatementControl
 			{
@@ -66,14 +67,14 @@ namespace Inventor.Client.ViewModels
 			return dialog;
 		}
 
-		public void ApplyCreate(Core.IKnowledgeBase knowledgeBase)
+		public void ApplyCreate(IKnowledgeBase knowledgeBase)
 		{
-			knowledgeBase.Statements.Add(_boundObject = new Core.Statements.SignValueStatement(Concept, Sign, Value));
+			knowledgeBase.Statements.Add(_boundObject = new Core.Statements.SignValueStatement(Concept.Concept, Sign.Concept, Value.Concept));
 		}
 
 		public void ApplyUpdate()
 		{
-			_boundObject.Update(Concept, Sign, Value);
+			_boundObject.Update(Concept.Concept, Sign.Concept, Value.Concept);
 		}
 
 		#endregion
