@@ -1,5 +1,6 @@
 ﻿using System.Windows;
 
+using Inventor.Client.Controls;
 using Inventor.Client.Dialogs;
 
 namespace Inventor.Client.ViewModels
@@ -42,12 +43,21 @@ namespace Inventor.Client.ViewModels
 
 		public Window CreateEditDialog(Window owner, Core.IKnowledgeBase knowledgeBase, Core.ILanguage language)
 		{
-			var dialog = new HasSignStatementDialog
+			var control = new HasSignStatementControl
 			{
-				Owner = owner,
 				EditValue = this,
 			};
-			dialog.Initialize(knowledgeBase, language);
+			control.Initialize(knowledgeBase, language);
+			var dialog = new EditDialog
+			{
+				Owner = owner,
+				Editor = control,
+				Title = "Has Sign",
+				SizeToContent = SizeToContent.WidthAndHeight,
+				MinWidth = 200,
+				MinHeight = 100,
+				WindowStartupLocation = WindowStartupLocation.CenterOwner,
+			};
 			return dialog;
 		}
 

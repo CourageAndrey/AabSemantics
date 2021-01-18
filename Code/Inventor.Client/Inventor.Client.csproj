@@ -56,6 +56,24 @@
     <Reference Include="WindowsFormsIntegration" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Controls\ConceptControl.xaml.cs">
+      <DependentUpon>ConceptControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\ConsistsOfStatementControl.xaml.cs">
+      <DependentUpon>ConsistsOfStatementControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\GroupStatementControl.xaml.cs">
+      <DependentUpon>GroupStatementControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\HasSignStatementControl.xaml.cs">
+      <DependentUpon>HasSignStatementControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\IsStatementControl.xaml.cs">
+      <DependentUpon>IsStatementControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\SignValueStatementControl.xaml.cs">
+      <DependentUpon>SignValueStatementControl.xaml</DependentUpon>
+    </Compile>
     <Compile Include="ExceptionWrapper.cs" />
     <Compile Include="InventorApplication.cs" />
     <Compile Include="InventorConfiguration.cs" />
@@ -68,23 +86,8 @@
     <Compile Include="Dialogs\SelectStatementTypeDialog.xaml.cs">
       <DependentUpon>SelectStatementTypeDialog.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Dialogs\ConsistsOfStatementDialog.xaml.cs">
-      <DependentUpon>ConsistsOfStatementDialog.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Dialogs\GroupStatementDialog.xaml.cs">
-      <DependentUpon>GroupStatementDialog.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Dialogs\HasSignStatementDialog.xaml.cs">
-      <DependentUpon>HasSignStatementDialog.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Dialogs\SignValueStatementDialog.xaml.cs">
-      <DependentUpon>SignValueStatementDialog.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Dialogs\IsStatementDialog.xaml.cs">
-      <DependentUpon>IsStatementDialog.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Dialogs\ConceptDialog.xaml.cs">
-      <DependentUpon>ConceptDialog.xaml</DependentUpon>
+    <Compile Include="Dialogs\EditDialog.xaml.cs">
+      <DependentUpon>EditDialog.xaml</DependentUpon>
     </Compile>
     <Compile Include="Dialogs\ExceptionDialog.xaml.cs">
       <DependentUpon>ExceptionDialog.xaml</DependentUpon>
@@ -116,31 +119,35 @@
     <Compile Include="ViewModels\LocalizedStringValue.cs" />
     <Compile Include="ViewModels\LocalizedString.cs" />
     <Compile Include="ViewModels\SignValueStatement.cs" />
+    <Page Include="Controls\ConceptControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\ConsistsOfStatementControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\GroupStatementControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\HasSignStatementControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\IsStatementControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\SignValueStatementControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Dialogs\SelectStatementTypeDialog.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Dialogs\ConsistsOfStatementDialog.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Dialogs\GroupStatementDialog.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Dialogs\HasSignStatementDialog.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Dialogs\SignValueStatementDialog.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Dialogs\IsStatementDialog.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Dialogs\ConceptDialog.xaml">
+    <Page Include="Dialogs\EditDialog.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
