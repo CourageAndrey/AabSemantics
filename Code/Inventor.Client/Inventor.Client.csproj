@@ -71,6 +71,7 @@
     <Compile Include="Controls\IsStatementControl.xaml.cs">
       <DependentUpon>IsStatementControl.xaml</DependentUpon>
     </Compile>
+    <Compile Include="ViewModels\ConceptItem.cs" />
     <Compile Include="Controls\SignValueStatementControl.xaml.cs">
       <DependentUpon>SignValueStatementControl.xaml</DependentUpon>
     </Compile>
