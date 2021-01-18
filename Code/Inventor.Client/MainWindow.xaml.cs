@@ -6,13 +6,14 @@ using System.Windows.Data;
 
 using Microsoft.Win32;
 
+using Inventor.Client.Dialogs;
 using Inventor.Client.TreeNodes;
 using Inventor.Core;
 using Inventor.Core.Base;
 using Inventor.Core.Localization;
 using Inventor.Core.Statements;
 
-namespace Inventor.Client.UI
+namespace Inventor.Client
 {
 	public partial class MainWindow
 	{

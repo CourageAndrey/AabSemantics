@@ -1,6 +1,6 @@
 ﻿using System.Windows;
 
-namespace Inventor.Client.UI
+namespace Inventor.Client.Controls
 {
 	public partial class LocalizedStringVariableControl
 	{

@@ -7,7 +7,7 @@ using Microsoft.Win32;
 using Inventor.Core;
 using Inventor.Core.Utils;
 
-namespace Inventor.Client.UI
+namespace Inventor.Client.Dialogs
 {
 	public enum ExceptionDialogMode
 	{

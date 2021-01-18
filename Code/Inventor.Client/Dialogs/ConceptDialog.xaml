@@ -1,7 +1,7 @@
-﻿<Window x:Class="Inventor.Client.UI.ConceptDialog"
+﻿<Window x:Class="Inventor.Client.Dialogs.ConceptDialog"
 		xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
 		xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-		xmlns:ui="clr-namespace:Inventor.Client.UI"
+		xmlns:controls="clr-namespace:Inventor.Client.Controls"
 		Title="Edit Concept" SizeToContent="WidthAndHeight" MinHeight="300" MinWidth="100" WindowStartupLocation="CenterOwner">
 	<DockPanel LastChildFill="True">
 		<StackPanel DockPanel.Dock="Bottom" Orientation="Horizontal" Margin="5">
@@ -14,10 +14,10 @@
 				<RowDefinition Height="*"/>
 			</Grid.RowDefinitions>
 			<GroupBox Grid.Row="0" Header="Name">
-				<ui:LocalizedStringVariableControl EditValue="{Binding Path=Name, Mode=OneTime}" x:Name="_nameConrol" />
+				<controls:LocalizedStringVariableControl EditValue="{Binding Path=Name, Mode=OneTime}" x:Name="_nameConrol" />
 			</GroupBox>
 			<GroupBox Grid.Row="1" Header="Hint">
-				<ui:LocalizedStringVariableControl EditValue="{Binding Path=Hint, Mode=OneTime}" x:Name="_hintConrol" />
+				<controls:LocalizedStringVariableControl EditValue="{Binding Path=Hint, Mode=OneTime}" x:Name="_hintConrol" />
 			</GroupBox>
 		</Grid>
 	</DockPanel>

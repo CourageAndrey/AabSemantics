@@ -4,7 +4,7 @@ using System.Linq;
 using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
 
-namespace Inventor.Client.UI
+namespace Inventor.Client
 {
 	public static class UiHelper
 	{
