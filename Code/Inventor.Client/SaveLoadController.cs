@@ -6,7 +6,7 @@ using Inventor.Core;
 
 using Microsoft.Win32;
 
-namespace Inventor.Client.UI
+namespace Inventor.Client
 {
 	public class SaveLoadController
 	{

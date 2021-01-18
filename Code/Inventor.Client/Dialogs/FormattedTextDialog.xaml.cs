@@ -6,7 +6,7 @@ using System.Windows.Forms;
 using Inventor.Core;
 using Inventor.Core.Localization;
 
-namespace Inventor.Client.UI
+namespace Inventor.Client.Dialogs
 {
 	public partial class FormattedTextDialog
 	{

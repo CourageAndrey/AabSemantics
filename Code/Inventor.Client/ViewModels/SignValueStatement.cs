@@ -1,6 +1,6 @@
 ﻿using System.Windows;
 
-using Inventor.Client.UI;
+using Inventor.Client.Dialogs;
 
 namespace Inventor.Client.ViewModels
 {

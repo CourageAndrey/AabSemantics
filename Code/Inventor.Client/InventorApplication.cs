@@ -5,7 +5,6 @@ using System.Linq;
 using System.Windows;
 using System.Windows.Threading;
 
-using Inventor.Client.UI;
 using Inventor.Core;
 using Inventor.Core.Localization;
 using Inventor.Core.Utils;
@@ -117,13 +116,13 @@ namespace Inventor.Client
 		{
 			if (e.ExceptionObject is Exception)
 			{
-				new ExceptionDialog(new ExceptionWrapper(e.ExceptionObject as Exception), ExceptionDialogMode.ProcessFatalError, CurrentLanguage).ShowDialog();
+				new Dialogs.ExceptionDialog(new ExceptionWrapper(e.ExceptionObject as Exception), Dialogs.ExceptionDialogMode.ProcessFatalError, CurrentLanguage).ShowDialog();
 			}
 		}
 
 		private void dispatcherUnhandledException(object sender, DispatcherUnhandledExceptionEventArgs e)
 		{
-			if (new ExceptionDialog(e.Exception, false, CurrentLanguage).ShowDialog() == true)
+			if (new Dialogs.ExceptionDialog(e.Exception, false, CurrentLanguage).ShowDialog() == true)
 			{
 				Shutdown();
 			}

@@ -3,9 +3,8 @@ using System.Globalization;
 using System.Windows.Data;
 
 using Inventor.Core;
-using Inventor.Core.Localization;
 
-namespace Inventor.Client.UI
+namespace Inventor.Client.Converters
 {
 	public class NamedConverter : IValueConverter
 	{

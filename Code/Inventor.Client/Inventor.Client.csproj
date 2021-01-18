@@ -65,49 +65,49 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <Compile Include="UI\SelectStatementTypeDialog.xaml.cs">
+    <Compile Include="Dialogs\SelectStatementTypeDialog.xaml.cs">
       <DependentUpon>SelectStatementTypeDialog.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UI\ConsistsOfStatementDialog.xaml.cs">
+    <Compile Include="Dialogs\ConsistsOfStatementDialog.xaml.cs">
       <DependentUpon>ConsistsOfStatementDialog.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UI\GroupStatementDialog.xaml.cs">
+    <Compile Include="Dialogs\GroupStatementDialog.xaml.cs">
       <DependentUpon>GroupStatementDialog.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UI\HasSignStatementDialog.xaml.cs">
+    <Compile Include="Dialogs\HasSignStatementDialog.xaml.cs">
       <DependentUpon>HasSignStatementDialog.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UI\SignValueStatementDialog.xaml.cs">
+    <Compile Include="Dialogs\SignValueStatementDialog.xaml.cs">
       <DependentUpon>SignValueStatementDialog.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UI\IsStatementDialog.xaml.cs">
+    <Compile Include="Dialogs\IsStatementDialog.xaml.cs">
       <DependentUpon>IsStatementDialog.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UI\ConceptDialog.xaml.cs">
+    <Compile Include="Dialogs\ConceptDialog.xaml.cs">
       <DependentUpon>ConceptDialog.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UI\ExceptionDialog.xaml.cs">
+    <Compile Include="Dialogs\ExceptionDialog.xaml.cs">
       <DependentUpon>ExceptionDialog.xaml</DependentUpon>
     </Compile>
     <Compile Include="TreeNodes\ExtendedTreeNode.cs" />
-    <Compile Include="UI\ImageConverter.cs" />
-    <Compile Include="UI\LocalizedStringVariableControl.xaml.cs">
+    <Compile Include="Converters\ImageConverter.cs" />
+    <Compile Include="Controls\LocalizedStringVariableControl.xaml.cs">
       <DependentUpon>LocalizedStringVariableControl.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UI\NamedConverter.cs" />
+    <Compile Include="Converters\NamedConverter.cs" />
     <Compile Include="TreeNodes\ConceptNode.cs" />
     <Compile Include="TreeNodes\StatementNode.cs" />
-    <Compile Include="UI\FormattedTextDialog.xaml.cs">
+    <Compile Include="Dialogs\FormattedTextDialog.xaml.cs">
       <DependentUpon>FormattedTextDialog.xaml</DependentUpon>
     </Compile>
     <Compile Include="TreeNodes\KnowledgeBaseConceptsNode.cs" />
     <Compile Include="TreeNodes\KnowledgeBaseNode.cs" />
     <Compile Include="TreeNodes\KnowledgeBaseStatementsNode.cs" />
-    <Compile Include="UI\QuestionDialog.xaml.cs">
+    <Compile Include="Dialogs\QuestionDialog.xaml.cs">
       <DependentUpon>QuestionDialog.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UI\SaveLoadController.cs" />
-    <Compile Include="UI\UiHelper.cs" />
+    <Compile Include="SaveLoadController.cs" />
+    <Compile Include="UiHelper.cs" />
     <Compile Include="ViewModels\Concept.cs" />
     <Compile Include="ViewModels\ConsistsOfStatement.cs" />
     <Compile Include="ViewModels\GroupStatement.cs" />
@@ -116,55 +116,55 @@
     <Compile Include="ViewModels\LocalizedStringValue.cs" />
     <Compile Include="ViewModels\LocalizedString.cs" />
     <Compile Include="ViewModels\SignValueStatement.cs" />
-    <Page Include="UI\SelectStatementTypeDialog.xaml">
+    <Page Include="Dialogs\SelectStatementTypeDialog.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="UI\ConsistsOfStatementDialog.xaml">
+    <Page Include="Dialogs\ConsistsOfStatementDialog.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="UI\GroupStatementDialog.xaml">
+    <Page Include="Dialogs\GroupStatementDialog.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="UI\HasSignStatementDialog.xaml">
+    <Page Include="Dialogs\HasSignStatementDialog.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="UI\SignValueStatementDialog.xaml">
+    <Page Include="Dialogs\SignValueStatementDialog.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="UI\IsStatementDialog.xaml">
+    <Page Include="Dialogs\IsStatementDialog.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="UI\ConceptDialog.xaml">
+    <Page Include="Dialogs\ConceptDialog.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="UI\ExceptionDialog.xaml">
+    <Page Include="Dialogs\ExceptionDialog.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="UI\LocalizedStringVariableControl.xaml">
+    <Page Include="Controls\LocalizedStringVariableControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="UI\MainWindow.xaml">
+    <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Compile Include="UI\MainWindow.xaml.cs">
+    <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Page Include="UI\FormattedTextDialog.xaml">
+    <Page Include="Dialogs\FormattedTextDialog.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="UI\QuestionDialog.xaml">
+    <Page Include="Dialogs\QuestionDialog.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

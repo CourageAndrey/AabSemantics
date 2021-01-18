@@ -6,7 +6,7 @@ using System.Windows.Controls;
 
 using Inventor.Core;
 
-namespace Inventor.Client.UI
+namespace Inventor.Client.Dialogs
 {
 	public partial class SelectStatementTypeDialog
 	{

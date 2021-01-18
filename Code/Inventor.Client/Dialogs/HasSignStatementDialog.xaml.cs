@@ -2,24 +2,24 @@
 
 using Inventor.Core;
 
-namespace Inventor.Client.UI
+namespace Inventor.Client.Dialogs
 {
-	public partial class ConsistsOfStatementDialog
+	public partial class HasSignStatementDialog
 	{
-		public ConsistsOfStatementDialog()
+		public HasSignStatementDialog()
 		{
 			InitializeComponent();
 		}
 
 		public void Initialize(IKnowledgeBase knowledgeBase, ILanguage language)
 		{
-			_comboBoxParent.ItemsSource = knowledgeBase.Concepts;
-			_comboBoxChild.ItemsSource = knowledgeBase.Concepts;
+			_comboBoxConcept.ItemsSource = knowledgeBase.Concepts;
+			_comboBoxSign.ItemsSource = knowledgeBase.Concepts;
 		}
 
-		public ViewModels.ConsistsOfStatement EditValue
+		public ViewModels.HasSignStatement EditValue
 		{
-			get { return _contextControl.DataContext as ViewModels.ConsistsOfStatement; }
+			get { return _contextControl.DataContext as ViewModels.HasSignStatement; }
 			set { _contextControl.DataContext = value; }
 		}
 
