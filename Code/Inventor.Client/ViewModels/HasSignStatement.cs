@@ -2,6 +2,7 @@
 
 using Inventor.Client.Controls;
 using Inventor.Client.Dialogs;
+using Inventor.Core;
 
 namespace Inventor.Client.ViewModels
 {
@@ -9,10 +10,10 @@ namespace Inventor.Client.ViewModels
 	{
 		#region Properties
 
-		public Core.IConcept Concept
+		public ConceptItem Concept
 		{ get; set; }
 
-		public Core.IConcept Sign
+		public ConceptItem Sign
 		{ get; set; }
 
 		#endregion
@@ -20,16 +21,16 @@ namespace Inventor.Client.ViewModels
 		#region Constructors
 
 		public HasSignStatement()
-			: this(null, null)
+			: this(null as ConceptItem, null)
 		{ }
 
-		public HasSignStatement(Core.Statements.HasSignStatement statement)
-			: this(statement.Concept, statement.Sign)
+		public HasSignStatement(Core.Statements.HasSignStatement statement, ILanguage language)
+			: this(new ConceptItem(statement.Concept, language), new ConceptItem(statement.Sign, language))
 		{
 			_boundObject = statement;
 		}
 
-		public HasSignStatement(Core.IConcept concept, Core.IConcept sign)
+		public HasSignStatement(ConceptItem concept, ConceptItem sign)
 		{
 			Concept = concept;
 			Sign = sign;
@@ -41,7 +42,7 @@ namespace Inventor.Client.ViewModels
 
 		private Core.Statements.HasSignStatement _boundObject;
 
-		public Window CreateEditDialog(Window owner, Core.IKnowledgeBase knowledgeBase, Core.ILanguage language)
+		public Window CreateEditDialog(Window owner, IKnowledgeBase knowledgeBase, ILanguage language)
 		{
 			var control = new HasSignStatementControl
 			{
@@ -62,14 +63,14 @@ namespace Inventor.Client.ViewModels
 			return dialog;
 		}
 
-		public void ApplyCreate(Core.IKnowledgeBase knowledgeBase)
+		public void ApplyCreate(IKnowledgeBase knowledgeBase)
 		{
-			knowledgeBase.Statements.Add(_boundObject = new Core.Statements.HasSignStatement(Concept, Sign));
+			knowledgeBase.Statements.Add(_boundObject = new Core.Statements.HasSignStatement(Concept.Concept, Sign.Concept));
 		}
 
 		public void ApplyUpdate()
 		{
-			_boundObject.Update(Concept, Sign);
+			_boundObject.Update(Concept.Concept, Sign.Concept);
 		}
 
 		#endregion

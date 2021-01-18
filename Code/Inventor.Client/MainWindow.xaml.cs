@@ -216,7 +216,7 @@ namespace Inventor.Client
 			}
 		}
 
-		private static IViewModel viewModelFactory(ExtendedTreeNode treeNode)
+		private IViewModel viewModelFactory(ExtendedTreeNode treeNode)
 		{
 			var conceptNode = treeNode as ConceptNode;
 			var statementNode = treeNode as StatementNode;
@@ -229,23 +229,23 @@ namespace Inventor.Client
 			{
 				if (statementNode.Statement is ConsistsOfStatement)
 				{
-					return new ViewModels.ConsistsOfStatement(statementNode.Statement as ConsistsOfStatement);
+					return new ViewModels.ConsistsOfStatement(statementNode.Statement as ConsistsOfStatement, _application.CurrentLanguage);
 				}
 				else if (statementNode.Statement is GroupStatement)
 				{
-					return new ViewModels.GroupStatement(statementNode.Statement as GroupStatement);
+					return new ViewModels.GroupStatement(statementNode.Statement as GroupStatement, _application.CurrentLanguage);
 				}
 				else if (statementNode.Statement is HasSignStatement)
 				{
-					return new ViewModels.HasSignStatement(statementNode.Statement as HasSignStatement);
+					return new ViewModels.HasSignStatement(statementNode.Statement as HasSignStatement, _application.CurrentLanguage);
 				}
 				else if (statementNode.Statement is IsStatement)
 				{
-					return new ViewModels.IsStatement(statementNode.Statement as IsStatement);
+					return new ViewModels.IsStatement(statementNode.Statement as IsStatement, _application.CurrentLanguage);
 				}
 				else if (statementNode.Statement is SignValueStatement)
 				{
-					return new ViewModels.SignValueStatement(statementNode.Statement as SignValueStatement);
+					return new ViewModels.SignValueStatement(statementNode.Statement as SignValueStatement, _application.CurrentLanguage);
 				}
 			}
 

@@ -2,6 +2,7 @@
 
 using Inventor.Client.Controls;
 using Inventor.Client.Dialogs;
+using Inventor.Core;
 
 namespace Inventor.Client.ViewModels
 {
@@ -9,10 +10,10 @@ namespace Inventor.Client.ViewModels
 	{
 		#region Properties
 
-		public Core.IConcept Area
+		public ConceptItem Area
 		{ get; set; }
 
-		public Core.IConcept Concept
+		public ConceptItem Concept
 		{ get; set; }
 
 		#endregion
@@ -20,16 +21,16 @@ namespace Inventor.Client.ViewModels
 		#region Constructors
 
 		public GroupStatement()
-			: this(null, null)
+			: this(null as ConceptItem, null)
 		{ }
 
-		public GroupStatement(Core.Statements.GroupStatement statement)
-			: this(statement.Area, statement.Concept)
+		public GroupStatement(Core.Statements.GroupStatement statement, ILanguage language)
+			: this(new ConceptItem(statement.Area, language), new ConceptItem(statement.Concept, language))
 		{
 			_boundObject = statement;
 		}
 
-		public GroupStatement(Core.IConcept area, Core.IConcept concept)
+		public GroupStatement(ConceptItem area, ConceptItem concept)
 		{
 			Area = area;
 			Concept = concept;
@@ -41,7 +42,7 @@ namespace Inventor.Client.ViewModels
 
 		private Core.Statements.GroupStatement _boundObject;
 
-		public Window CreateEditDialog(Window owner, Core.IKnowledgeBase knowledgeBase, Core.ILanguage language)
+		public Window CreateEditDialog(Window owner, IKnowledgeBase knowledgeBase, ILanguage language)
 		{
 			var control = new GroupStatementControl
 			{
@@ -62,14 +63,14 @@ namespace Inventor.Client.ViewModels
 			return dialog;
 		}
 
-		public void ApplyCreate(Core.IKnowledgeBase knowledgeBase)
+		public void ApplyCreate(IKnowledgeBase knowledgeBase)
 		{
-			knowledgeBase.Statements.Add(_boundObject = new Core.Statements.GroupStatement(Area, Concept));
+			knowledgeBase.Statements.Add(_boundObject = new Core.Statements.GroupStatement(Area.Concept, Concept.Concept));
 		}
 
 		public void ApplyUpdate()
 		{
-			_boundObject.Update(Area, Concept);
+			_boundObject.Update(Area.Concept, Concept.Concept);
 		}
 
 		#endregion
