@@ -35,6 +35,10 @@ namespace Inventor.Client.Dialogs
 				};
 				_radioGroup.Children.Add(radioButton);
 			}
+
+			Title = language.Ui.StatementTypeDialogHeader;
+			_buttonOk.Content = language.Common.Ok;
+			_buttonCancel.Content = language.Common.Cancel;
 		}
 
 		public Type SelectedType

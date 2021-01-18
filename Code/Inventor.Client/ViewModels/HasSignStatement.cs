@@ -52,12 +52,13 @@ namespace Inventor.Client.ViewModels
 			{
 				Owner = owner,
 				Editor = control,
-				Title = "Has Sign",
+				Title = language.StatementNames.HasSign,
 				SizeToContent = SizeToContent.WidthAndHeight,
 				MinWidth = 200,
 				MinHeight = 100,
 				WindowStartupLocation = WindowStartupLocation.CenterOwner,
 			};
+			dialog.Localize(language);
 			return dialog;
 		}
 

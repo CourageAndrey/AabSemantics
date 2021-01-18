@@ -64,9 +64,9 @@
 		<TreeView Name="treeViewKnowledgeBase" Margin="2">
 			<TreeView.ContextMenu>
 				<ContextMenu ContextMenuOpening="knowledgeContextMenuOpening">
-					<MenuItem Header="Add" Name="_addKnowledgeItem" Click="addKnowledgeClick" />
-					<MenuItem Header="Edit" Name="_editKnowledgeItem" Click="editKnowledgeClick" />
-					<MenuItem Header="Delete" Name="_deleteKnowledgeItem" Click="deleteKnowledgeClick" />
+					<MenuItem Header="{Binding Source={StaticResource language}, Path=Ui.MainForm.ContextMenuKnowledgeAdd, Mode=OneTime}" Name="_addKnowledgeItem" Click="addKnowledgeClick" />
+					<MenuItem Header="{Binding Source={StaticResource language}, Path=Ui.MainForm.ContextMenuKnowledgeEdit, Mode=OneTime}" Name="_editKnowledgeItem" Click="editKnowledgeClick" />
+					<MenuItem Header="{Binding Source={StaticResource language}, Path=Ui.MainForm.ContextMenuKnowledgeDelete, Mode=OneTime}" Name="_deleteKnowledgeItem" Click="deleteKnowledgeClick" />
 				</ContextMenu>
 			</TreeView.ContextMenu>
 		</TreeView>

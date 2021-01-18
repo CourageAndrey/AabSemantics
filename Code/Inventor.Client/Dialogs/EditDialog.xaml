@@ -4,8 +4,8 @@
 		SizeToContent="WidthAndHeight" WindowStartupLocation="CenterOwner">
 	<DockPanel LastChildFill="True" Name="_dockPanel">
 		<StackPanel DockPanel.Dock="Bottom" Orientation="Horizontal" Margin="5">
-			<Button Margin="5" Padding="5,2,5,2" Click="okClick">OK</Button>
-			<Button Margin="5" Padding="5,2,5,2" Click="cancelClick">Cancel</Button>
+			<Button Margin="5" Padding="5,2,5,2" Name="_buttonOk" Click="okClick">OK</Button>
+			<Button Margin="5" Padding="5,2,5,2" Name="_buttonCancel" Click="cancelClick">Cancel</Button>
 		</StackPanel>
 	</DockPanel>
 </Window>

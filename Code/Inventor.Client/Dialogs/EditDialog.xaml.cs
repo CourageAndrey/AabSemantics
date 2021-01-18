@@ -1,5 +1,7 @@
 ﻿using System.Windows;
 
+using Inventor.Core;
+
 namespace Inventor.Client.Dialogs
 {
 	public partial class EditDialog
@@ -36,6 +38,12 @@ namespace Inventor.Client.Dialogs
 		private void cancelClick(object sender, RoutedEventArgs e)
 		{
 			DialogResult = false;
+		}
+
+		public void Localize(ILanguage language)
+		{
+			_buttonOk.Content = language.Common.Ok;
+			_buttonCancel.Content = language.Common.Cancel;
 		}
 	}
 }
