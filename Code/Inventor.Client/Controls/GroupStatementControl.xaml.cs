@@ -13,6 +13,9 @@ namespace Inventor.Client.Controls
 		{
 			_comboBoxConcept.ItemsSource = knowledgeBase.Concepts;
 			_comboBoxArea.ItemsSource = knowledgeBase.Concepts;
+
+			_groupArea.Header = language.Ui.Editing.PropertyArea;
+			_groupConcept.Header = language.Ui.Editing.PropertyConcept;
 		}
 
 		public ViewModels.GroupStatement EditValue

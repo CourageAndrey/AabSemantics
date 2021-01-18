@@ -51,6 +51,18 @@ namespace Inventor.Core.Localization
 		public String Configuration
 		{ get; set; }
 
+		[XmlElement]
+		public String ContextMenuKnowledgeAdd
+		{ get; set; }
+
+		[XmlElement]
+		public String ContextMenuKnowledgeEdit
+		{ get; set; }
+
+		[XmlElement]
+		public String ContextMenuKnowledgeDelete
+		{ get; set; }
+
 		#endregion
 
 		internal static LanguageMainForm CreateDefault()
@@ -68,6 +80,9 @@ namespace Inventor.Core.Localization
 				AskQuestion = "Задать вопрос...",
 				SelectLanguage = "Язык:",
 				Configuration = "Настройки...",
+				ContextMenuKnowledgeAdd = "Добавить...",
+				ContextMenuKnowledgeEdit = "Редактировать...",
+				ContextMenuKnowledgeDelete = "Удалить",
 			};
 		}
 	}

@@ -10,7 +10,13 @@ namespace Inventor.Client.Controls
 		}
 
 		public void Initialize(IKnowledgeBase knowledgeBase, ILanguage language)
-		{ }
+		{
+			_groupName.Header = language.Ui.Editing.PropertyName;
+			_groupHint.Header = language.Ui.Editing.PropertyHint;
+
+			_nameConrol.Localize(language);
+			_hintConrol.Localize(language);
+		}
 
 		public ViewModels.Concept EditValue
 		{

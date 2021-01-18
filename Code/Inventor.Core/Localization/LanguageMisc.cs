@@ -103,6 +103,10 @@ namespace Inventor.Core.Localization
 		public String FalseHint
 		{ get; set; }
 
+		[XmlElement]
+		public String Concept
+		{ get; set; }
+
 		#endregion
 
 		internal static LanguageMisc CreateDefault()
@@ -133,6 +137,7 @@ namespace Inventor.Core.Localization
 				False = "Нет",
 				TrueHint = "Логическое значение: истина.",
 				FalseHint = "Логическое значение: ложь.",
+				Concept = "Понятие",
 			};
 		}
 	}

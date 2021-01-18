@@ -13,6 +13,9 @@ namespace Inventor.Client.Controls
 		{
 			_comboBoxParent.ItemsSource = knowledgeBase.Concepts;
 			_comboBoxChild.ItemsSource = knowledgeBase.Concepts;
+
+			_groupParent.Header = language.Ui.Editing.PropertyParent;
+			_groupChild.Header = language.Ui.Editing.PropertyChild;
 		}
 
 		public ViewModels.ConsistsOfStatement EditValue

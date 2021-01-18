@@ -354,10 +354,16 @@ namespace Inventor.Core
 		String Back
 		{ get; }
 
+		String StatementTypeDialogHeader
+		{ get; }
+
 		ILanguageMainForm MainForm
 		{ get; }
 
 		ILanguageQuestionDialog QuestionDialog
+		{ get; }
+
+		ILanguageEditing Editing
 		{ get; }
 	}
 
@@ -395,6 +401,15 @@ namespace Inventor.Core
 
 		String Configuration
 		{ get; }
+
+		String ContextMenuKnowledgeAdd
+		{ get; }
+
+		String ContextMenuKnowledgeEdit
+		{ get; }
+
+		String ContextMenuKnowledgeDelete
+		{ get; }
 	}
 
 	public interface ILanguageQuestionDialog
@@ -403,6 +418,39 @@ namespace Inventor.Core
 		{ get; }
 
 		String SelectQuestion
+		{ get; }
+	}
+
+	public interface ILanguageEditing
+	{
+		String PropertyConcept
+		{ get; }
+
+		String PropertySign
+		{ get; }
+
+		String PropertyValue
+		{ get; }
+
+		String PropertyParent
+		{ get; }
+
+		String PropertyChild
+		{ get; }
+
+		String PropertyArea
+		{ get; }
+
+		String PropertyName
+		{ get; }
+
+		String PropertyHint
+		{ get; }
+
+		String ColumnHeaderLanguage
+		{ get; }
+
+		String ColumnHeaderValue
 		{ get; }
 	}
 
@@ -490,6 +538,9 @@ namespace Inventor.Core
 		{ get; }
 
 		String FalseHint
+		{ get; }
+
+		String Concept
 		{ get; }
 	}
 }
