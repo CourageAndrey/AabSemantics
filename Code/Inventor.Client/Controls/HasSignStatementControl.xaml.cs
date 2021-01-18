@@ -1,12 +1,10 @@
-﻿using System.Windows;
+﻿using Inventor.Core;
 
-using Inventor.Core;
-
-namespace Inventor.Client.Dialogs
+namespace Inventor.Client.Controls
 {
-	public partial class HasSignStatementDialog
+	public partial class HasSignStatementControl
 	{
-		public HasSignStatementDialog()
+		public HasSignStatementControl()
 		{
 			InitializeComponent();
 		}
@@ -21,16 +19,6 @@ namespace Inventor.Client.Dialogs
 		{
 			get { return _contextControl.DataContext as ViewModels.HasSignStatement; }
 			set { _contextControl.DataContext = value; }
-		}
-
-		private void okClick(object sender, RoutedEventArgs e)
-		{
-			DialogResult = true;
-		}
-
-		private void cancelClick(object sender, RoutedEventArgs e)
-		{
-			DialogResult = false;
 		}
 	}
 }
