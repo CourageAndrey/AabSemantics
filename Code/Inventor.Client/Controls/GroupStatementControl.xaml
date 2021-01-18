@@ -1,0 +1,12 @@
+﻿<UserControl x:Class="Inventor.Client.Controls.GroupStatementControl"
+		xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+		xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+	<StackPanel Orientation="Vertical" Name="_contextControl">
+		<GroupBox Header="Area">
+			<ComboBox Name="_comboBoxArea" SelectedItem="{Binding Path=Area, Mode=TwoWay}" />
+		</GroupBox>
+		<GroupBox Header="Concept">
+			<ComboBox Name="_comboBoxConcept" SelectedItem="{Binding Path=Concept, Mode=TwoWay}" />
+		</GroupBox>
+	</StackPanel>
+</UserControl>

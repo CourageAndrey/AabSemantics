@@ -2,21 +2,29 @@
 
 namespace Inventor.Client.Dialogs
 {
-	public partial class ConceptDialog
+	public partial class EditDialog
 	{
-		public ConceptDialog()
+		public EditDialog()
 		{
 			InitializeComponent();
 		}
 
-		public ViewModels.Concept EditValue
+		private UIElement _editor;
+
+		public UIElement Editor
 		{
-			get { return _contextControl.DataContext as ViewModels.Concept; }
+			get { return _editor; }
 			set
 			{
-				_contextControl.DataContext = value;
-				_nameConrol.IsEnabled = value.Name != null;
-				_hintConrol.IsEnabled = value.Hint != null;
+				if (_editor != null)
+				{
+					_dockPanel.Children.Remove(_editor);
+				}
+				_editor = value;
+				if (_editor != null)
+				{
+					_dockPanel.Children.Add(_editor);
+				}
 			}
 		}
 

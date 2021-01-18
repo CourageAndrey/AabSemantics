@@ -1,12 +1,10 @@
-﻿using System.Windows;
+﻿using Inventor.Core;
 
-using Inventor.Core;
-
-namespace Inventor.Client.Dialogs
+namespace Inventor.Client.Controls
 {
-	public partial class GroupStatementDialog
+	public partial class GroupStatementControl
 	{
-		public GroupStatementDialog()
+		public GroupStatementControl()
 		{
 			InitializeComponent();
 		}
@@ -21,16 +19,6 @@ namespace Inventor.Client.Dialogs
 		{
 			get { return _contextControl.DataContext as ViewModels.GroupStatement; }
 			set { _contextControl.DataContext = value; }
-		}
-
-		private void okClick(object sender, RoutedEventArgs e)
-		{
-			DialogResult = true;
-		}
-
-		private void cancelClick(object sender, RoutedEventArgs e)
-		{
-			DialogResult = false;
 		}
 	}
 }

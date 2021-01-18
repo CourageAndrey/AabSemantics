@@ -1,12 +1,10 @@
-﻿using System.Windows;
+﻿using Inventor.Core;
 
-using Inventor.Core;
-
-namespace Inventor.Client.Dialogs
+namespace Inventor.Client.Controls
 {
-	public partial class SignValueStatementDialog
+	public partial class SignValueStatementControl
 	{
-		public SignValueStatementDialog()
+		public SignValueStatementControl()
 		{
 			InitializeComponent();
 		}
@@ -22,16 +20,6 @@ namespace Inventor.Client.Dialogs
 		{
 			get { return _contextControl.DataContext as ViewModels.SignValueStatement; }
 			set { _contextControl.DataContext = value; }
-		}
-
-		private void okClick(object sender, RoutedEventArgs e)
-		{
-			DialogResult = true;
-		}
-
-		private void cancelClick(object sender, RoutedEventArgs e)
-		{
-			DialogResult = false;
 		}
 	}
 }
