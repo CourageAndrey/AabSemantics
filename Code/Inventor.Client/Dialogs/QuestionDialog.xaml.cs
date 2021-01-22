@@ -64,9 +64,14 @@ namespace Inventor.Client.Dialogs
 
 		private void buttonCreateClick(object sender, RoutedEventArgs e)
 		{
+			beginEditQuestion(_questions[comboBoxQuestion.Text]());
+		}
+
+		private void beginEditQuestion(IQuestion question)
+		{
 			panelSelectQuestion.Visibility = Visibility.Collapsed;
 			panelQuestionParams.Visibility = Visibility.Visible;
-			Question = _questions[comboBoxQuestion.Text]();
+			Question = question;
 			textBoxQuestion.Text = comboBoxQuestion.Text;
 
 			int gridRow = 1;
@@ -210,12 +215,169 @@ namespace Inventor.Client.Dialogs
 
 		private void createStatementsList(PropertyDescriptorAttribute propertyDescriptor, PropertyInfo propertyInfo, int gridRow)
 		{
-			throw new NotImplementedException();
+			GroupBox groupBox;
+			panelQuestionParams.Children.Add(groupBox = new GroupBox
+			{
+				Header = _language.QuestionNames.ParamConditions + ":",
+				Margin = new Thickness(2),
+			});
+			groupBox.SetValue(Grid.RowProperty, gridRow);
+			groupBox.SetValue(Grid.ColumnProperty, 0);
+			groupBox.SetValue(Grid.ColumnSpanProperty, 2);
+
+			var listBox = new ListBox
+			{
+				DataContext = Question,
+			};
+			listBox.SetBinding(ItemsControl.ItemsSourceProperty, new Binding
+			{
+				Path = new PropertyPath(propertyInfo.Name),
+				Mode = BindingMode.TwoWay,
+#warning Display all statements correctly.
+			});
+
+			var addButton = new Button
+			{
+				Content = "+",
+				Margin = new Thickness(2),
+				Padding = new Thickness(5, 2, 5, 2),
+			};
+			addButton.Click += (sender, args) =>
+			{
+				StatementViewModel viewModel;
+
+				Type statementType = null;
+				var statementTypesDialog = new SelectStatementTypeDialog
+				{
+					Owner = this,
+				};
+				statementTypesDialog.Initialize(_language);
+				if (statementTypesDialog.ShowDialog() == true)
+				{
+					statementType = statementTypesDialog.SelectedType;
+				}
+				if (statementType == null) return;
+
+				viewModel = (StatementViewModel) ViewModels.Factory.CreateByCoreType(statementType);
+
+				var editDialog = viewModel.CreateEditDialog(this, _knowledgeBase, _language);
+
+				if (editDialog.ShowDialog() == true)
+				{
+					var statement = viewModel.CreateStatement();
+					((ICollection<IStatement>) listBox.ItemsSource).Add(statement);
+				}
+			};
+
+			var deleteButton = new Button
+			{
+				Content = "-",
+				Margin = new Thickness(2),
+				Padding = new Thickness(5, 2, 5, 2),
+			};
+			deleteButton.Click += (sender, args) =>
+			{
+				var statements = listBox.SelectedItems.OfType<IStatement>().ToList();
+				foreach (var statement in statements)
+				{
+					listBox.Items.Remove(statement);
+				}
+			};
+
+			var editButton = new Button
+			{
+				Content = "...",
+				Margin = new Thickness(2),
+				Padding = new Thickness(5, 2, 5, 2),
+			};
+			editButton.Click += (sender, args) =>
+			{
+				var statement = listBox.SelectedItem as IStatement;
+				if (statement == null) return;
+
+				var viewModel = ViewModels.Factory.CreateStatementByInstance(statement, _language);
+
+				var editDialog = viewModel.CreateEditDialog(this, _knowledgeBase, _language);
+
+				if (editDialog.ShowDialog() == true)
+				{
+					viewModel.ApplyUpdate();
+#warning Ensure that corresponding ListBox item is also updated.
+				}
+			};
+
+			var stackPanel = new StackPanel
+			{
+				Orientation = Orientation.Vertical,
+			};
+			stackPanel.SetValue(DockPanel.DockProperty, Dock.Right);
+			stackPanel.Children.Add(addButton);
+			stackPanel.Children.Add(deleteButton);
+			stackPanel.Children.Add(editButton);
+
+			var dockPanel = new DockPanel
+			{
+				LastChildFill = true,
+			};
+
+			dockPanel.Children.Add(stackPanel);
+			dockPanel.Children.Add(listBox);
+
+			groupBox.Content = dockPanel;
 		}
 
 		private void createQuestionEditor(PropertyDescriptorAttribute propertyDescriptor, PropertyInfo propertyInfo, int gridRow)
 		{
-			throw new NotImplementedException();
+			Button editButton;
+			panelQuestionParams.Children.Add(editButton = new Button
+			{
+				Margin = new Thickness(2),
+				Content = $"{_language.QuestionNames.ParamQuestion}: ...",
+				DataContext = Question,
+			});
+			editButton.SetBinding(FrameworkElement.TagProperty, new Binding
+			{
+				Path = new PropertyPath(propertyInfo.Name),
+				Mode = BindingMode.TwoWay,
+			});
+			editButton.SetValue(Grid.RowProperty, gridRow);
+			editButton.SetValue(Grid.ColumnProperty, 0);
+			editButton.SetValue(Grid.ColumnSpanProperty, 2);
+			editButton.Click += (sender, args) =>
+			{
+				var question = editButton.Tag as IQuestion;
+				if (question == null || MessageBox.Show(_language.Ui.CreateNewQuestion, _language.Common.Question, MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
+				{
+					var dialog = new QuestionDialog(_knowledgeBase, _language)
+					{
+						Owner = this,
+					};
+					if (dialog.ShowDialog() == true)
+					{
+						question = dialog.Question;
+					}
+				}
+				else
+				{
+					var dialog = new QuestionDialog(_knowledgeBase, _language)
+					{
+						Owner = this,
+					};
+					dialog.beginEditQuestion(question);
+					if (dialog.ShowDialog() != true)
+					{
+						question = null;
+					}
+				}
+
+				if (question != null)
+				{
+					editButton.Tag = question;
+					var questionDefinition = _knowledgeBase.Context.QuestionRepository.QuestionDefinitions[question.GetType()];
+					editButton.Content = $"{_language.QuestionNames.ParamQuestion}: {questionDefinition.GetName(_language)}";
+#warning Display full form of questions instead of raw stubs without data.
+				}
+			};
 		}
 
 		#endregion
