@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Collections.ObjectModel;
 
 namespace Inventor.Core.Questions
 {
@@ -7,7 +8,8 @@ namespace Inventor.Core.Questions
 	{
 		[PropertyDescriptor(true, "QuestionNames.ParamConditions")]
 		public ICollection<IStatement> Conditions
-		{ get; set; }
+		{ get; set; } = new ObservableCollection<IStatement>();
+#warning Get rid of concrete type here.
 
 		[PropertyDescriptor(true, "QuestionNames.ParamQuestion")]
 		public IQuestion Question
