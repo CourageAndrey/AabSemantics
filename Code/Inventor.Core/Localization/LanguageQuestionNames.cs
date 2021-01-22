@@ -99,6 +99,18 @@ namespace Inventor.Core.Localization
 		public String ParamArea
 		{ get; set; }
 
+		[XmlElement]
+		public String ParamStatement
+		{ get; set; }
+
+		[XmlElement]
+		public String ParamConditions
+		{ get; set; }
+
+		[XmlElement]
+		public String ParamQuestion
+		{ get; set; }
+
 		#endregion
 
 		internal static LanguageQuestionNames CreateDefault()
@@ -128,6 +140,9 @@ namespace Inventor.Core.Localization
 				ParamSign = "ПРИЗНАК",
 				ParamRecursive = "Рекурсивно просмотреть \"родителей\"",
 				ParamArea = "ПРЕДМЕТНАЯ_ОБЛАСТЬ",
+				ParamStatement = "Утверждение",
+				ParamConditions = "Предусловия",
+				ParamQuestion = "Вопрос",
 			};
 		}
 	}

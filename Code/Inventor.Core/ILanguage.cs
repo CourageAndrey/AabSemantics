@@ -254,6 +254,15 @@ namespace Inventor.Core
 
 		String ParamArea
 		{ get; }
+
+		String ParamStatement
+		{ get; }
+
+		String ParamConditions
+		{ get; }
+
+		String ParamQuestion
+		{ get; }
 	}
 
 	public interface ILanguageAnswers
@@ -355,6 +364,9 @@ namespace Inventor.Core
 		{ get; }
 
 		String StatementTypeDialogHeader
+		{ get; }
+
+		String CreateNewStatement
 		{ get; }
 
 		ILanguageMainForm MainForm

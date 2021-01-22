@@ -38,6 +38,10 @@ namespace Inventor.Core.Localization
 		public String StatementTypeDialogHeader
 		{ get; set; }
 
+		[XmlElement]
+		public String CreateNewStatement
+		{ get; set; }
+
 		[XmlElement(ElementMainForm)]
 		public LanguageMainForm MainFormXml
 		{ get; set; }
@@ -73,6 +77,7 @@ namespace Inventor.Core.Localization
 				Next = "Далее >",
 				Back = "< Назад",
 				StatementTypeDialogHeader = "Выберите тип утверждения",
+				CreateNewStatement = "Создать новое утверждение? (Нет - редактирование старого)",
 				QuestionDialogXml = LanguageQuestionDialog.CreateDefault(),
 				MainFormXml = LanguageMainForm.CreateDefault(),
 				EditingXml = LanguageEditing.CreateDefault(),
