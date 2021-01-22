@@ -6,7 +6,7 @@ using Inventor.Core;
 
 namespace Inventor.Client.ViewModels
 {
-	public class GroupStatement : IViewModel
+	public class GroupStatement : StatementViewModel<Core.Statements.GroupStatement>
 	{
 		#region Properties
 
@@ -40,9 +40,7 @@ namespace Inventor.Client.ViewModels
 
 		#region Implementation of IViewModel
 
-		private Core.Statements.GroupStatement _boundObject;
-
-		public Window CreateEditDialog(Window owner, IKnowledgeBase knowledgeBase, ILanguage language)
+		public override Window CreateEditDialog(Window owner, IKnowledgeBase knowledgeBase, ILanguage language)
 		{
 			var control = new GroupStatementControl
 			{
@@ -63,12 +61,12 @@ namespace Inventor.Client.ViewModels
 			return dialog;
 		}
 
-		public void ApplyCreate(IKnowledgeBase knowledgeBase)
+		protected override Core.Statements.GroupStatement CreateStatementImplementation()
 		{
-			knowledgeBase.Statements.Add(_boundObject = new Core.Statements.GroupStatement(Area.Concept, Concept.Concept));
+			return new Core.Statements.GroupStatement(Area.Concept, Concept.Concept);
 		}
 
-		public void ApplyUpdate()
+		public override void ApplyUpdate()
 		{
 			_boundObject.Update(Area.Concept, Concept.Concept);
 		}
