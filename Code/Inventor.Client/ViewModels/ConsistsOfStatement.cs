@@ -6,7 +6,7 @@ using Inventor.Core;
 
 namespace Inventor.Client.ViewModels
 {
-	public class ConsistsOfStatement : IViewModel
+	public class ConsistsOfStatement : StatementViewModel<Core.Statements.ConsistsOfStatement>
 	{
 		#region Properties
 
@@ -40,9 +40,7 @@ namespace Inventor.Client.ViewModels
 
 		#region Implementation of IViewModel
 
-		private Core.Statements.ConsistsOfStatement _boundObject;
-
-		public Window CreateEditDialog(Window owner, IKnowledgeBase knowledgeBase, ILanguage language)
+		public override Window CreateEditDialog(Window owner, IKnowledgeBase knowledgeBase, ILanguage language)
 		{
 			var control = new ConsistsOfStatementControl
 			{
@@ -63,12 +61,12 @@ namespace Inventor.Client.ViewModels
 			return dialog;
 		}
 
-		public void ApplyCreate(IKnowledgeBase knowledgeBase)
+		protected override Core.Statements.ConsistsOfStatement CreateStatementImplementation()
 		{
-			knowledgeBase.Statements.Add(_boundObject = new Core.Statements.ConsistsOfStatement(Parent.Concept, Child.Concept));
+			return new Core.Statements.ConsistsOfStatement(Parent.Concept, Child.Concept);
 		}
 
-		public void ApplyUpdate()
+		public override void ApplyUpdate()
 		{
 			_boundObject.Update(Parent.Concept, Child.Concept);
 		}

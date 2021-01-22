@@ -6,7 +6,7 @@ using Inventor.Core;
 
 namespace Inventor.Client.ViewModels
 {
-	public class HasSignStatement : IViewModel
+	public class HasSignStatement : StatementViewModel<Core.Statements.HasSignStatement>
 	{
 		#region Properties
 
@@ -40,9 +40,7 @@ namespace Inventor.Client.ViewModels
 
 		#region Implementation of IViewModel
 
-		private Core.Statements.HasSignStatement _boundObject;
-
-		public Window CreateEditDialog(Window owner, IKnowledgeBase knowledgeBase, ILanguage language)
+		public override Window CreateEditDialog(Window owner, IKnowledgeBase knowledgeBase, ILanguage language)
 		{
 			var control = new HasSignStatementControl
 			{
@@ -63,12 +61,12 @@ namespace Inventor.Client.ViewModels
 			return dialog;
 		}
 
-		public void ApplyCreate(IKnowledgeBase knowledgeBase)
+		protected override Core.Statements.HasSignStatement CreateStatementImplementation()
 		{
-			knowledgeBase.Statements.Add(_boundObject = new Core.Statements.HasSignStatement(Concept.Concept, Sign.Concept));
+			return new Core.Statements.HasSignStatement(Concept.Concept, Sign.Concept);
 		}
 
-		public void ApplyUpdate()
+		public override void ApplyUpdate()
 		{
 			_boundObject.Update(Concept.Concept, Sign.Concept);
 		}

@@ -6,7 +6,7 @@ using Inventor.Core;
 
 namespace Inventor.Client.ViewModels
 {
-	public class IsStatement : IViewModel
+	public class IsStatement : StatementViewModel<Core.Statements.IsStatement>
 	{
 		#region Properties
 
@@ -40,9 +40,7 @@ namespace Inventor.Client.ViewModels
 
 		#region Implementation of IViewModel
 
-		private Core.Statements.IsStatement _boundObject;
-
-		public Window CreateEditDialog(Window owner, IKnowledgeBase knowledgeBase, ILanguage language)
+		public override Window CreateEditDialog(Window owner, IKnowledgeBase knowledgeBase, ILanguage language)
 		{
 			var control = new IsStatementControl
 			{
@@ -63,12 +61,12 @@ namespace Inventor.Client.ViewModels
 			return dialog;
 		}
 
-		public void ApplyCreate(IKnowledgeBase knowledgeBase)
+		protected override Core.Statements.IsStatement CreateStatementImplementation()
 		{
-			knowledgeBase.Statements.Add(_boundObject = new Core.Statements.IsStatement(Parent.Concept, Child.Concept));
+			return new Core.Statements.IsStatement(Parent.Concept, Child.Concept);
 		}
 
-		public void ApplyUpdate()
+		public override void ApplyUpdate()
 		{
 			_boundObject.Update(Parent.Concept, Child.Concept);
 		}
