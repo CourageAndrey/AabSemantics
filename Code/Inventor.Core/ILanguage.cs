@@ -369,6 +369,9 @@ namespace Inventor.Core
 		String CreateNewStatement
 		{ get; }
 
+		String CreateNewQuestion
+		{ get; }
+
 		ILanguageMainForm MainForm
 		{ get; }
 
