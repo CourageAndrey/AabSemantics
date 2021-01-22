@@ -11,7 +11,6 @@ using Inventor.Client.TreeNodes;
 using Inventor.Core;
 using Inventor.Core.Base;
 using Inventor.Core.Localization;
-using Inventor.Core.Statements;
 
 namespace Inventor.Client
 {
@@ -184,75 +183,6 @@ namespace Inventor.Client
 
 		#region Knowledge Tree Menu
 
-		private static IViewModel viewModelFactory(Type type)
-		{
-			if (type == typeof (Concept))
-			{
-				return new ViewModels.Concept();
-			}
-			else if (type == typeof(ConsistsOfStatement))
-			{
-				return new ViewModels.ConsistsOfStatement();
-			}
-			else if (type == typeof(GroupStatement))
-			{
-				return new ViewModels.GroupStatement();
-			}
-			else if (type == typeof(HasSignStatement))
-			{
-				return new ViewModels.HasSignStatement();
-			}
-			else if (type == typeof(IsStatement))
-			{
-				return new ViewModels.IsStatement();
-			}
-			else if (type == typeof(SignValueStatement))
-			{
-				return new ViewModels.SignValueStatement();
-			}
-			else
-			{
-				throw new NotSupportedException(type.FullName);
-			}
-		}
-
-		private IViewModel viewModelFactory(ExtendedTreeNode treeNode)
-		{
-			var conceptNode = treeNode as ConceptNode;
-			var statementNode = treeNode as StatementNode;
-
-			if (conceptNode != null)
-			{
-				return new ViewModels.Concept(conceptNode.Concept as Concept);
-			}
-			else if (statementNode != null)
-			{
-				if (statementNode.Statement is ConsistsOfStatement)
-				{
-					return new ViewModels.ConsistsOfStatement(statementNode.Statement as ConsistsOfStatement, _application.CurrentLanguage);
-				}
-				else if (statementNode.Statement is GroupStatement)
-				{
-					return new ViewModels.GroupStatement(statementNode.Statement as GroupStatement, _application.CurrentLanguage);
-				}
-				else if (statementNode.Statement is HasSignStatement)
-				{
-					return new ViewModels.HasSignStatement(statementNode.Statement as HasSignStatement, _application.CurrentLanguage);
-				}
-				else if (statementNode.Statement is IsStatement)
-				{
-					return new ViewModels.IsStatement(statementNode.Statement as IsStatement, _application.CurrentLanguage);
-				}
-				else if (statementNode.Statement is SignValueStatement)
-				{
-					return new ViewModels.SignValueStatement(statementNode.Statement as SignValueStatement, _application.CurrentLanguage);
-				}
-			}
-
-			throw new NotSupportedException(treeNode.GetType().FullName);
-		}
-		
-
 		private void addKnowledgeClick(object sender, RoutedEventArgs e)
 		{
 			Type type = null;
@@ -275,7 +205,7 @@ namespace Inventor.Client
 			}
 			if (type == null) return;
 
-			IViewModel viewModel = viewModelFactory(type);
+			IViewModel viewModel = ViewModels.Factory.CreateByCoreType(type);
 			var editDialog = viewModel.CreateEditDialog(this, _application.KnowledgeBase, _application.CurrentLanguage);
 
 			if (editDialog.ShowDialog() == true)
@@ -288,7 +218,7 @@ namespace Inventor.Client
 		{
 			var selectedNode = treeViewKnowledgeBase.SelectedItem as ExtendedTreeNode;
 			if (selectedNode == null) return;
-			var viewModel = viewModelFactory(selectedNode);
+			var viewModel = ViewModels.Factory.CreateByTreeNode(selectedNode, _application.CurrentLanguage);
 			if (viewModel == null) return;
 
 			var editDialog = viewModel.CreateEditDialog(this, _application.KnowledgeBase, _application.CurrentLanguage);
