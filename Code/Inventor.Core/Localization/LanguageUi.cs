@@ -34,7 +34,7 @@ namespace Inventor.Core.Localization
 		public String Back
 		{ get; set; }
 
-		[XmlElement(ElementQuestionDialog)]
+		[XmlElement]
 		public String StatementTypeDialogHeader
 		{ get; set; }
 
