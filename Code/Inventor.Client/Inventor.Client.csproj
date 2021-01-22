@@ -114,6 +114,7 @@
     <Compile Include="UiHelper.cs" />
     <Compile Include="ViewModels\Concept.cs" />
     <Compile Include="ViewModels\ConsistsOfStatement.cs" />
+    <Compile Include="ViewModels\Factory.cs" />
     <Compile Include="ViewModels\GroupStatement.cs" />
     <Compile Include="ViewModels\HasSignStatement.cs" />
     <Compile Include="ViewModels\IsStatement.cs" />
