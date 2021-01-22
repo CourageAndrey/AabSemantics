@@ -52,6 +52,9 @@ namespace Inventor.Client.Dialogs
 			{
 				{ typeof(IConcept), createConceptSelector },
 				{ typeof(bool), createCheckBox },
+				{ typeof(IStatement), createStatementEditor },
+				{ typeof(ICollection<IStatement>), createStatementsList },
+				{ typeof(IQuestion), createQuestionEditor },
 			};
 		}
 
@@ -149,6 +152,70 @@ namespace Inventor.Client.Dialogs
 				Converter = new FormatConverter(propertyDescriptor.Required, _language),
 			});
 			checkBox.Content = textLabel;
+		}
+
+		private void createStatementEditor(PropertyDescriptorAttribute propertyDescriptor, PropertyInfo propertyInfo, int gridRow)
+		{
+			Button editButton;
+			panelQuestionParams.Children.Add(editButton = new Button
+			{
+				Margin = new Thickness(2),
+				Content = $"{_language.QuestionNames.ParamStatement}: ...",
+				DataContext = Question,
+			});
+			editButton.SetBinding(FrameworkElement.TagProperty, new Binding
+			{
+				Path = new PropertyPath(propertyInfo.Name),
+				Mode = BindingMode.TwoWay,
+			});
+			editButton.SetValue(Grid.RowProperty, gridRow);
+			editButton.SetValue(Grid.ColumnProperty, 0);
+			editButton.SetValue(Grid.ColumnSpanProperty, 2);
+			editButton.Click += (sender, args) =>
+			{
+				StatementViewModel viewModel;
+
+				var statement = editButton.Tag as IStatement;
+				if (statement == null || MessageBox.Show(_language.Ui.CreateNewStatement, _language.Common.Question, MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
+				{
+					Type statementType = null;
+					var statementTypesDialog = new SelectStatementTypeDialog
+					{
+						Owner = this,
+					};
+					statementTypesDialog.Initialize(_language);
+					if (statementTypesDialog.ShowDialog() == true)
+					{
+						statementType = statementTypesDialog.SelectedType;
+					}
+					if (statementType == null) return;
+
+					viewModel = (StatementViewModel) ViewModels.Factory.CreateByCoreType(statementType);
+				}
+				else
+				{
+					viewModel = ViewModels.Factory.CreateStatementByInstance(statement, _language);
+				}
+
+				var editDialog = viewModel.CreateEditDialog(this, _knowledgeBase, _language);
+
+				if (editDialog.ShowDialog() == true)
+				{
+					statement = viewModel.CreateStatement();
+					editButton.Tag = statement;
+					editButton.Content = $"{_language.QuestionNames.ParamStatement}: {statement.DescribeTrue(_language).GetPlainText(_language)}";
+				}
+			};
+		}
+
+		private void createStatementsList(PropertyDescriptorAttribute propertyDescriptor, PropertyInfo propertyInfo, int gridRow)
+		{
+			throw new NotImplementedException();
+		}
+
+		private void createQuestionEditor(PropertyDescriptorAttribute propertyDescriptor, PropertyInfo propertyInfo, int gridRow)
+		{
+			throw new NotImplementedException();
 		}
 
 		#endregion

@@ -5,11 +5,11 @@ namespace Inventor.Core.Questions
 	[QuestionDescriptor]
 	public sealed class QuestionWithCondition : IQuestion
 	{
-		//[PropertyDescriptor(, )]
+		[PropertyDescriptor(true, "QuestionNames.ParamConditions")]
 		public ICollection<IStatement> Conditions
 		{ get; set; }
 
-		//[PropertyDescriptor(, )]
+		[PropertyDescriptor(true, "QuestionNames.ParamQuestion")]
 		public IQuestion Question
 		{ get; set; }
 	}

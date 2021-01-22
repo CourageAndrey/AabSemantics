@@ -3,7 +3,7 @@
 	[QuestionDescriptor]
 	public sealed class CheckStatementQuestion : IQuestion
 	{
-		//[PropertyDescriptor(, )]
+		[PropertyDescriptor(true, "QuestionNames.ParamStatement")]
 		public IStatement Statement
 		{ get; set; }
 	}
