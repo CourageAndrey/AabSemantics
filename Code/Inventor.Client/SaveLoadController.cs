@@ -40,16 +40,16 @@ namespace Inventor.Client
 			EventHandler updateView,
 			IChangeable entity = null)
 		{
-			if (buttonNew == null) throw new ArgumentNullException("buttonNew");
-			if (buttonLoad == null) throw new ArgumentNullException("buttonLoad");
-			if (buttonSave == null) throw new ArgumentNullException("buttonSave");
-			if (buttonSaveAs == null) throw new ArgumentNullException("buttonSaveAs");
-			if (createNew == null) throw new ArgumentNullException("createNew");
-			if (loadFromFile == null) throw new ArgumentNullException("loadFromFile");
-			if (saveToFile == null) throw new ArgumentNullException("saveToFile");
-			if (createOpenDialog == null) throw new ArgumentNullException("createOpenDialog");
-			if (createSaveDialog == null) throw new ArgumentNullException("createSaveDialog");
-			if (updateView == null) throw new ArgumentNullException("updateView");
+			if (buttonNew == null) throw new ArgumentNullException(nameof(buttonNew));
+			if (buttonLoad == null) throw new ArgumentNullException(nameof(buttonLoad));
+			if (buttonSave == null) throw new ArgumentNullException(nameof(buttonSave));
+			if (buttonSaveAs == null) throw new ArgumentNullException(nameof(buttonSaveAs));
+			if (createNew == null) throw new ArgumentNullException(nameof(createNew));
+			if (loadFromFile == null) throw new ArgumentNullException(nameof(loadFromFile));
+			if (saveToFile == null) throw new ArgumentNullException(nameof(saveToFile));
+			if (createOpenDialog == null) throw new ArgumentNullException(nameof(createOpenDialog));
+			if (createSaveDialog == null) throw new ArgumentNullException(nameof(createSaveDialog));
+			if (updateView == null) throw new ArgumentNullException(nameof(updateView));
 
 			_buttonNew = buttonNew;
 			_buttonLoad = buttonLoad;
@@ -85,7 +85,7 @@ namespace Inventor.Client
 
 		public void ChangeEntity(IChangeable newEntity, String newFileName = null)
 		{
-			if (newEntity == null) throw new ArgumentNullException("newEntity");
+			if (newEntity == null) throw new ArgumentNullException(nameof(newEntity));
 
 			if (_entity != null)
 			{

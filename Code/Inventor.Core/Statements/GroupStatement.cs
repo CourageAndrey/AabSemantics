@@ -25,8 +25,8 @@ namespace Inventor.Core.Statements
 
 		public void Update(IConcept area, IConcept concept)
 		{
-			if (area == null) throw new ArgumentNullException("area");
-			if (concept == null) throw new ArgumentNullException("concept");
+			if (area == null) throw new ArgumentNullException(nameof(area));
+			if (concept == null) throw new ArgumentNullException(nameof(concept));
 
 			Area = area;
 			Concept = concept;

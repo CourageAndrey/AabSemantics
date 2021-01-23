@@ -26,8 +26,8 @@ namespace Inventor.Core.Statements
 
 		public void Update(IConcept concept, IConcept sign)
 		{
-			if (concept == null) throw new ArgumentNullException("concept");
-			if (sign == null) throw new ArgumentNullException("sign");
+			if (concept == null) throw new ArgumentNullException(nameof(concept));
+			if (sign == null) throw new ArgumentNullException(nameof(sign));
 
 			Concept = concept;
 			Sign = sign;

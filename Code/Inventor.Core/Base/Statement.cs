@@ -36,7 +36,7 @@ namespace Inventor.Core.Base
 			}
 			else
 			{
-				throw new ArgumentNullException("name");
+				throw new ArgumentNullException(nameof(name));
 			}
 
 			Hint = hint ?? LocalizedString.Empty;
