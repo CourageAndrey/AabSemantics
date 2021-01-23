@@ -4,36 +4,36 @@ using Inventor.Client.Controls;
 using Inventor.Client.Dialogs;
 using Inventor.Core;
 
-namespace Inventor.Client.ViewModels
+namespace Inventor.Client.ViewModels.Statements
 {
-	public class IsStatement : StatementViewModel<Core.Statements.IsStatement>
+	public class GroupStatement : StatementViewModel<Core.Statements.GroupStatement>
 	{
 		#region Properties
 
-		public ConceptItem Parent
+		public ConceptItem Area
 		{ get; set; }
 
-		public ConceptItem Child
+		public ConceptItem Concept
 		{ get; set; }
 
 		#endregion
 
 		#region Constructors
 
-		public IsStatement()
+		public GroupStatement()
 			: this(null as ConceptItem, null)
 		{ }
 
-		public IsStatement(Core.Statements.IsStatement statement, ILanguage language)
-			: this(new ConceptItem(statement.Parent, language), new ConceptItem(statement.Child, language))
+		public GroupStatement(Core.Statements.GroupStatement statement, ILanguage language)
+			: this(new ConceptItem(statement.Area, language), new ConceptItem(statement.Concept, language))
 		{
 			_boundObject = statement;
 		}
 
-		public IsStatement(ConceptItem parent, ConceptItem child)
+		public GroupStatement(ConceptItem area, ConceptItem concept)
 		{
-			Parent = parent;
-			Child = child;
+			Area = area;
+			Concept = concept;
 		}
 
 		#endregion
@@ -42,7 +42,7 @@ namespace Inventor.Client.ViewModels
 
 		public override Window CreateEditDialog(Window owner, IKnowledgeBase knowledgeBase, ILanguage language)
 		{
-			var control = new IsStatementControl
+			var control = new GroupStatementControl
 			{
 				EditValue = this,
 			};
@@ -51,7 +51,7 @@ namespace Inventor.Client.ViewModels
 			{
 				Owner = owner,
 				Editor = control,
-				Title = language.StatementNames.Clasification,
+				Title = language.StatementNames.SubjectArea,
 				SizeToContent = SizeToContent.WidthAndHeight,
 				MinWidth = 200,
 				MinHeight = 100,
@@ -61,14 +61,14 @@ namespace Inventor.Client.ViewModels
 			return dialog;
 		}
 
-		protected override Core.Statements.IsStatement CreateStatementImplementation()
+		protected override Core.Statements.GroupStatement CreateStatementImplementation()
 		{
-			return new Core.Statements.IsStatement(Parent.Concept, Child.Concept);
+			return new Core.Statements.GroupStatement(Area.Concept, Concept.Concept);
 		}
 
 		public override void ApplyUpdate()
 		{
-			_boundObject.Update(Parent.Concept, Child.Concept);
+			_boundObject.Update(Area.Concept, Concept.Concept);
 		}
 
 		#endregion
