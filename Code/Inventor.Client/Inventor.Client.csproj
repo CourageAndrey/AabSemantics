@@ -113,14 +113,14 @@
     <Compile Include="SaveLoadController.cs" />
     <Compile Include="UiHelper.cs" />
     <Compile Include="ViewModels\Concept.cs" />
-    <Compile Include="ViewModels\ConsistsOfStatement.cs" />
+    <Compile Include="ViewModels\Statements\ConsistsOfStatement.cs" />
     <Compile Include="ViewModels\Factory.cs" />
-    <Compile Include="ViewModels\GroupStatement.cs" />
-    <Compile Include="ViewModels\HasSignStatement.cs" />
-    <Compile Include="ViewModels\IsStatement.cs" />
+    <Compile Include="ViewModels\Statements\GroupStatement.cs" />
+    <Compile Include="ViewModels\Statements\HasSignStatement.cs" />
+    <Compile Include="ViewModels\Statements\IsStatement.cs" />
     <Compile Include="ViewModels\LocalizedStringValue.cs" />
     <Compile Include="ViewModels\LocalizedString.cs" />
-    <Compile Include="ViewModels\SignValueStatement.cs" />
+    <Compile Include="ViewModels\Statements\SignValueStatement.cs" />
     <Page Include="Controls\ConceptControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

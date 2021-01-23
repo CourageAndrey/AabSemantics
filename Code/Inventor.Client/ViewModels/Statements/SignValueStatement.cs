@@ -4,7 +4,7 @@ using Inventor.Client.Controls;
 using Inventor.Client.Dialogs;
 using Inventor.Core;
 
-namespace Inventor.Client.ViewModels
+namespace Inventor.Client.ViewModels.Statements
 {
 	public class SignValueStatement : StatementViewModel<Core.Statements.SignValueStatement>
 	{

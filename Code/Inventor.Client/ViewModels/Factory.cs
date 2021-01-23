@@ -1,6 +1,7 @@
 ﻿using System;
 
 using Inventor.Client.TreeNodes;
+using Inventor.Client.ViewModels.Statements;
 
 namespace Inventor.Client.ViewModels
 {
