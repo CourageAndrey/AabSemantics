@@ -26,8 +26,8 @@ namespace Inventor.Core.Statements
 
 		public void Update(IConcept parent, IConcept child)
 		{
-			if (parent == null) throw new ArgumentNullException("parent");
-			if (child == null) throw new ArgumentNullException("child");
+			if (parent == null) throw new ArgumentNullException(nameof(parent));
+			if (child == null) throw new ArgumentNullException(nameof(child));
 
 			Parent = parent;
 			Child = child;
