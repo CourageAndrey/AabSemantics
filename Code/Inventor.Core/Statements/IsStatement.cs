@@ -11,13 +11,10 @@ namespace Inventor.Core.Statements
 		#region Properties
 
 		public IConcept Parent
-		{ get { return _parent; } }
+		{ get; private set; }
 
 		public IConcept Child
-		{ get { return _child; } }
-
-		private IConcept _parent;
-		private IConcept _child;
+		{ get; private set; }
 
 		#endregion
 
@@ -32,14 +29,14 @@ namespace Inventor.Core.Statements
 			if (parent == null) throw new ArgumentNullException("parent");
 			if (child == null) throw new ArgumentNullException("child");
 
-			_parent = parent;
-			_child = child;
+			Parent = parent;
+			Child = child;
 		}
 
 		public override IEnumerable<IConcept> GetChildConcepts()
 		{
-			yield return _parent;
-			yield return _child;
+			yield return Parent;
+			yield return Child;
 		}
 
 		#region Description
@@ -53,8 +50,8 @@ namespace Inventor.Core.Statements
 		{
 			return new Dictionary<String, INamed>
 			{
-				{ "#PARENT#", _parent },
-				{ "#CHILD#", _child },
+				{ "#PARENT#", Parent },
+				{ "#CHILD#", Child },
 			};
 		}
 
@@ -67,15 +64,15 @@ namespace Inventor.Core.Statements
 			if (ReferenceEquals(this, other)) return true;
 			if (other != null)
 			{
-				return	other._parent == _parent &&
-						other._child == _child;
+				return	other.Parent == Parent &&
+						other.Child == Child;
 			}
 			else return false;
 		}
 
 		public Boolean CheckCyclic(IEnumerable<IsStatement> statements)
 		{
-			return !isCyclic(statements, _child, new List<IConcept>());
+			return !isCyclic(statements, Child, new List<IConcept>());
 		}
 
 		private Boolean isCyclic(IEnumerable<IsStatement> allClasifications, IConcept concept, List<IConcept> chain)

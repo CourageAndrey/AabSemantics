@@ -11,17 +11,13 @@ namespace Inventor.Core.Statements
 		#region Properties
 
 		public IConcept Concept
-		{ get { return _concept; } }
+		{ get; private set; }
 
 		public IConcept Sign
-		{ get { return _sign; } }
+		{ get; private set; }
 
 		public IConcept Value
-		{ get { return _value; } }
-
-		private IConcept _concept;
-		private IConcept _sign;
-		private IConcept _value;
+		{ get; private set; }
 
 		#endregion
 
@@ -37,16 +33,16 @@ namespace Inventor.Core.Statements
 			if (sign == null) throw new ArgumentNullException("sign");
 			if (value == null) throw new ArgumentNullException("value");
 
-			_concept = concept;
-			_sign = sign;
-			_value = value;
+			Concept = concept;
+			Sign = sign;
+			Value = value;
 		}
 
 		public override IEnumerable<IConcept> GetChildConcepts()
 		{
-			yield return _concept;
-			yield return _sign;
-			yield return _value;
+			yield return Concept;
+			yield return Sign;
+			yield return Value;
 		}
 
 		#region Description
@@ -60,9 +56,9 @@ namespace Inventor.Core.Statements
 		{
 			return new Dictionary<String, INamed>
 			{
-				{ "#CONCEPT#", _concept },
-				{ "#SIGN#", _sign },
-				{ "#VALUE#", _value },
+				{ "#CONCEPT#", Concept },
+				{ "#SIGN#", Sign },
+				{ "#VALUE#", Value },
 			};
 		}
 
@@ -75,16 +71,16 @@ namespace Inventor.Core.Statements
 			if (ReferenceEquals(this, other)) return true;
 			if (other != null)
 			{
-				return	other._concept == _concept &&
-						other._sign == _sign &&
-						other._value == _value;
+				return	other.Concept == Concept &&
+						other.Sign == Sign &&
+						other.Value == Value;
 			}
 			else return false;
 		}
 
 		public Boolean CheckHasSign(IEnumerable<IStatement> statements)
 		{
-			return HasSignStatement.GetSigns(statements, _concept, true).Select(hs => hs.Sign).Contains(_sign);
+			return HasSignStatement.GetSigns(statements, Concept, true).Select(hs => hs.Sign).Contains(Sign);
 		}
 
 		#endregion
