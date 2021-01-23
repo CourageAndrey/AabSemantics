@@ -4,9 +4,9 @@ using Inventor.Client.Controls;
 using Inventor.Client.Dialogs;
 using Inventor.Core;
 
-namespace Inventor.Client.ViewModels
+namespace Inventor.Client.ViewModels.Statements
 {
-	public class ConsistsOfStatement : StatementViewModel<Core.Statements.ConsistsOfStatement>
+	public class IsStatement : StatementViewModel<Core.Statements.IsStatement>
 	{
 		#region Properties
 
@@ -20,17 +20,17 @@ namespace Inventor.Client.ViewModels
 
 		#region Constructors
 
-		public ConsistsOfStatement()
+		public IsStatement()
 			: this(null as ConceptItem, null)
 		{ }
 
-		public ConsistsOfStatement(Core.Statements.ConsistsOfStatement statement, ILanguage language)
+		public IsStatement(Core.Statements.IsStatement statement, ILanguage language)
 			: this(new ConceptItem(statement.Parent, language), new ConceptItem(statement.Child, language))
 		{
 			_boundObject = statement;
 		}
 
-		public ConsistsOfStatement(ConceptItem parent, ConceptItem child)
+		public IsStatement(ConceptItem parent, ConceptItem child)
 		{
 			Parent = parent;
 			Child = child;
@@ -42,7 +42,7 @@ namespace Inventor.Client.ViewModels
 
 		public override Window CreateEditDialog(Window owner, IKnowledgeBase knowledgeBase, ILanguage language)
 		{
-			var control = new ConsistsOfStatementControl
+			var control = new IsStatementControl
 			{
 				EditValue = this,
 			};
@@ -51,7 +51,7 @@ namespace Inventor.Client.ViewModels
 			{
 				Owner = owner,
 				Editor = control,
-				Title = language.StatementNames.Composition,
+				Title = language.StatementNames.Clasification,
 				SizeToContent = SizeToContent.WidthAndHeight,
 				MinWidth = 200,
 				MinHeight = 100,
@@ -61,9 +61,9 @@ namespace Inventor.Client.ViewModels
 			return dialog;
 		}
 
-		protected override Core.Statements.ConsistsOfStatement CreateStatementImplementation()
+		protected override Core.Statements.IsStatement CreateStatementImplementation()
 		{
-			return new Core.Statements.ConsistsOfStatement(Parent.Concept, Child.Concept);
+			return new Core.Statements.IsStatement(Parent.Concept, Child.Concept);
 		}
 
 		public override void ApplyUpdate()

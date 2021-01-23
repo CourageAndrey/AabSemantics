@@ -4,36 +4,36 @@ using Inventor.Client.Controls;
 using Inventor.Client.Dialogs;
 using Inventor.Core;
 
-namespace Inventor.Client.ViewModels
+namespace Inventor.Client.ViewModels.Statements
 {
-	public class HasSignStatement : StatementViewModel<Core.Statements.HasSignStatement>
+	public class ConsistsOfStatement : StatementViewModel<Core.Statements.ConsistsOfStatement>
 	{
 		#region Properties
 
-		public ConceptItem Concept
+		public ConceptItem Parent
 		{ get; set; }
 
-		public ConceptItem Sign
+		public ConceptItem Child
 		{ get; set; }
 
 		#endregion
 
 		#region Constructors
 
-		public HasSignStatement()
+		public ConsistsOfStatement()
 			: this(null as ConceptItem, null)
 		{ }
 
-		public HasSignStatement(Core.Statements.HasSignStatement statement, ILanguage language)
-			: this(new ConceptItem(statement.Concept, language), new ConceptItem(statement.Sign, language))
+		public ConsistsOfStatement(Core.Statements.ConsistsOfStatement statement, ILanguage language)
+			: this(new ConceptItem(statement.Parent, language), new ConceptItem(statement.Child, language))
 		{
 			_boundObject = statement;
 		}
 
-		public HasSignStatement(ConceptItem concept, ConceptItem sign)
+		public ConsistsOfStatement(ConceptItem parent, ConceptItem child)
 		{
-			Concept = concept;
-			Sign = sign;
+			Parent = parent;
+			Child = child;
 		}
 
 		#endregion
@@ -42,7 +42,7 @@ namespace Inventor.Client.ViewModels
 
 		public override Window CreateEditDialog(Window owner, IKnowledgeBase knowledgeBase, ILanguage language)
 		{
-			var control = new HasSignStatementControl
+			var control = new ConsistsOfStatementControl
 			{
 				EditValue = this,
 			};
@@ -51,7 +51,7 @@ namespace Inventor.Client.ViewModels
 			{
 				Owner = owner,
 				Editor = control,
-				Title = language.StatementNames.HasSign,
+				Title = language.StatementNames.Composition,
 				SizeToContent = SizeToContent.WidthAndHeight,
 				MinWidth = 200,
 				MinHeight = 100,
@@ -61,14 +61,14 @@ namespace Inventor.Client.ViewModels
 			return dialog;
 		}
 
-		protected override Core.Statements.HasSignStatement CreateStatementImplementation()
+		protected override Core.Statements.ConsistsOfStatement CreateStatementImplementation()
 		{
-			return new Core.Statements.HasSignStatement(Concept.Concept, Sign.Concept);
+			return new Core.Statements.ConsistsOfStatement(Parent.Concept, Child.Concept);
 		}
 
 		public override void ApplyUpdate()
 		{
-			_boundObject.Update(Concept.Concept, Sign.Concept);
+			_boundObject.Update(Parent.Concept, Child.Concept);
 		}
 
 		#endregion

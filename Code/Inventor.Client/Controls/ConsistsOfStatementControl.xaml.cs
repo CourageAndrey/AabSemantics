@@ -22,9 +22,9 @@ namespace Inventor.Client.Controls
 			_groupChild.Header = language.Ui.Editing.PropertyChild;
 		}
 
-		public ViewModels.ConsistsOfStatement EditValue
+		public ViewModels.Statements.ConsistsOfStatement EditValue
 		{
-			get { return _contextControl.DataContext as ViewModels.ConsistsOfStatement; }
+			get { return _contextControl.DataContext as ViewModels.Statements.ConsistsOfStatement; }
 			set { _contextControl.DataContext = value; }
 		}
 	}
