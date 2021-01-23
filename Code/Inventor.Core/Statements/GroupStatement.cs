@@ -10,13 +10,10 @@ namespace Inventor.Core.Statements
 		#region Properties
 
 		public IConcept Area
-		{ get { return _area; } }
+		{ get; private set; }
 
 		public IConcept Concept
-		{ get { return _concept; } }
-
-		private IConcept _area;
-		private IConcept _concept;
+		{ get; private set; }
 
 		#endregion
 
@@ -31,14 +28,14 @@ namespace Inventor.Core.Statements
 			if (area == null) throw new ArgumentNullException("area");
 			if (concept == null) throw new ArgumentNullException("concept");
 
-			_area = area;
-			_concept = concept;
+			Area = area;
+			Concept = concept;
 		}
 
 		public override IEnumerable<IConcept> GetChildConcepts()
 		{
-			yield return _area;
-			yield return _concept;
+			yield return Area;
+			yield return Concept;
 		}
 
 		#region Description
@@ -52,8 +49,8 @@ namespace Inventor.Core.Statements
 		{
 			return new Dictionary<String, INamed>
 			{
-				{ "#AREA#", _area },
-				{ "#CONCEPT#", _concept },
+				{ "#AREA#", Area },
+				{ "#CONCEPT#", Concept },
 			};
 		}
 
@@ -66,8 +63,8 @@ namespace Inventor.Core.Statements
 			if (ReferenceEquals(this, other)) return true;
 			if (other != null)
 			{
-				return	other._area == _area &&
-						other._concept == _concept;
+				return	other.Area == Area &&
+						other.Concept == Concept;
 			}
 			else return false;
 		}
