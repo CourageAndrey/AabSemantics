@@ -11,13 +11,10 @@ namespace Inventor.Core.Statements
 		#region Properties
 
 		public IConcept Concept
-		{ get { return _concept; } }
+		{ get; private set; }
 
 		public IConcept Sign
-		{ get { return _sign; } }
-
-		private IConcept _concept;
-		private IConcept _sign;
+		{ get; private set; }
 
 		#endregion
 
@@ -32,14 +29,14 @@ namespace Inventor.Core.Statements
 			if (concept == null) throw new ArgumentNullException("concept");
 			if (sign == null) throw new ArgumentNullException("sign");
 
-			_concept = concept;
-			_sign = sign;
+			Concept = concept;
+			Sign = sign;
 		}
 
 		public override IEnumerable<IConcept> GetChildConcepts()
 		{
-			yield return _concept;
-			yield return _sign;
+			yield return Concept;
+			yield return Sign;
 		}
 
 		#region Description
@@ -53,8 +50,8 @@ namespace Inventor.Core.Statements
 		{
 			return new Dictionary<String, INamed>
 			{
-				{ "#CONCEPT#", _concept },
-				{ "#SIGN#", _sign },
+				{ "#CONCEPT#", Concept },
+				{ "#SIGN#", Sign },
 			};
 		}
 
@@ -67,16 +64,16 @@ namespace Inventor.Core.Statements
 			if (ReferenceEquals(this, other)) return true;
 			if (other != null)
 			{
-				return	other._concept == _concept &&
-						other._sign == _sign;
+				return	other.Concept == Concept &&
+						other.Sign == Sign;
 			}
 			else return false;
 		}
 
 		public Boolean CheckSignDuplication(IEnumerable<HasSignStatement> hasSigns, IEnumerable<IsStatement> clasifications)
 		{
-			var signs = hasSigns.Where(hs => hs.Concept == _concept).Select(hs => hs.Sign).ToList();
-			foreach (var parent in clasifications.GetParentsAllLevels(_concept))
+			var signs = hasSigns.Where(hs => hs.Concept == Concept).Select(hs => hs.Sign).ToList();
+			foreach (var parent in clasifications.GetParentsAllLevels(Concept))
 			{
 				foreach (var parentSign in hasSigns.Where(hs => hs.Concept == parent).Select(hs => hs.Sign))
 				{

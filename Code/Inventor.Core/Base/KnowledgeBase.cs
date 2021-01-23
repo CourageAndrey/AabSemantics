@@ -14,20 +14,16 @@ namespace Inventor.Core.Base
 		#region Properties
 
 		public ILocalizedString Name
-		{ get { return _name; } }
+		{ get; }
 
 		public IKnowledgeBaseContext Context
 		{ get; }
 
 		public ICollection<IConcept> Concepts
-		{ get { return _concepts; } }
+		{ get; }
 
 		public ICollection<IStatement> Statements
-		{ get { return _statements; } }
-
-		private readonly LocalizedStringVariable _name;
-		private readonly EventCollection<IConcept> _concepts;
-		private readonly EventCollection<IStatement> _statements;
+		{ get; }
 
 		public event EventHandler<ItemEventArgs<IConcept>> ConceptAdded;
 		public event EventHandler<ItemEventArgs<IConcept>> ConceptRemoved;
@@ -50,12 +46,12 @@ namespace Inventor.Core.Base
 		{
 			var name = new LocalizedStringVariable();
 			name.SetLocale(language.Culture, language.Misc.NewKbName);
-			_name = name;
+			Name = name;
 
 			var systemContext = new SystemContext(language);
 
-			_concepts = new EventCollection<IConcept>();
-			_concepts.ItemAdded += (sender, args) =>
+			var concepts = new EventCollection<IConcept>();
+			concepts.ItemAdded += (sender, args) =>
 			{
 				var handler = Volatile.Read(ref ConceptAdded);
 				if (handler != null)
@@ -63,21 +59,22 @@ namespace Inventor.Core.Base
 					handler(sender, args);
 				}
 			};
-			_concepts.ItemRemoved += (sender, args) =>
+			concepts.ItemRemoved += (sender, args) =>
 			{
 				var handler = Volatile.Read(ref ConceptRemoved);
 				if (handler != null)
 				{
 					handler(sender, args);
 				}
-				foreach (var statement in _statements.Where(r => r.GetChildConcepts().Contains(args.Item)).ToList())
+				foreach (var statement in Statements.Where(r => r.GetChildConcepts().Contains(args.Item)).ToList())
 				{
-					_statements.Remove(statement);
+					Statements.Remove(statement);
 				}
 			};
+			Concepts = concepts;
 
-			_statements = new EventCollection<IStatement>();
-			_statements.ItemAdded += (sender, args) =>
+			var statements = new EventCollection<IStatement>();
+			statements.ItemAdded += (sender, args) =>
 			{
 				var context = Context as IContext ?? systemContext;
 				args.Item.Context = context;
@@ -90,13 +87,13 @@ namespace Inventor.Core.Base
 				}
 				foreach (var concept in args.Item.GetChildConcepts())
 				{
-					if (!_concepts.Contains(concept))
+					if (!Concepts.Contains(concept))
 					{
-						_concepts.Add(concept);
+						Concepts.Add(concept);
 					}
 				}
 			};
-			_statements.ItemRemoved += (sender, args) =>
+			statements.ItemRemoved += (sender, args) =>
 			{
 				var context = Context as IContext ?? systemContext;
 				args.Item.Context = context;
@@ -108,11 +105,12 @@ namespace Inventor.Core.Base
 					handler(sender, args);
 				}
 			};
+			Statements = statements;
 
-			_concepts.Add(True = new Concept(
+			Concepts.Add(True = new Concept(
 				new LocalizedStringConstant(lang => lang.Misc.True),
 				new LocalizedStringConstant(lang => lang.Misc.TrueHint)));
-			_concepts.Add(False = new Concept(
+			Concepts.Add(False = new Concept(
 				new LocalizedStringConstant(lang => lang.Misc.False),
 				new LocalizedStringConstant(lang => lang.Misc.FalseHint)));
 
@@ -125,8 +123,8 @@ namespace Inventor.Core.Base
 					args.IsCanceled = true;
 				}
 			};
-			_statements.ItemAdding += systemStatementProtector;
-			_statements.ItemRemoving += systemStatementProtector;
+			statements.ItemAdding += systemStatementProtector;
+			statements.ItemRemoving += systemStatementProtector;
 		}
 
 		public override String ToString()
@@ -163,8 +161,8 @@ namespace Inventor.Core.Base
 		{
 			// knowledge base
 			var knowledgeBase = new KnowledgeBase(language);
-			knowledgeBase._name.SetLocale("ru-RU", "Тестовая база знаний");
-			knowledgeBase._name.SetLocale("en-US", "Test knowledgebase");
+			((LocalizedStringVariable) knowledgeBase.Name).SetLocale("ru-RU", "Тестовая база знаний");
+			((LocalizedStringVariable) knowledgeBase.Name).SetLocale("en-US", "Test knowledgebase");
 
 			// subject areas
 			Concept transport;
