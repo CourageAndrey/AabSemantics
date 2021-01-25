@@ -5,7 +5,7 @@ using Inventor.Core;
 
 namespace Inventor.Client.Controls
 {
-	public partial class HasSignStatementControl
+	public partial class HasSignStatementControl : IStatementEditor
 	{
 		public HasSignStatementControl()
 		{
@@ -27,5 +27,8 @@ namespace Inventor.Client.Controls
 			get { return _contextControl.DataContext as ViewModels.Statements.HasSignStatement; }
 			set { _contextControl.DataContext = value; }
 		}
+
+		public StatementViewModel Statement
+		{ get { return EditValue; } }
 	}
 }
