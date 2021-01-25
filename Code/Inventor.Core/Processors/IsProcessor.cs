@@ -16,15 +16,15 @@ namespace Inventor.Core.Processors
 			var activeContexts = context.GetHierarchy();
 
 			var explanation = new List<IsStatement>();
-			Boolean yes = context.KnowledgeBase.Statements.Enumerate(activeContexts).GetParentsAllLevels(question.ChildConcept, explanation).Contains(question.ParentConcept);
+			Boolean yes = context.KnowledgeBase.Statements.Enumerate(activeContexts).GetParentsAllLevels(question.Child, explanation).Contains(question.Parent);
 			return new Answer(
 				yes,
 				new FormattedText(
 					yes ? new Func<String>(() => context.Language.Answers.IsTrue) : () => context.Language.Answers.IsFalse,
 					new Dictionary<String, INamed>
 					{
-						{ "#CHILD#", question.ChildConcept },
-						{ "#PARENT#", question.ParentConcept },
+						{ "#CHILD#", question.Child },
+						{ "#PARENT#", question.Parent },
 					}),
 				new Explanation(explanation));
 		}
