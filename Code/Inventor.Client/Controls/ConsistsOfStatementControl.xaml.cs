@@ -5,7 +5,7 @@ using Inventor.Core;
 
 namespace Inventor.Client.Controls
 {
-	public partial class ConsistsOfStatementControl
+	public partial class ConsistsOfStatementControl : IStatementEditor
 	{
 		public ConsistsOfStatementControl()
 		{
@@ -27,5 +27,8 @@ namespace Inventor.Client.Controls
 			get { return _contextControl.DataContext as ViewModels.Statements.ConsistsOfStatement; }
 			set { _contextControl.DataContext = value; }
 		}
+
+		public StatementViewModel Statement
+		{ get { return EditValue; } }
 	}
 }
