@@ -73,5 +73,10 @@ namespace Inventor.Client.ViewModels.Statements
 		}
 
 		#endregion
+
+		public override StatementViewModel Clone()
+		{
+			return new GroupStatement(Area, Concept, _language);
+		}
 	}
 }
