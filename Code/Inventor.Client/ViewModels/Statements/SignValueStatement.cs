@@ -23,17 +23,18 @@ namespace Inventor.Client.ViewModels.Statements
 
 		#region Constructors
 
-		public SignValueStatement()
-			: this(null as ConceptItem, null, null)
+		public SignValueStatement(ILanguage language)
+			: this(null as ConceptItem, null, null, language)
 		{ }
 
 		public SignValueStatement(Core.Statements.SignValueStatement statement, ILanguage language)
-			: this(new ConceptItem(statement.Concept, language), new ConceptItem(statement.Sign, language), new ConceptItem(statement.Value, language))
+			: this(new ConceptItem(statement.Concept, language), new ConceptItem(statement.Sign, language), new ConceptItem(statement.Value, language), language)
 		{
 			_boundObject = statement;
 		}
 
-		public SignValueStatement(ConceptItem concept, ConceptItem sign, ConceptItem value)
+		public SignValueStatement(ConceptItem concept, ConceptItem sign, ConceptItem value, ILanguage language)
+			: base(language)
 		{
 			Concept = concept;
 			Sign = sign;
