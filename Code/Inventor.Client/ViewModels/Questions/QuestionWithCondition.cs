@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Linq;
 
 namespace Inventor.Client.ViewModels.Questions
 {
@@ -7,8 +8,8 @@ namespace Inventor.Client.ViewModels.Questions
 	public sealed class QuestionWithCondition : QuestionViewModel<Core.Questions.QuestionWithCondition>
 	{
 		[PropertyDescriptor(true, "QuestionNames.ParamConditions")]
-		public ICollection<Core.IStatement> Conditions
-		{ get; } = new ObservableCollection<Core.IStatement>();
+		public ICollection<StatementViewModel> Conditions
+		{ get; } = new ObservableCollection<StatementViewModel>();
 
 		[PropertyDescriptor(true, "QuestionNames.ParamQuestion")]
 		public IQuestionViewModel Question
@@ -16,7 +17,7 @@ namespace Inventor.Client.ViewModels.Questions
 
 		public override Core.Questions.QuestionWithCondition BuildQuestion()
 		{
-			return new Core.Questions.QuestionWithCondition(Conditions, Question.BuildQuestion());
+			return new Core.Questions.QuestionWithCondition(Conditions.Select(condition => condition.CreateStatement()), Question.BuildQuestion());
 		}
 	}
 }
