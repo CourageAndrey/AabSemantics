@@ -104,7 +104,8 @@ namespace Inventor.Client
 			};
 			if (dialog.ShowDialog() == true)
 			{
-				var answer = dialog.Question.Ask(_application.KnowledgeBase.Context);
+				var question = dialog.Question.BuildQuestion();
+				var answer = question.Ask(_application.KnowledgeBase.Context);
 				new FormattedTextDialog(
 						_application.CurrentLanguage,
 						answer.Description,

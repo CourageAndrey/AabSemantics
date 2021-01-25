@@ -9,8 +9,8 @@ using System.Windows.Controls.Primitives;
 using System.Windows.Data;
 
 using Inventor.Client.Converters;
+using Inventor.Client.ViewModels.Questions;
 using Inventor.Core;
-using Inventor.Core.Questions;
 
 namespace Inventor.Client.Dialogs
 {
@@ -18,7 +18,7 @@ namespace Inventor.Client.Dialogs
 	{
 		#region Properties
 
-		public IQuestion Question
+		public IQuestionViewModel Question
 		{ get; private set; }
 
 		private readonly ILanguage _language;
@@ -44,7 +44,9 @@ namespace Inventor.Client.Dialogs
 			_knowledgeBase = knowledgeBase;
 			foreach (var questionDefinition in knowledgeBase.Context.QuestionRepository.QuestionDefinitions.Values)
 			{
-				_questions[questionDefinition.GetName(_language)] = questionDefinition.CreateQuestion;
+				var genericType = typeof(QuestionViewModel<>).MakeGenericType(questionDefinition.QuestionType);
+				var viewModelType = Assembly.GetExecutingAssembly().GetTypes().First(t => !t.IsAbstract && genericType.IsAssignableFrom(t));
+				_questions[questionDefinition.GetName(_language)] = () => Activator.CreateInstance(viewModelType) as IQuestionViewModel;
 			}
 			comboBoxQuestion.ItemsSource = _questions.Keys.OrderBy(q => q);
 
@@ -54,11 +56,11 @@ namespace Inventor.Client.Dialogs
 				{ typeof(bool), createCheckBox },
 				{ typeof(IStatement), createStatementEditor },
 				{ typeof(ICollection<IStatement>), createStatementsList },
-				{ typeof(IQuestion), createQuestionEditor },
+				{ typeof(IQuestionViewModel), createQuestionEditor },
 			};
 		}
 
-		private readonly Dictionary<string, Func<IQuestion>> _questions = new Dictionary<string, Func<IQuestion>>();
+		private readonly Dictionary<string, Func<IQuestionViewModel>> _questions = new Dictionary<string, Func<IQuestionViewModel>>();
 		private readonly IKnowledgeBase _knowledgeBase;
 		private readonly List<ComboBox> _requiredFieldSelectors = new List<ComboBox>();
 
@@ -67,7 +69,7 @@ namespace Inventor.Client.Dialogs
 			beginEditQuestion(_questions[comboBoxQuestion.Text]());
 		}
 
-		private void beginEditQuestion(IQuestion question)
+		private void beginEditQuestion(IQuestionViewModel question)
 		{
 			panelSelectQuestion.Visibility = Visibility.Collapsed;
 			panelQuestionParams.Visibility = Visibility.Visible;
@@ -232,7 +234,7 @@ namespace Inventor.Client.Dialogs
 			listBox.SetBinding(ItemsControl.ItemsSourceProperty, new Binding
 			{
 				Path = new PropertyPath(propertyInfo.Name),
-				Mode = BindingMode.TwoWay,
+				Mode = BindingMode.OneWay,
 #warning Display all statements correctly.
 			});
 
@@ -345,7 +347,7 @@ namespace Inventor.Client.Dialogs
 			editButton.SetValue(Grid.ColumnSpanProperty, 2);
 			editButton.Click += (sender, args) =>
 			{
-				var question = editButton.Tag as IQuestion;
+				var question = editButton.Tag as IQuestionViewModel;
 				if (question == null || MessageBox.Show(_language.Ui.CreateNewQuestion, _language.Common.Question, MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
 				{
 					var dialog = new QuestionDialog(_knowledgeBase, _language)

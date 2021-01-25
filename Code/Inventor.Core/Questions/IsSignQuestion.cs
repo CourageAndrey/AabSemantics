@@ -1,10 +1,17 @@
-﻿namespace Inventor.Core.Questions
+﻿using System;
+
+namespace Inventor.Core.Questions
 {
-	[QuestionDescriptor]
-	public sealed class IsSignQuestion : IQuestion
+	public class IsSignQuestion : IQuestion
 	{
-		[PropertyDescriptor(true, "QuestionNames.ParamConcept")]
 		public IConcept Concept
-		{ get; set; }
+		{ get; }
+
+		public IsSignQuestion(IConcept concept)
+		{
+			if (concept == null) throw new ArgumentNullException(nameof(concept));
+
+			Concept = concept;
+		}
 	}
 }

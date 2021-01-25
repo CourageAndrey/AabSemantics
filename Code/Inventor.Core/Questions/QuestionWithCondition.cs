@@ -1,18 +1,23 @@
-﻿using System.Collections.Generic;
-using System.Collections.ObjectModel;
+﻿using System;
+using System.Collections.Generic;
 
 namespace Inventor.Core.Questions
 {
-	[QuestionDescriptor]
 	public sealed class QuestionWithCondition : IQuestion
 	{
-		[PropertyDescriptor(true, "QuestionNames.ParamConditions")]
 		public ICollection<IStatement> Conditions
-		{ get; set; } = new ObservableCollection<IStatement>();
-#warning Get rid of concrete type here.
+		{ get; }
 
-		[PropertyDescriptor(true, "QuestionNames.ParamQuestion")]
 		public IQuestion Question
-		{ get; set; }
+		{ get; }
+
+		public QuestionWithCondition(IEnumerable<IStatement> conditions, IQuestion question)
+		{
+			if (conditions == null) throw new ArgumentNullException(nameof(conditions));
+			if (question == null) throw new ArgumentNullException(nameof(question));
+
+			Conditions = new List<IStatement>(conditions);
+			Question = question;
+		}
 	}
 }
