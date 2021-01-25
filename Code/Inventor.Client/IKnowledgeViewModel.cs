@@ -17,6 +17,8 @@ namespace Inventor.Client
 	{
 		public abstract Window CreateEditDialog(Window owner, IKnowledgeBase knowledgeBase, ILanguage language);
 
+		public abstract StatementViewModel Clone();
+
 		public void ApplyCreate(IKnowledgeBase knowledgeBase)
 		{
 			knowledgeBase.Statements.Add(CreateStatement());
