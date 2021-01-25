@@ -73,5 +73,10 @@ namespace Inventor.Client.ViewModels.Statements
 		}
 
 		#endregion
+
+		public override StatementViewModel Clone()
+		{
+			return new HasSignStatement(Concept, Sign, _language);
+		}
 	}
 }
