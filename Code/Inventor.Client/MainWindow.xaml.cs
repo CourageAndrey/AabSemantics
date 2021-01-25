@@ -205,7 +205,7 @@ namespace Inventor.Client
 			}
 			if (type == null) return;
 
-			IViewModel viewModel = ViewModels.Factory.CreateByCoreType(type);
+			IKnowledgeViewModel viewModel = ViewModels.Factory.CreateByCoreType(type);
 			var editDialog = viewModel.CreateEditDialog(this, _application.KnowledgeBase, _application.CurrentLanguage);
 
 			if (editDialog.ShowDialog() == true)
