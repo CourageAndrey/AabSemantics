@@ -5,7 +5,7 @@ using Inventor.Client.Dialogs;
 
 namespace Inventor.Client.ViewModels
 {
-	public class Concept : IViewModel
+	public class Concept : IKnowledgeViewModel
 	{
 		#region Properties
 

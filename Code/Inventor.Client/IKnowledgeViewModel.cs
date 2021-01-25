@@ -4,7 +4,7 @@ using Inventor.Core;
 
 namespace Inventor.Client
 {
-	public interface IViewModel
+	public interface IKnowledgeViewModel
 	{
 		Window CreateEditDialog(Window owner, IKnowledgeBase knowledgeBase, ILanguage language);
 
@@ -13,7 +13,7 @@ namespace Inventor.Client
 		void ApplyUpdate();
 	}
 
-	public abstract class StatementViewModel : IViewModel
+	public abstract class StatementViewModel : IKnowledgeViewModel
 	{
 		public abstract Window CreateEditDialog(Window owner, IKnowledgeBase knowledgeBase, ILanguage language);
 

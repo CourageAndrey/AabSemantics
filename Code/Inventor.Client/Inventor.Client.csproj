@@ -78,7 +78,7 @@
     <Compile Include="ExceptionWrapper.cs" />
     <Compile Include="InventorApplication.cs" />
     <Compile Include="InventorConfiguration.cs" />
-    <Compile Include="IViewModel.cs" />
+    <Compile Include="IKnowledgeViewModel.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
