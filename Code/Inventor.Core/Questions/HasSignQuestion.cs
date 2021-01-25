@@ -2,19 +2,25 @@
 
 namespace Inventor.Core.Questions
 {
-	[QuestionDescriptor]
 	public sealed class HasSignQuestion : IQuestion
 	{
-		[PropertyDescriptor(true, "QuestionNames.ParamConcept")]
 		public IConcept Concept
-		{ get; set; }
+		{ get; }
 
-		[PropertyDescriptor(true, "QuestionNames.ParamSign")]
 		public IConcept Sign
-		{ get; set; }
+		{ get; }
 
-		[PropertyDescriptor(false, "QuestionNames.ParamRecursive")]
 		public Boolean Recursive
-		{ get; set; }
+		{ get; }
+
+		public HasSignQuestion(IConcept concept, IConcept sign, Boolean recursive)
+		{
+			if (concept == null) throw new ArgumentNullException(nameof(concept));
+			if (sign == null) throw new ArgumentNullException(nameof(sign));
+
+			Concept = concept;
+			Sign = sign;
+			Recursive = recursive;
+		}
 	}
 }

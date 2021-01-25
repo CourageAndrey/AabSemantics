@@ -44,7 +44,6 @@
     <Compile Include="Localization\LanguageEditing.cs" />
     <Compile Include="Processors\QuestionWithConditionProcessor.cs" />
     <Compile Include="QuestionDefinition.cs" />
-    <Compile Include="Questions\QuestionDescriptorAttribute.cs" />
     <Compile Include="Base\QuestionRepository.cs" />
     <Compile Include="IAnswer.cs" />
     <Compile Include="IConcept.cs" />
@@ -87,7 +86,6 @@
     <Compile Include="Processors\EnumeratePartsProcessor.cs" />
     <Compile Include="Processors\IsPartOfProcessor.cs" />
     <Compile Include="Processors\IsValueProcessor.cs" />
-    <Compile Include="Questions\PropertyDescriptorAttribute.cs" />
     <Compile Include="Questions\CheckStatementQuestion.cs" />
     <Compile Include="Questions\IsSubjectAreaQuestion.cs" />
     <Compile Include="Questions\EnumerateContainersQuestion.cs" />

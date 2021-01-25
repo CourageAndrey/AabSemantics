@@ -1,14 +1,22 @@
-﻿namespace Inventor.Core.Questions
+﻿using System;
+
+namespace Inventor.Core.Questions
 {
-	[QuestionDescriptor]
 	public sealed class IsSubjectAreaQuestion : IQuestion
 	{
-		[PropertyDescriptor(true, "QuestionNames.ParamConcept")]
 		public IConcept Concept
-		{ get; set; }
+		{ get; }
 
-		[PropertyDescriptor(true, "QuestionNames.ParamArea")]
 		public IConcept Area
-		{ get; set; }
+		{ get; }
+
+		public IsSubjectAreaQuestion(IConcept concept, IConcept area)
+		{
+			if (concept == null) throw new ArgumentNullException(nameof(concept));
+			if (area == null) throw new ArgumentNullException(nameof(area));
+
+			Concept = concept;
+			Area = area;
+		}
 	}
 }
