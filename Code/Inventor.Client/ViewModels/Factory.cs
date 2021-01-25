@@ -7,7 +7,7 @@ namespace Inventor.Client.ViewModels
 {
 	internal static class Factory
 	{
-		public static IKnowledgeViewModel CreateByCoreType(Type type)
+		public static IKnowledgeViewModel CreateByCoreType(Type type, Core.ILanguage language)
 		{
 			if (type == typeof(Core.Base.Concept))
 			{
@@ -15,23 +15,23 @@ namespace Inventor.Client.ViewModels
 			}
 			else if (type == typeof(Core.Statements.ConsistsOfStatement))
 			{
-				return new ConsistsOfStatement();
+				return new ConsistsOfStatement(language);
 			}
 			else if (type == typeof(Core.Statements.GroupStatement))
 			{
-				return new GroupStatement();
+				return new GroupStatement(language);
 			}
 			else if (type == typeof(Core.Statements.HasSignStatement))
 			{
-				return new HasSignStatement();
+				return new HasSignStatement(language);
 			}
 			else if (type == typeof(Core.Statements.IsStatement))
 			{
-				return new IsStatement();
+				return new IsStatement(language);
 			}
 			else if (type == typeof(Core.Statements.SignValueStatement))
 			{
-				return new SignValueStatement();
+				return new SignValueStatement(language);
 			}
 			else
 			{

@@ -20,17 +20,18 @@ namespace Inventor.Client.ViewModels.Statements
 
 		#region Constructors
 
-		public IsStatement()
-			: this(null as ConceptItem, null)
+		public IsStatement(ILanguage language)
+			: this(null as ConceptItem, null, language)
 		{ }
 
 		public IsStatement(Core.Statements.IsStatement statement, ILanguage language)
-			: this(new ConceptItem(statement.Parent, language), new ConceptItem(statement.Child, language))
+			: this(new ConceptItem(statement.Parent, language), new ConceptItem(statement.Child, language), language)
 		{
 			_boundObject = statement;
 		}
 
-		public IsStatement(ConceptItem parent, ConceptItem child)
+		public IsStatement(ConceptItem parent, ConceptItem child, ILanguage language)
+			: base(language)
 		{
 			Parent = parent;
 			Child = child;

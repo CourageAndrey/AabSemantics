@@ -28,9 +28,15 @@ namespace Inventor.Client
 	}
 
 	public abstract class StatementViewModel<StatementT> : StatementViewModel
-		where StatementT : IStatement
+		where StatementT : class, IStatement
 	{
 		protected StatementT _boundObject;
+		protected readonly ILanguage _language;
+
+		protected StatementViewModel(ILanguage language)
+		{
+			_language = language;
+		}
 
 		public override IStatement CreateStatement()
 		{
@@ -38,5 +44,12 @@ namespace Inventor.Client
 		}
 
 		protected abstract StatementT CreateStatementImplementation();
+
+		public override string ToString()
+		{
+			var statement = _boundObject ?? CreateStatementImplementation();
+			var text = statement.DescribeTrue(_language);
+			return text.GetPlainText(_language);
+		}
 	}
 }

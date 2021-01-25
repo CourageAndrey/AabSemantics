@@ -20,17 +20,18 @@ namespace Inventor.Client.ViewModels.Statements
 
 		#region Constructors
 
-		public ConsistsOfStatement()
-			: this(null as ConceptItem, null)
+		public ConsistsOfStatement(ILanguage language)
+			: this(null as ConceptItem, null, language)
 		{ }
 
 		public ConsistsOfStatement(Core.Statements.ConsistsOfStatement statement, ILanguage language)
-			: this(new ConceptItem(statement.Parent, language), new ConceptItem(statement.Child, language))
+			: this(new ConceptItem(statement.Parent, language), new ConceptItem(statement.Child, language), language)
 		{
 			_boundObject = statement;
 		}
 
-		public ConsistsOfStatement(ConceptItem parent, ConceptItem child)
+		public ConsistsOfStatement(ConceptItem parent, ConceptItem child, ILanguage language)
+			: base(language)
 		{
 			Parent = parent;
 			Child = child;
