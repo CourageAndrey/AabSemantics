@@ -20,17 +20,18 @@ namespace Inventor.Client.ViewModels.Statements
 
 		#region Constructors
 
-		public GroupStatement()
-			: this(null as ConceptItem, null)
+		public GroupStatement(ILanguage language)
+			: this(null as ConceptItem, null, language)
 		{ }
 
 		public GroupStatement(Core.Statements.GroupStatement statement, ILanguage language)
-			: this(new ConceptItem(statement.Area, language), new ConceptItem(statement.Concept, language))
+			: this(new ConceptItem(statement.Area, language), new ConceptItem(statement.Concept, language), language)
 		{
 			_boundObject = statement;
 		}
 
-		public GroupStatement(ConceptItem area, ConceptItem concept)
+		public GroupStatement(ConceptItem area, ConceptItem concept, ILanguage language)
+			: base(language)
 		{
 			Area = area;
 			Concept = concept;

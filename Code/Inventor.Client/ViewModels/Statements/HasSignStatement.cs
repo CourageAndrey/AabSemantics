@@ -20,17 +20,18 @@ namespace Inventor.Client.ViewModels.Statements
 
 		#region Constructors
 
-		public HasSignStatement()
-			: this(null as ConceptItem, null)
+		public HasSignStatement(ILanguage language)
+			: this(null as ConceptItem, null, language)
 		{ }
 
 		public HasSignStatement(Core.Statements.HasSignStatement statement, ILanguage language)
-			: this(new ConceptItem(statement.Concept, language), new ConceptItem(statement.Sign, language))
+			: this(new ConceptItem(statement.Concept, language), new ConceptItem(statement.Sign, language), language)
 		{
 			_boundObject = statement;
 		}
 
-		public HasSignStatement(ConceptItem concept, ConceptItem sign)
+		public HasSignStatement(ConceptItem concept, ConceptItem sign, ILanguage language)
+			: base(language)
 		{
 			Concept = concept;
 			Sign = sign;
