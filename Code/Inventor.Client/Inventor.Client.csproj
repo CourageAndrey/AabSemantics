@@ -71,6 +71,7 @@
     <Compile Include="Controls\IsStatementControl.xaml.cs">
       <DependentUpon>IsStatementControl.xaml</DependentUpon>
     </Compile>
+    <Compile Include="IQuestionViewModel.cs" />
     <Compile Include="ViewModels\ConceptItem.cs" />
     <Compile Include="Controls\SignValueStatementControl.xaml.cs">
       <DependentUpon>SignValueStatementControl.xaml</DependentUpon>
@@ -113,6 +114,25 @@
     <Compile Include="SaveLoadController.cs" />
     <Compile Include="UiHelper.cs" />
     <Compile Include="ViewModels\Concept.cs" />
+    <Compile Include="ViewModels\Questions\CheckStatementQuestion.cs" />
+    <Compile Include="ViewModels\Questions\DescribeSubjectAreaQuestion.cs" />
+    <Compile Include="ViewModels\Questions\EnumerateChildrenQuestion.cs" />
+    <Compile Include="ViewModels\Questions\EnumerateContainersQuestion.cs" />
+    <Compile Include="ViewModels\Questions\EnumeratePartsQuestion.cs" />
+    <Compile Include="ViewModels\Questions\EnumerateSignsQuestion.cs" />
+    <Compile Include="ViewModels\Questions\FindSubjectAreaQuestion.cs" />
+    <Compile Include="ViewModels\Questions\HasSignQuestion.cs" />
+    <Compile Include="ViewModels\Questions\HasSignsQuestion.cs" />
+    <Compile Include="ViewModels\Questions\IsPartOfQuestion.cs" />
+    <Compile Include="ViewModels\Questions\IsQuestion.cs" />
+    <Compile Include="ViewModels\Questions\IsSignQuestion.cs" />
+    <Compile Include="ViewModels\Questions\IsSubjectAreaQuestion.cs" />
+    <Compile Include="ViewModels\Questions\IsValueQuestion.cs" />
+    <Compile Include="ViewModels\Questions\PropertyDescriptorAttribute.cs" />
+    <Compile Include="ViewModels\Questions\QuestionDescriptorAttribute.cs" />
+    <Compile Include="ViewModels\Questions\QuestionWithCondition.cs" />
+    <Compile Include="ViewModels\Questions\SignValueQuestion.cs" />
+    <Compile Include="ViewModels\Questions\WhatQuestion.cs" />
     <Compile Include="ViewModels\Statements\ConsistsOfStatement.cs" />
     <Compile Include="ViewModels\Factory.cs" />
     <Compile Include="ViewModels\Statements\GroupStatement.cs" />

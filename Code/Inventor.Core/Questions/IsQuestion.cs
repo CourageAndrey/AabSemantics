@@ -1,14 +1,22 @@
-﻿namespace Inventor.Core.Questions
+﻿using System;
+
+namespace Inventor.Core.Questions
 {
-	[QuestionDescriptor]
 	public sealed class IsQuestion : IQuestion
 	{
-		[PropertyDescriptor(true, "QuestionNames.ParamChild")]
 		public IConcept Child
-		{ get; set; }
+		{ get; }
 
-		[PropertyDescriptor(true, "QuestionNames.ParamParent")]
 		public IConcept Parent
-		{ get; set; }
+		{ get; }
+
+		public IsQuestion(IConcept child, IConcept parent)
+		{
+			if (child == null) throw new ArgumentNullException(nameof(child));
+			if (parent == null) throw new ArgumentNullException(nameof(parent));
+
+			Child = child;
+			Parent = parent;
+		}
 	}
 }

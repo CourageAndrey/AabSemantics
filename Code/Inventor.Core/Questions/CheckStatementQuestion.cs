@@ -1,10 +1,17 @@
-﻿namespace Inventor.Core.Questions
+﻿using System;
+
+namespace Inventor.Core.Questions
 {
-	[QuestionDescriptor]
 	public sealed class CheckStatementQuestion : IQuestion
 	{
-		[PropertyDescriptor(true, "QuestionNames.ParamStatement")]
 		public IStatement Statement
-		{ get; set; }
+		{ get; }
+
+		public CheckStatementQuestion(IStatement statement)
+		{
+			if (statement == null) throw new ArgumentNullException(nameof(statement));
+
+			Statement = statement;
+		}
 	}
 }
