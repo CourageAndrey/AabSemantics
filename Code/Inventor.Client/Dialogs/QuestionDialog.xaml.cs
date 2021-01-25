@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Globalization;
 using System.Linq;
 using System.Reflection;
@@ -54,8 +55,8 @@ namespace Inventor.Client.Dialogs
 			{
 				{ typeof(IConcept), createConceptSelector },
 				{ typeof(bool), createCheckBox },
-				{ typeof(IStatement), createStatementEditor },
-				{ typeof(ICollection<IStatement>), createStatementsList },
+				{ typeof(StatementViewModel), createStatementEditor },
+				{ typeof(ICollection<StatementViewModel>), createStatementsList },
 				{ typeof(IQuestionViewModel), createQuestionEditor },
 			};
 		}
@@ -180,10 +181,8 @@ namespace Inventor.Client.Dialogs
 			editButton.SetValue(Grid.ColumnSpanProperty, 2);
 			editButton.Click += (sender, args) =>
 			{
-				StatementViewModel viewModel;
-
-				var statement = editButton.Tag as IStatement;
-				if (statement == null || MessageBox.Show(_language.Ui.CreateNewStatement, _language.Common.Question, MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
+				var viewModel = editButton.Tag as StatementViewModel;
+				if (viewModel == null || MessageBox.Show(_language.Ui.CreateNewStatement, _language.Common.Question, MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
 				{
 					Type statementType = null;
 					var statementTypesDialog = new SelectStatementTypeDialog
@@ -201,16 +200,17 @@ namespace Inventor.Client.Dialogs
 				}
 				else
 				{
-					viewModel = ViewModels.Factory.CreateStatementByInstance(statement, _language);
+					viewModel = viewModel.Clone();
 				}
 
-				var editDialog = viewModel.CreateEditDialog(this, _knowledgeBase, _language);
+				var editDialog = viewModel.Clone().CreateEditDialog(this, _knowledgeBase, _language);
 
 				if (editDialog.ShowDialog() == true)
 				{
-					statement = viewModel.CreateStatement();
-					editButton.Tag = statement;
-					editButton.Content = $"{_language.QuestionNames.ParamStatement}: {statement.DescribeTrue(_language).GetPlainText(_language)}";
+					var editor = (Controls.IStatementEditor) ((EditDialog) editDialog).Editor;
+					viewModel = editor.Statement;
+					editButton.Tag = viewModel;
+					editButton.Content = viewModel;
 				}
 			};
 		}
@@ -235,7 +235,6 @@ namespace Inventor.Client.Dialogs
 			{
 				Path = new PropertyPath(propertyInfo.Name),
 				Mode = BindingMode.OneWay,
-#warning Display all statements correctly.
 			});
 
 			var addButton = new Button
@@ -266,8 +265,7 @@ namespace Inventor.Client.Dialogs
 
 				if (editDialog.ShowDialog() == true)
 				{
-					var statement = viewModel.CreateStatement();
-					((ICollection<IStatement>) listBox.ItemsSource).Add(statement);
+					((ICollection<StatementViewModel>) listBox.ItemsSource).Add(viewModel);
 				}
 			};
 
@@ -279,7 +277,7 @@ namespace Inventor.Client.Dialogs
 			};
 			deleteButton.Click += (sender, args) =>
 			{
-				var statements = listBox.SelectedItems.OfType<IStatement>().ToList();
+				var statements = listBox.SelectedItems.OfType<StatementViewModel>().ToList();
 				foreach (var statement in statements)
 				{
 					listBox.Items.Remove(statement);
@@ -294,17 +292,17 @@ namespace Inventor.Client.Dialogs
 			};
 			editButton.Click += (sender, args) =>
 			{
-				var statement = listBox.SelectedItem as IStatement;
+				var statement = listBox.SelectedItem as StatementViewModel;
 				if (statement == null) return;
 
-				var viewModel = ViewModels.Factory.CreateStatementByInstance(statement, _language);
+				var viewModel = statement.Clone();
 
 				var editDialog = viewModel.CreateEditDialog(this, _knowledgeBase, _language);
 
 				if (editDialog.ShowDialog() == true)
 				{
-					viewModel.ApplyUpdate();
-#warning Ensure that corresponding ListBox item is also updated.
+					var list = (ObservableCollection<StatementViewModel>) listBox.ItemsSource;
+					list[list.IndexOf(statement)] = viewModel;
 				}
 			};
 
@@ -375,9 +373,8 @@ namespace Inventor.Client.Dialogs
 				if (question != null)
 				{
 					editButton.Tag = question;
-					var questionDefinition = _knowledgeBase.Context.QuestionRepository.QuestionDefinitions[question.GetType()];
+					var questionDefinition = _knowledgeBase.Context.QuestionRepository.QuestionDefinitions[question.BuildQuestion().GetType()];
 					editButton.Content = $"{_language.QuestionNames.ParamQuestion}: {questionDefinition.GetName(_language)}";
-#warning Display full form of questions instead of raw stubs without data.
 				}
 			};
 		}
