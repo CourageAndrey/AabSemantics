@@ -16,6 +16,7 @@ using System.Runtime.InteropServices;
 [assembly: ComVisible(false)]
 
 [assembly: Guid("4269f5d6-ff49-42c4-ba0e-f40babc6a31e")]
+[assembly: InternalsVisibleTo("Inventor.Test")]
 
 [assembly: AssemblyVersion("1.0.0.0")]
 [assembly: AssemblyFileVersion("1.0.0.0")]
