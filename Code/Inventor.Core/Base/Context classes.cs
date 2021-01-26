@@ -113,6 +113,8 @@ namespace Inventor.Core.Base
 					KnowledgeBase.Statements.Remove(knowledge);
 				}
 
+				Parent.Children.Remove(this);
+
 				_disposed = true;
 
 				GC.SuppressFinalize(this);
