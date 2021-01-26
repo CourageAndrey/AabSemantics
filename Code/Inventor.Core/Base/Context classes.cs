@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 
 namespace Inventor.Core.Base
 {
@@ -84,24 +85,17 @@ namespace Inventor.Core.Base
 
 		public IQuestionProcessingContext CreateQuestionContext(IQuestion question)
 		{
-			return new QuestionProcessingContext(this, question);
+			var concreteContextType = typeof(QuestionProcessingContext<>).MakeGenericType(question.GetType());
+			var contextConstructor = concreteContextType.GetConstructors(BindingFlags.NonPublic | BindingFlags.Instance).Single();
+			return contextConstructor.Invoke(new Object[] { this, question }) as IQuestionProcessingContext;
 		}
 	}
 
-	public class QuestionProcessingContext : KnowledgeBaseContext, IQuestionProcessingContext
+	public class DisposableProcessingContext : KnowledgeBaseContext, IDisposable
 	{
-		#region Properties
-
-		public IQuestion Question
-		{ get; }
-
-		#endregion
-
-		internal QuestionProcessingContext(IKnowledgeBaseContext parent, IQuestion question)
+		internal DisposableProcessingContext(IKnowledgeBaseContext parent)
 			: base(parent.Language, parent, parent.KnowledgeBase, parent.QuestionRepository)
-		{
-			Question = question;
-		}
+		{ }
 
 		private Boolean _disposed;
 
@@ -109,7 +103,7 @@ namespace Inventor.Core.Base
 		{
 			if (!_disposed)
 			{
-				foreach (var child in Children.OfType<QuestionProcessingContext>())
+				foreach (var child in Children.OfType<DisposableProcessingContext>())
 				{
 					if (!child._disposed) throw new InvalidOperationException("Impossible to dispose question context because it has running child contexts.");
 				}
@@ -126,17 +120,25 @@ namespace Inventor.Core.Base
 		}
 	}
 
-	public class QuestionProcessingContext<QuestionT> : QuestionProcessingContext, IQuestionProcessingContext<QuestionT>
+	public class QuestionProcessingContext<QuestionT> : DisposableProcessingContext, IQuestionProcessingContext<QuestionT>
 		where QuestionT : IQuestion
 	{
-		public QuestionT QuestionX
-		{ get; }
+		#region Properties
 
-		internal QuestionProcessingContext(IQuestionProcessingContext untyped)
-			: base(untyped.Parent as IKnowledgeBaseContext, untyped.Question)
+		IQuestion IQuestionProcessingContext.Question
+		{ get { return _question; } }
+
+		public QuestionT Question
+		{ get { return _question; } }
+
+		private readonly QuestionT _question;
+
+		#endregion
+
+		internal QuestionProcessingContext(IKnowledgeBaseContext parent, QuestionT question)
+			: base(parent)
 		{
-			QuestionX = (QuestionT) untyped.Question;
-			Parent.Children.Remove(untyped);
+			_question = question;
 		}
 	}
 }

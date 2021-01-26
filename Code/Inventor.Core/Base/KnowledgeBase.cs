@@ -76,9 +76,12 @@ namespace Inventor.Core.Base
 			var statements = new EventCollection<IStatement>();
 			statements.ItemAdded += (sender, args) =>
 			{
-				var context = Context as IContext ?? systemContext;
-				args.Item.Context = context;
-				context.Scope.Add(args.Item);
+				if (args.Item.Context == null)
+				{
+					var context = Context as IContext ?? systemContext;
+					args.Item.Context = context;
+				}
+				args.Item.Context.Scope.Add(args.Item);
 
 				var handler = Volatile.Read(ref StatementAdded);
 				if (handler != null)
@@ -95,9 +98,11 @@ namespace Inventor.Core.Base
 			};
 			statements.ItemRemoved += (sender, args) =>
 			{
-				var context = Context as IContext ?? systemContext;
-				args.Item.Context = context;
-				context.Scope.Remove(args.Item);
+				if (args.Item.Context == Context || args.Item.Context == systemContext)
+				{
+					args.Item.Context.Scope.Remove(args.Item);
+					args.Item.Context = null;
+				}
 
 				var handler = Volatile.Read(ref StatementRemoved);
 				if (handler != null)
