@@ -38,7 +38,7 @@ namespace Inventor.Client
 				() => createOpenFileDialog(_application.CurrentLanguage), () => createSaveFileDialog(_application.CurrentLanguage),
 				(s, a) => { },
 				application.KnowledgeBase);
-			realoadKnowledgeBaseTree();
+			reloadKnowledgeBaseTree();
 		}
 
 		private readonly ObjectDataProvider _localizationProvider;
@@ -63,25 +63,25 @@ namespace Inventor.Client
 		private IChangeable loadFromFile(string fileName)
 		{
 			_application.KnowledgeBase = KnowledgeBase.Load(fileName);
-			realoadKnowledgeBaseTree();
+			reloadKnowledgeBaseTree();
 			return _application.KnowledgeBase;
 		}
 
 		private IChangeable createNew()
 		{
 			_application.KnowledgeBase = new KnowledgeBase(_application.CurrentLanguage);
-			realoadKnowledgeBaseTree();
+			reloadKnowledgeBaseTree();
 			return _application.KnowledgeBase;
 		}
 
 		private void createTestClick(object sender, RoutedEventArgs e)
 		{
 			_application.KnowledgeBase = KnowledgeBase.CreateTest(_application.CurrentLanguage);
-			realoadKnowledgeBaseTree();
+			reloadKnowledgeBaseTree();
 			_saveLoadController.ChangeEntity(_application.KnowledgeBase);
 		}
 
-		private void realoadKnowledgeBaseTree()
+		private void reloadKnowledgeBaseTree()
 		{
 			treeViewKnowledgeBase.Items.Clear();
 			if (_knowledgeBaseNode != null)
