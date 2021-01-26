@@ -4,7 +4,6 @@ using System.Windows;
 using System.Windows.Forms;
 
 using Inventor.Core;
-using Inventor.Core.Localization;
 
 namespace Inventor.Client.Dialogs
 {
