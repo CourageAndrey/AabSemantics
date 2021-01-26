@@ -12,7 +12,7 @@ namespace Inventor.Core.Processors
 	{
 		public override IAnswer Process(IQuestionProcessingContext<FindSubjectAreaQuestion> context)
 		{
-			var question = context.QuestionX;
+			var question = context.Question;
 			var activeContexts = context.GetHierarchy();
 
 			var statements = context.KnowledgeBase.Statements.Enumerate<GroupStatement>(activeContexts).Where(c => c.Concept == question.Concept).ToList();

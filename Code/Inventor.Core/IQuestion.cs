@@ -14,8 +14,8 @@ namespace Inventor.Core
 			{
 				foreach (var statement in additionalStatements ?? new IStatement[0])
 				{
-					context.KnowledgeBase.Statements.Add(statement);
 					statement.Context = questionContext;
+					context.KnowledgeBase.Statements.Add(statement);
 				}
 
 				var questionType = question.GetType();

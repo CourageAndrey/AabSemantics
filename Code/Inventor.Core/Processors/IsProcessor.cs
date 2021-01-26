@@ -12,7 +12,7 @@ namespace Inventor.Core.Processors
 	{
 		public override IAnswer Process(IQuestionProcessingContext<IsQuestion> context)
 		{
-			var question = context.QuestionX;
+			var question = context.Question;
 			var activeContexts = context.GetHierarchy();
 
 			var explanation = new List<IsStatement>();

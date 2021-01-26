@@ -13,7 +13,7 @@ namespace Inventor.Core.Processors
 	{
 		public override IAnswer Process(IQuestionProcessingContext<IsPartOfQuestion> context)
 		{
-			var question = context.QuestionX;
+			var question = context.Question;
 			var activeContexts = context.GetHierarchy();
 
 			var statements = context.KnowledgeBase.Statements.Enumerate<ConsistsOfStatement>(activeContexts).Where(c => c.Parent == question.Parent && c.Child == question.Child).ToList();

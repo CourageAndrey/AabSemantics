@@ -46,7 +46,7 @@ namespace Inventor.Core
 	public interface IQuestionProcessingContext<out QuestionT> : IQuestionProcessingContext
 		where QuestionT : IQuestion
 	{
-		QuestionT QuestionX
+		new QuestionT Question
 		{ get; }
 	}
 
