@@ -20,6 +20,14 @@ namespace Inventor.Core.Localization
 		{ get; set; }
 
 		[XmlElement]
+		public String PropertyWhole
+		{ get; set; }
+
+		[XmlElement]
+		public String PropertyPart
+		{ get; set; }
+
+		[XmlElement]
 		public String PropertyParent
 		{ get; set; }
 
@@ -56,6 +64,8 @@ namespace Inventor.Core.Localization
 				PropertyConcept = "Понятие",
 				PropertySign = "Признак",
 				PropertyValue = "Значение",
+				PropertyWhole = "Целое",
+				PropertyPart = "Часть",
 				PropertyParent = "Родительское понятие",
 				PropertyChild = "Дочернее понятие",
 				PropertyArea = "Предметная область",

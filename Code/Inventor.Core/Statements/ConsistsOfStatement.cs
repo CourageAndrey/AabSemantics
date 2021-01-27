@@ -9,33 +9,39 @@ namespace Inventor.Core.Statements
 	{
 		#region Properties
 
-		public IConcept Parent
+		public IConcept Whole
 		{ get; private set; }
 
-		public IConcept Child
+		public IConcept Part
 		{ get; private set; }
+
+		public IConcept Parent
+		{ get { return Whole; } }
+
+		public IConcept Child
+		{ get { return Part; } }
 
 		#endregion
 
-		public ConsistsOfStatement(IConcept parent, IConcept child)
+		public ConsistsOfStatement(IConcept whole, IConcept part)
 			: base(new Func<ILanguage, String>(language => language.StatementNames.Composition), new Func<ILanguage, String>(language => language.StatementHints.Composition))
 		{
-			Update(parent, child);
+			Update(whole, part);
 		}
 
-		public void Update(IConcept parent, IConcept child)
+		public void Update(IConcept whole, IConcept part)
 		{
-			if (parent == null) throw new ArgumentNullException(nameof(parent));
-			if (child == null) throw new ArgumentNullException(nameof(child));
+			if (whole == null) throw new ArgumentNullException(nameof(whole));
+			if (part == null) throw new ArgumentNullException(nameof(part));
 
-			Parent = parent;
-			Child = child;
+			Whole = whole;
+			Part = part;
 		}
 
 		public override IEnumerable<IConcept> GetChildConcepts()
 		{
-			yield return Parent;
-			yield return Child;
+			yield return Whole;
+			yield return Part;
 		}
 
 		#region Description
@@ -49,8 +55,8 @@ namespace Inventor.Core.Statements
 		{
 			return new Dictionary<String, INamed>
 			{
-				{ "#PARENT#", Parent },
-				{ "#CHILD#", Child },
+				{ "#PARENT#", Whole },
+				{ "#CHILD#", Part },
 			};
 		}
 
@@ -63,8 +69,8 @@ namespace Inventor.Core.Statements
 			if (ReferenceEquals(this, other)) return true;
 			if (other != null)
 			{
-				return	other.Parent == Parent &&
-						other.Child == Child;
+				return	other.Whole == Whole &&
+						other.Part == Part;
 			}
 			else return false;
 		}
