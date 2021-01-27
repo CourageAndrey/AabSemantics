@@ -10,33 +10,39 @@ namespace Inventor.Core.Statements
 	{
 		#region Properties
 
-		public IConcept Parent
+		public IConcept Ancestor
 		{ get; private set; }
 
-		public IConcept Child
+		public IConcept Descendant
 		{ get; private set; }
+
+		public IConcept Parent
+		{ get { return Ancestor; } }
+
+		public IConcept Child
+		{ get { return Descendant; } }
 
 		#endregion
 
-		public IsStatement(IConcept parent, IConcept child)
+		public IsStatement(IConcept ancestor, IConcept descendant)
 			: base(new Func<ILanguage, String>(language => language.StatementNames.Clasification), new Func<ILanguage, String>(language => language.StatementHints.Clasification))
 		{
-			Update(parent, child);
+			Update(ancestor, descendant);
 		}
 
-		public void Update(IConcept parent, IConcept child)
+		public void Update(IConcept ancestor, IConcept descendant)
 		{
-			if (parent == null) throw new ArgumentNullException(nameof(parent));
-			if (child == null) throw new ArgumentNullException(nameof(child));
+			if (ancestor == null) throw new ArgumentNullException(nameof(ancestor));
+			if (descendant == null) throw new ArgumentNullException(nameof(descendant));
 
-			Parent = parent;
-			Child = child;
+			Ancestor = ancestor;
+			Descendant = descendant;
 		}
 
 		public override IEnumerable<IConcept> GetChildConcepts()
 		{
-			yield return Parent;
-			yield return Child;
+			yield return Ancestor;
+			yield return Descendant;
 		}
 
 		#region Description
@@ -50,8 +56,8 @@ namespace Inventor.Core.Statements
 		{
 			return new Dictionary<String, INamed>
 			{
-				{ "#PARENT#", Parent },
-				{ "#CHILD#", Child },
+				{ "#PARENT#", Ancestor },
+				{ "#CHILD#", Descendant },
 			};
 		}
 
@@ -64,22 +70,22 @@ namespace Inventor.Core.Statements
 			if (ReferenceEquals(this, other)) return true;
 			if (other != null)
 			{
-				return	other.Parent == Parent &&
-						other.Child == Child;
+				return	other.Ancestor == Ancestor &&
+						other.Descendant == Descendant;
 			}
 			else return false;
 		}
 
 		public Boolean CheckCyclic(IEnumerable<IsStatement> statements)
 		{
-			return !isCyclic(statements, Child, new List<IConcept>());
+			return !isCyclic(statements, Descendant, new List<IConcept>());
 		}
 
 		private Boolean isCyclic(IEnumerable<IsStatement> allClasifications, IConcept concept, List<IConcept> chain)
 		{
 			if (chain.Contains(concept)) return true;
 
-			var clasifications = allClasifications.Where(c => c.Child == concept).ToList();
+			var clasifications = allClasifications.Where(c => c.Descendant == concept).ToList();
 			if (clasifications.Count == 0)
 			{
 				return false;
@@ -88,7 +94,7 @@ namespace Inventor.Core.Statements
 			{
 				foreach (var clasification in clasifications)
 				{
-					if (isCyclic(allClasifications, clasification.Parent, new List<IConcept>(chain) { clasification.Child }))
+					if (isCyclic(allClasifications, clasification.Ancestor, new List<IConcept>(chain) { clasification.Descendant }))
 					{
 						return true;
 					}

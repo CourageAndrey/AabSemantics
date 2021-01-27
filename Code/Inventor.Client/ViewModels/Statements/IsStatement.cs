@@ -10,10 +10,10 @@ namespace Inventor.Client.ViewModels.Statements
 	{
 		#region Properties
 
-		public ConceptItem Parent
+		public ConceptItem Ancestor
 		{ get; set; }
 
-		public ConceptItem Child
+		public ConceptItem Descendant
 		{ get; set; }
 
 		#endregion
@@ -25,16 +25,16 @@ namespace Inventor.Client.ViewModels.Statements
 		{ }
 
 		public IsStatement(Core.Statements.IsStatement statement, ILanguage language)
-			: this(new ConceptItem(statement.Parent, language), new ConceptItem(statement.Child, language), language)
+			: this(new ConceptItem(statement.Ancestor, language), new ConceptItem(statement.Descendant, language), language)
 		{
 			_boundObject = statement;
 		}
 
-		public IsStatement(ConceptItem parent, ConceptItem child, ILanguage language)
+		public IsStatement(ConceptItem ancestor, ConceptItem descendant, ILanguage language)
 			: base(language)
 		{
-			Parent = parent;
-			Child = child;
+			Ancestor = ancestor;
+			Descendant = descendant;
 		}
 
 		#endregion
@@ -64,19 +64,19 @@ namespace Inventor.Client.ViewModels.Statements
 
 		protected override Core.Statements.IsStatement CreateStatementImplementation()
 		{
-			return new Core.Statements.IsStatement(Parent.Concept, Child.Concept);
+			return new Core.Statements.IsStatement(Ancestor.Concept, Descendant.Concept);
 		}
 
 		public override void ApplyUpdate()
 		{
-			_boundObject.Update(Parent.Concept, Child.Concept);
+			_boundObject.Update(Ancestor.Concept, Descendant.Concept);
 		}
 
 		#endregion
 
 		public override StatementViewModel Clone()
 		{
-			return new IsStatement(Parent, Child, _language);
+			return new IsStatement(Ancestor, Descendant, _language);
 		}
 	}
 }

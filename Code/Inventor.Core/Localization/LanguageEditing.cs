@@ -28,11 +28,11 @@ namespace Inventor.Core.Localization
 		{ get; set; }
 
 		[XmlElement]
-		public String PropertyParent
+		public String PropertyAncestor
 		{ get; set; }
 
 		[XmlElement]
-		public String PropertyChild
+		public String PropertyDescendant
 		{ get; set; }
 
 		[XmlElement]
@@ -66,8 +66,8 @@ namespace Inventor.Core.Localization
 				PropertyValue = "Значение",
 				PropertyWhole = "Целое",
 				PropertyPart = "Часть",
-				PropertyParent = "Родительское понятие",
-				PropertyChild = "Дочернее понятие",
+				PropertyAncestor = "Родительское понятие",
+				PropertyDescendant = "Дочернее понятие",
 				PropertyArea = "Предметная область",
 				PropertyName = "Название",
 				PropertyHint = "Подсказка",

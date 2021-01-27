@@ -16,14 +16,14 @@ namespace Inventor.Core.Processors
 			var activeContexts = context.GetHierarchy();
 			var allStatements = context.KnowledgeBase.Statements.Enumerate(activeContexts);
 
-			var statements = allStatements.Enumerate<IsStatement>(activeContexts).Where(c => c.Child == question.Concept).ToList();
+			var statements = allStatements.Enumerate<IsStatement>(activeContexts).Where(c => c.Descendant == question.Concept).ToList();
 			if (statements.Any())
 			{
 				var result = new FormattedText();
 				var difference = new List<SignValueStatement>();
 				foreach (var statement in statements)
 				{
-					foreach (var sign in HasSignStatement.GetSigns(allStatements, statement.Parent, false))
+					foreach (var sign in HasSignStatement.GetSigns(allStatements, statement.Ancestor, false))
 					{
 						var diff = SignValueStatement.GetSignValue(allStatements, question.Concept, sign.Sign);
 						if (diff != null)
@@ -36,7 +36,7 @@ namespace Inventor.Core.Processors
 						result.Add(() => context.Language.Answers.IsDescriptionWithSign, new Dictionary<String, INamed>
 						{
 							{ "#CHILD#", question.Concept },
-							{ "#PARENT#", statement.Parent },
+							{ "#PARENT#", statement.Ancestor },
 						});
 						foreach (var diff in difference)
 						{
@@ -52,7 +52,7 @@ namespace Inventor.Core.Processors
 						result.Add(() => context.Language.Answers.IsDescription, new Dictionary<String, INamed>
 						{
 							{ "#CHILD#", question.Concept },
-							{ "#PARENT#", statement.Parent },
+							{ "#PARENT#", statement.Ancestor },
 						});
 					}
 					result.Add(() => String.Empty, new Dictionary<String, INamed>());

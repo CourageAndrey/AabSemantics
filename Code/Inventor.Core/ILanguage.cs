@@ -453,10 +453,10 @@ namespace Inventor.Core
 		String PropertyPart
 		{ get; }
 
-		String PropertyParent
+		String PropertyAncestor
 		{ get; }
 
-		String PropertyChild
+		String PropertyDescendant
 		{ get; }
 
 		String PropertyArea
