@@ -5,7 +5,7 @@ using Inventor.Core.Base;
 
 namespace Inventor.Core.Statements
 {
-	public sealed class GroupStatement : Statement<GroupStatement>
+	public sealed class GroupStatement : Statement<GroupStatement>, IParentChild<IConcept>
 	{
 		#region Properties
 
@@ -14,6 +14,12 @@ namespace Inventor.Core.Statements
 
 		public IConcept Concept
 		{ get; private set; }
+
+		public IConcept Parent
+		{ get { return Area; } }
+
+		public IConcept Child
+		{ get { return Concept; } }
 
 		#endregion
 
