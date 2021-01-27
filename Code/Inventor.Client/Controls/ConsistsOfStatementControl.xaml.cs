@@ -18,8 +18,8 @@ namespace Inventor.Client.Controls
 			_comboBoxWhole.ItemsSource = wrappedConcepts;
 			_comboBoxPart.ItemsSource = wrappedConcepts;
 
-			_groupWhole.Header = language.Ui.Editing.PropertyParent;
-			_groupPart.Header = language.Ui.Editing.PropertyChild;
+			_groupWhole.Header = language.Ui.Editing.PropertyAncestor;
+			_groupPart.Header = language.Ui.Editing.PropertyDescendant;
 		}
 
 		public ViewModels.Statements.ConsistsOfStatement EditValue
