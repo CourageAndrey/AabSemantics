@@ -15,11 +15,11 @@ namespace Inventor.Client.Controls
 		public void Initialize(IKnowledgeBase knowledgeBase, ILanguage language)
 		{
 			var wrappedConcepts = knowledgeBase.Concepts.Select(c => new ConceptItem(c, language)).ToList();
-			_comboBoxParent.ItemsSource = wrappedConcepts;
-			_comboBoxChild.ItemsSource = wrappedConcepts;
+			_comboBoxWhole.ItemsSource = wrappedConcepts;
+			_comboBoxPart.ItemsSource = wrappedConcepts;
 
-			_groupParent.Header = language.Ui.Editing.PropertyParent;
-			_groupChild.Header = language.Ui.Editing.PropertyChild;
+			_groupWhole.Header = language.Ui.Editing.PropertyParent;
+			_groupPart.Header = language.Ui.Editing.PropertyChild;
 		}
 
 		public ViewModels.Statements.ConsistsOfStatement EditValue

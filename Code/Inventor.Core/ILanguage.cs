@@ -447,6 +447,12 @@ namespace Inventor.Core
 		String PropertyValue
 		{ get; }
 
+		String PropertyWhole
+		{ get; }
+
+		String PropertyPart
+		{ get; }
+
 		String PropertyParent
 		{ get; }
 

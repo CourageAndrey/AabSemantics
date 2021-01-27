@@ -16,7 +16,7 @@ namespace Inventor.Core.Processors
 			var question = context.Question;
 			var activeContexts = context.GetHierarchy();
 
-			var statements = context.KnowledgeBase.Statements.Enumerate<ConsistsOfStatement>(activeContexts).Where(c => c.Parent == question.Parent && c.Child == question.Child).ToList();
+			var statements = context.KnowledgeBase.Statements.Enumerate<ConsistsOfStatement>(activeContexts).Where(c => c.Whole == question.Parent && c.Part == question.Child).ToList();
 			return new Answer(
 				statements.Any(),
 				new FormattedText(statements.Any() ? new Func<String>(() => context.Language.Answers.IsPartOfTrue) : () => context.Language.Answers.IsPartOfFalse, new Dictionary<String, INamed>

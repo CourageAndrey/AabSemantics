@@ -10,10 +10,10 @@ namespace Inventor.Client.ViewModels.Statements
 	{
 		#region Properties
 
-		public ConceptItem Parent
+		public ConceptItem Whole
 		{ get; set; }
 
-		public ConceptItem Child
+		public ConceptItem Part
 		{ get; set; }
 
 		#endregion
@@ -25,16 +25,16 @@ namespace Inventor.Client.ViewModels.Statements
 		{ }
 
 		public ConsistsOfStatement(Core.Statements.ConsistsOfStatement statement, ILanguage language)
-			: this(new ConceptItem(statement.Parent, language), new ConceptItem(statement.Child, language), language)
+			: this(new ConceptItem(statement.Whole, language), new ConceptItem(statement.Part, language), language)
 		{
 			_boundObject = statement;
 		}
 
-		public ConsistsOfStatement(ConceptItem parent, ConceptItem child, ILanguage language)
+		public ConsistsOfStatement(ConceptItem whole, ConceptItem part, ILanguage language)
 			: base(language)
 		{
-			Parent = parent;
-			Child = child;
+			Whole = whole;
+			Part = part;
 		}
 
 		#endregion
@@ -64,19 +64,19 @@ namespace Inventor.Client.ViewModels.Statements
 
 		protected override Core.Statements.ConsistsOfStatement CreateStatementImplementation()
 		{
-			return new Core.Statements.ConsistsOfStatement(Parent.Concept, Child.Concept);
+			return new Core.Statements.ConsistsOfStatement(Whole.Concept, Part.Concept);
 		}
 
 		public override void ApplyUpdate()
 		{
-			_boundObject.Update(Parent.Concept, Child.Concept);
+			_boundObject.Update(Whole.Concept, Part.Concept);
 		}
 
 		#endregion
 
 		public override StatementViewModel Clone()
 		{
-			return new ConsistsOfStatement(Parent, Child, _language);
+			return new ConsistsOfStatement(Whole, Part, _language);
 		}
 	}
 }
