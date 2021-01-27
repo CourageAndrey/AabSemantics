@@ -396,8 +396,8 @@ namespace Inventor.Test.Statements
 
 		private const string Parent1 = "Parent 1";
 		private const string Parent2 = "Parent 2";
-		private const string Child1 = "Child 1";
-		private const string Child2 = "Child 2";
+		private const string Child1 = "Descendant 1";
+		private const string Child2 = "Descendant 2";
 		private const string Medium1 = "Medium 1";
 		private const string Medium2 = "Medium 2";
 		private const string Single1 = "Single 1";

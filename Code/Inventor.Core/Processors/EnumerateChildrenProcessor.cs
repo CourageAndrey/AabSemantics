@@ -14,14 +14,14 @@ namespace Inventor.Core.Processors
 			var question = context.Question;
 			var activeContexts = context.GetHierarchy();
 
-			var statements = context.KnowledgeBase.Statements.Enumerate<IsStatement>(activeContexts).Where(c => c.Parent == question.Concept).ToList();
+			var statements = context.KnowledgeBase.Statements.Enumerate<IsStatement>(activeContexts).Where(c => c.Ancestor == question.Concept).ToList();
 			if (statements.Any())
 			{
 				String format;
-				var parameters = statements.Select(r => r.Child).ToList().Enumerate(out format);
+				var parameters = statements.Select(r => r.Descendant).ToList().Enumerate(out format);
 				parameters.Add("#PARENT#", question.Concept);
 				return new Answer(
-					statements.Select(s => s.Child),
+					statements.Select(s => s.Descendant),
 					new FormattedText(() => context.Language.Answers.Enumerate + format + ".", parameters),
 					new Explanation(statements));
 			}
