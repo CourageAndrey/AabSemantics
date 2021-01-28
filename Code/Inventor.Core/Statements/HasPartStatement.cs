@@ -5,7 +5,7 @@ using Inventor.Core.Base;
 
 namespace Inventor.Core.Statements
 {
-	public sealed class ConsistsOfStatement : Statement<ConsistsOfStatement>, IParentChild<IConcept>
+	public sealed class HasPartStatement : Statement<HasPartStatement>, IParentChild<IConcept>
 	{
 		#region Properties
 
@@ -23,7 +23,7 @@ namespace Inventor.Core.Statements
 
 		#endregion
 
-		public ConsistsOfStatement(IConcept whole, IConcept part)
+		public HasPartStatement(IConcept whole, IConcept part)
 			: base(new Func<ILanguage, String>(language => language.StatementNames.Composition), new Func<ILanguage, String>(language => language.StatementHints.Composition))
 		{
 			Update(whole, part);
@@ -64,7 +64,7 @@ namespace Inventor.Core.Statements
 
 		#region Consistency checking
 
-		public override Boolean Equals(ConsistsOfStatement other)
+		public override Boolean Equals(HasPartStatement other)
 		{
 			if (ReferenceEquals(this, other)) return true;
 			if (other != null)

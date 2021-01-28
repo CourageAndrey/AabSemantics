@@ -59,8 +59,8 @@
     <Compile Include="Controls\ConceptControl.xaml.cs">
       <DependentUpon>ConceptControl.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Controls\ConsistsOfStatementControl.xaml.cs">
-      <DependentUpon>ConsistsOfStatementControl.xaml</DependentUpon>
+    <Compile Include="Controls\HasPartStatementControl.xaml.cs">
+      <DependentUpon>HasPartStatementControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="Controls\GroupStatementControl.xaml.cs">
       <DependentUpon>GroupStatementControl.xaml</DependentUpon>
@@ -134,7 +134,7 @@
     <Compile Include="ViewModels\Questions\QuestionWithCondition.cs" />
     <Compile Include="ViewModels\Questions\SignValueQuestion.cs" />
     <Compile Include="ViewModels\Questions\WhatQuestion.cs" />
-    <Compile Include="ViewModels\Statements\ConsistsOfStatement.cs" />
+    <Compile Include="ViewModels\Statements\HasPartStatement.cs" />
     <Compile Include="ViewModels\Factory.cs" />
     <Compile Include="ViewModels\Statements\GroupStatement.cs" />
     <Compile Include="ViewModels\Statements\HasSignStatement.cs" />
@@ -146,7 +146,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Controls\ConsistsOfStatementControl.xaml">
+    <Page Include="Controls\HasPartStatementControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

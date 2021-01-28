@@ -20,7 +20,7 @@ namespace Inventor.Client.Dialogs
 			_radioGroup.Children.Clear();
 			foreach (var statementDefinition in new[]
 			{
-				new KeyValuePair<string, Type>(language.StatementNames.Composition, typeof(Core.Statements.ConsistsOfStatement)),
+				new KeyValuePair<string, Type>(language.StatementNames.Composition, typeof(Core.Statements.HasPartStatement)),
 				new KeyValuePair<string, Type>(language.StatementNames.SubjectArea, typeof(Core.Statements.GroupStatement)),
 				new KeyValuePair<string, Type>(language.StatementNames.HasSign, typeof(Core.Statements.HasSignStatement)),
 				new KeyValuePair<string, Type>(language.StatementNames.Clasification, typeof(Core.Statements.IsStatement)),
