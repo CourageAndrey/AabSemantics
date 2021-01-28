@@ -347,6 +347,9 @@ namespace Inventor.Core
 
 		String EnumerateContainers
 		{ get; }
+
+		String Explanation
+		{ get; }
 	}
 
 	public interface ILanguageUi

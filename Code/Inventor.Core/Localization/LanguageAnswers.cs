@@ -115,6 +115,10 @@ namespace Inventor.Core.Localization
 		public String EnumerateContainers
 		{ get; set; }
 
+		[XmlElement]
+		public String Explanation
+		{ get; set; }
+
 		#endregion
 
 		internal static LanguageAnswers CreateDefault()
@@ -148,6 +152,7 @@ namespace Inventor.Core.Localization
 				IsPartOfFalse = "Нет, #CHILD# не является частью #PARENT#.",
 				EnumerateParts = "В #PARENT# входят следующие составные части: ",
 				EnumerateContainers = "#CHILD# может выступать в качестве составной части для: ",
+				Explanation = "Объяснение:",
 			};
 		}
 	}
