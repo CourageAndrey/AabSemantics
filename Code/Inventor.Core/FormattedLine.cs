@@ -8,7 +8,7 @@ namespace Inventor.Core
 	{
 		#region Properties
 
-		public Func<string> Formatter
+		public Func<String> Formatter
 		{ get { return _formatter; } }
 
 		public IDictionary<String, INamed> Parameters
