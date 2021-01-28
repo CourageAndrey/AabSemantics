@@ -14,7 +14,7 @@ namespace Inventor.Core.Processors
 			var question = context.Question;
 			var activeContexts = context.GetHierarchy();
 
-			var statements = context.KnowledgeBase.Statements.Enumerate<ConsistsOfStatement>(activeContexts).Where(c => c.Part == question.Concept).ToList();
+			var statements = context.KnowledgeBase.Statements.Enumerate<HasPartStatement>(activeContexts).Where(c => c.Part == question.Concept).ToList();
 			if (statements.Any())
 			{
 				String format;
