@@ -13,9 +13,9 @@ namespace Inventor.Client.ViewModels
 			{
 				return new Concept();
 			}
-			else if (type == typeof(Core.Statements.ConsistsOfStatement))
+			else if (type == typeof(Core.Statements.HasPartStatement))
 			{
-				return new ConsistsOfStatement(language);
+				return new HasPartStatement(language);
 			}
 			else if (type == typeof(Core.Statements.GroupStatement))
 			{
@@ -41,9 +41,9 @@ namespace Inventor.Client.ViewModels
 
 		public static StatementViewModel CreateStatementByInstance(Core.IStatement statement, Core.ILanguage language)
 		{
-			if (statement is Core.Statements.ConsistsOfStatement)
+			if (statement is Core.Statements.HasPartStatement)
 			{
-				return new ConsistsOfStatement(statement as Core.Statements.ConsistsOfStatement, language);
+				return new HasPartStatement(statement as Core.Statements.HasPartStatement, language);
 			}
 			else if (statement is Core.Statements.GroupStatement)
 			{
@@ -78,9 +78,9 @@ namespace Inventor.Client.ViewModels
 			}
 			else if (statementNode != null)
 			{
-				if (statementNode.Statement is Core.Statements.ConsistsOfStatement)
+				if (statementNode.Statement is Core.Statements.HasPartStatement)
 				{
-					return new ConsistsOfStatement(statementNode.Statement as Core.Statements.ConsistsOfStatement, language);
+					return new HasPartStatement(statementNode.Statement as Core.Statements.HasPartStatement, language);
 				}
 				else if (statementNode.Statement is Core.Statements.GroupStatement)
 				{

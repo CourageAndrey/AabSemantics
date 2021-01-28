@@ -6,7 +6,7 @@ using Inventor.Core;
 
 namespace Inventor.Client.ViewModels.Statements
 {
-	public class ConsistsOfStatement : StatementViewModel<Core.Statements.ConsistsOfStatement>
+	public class HasPartStatement : StatementViewModel<Core.Statements.HasPartStatement>
 	{
 		#region Properties
 
@@ -20,17 +20,17 @@ namespace Inventor.Client.ViewModels.Statements
 
 		#region Constructors
 
-		public ConsistsOfStatement(ILanguage language)
+		public HasPartStatement(ILanguage language)
 			: this(null as ConceptItem, null, language)
 		{ }
 
-		public ConsistsOfStatement(Core.Statements.ConsistsOfStatement statement, ILanguage language)
+		public HasPartStatement(Core.Statements.HasPartStatement statement, ILanguage language)
 			: this(new ConceptItem(statement.Whole, language), new ConceptItem(statement.Part, language), language)
 		{
 			_boundObject = statement;
 		}
 
-		public ConsistsOfStatement(ConceptItem whole, ConceptItem part, ILanguage language)
+		public HasPartStatement(ConceptItem whole, ConceptItem part, ILanguage language)
 			: base(language)
 		{
 			Whole = whole;
@@ -43,7 +43,7 @@ namespace Inventor.Client.ViewModels.Statements
 
 		public override Window CreateEditDialog(Window owner, IKnowledgeBase knowledgeBase, ILanguage language)
 		{
-			var control = new ConsistsOfStatementControl
+			var control = new HasPartStatementControl
 			{
 				EditValue = this,
 			};
@@ -62,9 +62,9 @@ namespace Inventor.Client.ViewModels.Statements
 			return dialog;
 		}
 
-		protected override Core.Statements.ConsistsOfStatement CreateStatementImplementation()
+		protected override Core.Statements.HasPartStatement CreateStatementImplementation()
 		{
-			return new Core.Statements.ConsistsOfStatement(Whole.Concept, Part.Concept);
+			return new Core.Statements.HasPartStatement(Whole.Concept, Part.Concept);
 		}
 
 		public override void ApplyUpdate()
@@ -76,7 +76,7 @@ namespace Inventor.Client.ViewModels.Statements
 
 		public override StatementViewModel Clone()
 		{
-			return new ConsistsOfStatement(Whole, Part, _language);
+			return new HasPartStatement(Whole, Part, _language);
 		}
 	}
 }

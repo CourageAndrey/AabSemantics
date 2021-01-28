@@ -1,4 +1,4 @@
-﻿<UserControl x:Class="Inventor.Client.Controls.ConsistsOfStatementControl"
+﻿<UserControl x:Class="Inventor.Client.Controls.HasPartStatementControl"
 		xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
 		xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
 	<StackPanel Orientation="Vertical" Name="_contextControl">

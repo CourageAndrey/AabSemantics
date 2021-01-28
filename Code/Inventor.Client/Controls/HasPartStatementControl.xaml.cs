@@ -5,9 +5,9 @@ using Inventor.Core;
 
 namespace Inventor.Client.Controls
 {
-	public partial class ConsistsOfStatementControl : IStatementEditor
+	public partial class HasPartStatementControl : IStatementEditor
 	{
-		public ConsistsOfStatementControl()
+		public HasPartStatementControl()
 		{
 			InitializeComponent();
 		}
@@ -22,9 +22,9 @@ namespace Inventor.Client.Controls
 			_groupPart.Header = language.Ui.Editing.PropertyDescendant;
 		}
 
-		public ViewModels.Statements.ConsistsOfStatement EditValue
+		public ViewModels.Statements.HasPartStatement EditValue
 		{
-			get { return _contextControl.DataContext as ViewModels.Statements.ConsistsOfStatement; }
+			get { return _contextControl.DataContext as ViewModels.Statements.HasPartStatement; }
 			set { _contextControl.DataContext = value; }
 		}
 

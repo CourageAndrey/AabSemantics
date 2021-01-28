@@ -383,7 +383,7 @@ namespace Inventor.Core.Base
 			knowledgeBase.Statements.Add(new SignValueStatement(fighter, areaType, atAir));
 			knowledgeBase.Statements.Add(new SignValueStatement(airbus, areaType, atAir));
 			knowledgeBase.Statements.Add(new SignValueStatement(jetFighter, areaType, atAir));
-			knowledgeBase.Statements.Add(new ConsistsOfStatement(vehicle, motorType));
+			knowledgeBase.Statements.Add(new HasPartStatement(vehicle, motorType));
 
 			return knowledgeBase;
 		}
