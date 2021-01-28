@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
@@ -106,10 +107,23 @@ namespace Inventor.Client
 			{
 				var question = dialog.Question.BuildQuestion();
 				var answer = question.Ask(_application.KnowledgeBase.Context);
+
+				var processingResult = answer.Description;
+				if (answer.Explanation.Statements.Count > 0)
+				{
+					processingResult.Add(new FormattedLine(() => string.Empty, new Dictionary<string, INamed>()));
+					processingResult.Add(new FormattedLine(() => _application.CurrentLanguage.Answers.Explanation, new Dictionary<string, INamed>()));
+
+					foreach (var statement in answer.Explanation.Statements)
+					{
+						processingResult.Add(statement.DescribeTrue(_application.CurrentLanguage));
+					}
+				}
+
 				new FormattedTextDialog(
-						_application.CurrentLanguage,
-						answer.Description,
-						knowledgeObjectPicked)
+					_application.CurrentLanguage,
+					processingResult,
+					knowledgeObjectPicked)
 				{
 					Owner = this,
 					Title = _application.CurrentLanguage.Misc.Answer,
