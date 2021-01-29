@@ -8,10 +8,10 @@
 			<RowDefinition Height="*"/>
 		</Grid.RowDefinitions>
 		<GroupBox Grid.Row="0" Name="_groupName">
-			<controls:LocalizedStringVariableControl EditValue="{Binding Path=Name, Mode=OneTime}" x:Name="_nameConrol" />
+			<controls:LocalizedStringVariableControl EditValue="{Binding Path=Name, Mode=OneTime}" x:Name="_nameControl" />
 		</GroupBox>
 		<GroupBox Grid.Row="1" Name="_groupHint">
-			<controls:LocalizedStringVariableControl EditValue="{Binding Path=Hint, Mode=OneTime}" x:Name="_hintConrol" />
+			<controls:LocalizedStringVariableControl EditValue="{Binding Path=Hint, Mode=OneTime}" x:Name="_hintControl" />
 		</GroupBox>
 	</Grid>
 </UserControl>
