@@ -23,7 +23,7 @@ namespace Inventor.Core
 
 	public interface ISystemContext : IContext
 	{
-		IKnowledgeBaseContext Instantiate(IKnowledgeBase knowledgeBase, IQuestionRepository questionRepository);
+		IKnowledgeBaseContext Instantiate(IKnowledgeBase knowledgeBase, IQuestionRepository questionRepository, IAttributeRepository attributeRepository);
 	}
 
 	public interface IKnowledgeBaseContext : IContext
@@ -32,6 +32,9 @@ namespace Inventor.Core
 		{ get; }
 
 		IQuestionRepository QuestionRepository
+		{ get; }
+
+		IAttributeRepository AttributeRepository
 		{ get; }
 
 		IQuestionProcessingContext CreateQuestionContext(IQuestion question);

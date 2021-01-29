@@ -53,11 +53,11 @@ namespace Inventor.Core.Base
 			: base(language, null)
 		{ }
 
-		public IKnowledgeBaseContext Instantiate(IKnowledgeBase knowledgeBase, IQuestionRepository questionRepository)
+		public IKnowledgeBaseContext Instantiate(IKnowledgeBase knowledgeBase, IQuestionRepository questionRepository, IAttributeRepository attributeRepository)
 		{
 			if (Children.Count > 0) throw new InvalidOperationException("Impossible to instantiate system context more than once.");
 
-			return new KnowledgeBaseContext(Language, this, knowledgeBase, questionRepository);
+			return new KnowledgeBaseContext(Language, this, knowledgeBase, questionRepository, attributeRepository);
 		}
 	}
 
@@ -71,16 +71,20 @@ namespace Inventor.Core.Base
 		public IQuestionRepository QuestionRepository
 		{ get; }
 
+		public IAttributeRepository AttributeRepository
+		{ get; }
+
 		public override Boolean IsSystem
 		{ get { return false; } }
 
 		#endregion
 
-		public KnowledgeBaseContext(ILanguage language, IContext parent, IKnowledgeBase knowledgeBase, IQuestionRepository questionRepository)
+		public KnowledgeBaseContext(ILanguage language, IContext parent, IKnowledgeBase knowledgeBase, IQuestionRepository questionRepository, IAttributeRepository attributeRepository)
 			: base(language, parent)
 		{
 			KnowledgeBase = knowledgeBase;
 			QuestionRepository = questionRepository;
+			AttributeRepository = attributeRepository;
 		}
 
 		public IQuestionProcessingContext CreateQuestionContext(IQuestion question)
@@ -94,7 +98,7 @@ namespace Inventor.Core.Base
 	public class DisposableProcessingContext : KnowledgeBaseContext, IDisposable
 	{
 		internal DisposableProcessingContext(IKnowledgeBaseContext parent)
-			: base(parent.Language, parent, parent.KnowledgeBase, parent.QuestionRepository)
+			: base(parent.Language, parent, parent.KnowledgeBase, parent.QuestionRepository, parent.AttributeRepository)
 		{ }
 
 		private Boolean _disposed;

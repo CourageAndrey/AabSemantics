@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.IO;
 using System.Linq;
 using System.Threading;
@@ -50,6 +49,8 @@ namespace Inventor.Core.Localization
 		[XmlIgnore]
 		private const String ElementAnswers = "Answers";
 		[XmlIgnore]
+		private const String ElementAttributes = "Attributes";
+		[XmlIgnore]
 		private const String ElementUi = "Ui";
 		[XmlIgnore]
 		private const String ElementErrorsInventor = "ErrorsInventor";
@@ -96,6 +97,10 @@ namespace Inventor.Core.Localization
 
 		[XmlElement(ElementAnswers)]
 		public LanguageAnswers AnswersXml
+		{ get; set; }
+
+		[XmlElement(ElementAttributes)]
+		public LanguageAttributes AttributesXml
 		{ get; set; }
 
 		[XmlElement(ElementUi)]
@@ -167,6 +172,10 @@ namespace Inventor.Core.Localization
 		{ get { return AnswersXml; } }
 
 		[XmlIgnore]
+		public ILanguageAttributes Attributes
+		{ get { return AttributesXml; } }
+
+		[XmlIgnore]
 		public ILanguageUi Ui
 		{ get { return UiXml; } }
 
@@ -208,6 +217,7 @@ namespace Inventor.Core.Localization
 				QuestionStatementFormatStringsXml = LanguageStatementFormatStrings.CreateDefaultQuestion(),
 				QuestionNamesXml = LanguageQuestionNames.CreateDefault(),
 				AnswersXml = LanguageAnswers.CreateDefault(),
+				AttributesXml = LanguageAttributes.CreateDefault(),
 				UiXml = LanguageUi.CreateDefault(),
 				ErrorsInventorXml = LanguageErrorsInventor.CreateDefault(),
 				ConfigurationXml = LanguageConfiguration.CreateDefault(),
@@ -295,6 +305,9 @@ namespace Inventor.Core.Localization
 
 		public ILanguageAnswers Answers
 		{ get { return _language?.Answers; } }
+
+		public ILanguageAttributes Attributes
+		{ get { return _language?.Attributes; } }
 
 		public ILanguageUi Ui
 		{ get { return _language?.Ui; } }
