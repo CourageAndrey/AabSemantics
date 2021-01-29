@@ -37,6 +37,9 @@ namespace Inventor.Core
 		ILanguageAnswers Answers
 		{ get; }
 
+		ILanguageAttributes Attributes
+		{ get; }
+
 		ILanguageUi Ui
 		{ get; }
 
@@ -352,6 +355,21 @@ namespace Inventor.Core
 		{ get; }
 	}
 
+	public interface ILanguageAttributes
+	{
+		String None
+		{ get; }
+
+		String IsSign
+		{ get; }
+
+		String IsValue
+		{ get; }
+
+		String IsProcess
+		{ get; }
+	}
+
 	public interface ILanguageUi
 	{
 		String Ok
@@ -469,6 +487,9 @@ namespace Inventor.Core
 		{ get; }
 
 		String PropertyHint
+		{ get; }
+
+		String PropertyAttributes
 		{ get; }
 
 		String ColumnHeaderLanguage

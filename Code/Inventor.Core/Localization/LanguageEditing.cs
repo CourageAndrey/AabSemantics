@@ -48,6 +48,10 @@ namespace Inventor.Core.Localization
 		{ get; set; }
 
 		[XmlElement]
+		public String PropertyAttributes
+		{ get; set; }
+
+		[XmlElement]
 		public String ColumnHeaderLanguage
 		{ get; set; }
 
@@ -71,6 +75,7 @@ namespace Inventor.Core.Localization
 				PropertyArea = "Предметная область",
 				PropertyName = "Название",
 				PropertyHint = "Подсказка",
+				PropertyAttributes = "Атрибуты:",
 				ColumnHeaderLanguage = "Язык",
 				ColumnHeaderValue = "Значение",
 			};

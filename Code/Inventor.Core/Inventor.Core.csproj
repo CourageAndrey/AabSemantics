@@ -40,13 +40,17 @@
     <Compile Include="Attributes\IsSignAttribute.cs" />
     <Compile Include="Attributes\IsValueAttribute.cs" />
     <Compile Include="Base\Answer.cs" />
+    <Compile Include="Base\AttributeRepository.cs" />
     <Compile Include="Base\Concept.cs" />
     <Compile Include="Base\Explanation.cs" />
     <Compile Include="Base\Context classes.cs" />
     <Compile Include="Context interfaces.cs" />
     <Compile Include="IAttribute.cs" />
+    <Compile Include="IAttributeRepository.cs" />
+    <Compile Include="Localization\LanguageAttributes.cs" />
     <Compile Include="Localization\LanguageEditing.cs" />
     <Compile Include="Processors\QuestionWithConditionProcessor.cs" />
+    <Compile Include="AttributeDefinition.cs" />
     <Compile Include="QuestionDefinition.cs" />
     <Compile Include="Base\QuestionRepository.cs" />
     <Compile Include="IAnswer.cs" />
