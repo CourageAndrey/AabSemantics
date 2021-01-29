@@ -1,4 +1,5 @@
-﻿using System.Windows;
+﻿using System.Collections.Generic;
+using System.Windows;
 
 using Inventor.Client.Controls;
 using Inventor.Client.Dialogs;
@@ -14,6 +15,9 @@ namespace Inventor.Client.ViewModels
 
 		public LocalizedString Hint
 		{ get; }
+
+		public List<ConceptAttribute> Attributes
+		{ get; } = new List<ConceptAttribute>();
 
 		#endregion
 
@@ -43,6 +47,7 @@ namespace Inventor.Client.ViewModels
 
 		public Window CreateEditDialog(Window owner, Core.IKnowledgeBase knowledgeBase, Core.ILanguage language)
 		{
+			updateAttributes(knowledgeBase.Context.AttributeRepository, language);
 			var control = new ConceptControl
 			{
 				EditValue = this,
@@ -62,15 +67,42 @@ namespace Inventor.Client.ViewModels
 			return dialog;
 		}
 
+		private void updateAttributes(Core.IAttributeRepository attributeRepository, Core.ILanguage language)
+		{
+			Attributes.Clear();
+			Attributes.Add(new ConceptAttribute(Core.AttributeDefinition.None, language, _boundObject == null || _boundObject.Attributes.Count == 0));
+			foreach (var attributeDefinition in attributeRepository.AttributeDefinitions.Values)
+			{
+				Attributes.Add(new ConceptAttribute(attributeDefinition, language, _boundObject != null && _boundObject.Attributes.Contains(attributeDefinition.AttributeValue)));
+			}
+		}
+
 		public void ApplyCreate(Core.IKnowledgeBase knowledgeBase)
 		{
 			knowledgeBase.Concepts.Add(_boundObject = new Core.Base.Concept(Name.Create(), Hint.Create()));
+
+			foreach (var attribute in Attributes)
+			{
+				if (attribute.IsOn && attribute.Value != null)
+				{
+					_boundObject.Attributes.Add(attribute.Value);
+				}
+			}
 		}
 
 		public void ApplyUpdate()
 		{
 			Name?.Apply(_boundObject.Name);
 			Hint?.Apply(_boundObject.Hint);
+
+			_boundObject.Attributes.Clear();
+			foreach (var attribute in Attributes)
+			{
+				if (attribute.IsOn && attribute.Value != null)
+				{
+					_boundObject.Attributes.Add(attribute.Value);
+				}
+			}
 		}
 
 		#endregion

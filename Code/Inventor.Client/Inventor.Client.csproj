@@ -73,6 +73,7 @@
     </Compile>
     <Compile Include="Controls\IStatementEditor.cs" />
     <Compile Include="IQuestionViewModel.cs" />
+    <Compile Include="ViewModels\ConceptAttribute.cs" />
     <Compile Include="ViewModels\ConceptItem.cs" />
     <Compile Include="Controls\SignValueStatementControl.xaml.cs">
       <DependentUpon>SignValueStatementControl.xaml</DependentUpon>
