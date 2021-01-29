@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
-
+using Inventor.Core.Attributes;
 using Inventor.Core.Localization;
 using Inventor.Core.Statements;
 using Inventor.Core.Utils;
@@ -326,6 +326,19 @@ namespace Inventor.Core.Base
 			{
 				{ "ru-RU", "Современный самолёт для ведения воздушного боя." },
 			})));
+
+			// sign attributes
+			motorType.Attributes.Add(IsSignAttribute.Value);
+			areaType.Attributes.Add(IsSignAttribute.Value);
+
+			// value attributes
+			mtMucles.Attributes.Add(IsValueAttribute.Value);
+			mtSteam.Attributes.Add(IsValueAttribute.Value);
+			mtCombusion.Attributes.Add(IsValueAttribute.Value);
+			mtJet.Attributes.Add(IsValueAttribute.Value);
+			atGround.Attributes.Add(IsValueAttribute.Value);
+			atWater.Attributes.Add(IsValueAttribute.Value);
+			atAir.Attributes.Add(IsValueAttribute.Value);
 
 			// statements
 			knowledgeBase.Statements.Add(new GroupStatement(transport, vehicle));
