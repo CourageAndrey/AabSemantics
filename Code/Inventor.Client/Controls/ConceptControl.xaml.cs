@@ -14,8 +14,8 @@ namespace Inventor.Client.Controls
 			_groupName.Header = language.Ui.Editing.PropertyName;
 			_groupHint.Header = language.Ui.Editing.PropertyHint;
 
-			_nameConrol.Localize(language);
-			_hintConrol.Localize(language);
+			_nameControl.Localize(language);
+			_hintControl.Localize(language);
 		}
 
 		public ViewModels.Concept EditValue
@@ -24,8 +24,8 @@ namespace Inventor.Client.Controls
 			set
 			{
 				_contextControl.DataContext = value;
-				_nameConrol.IsEnabled = value.Name != null;
-				_hintConrol.IsEnabled = value.Hint != null;
+				_nameControl.IsEnabled = value.Name != null;
+				_hintControl.IsEnabled = value.Hint != null;
 			}
 		}
 	}
