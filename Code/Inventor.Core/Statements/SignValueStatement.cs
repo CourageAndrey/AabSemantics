@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 
+using Inventor.Core.Attributes;
 using Inventor.Core.Base;
 
 namespace Inventor.Core.Statements
@@ -32,6 +33,8 @@ namespace Inventor.Core.Statements
 			if (concept == null) throw new ArgumentNullException(nameof(concept));
 			if (sign == null) throw new ArgumentNullException(nameof(sign));
 			if (value == null) throw new ArgumentNullException(nameof(value));
+			if (!sign.HasAttribute<IsSignAttribute>()) throw new ArgumentException("Sign concept has to be marked as IsSign Attribute.", nameof(sign));
+			if (!value.HasAttribute<IsValueAttribute>()) throw new ArgumentException("Value concept has to be marked as IsValue Attribute.", nameof(value));
 
 			Concept = concept;
 			Sign = sign;

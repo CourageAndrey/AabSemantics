@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 using Inventor.Core.Localization;
 
@@ -14,6 +15,9 @@ namespace Inventor.Core.Base
 		public ILocalizedString Hint
 		{ get; }
 
+		public ICollection<IAttribute> Attributes
+		{ get; }
+
 		#endregion
 
 		#region Constructors
@@ -22,6 +26,7 @@ namespace Inventor.Core.Base
 		{
 			Name = name ?? new LocalizedStringVariable();
 			Hint = hint ?? new LocalizedStringVariable();
+			Attributes = new HashSet<IAttribute>();
 		}
 
 		#endregion
