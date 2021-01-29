@@ -31,5 +31,7 @@ namespace Inventor.Core
 		{
 			return _attributeNameGetter(language);
 		}
+
+		public static readonly AttributeDefinition None = new AttributeDefinition(null, null, language => language.Attributes.None);
 	}
 }
