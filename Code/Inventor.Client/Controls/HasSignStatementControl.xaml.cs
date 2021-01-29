@@ -2,6 +2,7 @@
 
 using Inventor.Client.ViewModels;
 using Inventor.Core;
+using Inventor.Core.Attributes;
 
 namespace Inventor.Client.Controls
 {
@@ -16,7 +17,7 @@ namespace Inventor.Client.Controls
 		{
 			var wrappedConcepts = knowledgeBase.Concepts.Select(c => new ConceptItem(c, language)).ToList();
 			_comboBoxConcept.ItemsSource = wrappedConcepts;
-			_comboBoxSign.ItemsSource = wrappedConcepts;
+			_comboBoxSign.ItemsSource = wrappedConcepts.Where(c => c.Concept.HasAttribute<IsSignAttribute>()).ToList();
 
 			_groupConcept.Header = language.Ui.Editing.PropertyConcept;
 			_groupSign.Header = language.Ui.Editing.PropertySign;
