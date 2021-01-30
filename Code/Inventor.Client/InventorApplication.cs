@@ -99,14 +99,13 @@ namespace Inventor.Client
 		[STAThread]
 		private static void Main()
 		{
-			var application = new InventorApplication
-			{
+			var application = new InventorApplication();
+
 #if DEBUG
-				KnowledgeBase = Core.Base.KnowledgeBase.CreateTest()
+			application.KnowledgeBase = Core.Base.KnowledgeBase.CreateTest(application.CurrentLanguage);
 #else
-				KnowledgeBase = Core.Base.KnowledgeBase.New(LanguageEx.CurrentEx)
+			application.KnowledgeBase = Core.Base.KnowledgeBase.New(application.CurrentLanguage);
 #endif
-			};
 			application.MainForm.Initialize(application);
 			application.MainWindow.Show();
 			application.Run();

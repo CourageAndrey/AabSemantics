@@ -24,7 +24,7 @@ namespace Inventor.Client.UI
 
 		#endregion
 
-		public QuestionDialog(IQuestionRepository questionRepository, IKnowledgeBase knowledgeBase, ILanguage language)
+		public QuestionDialog(IKnowledgeBase knowledgeBase, ILanguage language)
 		{
 			_language = language;
 
@@ -41,7 +41,7 @@ namespace Inventor.Client.UI
 			panelQuestionParams.Visibility = Visibility.Hidden;
 
 			_knowledgeBase = knowledgeBase;
-			foreach (var questionDefinition in questionRepository.QuestionDefinitions.Values)
+			foreach (var questionDefinition in knowledgeBase.QuestionRepository.QuestionDefinitions.Values)
 			{
 				_questions[questionDefinition.GetName(_language)] = questionDefinition.CreateQuestion;
 			}

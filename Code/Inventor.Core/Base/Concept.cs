@@ -12,13 +12,10 @@ namespace Inventor.Core.Base
 		{ get; }
 
 		public IContext Context
-		{ get; internal set; }
+		{ get; set; }
 
 		public ILocalizedString Hint
 		{ get; }
-
-		public ConceptType Type
-		{ get; internal set; } = ConceptType.Usual;
 
 		#endregion
 
