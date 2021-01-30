@@ -7,7 +7,6 @@ using Microsoft.Win32;
 
 using Inventor.Client.UI.Nodes;
 using Inventor.Core;
-using Inventor.Core.Localization;
 
 namespace Inventor.Client.UI
 {
@@ -66,14 +65,14 @@ namespace Inventor.Client.UI
 
 		private IChangeable createNew()
 		{
-			_application.KnowledgeBase = Core.Base.KnowledgeBase.New(_application.CurrentLanguage);
+			_application.KnowledgeBase = new Core.Base.KnowledgeBase(_application.CurrentLanguage);
 			realoadKnowledgeBaseTree();
 			return _application.KnowledgeBase;
 		}
 
 		private void createTestClick(object sender, RoutedEventArgs e)
 		{
-			_application.KnowledgeBase = Core.Base.KnowledgeBase.CreateTest();
+			_application.KnowledgeBase = Core.Base.KnowledgeBase.CreateTest(_application.CurrentLanguage);
 			realoadKnowledgeBaseTree();
 			_saveLoadController.ChangeEntity(_application.KnowledgeBase);
 		}
@@ -93,28 +92,29 @@ namespace Inventor.Client.UI
 
 		#region Knowledgebase actions
 
-		private readonly IQuestionRepository _questionRepository = new Core.Base.QuestionRepository();
-
 		private void askQuestionClick(object sender, RoutedEventArgs e)
 		{
-			var dialog = new QuestionDialog(_questionRepository, _application.KnowledgeBase, _application.CurrentLanguage)
+			var dialog = new QuestionDialog(_application.KnowledgeBase, _application.CurrentLanguage)
 			{
 				Owner = this,
 			};
 			if (dialog.ShowDialog() == true)
 			{
-				var questionType = dialog.Question.GetType();
-				var questionProcessor = _questionRepository.QuestionDefinitions[questionType].CreateProcessor();
-				var context = new Core.Base.QuestionProcessingContext(_application.KnowledgeBase, dialog.Question, _questionRepository, _application.CurrentLanguage);
-				var answer = questionProcessor.Process(context);
-				new FormattedTextDialog(
-					_application.CurrentLanguage,
-					answer.Description,
-					knowledgeObjectPicked)
+				using (var context = _application.KnowledgeBase.AskQuestion(dialog.Question))
 				{
-					Owner = this,
-					Title = _application.CurrentLanguage.Misc.Answer,
-				}.Show();
+					var questionType = dialog.Question.GetType();
+					var questionRepository = _application.KnowledgeBase.QuestionRepository;
+					var questionProcessor = questionRepository.QuestionDefinitions[questionType].CreateProcessor();
+					var answer = questionProcessor.Process(context);
+					new FormattedTextDialog(
+						_application.CurrentLanguage,
+						answer.Description,
+						knowledgeObjectPicked)
+					{
+						Owner = this,
+						Title = _application.CurrentLanguage.Misc.Answer,
+					}.Show();
+				}
 			}
 		}
 

@@ -39,8 +39,8 @@
     <Compile Include="Base\Answer.cs" />
     <Compile Include="Base\Concept.cs" />
     <Compile Include="Base\Explanation.cs" />
-    <Compile Include="Base\QuestionProcessingContext.cs" />
-    <Compile Include="IContext.cs" />
+    <Compile Include="Base\Context classes.cs" />
+    <Compile Include="Context interfaces.cs" />
     <Compile Include="IKnowledge.cs" />
     <Compile Include="QuestionDefinition.cs" />
     <Compile Include="Questions\QuestionDescriptorAttribute.cs" />
@@ -52,7 +52,6 @@
     <Compile Include="IKnowledgeBase.cs" />
     <Compile Include="ILanguage.cs" />
     <Compile Include="ILocalizedString.cs" />
-    <Compile Include="IQuestionProcessingContext.cs" />
     <Compile Include="IQuestion.cs" />
     <Compile Include="IQuestionProcessor.cs" />
     <Compile Include="IQuestionRepository.cs" />

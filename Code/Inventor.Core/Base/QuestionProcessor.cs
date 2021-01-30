@@ -12,7 +12,7 @@ namespace Inventor.Core.Base
 
 		public override IAnswer Process(IQuestionProcessingContext context)
 		{
-			return Process(context.GetExplicit<QuestionT>());
+			return Process(new QuestionProcessingContext<QuestionT>(context));
 		}
 	}
 }
