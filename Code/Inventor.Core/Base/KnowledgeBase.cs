@@ -17,7 +17,10 @@ namespace Inventor.Core.Base
 		{ get { return _name; } }
 
 		public IContext Context
-		{ get; internal set; }
+		{
+			get { return _knowledgeBaseContext as IContext ?? _systemContext; }
+			set { throw new NotSupportedException("Impossible to override knowledge base context."); }
+		}
 
 		public ICollection<IConcept> Concepts
 		{ get { return _concepts; } }
@@ -25,9 +28,14 @@ namespace Inventor.Core.Base
 		public ICollection<IStatement> Statements
 		{ get { return _statements; } }
 
+		public IQuestionRepository QuestionRepository
+		{ get { return _knowledgeBaseContext.QuestionRepository; } }
+
 		private readonly LocalizedStringVariable _name;
 		private readonly EventCollection<IConcept> _concepts;
 		private readonly EventCollection<IStatement> _statements;
+		private readonly IKnowledgeBaseContext _knowledgeBaseContext;
+		private readonly ISystemContext _systemContext;
 
 		public event EventHandler<ItemEventArgs<IConcept>> ConceptAdded;
 		public event EventHandler<ItemEventArgs<IConcept>> ConceptRemoved;
@@ -37,22 +45,32 @@ namespace Inventor.Core.Base
 		#region System
 
 		public IConcept True
-		{ get; private set; }
+		{ get; }
 
 		public IConcept False
-		{ get; private set; }
+		{ get; }
 
 		#endregion
 
-		#endregion
-
-		public KnowledgeBase(Boolean initialize = true)
+		public IQuestionProcessingContext AskQuestion(IQuestion question)
 		{
-			_name = new LocalizedStringVariable();
+			return _knowledgeBaseContext.AskQuestion(question);
+		}
+
+		#endregion
+
+		public KnowledgeBase(ILanguage language)
+		{
+			var name = new LocalizedStringVariable();
+			name.SetLocale(language.Culture, language.Misc.NewKbName);
+			_name = name;
 
 			_concepts = new EventCollection<IConcept>();
 			_concepts.ItemAdded += (sender, args) =>
 			{
+				args.Item.Context = Context;
+				Context.Scope.Add(args.Item);
+
 				var handler = Volatile.Read(ref ConceptAdded);
 				if (handler != null)
 				{
@@ -61,6 +79,9 @@ namespace Inventor.Core.Base
 			};
 			_concepts.ItemRemoved += (sender, args) =>
 			{
+				args.Item.Context = null;
+				Context.Scope.Remove(args.Item);
+
 				var handler = Volatile.Read(ref ConceptRemoved);
 				if (handler != null)
 				{
@@ -75,6 +96,9 @@ namespace Inventor.Core.Base
 			_statements = new EventCollection<IStatement>();
 			_statements.ItemAdded += (sender, args) =>
 			{
+				args.Item.Context = Context;
+				Context.Scope.Add(args.Item);
+
 				var handler = Volatile.Read(ref StatementAdded);
 				if (handler != null)
 				{
@@ -90,6 +114,9 @@ namespace Inventor.Core.Base
 			};
 			_statements.ItemRemoved += (sender, args) =>
 			{
+				args.Item.Context = null;
+				Context.Scope.Remove(args.Item);
+
 				var handler = Volatile.Read(ref StatementRemoved);
 				if (handler != null)
 				{
@@ -97,13 +124,20 @@ namespace Inventor.Core.Base
 				}
 			};
 
-			if (initialize)
-			{
-				Initialize();
-			}
+			_systemContext = new SystemContext(language);
+
+			_concepts.Add(True = new Concept(
+				new LocalizedStringConstant(lang => lang.Misc.True),
+				new LocalizedStringConstant(lang => lang.Misc.TrueHint)));
+			_concepts.Add(False = new Concept(
+				new LocalizedStringConstant(lang => lang.Misc.False),
+				new LocalizedStringConstant(lang => lang.Misc.FalseHint)));
+
+			_knowledgeBaseContext = _systemContext.Instantiate(this, new QuestionRepository());
+
 			EventHandler<CancelableItemEventArgs<IConcept>> systemConceptProtector = (sender, args) =>
 			{
-				if (args.Item.Type == ConceptType.System)
+				if (args.Item.Context != null && args.Item.Context.IsSystem)
 				{
 					args.IsCanceled = true;
 				}
@@ -112,29 +146,12 @@ namespace Inventor.Core.Base
 			_concepts.ItemRemoving += systemConceptProtector;
 		}
 
-		public void Initialize()
-		{
-			_concepts.Add(True = new Concept(
-				new LocalizedStringConstant(language => language.Misc.True),
-				new LocalizedStringConstant(language => language.Misc.TrueHint)) { Type = ConceptType.System });
-			_concepts.Add(False = new Concept(
-				new LocalizedStringConstant(language => language.Misc.False),
-				new LocalizedStringConstant(language => language.Misc.FalseHint)) { Type = ConceptType.System });
-		}
-
 		public override String ToString()
 		{
 			return string.Format("{0} : {1}", Strings.TostringKnowledgeBase, Name);
 		}
 
 		#region Serialization
-
-		public static KnowledgeBase New(ILanguage language)
-		{
-			var result = new KnowledgeBase(true);
-			((LocalizedStringVariable) result.Name).SetLocale(language.Culture, language.Misc.NewKbName);
-			return result;
-		}
 
 		public static KnowledgeBase Load(String fileName)
 		{
@@ -159,10 +176,10 @@ namespace Inventor.Core.Base
 
 		#endregion
 
-		public static KnowledgeBase CreateTest()
+		public static KnowledgeBase CreateTest(ILanguage language)
 		{
 			// knowledge base
-			var knowledgeBase = new KnowledgeBase();
+			var knowledgeBase = new KnowledgeBase(language);
 			knowledgeBase._name.SetLocale("ru-RU", "Тестовая база знаний");
 			knowledgeBase._name.SetLocale("en-US", "Test knowledgebase");
 
@@ -394,6 +411,38 @@ namespace Inventor.Core.Base
 			foreach (var statement in Statements.Where(k => context == null || context == k.Context))
 			{
 				yield return statement;
+			}
+		}
+
+		public void Add(IKnowledge knowledge)
+		{
+			if (knowledge is IConcept)
+			{
+				Concepts.Add(knowledge as IConcept);
+			}
+			else if (knowledge is IStatement)
+			{
+				Statements.Add(knowledge as IStatement);
+			}
+			else
+			{
+				throw new NotSupportedException();
+			}
+		}
+
+		public Boolean Remove(IKnowledge knowledge)
+		{
+			if (knowledge is IConcept)
+			{
+				return Concepts.Remove(knowledge as IConcept);
+			}
+			else if (knowledge is IStatement)
+			{
+				return Statements.Remove(knowledge as IStatement);
+			}
+			else
+			{
+				throw new NotSupportedException();
 			}
 		}
 

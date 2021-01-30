@@ -13,7 +13,14 @@ namespace Inventor.Core
 		ICollection<IStatement> Statements
 		{ get; }
 
+		IQuestionRepository QuestionRepository
+		{ get; }
+
+		IQuestionProcessingContext AskQuestion(IQuestion question);
+
 		IEnumerable<IKnowledge> EnumerateKnowledge(IContext context = null);
+		void Add(IKnowledge knowledge);
+		Boolean Remove(IKnowledge knowledge);
 
 		event EventHandler<ItemEventArgs<IConcept>> ConceptAdded;
 		event EventHandler<ItemEventArgs<IConcept>> ConceptRemoved;
