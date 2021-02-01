@@ -2,6 +2,7 @@
 using System.Linq;
 
 using Inventor.Core.Base;
+using Inventor.Core.Localization;
 using Inventor.Core.Statements;
 using Inventor.Core.Questions;
 
@@ -19,7 +20,7 @@ namespace Inventor.Core.Processors
 			{
 				String format;
 				var parameters = statements.Select(r => r.Concept).ToList().Enumerate(out format);
-				parameters.Add("#AREA#", question.Concept);
+				parameters.Add(Strings.ParamAnswer, question.Concept);
 				return new Answer(
 					statements.Select(s => s.Concept),
 					new FormattedText(() => context.Language.Answers.SubjectAreaConcepts + format + ".", parameters),

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 
 using Inventor.Core.Base;
+using Inventor.Core.Localization;
 using Inventor.Core.Statements;
 using Inventor.Core.Questions;
 
@@ -23,8 +24,8 @@ namespace Inventor.Core.Processors
 					() => String.Format(statements.Any() ? context.Language.Answers.HasSignTrue : context.Language.Answers.HasSignFalse, question.Recursive ? context.Language.Answers.RecursiveTrue : context.Language.Answers.RecursiveFalse),
 					new Dictionary<String, INamed>
 					{
-						{ "#CONCEPT#", question.Concept },
-						{ "#SIGN#", question.Sign },
+						{ Strings.ParamConcept, question.Concept },
+						{ Strings.ParamSign, question.Sign },
 					}),
 				new Explanation(statements));
 		}

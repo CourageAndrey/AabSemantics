@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 
 using Inventor.Core.Base;
+using Inventor.Core.Localization;
 using Inventor.Core.Statements;
 using Inventor.Core.Questions;
 
@@ -23,8 +24,8 @@ namespace Inventor.Core.Processors
 					statements.Any() ? new Func<String>(() => context.Language.Answers.IsSubjectAreaTrue) : () => context.Language.Answers.IsSubjectAreaFalse,
 					new Dictionary<String, INamed>
 					{
-						{ "#AREA#", question.Area },
-						{ "#CONCEPT#", question.Concept },
+						{ Strings.ParamArea, question.Area },
+						{ Strings.ParamConcept, question.Concept },
 					}),
 				new Explanation(statements));
 		}

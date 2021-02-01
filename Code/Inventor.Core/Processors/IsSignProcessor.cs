@@ -4,6 +4,7 @@ using System.Linq;
 
 using Inventor.Core.Attributes;
 using Inventor.Core.Base;
+using Inventor.Core.Localization;
 using Inventor.Core.Statements;
 using Inventor.Core.Questions;
 
@@ -24,7 +25,7 @@ namespace Inventor.Core.Processors
 					isSign ? new Func<String>(() => context.Language.Answers.SignTrue) : () => context.Language.Answers.SignFalse,
 					new Dictionary<String, INamed>
 					{
-						{ "#CONCEPT#", question.Concept },
+						{ Strings.ParamConcept, question.Concept },
 					}),
 				new Explanation(statements));
 		}

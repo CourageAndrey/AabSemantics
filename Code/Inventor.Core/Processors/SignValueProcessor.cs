@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 
 using Inventor.Core.Base;
+using Inventor.Core.Localization;
 using Inventor.Core.Statements;
 using Inventor.Core.Questions;
 
@@ -53,10 +54,10 @@ namespace Inventor.Core.Processors
 					() => language.Answers.SignValue,
 					new Dictionary<String, INamed>
 					{
-						{ "#CONCEPT#", original },
-						{ "#SIGN#", value.Sign },
-						{ "#VALUE#", value.Value },
-						{ "#DEFINED#", value.Concept },
+						{ Strings.ParamConcept, original },
+						{ Strings.ParamSign, value.Sign },
+						{ Strings.ParamValue, value.Value },
+						{ Strings.ParamDefined, value.Concept },
 					})
 				: null;
 		}

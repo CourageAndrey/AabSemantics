@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 
 using Inventor.Core.Base;
+using Inventor.Core.Localization;
 using Inventor.Core.Statements;
 using Inventor.Core.Questions;
 
@@ -23,8 +24,8 @@ namespace Inventor.Core.Processors
 					yes ? new Func<String>(() => context.Language.Answers.IsTrue) : () => context.Language.Answers.IsFalse,
 					new Dictionary<String, INamed>
 					{
-						{ "#CHILD#", question.Child },
-						{ "#PARENT#", question.Parent },
+						{ Strings.ParamParent, question.Child },
+						{ Strings.ParamChild, question.Parent },
 					}),
 				new Explanation(explanation));
 		}
