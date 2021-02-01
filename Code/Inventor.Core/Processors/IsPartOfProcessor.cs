@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 
 using Inventor.Core.Base;
+using Inventor.Core.Localization;
 using Inventor.Core.Statements;
 using Inventor.Core.Questions;
 
@@ -21,8 +22,8 @@ namespace Inventor.Core.Processors
 				statements.Any(),
 				new FormattedText(statements.Any() ? new Func<String>(() => context.Language.Answers.IsPartOfTrue) : () => context.Language.Answers.IsPartOfFalse, new Dictionary<String, INamed>
 				{
-					{ "#PARENT#", question.Parent },
-					{ "#CHILD#", question.Child },
+					{ Strings.ParamParent, question.Parent },
+					{ Strings.ParamChild, question.Child },
 				}),
 				new Explanation(statements));
 		}

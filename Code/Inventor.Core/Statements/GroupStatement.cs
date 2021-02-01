@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 
 using Inventor.Core.Base;
+using Inventor.Core.Localization;
 
 namespace Inventor.Core.Statements
 {
@@ -55,8 +56,8 @@ namespace Inventor.Core.Statements
 		{
 			return new Dictionary<String, INamed>
 			{
-				{ "#AREA#", Area },
-				{ "#CONCEPT#", Concept },
+				{ Strings.ParamArea, Area },
+				{ Strings.ParamConcept, Concept },
 			};
 		}
 

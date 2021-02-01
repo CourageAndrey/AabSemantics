@@ -2,6 +2,7 @@
 using System.Linq;
 
 using Inventor.Core.Base;
+using Inventor.Core.Localization;
 using Inventor.Core.Statements;
 using Inventor.Core.Questions;
 
@@ -21,7 +22,7 @@ namespace Inventor.Core.Processors
 				var signs = statements.Select(hs => hs.Sign);
 				String format;
 				var parameters = signs.Enumerate(out format);
-				parameters["#CONCEPT#"] = question.Concept;
+				parameters[Strings.ParamConcept] = question.Concept;
 				return new Answer(
 					signs,
 					new FormattedText(

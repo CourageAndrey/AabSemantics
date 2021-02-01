@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 
 using Inventor.Core.Base;
+using Inventor.Core.Localization;
 
 namespace Inventor.Core.Statements
 {
@@ -56,8 +57,8 @@ namespace Inventor.Core.Statements
 		{
 			return new Dictionary<String, INamed>
 			{
-				{ "#PARENT#", Ancestor },
-				{ "#CHILD#", Descendant },
+				{ Strings.ParamParent, Ancestor },
+				{ Strings.ParamChild, Descendant },
 			};
 		}
 

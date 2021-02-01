@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 
 using Inventor.Core.Base;
+using Inventor.Core.Localization;
 using Inventor.Core.Statements;
 using Inventor.Core.Questions;
 
@@ -23,8 +24,8 @@ namespace Inventor.Core.Processors
 				{
 					result.Add(() => context.Language.Answers.SubjectArea, new Dictionary<String, INamed>
 					{
-						{ "#CONCEPT#", question.Concept },
-						{ "#AREA#", statement.Area },
+						{ Strings.ParamConcept, question.Concept },
+						{ Strings.ParamArea, statement.Area },
 					});
 				}
 				return new Answer(

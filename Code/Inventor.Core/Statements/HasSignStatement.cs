@@ -4,6 +4,7 @@ using System.Linq;
 
 using Inventor.Core.Attributes;
 using Inventor.Core.Base;
+using Inventor.Core.Localization;
 
 namespace Inventor.Core.Statements
 {
@@ -52,8 +53,8 @@ namespace Inventor.Core.Statements
 		{
 			return new Dictionary<String, INamed>
 			{
-				{ "#CONCEPT#", Concept },
-				{ "#SIGN#", Sign },
+				{ Strings.ParamConcept, Concept },
+				{ Strings.ParamSign, Sign },
 			};
 		}
 
