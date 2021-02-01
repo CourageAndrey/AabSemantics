@@ -49,8 +49,8 @@ namespace Inventor.Core.Statements
 		{
 			return new Dictionary<String, INamed>
 			{
-				{ "#LEFTVALUE#", LeftValue },
-				{ "#RIGHTVALUE#", RightValue },
+				{ Strings.ParamLeftValue, LeftValue },
+				{ Strings.ParamRightValue, RightValue },
 			};
 		}
 

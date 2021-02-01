@@ -49,8 +49,8 @@ namespace Inventor.Core.Statements
 		{
 			return new Dictionary<String, INamed>
 			{
-				{ "#PROCESSA#", ProcessA },
-				{ "#BROCESSB#", ProcessB },
+				{ Strings.ParamProcessA, ProcessA },
+				{ Strings.ParamProcessB, ProcessB },
 			};
 		}
 

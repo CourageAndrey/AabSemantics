@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 
 using Inventor.Core.Base;
+using Inventor.Core.Localization;
 using Inventor.Core.Questions;
 
 namespace Inventor.Core.Processors
@@ -28,8 +29,8 @@ namespace Inventor.Core.Processors
 			}
 
 			var result = new FormattedText(
-				() => "#ANSWER#.",
-				new Dictionary<String, INamed> { { "#ANSWER#", statements.Any() ? context.KnowledgeBase.True : context.KnowledgeBase.False } });
+				() => Strings.ParamAnswer,
+				new Dictionary<String, INamed> { { Strings.ParamAnswer, statements.Any() ? context.KnowledgeBase.True : context.KnowledgeBase.False } });
 			result.Add(statements.Any() ? question.Statement.DescribeTrue(context.Language) : question.Statement.DescribeFalse(context.Language));
 			return new Answer(
 				statements.Any(),

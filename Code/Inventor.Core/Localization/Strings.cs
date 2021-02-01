@@ -22,5 +22,7 @@ namespace Inventor.Core.Localization
 		public const String ParamRightValue = "#RIGHTVALUE#";
 		public const String ParamProcessA = "#PROCESSA#";
 		public const String ParamProcessB = "#PROCESSB#";
+		public const String ParamAnswer = "#ANSWER#";
+		public const String ParamDefined = "#DEFINED#";
 	}
 }

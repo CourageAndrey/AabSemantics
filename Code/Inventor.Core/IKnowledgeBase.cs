@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 
+using Inventor.Core.Localization;
 using Inventor.Core.Statements;
 using Inventor.Core.Utils;
 
@@ -55,7 +56,7 @@ namespace Inventor.Core
 				{
 					result.Add(
 						() => language.Misc.ConsistencyErrorDuplicate,
-						new Dictionary<String, INamed> { { "#STATEMENT#", statement } });
+						new Dictionary<String, INamed> { { Strings.ParamStatement, statement } });
 				}
 			}
 
@@ -67,7 +68,7 @@ namespace Inventor.Core
 				{
 					result.Add(
 						() => language.Misc.ConsistencyErrorCyclic,
-						new Dictionary<String, INamed> { { "#STATEMENT#", clasification } });
+						new Dictionary<String, INamed> { { Strings.ParamStatement, clasification } });
 				}
 			}
 
@@ -85,8 +86,8 @@ namespace Inventor.Core
 							() => language.Misc.ConsistencyErrorMultipleSignValue,
 							new Dictionary<String, INamed>
 							{
-								{ "#CONCEPT#", concept },
-								{ "#SIGN#", sign.Sign },
+								{ Strings.ParamConcept, concept },
+								{ Strings.ParamSign, sign.Sign },
 							});
 					}
 				}
@@ -99,7 +100,7 @@ namespace Inventor.Core
 				{
 					result.Add(
 						() => language.Misc.ConsistencyErrorSignWithoutValue,
-						new Dictionary<String, INamed> { { "#STATEMENT#", signValue } });
+						new Dictionary<String, INamed> { { Strings.ParamStatement, signValue } });
 				}
 			}
 
@@ -111,7 +112,7 @@ namespace Inventor.Core
 				{
 					result.Add(
 						() => language.Misc.ConsistencyErrorMultipleSign,
-						new Dictionary<String, INamed> { { "#STATEMENT#", hasSign } });
+						new Dictionary<String, INamed> { { Strings.ParamStatement, hasSign } });
 				}
 			}
 
