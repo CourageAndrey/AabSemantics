@@ -7,7 +7,7 @@ using Inventor.Core.Base;
 
 namespace Inventor.Core.Statements
 {
-	public sealed class HasSignStatement : Statement<HasSignStatement>
+	public class HasSignStatement : Statement<HasSignStatement>
 	{
 		#region Properties
 

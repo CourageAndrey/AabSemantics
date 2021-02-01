@@ -5,7 +5,7 @@ using Inventor.Core.Base;
 
 namespace Inventor.Core.Statements
 {
-	public sealed class GroupStatement : Statement<GroupStatement>, IParentChild<IConcept>
+	public class GroupStatement : Statement<GroupStatement>, IParentChild<IConcept>
 	{
 		#region Properties
 
