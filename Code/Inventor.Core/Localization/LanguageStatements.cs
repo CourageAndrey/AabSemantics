@@ -27,6 +27,30 @@ namespace Inventor.Core.Localization
 		public String Composition
 		{ get; set; }
 
+		[XmlElement]
+		public String IsNotEqualTo
+		{ get; set; }
+
+		[XmlElement]
+		public String IsLessThan
+		{ get; set; }
+
+		[XmlElement]
+		public String IsLessThanOrEqualTo
+		{ get; set; }
+
+		[XmlElement]
+		public String IsGreaterThan
+		{ get; set; }
+
+		[XmlElement]
+		public String IsGreaterThanOrEqualTo
+		{ get; set; }
+
+		[XmlElement]
+		public String IsEqualTo
+		{ get; set; }
+
 		#endregion
 
 		public static LanguageStatements CreateDefaultNames()
@@ -38,6 +62,12 @@ namespace Inventor.Core.Localization
 				HasSign = "Признак",
 				SignValue = "Значение признака",
 				Composition = "Часть-целое",
+				IsNotEqualTo = "Не равно",
+				IsLessThan = "Меньше",
+				IsLessThanOrEqualTo = "Меньше или равно",
+				IsGreaterThan = "Больше",
+				IsGreaterThanOrEqualTo = "Больше или равно",
+				IsEqualTo = "Равно",
 			};
 		}
 
@@ -50,6 +80,12 @@ namespace Inventor.Core.Localization
 				HasSign = "Отношение описывает наличие некоторого признака, описывающего свойства понятия.",
 				SignValue = "Отношение описывает значение признака, свойственного данному понятию.",
 				Composition = "Отношение описывает вхождение одного понятия в другое качестве элемента структуры последнего.",
+				IsNotEqualTo = "Отношение описывает два не равных значения.",
+				IsLessThan = "Отношение описывает два значения, левое меньше правого.",
+				IsLessThanOrEqualTo = "Отношение описывает два значения, левое меньше или равно правому.",
+				IsGreaterThan = "Отношение описывает два значения, левое больше правого.",
+				IsGreaterThanOrEqualTo = "Отношение описывает два значения, левое больше или равно правому.",
+				IsEqualTo = "Отношение описывает два равных значения.",
 			};
 		}
 	}

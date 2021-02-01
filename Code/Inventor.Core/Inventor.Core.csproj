@@ -47,6 +47,7 @@
     <Compile Include="Context interfaces.cs" />
     <Compile Include="IAttribute.cs" />
     <Compile Include="IAttributeRepository.cs" />
+    <Compile Include="IComparisonStatement.cs" />
     <Compile Include="Localization\LanguageAttributes.cs" />
     <Compile Include="Localization\LanguageEditing.cs" />
     <Compile Include="Processors\QuestionWithConditionProcessor.cs" />
@@ -68,6 +69,13 @@
     <Compile Include="Localization\LanguageQuestionDialog.cs" />
     <Compile Include="IParentChild.cs" />
     <Compile Include="Questions\QuestionWithCondition.cs" />
+    <Compile Include="Statements\ComparisonStatement.cs" />
+    <Compile Include="Statements\IsEqualToStatement.cs" />
+    <Compile Include="Statements\IsGreaterThanOrEqualToStatement.cs" />
+    <Compile Include="Statements\IsGreaterThanStatement.cs" />
+    <Compile Include="Statements\IsLessThanOrEqualToStatement.cs" />
+    <Compile Include="Statements\IsLessThanStatement.cs" />
+    <Compile Include="Statements\IsNotEqualToStatement.cs" />
     <Compile Include="Utils\EventCollection.cs" />
     <Compile Include="FormattedText.cs" />
     <Compile Include="IChangeable.cs" />
