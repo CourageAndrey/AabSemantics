@@ -51,6 +51,22 @@ namespace Inventor.Core.Localization
 		public String IsEqualTo
 		{ get; set; }
 
+		[XmlElement]
+		public String Causes
+		{ get; set; }
+
+		[XmlElement]
+		public String Meanwhile
+		{ get; set; }
+
+		[XmlElement]
+		public String After
+		{ get; set; }
+
+		[XmlElement]
+		public String Before
+		{ get; set; }
+
 		#endregion
 
 		internal static LanguageStatementFormatStrings CreateDefaultTrue()
@@ -68,6 +84,10 @@ namespace Inventor.Core.Localization
 				IsGreaterThan = string.Format("{0} > {1}.", Strings.ParamLeftValue, Strings.ParamRightValue),
 				IsGreaterThanOrEqualTo = string.Format("{0} ≥ {1}.", Strings.ParamLeftValue, Strings.ParamRightValue),
 				IsEqualTo = string.Format("{0} = {1}.", Strings.ParamLeftValue, Strings.ParamRightValue),
+				Causes = string.Format("{0} является причиной {1}.", Strings.ParamProcessA, Strings.ParamProcessB),
+				Meanwhile = string.Format("{0} идёт одновременно с {1}.", Strings.ParamProcessA, Strings.ParamProcessB),
+				After = string.Format("После {0} идёт {1}.", Strings.ParamProcessA, Strings.ParamProcessB),
+				Before = string.Format("Перед {0} идёт {1}.", Strings.ParamProcessA, Strings.ParamProcessB),
 			};
 		}
 
@@ -86,6 +106,10 @@ namespace Inventor.Core.Localization
 				IsGreaterThan = string.Format("Выражение {0} > {1} неверно.", Strings.ParamLeftValue, Strings.ParamRightValue),
 				IsGreaterThanOrEqualTo = string.Format("Выражение {0} ≥ {1} неверно.", Strings.ParamLeftValue, Strings.ParamRightValue),
 				IsEqualTo = string.Format("Выражение {0} = {1} неверно.", Strings.ParamLeftValue, Strings.ParamRightValue),
+				Causes = string.Format("{0} не является причиной {1}.", Strings.ParamProcessA, Strings.ParamProcessB),
+				Meanwhile = string.Format("{0} не идёт одновременно с {1}.", Strings.ParamProcessA, Strings.ParamProcessB),
+				After = string.Format("После {0} не идёт {1}.", Strings.ParamProcessA, Strings.ParamProcessB),
+				Before = string.Format("Перед {0} не идёт {1}.", Strings.ParamProcessA, Strings.ParamProcessB),
 			};
 		}
 
@@ -104,6 +128,10 @@ namespace Inventor.Core.Localization
 				IsGreaterThan = string.Format("Верно ли выражение {0} > {1}?", Strings.ParamLeftValue, Strings.ParamRightValue),
 				IsGreaterThanOrEqualTo = string.Format("Верно ли выражение {0} ≥ {1}?", Strings.ParamLeftValue, Strings.ParamRightValue),
 				IsEqualTo = string.Format("Верно ли выражение {0} = {1}?", Strings.ParamLeftValue, Strings.ParamRightValue),
+				Causes = string.Format("Является {0} ли причиной {1}.", Strings.ParamProcessA, Strings.ParamProcessB),
+				Meanwhile = string.Format("Идёт {0} ли одновременно с {1}.", Strings.ParamProcessA, Strings.ParamProcessB),
+				After = string.Format("Идёт после {0} ли {1}.", Strings.ParamProcessA, Strings.ParamProcessB),
+				Before = string.Format("Идёт перед {0} ли {1}.", Strings.ParamProcessA, Strings.ParamProcessB),
 			};
 		}
 	}
