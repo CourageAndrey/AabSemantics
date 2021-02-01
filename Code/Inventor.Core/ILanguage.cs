@@ -185,6 +185,18 @@ namespace Inventor.Core
 
 		String IsEqualTo
 		{ get; }
+
+		String Causes
+		{ get; }
+
+		String Meanwhile
+		{ get; }
+
+		String After
+		{ get; }
+
+		String Before
+		{ get; }
 	}
 
 	public interface ILanguageStatementFormatStrings
@@ -220,6 +232,18 @@ namespace Inventor.Core
 		{ get; }
 
 		String IsEqualTo
+		{ get; }
+
+		String Causes
+		{ get; }
+
+		String Meanwhile
+		{ get; }
+
+		String After
+		{ get; }
+
+		String Before
 		{ get; }
 	}
 
