@@ -5,7 +5,7 @@ using Inventor.Core.Base;
 
 namespace Inventor.Core.Statements
 {
-	public sealed class HasPartStatement : Statement<HasPartStatement>, IParentChild<IConcept>
+	public class HasPartStatement : Statement<HasPartStatement>, IParentChild<IConcept>
 	{
 		#region Properties
 

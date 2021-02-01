@@ -6,7 +6,7 @@ using Inventor.Core.Base;
 
 namespace Inventor.Core.Statements
 {
-	public sealed class IsStatement : Statement<IsStatement>, IParentChild<IConcept>
+	public class IsStatement : Statement<IsStatement>, IParentChild<IConcept>
 	{
 		#region Properties
 
