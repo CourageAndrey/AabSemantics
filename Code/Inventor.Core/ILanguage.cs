@@ -167,6 +167,24 @@ namespace Inventor.Core
 
 		String Composition
 		{ get; }
+
+		String IsNotEqualTo
+		{ get; }
+
+		String IsLessThan
+		{ get; }
+
+		String IsLessThanOrEqualTo
+		{ get; }
+
+		String IsGreaterThan
+		{ get; }
+
+		String IsGreaterThanOrEqualTo
+		{ get; }
+
+		String IsEqualTo
+		{ get; }
 	}
 
 	public interface ILanguageStatementFormatStrings
@@ -184,6 +202,24 @@ namespace Inventor.Core
 		{ get; }
 
 		String Composition
+		{ get; }
+
+		String IsNotEqualTo
+		{ get; }
+
+		String IsLessThan
+		{ get; }
+
+		String IsLessThanOrEqualTo
+		{ get; }
+
+		String IsGreaterThan
+		{ get; }
+
+		String IsGreaterThanOrEqualTo
+		{ get; }
+
+		String IsEqualTo
 		{ get; }
 	}
 

@@ -18,5 +18,7 @@ namespace Inventor.Core.Localization
 		public const String ParamSign = "#SIGN#";
 		public const String ParamValue = "#VALUE#";
 		public const String ParamStatement = "#STATEMENT#";
+		public const String ParamLeftValue = "#LEFTVALUE#";
+		public const String ParamRightValue = "#RIGHTVALUE#";
 	}
 }
