@@ -51,6 +51,22 @@ namespace Inventor.Core.Localization
 		public String IsEqualTo
 		{ get; set; }
 
+		[XmlElement]
+		public String Causes
+		{ get; set; }
+
+		[XmlElement]
+		public String Meanwhile
+		{ get; set; }
+
+		[XmlElement]
+		public String After
+		{ get; set; }
+
+		[XmlElement]
+		public String Before
+		{ get; set; }
+
 		#endregion
 
 		public static LanguageStatements CreateDefaultNames()
@@ -68,6 +84,10 @@ namespace Inventor.Core.Localization
 				IsGreaterThan = "Больше",
 				IsGreaterThanOrEqualTo = "Больше или равно",
 				IsEqualTo = "Равно",
+				Causes = "Вызывает",
+				Meanwhile = "Одновременно с",
+				After = "После",
+				Before = "До",
 			};
 		}
 
@@ -86,6 +106,10 @@ namespace Inventor.Core.Localization
 				IsGreaterThan = "Отношение описывает два значения, левое больше правого.",
 				IsGreaterThanOrEqualTo = "Отношение описывает два значения, левое больше или равно правому.",
 				IsEqualTo = "Отношение описывает два равных значения.",
+				Causes = "Отношение описывает причинно-следственные связи.",
+				Meanwhile = "Отношение описывает одновременность.",
+				After = "Отношение описывает два процесса, второй следует за первым.",
+				Before = "Отношение описывает два процесса, второй предшествует первому.",
 			};
 		}
 	}
