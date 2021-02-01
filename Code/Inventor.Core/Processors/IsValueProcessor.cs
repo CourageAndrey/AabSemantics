@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 
+using Inventor.Core.Attributes;
 using Inventor.Core.Base;
 using Inventor.Core.Statements;
 using Inventor.Core.Questions;
@@ -16,10 +17,11 @@ namespace Inventor.Core.Processors
 			var activeContexts = context.GetHierarchy();
 
 			var statements = context.KnowledgeBase.Statements.Enumerate<SignValueStatement>(activeContexts).Where(r => r.Value == question.Concept).ToList();
+			bool isValue = question.Concept.HasAttribute<IsValueAttribute>();
 			return new Answer(
-				statements.Any(),
+				isValue,
 				new FormattedText(
-					statements.Any() ? new Func<String>(() => context.Language.Answers.ValueTrue) : () => context.Language.Answers.ValueFalse,
+					isValue ? new Func<String>(() => context.Language.Answers.ValueTrue) : () => context.Language.Answers.ValueFalse,
 					new Dictionary<String, INamed>
 					{
 						{ "#CONCEPT#", question.Concept },
