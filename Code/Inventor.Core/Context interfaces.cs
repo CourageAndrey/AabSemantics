@@ -23,12 +23,15 @@ namespace Inventor.Core
 
 	public interface ISystemContext : IContext
 	{
-		IKnowledgeBaseContext Instantiate(IKnowledgeBase knowledgeBase, IQuestionRepository questionRepository, IAttributeRepository attributeRepository);
+		IKnowledgeBaseContext Instantiate(IKnowledgeBase knowledgeBase, IStatementRepository statementRepository, IQuestionRepository questionRepository, IAttributeRepository attributeRepository);
 	}
 
 	public interface IKnowledgeBaseContext : IContext
 	{
 		IKnowledgeBase KnowledgeBase
+		{ get; }
+
+		IStatementRepository StatementRepository
 		{ get; }
 
 		IQuestionRepository QuestionRepository

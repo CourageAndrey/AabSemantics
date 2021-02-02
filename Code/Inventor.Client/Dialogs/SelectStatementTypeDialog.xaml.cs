@@ -15,33 +15,16 @@ namespace Inventor.Client.Dialogs
 			InitializeComponent();
 		}
 
-		public void Initialize(ILanguage language)
+		public void Initialize(ILanguage language, IKnowledgeBase knowledgeBase)
 		{
 			_radioGroup.Children.Clear();
-			foreach (var statementDefinition in new[]
-			{
-				new KeyValuePair<string, Type>(language.StatementNames.Composition, typeof(Core.Statements.HasPartStatement)),
-				new KeyValuePair<string, Type>(language.StatementNames.SubjectArea, typeof(Core.Statements.GroupStatement)),
-				new KeyValuePair<string, Type>(language.StatementNames.HasSign, typeof(Core.Statements.HasSignStatement)),
-				new KeyValuePair<string, Type>(language.StatementNames.Clasification, typeof(Core.Statements.IsStatement)),
-				new KeyValuePair<string, Type>(language.StatementNames.SignValue, typeof(Core.Statements.SignValueStatement)),
-				new KeyValuePair<string, Type>(language.StatementNames.IsNotEqualTo, typeof(Core.Statements.IsNotEqualToStatement)),
-				new KeyValuePair<string, Type>(language.StatementNames.IsLessThan, typeof(Core.Statements.IsLessThanStatement)),
-				new KeyValuePair<string, Type>(language.StatementNames.IsLessThanOrEqualTo, typeof(Core.Statements.IsLessThanOrEqualToStatement)),
-				new KeyValuePair<string, Type>(language.StatementNames.IsGreaterThan, typeof(Core.Statements.IsGreaterThanStatement)),
-				new KeyValuePair<string, Type>(language.StatementNames.IsGreaterThanOrEqualTo, typeof(Core.Statements.IsGreaterThanOrEqualToStatement)),
-				new KeyValuePair<string, Type>(language.StatementNames.IsEqualTo, typeof(Core.Statements.IsEqualToStatement)),
-				new KeyValuePair<string, Type>(language.StatementNames.Causes, typeof(Core.Statements.CausesStatement)),
-				new KeyValuePair<string, Type>(language.StatementNames.Meanwhile, typeof(Core.Statements.MeanwhileStatement)),
-				new KeyValuePair<string, Type>(language.StatementNames.After, typeof(Core.Statements.AfterStatement)),
-				new KeyValuePair<string, Type>(language.StatementNames.Before, typeof(Core.Statements.BeforeStatement)),
-			})
+			foreach (var statementDefinition in knowledgeBase.Context.StatementRepository.StatementDefinitions.Values)
 			{
 				var radioButton = new RadioButton
 				{
 					Margin = new Thickness(5),
-					Content = statementDefinition.Key,
-					Tag = statementDefinition.Value,
+					Content = statementDefinition.GetName(language),
+					Tag = statementDefinition.StatementType,
 				};
 				_radioGroup.Children.Add(radioButton);
 			}

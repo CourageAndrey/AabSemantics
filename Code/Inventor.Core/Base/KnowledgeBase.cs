@@ -119,7 +119,7 @@ namespace Inventor.Core.Base
 				new LocalizedStringConstant(lang => lang.Misc.False),
 				new LocalizedStringConstant(lang => lang.Misc.FalseHint)));
 
-			Context = systemContext.Instantiate(this, new QuestionRepository(), new AttributeRepository());
+			Context = systemContext.Instantiate(this, new StatementRepository(), new QuestionRepository(), new AttributeRepository());
 
 			EventHandler<CancelableItemEventArgs<IStatement>> systemStatementProtector = (sender, args) =>
 			{
