@@ -212,7 +212,7 @@ namespace Inventor.Client
 				{
 					Owner = this,
 				};
-				statementTypesDialog.Initialize(_application.CurrentLanguage);
+				statementTypesDialog.Initialize(_application.CurrentLanguage, _application.KnowledgeBase);
 				if (statementTypesDialog.ShowDialog() == true)
 				{
 					type = statementTypesDialog.SelectedType;

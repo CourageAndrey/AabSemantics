@@ -53,11 +53,11 @@ namespace Inventor.Core.Base
 			: base(language, null)
 		{ }
 
-		public IKnowledgeBaseContext Instantiate(IKnowledgeBase knowledgeBase, IQuestionRepository questionRepository, IAttributeRepository attributeRepository)
+		public IKnowledgeBaseContext Instantiate(IKnowledgeBase knowledgeBase, IStatementRepository statementRepository, IQuestionRepository questionRepository, IAttributeRepository attributeRepository)
 		{
 			if (Children.Count > 0) throw new InvalidOperationException("Impossible to instantiate system context more than once.");
 
-			return new KnowledgeBaseContext(Language, this, knowledgeBase, questionRepository, attributeRepository);
+			return new KnowledgeBaseContext(Language, this, knowledgeBase, statementRepository, questionRepository, attributeRepository);
 		}
 	}
 
@@ -66,6 +66,9 @@ namespace Inventor.Core.Base
 		#region Properties
 
 		public IKnowledgeBase KnowledgeBase
+		{ get; }
+
+		public IStatementRepository StatementRepository
 		{ get; }
 
 		public IQuestionRepository QuestionRepository
@@ -79,10 +82,11 @@ namespace Inventor.Core.Base
 
 		#endregion
 
-		public KnowledgeBaseContext(ILanguage language, IContext parent, IKnowledgeBase knowledgeBase, IQuestionRepository questionRepository, IAttributeRepository attributeRepository)
+		public KnowledgeBaseContext(ILanguage language, IContext parent, IKnowledgeBase knowledgeBase, IStatementRepository statementRepository, IQuestionRepository questionRepository, IAttributeRepository attributeRepository)
 			: base(language, parent)
 		{
 			KnowledgeBase = knowledgeBase;
+			StatementRepository = statementRepository;
 			QuestionRepository = questionRepository;
 			AttributeRepository = attributeRepository;
 		}
@@ -98,7 +102,7 @@ namespace Inventor.Core.Base
 	public class DisposableProcessingContext : KnowledgeBaseContext, IDisposable
 	{
 		internal DisposableProcessingContext(IKnowledgeBaseContext parent)
-			: base(parent.Language, parent, parent.KnowledgeBase, parent.QuestionRepository, parent.AttributeRepository)
+			: base(parent.Language, parent, parent.KnowledgeBase, parent.StatementRepository, parent.QuestionRepository, parent.AttributeRepository)
 		{ }
 
 		private Boolean _disposed;

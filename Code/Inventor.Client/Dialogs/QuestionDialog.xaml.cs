@@ -189,7 +189,7 @@ namespace Inventor.Client.Dialogs
 					{
 						Owner = this,
 					};
-					statementTypesDialog.Initialize(_language);
+					statementTypesDialog.Initialize(_language, _knowledgeBase);
 					if (statementTypesDialog.ShowDialog() == true)
 					{
 						statementType = statementTypesDialog.SelectedType;
@@ -252,7 +252,7 @@ namespace Inventor.Client.Dialogs
 				{
 					Owner = this,
 				};
-				statementTypesDialog.Initialize(_language);
+				statementTypesDialog.Initialize(_language, _knowledgeBase);
 				if (statementTypesDialog.ShowDialog() == true)
 				{
 					statementType = statementTypesDialog.SelectedType;
