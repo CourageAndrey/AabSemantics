@@ -48,6 +48,22 @@ namespace Inventor.Core.Localization
 		{ get; set; }
 
 		[XmlElement]
+		public String PropertyLeftValue
+		{ get; set; }
+
+		[XmlElement]
+		public String PropertyRightValue
+		{ get; set; }
+
+		[XmlElement]
+		public String PropertyProcessA
+		{ get; set; }
+
+		[XmlElement]
+		public String PropertyProcessB
+		{ get; set; }
+
+		[XmlElement]
 		public String PropertyAttributes
 		{ get; set; }
 
@@ -75,6 +91,10 @@ namespace Inventor.Core.Localization
 				PropertyArea = "Предметная область",
 				PropertyName = "Название",
 				PropertyHint = "Подсказка",
+				PropertyLeftValue = "Значение слева",
+				PropertyRightValue = "Значение справа",
+				PropertyProcessA = "Процесс A",
+				PropertyProcessB = "Процесс B",
 				PropertyAttributes = "Атрибуты:",
 				ColumnHeaderLanguage = "Язык",
 				ColumnHeaderValue = "Значение",
