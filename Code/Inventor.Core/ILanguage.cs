@@ -549,6 +549,18 @@ namespace Inventor.Core
 		String PropertyHint
 		{ get; }
 
+		String PropertyLeftValue
+		{ get; }
+
+		String PropertyRightValue
+		{ get; }
+
+		String PropertyProcessA
+		{ get; }
+
+		String PropertyProcessB
+		{ get; }
+
 		String PropertyAttributes
 		{ get; }
 

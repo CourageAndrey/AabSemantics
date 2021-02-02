@@ -33,6 +33,46 @@ namespace Inventor.Client.ViewModels
 			{
 				return new SignValueStatement(language);
 			}
+			else if (type == typeof(Core.Statements.AfterStatement))
+			{
+				return new AfterStatement(language);
+			}
+			else if (type == typeof(Core.Statements.BeforeStatement))
+			{
+				return new BeforeStatement(language);
+			}
+			else if (type == typeof(Core.Statements.CausesStatement))
+			{
+				return new CausesStatement(language);
+			}
+			else if (type == typeof(Core.Statements.MeanwhileStatement))
+			{
+				return new MeanwhileStatement(language);
+			}
+			else if (type == typeof(Core.Statements.IsEqualToStatement))
+			{
+				return new IsEqualToStatement(language);
+			}
+			else if (type == typeof(Core.Statements.IsGreaterThanOrEqualToStatement))
+			{
+				return new IsGreaterThanOrEqualToStatement(language);
+			}
+			else if (type == typeof(Core.Statements.IsGreaterThanStatement))
+			{
+				return new IsGreaterThanStatement(language);
+			}
+			else if (type == typeof(Core.Statements.IsLessThanOrEqualToStatement))
+			{
+				return new IsLessThanOrEqualToStatement(language);
+			}
+			else if (type == typeof(Core.Statements.IsLessThanStatement))
+			{
+				return new IsLessThanStatement(language);
+			}
+			else if (type == typeof(Core.Statements.IsNotEqualToStatement))
+			{
+				return new IsNotEqualToStatement(language);
+			}
 			else
 			{
 				throw new NotSupportedException(type.FullName);
@@ -60,6 +100,46 @@ namespace Inventor.Client.ViewModels
 			else if (statement is Core.Statements.SignValueStatement)
 			{
 				return new SignValueStatement(statement as Core.Statements.SignValueStatement, language);
+			}
+			else if (statement is Core.Statements.AfterStatement)
+			{
+				return new AfterStatement(statement as Core.Statements.AfterStatement, language);
+			}
+			else if (statement is Core.Statements.BeforeStatement)
+			{
+				return new BeforeStatement(statement as Core.Statements.BeforeStatement, language);
+			}
+			else if (statement is Core.Statements.CausesStatement)
+			{
+				return new CausesStatement(statement as Core.Statements.CausesStatement, language);
+			}
+			else if (statement is Core.Statements.MeanwhileStatement)
+			{
+				return new MeanwhileStatement(statement as Core.Statements.MeanwhileStatement, language);
+			}
+			else if (statement is Core.Statements.IsEqualToStatement)
+			{
+				return new IsEqualToStatement(statement as Core.Statements.IsEqualToStatement, language);
+			}
+			else if (statement is Core.Statements.IsGreaterThanOrEqualToStatement)
+			{
+				return new IsGreaterThanOrEqualToStatement(statement as Core.Statements.IsGreaterThanOrEqualToStatement, language);
+			}
+			else if (statement is Core.Statements.IsGreaterThanStatement)
+			{
+				return new IsGreaterThanStatement(statement as Core.Statements.IsGreaterThanStatement, language);
+			}
+			else if (statement is Core.Statements.IsLessThanOrEqualToStatement)
+			{
+				return new IsLessThanOrEqualToStatement(statement as Core.Statements.IsLessThanOrEqualToStatement, language);
+			}
+			else if (statement is Core.Statements.IsLessThanStatement)
+			{
+				return new IsLessThanStatement(statement as Core.Statements.IsLessThanStatement, language);
+			}
+			else if (statement is Core.Statements.IsNotEqualToStatement)
+			{
+				return new IsNotEqualToStatement(statement as Core.Statements.IsNotEqualToStatement, language);
 			}
 			else
 			{
@@ -97,6 +177,46 @@ namespace Inventor.Client.ViewModels
 				else if (statementNode.Statement is Core.Statements.SignValueStatement)
 				{
 					return new SignValueStatement(statementNode.Statement as Core.Statements.SignValueStatement, language);
+				}
+				else if (statementNode.Statement is Core.Statements.AfterStatement)
+				{
+					return new AfterStatement(statementNode.Statement as Core.Statements.AfterStatement, language);
+				}
+				else if (statementNode.Statement is Core.Statements.BeforeStatement)
+				{
+					return new BeforeStatement(statementNode.Statement as Core.Statements.BeforeStatement, language);
+				}
+				else if (statementNode.Statement is Core.Statements.CausesStatement)
+				{
+					return new CausesStatement(statementNode.Statement as Core.Statements.CausesStatement, language);
+				}
+				else if (statementNode.Statement is Core.Statements.MeanwhileStatement)
+				{
+					return new MeanwhileStatement(statementNode.Statement as Core.Statements.MeanwhileStatement, language);
+				}
+				else if (statementNode.Statement is Core.Statements.IsEqualToStatement)
+				{
+					return new IsEqualToStatement(statementNode.Statement as Core.Statements.IsEqualToStatement, language);
+				}
+				else if (statementNode.Statement is Core.Statements.IsGreaterThanOrEqualToStatement)
+				{
+					return new IsGreaterThanOrEqualToStatement(statementNode.Statement as Core.Statements.IsGreaterThanOrEqualToStatement, language);
+				}
+				else if (statementNode.Statement is Core.Statements.IsGreaterThanStatement)
+				{
+					return new IsGreaterThanStatement(statementNode.Statement as Core.Statements.IsGreaterThanStatement, language);
+				}
+				else if (statementNode.Statement is Core.Statements.IsLessThanOrEqualToStatement)
+				{
+					return new IsLessThanOrEqualToStatement(statementNode.Statement as Core.Statements.IsLessThanOrEqualToStatement, language);
+				}
+				else if (statementNode.Statement is Core.Statements.IsLessThanStatement)
+				{
+					return new IsLessThanStatement(statementNode.Statement as Core.Statements.IsLessThanStatement, language);
+				}
+				else if (statementNode.Statement is Core.Statements.IsNotEqualToStatement)
+				{
+					return new IsNotEqualToStatement(statementNode.Statement as Core.Statements.IsNotEqualToStatement, language);
 				}
 			}
 
