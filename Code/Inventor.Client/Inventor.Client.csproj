@@ -56,6 +56,9 @@
     <Reference Include="WindowsFormsIntegration" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Controls\ComparisonStatementControl.xaml.cs">
+      <DependentUpon>ComparisonStatementControl.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Controls\ConceptControl.xaml.cs">
       <DependentUpon>ConceptControl.xaml</DependentUpon>
     </Compile>
@@ -72,6 +75,9 @@
       <DependentUpon>IsStatementControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="Controls\IStatementEditor.cs" />
+    <Compile Include="Controls\ProcessesStatementControl.xaml.cs">
+      <DependentUpon>ProcessesStatementControl.xaml</DependentUpon>
+    </Compile>
     <Compile Include="IQuestionViewModel.cs" />
     <Compile Include="ViewModels\ConceptAttribute.cs" />
     <Compile Include="ViewModels\ConceptItem.cs" />
@@ -135,14 +141,30 @@
     <Compile Include="ViewModels\Questions\QuestionWithCondition.cs" />
     <Compile Include="ViewModels\Questions\SignValueQuestion.cs" />
     <Compile Include="ViewModels\Questions\WhatQuestion.cs" />
+    <Compile Include="ViewModels\Statements\AfterStatement.cs" />
+    <Compile Include="ViewModels\Statements\BeforeStatement.cs" />
+    <Compile Include="ViewModels\Statements\CausesStatement.cs" />
+    <Compile Include="ViewModels\Statements\IComparisonStatement.cs" />
     <Compile Include="ViewModels\Statements\HasPartStatement.cs" />
     <Compile Include="ViewModels\Factory.cs" />
     <Compile Include="ViewModels\Statements\GroupStatement.cs" />
     <Compile Include="ViewModels\Statements\HasSignStatement.cs" />
+    <Compile Include="ViewModels\Statements\IsEqualToStatement.cs" />
+    <Compile Include="ViewModels\Statements\IsGreaterThanOrEqualToStatement.cs" />
+    <Compile Include="ViewModels\Statements\IsGreaterThanStatement.cs" />
+    <Compile Include="ViewModels\Statements\IsLessThanOrEqualToStatement.cs" />
+    <Compile Include="ViewModels\Statements\IsLessThanStatement.cs" />
+    <Compile Include="ViewModels\Statements\IsNotEqualToStatement.cs" />
     <Compile Include="ViewModels\Statements\IsStatement.cs" />
     <Compile Include="ViewModels\LocalizedStringValue.cs" />
     <Compile Include="ViewModels\LocalizedString.cs" />
+    <Compile Include="ViewModels\Statements\MeanwhileStatement.cs" />
+    <Compile Include="ViewModels\Statements\IProcessesStatement.cs" />
     <Compile Include="ViewModels\Statements\SignValueStatement.cs" />
+    <Page Include="Controls\ComparisonStatementControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Controls\ConceptControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -160,6 +182,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Controls\IsStatementControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\ProcessesStatementControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

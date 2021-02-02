@@ -1,0 +1,12 @@
+﻿<UserControl x:Class="Inventor.Client.Controls.ComparisonStatementControl"
+		xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+		xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+	<StackPanel Orientation="Vertical" Name="_contextControl">
+		<GroupBox Name="_groupLeftValue">
+			<ComboBox Name="_comboBoxLeftValue" SelectedItem="{Binding Path=LeftValue, Mode=TwoWay}" />
+		</GroupBox>
+		<GroupBox Name="_groupRightValue">
+			<ComboBox Name="_comboBoxRightValue" SelectedItem="{Binding Path=RightValue, Mode=TwoWay}" />
+		</GroupBox>
+	</StackPanel>
+</UserControl>

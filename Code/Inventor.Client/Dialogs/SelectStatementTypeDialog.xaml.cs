@@ -25,6 +25,16 @@ namespace Inventor.Client.Dialogs
 				new KeyValuePair<string, Type>(language.StatementNames.HasSign, typeof(Core.Statements.HasSignStatement)),
 				new KeyValuePair<string, Type>(language.StatementNames.Clasification, typeof(Core.Statements.IsStatement)),
 				new KeyValuePair<string, Type>(language.StatementNames.SignValue, typeof(Core.Statements.SignValueStatement)),
+				new KeyValuePair<string, Type>(language.StatementNames.IsNotEqualTo, typeof(Core.Statements.IsNotEqualToStatement)),
+				new KeyValuePair<string, Type>(language.StatementNames.IsLessThan, typeof(Core.Statements.IsLessThanStatement)),
+				new KeyValuePair<string, Type>(language.StatementNames.IsLessThanOrEqualTo, typeof(Core.Statements.IsLessThanOrEqualToStatement)),
+				new KeyValuePair<string, Type>(language.StatementNames.IsGreaterThan, typeof(Core.Statements.IsGreaterThanStatement)),
+				new KeyValuePair<string, Type>(language.StatementNames.IsGreaterThanOrEqualTo, typeof(Core.Statements.IsGreaterThanOrEqualToStatement)),
+				new KeyValuePair<string, Type>(language.StatementNames.IsEqualTo, typeof(Core.Statements.IsEqualToStatement)),
+				new KeyValuePair<string, Type>(language.StatementNames.Causes, typeof(Core.Statements.CausesStatement)),
+				new KeyValuePair<string, Type>(language.StatementNames.Meanwhile, typeof(Core.Statements.MeanwhileStatement)),
+				new KeyValuePair<string, Type>(language.StatementNames.After, typeof(Core.Statements.AfterStatement)),
+				new KeyValuePair<string, Type>(language.StatementNames.Before, typeof(Core.Statements.BeforeStatement)),
 			})
 			{
 				var radioButton = new RadioButton
