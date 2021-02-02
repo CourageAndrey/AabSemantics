@@ -44,11 +44,13 @@
     <Compile Include="Base\Concept.cs" />
     <Compile Include="Base\Explanation.cs" />
     <Compile Include="Base\Context classes.cs" />
+    <Compile Include="Base\StatementRepository.cs" />
     <Compile Include="Context interfaces.cs" />
     <Compile Include="IAttribute.cs" />
     <Compile Include="IAttributeRepository.cs" />
     <Compile Include="IComparisonStatement.cs" />
     <Compile Include="IProcessesStatement.cs" />
+    <Compile Include="IStatementRepository.cs" />
     <Compile Include="Localization\LanguageAttributes.cs" />
     <Compile Include="Localization\LanguageEditing.cs" />
     <Compile Include="Processors\QuestionWithConditionProcessor.cs" />
@@ -70,6 +72,7 @@
     <Compile Include="Localization\LanguageQuestionDialog.cs" />
     <Compile Include="IParentChild.cs" />
     <Compile Include="Questions\QuestionWithCondition.cs" />
+    <Compile Include="StatementDefinition.cs" />
     <Compile Include="Statements\AfterStatement.cs" />
     <Compile Include="Statements\BeforeStatement.cs" />
     <Compile Include="Statements\CausesStatement.cs" />
