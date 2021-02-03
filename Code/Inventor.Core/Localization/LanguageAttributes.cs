@@ -23,6 +23,18 @@ namespace Inventor.Core.Localization
 		public String IsProcess
 		{ get; set; }
 
+		[XmlElement]
+		public String IsBoolean
+		{ get; set; }
+
+		[XmlElement]
+		public String IsComparisonSign
+		{ get; set; }
+
+		[XmlElement]
+		public String IsSequenceSign
+		{ get; set; }
+
 		#endregion
 
 		internal static LanguageAttributes CreateDefault()
@@ -33,6 +45,9 @@ namespace Inventor.Core.Localization
 				IsSign = "Является признаком",
 				IsValue = "Является значением",
 				IsProcess = "Является процессом",
+				IsBoolean = "Является логическим значением",
+				IsComparisonSign = "Является знаком сравнения двух значений",
+				IsSequenceSign = "Является знаком сравнения времени протекания процессов",
 			};
 		}
 	}
