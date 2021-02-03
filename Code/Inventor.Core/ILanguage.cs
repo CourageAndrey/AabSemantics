@@ -657,10 +657,70 @@ namespace Inventor.Core
 
 	public interface ILanguageSystemConcepts
 	{
+		#region Logical values
+
 		String True
 		{ get; }
 
 		String False
 		{ get; }
+
+		#endregion
+
+		#region Comparison signs
+
+		String IsEqualTo
+		{ get; }
+
+		String IsNotEqualTo
+		{ get; }
+
+		String IsGreaterThanOrEqualTo
+		{ get; }
+
+		String IsGreaterThan
+		{ get; }
+
+		String IsLessThanOrEqualTo
+		{ get; }
+
+		String IsLessThan
+		{ get; }
+
+		#endregion
+
+		#region Sequence signs
+
+		String StartsAfterOtherStarted
+		{ get; }
+
+		String StartsBeforeOtherStarted
+		{ get; }
+
+		String FinishesAfterOtherStarted
+		{ get; }
+
+		String FinishesBeforeOtherStarted
+		{ get; }
+
+		String StartsAfterOtherFinished
+		{ get; }
+
+		String StartsBeforeOtherFinished
+		{ get; }
+
+		String FinishesAfterOtherFinished
+		{ get; }
+
+		String FinishesBeforeOtherFinished
+		{ get; }
+
+		String Causes
+		{ get; }
+
+		String SimultaneousWith
+		{ get; }
+
+		#endregion
 	}
 }
