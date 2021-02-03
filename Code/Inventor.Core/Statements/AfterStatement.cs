@@ -12,7 +12,7 @@ namespace Inventor.Core.Statements
 				new Func<ILanguage, String>(language => language.StatementHints.After))
 		{ }
 
-		protected override Func<String> GetDescriptionText(ILanguageStatementFormatStrings language)
+		protected override Func<String> GetDescriptionText(ILanguageStatements language)
 		{
 			return () => language.After;
 		}
