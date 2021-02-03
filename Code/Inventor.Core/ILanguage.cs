@@ -22,13 +22,13 @@ namespace Inventor.Core
 		ILanguageStatements StatementHints
 		{ get; }
 
-		ILanguageStatementFormatStrings TrueStatementFormatStrings
+		ILanguageStatements TrueStatementFormatStrings
 		{ get; }
 
-		ILanguageStatementFormatStrings FalseStatementFormatStrings
+		ILanguageStatements FalseStatementFormatStrings
 		{ get; }
 
-		ILanguageStatementFormatStrings QuestionStatementFormatStrings
+		ILanguageStatements QuestionStatementFormatStrings
 		{ get; }
 
 		ILanguageQuestionNames QuestionNames
@@ -158,54 +158,6 @@ namespace Inventor.Core
 	}
 
 	public interface ILanguageStatements
-	{
-		String SubjectArea
-		{ get; }
-
-		String Clasification
-		{ get; }
-
-		String HasSign
-		{ get; }
-
-		String SignValue
-		{ get; }
-
-		String Composition
-		{ get; }
-
-		String IsNotEqualTo
-		{ get; }
-
-		String IsLessThan
-		{ get; }
-
-		String IsLessThanOrEqualTo
-		{ get; }
-
-		String IsGreaterThan
-		{ get; }
-
-		String IsGreaterThanOrEqualTo
-		{ get; }
-
-		String IsEqualTo
-		{ get; }
-
-		String Causes
-		{ get; }
-
-		String Meanwhile
-		{ get; }
-
-		String After
-		{ get; }
-
-		String Before
-		{ get; }
-	}
-
-	public interface ILanguageStatementFormatStrings
 	{
 		String SubjectArea
 		{ get; }

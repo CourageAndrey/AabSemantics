@@ -59,7 +59,7 @@ namespace Inventor.Core.Base
 			return new FormattedLine(GetDescriptionText(language.QuestionStatementFormatStrings), GetDescriptionParameters());
 		}
 
-		protected abstract Func<String> GetDescriptionText(ILanguageStatementFormatStrings language);
+		protected abstract Func<String> GetDescriptionText(ILanguageStatements language);
 
 		protected abstract IDictionary<String, INamed> GetDescriptionParameters();
 
