@@ -112,12 +112,10 @@ namespace Inventor.Core.Base
 			};
 			Statements = statements;
 
-			Concepts.Add(True = new Concept(
-				new LocalizedStringConstant(lang => lang.Misc.True),
-				new LocalizedStringConstant(lang => lang.Misc.TrueHint)));
-			Concepts.Add(False = new Concept(
-				new LocalizedStringConstant(lang => lang.Misc.False),
-				new LocalizedStringConstant(lang => lang.Misc.FalseHint)));
+			foreach (var concept in SystemConcepts.GetAll())
+			{
+				Concepts.Add(concept);
+			}
 
 			Context = systemContext.Instantiate(this, new StatementRepository(), new QuestionRepository(), new AttributeRepository());
 
