@@ -8,5 +8,8 @@
 		<GroupBox Name="_groupRightValue">
 			<ComboBox Name="_comboBoxRightValue" SelectedItem="{Binding Path=RightValue, Mode=TwoWay}" />
 		</GroupBox>
+		<GroupBox Name="_groupComparisonSign">
+			<ComboBox Name="_comboBoxComparisonSign" SelectedItem="{Binding Path=ComparisonSign, Mode=TwoWay}" />
+		</GroupBox>
 	</StackPanel>
 </UserControl>

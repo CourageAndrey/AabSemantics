@@ -7,8 +7,7 @@ using Inventor.Core.Localization;
 
 namespace Inventor.Core.Statements
 {
-	public abstract class ProcessesStatement<StatementT> : Statement<StatementT>, IProcessesStatement
-		where StatementT : ProcessesStatement<StatementT>
+	public class ProcessesStatement : Statement<ProcessesStatement>
 	{
 		#region Properties
 
@@ -18,32 +17,44 @@ namespace Inventor.Core.Statements
 		public IConcept ProcessB
 		{ get; private set; }
 
+		public IConcept SequenceSign
+		{ get; private set; }
+
 		#endregion
 
-		protected ProcessesStatement(IConcept processA, IConcept processB, LocalizedString name, LocalizedString hint = null)
-			: base(name, hint)
+		public ProcessesStatement(IConcept processA, IConcept processB, IConcept sequenceSign)
+			: base(new Func<ILanguage, String>(language => language.StatementNames.Processes), new Func<ILanguage, String>(language => language.StatementHints.Processes))
 		{
-			Update(processA, processB);
+			Update(processA, processB, sequenceSign);
 		}
 
-		public void Update(IConcept processA, IConcept processB)
+		public void Update(IConcept processA, IConcept processB, IConcept sequenceSign)
 		{
 			if (processA == null) throw new ArgumentNullException(nameof(processA));
 			if (processB == null) throw new ArgumentNullException(nameof(processB));
+			if (sequenceSign == null) throw new ArgumentNullException(nameof(sequenceSign));
 			if (!processA.HasAttribute<IsProcessAttribute>()) throw new ArgumentException("Process A concept has to be marked as IsProcess Attribute.", nameof(processA));
 			if (!processB.HasAttribute<IsProcessAttribute>()) throw new ArgumentException("Process B concept has to be marked as IsProcess Attribute.", nameof(processB));
+			if (!sequenceSign.HasAttribute<IsSequenceSignAttribute>()) throw new ArgumentException("Sequence Sign concept has to be marked as IsSequenceSign Attribute.", nameof(sequenceSign));
 
 			ProcessA = processA;
 			ProcessB = processB;
+			SequenceSign = sequenceSign;
 		}
 
 		public override IEnumerable<IConcept> GetChildConcepts()
 		{
 			yield return ProcessA;
 			yield return ProcessB;
+			yield return SequenceSign;
 		}
 
 		#region Description
+
+		protected override Func<String> GetDescriptionText(ILanguageStatements language)
+		{
+			return () => language.Processes;
+		}
 
 		protected override IDictionary<String, INamed> GetDescriptionParameters()
 		{
@@ -51,6 +62,7 @@ namespace Inventor.Core.Statements
 			{
 				{ Strings.ParamProcessA, ProcessA },
 				{ Strings.ParamProcessB, ProcessB },
+				{ Strings.ParamSequenceSign, SequenceSign },
 			};
 		}
 
@@ -58,13 +70,14 @@ namespace Inventor.Core.Statements
 
 		#region Consistency checking
 
-		public override Boolean Equals(StatementT other)
+		public override Boolean Equals(ProcessesStatement other)
 		{
 			if (ReferenceEquals(this, other)) return true;
 			if (other != null)
 			{
 				return	other.ProcessA == ProcessA &&
-						other.ProcessB == ProcessB;
+						other.ProcessB == ProcessB &&
+						other.SequenceSign == SequenceSign;
 			}
 			else return false;
 		}
