@@ -1,4 +1,5 @@
 ﻿using System.Windows;
+using System.Windows.Controls;
 
 using Inventor.Core;
 
@@ -24,12 +25,32 @@ namespace Inventor.Client.Controls
 			new FrameworkPropertyMetadata(
 				null,
 				FrameworkPropertyMetadataOptions.AffectsMeasure | FrameworkPropertyMetadataOptions.AffectsRender,
-				(dependencyObject, e) => ((LocalizedStringVariableControl) dependencyObject)._contextControl.DataContext = e.NewValue));
+				(dependencyObject, e) => ((LocalizedStringVariableControl) dependencyObject).applyEditValue(e.NewValue as ViewModels.LocalizedString)));
 
 		public void Localize(ILanguage language)
 		{
+			_language = language;
 			_columnLanguage.Header = language.Ui.Editing.ColumnHeaderLanguage;
 			_columnValue.Header = language.Ui.Editing.ColumnHeaderValue;
+		}
+
+		private ILanguage _language;
+
+		private void applyEditValue(ViewModels.LocalizedString value)
+		{
+			if (value is ViewModels.LocalizedStringVariable)
+			{
+				_contextControl.DataContext = value;
+			}
+			else
+			{
+				_contextControl.Children.Clear();
+				var constant = value as ViewModels.LocalizedStringConstant;
+				if (constant != null)
+				{
+					_contextControl.Children.Add(new TextBlock { Text = constant.Original.GetValue(_language) });
+				}
+			}
 		}
 	}
 }
