@@ -85,6 +85,7 @@
     <Compile Include="Statements\IsNotEqualToStatement.cs" />
     <Compile Include="Statements\MeanwhileStatement.cs" />
     <Compile Include="Statements\ProcessesStatement.cs" />
+    <Compile Include="SystemConcepts.cs" />
     <Compile Include="Utils\EventCollection.cs" />
     <Compile Include="FormattedText.cs" />
     <Compile Include="IChangeable.cs" />
