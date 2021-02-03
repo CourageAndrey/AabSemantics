@@ -24,7 +24,7 @@ namespace Inventor.Client.ViewModels
 		#region Constructors
 
 		public Concept()
-			: this(new LocalizedString(), new LocalizedString())
+			: this(new LocalizedStringVariable(), new LocalizedStringVariable())
 		{ }
 
 		public Concept(Core.Base.Concept concept)

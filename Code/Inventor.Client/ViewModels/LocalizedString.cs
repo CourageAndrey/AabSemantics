@@ -1,32 +1,46 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 
 using Inventor.Core;
-using Inventor.Core.Localization;
 
 namespace Inventor.Client.ViewModels
 {
-	public class LocalizedString
+	public abstract class LocalizedString
+	{
+		public abstract void Apply(ILocalizedString localizedString);
+
+		public abstract Core.Localization.LocalizedStringVariable Create();
+
+		public static LocalizedString From(ILocalizedString value)
+		{
+			return value is LocalizedStringVariable
+				? new LocalizedStringVariable(value as Core.Localization.LocalizedStringVariable) as LocalizedString
+				: new LocalizedStringConstant(value as Core.Localization.LocalizedStringConstant);
+		}
+	}
+
+	public class LocalizedStringVariable : LocalizedString
 	{
 		public List<LocalizedStringValue> Values
 		{ get; }
 
-		public LocalizedString()
+		public LocalizedStringVariable()
 			: this(new Dictionary<string, string>())
 		{ }
 
-		public LocalizedString(Core.Localization.LocalizedStringVariable localizedString)
+		public LocalizedStringVariable(Core.Localization.LocalizedStringVariable localizedString)
 			: this(localizedString.Locales.ToDictionary(locale => locale, localizedString.GetValue))
 		{ }
 
-		public LocalizedString(IDictionary<string, string> locales)
+		public LocalizedStringVariable(IDictionary<string, string> locales)
 		{
 			Values = locales.Select(locale => new LocalizedStringValue(locale.Key, locale.Value)).ToList();
 		}
 
-		public void Apply(ILocalizedString localizedString)
+		public override void Apply(ILocalizedString localizedString)
 		{
-			var variableString = localizedString as LocalizedStringVariable;
+			var variableString = localizedString as Core.Localization.LocalizedStringVariable;
 			if (variableString != null)
 			{
 				variableString.Clear();
@@ -37,16 +51,30 @@ namespace Inventor.Client.ViewModels
 			}
 		}
 
-		public LocalizedStringVariable Create()
+		public override Core.Localization.LocalizedStringVariable Create()
 		{
-			return new LocalizedStringVariable(Values.ToDictionary(
+			return new Core.Localization.LocalizedStringVariable(Values.ToDictionary(
 				value => value.Locale,
 				value => value.Value));
 		}
+	}
 
-		public static LocalizedString From(ILocalizedString value)
+	public class LocalizedStringConstant : LocalizedString
+	{
+		public Core.Localization.LocalizedStringConstant Original
+		{ get; }
+
+		public LocalizedStringConstant(Core.Localization.LocalizedStringConstant original)
 		{
-			return value is LocalizedStringVariable ? new LocalizedString(value as LocalizedStringVariable) : null;
+			Original = original;
+		}
+
+		public override void Apply(ILocalizedString localizedString)
+		{ }
+
+		public override Core.Localization.LocalizedStringVariable Create()
+		{
+			throw new NotSupportedException();
 		}
 	}
 }
