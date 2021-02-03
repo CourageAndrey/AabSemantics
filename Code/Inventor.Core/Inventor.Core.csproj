@@ -36,7 +36,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Attributes\IsBooleanAttribute.cs" />
+    <Compile Include="Attributes\IsComparisonSignAttribute.cs" />
     <Compile Include="Attributes\IsProcessAttribute.cs" />
+    <Compile Include="Attributes\IsSequenceSignAttribute.cs" />
     <Compile Include="Attributes\IsSignAttribute.cs" />
     <Compile Include="Attributes\IsValueAttribute.cs" />
     <Compile Include="Base\Answer.cs" />
