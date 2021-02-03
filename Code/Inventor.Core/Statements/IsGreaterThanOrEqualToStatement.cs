@@ -12,7 +12,7 @@ namespace Inventor.Core.Statements
 				new Func<ILanguage, String>(language => language.StatementHints.IsGreaterThanOrEqualTo))
 		{ }
 
-		protected override Func<String> GetDescriptionText(ILanguageStatementFormatStrings language)
+		protected override Func<String> GetDescriptionText(ILanguageStatements language)
 		{
 			return () => language.IsGreaterThanOrEqualTo;
 		}

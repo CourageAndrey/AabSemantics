@@ -85,15 +85,15 @@ namespace Inventor.Core.Localization
 		{ get; set; }
 
 		[XmlElement(ElementStatementTrueFormatStrings)]
-		public LanguageStatementFormatStrings TrueStatementFormatStringsXml
+		public LanguageStatements TrueStatementFormatStringsXml
 		{ get; set; }
 
 		[XmlElement(ElementStatementFalseFormatStrings)]
-		public LanguageStatementFormatStrings FalseStatementFormatStringsXml
+		public LanguageStatements FalseStatementFormatStringsXml
 		{ get; set; }
 
 		[XmlElement(ElementStatementQuestionFormatStrings)]
-		public LanguageStatementFormatStrings QuestionStatementFormatStringsXml
+		public LanguageStatements QuestionStatementFormatStringsXml
 		{ get; set; }
 
 		[XmlElement(ElementQuestionNames)]
@@ -165,15 +165,15 @@ namespace Inventor.Core.Localization
 		{ get { return StatementHintsXml; } }
 
 		[XmlIgnore]
-		public ILanguageStatementFormatStrings TrueStatementFormatStrings
+		public ILanguageStatements TrueStatementFormatStrings
 		{ get { return TrueStatementFormatStringsXml; } }
 
 		[XmlIgnore]
-		public ILanguageStatementFormatStrings FalseStatementFormatStrings
+		public ILanguageStatements FalseStatementFormatStrings
 		{ get { return FalseStatementFormatStringsXml; } }
 
 		[XmlIgnore]
-		public ILanguageStatementFormatStrings QuestionStatementFormatStrings
+		public ILanguageStatements QuestionStatementFormatStrings
 		{ get { return QuestionStatementFormatStringsXml; } }
 
 		[XmlIgnore]
@@ -233,9 +233,9 @@ namespace Inventor.Core.Localization
 
 				StatementNamesXml = LanguageStatements.CreateDefaultNames(),
 				StatementHintsXml = LanguageStatements.CreateDefaultHints(),
-				TrueStatementFormatStringsXml = LanguageStatementFormatStrings.CreateDefaultTrue(),
-				FalseStatementFormatStringsXml = LanguageStatementFormatStrings.CreateDefaultFalse(),
-				QuestionStatementFormatStringsXml = LanguageStatementFormatStrings.CreateDefaultQuestion(),
+				TrueStatementFormatStringsXml = LanguageStatements.CreateDefaultTrue(),
+				FalseStatementFormatStringsXml = LanguageStatements.CreateDefaultFalse(),
+				QuestionStatementFormatStringsXml = LanguageStatements.CreateDefaultQuestion(),
 				QuestionNamesXml = LanguageQuestionNames.CreateDefault(),
 				AnswersXml = LanguageAnswers.CreateDefault(),
 				AttributesXml = LanguageAttributes.CreateDefault(),
@@ -314,13 +314,13 @@ namespace Inventor.Core.Localization
 		public ILanguageStatements StatementHints
 		{ get { return _language?.StatementHints; } }
 
-		public ILanguageStatementFormatStrings TrueStatementFormatStrings
+		public ILanguageStatements TrueStatementFormatStrings
 		{ get { return _language?.TrueStatementFormatStrings; } }
 
-		public ILanguageStatementFormatStrings FalseStatementFormatStrings
+		public ILanguageStatements FalseStatementFormatStrings
 		{ get { return _language?.FalseStatementFormatStrings; } }
 
-		public ILanguageStatementFormatStrings QuestionStatementFormatStrings
+		public ILanguageStatements QuestionStatementFormatStrings
 		{ get { return _language?.QuestionStatementFormatStrings; } }
 
 		public ILanguageQuestionNames QuestionNames

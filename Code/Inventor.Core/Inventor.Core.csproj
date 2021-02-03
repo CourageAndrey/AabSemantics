@@ -103,7 +103,6 @@
     <Compile Include="Localization\LanguageCommon.cs" />
     <Compile Include="Localization\LanguageErrors.cs" />
     <Compile Include="Localization\LanguageMisc.cs" />
-    <Compile Include="Localization\LanguageStatementFormatStrings.cs" />
     <Compile Include="Localization\LanguageStatements.cs" />
     <Compile Include="Localization\LocalizedString.cs" />
     <Compile Include="Localization\LanguageQuestionNames.cs" />
