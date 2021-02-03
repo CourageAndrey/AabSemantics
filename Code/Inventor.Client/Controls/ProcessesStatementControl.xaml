@@ -8,5 +8,8 @@
 		<GroupBox Name="_groupProcessB">
 			<ComboBox Name="_comboBoxProcessB" SelectedItem="{Binding Path=ProcessB, Mode=TwoWay}" />
 		</GroupBox>
+		<GroupBox Name="_groupSequenceSign">
+			<ComboBox Name="_comboBoxSequenceSign" SelectedItem="{Binding Path=SequenceSign, Mode=TwoWay}" />
+		</GroupBox>
 	</StackPanel>
 </UserControl>

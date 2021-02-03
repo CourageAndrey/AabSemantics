@@ -6,7 +6,7 @@ using Inventor.Core;
 
 namespace Inventor.Client.ViewModels.Statements
 {
-	public class IsNotEqualToStatement : StatementViewModel<Core.Statements.IsNotEqualToStatement>, IComparisonStatement
+	public class ComparisonStatement : StatementViewModel<Core.Statements.ComparisonStatement>
 	{
 		#region Properties
 
@@ -16,25 +16,29 @@ namespace Inventor.Client.ViewModels.Statements
 		public ConceptItem RightValue
 		{ get; set; }
 
+		public ConceptItem ComparisonSign
+		{ get; set; }
+
 		#endregion
 
 		#region Constructors
 
-		public IsNotEqualToStatement(ILanguage language)
-			: this(null as ConceptItem, null, language)
+		public ComparisonStatement(ILanguage language)
+			: this(null as ConceptItem, null, null, language)
 		{ }
 
-		public IsNotEqualToStatement(Core.Statements.IsNotEqualToStatement statement, ILanguage language)
-			: this(new ConceptItem(statement.LeftValue, language), new ConceptItem(statement.RightValue, language), language)
+		public ComparisonStatement(Core.Statements.ComparisonStatement statement, ILanguage language)
+			: this(new ConceptItem(statement.LeftValue, language), new ConceptItem(statement.RightValue, language), new ConceptItem(statement.ComparisonSign, language), language)
 		{
 			_boundObject = statement;
 		}
 
-		public IsNotEqualToStatement(ConceptItem leftValue, ConceptItem rightValue, ILanguage language)
+		public ComparisonStatement(ConceptItem leftValue, ConceptItem rightValue, ConceptItem comparisonSign, ILanguage language)
 			: base(language)
 		{
 			LeftValue = leftValue;
 			RightValue = rightValue;
+			ComparisonSign = comparisonSign;
 		}
 
 		#endregion
@@ -52,7 +56,7 @@ namespace Inventor.Client.ViewModels.Statements
 			{
 				Owner = owner,
 				Editor = control,
-				Title = language.StatementNames.IsNotEqualTo,
+				Title = language.StatementNames.Comparison,
 				SizeToContent = SizeToContent.WidthAndHeight,
 				MinWidth = 200,
 				MinHeight = 100,
@@ -62,21 +66,21 @@ namespace Inventor.Client.ViewModels.Statements
 			return dialog;
 		}
 
-		protected override Core.Statements.IsNotEqualToStatement CreateStatementImplementation()
+		protected override Core.Statements.ComparisonStatement CreateStatementImplementation()
 		{
-			return new Core.Statements.IsNotEqualToStatement(LeftValue.Concept, RightValue.Concept);
+			return new Core.Statements.ComparisonStatement(LeftValue.Concept, RightValue.Concept, ComparisonSign.Concept);
 		}
 
 		public override void ApplyUpdate()
 		{
-			_boundObject.Update(LeftValue.Concept, RightValue.Concept);
+			_boundObject.Update(LeftValue.Concept, RightValue.Concept, ComparisonSign.Concept);
 		}
 
 		#endregion
 
 		public override StatementViewModel Clone()
 		{
-			return new IsNotEqualToStatement(LeftValue, RightValue, _language);
+			return new ComparisonStatement(LeftValue, RightValue, ComparisonSign, _language);
 		}
 	}
 }

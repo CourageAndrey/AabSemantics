@@ -6,7 +6,7 @@ using Inventor.Core;
 
 namespace Inventor.Client.ViewModels.Statements
 {
-	public class BeforeStatement : StatementViewModel<Core.Statements.BeforeStatement>, IProcessesStatement
+	public class ProcessesStatement : StatementViewModel<Core.Statements.ProcessesStatement>
 	{
 		#region Properties
 
@@ -16,25 +16,29 @@ namespace Inventor.Client.ViewModels.Statements
 		public ConceptItem ProcessB
 		{ get; set; }
 
+		public ConceptItem SequenceSign
+		{ get; set; }
+
 		#endregion
 
 		#region Constructors
 
-		public BeforeStatement(ILanguage language)
-			: this(null as ConceptItem, null, language)
+		public ProcessesStatement(ILanguage language)
+			: this(null as ConceptItem, null, null, language)
 		{ }
 
-		public BeforeStatement(Core.Statements.BeforeStatement statement, ILanguage language)
-			: this(new ConceptItem(statement.ProcessA, language), new ConceptItem(statement.ProcessB, language), language)
+		public ProcessesStatement(Core.Statements.ProcessesStatement statement, ILanguage language)
+			: this(new ConceptItem(statement.ProcessA, language), new ConceptItem(statement.ProcessB, language), new ConceptItem(statement.SequenceSign, language), language)
 		{
 			_boundObject = statement;
 		}
 
-		public BeforeStatement(ConceptItem processA, ConceptItem processB, ILanguage language)
+		public ProcessesStatement(ConceptItem processA, ConceptItem processB, ConceptItem sequenceSign, ILanguage language)
 			: base(language)
 		{
 			ProcessA = processA;
 			ProcessB = processB;
+			SequenceSign = sequenceSign;
 		}
 
 		#endregion
@@ -52,7 +56,7 @@ namespace Inventor.Client.ViewModels.Statements
 			{
 				Owner = owner,
 				Editor = control,
-				Title = language.StatementNames.Before,
+				Title = language.StatementNames.Processes,
 				SizeToContent = SizeToContent.WidthAndHeight,
 				MinWidth = 200,
 				MinHeight = 100,
@@ -62,21 +66,21 @@ namespace Inventor.Client.ViewModels.Statements
 			return dialog;
 		}
 
-		protected override Core.Statements.BeforeStatement CreateStatementImplementation()
+		protected override Core.Statements.ProcessesStatement CreateStatementImplementation()
 		{
-			return new Core.Statements.BeforeStatement(ProcessA.Concept, ProcessB.Concept);
+			return new Core.Statements.ProcessesStatement(ProcessA.Concept, ProcessB.Concept, SequenceSign.Concept);
 		}
 
 		public override void ApplyUpdate()
 		{
-			_boundObject.Update(ProcessA.Concept, ProcessB.Concept);
+			_boundObject.Update(ProcessA.Concept, ProcessB.Concept, SequenceSign.Concept);
 		}
 
 		#endregion
 
 		public override StatementViewModel Clone()
 		{
-			return new BeforeStatement(ProcessA, ProcessB, _language);
+			return new ProcessesStatement(ProcessA, ProcessB, SequenceSign, _language);
 		}
 	}
 }

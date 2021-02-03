@@ -174,34 +174,10 @@ namespace Inventor.Core
 		String Composition
 		{ get; }
 
-		String IsNotEqualTo
+		String Comparison
 		{ get; }
 
-		String IsLessThan
-		{ get; }
-
-		String IsLessThanOrEqualTo
-		{ get; }
-
-		String IsGreaterThan
-		{ get; }
-
-		String IsGreaterThanOrEqualTo
-		{ get; }
-
-		String IsEqualTo
-		{ get; }
-
-		String Causes
-		{ get; }
-
-		String Meanwhile
-		{ get; }
-
-		String After
-		{ get; }
-
-		String Before
+		String Processes
 		{ get; }
 	}
 
@@ -522,10 +498,16 @@ namespace Inventor.Core
 		String PropertyRightValue
 		{ get; }
 
+		String PropertyComparisonSign
+		{ get; }
+
 		String PropertyProcessA
 		{ get; }
 
 		String PropertyProcessB
+		{ get; }
+
+		String PropertySequenceSign
 		{ get; }
 
 		String PropertyAttributes
