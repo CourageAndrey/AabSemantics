@@ -49,6 +49,12 @@ namespace Inventor.Core
 		ILanguageConfiguration Configuration
 		{ get; }
 
+		ILanguageSystemConcepts SystemConceptNames
+		{ get; }
+
+		ILanguageSystemConcepts SystemConceptHints
+		{ get; }
+
 		ILanguageMisc Misc
 		{ get; }
 	}
@@ -645,19 +651,16 @@ namespace Inventor.Core
 		String ConsistencyErrorSignWithoutValue
 		{ get; }
 
+		String Concept
+		{ get; }
+	}
+
+	public interface ILanguageSystemConcepts
+	{
 		String True
 		{ get; }
 
 		String False
-		{ get; }
-
-		String TrueHint
-		{ get; }
-
-		String FalseHint
-		{ get; }
-
-		String Concept
 		{ get; }
 	}
 }

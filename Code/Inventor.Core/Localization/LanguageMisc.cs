@@ -88,22 +88,6 @@ namespace Inventor.Core.Localization
 		{ get; set; }
 
 		[XmlElement]
-		public String True
-		{ get; set; }
-
-		[XmlElement]
-		public String False
-		{ get; set; }
-
-		[XmlElement]
-		public String TrueHint
-		{ get; set; }
-
-		[XmlElement]
-		public String FalseHint
-		{ get; set; }
-
-		[XmlElement]
 		public String Concept
 		{ get; set; }
 
@@ -133,10 +117,6 @@ namespace Inventor.Core.Localization
 				ConsistencyErrorMultipleSign = $"{Strings.ParamStatement} приводит к повторному определению признака у понятия.",
 				ConsistencyErrorMultipleSignValue = $"Значение признака {Strings.ParamSign} понятия {Strings.ParamConcept} не может быть корректно определено, так как задано в нескольких его предках.",
 				ConsistencyErrorSignWithoutValue = $"{Strings.ParamStatement} задаёт значение признака, который отсутствует у понятия.",
-				True = "Да",
-				False = "Нет",
-				TrueHint = "Логическое значение: истина.",
-				FalseHint = "Логическое значение: ложь.",
 				Concept = "Понятие",
 			};
 		}

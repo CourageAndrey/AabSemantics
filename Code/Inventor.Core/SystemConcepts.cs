@@ -13,12 +13,12 @@ namespace Inventor.Core
 		#region Logical values
 
 		public static readonly IConcept True = new Concept(
-			new LocalizedStringConstant(lang => lang.Misc.True),
-			new LocalizedStringConstant(lang => lang.Misc.TrueHint));
+			new LocalizedStringConstant(lang => lang.SystemConceptNames.True),
+			new LocalizedStringConstant(lang => lang.SystemConceptHints.True));
 
 		public static readonly IConcept False = new Concept(
-			new LocalizedStringConstant(lang => lang.Misc.False),
-			new LocalizedStringConstant(lang => lang.Misc.FalseHint));
+			new LocalizedStringConstant(lang => lang.SystemConceptNames.False),
+			new LocalizedStringConstant(lang => lang.SystemConceptHints.False));
 
 		public static readonly ICollection<IConcept> LogicalValues = new HashSet<IConcept>
 		{
