@@ -434,6 +434,15 @@ namespace Inventor.Core
 
 		String IsProcess
 		{ get; }
+
+		String IsBoolean
+		{ get; }
+
+		String IsComparisonSign
+		{ get; }
+
+		String IsSequenceSign
+		{ get; }
 	}
 
 	public interface ILanguageUi
