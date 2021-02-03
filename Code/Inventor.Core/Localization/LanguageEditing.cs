@@ -56,11 +56,19 @@ namespace Inventor.Core.Localization
 		{ get; set; }
 
 		[XmlElement]
+		public String PropertyComparisonSign
+		{ get; set; }
+
+		[XmlElement]
 		public String PropertyProcessA
 		{ get; set; }
 
 		[XmlElement]
 		public String PropertyProcessB
+		{ get; set; }
+
+		[XmlElement]
+		public String PropertySequenceSign
 		{ get; set; }
 
 		[XmlElement]
@@ -93,8 +101,10 @@ namespace Inventor.Core.Localization
 				PropertyHint = "Подсказка",
 				PropertyLeftValue = "Значение слева",
 				PropertyRightValue = "Значение справа",
+				PropertyComparisonSign = "Знак сравнения",
 				PropertyProcessA = "Процесс A",
 				PropertyProcessB = "Процесс B",
+				PropertySequenceSign = "Последовательность",
 				PropertyAttributes = "Атрибуты:",
 				ColumnHeaderLanguage = "Язык",
 				ColumnHeaderValue = "Значение",

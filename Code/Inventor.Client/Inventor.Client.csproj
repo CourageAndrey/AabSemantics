@@ -141,25 +141,15 @@
     <Compile Include="ViewModels\Questions\QuestionWithCondition.cs" />
     <Compile Include="ViewModels\Questions\SignValueQuestion.cs" />
     <Compile Include="ViewModels\Questions\WhatQuestion.cs" />
-    <Compile Include="ViewModels\Statements\AfterStatement.cs" />
-    <Compile Include="ViewModels\Statements\BeforeStatement.cs" />
-    <Compile Include="ViewModels\Statements\CausesStatement.cs" />
-    <Compile Include="ViewModels\Statements\IComparisonStatement.cs" />
+    <Compile Include="ViewModels\Statements\ComparisonStatement.cs" />
     <Compile Include="ViewModels\Statements\HasPartStatement.cs" />
     <Compile Include="ViewModels\Factory.cs" />
     <Compile Include="ViewModels\Statements\GroupStatement.cs" />
     <Compile Include="ViewModels\Statements\HasSignStatement.cs" />
-    <Compile Include="ViewModels\Statements\IsEqualToStatement.cs" />
-    <Compile Include="ViewModels\Statements\IsGreaterThanOrEqualToStatement.cs" />
-    <Compile Include="ViewModels\Statements\IsGreaterThanStatement.cs" />
-    <Compile Include="ViewModels\Statements\IsLessThanOrEqualToStatement.cs" />
-    <Compile Include="ViewModels\Statements\IsLessThanStatement.cs" />
-    <Compile Include="ViewModels\Statements\IsNotEqualToStatement.cs" />
     <Compile Include="ViewModels\Statements\IsStatement.cs" />
     <Compile Include="ViewModels\LocalizedStringValue.cs" />
     <Compile Include="ViewModels\LocalizedString.cs" />
-    <Compile Include="ViewModels\Statements\MeanwhileStatement.cs" />
-    <Compile Include="ViewModels\Statements\IProcessesStatement.cs" />
+    <Compile Include="ViewModels\Statements\ProcessesStatement.cs" />
     <Compile Include="ViewModels\Statements\SignValueStatement.cs" />
     <Page Include="Controls\ComparisonStatementControl.xaml">
       <SubType>Designer</SubType>
