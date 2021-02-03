@@ -57,6 +57,11 @@ namespace Inventor.Core.Localization
 		[XmlIgnore]
 		private const String ElementConfiguration = "Configuration";
 		[XmlIgnore]
+		private const String ElementSystemConceptNames = "SystemConceptNames";
+		[XmlIgnore]
+		private const String ElementSystemConceptHints = "SystemConceptHints";
+
+		[XmlIgnore]
 		private const String ElementMisc = "Misc";
 
 		#endregion
@@ -113,6 +118,14 @@ namespace Inventor.Core.Localization
 
 		[XmlElement(ElementConfiguration)]
 		public LanguageConfiguration ConfigurationXml
+		{ get; set; }
+
+		[XmlElement(ElementSystemConceptNames)]
+		public LanguageSystemConcepts SystemConceptNamesXml
+		{ get; set; }
+
+		[XmlElement(ElementSystemConceptHints)]
+		public LanguageSystemConcepts SystemConceptHintsXml
 		{ get; set; }
 
 		[XmlElement(ElementMisc)]
@@ -188,6 +201,14 @@ namespace Inventor.Core.Localization
 		{ get { return ConfigurationXml; } }
 
 		[XmlIgnore]
+		public ILanguageSystemConcepts SystemConceptNames
+		{ get { return SystemConceptNamesXml; } }
+
+		[XmlIgnore]
+		public ILanguageSystemConcepts SystemConceptHints
+		{ get { return SystemConceptHintsXml; } }
+
+		[XmlIgnore]
 		public ILanguageMisc Misc
 		{ get { return MiscXml; } }
 
@@ -221,6 +242,8 @@ namespace Inventor.Core.Localization
 				UiXml = LanguageUi.CreateDefault(),
 				ErrorsInventorXml = LanguageErrorsInventor.CreateDefault(),
 				ConfigurationXml = LanguageConfiguration.CreateDefault(),
+				SystemConceptNamesXml = LanguageSystemConcepts.CreateDefaultNames(),
+				SystemConceptHintsXml = LanguageSystemConcepts.CreateDefaultHints(),
 				MiscXml = LanguageMisc.CreateDefault(),
 			};
 		}
@@ -317,6 +340,12 @@ namespace Inventor.Core.Localization
 
 		public ILanguageConfiguration Configuration
 		{ get { return _language?.Configuration; } }
+
+		public ILanguageSystemConcepts SystemConceptNames
+		{ get { return _language?.SystemConceptNames; } }
+
+		public ILanguageSystemConcepts SystemConceptHints
+		{ get { return _language?.SystemConceptHints; } }
 
 		public ILanguageMisc Misc
 		{ get { return _language?.Misc; } }

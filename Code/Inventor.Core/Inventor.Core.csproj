@@ -53,6 +53,7 @@
     <Compile Include="IStatementRepository.cs" />
     <Compile Include="Localization\LanguageAttributes.cs" />
     <Compile Include="Localization\LanguageEditing.cs" />
+    <Compile Include="Localization\LanguageSystemConcepts.cs" />
     <Compile Include="Processors\QuestionWithConditionProcessor.cs" />
     <Compile Include="AttributeDefinition.cs" />
     <Compile Include="QuestionDefinition.cs" />
