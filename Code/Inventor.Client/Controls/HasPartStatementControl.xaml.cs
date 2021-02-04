@@ -22,13 +22,10 @@ namespace Inventor.Client.Controls
 			_groupPart.Header = language.Ui.Editing.PropertyDescendant;
 		}
 
-		public ViewModels.Statements.HasPartStatement EditValue
+		public StatementViewModel Statement
 		{
 			get { return _contextControl.DataContext as ViewModels.Statements.HasPartStatement; }
 			set { _contextControl.DataContext = value; }
 		}
-
-		public StatementViewModel Statement
-		{ get { return EditValue; } }
 	}
 }

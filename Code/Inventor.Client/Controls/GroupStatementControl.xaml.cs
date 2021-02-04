@@ -22,13 +22,10 @@ namespace Inventor.Client.Controls
 			_groupConcept.Header = language.Ui.Editing.PropertyConcept;
 		}
 
-		public ViewModels.Statements.GroupStatement EditValue
+		public StatementViewModel Statement
 		{
 			get { return _contextControl.DataContext as ViewModels.Statements.GroupStatement; }
 			set { _contextControl.DataContext = value; }
 		}
-
-		public StatementViewModel Statement
-		{ get { return EditValue; } }
 	}
 }
