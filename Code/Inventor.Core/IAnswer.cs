@@ -1,16 +1,17 @@
-﻿using System;
-
-namespace Inventor.Core
+﻿namespace Inventor.Core
 {
 	public interface IAnswer
 	{
-		Object Result
-		{ get; }
-
 		FormattedText Description
 		{ get; }
 
 		IExplanation Explanation
+		{ get; }
+	}
+
+	public interface IAnswer<TResult> : IAnswer
+	{
+		TResult Result
 		{ get; }
 	}
 }

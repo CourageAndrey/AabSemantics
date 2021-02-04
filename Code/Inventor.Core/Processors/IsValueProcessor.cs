@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 
 using Inventor.Core.Attributes;
+using Inventor.Core.Answers;
 using Inventor.Core.Base;
 using Inventor.Core.Localization;
 using Inventor.Core.Statements;
@@ -19,7 +20,7 @@ namespace Inventor.Core.Processors
 
 			var statements = context.KnowledgeBase.Statements.Enumerate<SignValueStatement>(activeContexts).Where(r => r.Value == question.Concept).ToList();
 			bool isValue = question.Concept.HasAttribute<IsValueAttribute>();
-			return new Answer(
+			return new BooleanAnswer(
 				isValue,
 				new FormattedText(
 					isValue ? new Func<String>(() => context.Language.Answers.ValueTrue) : () => context.Language.Answers.ValueFalse,

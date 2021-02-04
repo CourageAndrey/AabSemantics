@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 
 using Inventor.Core.Attributes;
+using Inventor.Core.Answers;
 using Inventor.Core.Base;
 using Inventor.Core.Localization;
 using Inventor.Core.Statements;
@@ -19,7 +20,7 @@ namespace Inventor.Core.Processors
 
 			var statements = context.KnowledgeBase.Statements.Enumerate<HasSignStatement>(activeContexts).Where(r => r.Sign == question.Concept).ToList();
 			bool isSign = question.Concept.HasAttribute<IsSignAttribute>();
-			return new Answer(
+			return new BooleanAnswer(
 				isSign,
 				new FormattedText(
 					isSign ? new Func<String>(() => context.Language.Answers.SignTrue) : () => context.Language.Answers.SignFalse,
