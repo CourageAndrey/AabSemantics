@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 
+using Inventor.Core.Answers;
 using Inventor.Core.Base;
 using Inventor.Core.Localization;
 using Inventor.Core.Statements;
@@ -38,7 +39,7 @@ namespace Inventor.Core.Processors
 				}
 			}
 			return description != null
-				? new Answer(null, description, new Explanation(statement))
+				? new ConceptAnswer(statement.Value, description, new Explanation(statement))
 				: Answer.CreateUnknown(context.Language);
 		}
 

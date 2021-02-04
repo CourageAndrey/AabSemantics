@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 
+using Inventor.Core.Answers;
 using Inventor.Core.Base;
 using Inventor.Core.Localization;
 using Inventor.Core.Statements;
@@ -18,7 +19,7 @@ namespace Inventor.Core.Processors
 			var allStatements = context.KnowledgeBase.Statements.Enumerate(activeContexts);
 
 			var statements = HasSignStatement.GetSigns(allStatements, question.Concept, question.Recursive).Where(hasSign => hasSign.Sign == question.Sign).ToList();
-			return new Answer(
+			return new BooleanAnswer(
 				statements.Any(),
 				new FormattedText(
 					() => String.Format(statements.Any() ? context.Language.Answers.HasSignTrue : context.Language.Answers.HasSignFalse, question.Recursive ? context.Language.Answers.RecursiveTrue : context.Language.Answers.RecursiveFalse),

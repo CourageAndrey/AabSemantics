@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 
+using Inventor.Core.Answers;
 using Inventor.Core.Base;
 using Inventor.Core.Localization;
 using Inventor.Core.Questions;
@@ -32,7 +33,7 @@ namespace Inventor.Core.Processors
 				() => Strings.ParamAnswer,
 				new Dictionary<String, INamed> { { Strings.ParamAnswer, statements.Any() ? context.KnowledgeBase.True : context.KnowledgeBase.False } });
 			result.Add(statements.Any() ? question.Statement.DescribeTrue(context.Language) : question.Statement.DescribeFalse(context.Language));
-			return new Answer(
+			return new BooleanAnswer(
 				statements.Any(),
 				result,
 				new Explanation(statements));

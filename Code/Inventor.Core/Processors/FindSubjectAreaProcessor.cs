@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 
+using Inventor.Core.Answers;
 using Inventor.Core.Base;
 using Inventor.Core.Localization;
 using Inventor.Core.Statements;
@@ -28,8 +29,8 @@ namespace Inventor.Core.Processors
 						{ Strings.ParamArea, statement.Area },
 					});
 				}
-				return new Answer(
-					statements.Select(s => s.Area),
+				return new ConceptsAnswer(
+					statements.Select(s => s.Area).ToList(),
 					result,
 					new Explanation(statements));
 			}

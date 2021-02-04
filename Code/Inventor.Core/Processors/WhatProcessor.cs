@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 
+using Inventor.Core.Answers;
 using Inventor.Core.Base;
 using Inventor.Core.Localization;
 using Inventor.Core.Statements;
@@ -58,7 +59,7 @@ namespace Inventor.Core.Processors
 					}
 					result.Add(() => String.Empty, new Dictionary<String, INamed>());
 				}
-				return new Answer(result, result, new Explanation(difference));
+				return new Answer(result, new Explanation(difference));
 			}
 			else
 			{
