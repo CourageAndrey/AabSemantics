@@ -23,13 +23,10 @@ namespace Inventor.Client.Controls
 			_groupSign.Header = language.Ui.Editing.PropertySign;
 		}
 
-		public ViewModels.Statements.HasSignStatement EditValue
+		public StatementViewModel Statement
 		{
 			get { return _contextControl.DataContext as ViewModels.Statements.HasSignStatement; }
 			set { _contextControl.DataContext = value; }
 		}
-
-		public StatementViewModel Statement
-		{ get { return EditValue; } }
 	}
 }

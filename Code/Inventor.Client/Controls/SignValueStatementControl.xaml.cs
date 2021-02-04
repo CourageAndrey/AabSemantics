@@ -25,13 +25,10 @@ namespace Inventor.Client.Controls
 			_groupValue.Header = language.Ui.Editing.PropertyValue;
 		}
 
-		public ViewModels.Statements.SignValueStatement EditValue
+		public StatementViewModel Statement
 		{
 			get { return _contextControl.DataContext as ViewModels.Statements.SignValueStatement; }
 			set { _contextControl.DataContext = value; }
 		}
-
-		public StatementViewModel Statement
-		{ get { return EditValue; } }
 	}
 }

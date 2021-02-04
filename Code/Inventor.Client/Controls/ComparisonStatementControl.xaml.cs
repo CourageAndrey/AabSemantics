@@ -25,13 +25,10 @@ namespace Inventor.Client.Controls
 			_groupComparisonSign.Header = language.Ui.Editing.PropertyComparisonSign;
 		}
 
-		public ViewModels.Statements.ComparisonStatement EditValue
+		public StatementViewModel Statement
 		{
 			get { return _contextControl.DataContext as ViewModels.Statements.ComparisonStatement; }
 			set { _contextControl.DataContext = value; }
 		}
-
-		public StatementViewModel Statement
-		{ get { return EditValue as StatementViewModel; } }
 	}
 }

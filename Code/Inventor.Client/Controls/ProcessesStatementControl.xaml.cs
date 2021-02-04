@@ -25,13 +25,10 @@ namespace Inventor.Client.Controls
 			_groupSequenceSign.Header = language.Ui.Editing.PropertySequenceSign;
 		}
 
-		public ViewModels.Statements.ProcessesStatement EditValue
+		public StatementViewModel Statement
 		{
 			get { return _contextControl.DataContext as ViewModels.Statements.ProcessesStatement; }
 			set { _contextControl.DataContext = value; }
 		}
-
-		public StatementViewModel Statement
-		{ get { return EditValue as StatementViewModel; } }
 	}
 }
