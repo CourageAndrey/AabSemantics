@@ -22,13 +22,10 @@ namespace Inventor.Client.Controls
 			_groupDescendant.Header = language.Ui.Editing.PropertyDescendant;
 		}
 
-		public ViewModels.Statements.IsStatement EditValue
+		public StatementViewModel Statement
 		{
 			get { return _contextControl.DataContext as ViewModels.Statements.IsStatement; }
 			set { _contextControl.DataContext = value; }
 		}
-
-		public StatementViewModel Statement
-		{ get { return EditValue; } }
 	}
 }

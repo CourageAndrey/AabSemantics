@@ -45,7 +45,7 @@ namespace Inventor.Client.ViewModels.Statements
 		{
 			var control = new HasPartStatementControl
 			{
-				EditValue = this,
+				Statement = this,
 			};
 			control.Initialize(knowledgeBase, language);
 			var dialog = new EditDialog
