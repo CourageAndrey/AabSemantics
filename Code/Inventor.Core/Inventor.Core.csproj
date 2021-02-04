@@ -36,13 +36,16 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Answers\ConceptAnswer.cs" />
+    <Compile Include="Answers\ConceptsAnswer.cs" />
+    <Compile Include="Answers\BooleanAnswer.cs" />
     <Compile Include="Attributes\IsBooleanAttribute.cs" />
     <Compile Include="Attributes\IsComparisonSignAttribute.cs" />
     <Compile Include="Attributes\IsProcessAttribute.cs" />
     <Compile Include="Attributes\IsSequenceSignAttribute.cs" />
     <Compile Include="Attributes\IsSignAttribute.cs" />
     <Compile Include="Attributes\IsValueAttribute.cs" />
-    <Compile Include="Base\Answer.cs" />
+    <Compile Include="Answers\Answer.cs" />
     <Compile Include="Base\AttributeRepository.cs" />
     <Compile Include="Base\Concept.cs" />
     <Compile Include="Base\Explanation.cs" />

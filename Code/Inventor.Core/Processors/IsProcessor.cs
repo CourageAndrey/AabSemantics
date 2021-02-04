@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
+using Inventor.Core.Answers;
 using Inventor.Core.Base;
 using Inventor.Core.Localization;
 using Inventor.Core.Statements;
@@ -18,7 +19,7 @@ namespace Inventor.Core.Processors
 
 			var explanation = new List<IsStatement>();
 			Boolean yes = context.KnowledgeBase.Statements.Enumerate(activeContexts).GetParentsAllLevels(question.Child, explanation).Contains(question.Parent);
-			return new Answer(
+			return new BooleanAnswer(
 				yes,
 				new FormattedText(
 					yes ? new Func<String>(() => context.Language.Answers.IsTrue) : () => context.Language.Answers.IsFalse,

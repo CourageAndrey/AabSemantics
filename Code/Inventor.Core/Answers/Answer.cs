@@ -1,14 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace Inventor.Core.Base
+using Inventor.Core.Base;
+
+namespace Inventor.Core.Answers
 {
 	public class Answer : IAnswer
 	{
 		#region Properties
-
-		public Object Result
-		{ get; }
 
 		public FormattedText Description
 		{ get; }
@@ -18,9 +17,8 @@ namespace Inventor.Core.Base
 
 		#endregion
 
-		public Answer(Object result, FormattedText description, IExplanation explanation)
+		public Answer(FormattedText description, IExplanation explanation)
 		{
-			Result = result;
 			Description = description;
 			Explanation = explanation;
 		}
@@ -28,9 +26,8 @@ namespace Inventor.Core.Base
 		public static IAnswer CreateUnknown(ILanguage language)
 		{
 			return new Answer(
-				null,
 				new FormattedText(() => language.Answers.Unknown, new Dictionary<String, INamed>()),
-				new Explanation(new Statement[0]));
+				new Explanation(new IStatement[0]));
 		}
 	}
 }

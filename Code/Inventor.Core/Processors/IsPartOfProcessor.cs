@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 
+using Inventor.Core.Answers;
 using Inventor.Core.Base;
 using Inventor.Core.Localization;
 using Inventor.Core.Statements;
@@ -18,7 +19,7 @@ namespace Inventor.Core.Processors
 			var activeContexts = context.GetHierarchy();
 
 			var statements = context.KnowledgeBase.Statements.Enumerate<HasPartStatement>(activeContexts).Where(c => c.Whole == question.Parent && c.Part == question.Child).ToList();
-			return new Answer(
+			return new BooleanAnswer(
 				statements.Any(),
 				new FormattedText(statements.Any() ? new Func<String>(() => context.Language.Answers.IsPartOfTrue) : () => context.Language.Answers.IsPartOfFalse, new Dictionary<String, INamed>
 				{

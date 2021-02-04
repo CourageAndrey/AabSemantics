@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Linq;
 
+using Inventor.Core.Answers;
 using Inventor.Core.Base;
 using Inventor.Core.Localization;
 using Inventor.Core.Statements;
@@ -21,8 +22,8 @@ namespace Inventor.Core.Processors
 				String format;
 				var parameters = statements.Select(r => r.Whole).ToList().Enumerate(out format);
 				parameters.Add(Strings.ParamChild, question.Concept);
-				return new Answer(
-					statements.Select(s => s.Whole),
+				return new ConceptsAnswer(
+					statements.Select(s => s.Whole).ToList(),
 					new FormattedText(() => context.Language.Answers.EnumerateContainers + format + ".", parameters),
 					new Explanation(statements));
 			}

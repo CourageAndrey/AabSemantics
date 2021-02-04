@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Linq;
 
+using Inventor.Core.Answers;
 using Inventor.Core.Base;
 using Inventor.Core.Localization;
 using Inventor.Core.Statements;
@@ -19,11 +20,11 @@ namespace Inventor.Core.Processors
 			var statements = HasSignStatement.GetSigns(allStatements, question.Concept, question.Recursive);
 			if (statements.Any())
 			{
-				var signs = statements.Select(hs => hs.Sign);
+				var signs = statements.Select(hs => hs.Sign).ToList();
 				String format;
 				var parameters = signs.Enumerate(out format);
 				parameters[Strings.ParamConcept] = question.Concept;
-				return new Answer(
+				return new ConceptsAnswer(
 					signs,
 					new FormattedText(
 						() => string.Format(context.Language.Answers.ConceptSigns, question.Recursive ? context.Language.Answers.RecursiveTrue : context.Language.Answers.RecursiveFalse, format),
