@@ -14,10 +14,8 @@ namespace Inventor.Core.Processors
 	{
 		public override IAnswer Process(IQuestionProcessingContext<DescribeSubjectAreaQuestion> context)
 		{
-			var question = context.Question;
 			var activeContexts = context.GetHierarchy();
-
-			var statements = context.KnowledgeBase.Statements.Enumerate<GroupStatement>(activeContexts).Where(c => c.Area == question.Concept).ToList();
+			var statements = context.KnowledgeBase.Statements.Enumerate<GroupStatement>(activeContexts).Where(statement => DoesStatementMatch(context, statement)).ToList();
 			return CreateAnswer(context, statements);
 		}
 
@@ -37,6 +35,11 @@ namespace Inventor.Core.Processors
 			{
 				return Answer.CreateUnknown(context.Language);
 			}
+		}
+
+		protected override Boolean DoesStatementMatch(IQuestionProcessingContext<DescribeSubjectAreaQuestion> context, GroupStatement statement)
+		{
+			return statement.Area == context.Question.Concept;
 		}
 	}
 }

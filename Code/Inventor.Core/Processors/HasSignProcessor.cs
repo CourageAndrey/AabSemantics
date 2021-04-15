@@ -18,7 +18,7 @@ namespace Inventor.Core.Processors
 			var activeContexts = context.GetHierarchy();
 			var allStatements = context.KnowledgeBase.Statements.Enumerate(activeContexts);
 
-			var statements = HasSignStatement.GetSigns(allStatements, question.Concept, question.Recursive).Where(hasSign => hasSign.Sign == question.Sign).ToList();
+			var statements = HasSignStatement.GetSigns(allStatements, question.Concept, question.Recursive).Where(statement => DoesStatementMatch(context, statement)).ToList();
 			return CreateAnswer(context, statements);
 		}
 
@@ -34,6 +34,11 @@ namespace Inventor.Core.Processors
 						{ Strings.ParamSign, context.Question.Sign },
 					}),
 				new Explanation(statements));
+		}
+
+		protected override Boolean DoesStatementMatch(IQuestionProcessingContext<HasSignQuestion> context, HasSignStatement statement)
+		{
+			return statement.Sign == context.Question.Sign;
 		}
 	}
 }

@@ -33,5 +33,10 @@ namespace Inventor.Core.Processors
 					}),
 				new Explanation(statements));
 		}
+
+		protected override Boolean DoesStatementMatch(IQuestionProcessingContext<HasSignsQuestion> context, HasSignStatement statement)
+		{
+			throw new NotImplementedException("Need to change method structure!");
+		}
 	}
 }
