@@ -34,6 +34,11 @@ namespace Inventor.Core.Processors
 		/*protected override IAnswer CreateAnswer(IQuestionProcessingContext<IsQuestion> context, ICollection<IsStatement> statements)
 		{
 
+		}
+
+		protected override Boolean DoesStatementMatch(IQuestionProcessingContext<IsQuestion> context, IsStatement statement)
+		{
+			
 		}*/
 	}
 }

@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 
 namespace Inventor.Core.Base
@@ -23,5 +24,7 @@ namespace Inventor.Core.Base
 		where StatementT : IStatement
 	{
 		protected abstract IAnswer CreateAnswer(IQuestionProcessingContext<QuestionT> context, ICollection<StatementT> statements);
+
+		protected abstract Boolean DoesStatementMatch(IQuestionProcessingContext<QuestionT> context, StatementT statement);
 	}
 }
