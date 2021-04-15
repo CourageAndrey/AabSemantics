@@ -59,7 +59,7 @@ namespace Inventor.Core.Processors
 					}
 					result.Add(() => String.Empty, new Dictionary<String, INamed>());
 				}
-				return new Answer(result, new Explanation(difference));
+				return new Answer(result, new Explanation(difference), false);
 			}
 			else
 			{

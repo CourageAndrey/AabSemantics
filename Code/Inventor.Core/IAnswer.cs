@@ -1,4 +1,6 @@
-﻿namespace Inventor.Core
+﻿using System;
+
+namespace Inventor.Core
 {
 	public interface IAnswer
 	{
@@ -6,6 +8,9 @@
 		{ get; }
 
 		IExplanation Explanation
+		{ get; }
+
+		Boolean IsEmpty
 		{ get; }
 	}
 
