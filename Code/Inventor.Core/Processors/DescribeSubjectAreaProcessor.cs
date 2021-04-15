@@ -12,13 +12,6 @@ namespace Inventor.Core.Processors
 {
 	public sealed class DescribeSubjectAreaProcessor : QuestionProcessor<DescribeSubjectAreaQuestion, GroupStatement>
 	{
-		public override IAnswer Process(IQuestionProcessingContext<DescribeSubjectAreaQuestion> context)
-		{
-			var activeContexts = context.GetHierarchy();
-			var statements = context.KnowledgeBase.Statements.Enumerate<GroupStatement>(activeContexts).Where(statement => DoesStatementMatch(context, statement)).ToList();
-			return CreateAnswer(context, statements);
-		}
-
 		protected override IAnswer CreateAnswer(IQuestionProcessingContext<DescribeSubjectAreaQuestion> context, ICollection<GroupStatement> statements)
 		{
 			if (statements.Any())

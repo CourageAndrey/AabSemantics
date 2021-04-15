@@ -13,13 +13,6 @@ namespace Inventor.Core.Processors
 {
 	public sealed class IsSignProcessor : QuestionProcessor<IsSignQuestion, HasSignStatement>
 	{
-		public override IAnswer Process(IQuestionProcessingContext<IsSignQuestion> context)
-		{
-			var activeContexts = context.GetHierarchy();
-			var statements = context.KnowledgeBase.Statements.Enumerate<HasSignStatement>(activeContexts).Where(statement => DoesStatementMatch(context, statement)).ToList();
-			return CreateAnswer(context, statements);
-		}
-
 		protected override IAnswer CreateAnswer(IQuestionProcessingContext<IsSignQuestion> context, ICollection<HasSignStatement> statements)
 		{
 			bool isSign = context.Question.Concept.HasAttribute<IsSignAttribute>();
