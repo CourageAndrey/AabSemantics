@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+
 namespace Inventor.Core.Base
 {
 	public abstract class QuestionProcessor : IQuestionProcessor
@@ -14,5 +16,12 @@ namespace Inventor.Core.Base
 		{
 			return Process((QuestionProcessingContext<QuestionT>) context);
 		}
+	}
+
+	public abstract class QuestionProcessor<QuestionT, StatementT> : QuestionProcessor<QuestionT>
+		where QuestionT : IQuestion
+		where StatementT : IStatement
+	{
+		protected abstract IAnswer CreateAnswer(IQuestionProcessingContext<QuestionT> context, ICollection<StatementT> statements);
 	}
 }

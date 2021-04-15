@@ -10,7 +10,7 @@ using Inventor.Core.Questions;
 
 namespace Inventor.Core.Processors
 {
-	public sealed class FindSubjectAreaProcessor : QuestionProcessor<FindSubjectAreaQuestion>
+	public sealed class FindSubjectAreaProcessor : QuestionProcessor<FindSubjectAreaQuestion, GroupStatement>
 	{
 		public override IAnswer Process(IQuestionProcessingContext<FindSubjectAreaQuestion> context)
 		{
@@ -18,6 +18,11 @@ namespace Inventor.Core.Processors
 			var activeContexts = context.GetHierarchy();
 
 			var statements = context.KnowledgeBase.Statements.Enumerate<GroupStatement>(activeContexts).Where(c => c.Concept == question.Concept).ToList();
+			return CreateAnswer(context, statements);
+		}
+
+		protected override IAnswer CreateAnswer(IQuestionProcessingContext<FindSubjectAreaQuestion> context, ICollection<GroupStatement> statements)
+		{
 			if (statements.Any())
 			{
 				var result = new FormattedText();
@@ -25,7 +30,7 @@ namespace Inventor.Core.Processors
 				{
 					result.Add(() => context.Language.Answers.SubjectArea, new Dictionary<String, INamed>
 					{
-						{ Strings.ParamConcept, question.Concept },
+						{ Strings.ParamConcept, context.Question.Concept },
 						{ Strings.ParamArea, statement.Area },
 					});
 				}
