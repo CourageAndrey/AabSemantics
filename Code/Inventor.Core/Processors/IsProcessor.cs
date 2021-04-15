@@ -10,7 +10,7 @@ using Inventor.Core.Questions;
 namespace Inventor.Core.Processors
 {
 	[Obsolete("This class will be removed as soon as QuestionDialog supports CheckStatementQuestion. Please, use CheckStatementQuestion with corresponding statement instead.")]
-	public sealed class IsProcessor : QuestionProcessor<IsQuestion>
+	public sealed class IsProcessor : QuestionProcessor<IsQuestion/*, IsStatement*/>
 	{
 		public override IAnswer Process(IQuestionProcessingContext<IsQuestion> context)
 		{
@@ -30,5 +30,10 @@ namespace Inventor.Core.Processors
 					}),
 				new Explanation(explanation));
 		}
+
+		/*protected override IAnswer CreateAnswer(IQuestionProcessingContext<IsQuestion> context, ICollection<IsStatement> statements)
+		{
+
+		}*/
 	}
 }

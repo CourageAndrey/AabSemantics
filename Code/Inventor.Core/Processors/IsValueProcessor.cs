@@ -11,7 +11,7 @@ using Inventor.Core.Questions;
 
 namespace Inventor.Core.Processors
 {
-	public sealed class IsValueProcessor : QuestionProcessor<IsValueQuestion>
+	public sealed class IsValueProcessor : QuestionProcessor<IsValueQuestion, SignValueStatement>
 	{
 		public override IAnswer Process(IQuestionProcessingContext<IsValueQuestion> context)
 		{
@@ -19,14 +19,19 @@ namespace Inventor.Core.Processors
 			var activeContexts = context.GetHierarchy();
 
 			var statements = context.KnowledgeBase.Statements.Enumerate<SignValueStatement>(activeContexts).Where(r => r.Value == question.Concept).ToList();
-			bool isValue = question.Concept.HasAttribute<IsValueAttribute>();
+			return CreateAnswer(context, statements);
+		}
+
+		protected override IAnswer CreateAnswer(IQuestionProcessingContext<IsValueQuestion> context, ICollection<SignValueStatement> statements)
+		{
+			bool isValue = context.Question.Concept.HasAttribute<IsValueAttribute>();
 			return new BooleanAnswer(
 				isValue,
 				new FormattedText(
 					isValue ? new Func<String>(() => context.Language.Answers.ValueTrue) : () => context.Language.Answers.ValueFalse,
 					new Dictionary<String, INamed>
 					{
-						{ Strings.ParamConcept, question.Concept },
+						{ Strings.ParamConcept, context.Question.Concept },
 					}),
 				new Explanation(statements));
 		}
