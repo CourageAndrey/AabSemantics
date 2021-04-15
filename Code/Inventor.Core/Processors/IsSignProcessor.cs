@@ -15,10 +15,8 @@ namespace Inventor.Core.Processors
 	{
 		public override IAnswer Process(IQuestionProcessingContext<IsSignQuestion> context)
 		{
-			var question = context.Question;
 			var activeContexts = context.GetHierarchy();
-
-			var statements = context.KnowledgeBase.Statements.Enumerate<HasSignStatement>(activeContexts).Where(r => r.Sign == question.Concept).ToList();
+			var statements = context.KnowledgeBase.Statements.Enumerate<HasSignStatement>(activeContexts).Where(statement => DoesStatementMatch(context, statement)).ToList();
 			return CreateAnswer(context, statements);
 		}
 
@@ -34,6 +32,11 @@ namespace Inventor.Core.Processors
 						{ Strings.ParamConcept, context.Question.Concept },
 					}),
 				new Explanation(statements));
+		}
+
+		protected override Boolean DoesStatementMatch(IQuestionProcessingContext<IsSignQuestion> context, HasSignStatement statement)
+		{
+			return statement.Sign == context.Question.Concept;
 		}
 	}
 }

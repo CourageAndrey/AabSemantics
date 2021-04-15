@@ -42,5 +42,10 @@ namespace Inventor.Core.Processors
 				return Answer.CreateUnknown(context.Language);
 			}
 		}
+
+		protected override Boolean DoesStatementMatch(IQuestionProcessingContext<EnumerateSignsQuestion> context, HasSignStatement statement)
+		{
+			throw new NotImplementedException("Need to change method structure!");
+		}
 	}
 }
