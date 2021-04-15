@@ -10,7 +10,7 @@ using Inventor.Core.Questions;
 
 namespace Inventor.Core.Processors
 {
-	public sealed class HasSignProcessor : QuestionProcessor<HasSignQuestion>
+	public sealed class HasSignProcessor : QuestionProcessor<HasSignQuestion, HasSignStatement>
 	{
 		public override IAnswer Process(IQuestionProcessingContext<HasSignQuestion> context)
 		{
@@ -19,14 +19,19 @@ namespace Inventor.Core.Processors
 			var allStatements = context.KnowledgeBase.Statements.Enumerate(activeContexts);
 
 			var statements = HasSignStatement.GetSigns(allStatements, question.Concept, question.Recursive).Where(hasSign => hasSign.Sign == question.Sign).ToList();
+			return CreateAnswer(context, statements);
+		}
+
+		protected override IAnswer CreateAnswer(IQuestionProcessingContext<HasSignQuestion> context, ICollection<HasSignStatement> statements)
+		{
 			return new BooleanAnswer(
 				statements.Any(),
 				new FormattedText(
-					() => String.Format(statements.Any() ? context.Language.Answers.HasSignTrue : context.Language.Answers.HasSignFalse, question.Recursive ? context.Language.Answers.RecursiveTrue : context.Language.Answers.RecursiveFalse),
+					() => String.Format(statements.Any() ? context.Language.Answers.HasSignTrue : context.Language.Answers.HasSignFalse, context.Question.Recursive ? context.Language.Answers.RecursiveTrue : context.Language.Answers.RecursiveFalse),
 					new Dictionary<String, INamed>
 					{
-						{ Strings.ParamConcept, question.Concept },
-						{ Strings.ParamSign, question.Sign },
+						{ Strings.ParamConcept, context.Question.Concept },
+						{ Strings.ParamSign, context.Question.Sign },
 					}),
 				new Explanation(statements));
 		}
