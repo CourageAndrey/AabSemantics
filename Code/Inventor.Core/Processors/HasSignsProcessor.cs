@@ -12,15 +12,6 @@ namespace Inventor.Core.Processors
 {
 	public sealed class HasSignsProcessor : QuestionProcessor<HasSignsQuestion, HasSignStatement>
 	{
-		public override IAnswer Process(IQuestionProcessingContext<HasSignsQuestion> context)
-		{
-			var question = context.Question;
-			var activeContexts = context.GetHierarchy();
-
-			var statements = HasSignStatement.GetSigns(context.KnowledgeBase.Statements.Enumerate(activeContexts), question.Concept, question.Recursive);
-			return CreateAnswer(context, statements);
-		}
-
 		protected override IAnswer CreateAnswer(IQuestionProcessingContext<HasSignsQuestion> context, ICollection<HasSignStatement> statements)
 		{
 			return new BooleanAnswer(
@@ -36,7 +27,32 @@ namespace Inventor.Core.Processors
 
 		protected override Boolean DoesStatementMatch(IQuestionProcessingContext<HasSignsQuestion> context, HasSignStatement statement)
 		{
-			throw new NotImplementedException("Need to change method structure!");
+			return statement.Concept == context.Question.Concept;
+		}
+
+		protected override Boolean AreEnoughToAnswer(IQuestionProcessingContext<HasSignsQuestion> context, ICollection<HasSignStatement> statements)
+		{
+			return !context.Question.Recursive;
+		}
+
+		protected override IEnumerable<NestedQuestion> GetNestedQuestions(IQuestionProcessingContext<HasSignsQuestion> context)
+		{
+			if (!context.Question.Recursive) yield break;
+
+			var activeContexts = context.GetHierarchy();
+			var alreadyViewedConcepts = new HashSet<IConcept>(activeContexts.OfType<IQuestionProcessingContext<HasSignsQuestion>>().Select(questionContext => questionContext.Question.Concept));
+
+			var question = context.Question;
+			var transitiveStatements = context.KnowledgeBase.Statements.Enumerate<IsStatement>(activeContexts).Where(isStatement => isStatement.Child == question.Concept);
+
+			foreach (var transitiveStatement in transitiveStatements)
+			{
+				var parent = transitiveStatement.Parent;
+				if (!alreadyViewedConcepts.Contains(parent))
+				{
+					yield return new NestedQuestion(new HasSignsQuestion(parent, true), new IStatement[] { transitiveStatement });
+				}
+			}
 		}
 	}
 }

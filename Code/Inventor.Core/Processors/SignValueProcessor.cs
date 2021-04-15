@@ -10,42 +10,45 @@ using Inventor.Core.Questions;
 
 namespace Inventor.Core.Processors
 {
-	public sealed class SignValueProcessor : QuestionProcessor<SignValueQuestion>
+	public sealed class SignValueProcessor : QuestionProcessor<SignValueQuestion, SignValueStatement>
 	{
-		public override IAnswer Process(IQuestionProcessingContext<SignValueQuestion> context)
+		protected override IAnswer CreateAnswer(IQuestionProcessingContext<SignValueQuestion> context, ICollection<SignValueStatement> statements)
 		{
-			var question = context.Question;
-			var activeContexts = context.GetHierarchy();
-			var allStatements = context.KnowledgeBase.Statements.Enumerate(activeContexts);
-
-			var signValues = allStatements.Enumerate<SignValueStatement>(activeContexts).ToList();
-			var statement = getSignValue(signValues, question.Concept, question.Sign);
-			FormattedText description = null;
-			if (statement != null)
+			if (statements.Any())
 			{
-				description = formatSignValue(statement, question.Concept, context.Language);
+				var statement = statements.First();
+				return new ConceptAnswer(
+					statement.Value,
+					formatSignValue(statement, context.Question.Concept, context.Language),
+					new Explanation(statements));
 			}
 			else
 			{
-				var parents = allStatements.GetParentsAllLevels<IConcept, IsStatement>(question.Concept);
-				foreach (var parent in parents)
-				{
-					statement = getSignValue(signValues, parent, question.Sign);
-					if (statement != null)
-					{
-						description = formatSignValue(statement, question.Concept, context.Language);
-						break;
-					}
-				}
+				return Answer.CreateUnknown(context.Language);
 			}
-			return description != null
-				? new ConceptAnswer(statement.Value, description, new Explanation(statement))
-				: Answer.CreateUnknown(context.Language);
 		}
 
-		private static SignValueStatement getSignValue(IEnumerable<SignValueStatement> statements, IConcept concept, IConcept sign)
+		protected override Boolean DoesStatementMatch(IQuestionProcessingContext<SignValueQuestion> context, SignValueStatement statement)
 		{
-			return statements.FirstOrDefault(v => v.Concept == concept && v.Sign == sign);
+			return statement.Concept == context.Question.Concept && statement.Sign == context.Question.Sign;
+		}
+
+		protected override IEnumerable<NestedQuestion> GetNestedQuestions(IQuestionProcessingContext<SignValueQuestion> context)
+		{
+			var activeContexts = context.GetHierarchy();
+			var alreadyViewedConcepts = new HashSet<IConcept>(activeContexts.OfType<IQuestionProcessingContext<SignValueQuestion>>().Select(questionContext => questionContext.Question.Concept));
+
+			var question = context.Question;
+			var transitiveStatements = context.KnowledgeBase.Statements.Enumerate<IsStatement>(activeContexts).Where(isStatement => isStatement.Child == question.Concept);
+
+			foreach (var transitiveStatement in transitiveStatements)
+			{
+				var parent = transitiveStatement.Parent;
+				if (!alreadyViewedConcepts.Contains(parent))
+				{
+					yield return new NestedQuestion(new SignValueQuestion(parent, question.Sign), new IStatement[] { transitiveStatement });
+				}
+			}
 		}
 
 		private static FormattedText formatSignValue(SignValueStatement value, IConcept original, ILanguage language)
