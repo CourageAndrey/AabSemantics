@@ -12,7 +12,7 @@ namespace Inventor.Core.Answers
 		#endregion
 
 		public ConceptsAnswer(ICollection<IConcept> result, FormattedText description, IExplanation explanation)
-			: base(description, explanation)
+			: base(description, explanation, result.Count == 0)
 		{
 			Result = result;
 		}

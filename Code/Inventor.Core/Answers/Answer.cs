@@ -15,19 +15,24 @@ namespace Inventor.Core.Answers
 		public IExplanation Explanation
 		{ get; }
 
+		public Boolean IsEmpty
+		{ get; }
+
 		#endregion
 
-		public Answer(FormattedText description, IExplanation explanation)
+		public Answer(FormattedText description, IExplanation explanation, Boolean isEmpty)
 		{
 			Description = description;
 			Explanation = explanation;
+			IsEmpty = isEmpty;
 		}
 
 		public static IAnswer CreateUnknown(ILanguage language)
 		{
 			return new Answer(
 				new FormattedText(() => language.Answers.Unknown, new Dictionary<String, INamed>()),
-				new Explanation(new IStatement[0]));
+				new Explanation(new IStatement[0]),
+				true);
 		}
 	}
 }
