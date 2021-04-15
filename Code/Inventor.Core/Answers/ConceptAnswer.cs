@@ -10,7 +10,7 @@
 		#endregion
 
 		public ConceptAnswer(IConcept result, FormattedText description, IExplanation explanation)
-			: base(description, explanation)
+			: base(description, explanation, result == null)
 		{
 			Result = result;
 		}

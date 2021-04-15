@@ -12,7 +12,7 @@ namespace Inventor.Core.Answers
 		#endregion
 
 		public BooleanAnswer(Boolean result, FormattedText description, IExplanation explanation)
-			: base(description, explanation)
+			: base(description, explanation, false)
 		{
 			Result = result;
 		}
