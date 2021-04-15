@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.Linq;
 
 namespace Inventor.Core.Base
 {
@@ -14,11 +13,11 @@ namespace Inventor.Core.Base
 
 		public Explanation(IEnumerable<IStatement> statements)
 		{
-			Statements = statements.ToArray();
+			Statements = new List<IStatement>(statements);
 		}
 
 		public Explanation(IStatement statement)
-			: this(new[] { statement })
+			: this(new List<IStatement> { statement })
 		{ }
 	}
 }
