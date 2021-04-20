@@ -39,11 +39,10 @@ namespace Inventor.Core.Processors
 		{
 			if (!context.Question.Recursive) yield break;
 
-			var activeContexts = context.GetHierarchy();
-			var alreadyViewedConcepts = new HashSet<IConcept>(activeContexts.OfType<IQuestionProcessingContext<HasSignsQuestion>>().Select(questionContext => questionContext.Question.Concept));
+			var alreadyViewedConcepts = new HashSet<IConcept>(context.ActiveContexts.OfType<IQuestionProcessingContext<HasSignsQuestion>>().Select(questionContext => questionContext.Question.Concept));
 
 			var question = context.Question;
-			var transitiveStatements = context.KnowledgeBase.Statements.Enumerate<IsStatement>(activeContexts).Where(isStatement => isStatement.Child == question.Concept);
+			var transitiveStatements = context.KnowledgeBase.Statements.Enumerate<IsStatement>(context.ActiveContexts).Where(isStatement => isStatement.Child == question.Concept);
 
 			foreach (var transitiveStatement in transitiveStatements)
 			{
