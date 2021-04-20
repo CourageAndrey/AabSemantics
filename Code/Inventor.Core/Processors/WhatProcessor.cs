@@ -15,10 +15,9 @@ namespace Inventor.Core.Processors
 		public override IAnswer Process(IQuestionProcessingContext<WhatQuestion> context)
 		{
 			var question = context.Question;
-			var activeContexts = context.GetHierarchy();
-			var allStatements = context.KnowledgeBase.Statements.Enumerate(activeContexts);
+			var allStatements = context.KnowledgeBase.Statements.Enumerate(context.ActiveContexts);
 
-			var statements = allStatements.Enumerate<IsStatement>(activeContexts).Where(c => c.Descendant == question.Concept).ToList();
+			var statements = allStatements.Enumerate<IsStatement>(context.ActiveContexts).Where(c => c.Descendant == question.Concept).ToList();
 			if (statements.Any())
 			{
 				var result = new FormattedText();

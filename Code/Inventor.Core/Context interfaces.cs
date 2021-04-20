@@ -14,6 +14,9 @@ namespace Inventor.Core
 		IContext Parent
 		{ get; }
 
+		ICollection<IContext> ActiveContexts
+		{ get; }
+
 		ICollection<IContext> Children
 		{ get; }
 
@@ -54,19 +57,5 @@ namespace Inventor.Core
 	{
 		new QuestionT Question
 		{ get; }
-	}
-
-	public static class ContextHelper
-	{
-		public static ICollection<IContext> GetHierarchy(this IContext context)
-		{
-			var hierarchy = new HashSet<IContext>();
-			while (context != null)
-			{
-				hierarchy.Add(context);
-				context = context.Parent;
-			}
-			return hierarchy;
-		}
 	}
 }
