@@ -34,11 +34,10 @@ namespace Inventor.Core.Processors
 
 		protected override IEnumerable<NestedQuestion> GetNestedQuestions(IQuestionProcessingContext<IsQuestion> context)
 		{
-			var activeContexts = context.GetHierarchy();
-			var alreadyViewedConcepts = new HashSet<IConcept>(activeContexts.OfType<IQuestionProcessingContext<IsQuestion>>().Select(questionContext => questionContext.Question.Child));
+			var alreadyViewedConcepts = new HashSet<IConcept>(context.ActiveContexts.OfType<IQuestionProcessingContext<IsQuestion>>().Select(questionContext => questionContext.Question.Child));
 
 			var question = context.Question;
-			var transitiveStatements = context.KnowledgeBase.Statements.Enumerate<IsStatement>(activeContexts).Where(isStatement => isStatement.Child == question.Child);
+			var transitiveStatements = context.KnowledgeBase.Statements.Enumerate<IsStatement>(context.ActiveContexts).Where(isStatement => isStatement.Child == question.Child);
 
 			foreach (var transitiveStatement in transitiveStatements)
 			{

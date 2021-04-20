@@ -18,6 +18,11 @@ namespace Inventor.Core.Base
 		public IContext Parent
 		{ get; }
 
+		public ICollection<IContext> ActiveContexts
+		{ get { return _activeContexts ?? (_activeContexts = getHierarchy()); } }
+
+		private ICollection<IContext> _activeContexts;
+
 		public ICollection<IContext> Children
 		{ get; }
 
@@ -37,6 +42,18 @@ namespace Inventor.Core.Base
 			{
 				parent.Children.Add(this);
 			}
+		}
+
+		public ICollection<IContext> getHierarchy()
+		{
+			IContext context = this;
+			var hierarchy = new HashSet<IContext>();
+			while (context != null)
+			{
+				hierarchy.Add(context);
+				context = context.Parent;
+			}
+			return hierarchy;
 		}
 	}
 

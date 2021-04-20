@@ -32,8 +32,7 @@ namespace Inventor.Core.Base
 				context.KnowledgeBase.Statements.Add(statement);
 			}
 
-			var activeContexts = context.GetHierarchy();
-			var statements = context.KnowledgeBase.Statements.Enumerate<StatementT>(activeContexts).Where(statement => DoesStatementMatch(context, statement)).ToList();
+			var statements = context.KnowledgeBase.Statements.Enumerate<StatementT>(context.ActiveContexts).Where(statement => DoesStatementMatch(context, statement)).ToList();
 
 			if (AreEnoughToAnswer(context, statements))
 			{
