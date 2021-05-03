@@ -30,16 +30,6 @@ namespace Inventor.Core.Base
 		public event EventHandler<ItemEventArgs<IStatement>> StatementAdded;
 		public event EventHandler<ItemEventArgs<IStatement>> StatementRemoved;
 
-		#region System
-
-		public IConcept True
-		{ get; }
-
-		public IConcept False
-		{ get; }
-
-		#endregion
-
 		#endregion
 
 		public KnowledgeBase(ILanguage language)
