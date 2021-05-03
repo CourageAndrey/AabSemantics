@@ -24,12 +24,6 @@ namespace Inventor.Core
 		event EventHandler<ItemEventArgs<IStatement>> StatementAdded;
 		event EventHandler<ItemEventArgs<IStatement>> StatementRemoved;
 
-		IConcept True
-		{ get; }
-
-		IConcept False
-		{ get; }
-
 		void Save(String fileName);
 	}
 
