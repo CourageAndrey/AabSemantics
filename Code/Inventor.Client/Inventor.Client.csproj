@@ -123,6 +123,7 @@
     <Compile Include="UiHelper.cs" />
     <Compile Include="ViewModels\Concept.cs" />
     <Compile Include="ViewModels\Questions\CheckStatementQuestion.cs" />
+    <Compile Include="ViewModels\Questions\ComparisonQuestion.cs" />
     <Compile Include="ViewModels\Questions\DescribeSubjectAreaQuestion.cs" />
     <Compile Include="ViewModels\Questions\EnumerateChildrenQuestion.cs" />
     <Compile Include="ViewModels\Questions\EnumerateContainersQuestion.cs" />
