@@ -234,6 +234,9 @@ namespace Inventor.Core
 		String QuestionWithCondition
 		{ get; }
 
+		String ComparisonQuestion
+		{ get; }
+
 		String ParamParent
 		{ get; }
 
@@ -259,6 +262,12 @@ namespace Inventor.Core
 		{ get; }
 
 		String ParamQuestion
+		{ get; }
+
+		String ParamLeftValue
+		{ get; }
+
+		String ParamRightValue
 		{ get; }
 	}
 
@@ -343,6 +352,9 @@ namespace Inventor.Core
 		{ get; }
 
 		String EnumerateContainers
+		{ get; }
+
+		String CompareValues
 		{ get; }
 
 		String Explanation
