@@ -116,6 +116,10 @@ namespace Inventor.Core.Localization
 		{ get; set; }
 
 		[XmlElement]
+		public String CompareValues
+		{ get; set; }
+
+		[XmlElement]
 		public String Explanation
 		{ get; set; }
 
@@ -146,12 +150,13 @@ namespace Inventor.Core.Localization
 				SubjectAreaConcepts = $"В предметную область {Strings.ParamArea} входят следующие понятия: ",
 				ConceptSigns = $"Понятие {Strings.ParamConcept} имеет следующие признаки{{0}}: {{1}}.",
 				SignValue = $"{Strings.ParamConcept} имеет значение признака {Strings.ParamSign} равным {Strings.ParamValue} (значение определено для понятия {Strings.ParamDefined}).",
-                RecursiveTrue = $" (с учётом родительских понятий)",
+				RecursiveTrue = $" (с учётом родительских понятий)",
 				RecursiveFalse = $" (без учёта родительских понятий)",
 				IsPartOfTrue = $"Да, {Strings.ParamChild} является частью {Strings.ParamParent}.",
 				IsPartOfFalse = $"Нет, {Strings.ParamChild} не является частью {Strings.ParamParent}.",
 				EnumerateParts = $"В {Strings.ParamParent} входят следующие составные части: ",
 				EnumerateContainers = $"{Strings.ParamChild} может выступать в качестве составной части для: ",
+				CompareValues = $"{Strings.ParamLeftValue} {Strings.ParamComparisonSign} {Strings.ParamRightValue}",
 				Explanation = "Объяснение:",
 			};
 		}

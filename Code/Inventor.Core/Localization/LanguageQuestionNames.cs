@@ -76,6 +76,10 @@ namespace Inventor.Core.Localization
 		{ get; set; }
 
 		[XmlElement]
+		public String ComparisonQuestion
+		{ get; set; }
+
+		[XmlElement]
 		public String ParamParent
 		{ get; set; }
 
@@ -111,6 +115,14 @@ namespace Inventor.Core.Localization
 		public String ParamQuestion
 		{ get; set; }
 
+		[XmlElement]
+		public String ParamLeftValue
+		{ get; set; }
+
+		[XmlElement]
+		public String ParamRightValue
+		{ get; set; }
+
 		#endregion
 
 		internal static LanguageQuestionNames CreateDefault()
@@ -134,6 +146,7 @@ namespace Inventor.Core.Localization
 				IsSubjectAreaQuestion = "Входит ли ПОНЯТИЕ в ПРЕДМЕТНАЯ_ОБЛАСТЬ?",
 				CheckStatementQuestion = "Верно ли, что...",
 				QuestionWithCondition = "При условии...",
+				ComparisonQuestion = "Сравнить ПОНЯТИЕ_СЛЕВА и ПОНЯТИЕ_СПРАВА",
 				ParamParent = "РОДИТЕЛЬСКОЕ_ПОНЯТИЕ",
 				ParamChild = "ДОЧЕРНЕЕ_ПОНЯТИЕ",
 				ParamConcept = "ПОНЯТИЕ",
@@ -143,6 +156,8 @@ namespace Inventor.Core.Localization
 				ParamStatement = "Утверждение",
 				ParamConditions = "Предусловия",
 				ParamQuestion = "Вопрос",
+				ParamLeftValue = "Значение слева",
+				ParamRightValue = "Значение справа",
 			};
 		}
 	}
