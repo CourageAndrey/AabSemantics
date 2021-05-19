@@ -120,6 +120,10 @@ namespace Inventor.Core.Localization
 		{ get; set; }
 
 		[XmlElement]
+		public String ProcessesSequence
+		{ get; set; }
+
+		[XmlElement]
 		public String Explanation
 		{ get; set; }
 
@@ -157,6 +161,7 @@ namespace Inventor.Core.Localization
 				EnumerateParts = $"В {Strings.ParamParent} входят следующие составные части: ",
 				EnumerateContainers = $"{Strings.ParamChild} может выступать в качестве составной части для: ",
 				CompareValues = $"{Strings.ParamLeftValue} {Strings.ParamComparisonSign} {Strings.ParamRightValue}",
+				ProcessesSequence = $"{Strings.ParamProcessA} {Strings.ParamSequenceSign} {Strings.ParamProcessB}",
 				Explanation = "Объяснение:",
 			};
 		}
