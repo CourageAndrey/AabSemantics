@@ -237,6 +237,9 @@ namespace Inventor.Core
 		String ComparisonQuestion
 		{ get; }
 
+		String ProcessesQuestion
+		{ get; }
+
 		String ParamParent
 		{ get; }
 
@@ -268,6 +271,12 @@ namespace Inventor.Core
 		{ get; }
 
 		String ParamRightValue
+		{ get; }
+
+		String ParamProcessA
+		{ get; }
+
+		String ParamProcessB
 		{ get; }
 	}
 
@@ -355,6 +364,9 @@ namespace Inventor.Core
 		{ get; }
 
 		String CompareValues
+		{ get; }
+
+		String ProcessesSequence
 		{ get; }
 
 		String Explanation
