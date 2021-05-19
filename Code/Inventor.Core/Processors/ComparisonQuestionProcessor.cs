@@ -35,7 +35,8 @@ namespace Inventor.Core.Processors
 
 		protected override bool DoesStatementMatch(IQuestionProcessingContext<ComparisonQuestion> context, ComparisonStatement statement)
 		{
-			return statement.LeftValue == context.Question.LeftValue && statement.RightValue == context.Question.RightValue;
+			return	(statement.LeftValue == context.Question.LeftValue && statement.RightValue == context.Question.RightValue) ||
+					(statement.RightValue == context.Question.LeftValue && statement.LeftValue == context.Question.RightValue);
 		}
 	}
 }
