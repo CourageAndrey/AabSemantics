@@ -35,7 +35,8 @@ namespace Inventor.Core.Processors
 
 		protected override bool DoesStatementMatch(IQuestionProcessingContext<ProcessesQuestion> context, ProcessesStatement statement)
 		{
-			return statement.ProcessA == context.Question.ProcessA && statement.ProcessB == context.Question.ProcessB;
+			return	(statement.ProcessA == context.Question.ProcessA && statement.ProcessB == context.Question.ProcessB) ||
+					(statement.ProcessB == context.Question.ProcessA && statement.ProcessA == context.Question.ProcessB);
 		}
 	}
 }
