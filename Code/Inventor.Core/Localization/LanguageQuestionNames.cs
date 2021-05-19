@@ -80,6 +80,10 @@ namespace Inventor.Core.Localization
 		{ get; set; }
 
 		[XmlElement]
+		public String ProcessesQuestion
+		{ get; set; }
+
+		[XmlElement]
 		public String ParamParent
 		{ get; set; }
 
@@ -123,6 +127,14 @@ namespace Inventor.Core.Localization
 		public String ParamRightValue
 		{ get; set; }
 
+		[XmlElement]
+		public String ParamProcessA
+		{ get; set; }
+
+		[XmlElement]
+		public String ParamProcessB
+		{ get; set; }
+
 		#endregion
 
 		internal static LanguageQuestionNames CreateDefault()
@@ -147,6 +159,7 @@ namespace Inventor.Core.Localization
 				CheckStatementQuestion = "Верно ли, что...",
 				QuestionWithCondition = "При условии...",
 				ComparisonQuestion = "Сравнить ПОНЯТИЕ_СЛЕВА и ПОНЯТИЕ_СПРАВА",
+				ProcessesQuestion = "Какова последовательность ПРОЦЕССА_A и ПРОЦЕССА_B",
 				ParamParent = "РОДИТЕЛЬСКОЕ_ПОНЯТИЕ",
 				ParamChild = "ДОЧЕРНЕЕ_ПОНЯТИЕ",
 				ParamConcept = "ПОНЯТИЕ",
@@ -158,6 +171,8 @@ namespace Inventor.Core.Localization
 				ParamQuestion = "Вопрос",
 				ParamLeftValue = "Значение слева",
 				ParamRightValue = "Значение справа",
+				ParamProcessA = "Процесс А",
+				ParamProcessB = "Процесс B",
 			};
 		}
 	}

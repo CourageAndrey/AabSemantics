@@ -58,6 +58,7 @@
     <Compile Include="Localization\LanguageAttributes.cs" />
     <Compile Include="Localization\LanguageEditing.cs" />
     <Compile Include="Localization\LanguageSystemConcepts.cs" />
+    <Compile Include="Processors\ProcessesQuestionProcessor.cs" />
     <Compile Include="Processors\ComparisonQuestionProcessor.cs" />
     <Compile Include="Processors\QuestionWithConditionProcessor.cs" />
     <Compile Include="AttributeDefinition.cs" />
@@ -77,6 +78,7 @@
     <Compile Include="Localization\LanguageMainForm.cs" />
     <Compile Include="Localization\LanguageQuestionDialog.cs" />
     <Compile Include="IParentChild.cs" />
+    <Compile Include="Questions\ProcessesQuestion.cs" />
     <Compile Include="Questions\ComparisonQuestion.cs" />
     <Compile Include="Questions\QuestionWithCondition.cs" />
     <Compile Include="StatementDefinition.cs" />
