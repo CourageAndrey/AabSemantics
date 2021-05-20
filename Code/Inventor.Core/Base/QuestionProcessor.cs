@@ -45,7 +45,7 @@ namespace Inventor.Core.Base
 				var answer = nested.Question.Ask(context);
 				if (!answer.IsEmpty)
 				{
-					valuableAnswers.Add(new ChildAnswer(answer, nested.TransitiveStatements));
+					valuableAnswers.Add(new ChildAnswer(nested.Question, answer, nested.TransitiveStatements));
 				}
 			}
 
@@ -103,14 +103,18 @@ namespace Inventor.Core.Base
 
 	public class ChildAnswer
 	{
+		public IQuestion Question
+		{ get; }
+
 		public IAnswer Answer
 		{ get; }
 
 		public ICollection<IStatement> TransitiveStatements
 		{ get; }
 
-		public ChildAnswer(IAnswer answer, ICollection<IStatement> transitiveStatements)
+		public ChildAnswer(IQuestion question, IAnswer answer, ICollection<IStatement> transitiveStatements)
 		{
+			Question = question;
 			Answer = answer;
 			TransitiveStatements = transitiveStatements;
 		}
