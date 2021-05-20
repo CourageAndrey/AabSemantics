@@ -39,6 +39,7 @@
     <Compile Include="Answers\ConceptAnswer.cs" />
     <Compile Include="Answers\ConceptsAnswer.cs" />
     <Compile Include="Answers\BooleanAnswer.cs" />
+    <Compile Include="Answers\StatementAnswer.cs" />
     <Compile Include="Attributes\IsBooleanAttribute.cs" />
     <Compile Include="Attributes\IsComparisonSignAttribute.cs" />
     <Compile Include="Attributes\IsProcessAttribute.cs" />

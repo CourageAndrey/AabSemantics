@@ -363,9 +363,6 @@ namespace Inventor.Core
 		String EnumerateContainers
 		{ get; }
 
-		String CompareValues
-		{ get; }
-
 		String ProcessesSequence
 		{ get; }
 
