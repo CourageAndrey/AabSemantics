@@ -39,13 +39,13 @@ namespace Inventor.Core.Base
 				return CreateAnswer(context, statements);
 			}
 
-			IDictionary<IAnswer, ICollection<IStatement>> valuableAnswers = new Dictionary<IAnswer, ICollection<IStatement>>();
+			var valuableAnswers = new List<ChildAnswer>();
 			foreach (var nested in GetNestedQuestions(context))
 			{
 				var answer = nested.Question.Ask(context);
 				if (!answer.IsEmpty)
 				{
-					valuableAnswers.Add(answer, nested.TransitiveStatements);
+					valuableAnswers.Add(new ChildAnswer(answer, nested.TransitiveStatements));
 				}
 			}
 
@@ -71,13 +71,13 @@ namespace Inventor.Core.Base
 			yield break;
 		}
 
-		protected virtual IAnswer ProcessChildAnswers(IQuestionProcessingContext<QuestionT> context, ICollection<StatementT> statements, IDictionary<IAnswer, ICollection<IStatement>> childAnswers)
+		protected virtual IAnswer ProcessChildAnswers(IQuestionProcessingContext<QuestionT> context, ICollection<StatementT> statements, ICollection<ChildAnswer> childAnswers)
 		{
 			if (childAnswers.Count > 0)
 			{
 				var answer = childAnswers.First();
-				answer.Key.Explanation.Expand(answer.Value);
-				return answer.Key;
+				answer.Answer.Explanation.Expand(answer.TransitiveStatements);
+				return answer.Answer;
 			}
 			else
 			{
@@ -97,6 +97,21 @@ namespace Inventor.Core.Base
 		public NestedQuestion(IQuestion question, ICollection<IStatement> transitiveStatements)
 		{
 			Question = question;
+			TransitiveStatements = transitiveStatements;
+		}
+	}
+
+	public class ChildAnswer
+	{
+		public IAnswer Answer
+		{ get; }
+
+		public ICollection<IStatement> TransitiveStatements
+		{ get; }
+
+		public ChildAnswer(IAnswer answer, ICollection<IStatement> transitiveStatements)
+		{
+			Answer = answer;
 			TransitiveStatements = transitiveStatements;
 		}
 	}

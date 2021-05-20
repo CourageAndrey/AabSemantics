@@ -53,7 +53,7 @@ namespace Inventor.Core.Processors
 			}
 		}
 
-		protected override IAnswer ProcessChildAnswers(IQuestionProcessingContext<EnumerateSignsQuestion> context, ICollection<HasSignStatement> statements, IDictionary<IAnswer, ICollection<IStatement>> answers)
+		protected override IAnswer ProcessChildAnswers(IQuestionProcessingContext<EnumerateSignsQuestion> context, ICollection<HasSignStatement> statements, ICollection<ChildAnswer> childAnswers)
 		{
 			var allSigns = new HashSet<IConcept>();
 			var allStatements = new HashSet<IStatement>();
@@ -64,9 +64,9 @@ namespace Inventor.Core.Processors
 				allStatements.Add(statement);
 			}
 
-			foreach (var answer in answers)
+			foreach (var answer in childAnswers)
 			{
-				var conceptsAnswer = answer.Key as ConceptsAnswer;
+				var conceptsAnswer = answer.Answer as ConceptsAnswer;
 				if (conceptsAnswer != null)
 				{
 					foreach (var sign in conceptsAnswer.Result)
@@ -77,7 +77,7 @@ namespace Inventor.Core.Processors
 					{
 						allStatements.Add(statement);
 					}
-					foreach (var statement in answer.Value)
+					foreach (var statement in answer.TransitiveStatements)
 					{
 						allStatements.Add(statement);
 					}
