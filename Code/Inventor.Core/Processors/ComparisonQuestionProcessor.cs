@@ -22,21 +22,102 @@ namespace Inventor.Core.Processors
 			}
 		}
 
-		private static IAnswer createAnswer(ComparisonStatement statement, IQuestionProcessingContext<ComparisonQuestion> context)
+		private static StatementAnswer createAnswer(ComparisonStatement statement, IQuestionProcessingContext<ComparisonQuestion> context, ICollection<IStatement> transitiveStatements = null)
 		{
-			var text = new FormattedText();
-			text.Add(statement.DescribeTrue(context.Language));
+			var resultStatement = statement.SwapOperandsToMatchOrder(context.Question);
 
-			return new StatementAnswer(
-				statement,
-				text,
-				new Explanation(statement));
+			var text = new FormattedText();
+			text.Add(resultStatement.DescribeTrue(context.Language));
+
+			var explanation = transitiveStatements == null
+				? new Explanation(statement)
+				: new Explanation(transitiveStatements);
+
+			return new StatementAnswer(resultStatement, text, explanation);
 		}
 
 		protected override bool DoesStatementMatch(IQuestionProcessingContext<ComparisonQuestion> context, ComparisonStatement statement)
 		{
 			return	(statement.LeftValue == context.Question.LeftValue && statement.RightValue == context.Question.RightValue) ||
 					(statement.RightValue == context.Question.LeftValue && statement.LeftValue == context.Question.RightValue);
+		}
+
+		protected override IEnumerable<NestedQuestion> GetNestedQuestions(IQuestionProcessingContext<ComparisonQuestion> context)
+		{
+			foreach (var statement in context.KnowledgeBase.Statements.Enumerate<ComparisonStatement>(context.ActiveContexts))
+			{
+				IConcept newLeftValue = null;
+				if (statement.LeftValue == context.Question.LeftValue)
+				{
+					newLeftValue = statement.RightValue;
+				}
+				else if (statement.RightValue == context.Question.LeftValue)
+				{
+					newLeftValue = statement.LeftValue;
+				}
+
+				if (newLeftValue != null)
+				{
+					var involvedValues = new HashSet<IConcept>(context.ActiveContexts
+						.OfType<IQuestionProcessingContext<ComparisonQuestion>>()
+						.Select(c => c.Question.LeftValue));
+
+					if (!involvedValues.Contains(newLeftValue))
+					{
+						yield return new NestedQuestion(new ComparisonQuestion(newLeftValue, context.Question.RightValue), new IStatement[] { statement });
+					}
+				}
+			}
+		}
+
+#warning Проверить на непротеворечивость систем сравнения значений и последовательности процессов.
+
+		protected override IAnswer ProcessChildAnswers(IQuestionProcessingContext<ComparisonQuestion> context, ICollection<ComparisonStatement> statements, ICollection<ChildAnswer> childAnswers)
+		{
+			foreach (var answer in childAnswers)
+			{
+				var childStatement = (answer.Answer as StatementAnswer)?.Result as ComparisonStatement;
+				if (childStatement != null)
+				{
+					var transitiveStatement = (ComparisonStatement) answer.TransitiveStatements.Single();
+					var intermediateValue = new[] { childStatement.LeftValue, childStatement.RightValue }.Intersect(new[] { transitiveStatement.LeftValue, transitiveStatement.RightValue }).Single();
+					if ((childStatement.LeftValue == intermediateValue) == (transitiveStatement.LeftValue == intermediateValue))
+					{
+						transitiveStatement = transitiveStatement.SwapOperands();
+					}
+
+					IConcept resultSign = null;
+					if (childStatement.ComparisonSign == SystemConcepts.IsEqualTo)
+					{
+						resultSign = transitiveStatement.ComparisonSign;
+					}
+					else if (transitiveStatement.ComparisonSign == SystemConcepts.IsEqualTo)
+					{
+						resultSign = childStatement.ComparisonSign;
+					}
+					else if ((transitiveStatement.ComparisonSign == SystemConcepts.IsGreaterThan || transitiveStatement.ComparisonSign == SystemConcepts.IsGreaterThanOrEqualTo) && (childStatement.ComparisonSign == SystemConcepts.IsGreaterThan || childStatement.ComparisonSign == SystemConcepts.IsGreaterThanOrEqualTo))
+					{
+						resultSign = (transitiveStatement.ComparisonSign == SystemConcepts.IsGreaterThanOrEqualTo && childStatement.ComparisonSign == SystemConcepts.IsGreaterThanOrEqualTo) ? SystemConcepts.IsGreaterThanOrEqualTo : SystemConcepts.IsGreaterThan;
+					}
+					else if ((transitiveStatement.ComparisonSign == SystemConcepts.IsLessThan || transitiveStatement.ComparisonSign == SystemConcepts.IsLessThanOrEqualTo) && (childStatement.ComparisonSign == SystemConcepts.IsLessThan || childStatement.ComparisonSign == SystemConcepts.IsLessThanOrEqualTo))
+					{
+						resultSign = (transitiveStatement.ComparisonSign == SystemConcepts.IsLessThanOrEqualTo && childStatement.ComparisonSign == SystemConcepts.IsLessThanOrEqualTo) ? SystemConcepts.IsLessThanOrEqualTo : SystemConcepts.IsLessThan;
+					}
+
+					if (resultSign != null)
+					{
+						var transitiveStatements = new List<IStatement>(answer.TransitiveStatements);
+						transitiveStatements.AddRange(answer.Answer.Explanation.Statements);
+
+						return createAnswer(
+							new ComparisonStatement(context.Question.LeftValue, context.Question.RightValue, resultSign),
+							context,
+							transitiveStatements);
+					}
+				}
+			}
+
+			return Answer.CreateUnknown(context.Language);
 		}
 	}
 }
