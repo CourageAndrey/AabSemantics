@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using Inventor.Core.Attributes;
 using Inventor.Core.Base;
 using Inventor.Core.Localization;
+using Inventor.Core.Questions;
 
 namespace Inventor.Core.Statements
 {
@@ -83,5 +84,17 @@ namespace Inventor.Core.Statements
 		}
 
 		#endregion
+
+		public ComparisonStatement SwapOperandsToMatchOrder(ComparisonQuestion question)
+		{
+			return RightValue == question.LeftValue || LeftValue == question.RightValue
+				? SwapOperands()
+				: this;
+		}
+
+		public ComparisonStatement SwapOperands()
+		{
+			return new ComparisonStatement(leftValue: RightValue, rightValue: LeftValue, ComparisonSign.Revert());
+		}
 	}
 }
