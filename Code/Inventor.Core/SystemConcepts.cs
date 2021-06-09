@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 using Inventor.Core.Attributes;
 using Inventor.Core.Base;
@@ -87,6 +88,32 @@ namespace Inventor.Core
 			IsLessThanOrEqualTo,
 			IsLessThan,
 		};
+
+		public static IConcept Revert(this IConcept comparisonSign)
+		{
+			if (!ComparisonSigns.Contains(comparisonSign)) throw new InvalidOperationException("Only comparison signs can be reverted using this method.");
+
+			if (comparisonSign == IsGreaterThanOrEqualTo)
+			{
+				return IsLessThanOrEqualTo;
+			}
+			else if (comparisonSign == IsGreaterThan)
+			{
+				return IsLessThan;
+			}
+			else if (comparisonSign == IsLessThanOrEqualTo)
+			{
+				return IsGreaterThanOrEqualTo;
+			}
+			else if (comparisonSign == IsLessThan)
+			{
+				return IsGreaterThan;
+			}
+			else
+			{
+				return comparisonSign;
+			}
+		}
 
 		#endregion
 
