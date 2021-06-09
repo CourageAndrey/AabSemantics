@@ -14,19 +14,23 @@ namespace Inventor.Core.Processors
 		{
 			if (statements.Any())
 			{
-				var statement = statements.First();
-				var text = new FormattedText();
-				text.Add(statement.DescribeTrue(context.Language));
-
-				return new StatementAnswer(
-					statement,
-					text,
-					new Explanation(statements));
+				return createAnswer(statements.First(), context);
 			}
 			else
 			{
 				return Answer.CreateUnknown(context.Language);
 			}
+		}
+
+		private static IAnswer createAnswer(ComparisonStatement statement, IQuestionProcessingContext<ComparisonQuestion> context)
+		{
+			var text = new FormattedText();
+			text.Add(statement.DescribeTrue(context.Language));
+
+			return new StatementAnswer(
+				statement,
+				text,
+				new Explanation(statement));
 		}
 
 		protected override bool DoesStatementMatch(IQuestionProcessingContext<ComparisonQuestion> context, ComparisonStatement statement)
