@@ -77,7 +77,7 @@ namespace Inventor.Client
 
 		private void createTestClick(object sender, RoutedEventArgs e)
 		{
-			_application.KnowledgeBase = KnowledgeBase.CreateTest(_application.CurrentLanguage);
+			_application.KnowledgeBase = new TestKnowledgeBase(_application.CurrentLanguage).KnowledgeBase;
 			reloadKnowledgeBaseTree();
 			_saveLoadController.ChangeEntity(_application.KnowledgeBase);
 		}
