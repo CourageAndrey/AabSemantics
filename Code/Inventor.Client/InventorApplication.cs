@@ -101,7 +101,7 @@ namespace Inventor.Client
 			var application = new InventorApplication();
 
 #if DEBUG
-			application.KnowledgeBase = Core.Base.KnowledgeBase.CreateTest(application.CurrentLanguage);
+			application.KnowledgeBase = new Core.Base.TestKnowledgeBase(application.CurrentLanguage).KnowledgeBase;
 #else
 			application.KnowledgeBase = Core.Base.KnowledgeBase.New(application.CurrentLanguage);
 #endif
