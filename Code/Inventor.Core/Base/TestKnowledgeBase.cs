@@ -14,18 +14,105 @@ namespace Inventor.Core.Base
 		public KnowledgeBase KnowledgeBase
 		{ get; }
 
+		#region Subject Areas
+
+		public Concept SubjectArea_Transport
+		{ get; }
+
+		#endregion
+
+		#region Base Concepts
+
+		public Concept Base_Vehicle
+		{ get; }
+
+		#endregion
+
+		#region Signs
+
+		public Concept Sign_MotorType
+		{ get; }
+
+		public Concept Sign_AreaType
+		{ get; }
+
+		#endregion
+
+		#region Motor Types
+
+		public Concept MotorType_Muscles
+		{ get; }
+
+		public Concept MotorType_Steam
+		{ get; }
+
+		public Concept MotorType_Combusion
+		{ get; }
+
+		public Concept MotorType_Jet
+		{ get; }
+
+		#endregion
+
+		#region Area Types
+
+		public Concept AreaType_Ground
+		{ get; }
+
+		public Concept AreaType_Water
+		{ get; }
+
+		public Concept AreaType_Air
+		{ get; }
+
+		#endregion
+
+		#region Certain Transportation Devices
+
+		public Concept Vehicle_Bicycle
+		{ get; }
+
+		public Concept Vehicle_Curragh
+		{ get; }
+
+		public Concept Vehicle_SteamLocomotive
+		{ get; }
+
+		public Concept Vehicle_Steamboat
+		{ get; }
+
+		public Concept Vehicle_Car
+		{ get; }
+
+		public Concept Vehicle_Motorcycle
+		{ get; }
+
+		public Concept Vehicle_Fighter
+		{ get; }
+
+		public Concept Vehicle_Airbus
+		{ get; }
+
+		public Concept Vehicle_JetFighter
+		{ get; }
+
+		#endregion
+
 		#endregion
 
 		public TestKnowledgeBase(ILanguage language)
 		{
-			// knowledge base
+			#region Knowledge Base
+
 			KnowledgeBase = new KnowledgeBase(language);
 			((LocalizedStringVariable) KnowledgeBase.Name).SetLocale("ru-RU", "Тестовая база знаний");
 			((LocalizedStringVariable) KnowledgeBase.Name).SetLocale("en-US", "Test knowledgebase");
 
-			// subject areas
-			Concept transport;
-			KnowledgeBase.Concepts.Add(transport = new Concept(new LocalizedStringVariable(new Dictionary<String, String>
+			#endregion
+
+			#region Subject Areas
+
+			KnowledgeBase.Concepts.Add(SubjectArea_Transport = new Concept(new LocalizedStringVariable(new Dictionary<String, String>
 			{
 				{ "ru-RU", "Транспорт" },
 				{ "en-US", "Transport" },
@@ -35,9 +122,11 @@ namespace Inventor.Core.Base
 				{ "en-US", "Vehicles." },
 			})));
 
-			// concepts
-			Concept vehicle;
-			KnowledgeBase.Concepts.Add(vehicle = new Concept(new LocalizedStringVariable(new Dictionary<String, String>
+			#endregion
+
+			#region Base Concepts
+
+			KnowledgeBase.Concepts.Add(Base_Vehicle = new Concept(new LocalizedStringVariable(new Dictionary<String, String>
 			{
 				{ "ru-RU", "Транспортное средство" },
 				{ "en-US", "Vehicle" },
@@ -47,8 +136,11 @@ namespace Inventor.Core.Base
 				{ "en-US", "System which is indended for transportation of humans and cargo." },
 			})));
 
-			Concept motorType, mtMucles, mtSteam, mtCombusion, mtJet;
-			KnowledgeBase.Concepts.Add(motorType = new Concept(new LocalizedStringVariable(new Dictionary<String, String>
+			#endregion
+
+			#region Signs
+
+			KnowledgeBase.Concepts.Add(Sign_MotorType = new Concept(new LocalizedStringVariable(new Dictionary<String, String>
 			{
 				{ "ru-RU", "Движитель" },
 				{ "en-US", "Mover" },
@@ -57,28 +149,44 @@ namespace Inventor.Core.Base
 				{ "ru-RU", "Система, обеспечивающая движение." },
 				{ "en-US", "Initiator of movement." },
 			})));
-			KnowledgeBase.Concepts.Add(mtMucles = new Concept(new LocalizedStringVariable(new Dictionary<String, String>
+
+			KnowledgeBase.Concepts.Add(Sign_AreaType = new Concept(new LocalizedStringVariable(new Dictionary<String, String>
+			{
+				{ "ru-RU", "Среда передвижения" },
+			}), new LocalizedStringVariable(new Dictionary<String, String>
+			{
+				{ "ru-RU", "Среда, для которой предназначено транспортное средство." },
+			})));
+
+			#endregion
+
+			#region Motor types
+
+			KnowledgeBase.Concepts.Add(MotorType_Muscles = new Concept(new LocalizedStringVariable(new Dictionary<String, String>
 			{
 				{ "ru-RU", "Мускульная сила" },
 			}), new LocalizedStringVariable(new Dictionary<String, String>
 			{
 				{ "ru-RU", "Использования для приведения в движение мускульной силы: собственной, других людей, животных." },
 			})));
-			KnowledgeBase.Concepts.Add(mtSteam = new Concept(new LocalizedStringVariable(new Dictionary<String, String>
+
+			KnowledgeBase.Concepts.Add(MotorType_Steam = new Concept(new LocalizedStringVariable(new Dictionary<String, String>
 			{
 				{ "ru-RU", "Паровая тяга" },
 			}), new LocalizedStringVariable(new Dictionary<String, String>
 			{
 				{ "ru-RU", "Использование для движения расширяющей силы нагретого пара." },
 			})));
-			KnowledgeBase.Concepts.Add(mtCombusion = new Concept(new LocalizedStringVariable(new Dictionary<String, String>
+
+			KnowledgeBase.Concepts.Add(MotorType_Combusion = new Concept(new LocalizedStringVariable(new Dictionary<String, String>
 			{
 				{ "ru-RU", "Внутреннее сгорание" },
 			}), new LocalizedStringVariable(new Dictionary<String, String>
 			{
 				{ "ru-RU", "Использование для движения расширяющей силы топлива, сжигаемого в закрытых цилиндрах." },
 			})));
-			KnowledgeBase.Concepts.Add(mtJet = new Concept(new LocalizedStringVariable(new Dictionary<String, String>
+
+			KnowledgeBase.Concepts.Add(MotorType_Jet = new Concept(new LocalizedStringVariable(new Dictionary<String, String>
 			{
 				{ "ru-RU", "Реактивная тяга" },
 			}), new LocalizedStringVariable(new Dictionary<String, String>
@@ -86,29 +194,27 @@ namespace Inventor.Core.Base
 				{ "ru-RU", "Выталкивание вещества в обратном направлении, обычно сжигаемого топлива." },
 			})));
 
-			Concept areaType, atGround, atWater, atAir;
-			KnowledgeBase.Concepts.Add(areaType = new Concept(new LocalizedStringVariable(new Dictionary<String, String>
-			{
-				{ "ru-RU", "Среда передвижения" },
-			}), new LocalizedStringVariable(new Dictionary<String, String>
-			{
-				{ "ru-RU", "Среда, для которой предназначено транспортное средство." },
-			})));
-			KnowledgeBase.Concepts.Add(atGround = new Concept(new LocalizedStringVariable(new Dictionary<String, String>
+			#endregion
+
+			#region Area types
+
+			KnowledgeBase.Concepts.Add(AreaType_Ground = new Concept(new LocalizedStringVariable(new Dictionary<String, String>
 			{
 				{ "ru-RU", "Земля" },
 			}), new LocalizedStringVariable(new Dictionary<String, String>
 			{
 				{ "ru-RU", "Наземный транспорт." },
 			})));
-			KnowledgeBase.Concepts.Add(atWater = new Concept(new LocalizedStringVariable(new Dictionary<String, String>
+
+			KnowledgeBase.Concepts.Add(AreaType_Water = new Concept(new LocalizedStringVariable(new Dictionary<String, String>
 			{
 				{ "ru-RU", "Вода" },
 			}), new LocalizedStringVariable(new Dictionary<String, String>
 			{
 				{ "ru-RU", "Плавучий транспорт." },
 			})));
-			KnowledgeBase.Concepts.Add(atAir = new Concept(new LocalizedStringVariable(new Dictionary<String, String>
+
+			KnowledgeBase.Concepts.Add(AreaType_Air = new Concept(new LocalizedStringVariable(new Dictionary<String, String>
 			{
 				{ "ru-RU", "Воздух" },
 			}), new LocalizedStringVariable(new Dictionary<String, String>
@@ -116,64 +222,75 @@ namespace Inventor.Core.Base
 				{ "ru-RU", "Возможность полёта." },
 			})));
 
-			Concept bicycle, curragh, steamLocomotive, steamboat, car, motorcycle, fighter, airbus, jetFighter;
-			KnowledgeBase.Concepts.Add(bicycle = new Concept(new LocalizedStringVariable(new Dictionary<String, String>
+			#endregion
+
+			#region Certain Transportation Devices
+
+			KnowledgeBase.Concepts.Add(Vehicle_Bicycle = new Concept(new LocalizedStringVariable(new Dictionary<String, String>
 			{
 				{ "ru-RU", "Велосипед" },
 			}), new LocalizedStringVariable(new Dictionary<String, String>
 			{
 				{ "ru-RU", "Двухколёсный даритель радости." },
 			})));
-			KnowledgeBase.Concepts.Add(curragh = new Concept(new LocalizedStringVariable(new Dictionary<String, String>
+
+			KnowledgeBase.Concepts.Add(Vehicle_Curragh = new Concept(new LocalizedStringVariable(new Dictionary<String, String>
 			{
 				{ "ru-RU", "Курага" },
 			}), new LocalizedStringVariable(new Dictionary<String, String>
 			{
 				{ "ru-RU", "Первая человеческая потуга создать лодку." },
 			})));
-			KnowledgeBase.Concepts.Add(steamLocomotive = new Concept(new LocalizedStringVariable(new Dictionary<String, String>
+
+			KnowledgeBase.Concepts.Add(Vehicle_SteamLocomotive = new Concept(new LocalizedStringVariable(new Dictionary<String, String>
 			{
 				{ "ru-RU", "Паровоз" },
 			}), new LocalizedStringVariable(new Dictionary<String, String>
 			{
 				{ "ru-RU", "Устаревший тип локомотива." },
 			})));
-			KnowledgeBase.Concepts.Add(steamboat = new Concept(new LocalizedStringVariable(new Dictionary<String, String>
+
+			KnowledgeBase.Concepts.Add(Vehicle_Steamboat = new Concept(new LocalizedStringVariable(new Dictionary<String, String>
 			{
 				{ "ru-RU", "Пароход" },
 			}), new LocalizedStringVariable(new Dictionary<String, String>
 			{
 				{ "ru-RU", "Устаревший тип корабля." },
 			})));
-			KnowledgeBase.Concepts.Add(car = new Concept(new LocalizedStringVariable(new Dictionary<String, String>
+
+			KnowledgeBase.Concepts.Add(Vehicle_Car = new Concept(new LocalizedStringVariable(new Dictionary<String, String>
 			{
 				{ "ru-RU", "Автомобиль" },
 			}), new LocalizedStringVariable(new Dictionary<String, String>
 			{
 				{ "ru-RU", "Четырёхколёсное механическое т/с." },
 			})));
-			KnowledgeBase.Concepts.Add(motorcycle = new Concept(new LocalizedStringVariable(new Dictionary<String, String>
+
+			KnowledgeBase.Concepts.Add(Vehicle_Motorcycle = new Concept(new LocalizedStringVariable(new Dictionary<String, String>
 			{
 				{ "ru-RU", "Мотоцикл" },
 			}), new LocalizedStringVariable(new Dictionary<String, String>
 			{
 				{ "ru-RU", "Двухколёсное механическое т/с, возможно с коляской." },
 			})));
-			KnowledgeBase.Concepts.Add(fighter = new Concept(new LocalizedStringVariable(new Dictionary<String, String>
+
+			KnowledgeBase.Concepts.Add(Vehicle_Fighter = new Concept(new LocalizedStringVariable(new Dictionary<String, String>
 			{
 				{ "ru-RU", "Поршневой истребитель" },
 			}), new LocalizedStringVariable(new Dictionary<String, String>
 			{
 				{ "ru-RU", "Устаревший самолёт для ведения воздушного боя." },
 			})));
-			KnowledgeBase.Concepts.Add(airbus = new Concept(new LocalizedStringVariable(new Dictionary<String, String>
+
+			KnowledgeBase.Concepts.Add(Vehicle_Airbus = new Concept(new LocalizedStringVariable(new Dictionary<String, String>
 			{
 				{ "ru-RU", "Аэробус" },
 			}), new LocalizedStringVariable(new Dictionary<String, String>
 			{
 				{ "ru-RU", "Гражданский самолёт для перевозки пассажиров." },
 			})));
-			KnowledgeBase.Concepts.Add(jetFighter = new Concept(new LocalizedStringVariable(new Dictionary<String, String>
+
+			KnowledgeBase.Concepts.Add(Vehicle_JetFighter = new Concept(new LocalizedStringVariable(new Dictionary<String, String>
 			{
 				{ "ru-RU", "Реактивный истребитель" },
 			}), new LocalizedStringVariable(new Dictionary<String, String>
@@ -181,76 +298,87 @@ namespace Inventor.Core.Base
 				{ "ru-RU", "Современный самолёт для ведения воздушного боя." },
 			})));
 
-			// sign attributes
-			motorType.Attributes.Add(IsSignAttribute.Value);
-			areaType.Attributes.Add(IsSignAttribute.Value);
+			#endregion
 
-			// value attributes
-			mtMucles.Attributes.Add(IsValueAttribute.Value);
-			mtSteam.Attributes.Add(IsValueAttribute.Value);
-			mtCombusion.Attributes.Add(IsValueAttribute.Value);
-			mtJet.Attributes.Add(IsValueAttribute.Value);
-			atGround.Attributes.Add(IsValueAttribute.Value);
-			atWater.Attributes.Add(IsValueAttribute.Value);
-			atAir.Attributes.Add(IsValueAttribute.Value);
+			#region Concept Attributes
 
-			// statements
-			KnowledgeBase.Statements.Add(new GroupStatement(transport, vehicle));
-			KnowledgeBase.Statements.Add(new GroupStatement(transport, motorType));
-			KnowledgeBase.Statements.Add(new GroupStatement(transport, mtMucles));
-			KnowledgeBase.Statements.Add(new GroupStatement(transport, mtSteam));
-			KnowledgeBase.Statements.Add(new GroupStatement(transport, mtCombusion));
-			KnowledgeBase.Statements.Add(new GroupStatement(transport, mtJet));
-			KnowledgeBase.Statements.Add(new GroupStatement(transport, areaType));
-			KnowledgeBase.Statements.Add(new GroupStatement(transport, atGround));
-			KnowledgeBase.Statements.Add(new GroupStatement(transport, atWater));
-			KnowledgeBase.Statements.Add(new GroupStatement(transport, atAir));
-			KnowledgeBase.Statements.Add(new GroupStatement(transport, bicycle));
-			KnowledgeBase.Statements.Add(new GroupStatement(transport, curragh));
-			KnowledgeBase.Statements.Add(new GroupStatement(transport, steamLocomotive));
-			KnowledgeBase.Statements.Add(new GroupStatement(transport, steamboat));
-			KnowledgeBase.Statements.Add(new GroupStatement(transport, car));
-			KnowledgeBase.Statements.Add(new GroupStatement(transport, motorcycle));
-			KnowledgeBase.Statements.Add(new GroupStatement(transport, fighter));
-			KnowledgeBase.Statements.Add(new GroupStatement(transport, airbus));
-			KnowledgeBase.Statements.Add(new GroupStatement(transport, jetFighter));
-			KnowledgeBase.Statements.Add(new HasSignStatement(vehicle, motorType));
-			KnowledgeBase.Statements.Add(new HasSignStatement(vehicle, areaType));
-			KnowledgeBase.Statements.Add(new IsStatement(motorType, mtMucles));
-			KnowledgeBase.Statements.Add(new IsStatement(motorType, mtSteam));
-			KnowledgeBase.Statements.Add(new IsStatement(motorType, mtCombusion));
-			KnowledgeBase.Statements.Add(new IsStatement(motorType, mtJet));
-			KnowledgeBase.Statements.Add(new IsStatement(areaType, atGround));
-			KnowledgeBase.Statements.Add(new IsStatement(areaType, atWater));
-			KnowledgeBase.Statements.Add(new IsStatement(areaType, atAir));
-			KnowledgeBase.Statements.Add(new IsStatement(vehicle, bicycle));
-			KnowledgeBase.Statements.Add(new IsStatement(vehicle, curragh));
-			KnowledgeBase.Statements.Add(new IsStatement(vehicle, steamLocomotive));
-			KnowledgeBase.Statements.Add(new IsStatement(vehicle, steamboat));
-			KnowledgeBase.Statements.Add(new IsStatement(vehicle, car));
-			KnowledgeBase.Statements.Add(new IsStatement(vehicle, motorcycle));
-			KnowledgeBase.Statements.Add(new IsStatement(vehicle, fighter));
-			KnowledgeBase.Statements.Add(new IsStatement(vehicle, airbus));
-			KnowledgeBase.Statements.Add(new IsStatement(vehicle, jetFighter));
-			KnowledgeBase.Statements.Add(new SignValueStatement(bicycle, motorType, mtMucles));
-			KnowledgeBase.Statements.Add(new SignValueStatement(curragh, motorType, mtMucles));
-			KnowledgeBase.Statements.Add(new SignValueStatement(steamLocomotive, motorType, mtSteam));
-			KnowledgeBase.Statements.Add(new SignValueStatement(steamboat, motorType, mtSteam));
-			KnowledgeBase.Statements.Add(new SignValueStatement(car, motorType, mtCombusion));
-			KnowledgeBase.Statements.Add(new SignValueStatement(motorcycle, motorType, mtCombusion));
-			KnowledgeBase.Statements.Add(new SignValueStatement(fighter, motorType, mtCombusion));
-			KnowledgeBase.Statements.Add(new SignValueStatement(airbus, motorType, mtJet));
-			KnowledgeBase.Statements.Add(new SignValueStatement(jetFighter, motorType, mtJet));
-			KnowledgeBase.Statements.Add(new SignValueStatement(bicycle, areaType, atGround));
-			KnowledgeBase.Statements.Add(new SignValueStatement(curragh, areaType, atWater));
-			KnowledgeBase.Statements.Add(new SignValueStatement(steamLocomotive, areaType, atGround));
-			KnowledgeBase.Statements.Add(new SignValueStatement(steamboat, areaType, atWater));
-			KnowledgeBase.Statements.Add(new SignValueStatement(car, areaType, atGround));
-			KnowledgeBase.Statements.Add(new SignValueStatement(motorcycle, areaType, atGround));
-			KnowledgeBase.Statements.Add(new SignValueStatement(fighter, areaType, atAir));
-			KnowledgeBase.Statements.Add(new SignValueStatement(airbus, areaType, atAir));
-			KnowledgeBase.Statements.Add(new SignValueStatement(jetFighter, areaType, atAir));
-			KnowledgeBase.Statements.Add(new HasPartStatement(vehicle, motorType));
+			Sign_MotorType.Attributes.Add(IsSignAttribute.Value);
+			Sign_AreaType.Attributes.Add(IsSignAttribute.Value);
+
+			MotorType_Muscles.Attributes.Add(IsValueAttribute.Value);
+			MotorType_Steam.Attributes.Add(IsValueAttribute.Value);
+			MotorType_Combusion.Attributes.Add(IsValueAttribute.Value);
+			MotorType_Jet.Attributes.Add(IsValueAttribute.Value);
+			AreaType_Ground.Attributes.Add(IsValueAttribute.Value);
+			AreaType_Water.Attributes.Add(IsValueAttribute.Value);
+			AreaType_Air.Attributes.Add(IsValueAttribute.Value);
+
+			#endregion
+
+			#region Statements
+
+			KnowledgeBase.Statements.Add(new GroupStatement(SubjectArea_Transport, Base_Vehicle));
+			KnowledgeBase.Statements.Add(new GroupStatement(SubjectArea_Transport, Sign_MotorType));
+			KnowledgeBase.Statements.Add(new GroupStatement(SubjectArea_Transport, MotorType_Muscles));
+			KnowledgeBase.Statements.Add(new GroupStatement(SubjectArea_Transport, MotorType_Steam));
+			KnowledgeBase.Statements.Add(new GroupStatement(SubjectArea_Transport, MotorType_Combusion));
+			KnowledgeBase.Statements.Add(new GroupStatement(SubjectArea_Transport, MotorType_Jet));
+			KnowledgeBase.Statements.Add(new GroupStatement(SubjectArea_Transport, Sign_AreaType));
+			KnowledgeBase.Statements.Add(new GroupStatement(SubjectArea_Transport, AreaType_Ground));
+			KnowledgeBase.Statements.Add(new GroupStatement(SubjectArea_Transport, AreaType_Water));
+			KnowledgeBase.Statements.Add(new GroupStatement(SubjectArea_Transport, AreaType_Air));
+			KnowledgeBase.Statements.Add(new GroupStatement(SubjectArea_Transport, Vehicle_Bicycle));
+			KnowledgeBase.Statements.Add(new GroupStatement(SubjectArea_Transport, Vehicle_Curragh));
+			KnowledgeBase.Statements.Add(new GroupStatement(SubjectArea_Transport, Vehicle_SteamLocomotive));
+			KnowledgeBase.Statements.Add(new GroupStatement(SubjectArea_Transport, Vehicle_Steamboat));
+			KnowledgeBase.Statements.Add(new GroupStatement(SubjectArea_Transport, Vehicle_Car));
+			KnowledgeBase.Statements.Add(new GroupStatement(SubjectArea_Transport, Vehicle_Motorcycle));
+			KnowledgeBase.Statements.Add(new GroupStatement(SubjectArea_Transport, Vehicle_Fighter));
+			KnowledgeBase.Statements.Add(new GroupStatement(SubjectArea_Transport, Vehicle_Airbus));
+			KnowledgeBase.Statements.Add(new GroupStatement(SubjectArea_Transport, Vehicle_JetFighter));
+
+			KnowledgeBase.Statements.Add(new HasSignStatement(Base_Vehicle, Sign_MotorType));
+			KnowledgeBase.Statements.Add(new HasSignStatement(Base_Vehicle, Sign_AreaType));
+
+			KnowledgeBase.Statements.Add(new IsStatement(Sign_MotorType, MotorType_Muscles));
+			KnowledgeBase.Statements.Add(new IsStatement(Sign_MotorType, MotorType_Steam));
+			KnowledgeBase.Statements.Add(new IsStatement(Sign_MotorType, MotorType_Combusion));
+			KnowledgeBase.Statements.Add(new IsStatement(Sign_MotorType, MotorType_Jet));
+			KnowledgeBase.Statements.Add(new IsStatement(Sign_AreaType, AreaType_Ground));
+			KnowledgeBase.Statements.Add(new IsStatement(Sign_AreaType, AreaType_Water));
+			KnowledgeBase.Statements.Add(new IsStatement(Sign_AreaType, AreaType_Air));
+			KnowledgeBase.Statements.Add(new IsStatement(Base_Vehicle, Vehicle_Bicycle));
+			KnowledgeBase.Statements.Add(new IsStatement(Base_Vehicle, Vehicle_Curragh));
+			KnowledgeBase.Statements.Add(new IsStatement(Base_Vehicle, Vehicle_SteamLocomotive));
+			KnowledgeBase.Statements.Add(new IsStatement(Base_Vehicle, Vehicle_Steamboat));
+			KnowledgeBase.Statements.Add(new IsStatement(Base_Vehicle, Vehicle_Car));
+			KnowledgeBase.Statements.Add(new IsStatement(Base_Vehicle, Vehicle_Motorcycle));
+			KnowledgeBase.Statements.Add(new IsStatement(Base_Vehicle, Vehicle_Fighter));
+			KnowledgeBase.Statements.Add(new IsStatement(Base_Vehicle, Vehicle_Airbus));
+			KnowledgeBase.Statements.Add(new IsStatement(Base_Vehicle, Vehicle_JetFighter));
+
+			KnowledgeBase.Statements.Add(new SignValueStatement(Vehicle_Bicycle, Sign_MotorType, MotorType_Muscles));
+			KnowledgeBase.Statements.Add(new SignValueStatement(Vehicle_Curragh, Sign_MotorType, MotorType_Muscles));
+			KnowledgeBase.Statements.Add(new SignValueStatement(Vehicle_SteamLocomotive, Sign_MotorType, MotorType_Steam));
+			KnowledgeBase.Statements.Add(new SignValueStatement(Vehicle_Steamboat, Sign_MotorType, MotorType_Steam));
+			KnowledgeBase.Statements.Add(new SignValueStatement(Vehicle_Car, Sign_MotorType, MotorType_Combusion));
+			KnowledgeBase.Statements.Add(new SignValueStatement(Vehicle_Motorcycle, Sign_MotorType, MotorType_Combusion));
+			KnowledgeBase.Statements.Add(new SignValueStatement(Vehicle_Fighter, Sign_MotorType, MotorType_Combusion));
+			KnowledgeBase.Statements.Add(new SignValueStatement(Vehicle_Airbus, Sign_MotorType, MotorType_Jet));
+			KnowledgeBase.Statements.Add(new SignValueStatement(Vehicle_JetFighter, Sign_MotorType, MotorType_Jet));
+			KnowledgeBase.Statements.Add(new SignValueStatement(Vehicle_Bicycle, Sign_AreaType, AreaType_Ground));
+			KnowledgeBase.Statements.Add(new SignValueStatement(Vehicle_Curragh, Sign_AreaType, AreaType_Water));
+			KnowledgeBase.Statements.Add(new SignValueStatement(Vehicle_SteamLocomotive, Sign_AreaType, AreaType_Ground));
+			KnowledgeBase.Statements.Add(new SignValueStatement(Vehicle_Steamboat, Sign_AreaType, AreaType_Water));
+			KnowledgeBase.Statements.Add(new SignValueStatement(Vehicle_Car, Sign_AreaType, AreaType_Ground));
+			KnowledgeBase.Statements.Add(new SignValueStatement(Vehicle_Motorcycle, Sign_AreaType, AreaType_Ground));
+			KnowledgeBase.Statements.Add(new SignValueStatement(Vehicle_Fighter, Sign_AreaType, AreaType_Air));
+			KnowledgeBase.Statements.Add(new SignValueStatement(Vehicle_Airbus, Sign_AreaType, AreaType_Air));
+			KnowledgeBase.Statements.Add(new SignValueStatement(Vehicle_JetFighter, Sign_AreaType, AreaType_Air));
+
+			KnowledgeBase.Statements.Add(new HasPartStatement(Base_Vehicle, Sign_MotorType));
+
+			#endregion
 		}
 	}
 }
