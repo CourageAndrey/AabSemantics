@@ -19,7 +19,6 @@ namespace Inventor.Core
 			where AttributeT : IAttribute
 		{
 			return concept.Attributes.OfType<AttributeT>().Any();
-
 		}
 	}
 }
