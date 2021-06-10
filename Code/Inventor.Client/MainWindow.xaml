@@ -3,7 +3,7 @@
 		xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
 		xmlns:localization="clr-namespace:Inventor.Core.Localization;assembly=Inventor.Core"
 		xmlns:treeNodes="clr-namespace:Inventor.Client.TreeNodes"
-		Width="1024" Height="768" WindowStartupLocation="CenterScreen" Icon="Inventor.ico">
+		Width="800" Height="600" WindowStartupLocation="CenterScreen" Icon="Inventor.ico">
 	<Window.Resources>
 		<ObjectDataProvider x:Key="language" ObjectType="{x:Type localization:Localizator}" />
 		<Style x:Key="bigTextStyle">
