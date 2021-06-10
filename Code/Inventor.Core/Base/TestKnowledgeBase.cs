@@ -153,9 +153,11 @@ namespace Inventor.Core.Base
 			KnowledgeBase.Concepts.Add(Sign_AreaType = new Concept(new LocalizedStringVariable(new Dictionary<String, String>
 			{
 				{ "ru-RU", "Среда передвижения" },
+				{ "en-US", "Movement area" },
 			}), new LocalizedStringVariable(new Dictionary<String, String>
 			{
 				{ "ru-RU", "Среда, для которой предназначено транспортное средство." },
+				{ "en-US", "Place, where vehicles can move." },
 			})));
 
 			#endregion
@@ -165,33 +167,41 @@ namespace Inventor.Core.Base
 			KnowledgeBase.Concepts.Add(MotorType_Muscles = new Concept(new LocalizedStringVariable(new Dictionary<String, String>
 			{
 				{ "ru-RU", "Мускульная сила" },
+				{ "en-US", "Muscles" },
 			}), new LocalizedStringVariable(new Dictionary<String, String>
 			{
 				{ "ru-RU", "Использования для приведения в движение мускульной силы: собственной, других людей, животных." },
+				{ "en-US", "To use own muscles in order to move." },
 			})));
 
 			KnowledgeBase.Concepts.Add(MotorType_Steam = new Concept(new LocalizedStringVariable(new Dictionary<String, String>
 			{
 				{ "ru-RU", "Паровая тяга" },
+				{ "en-US", "Steam engine" },
 			}), new LocalizedStringVariable(new Dictionary<String, String>
 			{
 				{ "ru-RU", "Использование для движения расширяющей силы нагретого пара." },
+				{ "en-US", "To use steam engine to move." },
 			})));
 
 			KnowledgeBase.Concepts.Add(MotorType_Combusion = new Concept(new LocalizedStringVariable(new Dictionary<String, String>
 			{
 				{ "ru-RU", "Внутреннее сгорание" },
+				{ "en-US", "Combustion engine" },
 			}), new LocalizedStringVariable(new Dictionary<String, String>
 			{
 				{ "ru-RU", "Использование для движения расширяющей силы топлива, сжигаемого в закрытых цилиндрах." },
+				{ "en-US", "To use combustion engine to move." },
 			})));
 
 			KnowledgeBase.Concepts.Add(MotorType_Jet = new Concept(new LocalizedStringVariable(new Dictionary<String, String>
 			{
 				{ "ru-RU", "Реактивная тяга" },
+				{ "en-US", "Jet engine" },
 			}), new LocalizedStringVariable(new Dictionary<String, String>
 			{
 				{ "ru-RU", "Выталкивание вещества в обратном направлении, обычно сжигаемого топлива." },
+				{ "en-US", "To use jet engine to move." },
 			})));
 
 			#endregion
@@ -201,25 +211,31 @@ namespace Inventor.Core.Base
 			KnowledgeBase.Concepts.Add(AreaType_Ground = new Concept(new LocalizedStringVariable(new Dictionary<String, String>
 			{
 				{ "ru-RU", "Земля" },
+				{ "en-US", "Ground" },
 			}), new LocalizedStringVariable(new Dictionary<String, String>
 			{
 				{ "ru-RU", "Наземный транспорт." },
+				{ "en-US", "Plain ground." },
 			})));
 
 			KnowledgeBase.Concepts.Add(AreaType_Water = new Concept(new LocalizedStringVariable(new Dictionary<String, String>
 			{
 				{ "ru-RU", "Вода" },
+				{ "en-US", "Water" },
 			}), new LocalizedStringVariable(new Dictionary<String, String>
 			{
 				{ "ru-RU", "Плавучий транспорт." },
+				{ "en-US", "Water surface." },
 			})));
 
 			KnowledgeBase.Concepts.Add(AreaType_Air = new Concept(new LocalizedStringVariable(new Dictionary<String, String>
 			{
 				{ "ru-RU", "Воздух" },
+				{ "en-US", "Air" },
 			}), new LocalizedStringVariable(new Dictionary<String, String>
 			{
 				{ "ru-RU", "Возможность полёта." },
+				{ "en-US", "Fly in air." },
 			})));
 
 			#endregion
@@ -229,73 +245,91 @@ namespace Inventor.Core.Base
 			KnowledgeBase.Concepts.Add(Vehicle_Bicycle = new Concept(new LocalizedStringVariable(new Dictionary<String, String>
 			{
 				{ "ru-RU", "Велосипед" },
+				{ "en-US", "Bicycle" },
 			}), new LocalizedStringVariable(new Dictionary<String, String>
 			{
 				{ "ru-RU", "Двухколёсный даритель радости." },
+				{ "en-US", "Two wheels of fun." },
 			})));
 
 			KnowledgeBase.Concepts.Add(Vehicle_Curragh = new Concept(new LocalizedStringVariable(new Dictionary<String, String>
 			{
 				{ "ru-RU", "Курага" },
+				{ "en-US", "Curragh" },
 			}), new LocalizedStringVariable(new Dictionary<String, String>
 			{
 				{ "ru-RU", "Первая человеческая потуга создать лодку." },
+				{ "en-US", "It is not a bot itself yet." },
 			})));
 
 			KnowledgeBase.Concepts.Add(Vehicle_SteamLocomotive = new Concept(new LocalizedStringVariable(new Dictionary<String, String>
 			{
 				{ "ru-RU", "Паровоз" },
+				{ "en-US", "Steam locomotive" },
 			}), new LocalizedStringVariable(new Dictionary<String, String>
 			{
 				{ "ru-RU", "Устаревший тип локомотива." },
+				{ "en-US", "Obsolete train." },
 			})));
 
 			KnowledgeBase.Concepts.Add(Vehicle_Steamboat = new Concept(new LocalizedStringVariable(new Dictionary<String, String>
 			{
 				{ "ru-RU", "Пароход" },
+				{ "en-US", "Steamboat" },
 			}), new LocalizedStringVariable(new Dictionary<String, String>
 			{
 				{ "ru-RU", "Устаревший тип корабля." },
+				{ "en-US", "Obsolete boat type." },
 			})));
 
 			KnowledgeBase.Concepts.Add(Vehicle_Car = new Concept(new LocalizedStringVariable(new Dictionary<String, String>
 			{
 				{ "ru-RU", "Автомобиль" },
+				{ "en-US", "Car" },
 			}), new LocalizedStringVariable(new Dictionary<String, String>
 			{
 				{ "ru-RU", "Четырёхколёсное механическое т/с." },
+				{ "en-US", "4-wheels standard vehicle." },
 			})));
 
 			KnowledgeBase.Concepts.Add(Vehicle_Motorcycle = new Concept(new LocalizedStringVariable(new Dictionary<String, String>
 			{
 				{ "ru-RU", "Мотоцикл" },
+				{ "en-US", "Motorcycle" },
 			}), new LocalizedStringVariable(new Dictionary<String, String>
 			{
 				{ "ru-RU", "Двухколёсное механическое т/с, возможно с коляской." },
+				{ "en-US", "Half of a car." },
 			})));
 
 			KnowledgeBase.Concepts.Add(Vehicle_Fighter = new Concept(new LocalizedStringVariable(new Dictionary<String, String>
 			{
 				{ "ru-RU", "Поршневой истребитель" },
+				{ "en-US", "Fighter" },
 			}), new LocalizedStringVariable(new Dictionary<String, String>
 			{
 				{ "ru-RU", "Устаревший самолёт для ведения воздушного боя." },
+				{ "en-US", "Obsolete aircraft." },
 			})));
 
 			KnowledgeBase.Concepts.Add(Vehicle_Airbus = new Concept(new LocalizedStringVariable(new Dictionary<String, String>
 			{
 				{ "ru-RU", "Аэробус" },
+				{ "en-US", "Airbus" },
 			}), new LocalizedStringVariable(new Dictionary<String, String>
 			{
 				{ "ru-RU", "Гражданский самолёт для перевозки пассажиров." },
+				{ "en-US", "Large civil airplane." },
 			})));
 
 			KnowledgeBase.Concepts.Add(Vehicle_JetFighter = new Concept(new LocalizedStringVariable(new Dictionary<String, String>
 			{
 				{ "ru-RU", "Реактивный истребитель" },
+				{ "en-US", "Jet fighter" },
 			}), new LocalizedStringVariable(new Dictionary<String, String>
 			{
 				{ "ru-RU", "Современный самолёт для ведения воздушного боя." },
+				{ "en-US", "Modern aircraft." },
 			})));
 
 			#endregion
