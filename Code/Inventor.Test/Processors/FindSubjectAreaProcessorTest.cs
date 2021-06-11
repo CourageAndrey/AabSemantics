@@ -41,7 +41,15 @@ namespace Inventor.Test.Processors
 			// arrange
 			var language = Language.Default;
 			var knowledgeBase = new TestKnowledgeBase(language);
-			var conceptsWithoutSubjectArea = new List<IConcept>(SystemConcepts.GetAll()) { knowledgeBase.SubjectArea_Transport };
+
+			IList<IConcept> subjectAreas = new IConcept[]
+			{
+				knowledgeBase.SubjectArea_Transport,
+				knowledgeBase.SubjectArea_Numbers,
+			};
+
+			var conceptsWithoutSubjectArea = new List<IConcept>(SystemConcepts.GetAll());
+			conceptsWithoutSubjectArea.AddRange(subjectAreas);
 
 			foreach (var concept in knowledgeBase.KnowledgeBase.Concepts.Except(conceptsWithoutSubjectArea))
 			{
@@ -53,11 +61,11 @@ namespace Inventor.Test.Processors
 				Assert.IsFalse(answer.IsEmpty);
 
 				var groupStatement = (GroupStatement) answer.Explanation.Statements.Single();
-				Assert.AreSame(knowledgeBase.SubjectArea_Transport, groupStatement.Area);
+				Assert.IsTrue(subjectAreas.Contains(groupStatement.Area));
 				Assert.AreSame(concept, groupStatement.Concept);
 
 				var conceptsAnswer = (ConceptsAnswer) answer;
-				Assert.AreSame(knowledgeBase.SubjectArea_Transport, conceptsAnswer.Result.Single());
+				Assert.AreSame(groupStatement.Area, conceptsAnswer.Result.Single());
 			}
 		}
 
