@@ -64,6 +64,7 @@
   <ItemGroup>
     <Compile Include="Base\ContextsTest.cs" />
     <Compile Include="ConsistencyTest.cs" />
+    <Compile Include="Processors\ComparisonQuestionProcessorTest.cs" />
     <Compile Include="Processors\DescribeSubjectAreaProcessorTest.cs" />
     <Compile Include="Processors\FindSubjectAreaProcessorTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
