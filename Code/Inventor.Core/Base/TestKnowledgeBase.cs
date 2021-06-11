@@ -19,6 +19,9 @@ namespace Inventor.Core.Base
 		public Concept SubjectArea_Transport
 		{ get; }
 
+		public Concept SubjectArea_Numbers
+		{ get; }
+
 		#endregion
 
 		#region Base Concepts
@@ -98,6 +101,40 @@ namespace Inventor.Core.Base
 
 		#endregion
 
+		#region Comparable Values
+
+		public Concept Number0
+		{ get; }
+
+		public Concept NumberZero
+		{ get; }
+
+		public Concept NumberNotZero
+		{ get; }
+
+		public Concept Number1
+		{ get; }
+
+		public Concept Number1or2
+		{ get; }
+
+		public Concept Number2
+		{ get; }
+
+		public Concept Number2or3
+		{ get; }
+
+		public Concept Number3
+		{ get; }
+
+		public Concept Number3or4
+		{ get; }
+
+		public Concept Number4
+		{ get; }
+
+		#endregion
+
 		#endregion
 
 		public TestKnowledgeBase(ILanguage language)
@@ -120,6 +157,16 @@ namespace Inventor.Core.Base
 			{
 				{ "ru-RU", "Средства передвижения." },
 				{ "en-US", "Vehicles." },
+			})));
+
+			KnowledgeBase.Concepts.Add(SubjectArea_Numbers = new Concept(new LocalizedStringVariable(new Dictionary<String, String>
+			{
+				{ "ru-RU", "Числа" },
+				{ "en-US", "Numbers" },
+			}), new LocalizedStringVariable(new Dictionary<String, String>
+			{
+				{ "ru-RU", "Числа." },
+				{ "en-US", "Numbers." },
 			})));
 
 			#endregion
@@ -334,6 +381,38 @@ namespace Inventor.Core.Base
 
 			#endregion
 
+			#region Comparable Values
+
+			Func<String, LocalizedStringVariable> getString = text => new LocalizedStringVariable(
+				new Dictionary<String, String>
+				{
+					{ "ru-RU", text },
+					{ "en-US", text },
+				});
+			Func<Int32, LocalizedStringVariable> getStringByNumber = number => getString(number.ToString());
+
+			KnowledgeBase.Concepts.Add(Number0 = new Concept(getStringByNumber(0), getStringByNumber(0)));
+
+			KnowledgeBase.Concepts.Add(NumberZero = new Concept(getString("_0_"), getString("_0_")));
+
+			KnowledgeBase.Concepts.Add(NumberNotZero = new Concept(getString("!0"), getString("!0")));
+
+			KnowledgeBase.Concepts.Add(Number1 = new Concept(getStringByNumber(1), getStringByNumber(1)));
+
+			KnowledgeBase.Concepts.Add(Number1or2 = new Concept(getString("1 || 2"), getString("1 || 2")));
+
+			KnowledgeBase.Concepts.Add(Number2 = new Concept(getStringByNumber(2), getStringByNumber(2)));
+
+			KnowledgeBase.Concepts.Add(Number2or3 = new Concept(getString("2 || 3"), getString("2 || 3")));
+
+			KnowledgeBase.Concepts.Add(Number3 = new Concept(getStringByNumber(3), getStringByNumber(3)));
+
+			KnowledgeBase.Concepts.Add(Number3or4 = new Concept(getString("3 || 4"), getString("3 || 4")));
+
+			KnowledgeBase.Concepts.Add(Number4 = new Concept(getStringByNumber(4), getStringByNumber(4)));
+
+			#endregion
+
 			#region Concept Attributes
 
 			Sign_MotorType.Attributes.Add(IsSignAttribute.Value);
@@ -346,6 +425,17 @@ namespace Inventor.Core.Base
 			AreaType_Ground.Attributes.Add(IsValueAttribute.Value);
 			AreaType_Water.Attributes.Add(IsValueAttribute.Value);
 			AreaType_Air.Attributes.Add(IsValueAttribute.Value);
+
+			Number0.Attributes.Add(IsValueAttribute.Value);
+			NumberZero.Attributes.Add(IsValueAttribute.Value);
+			NumberNotZero.Attributes.Add(IsValueAttribute.Value);
+			Number1.Attributes.Add(IsValueAttribute.Value);
+			Number1or2.Attributes.Add(IsValueAttribute.Value);
+			Number2.Attributes.Add(IsValueAttribute.Value);
+			Number2or3.Attributes.Add(IsValueAttribute.Value);
+			Number3.Attributes.Add(IsValueAttribute.Value);
+			Number3or4.Attributes.Add(IsValueAttribute.Value);
+			Number4.Attributes.Add(IsValueAttribute.Value);
 
 			#endregion
 
@@ -370,6 +460,17 @@ namespace Inventor.Core.Base
 			KnowledgeBase.Statements.Add(new GroupStatement(SubjectArea_Transport, Vehicle_Fighter));
 			KnowledgeBase.Statements.Add(new GroupStatement(SubjectArea_Transport, Vehicle_Airbus));
 			KnowledgeBase.Statements.Add(new GroupStatement(SubjectArea_Transport, Vehicle_JetFighter));
+
+			KnowledgeBase.Statements.Add(new GroupStatement(SubjectArea_Numbers, Number0));
+			KnowledgeBase.Statements.Add(new GroupStatement(SubjectArea_Numbers, NumberZero));
+			KnowledgeBase.Statements.Add(new GroupStatement(SubjectArea_Numbers, NumberNotZero));
+			KnowledgeBase.Statements.Add(new GroupStatement(SubjectArea_Numbers, Number1));
+			KnowledgeBase.Statements.Add(new GroupStatement(SubjectArea_Numbers, Number1or2));
+			KnowledgeBase.Statements.Add(new GroupStatement(SubjectArea_Numbers, Number2));
+			KnowledgeBase.Statements.Add(new GroupStatement(SubjectArea_Numbers, Number2or3));
+			KnowledgeBase.Statements.Add(new GroupStatement(SubjectArea_Numbers, Number3));
+			KnowledgeBase.Statements.Add(new GroupStatement(SubjectArea_Numbers, Number3or4));
+			KnowledgeBase.Statements.Add(new GroupStatement(SubjectArea_Numbers, Number4));
 
 			KnowledgeBase.Statements.Add(new HasSignStatement(Base_Vehicle, Sign_MotorType));
 			KnowledgeBase.Statements.Add(new HasSignStatement(Base_Vehicle, Sign_AreaType));
@@ -411,6 +512,19 @@ namespace Inventor.Core.Base
 			KnowledgeBase.Statements.Add(new SignValueStatement(Vehicle_JetFighter, Sign_AreaType, AreaType_Air));
 
 			KnowledgeBase.Statements.Add(new HasPartStatement(Base_Vehicle, Sign_MotorType));
+
+			KnowledgeBase.Statements.Add(new ComparisonStatement(Number0, NumberZero, SystemConcepts.IsEqualTo));
+			KnowledgeBase.Statements.Add(new ComparisonStatement(NumberNotZero, NumberZero, SystemConcepts.IsNotEqualTo));
+			KnowledgeBase.Statements.Add(new ComparisonStatement(Number0, Number1, SystemConcepts.IsLessThan));
+			KnowledgeBase.Statements.Add(new ComparisonStatement(Number1, Number2, SystemConcepts.IsLessThan));
+			KnowledgeBase.Statements.Add(new ComparisonStatement(Number3, Number2, SystemConcepts.IsGreaterThan));
+			KnowledgeBase.Statements.Add(new ComparisonStatement(Number4, Number3, SystemConcepts.IsGreaterThan));
+			KnowledgeBase.Statements.Add(new ComparisonStatement(Number1, Number1or2, SystemConcepts.IsLessThanOrEqualTo));
+			KnowledgeBase.Statements.Add(new ComparisonStatement(Number1or2, Number2, SystemConcepts.IsLessThanOrEqualTo));
+			KnowledgeBase.Statements.Add(new ComparisonStatement(Number2, Number2or3, SystemConcepts.IsLessThanOrEqualTo));
+			KnowledgeBase.Statements.Add(new ComparisonStatement(Number3, Number2or3, SystemConcepts.IsGreaterThanOrEqualTo));
+			KnowledgeBase.Statements.Add(new ComparisonStatement(Number4, Number3or4, SystemConcepts.IsGreaterThanOrEqualTo));
+			KnowledgeBase.Statements.Add(new ComparisonStatement(Number3or4, Number3, SystemConcepts.IsGreaterThanOrEqualTo));
 
 			#endregion
 		}
