@@ -16,21 +16,25 @@ namespace Inventor.Core.Processors
 		{
 			if (statements.Any())
 			{
-				var statement = statements.First();
-				return new ConceptAnswer(
-					statement.SequenceSign,
-					new FormattedText(() => context.Language.Answers.ProcessesSequence, new Dictionary<String, INamed>
-					{
-						{ Strings.ParamProcessA, statement.ProcessA },
-						{ Strings.ParamSequenceSign, statement.SequenceSign },
-						{ Strings.ParamProcessB, statement.ProcessB },
-					}),
-					new Explanation(statements));
+				return createAnswer(statements.First(), context);
 			}
 			else
 			{
 				return Answer.CreateUnknown(context.Language);
 			}
+		}
+
+		private static ConceptAnswer createAnswer(ProcessesStatement statement, IQuestionProcessingContext<ProcessesQuestion> context, ICollection<IStatement> transitiveStatements = null)
+		{
+			return new ConceptAnswer(
+				statement.SequenceSign,
+				new FormattedText(() => context.Language.Answers.ProcessesSequence, new Dictionary<String, INamed>
+				{
+					{ Strings.ParamProcessA, statement.ProcessA},
+					{ Strings.ParamSequenceSign, statement.SequenceSign },
+					{ Strings.ParamProcessB, statement.ProcessB },
+				}),
+				new Explanation(statement));
 		}
 
 		protected override bool DoesStatementMatch(IQuestionProcessingContext<ProcessesQuestion> context, ProcessesStatement statement)
