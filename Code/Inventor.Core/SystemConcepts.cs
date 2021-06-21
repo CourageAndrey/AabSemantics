@@ -126,6 +126,13 @@ namespace Inventor.Core
 			Attributes = { IsSequenceSignAttribute.Value },
 		};
 
+		public static readonly IConcept StartsWhenOtherStarted = new Concept(
+			new LocalizedStringConstant(lang => lang.SystemConceptNames.StartsWhenOtherStarted),
+			new LocalizedStringConstant(lang => lang.SystemConceptHints.StartsWhenOtherStarted))
+		{
+			Attributes = { IsSequenceSignAttribute.Value },
+		};
+
 		public static readonly IConcept StartsBeforeOtherStarted = new Concept(
 			new LocalizedStringConstant(lang => lang.SystemConceptNames.StartsBeforeOtherStarted),
 			new LocalizedStringConstant(lang => lang.SystemConceptHints.StartsBeforeOtherStarted))
@@ -136,6 +143,13 @@ namespace Inventor.Core
 		public static readonly IConcept FinishesAfterOtherStarted = new Concept(
 			new LocalizedStringConstant(lang => lang.SystemConceptNames.FinishesAfterOtherStarted),
 			new LocalizedStringConstant(lang => lang.SystemConceptHints.FinishesAfterOtherStarted))
+		{
+			Attributes = { IsSequenceSignAttribute.Value },
+		};
+
+		public static readonly IConcept FinishesWhenOtherStarted = new Concept(
+			new LocalizedStringConstant(lang => lang.SystemConceptNames.FinishesWhenOtherStarted),
+			new LocalizedStringConstant(lang => lang.SystemConceptHints.FinishesWhenOtherStarted))
 		{
 			Attributes = { IsSequenceSignAttribute.Value },
 		};
@@ -154,6 +168,13 @@ namespace Inventor.Core
 			Attributes = { IsSequenceSignAttribute.Value },
 		};
 
+		public static readonly IConcept StartsWhenOtherFinished = new Concept(
+			new LocalizedStringConstant(lang => lang.SystemConceptNames.StartsWhenOtherFinished),
+			new LocalizedStringConstant(lang => lang.SystemConceptHints.StartsWhenOtherFinished))
+		{
+			Attributes = { IsSequenceSignAttribute.Value },
+		};
+
 		public static readonly IConcept StartsBeforeOtherFinished = new Concept(
 			new LocalizedStringConstant(lang => lang.SystemConceptNames.StartsBeforeOtherFinished),
 			new LocalizedStringConstant(lang => lang.SystemConceptHints.StartsBeforeOtherFinished))
@@ -164,6 +185,13 @@ namespace Inventor.Core
 		public static readonly IConcept FinishesAfterOtherFinished = new Concept(
 			new LocalizedStringConstant(lang => lang.SystemConceptNames.FinishesAfterOtherFinished),
 			new LocalizedStringConstant(lang => lang.SystemConceptHints.FinishesAfterOtherFinished))
+		{
+			Attributes = { IsSequenceSignAttribute.Value },
+		};
+
+		public static readonly IConcept FinishesWhenOtherFinished = new Concept(
+			new LocalizedStringConstant(lang => lang.SystemConceptNames.FinishesWhenOtherFinished),
+			new LocalizedStringConstant(lang => lang.SystemConceptHints.FinishesWhenOtherFinished))
 		{
 			Attributes = { IsSequenceSignAttribute.Value },
 		};
@@ -182,6 +210,13 @@ namespace Inventor.Core
 			Attributes = { IsSequenceSignAttribute.Value },
 		};
 
+		public static readonly IConcept IsCausedBy = new Concept(
+			new LocalizedStringConstant(lang => lang.SystemConceptNames.IsCausedBy),
+			new LocalizedStringConstant(lang => lang.SystemConceptHints.IsCausedBy))
+		{
+			Attributes = { IsSequenceSignAttribute.Value },
+		};
+
 		public static readonly IConcept SimultaneousWith = new Concept(
 			new LocalizedStringConstant(lang => lang.SystemConceptNames.SimultaneousWith),
 			new LocalizedStringConstant(lang => lang.SystemConceptHints.SimultaneousWith))
@@ -192,14 +227,19 @@ namespace Inventor.Core
 		public static readonly ICollection<IConcept> SequenceSigns = new HashSet<IConcept>
 		{
 			StartsAfterOtherStarted,
+			StartsWhenOtherStarted,
 			StartsBeforeOtherStarted,
 			FinishesAfterOtherStarted,
+			FinishesWhenOtherStarted,
 			FinishesBeforeOtherStarted,
 			StartsAfterOtherFinished,
+			StartsWhenOtherFinished,
 			StartsBeforeOtherFinished,
 			FinishesAfterOtherFinished,
+			FinishesWhenOtherFinished,
 			FinishesBeforeOtherFinished,
 			Causes,
+			IsCausedBy,
 			SimultaneousWith,
 		};
 
