@@ -70,7 +70,7 @@ namespace Inventor.Core.Processors
 			}
 		}
 
-#warning Проверить на непротеворечивость систем сравнения значений и последовательности процессов.
+#warning Проверить на непротиворечивость систем сравнения значений.
 
 		protected override IAnswer ProcessChildAnswers(IQuestionProcessingContext<ComparisonQuestion> context, ICollection<ComparisonStatement> statements, ICollection<ChildAnswer> childAnswers)
 		{
