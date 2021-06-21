@@ -89,29 +89,80 @@ namespace Inventor.Core
 			IsLessThan,
 		};
 
-		public static IConcept Revert(this IConcept comparisonSign)
+		public static IConcept Revert(this IConcept sign)
 		{
-			if (!ComparisonSigns.Contains(comparisonSign)) throw new InvalidOperationException("Only comparison signs can be reverted using this method.");
+			if (!ComparisonSigns.Contains(sign) && !SequenceSigns.Contains(sign))
+			{
+				throw new InvalidOperationException("Only comparison signs and process sequence signs can be reverted using this method.");
+			}
 
-			if (comparisonSign == IsGreaterThanOrEqualTo)
+			if (sign == IsGreaterThanOrEqualTo)
 			{
 				return IsLessThanOrEqualTo;
 			}
-			else if (comparisonSign == IsGreaterThan)
+			else if (sign == IsGreaterThan)
 			{
 				return IsLessThan;
 			}
-			else if (comparisonSign == IsLessThanOrEqualTo)
+			else if (sign == IsLessThanOrEqualTo)
 			{
 				return IsGreaterThanOrEqualTo;
 			}
-			else if (comparisonSign == IsLessThan)
+			else if (sign == IsLessThan)
 			{
 				return IsGreaterThan;
 			}
+			else if (sign == StartsAfterOtherStarted)
+			{
+				return StartsBeforeOtherStarted;
+			}
+			else if (sign == StartsBeforeOtherStarted)
+			{
+				return StartsAfterOtherStarted;
+			}
+			else if (sign == FinishesAfterOtherStarted)
+			{
+				return StartsBeforeOtherFinished;
+			}
+			else if (sign == FinishesWhenOtherStarted)
+			{
+				return StartsWhenOtherFinished;
+			}
+			else if (sign == FinishesBeforeOtherStarted)
+			{
+				return StartsAfterOtherFinished;
+			}
+			else if (sign == StartsAfterOtherFinished)
+			{
+				return FinishesBeforeOtherStarted;
+			}
+			else if (sign == StartsWhenOtherFinished)
+			{
+				return FinishesWhenOtherStarted;
+			}
+			else if (sign == StartsBeforeOtherFinished)
+			{
+				return FinishesAfterOtherStarted;
+			}
+			else if (sign == FinishesAfterOtherFinished)
+			{
+				return FinishesBeforeOtherFinished;
+			}
+			else if (sign == FinishesBeforeOtherFinished)
+			{
+				return FinishesAfterOtherFinished;
+			}
+			else if (sign == Causes)
+			{
+				return IsCausedBy;
+			}
+			else if (sign == IsCausedBy)
+			{
+				return Causes;
+			}
 			else
 			{
-				return comparisonSign;
+				return sign;
 			}
 		}
 

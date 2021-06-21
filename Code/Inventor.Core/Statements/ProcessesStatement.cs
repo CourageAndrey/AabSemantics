@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using Inventor.Core.Attributes;
 using Inventor.Core.Base;
 using Inventor.Core.Localization;
+using Inventor.Core.Questions;
 
 namespace Inventor.Core.Statements
 {
@@ -83,5 +84,17 @@ namespace Inventor.Core.Statements
 		}
 
 		#endregion
+
+		public ProcessesStatement SwapOperandsToMatchOrder(ProcessesQuestion question)
+		{
+			return ProcessA == question.ProcessB || ProcessB == question.ProcessA
+				? SwapOperands()
+				: this;
+		}
+
+		public ProcessesStatement SwapOperands()
+		{
+			return new ProcessesStatement(processA: ProcessB, processB: ProcessA, SequenceSign.Revert());
+		}
 	}
 }
