@@ -658,10 +658,16 @@ namespace Inventor.Core
 		String StartsAfterOtherStarted
 		{ get; }
 
+		String StartsWhenOtherStarted
+		{ get; }
+
 		String StartsBeforeOtherStarted
 		{ get; }
 
 		String FinishesAfterOtherStarted
+		{ get; }
+
+		String FinishesWhenOtherStarted
 		{ get; }
 
 		String FinishesBeforeOtherStarted
@@ -670,16 +676,25 @@ namespace Inventor.Core
 		String StartsAfterOtherFinished
 		{ get; }
 
+		String StartsWhenOtherFinished
+		{ get; }
+
 		String StartsBeforeOtherFinished
 		{ get; }
 
 		String FinishesAfterOtherFinished
 		{ get; }
 
+		String FinishesWhenOtherFinished
+		{ get; }
+
 		String FinishesBeforeOtherFinished
 		{ get; }
 
 		String Causes
+		{ get; }
+
+		String IsCausedBy
 		{ get; }
 
 		String SimultaneousWith
