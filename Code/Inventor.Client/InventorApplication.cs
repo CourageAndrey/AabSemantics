@@ -5,8 +5,8 @@ using System.Linq;
 using System.Windows;
 using System.Windows.Threading;
 
+using Inventor.Client.Localization;
 using Inventor.Core;
-using Inventor.Core.Localization;
 using Inventor.Core.Utils;
 
 namespace Inventor.Client
@@ -55,7 +55,7 @@ namespace Inventor.Client
 
 			// addition languages
 			var languages = Language.LoadAdditional(StartupPath);
-			languages.Add(Language.Default);
+			languages.Add((ILanguage) Core.Localization.Language.Default);
 			Languages = languages.ToArray();
 
 			// configuration
@@ -84,7 +84,7 @@ namespace Inventor.Client
 			}
 			else
 			{
-				CurrentLanguage = Languages.FindAppropriate(Language.Default);
+				CurrentLanguage = Languages.FindAppropriate((Language) Core.Localization.Language.Default);
 				Configuration.SelectedLanguage = CurrentLanguage.Culture;
 			}
 

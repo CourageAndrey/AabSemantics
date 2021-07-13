@@ -45,7 +45,7 @@ namespace Inventor.Client.ViewModels
 
 		private Core.Base.Concept _boundObject;
 
-		public Window CreateEditDialog(Window owner, Core.IKnowledgeBase knowledgeBase, Core.ILanguage language)
+		public Window CreateEditDialog(Window owner, Core.IKnowledgeBase knowledgeBase, ILanguage language)
 		{
 			updateAttributes(knowledgeBase.Context.AttributeRepository, language);
 			var control = new ConceptControl
@@ -67,7 +67,7 @@ namespace Inventor.Client.ViewModels
 			return dialog;
 		}
 
-		private void updateAttributes(Core.IAttributeRepository attributeRepository, Core.ILanguage language)
+		private void updateAttributes(Core.IAttributeRepository attributeRepository, ILanguage language)
 		{
 			Attributes.Clear();
 			Attributes.Add(new ConceptAttribute(Core.AttributeDefinition.None, language, _boundObject == null || _boundObject.Attributes.Count == 0));
