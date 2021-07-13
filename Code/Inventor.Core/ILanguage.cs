@@ -55,6 +55,9 @@ namespace Inventor.Core
 		ILanguageSystemConcepts SystemConceptHints
 		{ get; }
 
+		ILanguageConsistency Consistency
+		{ get; }
+
 		ILanguageMisc Misc
 		{ get; }
 	}
@@ -553,6 +556,33 @@ namespace Inventor.Core
 		{ get; }
 	}
 
+	public interface ILanguageConsistency
+	{
+		String CheckResult
+		{ get; }
+
+		String CheckOk
+		{ get; }
+
+		String ConsistencyErrorDuplicate
+		{ get; }
+
+		String ConsistencyErrorCyclic
+		{ get; }
+
+		String ConsistencyErrorMultipleSubjectArea
+		{ get; }
+
+		String ConsistencyErrorMultipleSign
+		{ get; }
+
+		String ConsistencyErrorMultipleSignValue
+		{ get; }
+
+		String ConsistencyErrorSignWithoutValue
+		{ get; }
+	}
+
 	public interface ILanguageMisc
 	{
 		String NameKnowledgeBase
@@ -582,12 +612,6 @@ namespace Inventor.Core
 		String Required
 		{ get; }
 
-		String CheckResult
-		{ get; }
-
-		String CheckOk
-		{ get; }
-
 		String DialogKbOpenTitle
 		{ get; }
 
@@ -595,24 +619,6 @@ namespace Inventor.Core
 		{ get; }
 
 		String DialogKbFileFilter
-		{ get; }
-
-		String ConsistencyErrorDuplicate
-		{ get; }
-
-		String ConsistencyErrorCyclic
-		{ get; }
-
-		String ConsistencyErrorMultipleSubjectArea
-		{ get; }
-
-		String ConsistencyErrorMultipleSign
-		{ get; }
-
-		String ConsistencyErrorMultipleSignValue
-		{ get; }
-
-		String ConsistencyErrorSignWithoutValue
 		{ get; }
 
 		String Concept

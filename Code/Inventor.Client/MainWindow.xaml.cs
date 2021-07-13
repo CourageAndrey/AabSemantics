@@ -151,7 +151,7 @@ namespace Inventor.Client
 				knowledgeObjectPicked)
 			{
 				Owner = this,
-				Title = _application.CurrentLanguage.Misc.CheckResult,
+				Title = _application.CurrentLanguage.Consistency.CheckResult,
 			}.Show();
 		}
 

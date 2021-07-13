@@ -62,6 +62,9 @@ namespace Inventor.Core.Localization
 		private const String ElementSystemConceptHints = "SystemConceptHints";
 
 		[XmlIgnore]
+		private const String ElementConsistency = "Consistency";
+
+		[XmlIgnore]
 		private const String ElementMisc = "Misc";
 
 		#endregion
@@ -128,6 +131,10 @@ namespace Inventor.Core.Localization
 		public LanguageSystemConcepts SystemConceptHintsXml
 		{ get; set; }
 
+		[XmlElement(ElementConsistency)]
+		public LanguageConsistency ConsistencyXml
+		{ get; set; }
+
 		[XmlElement(ElementMisc)]
 		public LanguageMisc MiscXml
 		{ get; set; }
@@ -136,7 +143,7 @@ namespace Inventor.Core.Localization
 
 		#region Interface Properties
 
-		[XmlIgnore]
+[XmlIgnore]
 		public String FileName
 		{ get; protected set; }
 
@@ -209,6 +216,10 @@ namespace Inventor.Core.Localization
 		{ get { return SystemConceptHintsXml; } }
 
 		[XmlIgnore]
+		public ILanguageConsistency Consistency
+		{ get { return ConsistencyXml; } }
+
+		[XmlIgnore]
 		public ILanguageMisc Misc
 		{ get { return MiscXml; } }
 
@@ -244,6 +255,7 @@ namespace Inventor.Core.Localization
 				ConfigurationXml = LanguageConfiguration.CreateDefault(),
 				SystemConceptNamesXml = LanguageSystemConcepts.CreateDefaultNames(),
 				SystemConceptHintsXml = LanguageSystemConcepts.CreateDefaultHints(),
+				ConsistencyXml = LanguageConsistency.CreateDefault(),
 				MiscXml = LanguageMisc.CreateDefault(),
 			};
 		}
@@ -339,6 +351,9 @@ namespace Inventor.Core.Localization
 
 		public ILanguageSystemConcepts SystemConceptHints
 		{ get { return _language?.SystemConceptHints; } }
+
+		public ILanguageConsistency Consistency
+		{ get { return _language?.Consistency; } }
 
 		public ILanguageMisc Misc
 		{ get { return _language?.Misc; } }
