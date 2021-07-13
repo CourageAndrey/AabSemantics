@@ -97,7 +97,7 @@ namespace Inventor.Core.Processors
 			return new ConceptsAnswer(
 				signs,
 				new FormattedText(
-					() => string.Format(context.Language.Answers.ConceptSigns, context.Question.Recursive ? context.Language.Answers.RecursiveTrue : context.Language.Answers.RecursiveFalse, format),
+					() => String.Format(context.Language.Answers.ConceptSigns, context.Question.Recursive ? context.Language.Answers.RecursiveTrue : context.Language.Answers.RecursiveFalse, format),
 					parameters),
 				new Explanation(statements));
 		}
