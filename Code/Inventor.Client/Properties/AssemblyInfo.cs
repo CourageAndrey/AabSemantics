@@ -5,9 +5,9 @@ using System.Windows;
 [assembly: AssemblyTitle("Inventor.Client")]
 [assembly: AssemblyDescription("Inventor.Client")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("Andrey Bychko")]
+[assembly: AssemblyCompany("Andrei Bychko")]
 [assembly: AssemblyProduct("Inventor")]
-[assembly: AssemblyCopyright("Copyright © Andrey Bychko 2014")]
+[assembly: AssemblyCopyright("Copyright © Andrei Bychko 2014")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
