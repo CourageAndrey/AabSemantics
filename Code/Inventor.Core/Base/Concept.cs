@@ -33,7 +33,7 @@ namespace Inventor.Core.Base
 
 		public override String ToString()
 		{
-			return string.Format("{0} : {1}", Strings.TostringConcept, Name);
+			return String.Format("{0} : {1}", Strings.TostringConcept, Name);
 		}
 	}
 }

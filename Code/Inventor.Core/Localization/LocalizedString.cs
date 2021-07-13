@@ -120,7 +120,7 @@ namespace Inventor.Core.Localization
 
 		public override String ToString()
 		{
-			return string.Format("{0} \"{1}\"", Strings.TostringLocalized, _getter(Language.Default));
+			return String.Format("{0} \"{1}\"", Strings.TostringLocalized, _getter(Language.Default));
 		}
 	}
 }

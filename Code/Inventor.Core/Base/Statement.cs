@@ -25,7 +25,7 @@ namespace Inventor.Core.Base
 
 		public override sealed String ToString()
 		{
-			return string.Format("{0} \"{1}\"", Strings.TostringStatement, Name);
+			return String.Format("{0} \"{1}\"", Strings.TostringStatement, Name);
 		}
 
 		protected Statement(ILocalizedString name, ILocalizedString hint = null)
