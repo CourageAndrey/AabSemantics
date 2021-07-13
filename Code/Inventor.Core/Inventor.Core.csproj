@@ -2,8 +2,9 @@
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
-    <Authors>Andrey Bychko</Authors>
+    <Authors>Andrei Bychko</Authors>
     <Product>Inventor</Product>
+    <Company>Andrei Bychko</Company>
   </PropertyGroup>
 
 </Project>
