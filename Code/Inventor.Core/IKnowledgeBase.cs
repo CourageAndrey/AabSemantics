@@ -49,7 +49,7 @@ namespace Inventor.Core
 				if (!statement.CheckUnique(knowledgeBase.Statements))
 				{
 					result.Add(
-						() => language.Misc.ConsistencyErrorDuplicate,
+						() => language.Consistency.ConsistencyErrorDuplicate,
 						new Dictionary<String, INamed> { { Strings.ParamStatement, statement } });
 				}
 			}
@@ -61,7 +61,7 @@ namespace Inventor.Core
 				if (!clasification.CheckCyclic(clasifications))
 				{
 					result.Add(
-						() => language.Misc.ConsistencyErrorCyclic,
+						() => language.Consistency.ConsistencyErrorCyclic,
 						new Dictionary<String, INamed> { { Strings.ParamStatement, clasification } });
 				}
 			}
@@ -77,7 +77,7 @@ namespace Inventor.Core
 						parents.Select(p => SignValueStatement.GetSignValue(knowledgeBase.Statements, p, sign.Sign)).Count(r => r != null) > 1)
 					{
 						result.Add(
-							() => language.Misc.ConsistencyErrorMultipleSignValue,
+							() => language.Consistency.ConsistencyErrorMultipleSignValue,
 							new Dictionary<String, INamed>
 							{
 								{ Strings.ParamConcept, concept },
@@ -93,7 +93,7 @@ namespace Inventor.Core
 				if (!signValue.CheckHasSign(knowledgeBase.Statements))
 				{
 					result.Add(
-						() => language.Misc.ConsistencyErrorSignWithoutValue,
+						() => language.Consistency.ConsistencyErrorSignWithoutValue,
 						new Dictionary<String, INamed> { { Strings.ParamStatement, signValue } });
 				}
 			}
@@ -105,14 +105,14 @@ namespace Inventor.Core
 				if (!hasSign.CheckSignDuplication(hasSigns, clasifications))
 				{
 					result.Add(
-						() => language.Misc.ConsistencyErrorMultipleSign,
+						() => language.Consistency.ConsistencyErrorMultipleSign,
 						new Dictionary<String, INamed> { { Strings.ParamStatement, hasSign } });
 				}
 			}
 
 			if (result.LinesCount == 0)
 			{
-				result.Add(() => language.Misc.CheckOk, new Dictionary<String, INamed>());
+				result.Add(() => language.Consistency.CheckOk, new Dictionary<String, INamed>());
 			}
 			return result;
 		}
