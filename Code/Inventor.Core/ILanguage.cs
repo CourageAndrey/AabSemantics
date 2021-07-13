@@ -564,22 +564,22 @@ namespace Inventor.Core
 		String CheckOk
 		{ get; }
 
-		String ConsistencyErrorDuplicate
+		String ErrorDuplicate
 		{ get; }
 
-		String ConsistencyErrorCyclic
+		String ErrorCyclic
 		{ get; }
 
-		String ConsistencyErrorMultipleSubjectArea
+		String ErrorMultipleSubjectArea
 		{ get; }
 
-		String ConsistencyErrorMultipleSign
+		String ErrorMultipleSign
 		{ get; }
 
-		String ConsistencyErrorMultipleSignValue
+		String ErrorMultipleSignValue
 		{ get; }
 
-		String ConsistencyErrorSignWithoutValue
+		String ErrorSignWithoutValue
 		{ get; }
 	}
 

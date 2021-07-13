@@ -16,27 +16,27 @@ namespace Inventor.Core.Localization
 		{ get; set; }
 
 		[XmlElement]
-		public String ConsistencyErrorDuplicate
+		public String ErrorDuplicate
 		{ get; set; }
 
 		[XmlElement]
-		public String ConsistencyErrorCyclic
+		public String ErrorCyclic
 		{ get; set; }
 
 		[XmlElement]
-		public String ConsistencyErrorMultipleSubjectArea
+		public String ErrorMultipleSubjectArea
 		{ get; set; }
 
 		[XmlElement]
-		public String ConsistencyErrorMultipleSign
+		public String ErrorMultipleSign
 		{ get; set; }
 
 		[XmlElement]
-		public String ConsistencyErrorMultipleSignValue
+		public String ErrorMultipleSignValue
 		{ get; set; }
 
 		[XmlElement]
-		public String ConsistencyErrorSignWithoutValue
+		public String ErrorSignWithoutValue
 		{ get; set; }
 
 		#endregion
@@ -47,12 +47,12 @@ namespace Inventor.Core.Localization
 			{
 				CheckResult = "Результат проверки",
 				CheckOk = "В результате проверки ошибок не выявлено.",
-				ConsistencyErrorDuplicate = $"Дублирование отношения {Strings.ParamStatement}.",
-				ConsistencyErrorCyclic = $"Отношение {Strings.ParamStatement} приводит к циклической ссылке понятий друг на друга.",
-				ConsistencyErrorMultipleSubjectArea = $"Предметная область {Strings.ParamArea} задана более одного раза.",
-				ConsistencyErrorMultipleSign = $"{Strings.ParamStatement} приводит к повторному определению признака у понятия.",
-				ConsistencyErrorMultipleSignValue = $"Значение признака {Strings.ParamSign} понятия {Strings.ParamConcept} не может быть корректно определено, так как задано в нескольких его предках.",
-				ConsistencyErrorSignWithoutValue = $"{Strings.ParamStatement} задаёт значение признака, который отсутствует у понятия.",
+				ErrorDuplicate = $"Дублирование отношения {Strings.ParamStatement}.",
+				ErrorCyclic = $"Отношение {Strings.ParamStatement} приводит к циклической ссылке понятий друг на друга.",
+				ErrorMultipleSubjectArea = $"Предметная область {Strings.ParamArea} задана более одного раза.",
+				ErrorMultipleSign = $"{Strings.ParamStatement} приводит к повторному определению признака у понятия.",
+				ErrorMultipleSignValue = $"Значение признака {Strings.ParamSign} понятия {Strings.ParamConcept} не может быть корректно определено, так как задано в нескольких его предках.",
+				ErrorSignWithoutValue = $"{Strings.ParamStatement} задаёт значение признака, который отсутствует у понятия.",
 			};
 		}
 	}
