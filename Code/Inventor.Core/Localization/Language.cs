@@ -251,18 +251,11 @@ namespace Inventor.Core.Localization
 		public static ICollection<ILanguage> LoadAdditional(String applicationPath)
 		{
 			var languagesFolder = new DirectoryInfo(Path.Combine(applicationPath, FolderPath));
-			if (languagesFolder.Exists)
-			{
-				var languageFiles = languagesFolder.GetFiles(FileFormat);
-				return languageFiles.Length > 0
-					? languageFiles.Select(f => f.FullName.DeserializeFromFile<Language>() as ILanguage).ToList()
-					: new List<ILanguage>();
-			}
-			else
+			if (!languagesFolder.Exists)
 			{
 				languagesFolder.Create();
-				return new List<ILanguage>();
 			}
+			return languagesFolder.GetFiles(FileFormat).Select(f => f.FullName.DeserializeFromFile<Language>() as ILanguage).ToList();
 		}
 
 		#endregion
