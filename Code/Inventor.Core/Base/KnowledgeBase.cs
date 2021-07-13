@@ -34,7 +34,8 @@ namespace Inventor.Core.Base
 		public KnowledgeBase(ILanguage language)
 		{
 			var name = new LocalizedStringVariable();
-			name.SetLocale(language.Culture, language.Misc.NewKbName);
+			name.SetLocale(language.Culture, "language.Misc.NewKbName");
+#warning !!!!!!!!!!
 			Name = name;
 
 			var systemContext = new SystemContext(language);

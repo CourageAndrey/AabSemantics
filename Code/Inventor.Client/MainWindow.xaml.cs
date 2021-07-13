@@ -8,10 +8,10 @@ using System.Windows.Data;
 using Microsoft.Win32;
 
 using Inventor.Client.Dialogs;
+using Inventor.Client.Localization;
 using Inventor.Client.TreeNodes;
 using Inventor.Core;
 using Inventor.Core.Base;
-using Inventor.Core.Localization;
 
 namespace Inventor.Client
 {

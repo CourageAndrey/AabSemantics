@@ -1,11 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Threading;
 using System.Xml.Serialization;
-
-using Inventor.Core.Utils;
 
 namespace Inventor.Core.Localization
 {
@@ -15,7 +9,7 @@ namespace Inventor.Core.Localization
 		#region Constants
 
 		[XmlIgnore]
-		private const String RootName = "Language";
+		internal const String RootName = "Language";
 		[XmlIgnore]
 		private const String AttributeName = "Name";
 		[XmlIgnore]
@@ -23,17 +17,9 @@ namespace Inventor.Core.Localization
 		[XmlIgnore]
 		private const String ElementCommon = "Common";
 		[XmlIgnore]
-		private const String ElementErrors = "Errors";
-		[XmlIgnore]
-		private const String ElementEditor = "Editor";
-		[XmlIgnore]
 		private const String DefaultCulture = "ru-RU";
 		[XmlIgnore]
 		private const String DefaultName = "Русский";
-		[XmlIgnore]
-		private const String FileFormat = "*.xml";
-		[XmlIgnore]
-		private const String FolderPath = "Localization";
 		[XmlIgnore]
 		private const String ElementStatementNames = "StatementNames";
 		[XmlIgnore]
@@ -51,12 +37,6 @@ namespace Inventor.Core.Localization
 		[XmlIgnore]
 		private const String ElementAttributes = "Attributes";
 		[XmlIgnore]
-		private const String ElementUi = "Ui";
-		[XmlIgnore]
-		private const String ElementErrorsInventor = "ErrorsInventor";
-		[XmlIgnore]
-		private const String ElementConfiguration = "Configuration";
-		[XmlIgnore]
 		private const String ElementSystemConceptNames = "SystemConceptNames";
 		[XmlIgnore]
 		private const String ElementSystemConceptHints = "SystemConceptHints";
@@ -64,19 +44,12 @@ namespace Inventor.Core.Localization
 		[XmlIgnore]
 		private const String ElementConsistency = "Consistency";
 
-		[XmlIgnore]
-		private const String ElementMisc = "Misc";
-
 		#endregion
 
 		#region Xml Properties
 
 		[XmlElement(ElementCommon)]
 		public LanguageCommon CommonXml
-		{ get; set; }
-
-		[XmlElement(ElementErrors)]
-		public LanguageErrors ErrorsXml
 		{ get; set; }
 
 		[XmlElement(ElementStatementNames)]
@@ -111,18 +84,6 @@ namespace Inventor.Core.Localization
 		public LanguageAttributes AttributesXml
 		{ get; set; }
 
-		[XmlElement(ElementUi)]
-		public LanguageUi UiXml
-		{ get; set; }
-
-		[XmlElement(ElementErrorsInventor)]
-		public LanguageErrorsInventor ErrorsInventorXml
-		{ get; set; }
-
-		[XmlElement(ElementConfiguration)]
-		public LanguageConfiguration ConfigurationXml
-		{ get; set; }
-
 		[XmlElement(ElementSystemConceptNames)]
 		public LanguageSystemConcepts SystemConceptNamesXml
 		{ get; set; }
@@ -135,15 +96,11 @@ namespace Inventor.Core.Localization
 		public LanguageConsistency ConsistencyXml
 		{ get; set; }
 
-		[XmlElement(ElementMisc)]
-		public LanguageMisc MiscXml
-		{ get; set; }
-
 		#endregion
 
 		#region Interface Properties
 
-[XmlIgnore]
+		[XmlIgnore]
 		public String FileName
 		{ get; protected set; }
 
@@ -158,10 +115,6 @@ namespace Inventor.Core.Localization
 		[XmlIgnore]
 		public ILanguageCommon Common
 		{ get { return CommonXml; } }
-
-		[XmlIgnore]
-		public ILanguageErrors Errors
-		{ get { return ErrorsXml; } }
 
 		[XmlIgnore]
 		public ILanguageStatements StatementNames
@@ -196,18 +149,6 @@ namespace Inventor.Core.Localization
 		{ get { return AttributesXml; } }
 
 		[XmlIgnore]
-		public ILanguageUi Ui
-		{ get { return UiXml; } }
-
-		[XmlIgnore]
-		public ILanguageErrorsInventor ErrorsInventor
-		{ get { return ErrorsInventorXml; } }
-
-		[XmlIgnore]
-		public ILanguageConfiguration Configuration
-		{ get { return ConfigurationXml; } }
-
-		[XmlIgnore]
 		public ILanguageSystemConcepts SystemConceptNames
 		{ get { return SystemConceptNamesXml; } }
 
@@ -219,13 +160,7 @@ namespace Inventor.Core.Localization
 		public ILanguageConsistency Consistency
 		{ get { return ConsistencyXml; } }
 
-		[XmlIgnore]
-		public ILanguageMisc Misc
-		{ get { return MiscXml; } }
-
 		#endregion
-
-		#region Singleton
 
 		[XmlIgnore]
 		public static Language Default
@@ -240,7 +175,6 @@ namespace Inventor.Core.Localization
 				Culture = DefaultCulture,
 
 				CommonXml = LanguageCommon.CreateDefault(),
-				ErrorsXml = LanguageErrors.CreateDefault(),
 
 				StatementNamesXml = LanguageStatements.CreateDefaultNames(),
 				StatementHintsXml = LanguageStatements.CreateDefaultHints(),
@@ -250,119 +184,15 @@ namespace Inventor.Core.Localization
 				QuestionNamesXml = LanguageQuestionNames.CreateDefault(),
 				AnswersXml = LanguageAnswers.CreateDefault(),
 				AttributesXml = LanguageAttributes.CreateDefault(),
-				UiXml = LanguageUi.CreateDefault(),
-				ErrorsInventorXml = LanguageErrorsInventor.CreateDefault(),
-				ConfigurationXml = LanguageConfiguration.CreateDefault(),
 				SystemConceptNamesXml = LanguageSystemConcepts.CreateDefaultNames(),
 				SystemConceptHintsXml = LanguageSystemConcepts.CreateDefaultHints(),
 				ConsistencyXml = LanguageConsistency.CreateDefault(),
-				MiscXml = LanguageMisc.CreateDefault(),
 			};
 		}
-
-		public static ICollection<ILanguage> LoadAdditional(String applicationPath)
-		{
-			var languagesFolder = new DirectoryInfo(Path.Combine(applicationPath, FolderPath));
-			if (!languagesFolder.Exists)
-			{
-				languagesFolder.Create();
-			}
-			return languagesFolder.GetFiles(FileFormat).Select(f => f.FullName.DeserializeFromFile<Language>() as ILanguage).ToList();
-		}
-
-		#endregion
 
 		public override String ToString()
 		{
 			return Name;
-		}
-	}
-
-	public static class LanguageExtensions
-	{
-		public static ILanguage FindAppropriate(this IEnumerable<ILanguage> languages, ILanguage @default)
-		{
-			return languages.FirstOrDefault(l => l.Culture == Thread.CurrentThread.CurrentUICulture.Name) ?? @default;
-		}
-	}
-
-	public class Localizator : ILanguage
-	{
-		private ILanguage _language;
-
-		public Localizator()
-			: this(null)
-		{ }
-
-		public Localizator(ILanguage language)
-		{
-			_language = language;
-		}
-
-		#region Properties
-
-		public String Name
-		{ get { return _language?.Name; } }
-
-		public String Culture
-		{ get { return _language?.Culture; } }
-
-		public ILanguageCommon Common
-		{ get { return _language?.Common; } }
-
-		public ILanguageErrors Errors
-		{ get { return _language?.Errors; } }
-
-		public ILanguageStatements StatementNames
-		{ get { return _language?.StatementNames; } }
-
-		public ILanguageStatements StatementHints
-		{ get { return _language?.StatementHints; } }
-
-		public ILanguageStatements TrueStatementFormatStrings
-		{ get { return _language?.TrueStatementFormatStrings; } }
-
-		public ILanguageStatements FalseStatementFormatStrings
-		{ get { return _language?.FalseStatementFormatStrings; } }
-
-		public ILanguageStatements QuestionStatementFormatStrings
-		{ get { return _language?.QuestionStatementFormatStrings; } }
-
-		public ILanguageQuestionNames QuestionNames
-		{ get { return _language?.QuestionNames; } }
-
-		public ILanguageAnswers Answers
-		{ get { return _language?.Answers; } }
-
-		public ILanguageAttributes Attributes
-		{ get { return _language?.Attributes; } }
-
-		public ILanguageUi Ui
-		{ get { return _language?.Ui; } }
-
-		public ILanguageErrorsInventor ErrorsInventor
-		{ get { return _language?.ErrorsInventor; } }
-
-		public ILanguageConfiguration Configuration
-		{ get { return _language?.Configuration; } }
-
-		public ILanguageSystemConcepts SystemConceptNames
-		{ get { return _language?.SystemConceptNames; } }
-
-		public ILanguageSystemConcepts SystemConceptHints
-		{ get { return _language?.SystemConceptHints; } }
-
-		public ILanguageConsistency Consistency
-		{ get { return _language?.Consistency; } }
-
-		public ILanguageMisc Misc
-		{ get { return _language?.Misc; } }
-
-		#endregion
-
-		public void Change(ILanguage language)
-		{
-			_language = language;
 		}
 	}
 }

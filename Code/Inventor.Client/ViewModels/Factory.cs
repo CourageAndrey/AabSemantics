@@ -7,7 +7,7 @@ namespace Inventor.Client.ViewModels
 {
 	internal static class Factory
 	{
-		public static IKnowledgeViewModel CreateByCoreType(Type type, Core.ILanguage language)
+		public static IKnowledgeViewModel CreateByCoreType(Type type, ILanguage language)
 		{
 			if (type == typeof(Core.Base.Concept))
 			{
@@ -47,7 +47,7 @@ namespace Inventor.Client.ViewModels
 			}
 		}
 
-		public static StatementViewModel CreateStatementByInstance(Core.IStatement statement, Core.ILanguage language)
+		public static StatementViewModel CreateStatementByInstance(Core.IStatement statement, ILanguage language)
 		{
 			if (statement is Core.Statements.HasPartStatement)
 			{
@@ -83,7 +83,7 @@ namespace Inventor.Client.ViewModels
 			}
 		}
 
-		public static IKnowledgeViewModel CreateByTreeNode(ExtendedTreeNode treeNode, Core.ILanguage language)
+		public static IKnowledgeViewModel CreateByTreeNode(ExtendedTreeNode treeNode, ILanguage language)
 		{
 			var conceptNode = treeNode as ConceptNode;
 			var statementNode = treeNode as StatementNode;
