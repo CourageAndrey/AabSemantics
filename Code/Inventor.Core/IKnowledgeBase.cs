@@ -66,7 +66,7 @@ namespace Inventor.Core
 				}
 			}
 
-			// 4. check multi values
+			// 3. check multi values
 			var signValues = knowledgeBase.Statements.OfType<SignValueStatement>().ToList();
 			foreach (var concept in knowledgeBase.Concepts)
 			{
@@ -87,7 +87,7 @@ namespace Inventor.Core
 				}
 			}
 
-			// 5. check values without sign
+			// 4. check values without sign
 			foreach (var signValue in signValues)
 			{
 				if (!signValue.CheckHasSign(knowledgeBase.Statements))
@@ -98,7 +98,7 @@ namespace Inventor.Core
 				}
 			}
 
-			// 6. check sign duplications
+			// 5. check sign duplications
 			var hasSigns = knowledgeBase.Statements.OfType<HasSignStatement>().ToList();
 			foreach (var hasSign in hasSigns)
 			{
