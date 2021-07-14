@@ -28,10 +28,6 @@ namespace Inventor.Client.Localization
 		{ get; set; }
 
 		[XmlElement]
-		public String NewKbName
-		{ get; set; }
-
-		[XmlElement]
 		public String Rules
 		{ get; set; }
 
@@ -70,7 +66,6 @@ namespace Inventor.Client.Localization
 				NameCategoryStatements = "Утверждения",
 				StrictEnumeration = " и не может принимать другое значение",
 				ClasificationSign = " по признаку \"{0}\"",
-				NewKbName = "Новая база знаний",
 				Rules = "Все правила базы знаний:",
 				Answer = "Ответ:",
 				Required = "обязательный",

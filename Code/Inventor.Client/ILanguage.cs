@@ -238,9 +238,6 @@ namespace Inventor.Client
 		String ClasificationSign
 		{ get; }
 
-		String NewKbName
-		{ get; }
-
 		String Rules
 		{ get; }
 
