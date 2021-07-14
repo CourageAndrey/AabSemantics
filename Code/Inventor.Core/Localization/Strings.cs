@@ -26,5 +26,7 @@ namespace Inventor.Core.Localization
 		public const String ParamSequenceSign = "#SEQUENCE#";
 		public const String ParamAnswer = "#ANSWER#";
 		public const String ParamDefined = "#DEFINED#";
+
+		public const String NewKbName = "New...";
 	}
 }
