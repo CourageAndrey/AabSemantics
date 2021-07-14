@@ -110,6 +110,12 @@ namespace Inventor.Core
 				}
 			}
 
+			// 6. Check comparison value systems
+			ComparisonStatement.CheckForContradictions(knowledgeBase.Statements.OfType<ComparisonStatement>().ToList());
+
+			// 7. Check process sequence systems
+			ProcessesStatement.CheckForContradictions(knowledgeBase.Statements.OfType<ProcessesStatement>().ToList());
+
 			if (result.LinesCount == 0)
 			{
 				result.Add(() => language.Consistency.CheckOk, new Dictionary<String, INamed>());

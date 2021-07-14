@@ -83,6 +83,11 @@ namespace Inventor.Core.Statements
 			else return false;
 		}
 
+		public static Boolean CheckForContradictions(IEnumerable<ComparisonStatement> statements)
+		{
+			throw new NotImplementedException();
+		}
+
 		#endregion
 
 		public ComparisonStatement SwapOperandsToMatchOrder(ComparisonQuestion question)
