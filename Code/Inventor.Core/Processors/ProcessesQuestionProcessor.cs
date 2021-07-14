@@ -85,8 +85,6 @@ namespace Inventor.Core.Processors
 			}
 		}
 
-#warning Проверить на непротиворечивость систем последовательности процессов.
-
 		protected override IAnswer ProcessChildAnswers(IQuestionProcessingContext<ProcessesQuestion> context, ICollection<ProcessesStatement> statements, ICollection<ChildAnswer> childAnswers)
 		{
 			foreach (var answer in childAnswers)

@@ -83,6 +83,11 @@ namespace Inventor.Core.Statements
 			else return false;
 		}
 
+		public static Boolean CheckForContradictions(IEnumerable<ProcessesStatement> statements)
+		{
+			throw new NotImplementedException();
+		}
+
 		#endregion
 
 		public ProcessesStatement SwapOperandsToMatchOrder(ProcessesQuestion question)
