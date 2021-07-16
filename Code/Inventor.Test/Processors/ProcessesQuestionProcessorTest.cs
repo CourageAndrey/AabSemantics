@@ -11,6 +11,7 @@ using Inventor.Core.Base;
 using Inventor.Core.Localization;
 using Inventor.Core.Questions;
 using Inventor.Core.Statements;
+using Inventor.Core.Processors;
 
 namespace Inventor.Test.Processors
 {
@@ -138,77 +139,16 @@ namespace Inventor.Test.Processors
 
 		private static IEnumerable<object[]> getAllValidCombinations()
 		{
-			yield return new object[] { SystemConcepts.StartsAfterOtherStarted, SystemConcepts.StartsAfterOtherStarted, SystemConcepts.StartsAfterOtherStarted };
-			yield return new object[] { SystemConcepts.StartsAfterOtherStarted, SystemConcepts.StartsWhenOtherStarted, SystemConcepts.StartsAfterOtherStarted };
-			yield return new object[] { SystemConcepts.StartsAfterOtherStarted, SystemConcepts.StartsAfterOtherFinished, SystemConcepts.StartsAfterOtherFinished };
-			yield return new object[] { SystemConcepts.StartsAfterOtherStarted, SystemConcepts.StartsWhenOtherFinished, SystemConcepts.StartsAfterOtherFinished };
-
-			yield return new object[] { SystemConcepts.StartsWhenOtherStarted, SystemConcepts.StartsAfterOtherStarted, SystemConcepts.StartsAfterOtherStarted };
-			yield return new object[] { SystemConcepts.StartsWhenOtherStarted, SystemConcepts.StartsWhenOtherStarted, SystemConcepts.StartsWhenOtherStarted };
-			yield return new object[] { SystemConcepts.StartsWhenOtherStarted, SystemConcepts.StartsBeforeOtherStarted, SystemConcepts.StartsBeforeOtherStarted };
-			yield return new object[] { SystemConcepts.StartsWhenOtherStarted, SystemConcepts.StartsAfterOtherFinished, SystemConcepts.StartsAfterOtherFinished };
-			yield return new object[] { SystemConcepts.StartsWhenOtherStarted, SystemConcepts.StartsWhenOtherFinished, SystemConcepts.StartsWhenOtherFinished };
-			yield return new object[] { SystemConcepts.StartsWhenOtherStarted, SystemConcepts.StartsBeforeOtherFinished, SystemConcepts.StartsBeforeOtherFinished };
-
-			yield return new object[] { SystemConcepts.StartsBeforeOtherStarted, SystemConcepts.StartsWhenOtherStarted, SystemConcepts.StartsBeforeOtherStarted };
-			yield return new object[] { SystemConcepts.StartsBeforeOtherStarted, SystemConcepts.StartsBeforeOtherStarted, SystemConcepts.StartsBeforeOtherStarted };
-			yield return new object[] { SystemConcepts.StartsBeforeOtherStarted, SystemConcepts.StartsWhenOtherFinished, SystemConcepts.StartsBeforeOtherFinished };
-			yield return new object[] { SystemConcepts.StartsBeforeOtherStarted, SystemConcepts.StartsBeforeOtherFinished, SystemConcepts.StartsBeforeOtherFinished };
-
-			yield return new object[] { SystemConcepts.FinishesAfterOtherStarted, SystemConcepts.StartsAfterOtherStarted, SystemConcepts.FinishesAfterOtherStarted };
-			yield return new object[] { SystemConcepts.FinishesAfterOtherStarted, SystemConcepts.StartsWhenOtherStarted, SystemConcepts.FinishesAfterOtherStarted };
-			yield return new object[] { SystemConcepts.FinishesAfterOtherStarted, SystemConcepts.StartsAfterOtherFinished, SystemConcepts.FinishesAfterOtherFinished };
-			yield return new object[] { SystemConcepts.FinishesAfterOtherStarted, SystemConcepts.StartsWhenOtherFinished, SystemConcepts.FinishesAfterOtherFinished };
-
-			yield return new object[] { SystemConcepts.FinishesWhenOtherStarted, SystemConcepts.StartsAfterOtherStarted, SystemConcepts.FinishesAfterOtherStarted };
-			yield return new object[] { SystemConcepts.FinishesWhenOtherStarted, SystemConcepts.StartsWhenOtherStarted, SystemConcepts.FinishesWhenOtherStarted };
-			yield return new object[] { SystemConcepts.FinishesWhenOtherStarted, SystemConcepts.StartsBeforeOtherStarted, SystemConcepts.FinishesBeforeOtherStarted };
-			yield return new object[] { SystemConcepts.FinishesWhenOtherStarted, SystemConcepts.StartsAfterOtherFinished, SystemConcepts.FinishesAfterOtherFinished };
-			yield return new object[] { SystemConcepts.FinishesWhenOtherStarted, SystemConcepts.StartsWhenOtherFinished, SystemConcepts.FinishesWhenOtherFinished };
-			yield return new object[] { SystemConcepts.FinishesWhenOtherStarted, SystemConcepts.StartsBeforeOtherFinished, SystemConcepts.FinishesBeforeOtherFinished };
-
-			yield return new object[] { SystemConcepts.FinishesBeforeOtherStarted, SystemConcepts.StartsWhenOtherStarted, SystemConcepts.FinishesBeforeOtherStarted };
-			yield return new object[] { SystemConcepts.FinishesBeforeOtherStarted, SystemConcepts.StartsBeforeOtherStarted, SystemConcepts.FinishesBeforeOtherStarted };
-			yield return new object[] { SystemConcepts.FinishesBeforeOtherStarted, SystemConcepts.StartsWhenOtherFinished, SystemConcepts.FinishesBeforeOtherFinished };
-			yield return new object[] { SystemConcepts.FinishesBeforeOtherStarted, SystemConcepts.StartsBeforeOtherFinished, SystemConcepts.FinishesBeforeOtherFinished };
-
-			yield return new object[] { SystemConcepts.StartsAfterOtherFinished, SystemConcepts.FinishesAfterOtherStarted, SystemConcepts.StartsAfterOtherStarted };
-			yield return new object[] { SystemConcepts.StartsAfterOtherFinished, SystemConcepts.FinishesWhenOtherStarted, SystemConcepts.StartsAfterOtherStarted };
-			yield return new object[] { SystemConcepts.StartsAfterOtherFinished, SystemConcepts.FinishesAfterOtherFinished, SystemConcepts.StartsAfterOtherFinished };
-			yield return new object[] { SystemConcepts.StartsAfterOtherFinished, SystemConcepts.FinishesWhenOtherFinished, SystemConcepts.StartsAfterOtherFinished };
-
-			yield return new object[] { SystemConcepts.StartsWhenOtherFinished, SystemConcepts.FinishesAfterOtherStarted, SystemConcepts.StartsAfterOtherStarted };
-			yield return new object[] { SystemConcepts.StartsWhenOtherFinished, SystemConcepts.FinishesWhenOtherStarted, SystemConcepts.StartsWhenOtherStarted };
-			yield return new object[] { SystemConcepts.StartsWhenOtherFinished, SystemConcepts.FinishesBeforeOtherStarted, SystemConcepts.StartsBeforeOtherStarted };
-			yield return new object[] { SystemConcepts.StartsWhenOtherFinished, SystemConcepts.FinishesAfterOtherFinished, SystemConcepts.StartsAfterOtherFinished };
-			yield return new object[] { SystemConcepts.StartsWhenOtherFinished, SystemConcepts.FinishesWhenOtherFinished, SystemConcepts.StartsWhenOtherFinished };
-			yield return new object[] { SystemConcepts.StartsWhenOtherFinished, SystemConcepts.FinishesBeforeOtherFinished, SystemConcepts.StartsBeforeOtherFinished };
-
-			yield return new object[] { SystemConcepts.StartsBeforeOtherFinished, SystemConcepts.FinishesWhenOtherStarted, SystemConcepts.StartsBeforeOtherStarted };
-			yield return new object[] { SystemConcepts.StartsBeforeOtherFinished, SystemConcepts.FinishesBeforeOtherStarted, SystemConcepts.StartsBeforeOtherStarted };
-			yield return new object[] { SystemConcepts.StartsBeforeOtherFinished, SystemConcepts.FinishesWhenOtherFinished, SystemConcepts.StartsBeforeOtherFinished };
-			yield return new object[] { SystemConcepts.StartsBeforeOtherFinished, SystemConcepts.FinishesBeforeOtherFinished, SystemConcepts.StartsBeforeOtherFinished };
-
-			yield return new object[] { SystemConcepts.FinishesAfterOtherFinished, SystemConcepts.FinishesAfterOtherStarted, SystemConcepts.FinishesAfterOtherStarted };
-			yield return new object[] { SystemConcepts.FinishesAfterOtherFinished, SystemConcepts.FinishesWhenOtherStarted, SystemConcepts.FinishesAfterOtherStarted };
-			yield return new object[] { SystemConcepts.FinishesAfterOtherFinished, SystemConcepts.FinishesAfterOtherFinished, SystemConcepts.FinishesAfterOtherFinished };
-			yield return new object[] { SystemConcepts.FinishesAfterOtherFinished, SystemConcepts.FinishesWhenOtherFinished, SystemConcepts.FinishesAfterOtherFinished };
-
-			yield return new object[] { SystemConcepts.FinishesWhenOtherFinished, SystemConcepts.FinishesAfterOtherStarted, SystemConcepts.FinishesAfterOtherStarted };
-			yield return new object[] { SystemConcepts.FinishesWhenOtherFinished, SystemConcepts.FinishesWhenOtherStarted, SystemConcepts.FinishesWhenOtherStarted };
-			yield return new object[] { SystemConcepts.FinishesWhenOtherFinished, SystemConcepts.FinishesBeforeOtherStarted, SystemConcepts.FinishesBeforeOtherStarted };
-			yield return new object[] { SystemConcepts.FinishesWhenOtherFinished, SystemConcepts.FinishesAfterOtherFinished, SystemConcepts.FinishesAfterOtherFinished };
-			yield return new object[] { SystemConcepts.FinishesWhenOtherFinished, SystemConcepts.FinishesWhenOtherFinished, SystemConcepts.FinishesWhenOtherFinished };
-			yield return new object[] { SystemConcepts.FinishesWhenOtherFinished, SystemConcepts.FinishesBeforeOtherFinished, SystemConcepts.FinishesBeforeOtherFinished };
-
-			yield return new object[] { SystemConcepts.FinishesBeforeOtherFinished, SystemConcepts.FinishesWhenOtherStarted, SystemConcepts.FinishesBeforeOtherStarted };
-			yield return new object[] { SystemConcepts.FinishesBeforeOtherFinished, SystemConcepts.FinishesBeforeOtherStarted, SystemConcepts.FinishesBeforeOtherStarted };
-			yield return new object[] { SystemConcepts.FinishesBeforeOtherFinished, SystemConcepts.FinishesWhenOtherFinished, SystemConcepts.FinishesBeforeOtherFinished };
-			yield return new object[] { SystemConcepts.FinishesBeforeOtherFinished, SystemConcepts.FinishesBeforeOtherFinished, SystemConcepts.FinishesBeforeOtherFinished };
-
-			yield return new object[] { SystemConcepts.Causes, SystemConcepts.Causes, SystemConcepts.Causes };
-			yield return new object[] { SystemConcepts.IsCausedBy, SystemConcepts.IsCausedBy, SystemConcepts.IsCausedBy };
-			yield return new object[] { SystemConcepts.SimultaneousWith, SystemConcepts.SimultaneousWith, SystemConcepts.SimultaneousWith };
+			foreach (var combinations in ProcessesQuestionProcessor.ValidSequenceCombinations)
+			{
+				var transitiveSign = combinations.Key;
+				foreach (var combination in combinations.Value)
+				{
+					var childSign = combination.Key;
+					var expectedResultSign = combination.Value;
+					yield return new object[] { transitiveSign, childSign, expectedResultSign };
+				}
+			}
 		}
 	}
 }
