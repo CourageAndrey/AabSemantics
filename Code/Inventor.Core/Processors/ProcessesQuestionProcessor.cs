@@ -131,27 +131,27 @@ namespace Inventor.Core.Processors
 			return Answer.CreateUnknown(context.Language);
 		}
 
-		private static readonly IDictionary<IConcept, IDictionary<IConcept, IConcept>> _validSequenceCombinations;
+		internal static readonly IDictionary<IConcept, IDictionary<IConcept, IConcept>> ValidSequenceCombinations;
 
 		private IConcept getSign(IConcept transitiveSign, IConcept childSign)
 		{
 			IDictionary<IConcept, IConcept> d;
 			IConcept resultSign;
-			return _validSequenceCombinations.TryGetValue(transitiveSign, out d) && d.TryGetValue(childSign, out resultSign)
+			return ValidSequenceCombinations.TryGetValue(transitiveSign, out d) && d.TryGetValue(childSign, out resultSign)
 				? resultSign
 				: null;
 		}
 
 		static ProcessesQuestionProcessor()
 		{
-			_validSequenceCombinations = new Dictionary<IConcept, IDictionary<IConcept, IConcept>>();
+			ValidSequenceCombinations = new Dictionary<IConcept, IDictionary<IConcept, IConcept>>();
 
 			Action<IConcept, IConcept, IConcept> setValidCombination = (transitiveSign, childSign, resultSign) =>
 			{
 				IDictionary<IConcept, IConcept> d;
-				if (!_validSequenceCombinations.TryGetValue(transitiveSign, out d))
+				if (!ValidSequenceCombinations.TryGetValue(transitiveSign, out d))
 				{
-					_validSequenceCombinations[transitiveSign] = d = new Dictionary<IConcept, IConcept>();
+					ValidSequenceCombinations[transitiveSign] = d = new Dictionary<IConcept, IConcept>();
 				}
 				d.Add(childSign, resultSign);
 			};
