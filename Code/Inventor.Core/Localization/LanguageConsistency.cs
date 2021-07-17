@@ -39,6 +39,10 @@ namespace Inventor.Core.Localization
 		public String ErrorSignWithoutValue
 		{ get; set; }
 
+		[XmlElement]
+		public String ErrorComparisonContradiction
+		{ get; set; }
+
 		#endregion
 
 		internal static LanguageConsistency CreateDefault()
@@ -53,6 +57,7 @@ namespace Inventor.Core.Localization
 				ErrorMultipleSign = $"{Strings.ParamStatement} приводит к повторному определению признака у понятия.",
 				ErrorMultipleSignValue = $"Значение признака {Strings.ParamSign} понятия {Strings.ParamConcept} не может быть корректно определено, так как задано в нескольких его предках.",
 				ErrorSignWithoutValue = $"{Strings.ParamStatement} задаёт значение признака, который отсутствует у понятия.",
+				ErrorComparisonContradiction = $"Невозможно сравнить {Strings.ParamLeftValue} и {Strings.ParamRightValue}. Возможные значения: ",
 			};
 		}
 	}

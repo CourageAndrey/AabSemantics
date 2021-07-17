@@ -111,7 +111,16 @@ namespace Inventor.Core
 			}
 
 			// 6. Check comparison value systems
-			ComparisonStatement.CheckForContradictions(knowledgeBase.Statements.OfType<ComparisonStatement>().ToList());
+			foreach (var contradiction in ComparisonStatement.CheckForContradictions(knowledgeBase.Statements.OfType<ComparisonStatement>().ToList()))
+			{
+				String signsFormat;
+				var concepts = contradiction.Signs.Enumerate(out signsFormat);
+				concepts[Strings.ParamLeftValue] = contradiction.Value1;
+				concepts[Strings.ParamRightValue] = contradiction.Value2;
+				result.Add(
+					() => language.Consistency.ErrorComparisonContradiction + signsFormat,
+					concepts);
+			}
 
 			// 7. Check process sequence systems
 			ProcessesStatement.CheckForContradictions(knowledgeBase.Statements.OfType<ProcessesStatement>().ToList());

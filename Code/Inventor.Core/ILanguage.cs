@@ -365,6 +365,9 @@ namespace Inventor.Core
 
 		String ErrorSignWithoutValue
 		{ get; }
+
+		String ErrorComparisonContradiction
+		{ get; }
 	}
 
 	public interface ILanguageSystemConcepts
