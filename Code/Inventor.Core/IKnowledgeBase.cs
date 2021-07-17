@@ -123,7 +123,16 @@ namespace Inventor.Core
 			}
 
 			// 7. Check process sequence systems
-			ProcessesStatement.CheckForContradictions(knowledgeBase.Statements.OfType<ProcessesStatement>().ToList());
+			foreach (var contradiction in ProcessesStatement.CheckForContradictions(knowledgeBase.Statements.OfType<ProcessesStatement>().ToList()))
+			{
+				String signsFormat;
+				var concepts = contradiction.Signs.Enumerate(out signsFormat);
+				concepts[Strings.ParamProcessA] = contradiction.Value1;
+				concepts[Strings.ParamProcessB] = contradiction.Value2;
+				result.Add(
+					() => language.Consistency.ErrorProcessesContradiction + signsFormat,
+					concepts);
+			}
 
 			if (result.LinesCount == 0)
 			{
