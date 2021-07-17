@@ -166,6 +166,30 @@ namespace Inventor.Core
 			}
 		}
 
+		public static IConcept CompareThreeValues(IConcept firstSign, IConcept secondSign)
+		{
+			if (firstSign == IsEqualTo)
+			{
+				return secondSign;
+			}
+			else if (secondSign == IsEqualTo)
+			{
+				return firstSign;
+			}
+			else if ((secondSign == IsGreaterThan || secondSign == IsGreaterThanOrEqualTo) && (firstSign == IsGreaterThan || firstSign == IsGreaterThanOrEqualTo))
+			{
+				return (secondSign == IsGreaterThanOrEqualTo && firstSign == IsGreaterThanOrEqualTo) ? IsGreaterThanOrEqualTo : IsGreaterThan;
+			}
+			else if ((secondSign == IsLessThan || secondSign == IsLessThanOrEqualTo) && (firstSign == IsLessThan || firstSign == IsLessThanOrEqualTo))
+			{
+				return (secondSign == IsLessThanOrEqualTo && firstSign == IsLessThanOrEqualTo) ? IsLessThanOrEqualTo : IsLessThan;
+			}
+			else
+			{
+				return null;
+			}
+		}
+
 		#endregion
 
 		#region Sequence signs
