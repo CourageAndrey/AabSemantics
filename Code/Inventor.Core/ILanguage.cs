@@ -368,6 +368,9 @@ namespace Inventor.Core
 
 		String ErrorComparisonContradiction
 		{ get; }
+
+		String ErrorProcessesContradiction
+		{ get; }
 	}
 
 	public interface ILanguageSystemConcepts
