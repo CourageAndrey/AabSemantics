@@ -84,24 +84,7 @@ namespace Inventor.Core.Processors
 						transitiveStatement = transitiveStatement.SwapOperands();
 					}
 
-					IConcept resultSign = null;
-					if (childStatement.ComparisonSign == SystemConcepts.IsEqualTo)
-					{
-						resultSign = transitiveStatement.ComparisonSign;
-					}
-					else if (transitiveStatement.ComparisonSign == SystemConcepts.IsEqualTo)
-					{
-						resultSign = childStatement.ComparisonSign;
-					}
-					else if ((transitiveStatement.ComparisonSign == SystemConcepts.IsGreaterThan || transitiveStatement.ComparisonSign == SystemConcepts.IsGreaterThanOrEqualTo) && (childStatement.ComparisonSign == SystemConcepts.IsGreaterThan || childStatement.ComparisonSign == SystemConcepts.IsGreaterThanOrEqualTo))
-					{
-						resultSign = (transitiveStatement.ComparisonSign == SystemConcepts.IsGreaterThanOrEqualTo && childStatement.ComparisonSign == SystemConcepts.IsGreaterThanOrEqualTo) ? SystemConcepts.IsGreaterThanOrEqualTo : SystemConcepts.IsGreaterThan;
-					}
-					else if ((transitiveStatement.ComparisonSign == SystemConcepts.IsLessThan || transitiveStatement.ComparisonSign == SystemConcepts.IsLessThanOrEqualTo) && (childStatement.ComparisonSign == SystemConcepts.IsLessThan || childStatement.ComparisonSign == SystemConcepts.IsLessThanOrEqualTo))
-					{
-						resultSign = (transitiveStatement.ComparisonSign == SystemConcepts.IsLessThanOrEqualTo && childStatement.ComparisonSign == SystemConcepts.IsLessThanOrEqualTo) ? SystemConcepts.IsLessThanOrEqualTo : SystemConcepts.IsLessThan;
-					}
-
+					var resultSign = SystemConcepts.CompareThreeValues(childStatement.ComparisonSign, transitiveStatement.ComparisonSign);
 					if (resultSign != null)
 					{
 						var transitiveStatements = new List<IStatement>(answer.TransitiveStatements);
