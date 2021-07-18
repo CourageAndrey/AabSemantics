@@ -5,7 +5,7 @@ using Inventor.Core.Localization;
 
 namespace Inventor.Core.Base
 {
-	public sealed class Concept : IConcept
+	public class Concept : IConcept
 	{
 		#region Properties
 
