@@ -7,9 +7,7 @@ namespace Inventor.Core.Localization
 		#region Properties
 
 		public String Locale
-		{ get { return _locale; } }
-
-		private readonly String _locale;
+		{ get; }
 
 		#endregion
 
@@ -17,7 +15,7 @@ namespace Inventor.Core.Localization
 
 		public AbsentLocaleException(String locale)
 		{
-			_locale = locale;
+			Locale = locale;
 		}
 
 		#endregion
