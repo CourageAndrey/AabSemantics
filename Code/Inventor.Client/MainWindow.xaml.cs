@@ -63,7 +63,7 @@ namespace Inventor.Client
 
 		private IChangeable loadFromFile(string fileName)
 		{
-			_application.KnowledgeBase = KnowledgeBase.Load(fileName);
+			_application.KnowledgeBase = KnowledgeBase.Load(fileName, _application.CurrentLanguage);
 			reloadKnowledgeBaseTree();
 			return _application.KnowledgeBase;
 		}
