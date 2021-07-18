@@ -126,14 +126,14 @@ namespace Inventor.Core.Base
 
 		#region Serialization
 
-		public static KnowledgeBase Load(String fileName)
+		public static KnowledgeBase Load(String fileName, ILanguage language)
 		{
-			throw new NotImplementedException();
+			return fileName.DeserializeFromFile<Xml.KnowledgeBase>().Load(language);
 		}
 
 		public void Save(String fileName)
 		{
-			throw new NotImplementedException();
+			new Xml.KnowledgeBase(this).SerializeToFile(fileName);
 		}
 
 		public event EventHandler Changed;
