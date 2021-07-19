@@ -66,6 +66,7 @@
   <ItemGroup>
     <Compile Include="Base\ContextsTest.cs" />
     <Compile Include="ConsistencyTest.cs" />
+    <Compile Include="Localization\LocalizedStringsTest.cs" />
     <Compile Include="Processors\ProcessesQuestionProcessorTest.cs" />
     <Compile Include="Processors\ComparisonQuestionProcessorTest.cs" />
     <Compile Include="Processors\DescribeSubjectAreaProcessorTest.cs" />
