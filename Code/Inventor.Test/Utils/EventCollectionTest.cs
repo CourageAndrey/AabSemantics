@@ -118,5 +118,29 @@ namespace Inventor.Test.Utils
 			Assert.IsNullOrEmpty(result);
 			Assert.AreEqual("B", error.Items.Single());
 		}
+
+		[Test]
+		public void EventCollectionIsAlwaysEditable()
+		{
+			Assert.IsFalse(new EventCollection<string>().IsReadOnly);
+
+			Assert.IsFalse(new EventCollection<string> { "A", "B", "C" }.IsReadOnly);
+
+			Assert.IsFalse(new EventCollection<string>(new[] { "A", "B", "C" }).IsReadOnly);
+		}
+
+		[Test]
+		public void CopyToCopiesItems()
+		{
+			// arrange
+			var collection = new EventCollection<string> {"A", "B", "C"};
+			var array = new string[3];
+
+			// act & assert
+			Assert.IsFalse(collection.SequenceEqual(array));
+
+			collection.CopyTo(array, 0);
+			Assert.IsTrue(collection.SequenceEqual(array));
+		}
 	}
 }
