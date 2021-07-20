@@ -111,7 +111,7 @@ namespace Inventor.Core
 			}
 
 			// 6. Check comparison value systems
-			foreach (var contradiction in ComparisonStatement.CheckForContradictions(knowledgeBase.Statements.OfType<ComparisonStatement>().ToList()))
+			foreach (var contradiction in knowledgeBase.Statements.OfType<ComparisonStatement>().CheckForContradictions())
 			{
 				String signsFormat;
 				var concepts = contradiction.Signs.Enumerate(out signsFormat);
