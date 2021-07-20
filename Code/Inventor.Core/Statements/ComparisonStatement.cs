@@ -199,7 +199,7 @@ namespace Inventor.Core.Statements
 			{
 				foreach (var sign2 in signs)
 				{
-					if (contradictions.Any(tuple =>
+					if (Contradictions.Any(tuple =>
 						(tuple.Item1 == sign1 && tuple.Item2 == sign2) ||
 						(tuple.Item1 == sign2 && tuple.Item2 == sign1)))
 					{
@@ -210,7 +210,7 @@ namespace Inventor.Core.Statements
 			return false;
 		}
 
-		private static readonly ICollection<Tuple<IConcept, IConcept>> contradictions = new List<Tuple<IConcept, IConcept>>
+		internal static readonly ICollection<Tuple<IConcept, IConcept>> Contradictions = new List<Tuple<IConcept, IConcept>>
 		{
 			new Tuple<IConcept, IConcept>(SystemConcepts.IsEqualTo, SystemConcepts.IsNotEqualTo),
 			new Tuple<IConcept, IConcept>(SystemConcepts.IsEqualTo, SystemConcepts.IsGreaterThan),
