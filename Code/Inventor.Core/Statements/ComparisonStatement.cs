@@ -202,6 +202,7 @@ namespace Inventor.Core.Statements
 		{
 			Boolean updated = false;
 
+			// get "row" using LEFT value as key, return true if row is added
 			Dictionary<IConcept, HashSet<IConcept>> combinations;
 			if (!allSigns.TryGetValue(left, out combinations))
 			{
@@ -209,6 +210,7 @@ namespace Inventor.Core.Statements
 				updated = true;
 			}
 
+			// get "column" using RIGHT value as key, return true if column is added
 			HashSet<IConcept> signs;
 			if (!combinations.TryGetValue(right, out signs))
 			{
@@ -216,6 +218,7 @@ namespace Inventor.Core.Statements
 				updated = true;
 			}
 
+			// add value to list, return true if added (= new unique)
 			Int32 countBefore = signs.Count;
 			signs.Add(sign);
 			if (signs.Count > countBefore)
