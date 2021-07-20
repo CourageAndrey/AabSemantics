@@ -21,7 +21,7 @@ namespace Inventor.Core.Utils
 
 		#endregion
 
-		#region Implementation of ICollection<IKnowledge>
+		#region Implementation of ICollection<T>
 
 		System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator()
 		{
