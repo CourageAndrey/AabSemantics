@@ -128,6 +128,12 @@ namespace Inventor.Core.Statements
 				}
 			}
 
+			// A=A!
+			foreach (var value in allValues)
+			{
+				setCombination(value, value, SystemConcepts.IsEqualTo);
+			}
+
 			bool combinationsUpdated;
 			do
 			{
