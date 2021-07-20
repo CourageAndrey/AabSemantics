@@ -113,19 +113,9 @@ namespace Inventor.Core.Statements
 	{
 		public static List<Contradiction> CheckForContradictions(this IEnumerable<ComparisonStatement> statements)
 		{
-			var allValues = new HashSet<IConcept>();
-			var allSigns = new Dictionary<IConcept, Dictionary<IConcept, HashSet<IConcept>>>();
-
-			foreach (var comparison in statements)
-			{
-				allValues.Add(comparison.LeftValue);
-				allValues.Add(comparison.RightValue);
-				setCombination(allSigns, comparison.LeftValue, comparison.RightValue, comparison.ComparisonSign);
-				if (comparison.ComparisonSign != SystemConcepts.IsEqualTo && comparison.ComparisonSign != SystemConcepts.IsNotEqualTo)
-				{
-					setCombination(allSigns, comparison.RightValue, comparison.LeftValue, comparison.ComparisonSign.Revert());
-				}
-			}
+			HashSet<IConcept> allValues; // all unique involved values
+			Dictionary<IConcept, Dictionary<IConcept, HashSet<IConcept>>> allSigns; // matrix of known signs
+			initializeValueMatrix(statements, out allValues, out allSigns);
 
 			// A=A!
 			foreach (var value in allValues)
@@ -196,6 +186,27 @@ namespace Inventor.Core.Statements
 				}
 			}
 			return foundContradictions;
+		}
+
+		private static void initializeValueMatrix(
+			IEnumerable<ComparisonStatement> statements,
+			out HashSet<IConcept> allValues,
+			out Dictionary<IConcept, Dictionary<IConcept, HashSet<IConcept>>> allSigns)
+		{
+			allValues = new HashSet<IConcept>();
+			allSigns = new Dictionary<IConcept, Dictionary<IConcept, HashSet<IConcept>>>();
+
+			foreach (var comparison in statements)
+			{
+				allValues.Add(comparison.LeftValue);
+				allValues.Add(comparison.RightValue);
+
+				setCombination(allSigns, comparison.LeftValue, comparison.RightValue, comparison.ComparisonSign);
+				if (comparison.ComparisonSign != SystemConcepts.IsEqualTo && comparison.ComparisonSign != SystemConcepts.IsNotEqualTo)
+				{
+					setCombination(allSigns, comparison.RightValue, comparison.LeftValue, comparison.ComparisonSign.Revert());
+				}
+			}
 		}
 
 		private static Boolean setCombination(Dictionary<IConcept, Dictionary<IConcept, HashSet<IConcept>>> allSigns, IConcept left, IConcept right, IConcept sign)
