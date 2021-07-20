@@ -9,7 +9,7 @@ namespace Inventor.Core.Utils
 	{
 		#region Properties
 
-		private readonly ICollection<T> collection = new List<T>();
+		private readonly ICollection<T> collection;
 
 		public event EventHandler<ItemEventArgs<T>> ItemAdded;
 
@@ -112,6 +112,23 @@ namespace Inventor.Core.Utils
 			Boolean result = collection.Remove(item);
 			Volatile.Read(ref ItemRemoved)?.Invoke(this, new ItemEventArgs<T>(item));
 			return result;
+		}
+
+		#endregion
+
+		#region Constructors
+
+		public EventCollection()
+			: this(new List<T>())
+		{ }
+
+		public EventCollection(IEnumerable<T> items)
+			: this(new List<T>(items))
+		{ }
+
+		private EventCollection(List<T> items)
+		{
+			collection = items;
 		}
 
 		#endregion
