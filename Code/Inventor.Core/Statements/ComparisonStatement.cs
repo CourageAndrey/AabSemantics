@@ -119,11 +119,8 @@ namespace Inventor.Core.Statements
 
 			makeAllValuesAlwaysEqualToThemselves(allValues, allSigns);
 
-			bool combinationsUpdated;
-			do
-			{
-				combinationsUpdated = updateInferredCombinations(allValues, allSigns);
-			} while (combinationsUpdated);
+			while (updateInferredCombinations(allValues, allSigns))
+			{ }
 
 			return findContradictionsInMatrix(allSigns);
 		}
