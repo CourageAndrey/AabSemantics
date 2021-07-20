@@ -116,49 +116,21 @@ namespace Inventor.Core.Statements
 			var allValues = new HashSet<IConcept>();
 			var allSigns = new Dictionary<IConcept, Dictionary<IConcept, HashSet<IConcept>>>();
 
-			Func<IConcept, IConcept, IConcept, Boolean> setCombination = (left, right, sign) =>
-			{
-				Boolean updated = false;
-
-				Dictionary<IConcept, HashSet<IConcept>> combinations;
-				if (!allSigns.TryGetValue(left, out combinations))
-				{
-					allSigns[left] = combinations = new Dictionary<IConcept, HashSet<IConcept>>();
-					updated = true;
-				}
-
-				HashSet<IConcept> signs;
-				if (!combinations.TryGetValue(right, out signs))
-				{
-					combinations[right] = signs = new HashSet<IConcept>();
-					updated = true;
-				}
-
-				Int32 countBefore = signs.Count;
-				signs.Add(sign);
-				if (signs.Count > countBefore)
-				{
-					updated = true;
-				}
-
-				return updated;
-			};
-
 			foreach (var comparison in statements)
 			{
 				allValues.Add(comparison.LeftValue);
 				allValues.Add(comparison.RightValue);
-				setCombination(comparison.LeftValue, comparison.RightValue, comparison.ComparisonSign);
+				setCombination(allSigns, comparison.LeftValue, comparison.RightValue, comparison.ComparisonSign);
 				if (comparison.ComparisonSign != SystemConcepts.IsEqualTo && comparison.ComparisonSign != SystemConcepts.IsNotEqualTo)
 				{
-					setCombination(comparison.RightValue, comparison.LeftValue, comparison.ComparisonSign.Revert());
+					setCombination(allSigns, comparison.RightValue, comparison.LeftValue, comparison.ComparisonSign.Revert());
 				}
 			}
 
 			// A=A!
 			foreach (var value in allValues)
 			{
-				setCombination(value, value, SystemConcepts.IsEqualTo);
+				setCombination(allSigns, value, value, SystemConcepts.IsEqualTo);
 			}
 
 			bool combinationsUpdated;
@@ -190,10 +162,10 @@ namespace Inventor.Core.Statements
 												var resultSign = SystemConcepts.CompareThreeValues(signRow, signColumn);
 												if (resultSign != null)
 												{
-													combinationsUpdated |= setCombination(row, valueColumn, resultSign);
+													combinationsUpdated |= setCombination(allSigns, row, valueColumn, resultSign);
 													if (resultSign != SystemConcepts.IsEqualTo && resultSign != SystemConcepts.IsNotEqualTo)
 													{
-														combinationsUpdated |= setCombination(valueColumn, row, resultSign.Revert());
+														combinationsUpdated |= setCombination(allSigns, valueColumn, row, resultSign.Revert());
 													}
 												}
 											}
@@ -224,6 +196,34 @@ namespace Inventor.Core.Statements
 				}
 			}
 			return foundContradictions;
+		}
+
+		private static Boolean setCombination(Dictionary<IConcept, Dictionary<IConcept, HashSet<IConcept>>> allSigns, IConcept left, IConcept right, IConcept sign)
+		{
+			Boolean updated = false;
+
+			Dictionary<IConcept, HashSet<IConcept>> combinations;
+			if (!allSigns.TryGetValue(left, out combinations))
+			{
+				allSigns[left] = combinations = new Dictionary<IConcept, HashSet<IConcept>>();
+				updated = true;
+			}
+
+			HashSet<IConcept> signs;
+			if (!combinations.TryGetValue(right, out signs))
+			{
+				combinations[right] = signs = new HashSet<IConcept>();
+				updated = true;
+			}
+
+			Int32 countBefore = signs.Count;
+			signs.Add(sign);
+			if (signs.Count > countBefore)
+			{
+				updated = true;
+			}
+
+			return updated;
 		}
 
 		private static string display(
