@@ -117,11 +117,7 @@ namespace Inventor.Core.Statements
 			Dictionary<IConcept, Dictionary<IConcept, HashSet<IConcept>>> allSigns; // matrix of known signs
 			initializeValueMatrix(statements, out allValues, out allSigns);
 
-			// A=A!
-			foreach (var value in allValues)
-			{
-				setCombination(allSigns, value, value, SystemConcepts.IsEqualTo);
-			}
+			makeAllValuesAlwaysEqualToThemselves(allValues, allSigns);
 
 			bool combinationsUpdated;
 			do
@@ -206,6 +202,14 @@ namespace Inventor.Core.Statements
 				{
 					setCombination(allSigns, comparison.RightValue, comparison.LeftValue, comparison.ComparisonSign.Revert());
 				}
+			}
+		}
+
+		private static void makeAllValuesAlwaysEqualToThemselves(HashSet<IConcept> allValues, Dictionary<IConcept, Dictionary<IConcept, HashSet<IConcept>>> allSigns)
+		{
+			foreach (var value in allValues)
+			{
+				setCombination(allSigns, value, value, SystemConcepts.IsEqualTo);
 			}
 		}
 
