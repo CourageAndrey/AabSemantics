@@ -9,7 +9,7 @@ namespace Inventor.Core.Utils
 	{
 		#region Properties
 
-		private readonly ICollection<T> collection;
+		private readonly ICollection<T> _collection;
 
 		public event EventHandler<ItemEventArgs<T>> ItemAdded;
 
@@ -30,11 +30,11 @@ namespace Inventor.Core.Utils
 
 		public IEnumerator<T> GetEnumerator()
 		{
-			return collection.GetEnumerator();
+			return _collection.GetEnumerator();
 		}
 
 		public Int32 Count
-		{ get { return collection.Count; } }
+		{ get { return _collection.Count; } }
 
 		public Boolean IsReadOnly
 		{ get { return false; } }
@@ -51,7 +51,7 @@ namespace Inventor.Core.Utils
 					return;
 				}
 			}
-			collection.Add(item);
+			_collection.Add(item);
 			Volatile.Read(ref ItemAdded)?.Invoke(this, new ItemEventArgs<T>(item));
 		}
 
@@ -73,8 +73,8 @@ namespace Inventor.Core.Utils
 			}
 			if (itemsWhichCanNotBeRemoved.Count == 0)
 			{
-				var copy = new List<T>(collection);
-				collection.Clear();
+				var copy = new List<T>(_collection);
+				_collection.Clear();
 				var afterHandler = Volatile.Read(ref ItemRemoved);
 				foreach (var item in copy)
 				{
@@ -89,12 +89,12 @@ namespace Inventor.Core.Utils
 
 		public Boolean Contains(T item)
 		{
-			return collection.Contains(item);
+			return _collection.Contains(item);
 		}
 
 		public void CopyTo(T[] array, Int32 arrayIndex)
 		{
-			collection.CopyTo(array, arrayIndex);
+			_collection.CopyTo(array, arrayIndex);
 		}
 
 		public Boolean Remove(T item)
@@ -109,7 +109,7 @@ namespace Inventor.Core.Utils
 					return false;
 				}
 			}
-			Boolean result = collection.Remove(item);
+			Boolean result = _collection.Remove(item);
 			Volatile.Read(ref ItemRemoved)?.Invoke(this, new ItemEventArgs<T>(item));
 			return result;
 		}
@@ -128,7 +128,7 @@ namespace Inventor.Core.Utils
 
 		private EventCollection(List<T> items)
 		{
-			collection = items;
+			_collection = items;
 		}
 
 		#endregion
