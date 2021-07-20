@@ -84,7 +84,34 @@ namespace Inventor.Core.Statements
 			else return false;
 		}
 
-		public static List<Contradiction> CheckForContradictions(IEnumerable<ComparisonStatement> statements)
+		internal static readonly ICollection<Tuple<IConcept, IConcept>> Contradictions = new List<Tuple<IConcept, IConcept>>
+		{
+			new Tuple<IConcept, IConcept>(SystemConcepts.IsEqualTo, SystemConcepts.IsNotEqualTo),
+			new Tuple<IConcept, IConcept>(SystemConcepts.IsEqualTo, SystemConcepts.IsGreaterThan),
+			new Tuple<IConcept, IConcept>(SystemConcepts.IsEqualTo, SystemConcepts.IsLessThan),
+			new Tuple<IConcept, IConcept>(SystemConcepts.IsGreaterThan, SystemConcepts.IsLessThan),
+			new Tuple<IConcept, IConcept>(SystemConcepts.IsGreaterThan, SystemConcepts.IsLessThanOrEqualTo),
+			new Tuple<IConcept, IConcept>(SystemConcepts.IsLessThan, SystemConcepts.IsGreaterThanOrEqualTo),
+		};
+
+		#endregion
+
+		public ComparisonStatement SwapOperandsToMatchOrder(ComparisonQuestion question)
+		{
+			return RightValue == question.LeftValue || LeftValue == question.RightValue
+				? SwapOperands()
+				: this;
+		}
+
+		public ComparisonStatement SwapOperands()
+		{
+			return new ComparisonStatement(leftValue: RightValue, rightValue: LeftValue, ComparisonSign.Revert());
+		}
+	}
+
+	public static class ComparisonStatementConsistency
+	{
+		public static List<Contradiction> CheckForContradictions(this IEnumerable<ComparisonStatement> statements)
 		{
 			var allValues = new HashSet<IConcept>();
 			var allSigns = new Dictionary<IConcept, Dictionary<IConcept, HashSet<IConcept>>>();
@@ -284,7 +311,7 @@ namespace Inventor.Core.Statements
 			{
 				foreach (var sign2 in signs)
 				{
-					if (Contradictions.Any(tuple =>
+					if (ComparisonStatement.Contradictions.Any(tuple =>
 						(tuple.Item1 == sign1 && tuple.Item2 == sign2) ||
 						(tuple.Item1 == sign2 && tuple.Item2 == sign1)))
 					{
@@ -293,30 +320,6 @@ namespace Inventor.Core.Statements
 				}
 			}
 			return false;
-		}
-
-		internal static readonly ICollection<Tuple<IConcept, IConcept>> Contradictions = new List<Tuple<IConcept, IConcept>>
-		{
-			new Tuple<IConcept, IConcept>(SystemConcepts.IsEqualTo, SystemConcepts.IsNotEqualTo),
-			new Tuple<IConcept, IConcept>(SystemConcepts.IsEqualTo, SystemConcepts.IsGreaterThan),
-			new Tuple<IConcept, IConcept>(SystemConcepts.IsEqualTo, SystemConcepts.IsLessThan),
-			new Tuple<IConcept, IConcept>(SystemConcepts.IsGreaterThan, SystemConcepts.IsLessThan),
-			new Tuple<IConcept, IConcept>(SystemConcepts.IsGreaterThan, SystemConcepts.IsLessThanOrEqualTo),
-			new Tuple<IConcept, IConcept>(SystemConcepts.IsLessThan, SystemConcepts.IsGreaterThanOrEqualTo),
-		};
-
-		#endregion
-
-		public ComparisonStatement SwapOperandsToMatchOrder(ComparisonQuestion question)
-		{
-			return RightValue == question.LeftValue || LeftValue == question.RightValue
-				? SwapOperands()
-				: this;
-		}
-
-		public ComparisonStatement SwapOperands()
-		{
-			return new ComparisonStatement(leftValue: RightValue, rightValue: LeftValue, ComparisonSign.Revert());
 		}
 	}
 }

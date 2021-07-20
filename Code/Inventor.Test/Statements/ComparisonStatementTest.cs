@@ -37,7 +37,7 @@ namespace Inventor.Test.Statements
 						statements[r] = statements[r].SwapOperands();
 					}
 
-					var contradictions = ComparisonStatement.CheckForContradictions(statements);
+					var contradictions = statements.CheckForContradictions();
 
 					// assert
 					Assert.AreEqual(0, contradictions.Count);
@@ -61,7 +61,7 @@ namespace Inventor.Test.Statements
 					new ComparisonStatement(concept1, concept2, sign),
 				};
 
-				var contradictions = ComparisonStatement.CheckForContradictions(statements);
+				var contradictions = statements.CheckForContradictions();
 
 				// assert
 				Assert.AreEqual(0, contradictions.Count);
@@ -84,7 +84,7 @@ namespace Inventor.Test.Statements
 					new ComparisonStatement(concept1, concept2, contradictedPair.Item2),
 				};
 
-				var contradictions = ComparisonStatement.CheckForContradictions(statements);
+				var contradictions = statements.CheckForContradictions();
 
 				// assert
 				var contradiction = contradictions.Single();
@@ -122,7 +122,7 @@ namespace Inventor.Test.Statements
 						statements.First().LeftValue,
 						sign));
 
-					var contradictions = ComparisonStatement.CheckForContradictions(statements);
+					var contradictions = statements.CheckForContradictions();
 
 					// assert
 					Assert.AreNotEqual(0, contradictions.Count);
@@ -153,7 +153,7 @@ namespace Inventor.Test.Statements
 					new ComparisonStatement(b, c, sign),
 				};
 
-				var contradictions = ComparisonStatement.CheckForContradictions(statements);
+				var contradictions = statements.CheckForContradictions();
 
 				// assert
 				Assert.AreNotEqual(0, contradictions.Count);
@@ -179,7 +179,7 @@ namespace Inventor.Test.Statements
 					new ComparisonStatement(value, value, sign),
 				};
 
-				var contradictions = ComparisonStatement.CheckForContradictions(statements);
+				var contradictions = statements.CheckForContradictions();
 
 				// assert
 				var contradiction = contradictions.Single();
