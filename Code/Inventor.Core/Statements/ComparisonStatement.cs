@@ -193,6 +193,85 @@ namespace Inventor.Core.Statements
 			return foundContradictions;
 		}
 
+		private static string display(
+			ICollection<IConcept> allValues,
+			IDictionary<IConcept, Dictionary<IConcept, HashSet<IConcept>>> allSigns)
+		{
+			var align = new Func<string, int, string>((text, lenght) => text.PadLeft(lenght, ' '));
+
+			var signSymbols = new Dictionary<IConcept, string>
+			{
+				{ SystemConcepts.IsEqualTo, "=" },
+				{ SystemConcepts.IsNotEqualTo, "≠" },
+				{ SystemConcepts.IsGreaterThanOrEqualTo, "≥" },
+				{ SystemConcepts.IsGreaterThan, ">" },
+				{ SystemConcepts.IsLessThanOrEqualTo, "≤" },
+				{ SystemConcepts.IsLessThan, "<" },
+			};
+
+			var headers = allValues.ToDictionary(
+				value => value,
+				value => value.Name.GetValue(Language.Default));
+			int headersMaxLength = headers.Values.Max(h => h.Length);
+
+			int signsMaxCount = int.MinValue;
+			foreach (var dictionary in allSigns.Values)
+			{
+				signsMaxCount = Math.Max(signsMaxCount, dictionary.Values.Max(list => list.Count));
+			}
+
+			int columnWidth = Math.Max(headersMaxLength, signsMaxCount);
+			string columnsHeader = string.Join("|", headers.Values.Select(h => align(h, columnWidth)));
+			string tableHeader = new string(' ', headersMaxLength) + "|" + columnsHeader;
+			string afterHeaderLine = new string(tableHeader.Select(c => c == '|' ? '+' : '-').ToArray());
+			string emptyLine = new string(columnsHeader.Select(c => c == '|' ? '|' : ' ').ToArray());
+			string emptyCell = new string(' ', columnWidth);
+
+			var matrix = new System.Text.StringBuilder();
+			matrix.AppendLine(tableHeader);
+			matrix.AppendLine(afterHeaderLine);
+
+			foreach (var value1 in allValues)
+			{
+				matrix.Append(align(headers[value1], headersMaxLength));
+				matrix.Append("|");
+
+				Dictionary<IConcept, HashSet<IConcept>> row;
+				if (allSigns.TryGetValue(value1, out row))
+				{
+					foreach (var value2 in allValues)
+					{
+						HashSet<IConcept> cellValue;
+						if (row.TryGetValue(value2, out cellValue))
+						{
+							matrix.Append(align(string.Join(string.Empty, cellValue.Select(s => signSymbols[s])), columnWidth));
+						}
+						else
+						{
+							matrix.Append(emptyCell);
+						}
+
+						if (allValues.Last() != value2)
+						{
+							matrix.Append("|");
+						}
+					}
+
+					if (allValues.Last() != value1)
+					{
+						matrix.Append("|");
+					}
+				}
+				else
+				{
+					matrix.Append(emptyLine);
+				}
+
+				matrix.AppendLine();
+			}
+			return matrix.ToString();
+		}
+
 		private static Boolean contradicts(ICollection<IConcept> signs)
 		{
 			foreach (var sign1 in signs)
