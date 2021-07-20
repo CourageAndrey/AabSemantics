@@ -164,24 +164,7 @@ namespace Inventor.Core.Statements
 				}
 			} while (combinationsUpdated);
 
-			var foundContradictions = new List<Contradiction>();
-			foreach (var leftCombinations in allSigns)
-			{
-				var left = leftCombinations.Key;
-				foreach (var rightCombinations in leftCombinations.Value)
-				{
-					var right = rightCombinations.Key;
-					var signs = rightCombinations.Value;
-					if (contradicts(signs) || (left == right && signs.Any(s => s != SystemConcepts.IsEqualTo)))
-					{
-						if (!foundContradictions.Any(c => c.Value1 == right && c.Value2 == left))
-						{
-							foundContradictions.Add(new Contradiction(left, right, signs));
-						}
-					}
-				}
-			}
-			return foundContradictions;
+			return findContradictionsInMatrix(allSigns);
 		}
 
 		private static void initializeValueMatrix(
@@ -211,6 +194,22 @@ namespace Inventor.Core.Statements
 			{
 				setCombination(allSigns, value, value, SystemConcepts.IsEqualTo);
 			}
+		}
+
+		private static List<Contradiction> findContradictionsInMatrix(Dictionary<IConcept, Dictionary<IConcept, HashSet<IConcept>>> allSigns)
+		{
+			var foundContradictions = new List<Contradiction>();
+			foreach (var leftCombinations in allSigns)
+			{
+				var left = leftCombinations.Key;
+				foreach (var rightCombinations in leftCombinations.Value)
+				{
+					var right = rightCombinations.Key;
+					var signs = rightCombinations.Value;
+					findContradictionsInCell(signs, left, right, foundContradictions);
+				}
+			}
+			return foundContradictions;
 		}
 
 		private static Boolean setCombination(Dictionary<IConcept, Dictionary<IConcept, HashSet<IConcept>>> allSigns, IConcept left, IConcept right, IConcept sign)
@@ -323,7 +322,18 @@ namespace Inventor.Core.Statements
 			return matrix.ToString();
 		}
 
-		private static Boolean contradicts(ICollection<IConcept> signs)
+		private static void findContradictionsInCell(HashSet<IConcept> signs, IConcept left, IConcept right, List<Contradiction> foundContradictions)
+		{
+			if (doesOneOrMoreContradictedSignsPairExist(signs) || doesValueContradictToItself(signs, left, right))
+			{
+				if (!foundContradictions.Any(c => c.Value1 == right && c.Value2 == left))
+				{
+					foundContradictions.Add(new Contradiction(left, right, signs));
+				}
+			}
+		}
+
+		private static Boolean doesOneOrMoreContradictedSignsPairExist(ICollection<IConcept> signs)
 		{
 			foreach (var sign1 in signs)
 			{
@@ -338,6 +348,11 @@ namespace Inventor.Core.Statements
 				}
 			}
 			return false;
+		}
+
+		private static Boolean doesValueContradictToItself(HashSet<IConcept> signs, IConcept left, IConcept right)
+		{
+			return left == right && signs.Any(s => s != SystemConcepts.IsEqualTo);
 		}
 	}
 }
