@@ -166,33 +166,39 @@ namespace Inventor.Core.Statements
 				{
 					if (row != column)
 					{
-						Dictionary<IConcept, HashSet<IConcept>> combinationsRow;
-						HashSet<IConcept> signsRow;
-						if (allSigns.TryGetValue(row, out combinationsRow) && combinationsRow.TryGetValue(column, out signsRow))
-						{
-							Dictionary<IConcept, HashSet<IConcept>> combinationsColumn;
-							if (allSigns.TryGetValue(row, out combinationsColumn))
-							{
-								foreach (var kvp in combinationsColumn)
-								{
-									var valueColumn = kvp.Key;
-									var signsColumn = kvp.Value;
+						combinationsUpdated |= updateInferredCombinationsFromCell(allSigns, row, column);
+					}
+				}
+			}
+			return combinationsUpdated;
+		}
 
-									foreach (var signRow in signsRow.ToList())
+		private static Boolean updateInferredCombinationsFromCell(Dictionary<IConcept, Dictionary<IConcept, HashSet<IConcept>>> allSigns, IConcept row, IConcept column)
+		{
+			Boolean combinationsUpdated = false;
+			Dictionary<IConcept, HashSet<IConcept>> combinationsRow;
+			HashSet<IConcept> signsRow;
+			if (allSigns.TryGetValue(row, out combinationsRow) && combinationsRow.TryGetValue(column, out signsRow))
+			{
+				Dictionary<IConcept, HashSet<IConcept>> combinationsColumn;
+				if (allSigns.TryGetValue(row, out combinationsColumn))
+				{
+					foreach (var kvp in combinationsColumn)
+					{
+						var valueColumn = kvp.Key;
+						var signsColumn = kvp.Value;
+
+						foreach (var signRow in signsRow.ToList())
+						{
+							foreach (var signColumn in signsColumn.ToList())
+							{
+								var resultSign = SystemConcepts.CompareThreeValues(signRow, signColumn);
+								if (resultSign != null)
+								{
+									combinationsUpdated |= setCombination(allSigns, row, valueColumn, resultSign);
+									if (resultSign != SystemConcepts.IsEqualTo && resultSign != SystemConcepts.IsNotEqualTo)
 									{
-										foreach (var signColumn in signsColumn.ToList())
-										{
-											var resultSign = SystemConcepts.CompareThreeValues(signRow, signColumn);
-											if (resultSign != null)
-											{
-												combinationsUpdated |= setCombination(allSigns, row, valueColumn, resultSign);
-												if (resultSign != SystemConcepts.IsEqualTo &&
-													resultSign != SystemConcepts.IsNotEqualTo)
-												{
-													combinationsUpdated |= setCombination(allSigns, valueColumn, row, resultSign.Revert());
-												}
-											}
-										}
+										combinationsUpdated |= setCombination(allSigns, valueColumn, row, resultSign.Revert());
 									}
 								}
 							}
