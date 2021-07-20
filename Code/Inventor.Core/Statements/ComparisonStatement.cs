@@ -122,46 +122,7 @@ namespace Inventor.Core.Statements
 			bool combinationsUpdated;
 			do
 			{
-				combinationsUpdated = false;
-				foreach (var row in allValues)
-				{
-					foreach (var column in allValues)
-					{
-						if (row != column)
-						{
-							Dictionary<IConcept, HashSet<IConcept>> combinationsRow;
-							HashSet<IConcept> signsRow;
-							if (allSigns.TryGetValue(row, out combinationsRow) && combinationsRow.TryGetValue(column, out signsRow))
-							{
-								Dictionary<IConcept, HashSet<IConcept>> combinationsColumn;
-								if (allSigns.TryGetValue(row, out combinationsColumn))
-								{
-									foreach (var kvp in combinationsColumn)
-									{
-										var valueColumn = kvp.Key;
-										var signsColumn = kvp.Value;
-
-										foreach (var signRow in signsRow.ToList())
-										{
-											foreach (var signColumn in signsColumn.ToList())
-											{
-												var resultSign = SystemConcepts.CompareThreeValues(signRow, signColumn);
-												if (resultSign != null)
-												{
-													combinationsUpdated |= setCombination(allSigns, row, valueColumn, resultSign);
-													if (resultSign != SystemConcepts.IsEqualTo && resultSign != SystemConcepts.IsNotEqualTo)
-													{
-														combinationsUpdated |= setCombination(allSigns, valueColumn, row, resultSign.Revert());
-													}
-												}
-											}
-										}
-									}
-								}
-							}
-						}
-					}
-				}
+				combinationsUpdated = updateInferredCombinations(allValues, allSigns);
 			} while (combinationsUpdated);
 
 			return findContradictionsInMatrix(allSigns);
@@ -194,6 +155,52 @@ namespace Inventor.Core.Statements
 			{
 				setCombination(allSigns, value, value, SystemConcepts.IsEqualTo);
 			}
+		}
+
+		private static Boolean updateInferredCombinations(HashSet<IConcept> allValues, Dictionary<IConcept, Dictionary<IConcept, HashSet<IConcept>>> allSigns)
+		{
+			Boolean combinationsUpdated = false;
+			foreach (var row in allValues)
+			{
+				foreach (var column in allValues)
+				{
+					if (row != column)
+					{
+						Dictionary<IConcept, HashSet<IConcept>> combinationsRow;
+						HashSet<IConcept> signsRow;
+						if (allSigns.TryGetValue(row, out combinationsRow) && combinationsRow.TryGetValue(column, out signsRow))
+						{
+							Dictionary<IConcept, HashSet<IConcept>> combinationsColumn;
+							if (allSigns.TryGetValue(row, out combinationsColumn))
+							{
+								foreach (var kvp in combinationsColumn)
+								{
+									var valueColumn = kvp.Key;
+									var signsColumn = kvp.Value;
+
+									foreach (var signRow in signsRow.ToList())
+									{
+										foreach (var signColumn in signsColumn.ToList())
+										{
+											var resultSign = SystemConcepts.CompareThreeValues(signRow, signColumn);
+											if (resultSign != null)
+											{
+												combinationsUpdated |= setCombination(allSigns, row, valueColumn, resultSign);
+												if (resultSign != SystemConcepts.IsEqualTo &&
+													resultSign != SystemConcepts.IsNotEqualTo)
+												{
+													combinationsUpdated |= setCombination(allSigns, valueColumn, row, resultSign.Revert());
+												}
+											}
+										}
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+			return combinationsUpdated;
 		}
 
 		private static List<Contradiction> findContradictionsInMatrix(Dictionary<IConcept, Dictionary<IConcept, HashSet<IConcept>>> allSigns)
