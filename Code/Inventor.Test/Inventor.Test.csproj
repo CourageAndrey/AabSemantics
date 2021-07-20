@@ -75,6 +75,8 @@
     <Compile Include="Statements\ParentChildTest.cs" />
     <Compile Include="Utils\EventCollectionTest.cs" />
     <Compile Include="Utils\XmlHelperTest.cs" />
+    <Compile Include="Xml\AttributesTest.cs" />
+    <Compile Include="Xml\SerializationTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Inventor.Client\Inventor.Client.csproj">
