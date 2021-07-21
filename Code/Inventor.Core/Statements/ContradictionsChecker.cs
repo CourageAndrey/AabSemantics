@@ -14,15 +14,19 @@ namespace Inventor.Core.Statements
 			_allValues = new HashSet<IConcept>();
 			_allSigns = new Dictionary<IConcept, Dictionary<IConcept, HashSet<IConcept>>>();
 
-			foreach (var comparison in statements)
+			foreach (var statement in statements)
 			{
-				_allValues.Add(comparison.LeftValue);
-				_allValues.Add(comparison.RightValue);
+				var leftValue = statement.LeftValue;
+				var rightValue = statement.RightValue;
+				var sign = statement.ComparisonSign;
 
-				setCombination(comparison.LeftValue, comparison.RightValue, comparison.ComparisonSign);
-				if (canBeReverted(comparison.ComparisonSign))
+				_allValues.Add(leftValue);
+				_allValues.Add(rightValue);
+
+				setCombination(leftValue, rightValue, sign);
+				if (canBeReverted(sign))
 				{
-					setCombination(comparison.RightValue, comparison.LeftValue, comparison.ComparisonSign.Revert());
+					setCombination(rightValue, leftValue, sign.Revert());
 				}
 			}
 		}
