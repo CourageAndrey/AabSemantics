@@ -113,7 +113,8 @@ namespace Inventor.Core.Statements
 	{
 		public static List<Contradiction> CheckForContradictions(this IEnumerable<ComparisonStatement> statements)
 		{
-			return new ContradictionsChecker(statements).CheckForContradictions();
+			var checker = new ComparisonStatementContradictionsChecker(statements);
+			return checker.CheckForContradictions();
 		}
 	}
 }
