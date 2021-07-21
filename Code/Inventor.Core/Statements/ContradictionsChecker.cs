@@ -19,22 +19,22 @@ namespace Inventor.Core.Statements
 				allValues.Add(comparison.LeftValue);
 				allValues.Add(comparison.RightValue);
 
-				setCombination(allSigns, comparison.LeftValue, comparison.RightValue, comparison.ComparisonSign);
+				setCombination(comparison.LeftValue, comparison.RightValue, comparison.ComparisonSign);
 				if (canBeReverted(comparison.ComparisonSign))
 				{
-					setCombination(allSigns, comparison.RightValue, comparison.LeftValue, comparison.ComparisonSign.Revert());
+					setCombination(comparison.RightValue, comparison.LeftValue, comparison.ComparisonSign.Revert());
 				}
 			}
 		}
 
 		public List<Contradiction> CheckForContradictions()
 		{
-			makeAllValuesAlwaysEqualToThemselves(allValues, allSigns);
+			makeAllValuesAlwaysEqualToThemselves();
 
-			while (updateInferredCombinations(allValues, allSigns))
+			while (updateInferredCombinations())
 			{ }
 
-			return findContradictionsInMatrix(allSigns);
+			return findContradictionsInMatrix();
 		}
 
 		private static Boolean canBeReverted(IConcept sign)
@@ -42,15 +42,15 @@ namespace Inventor.Core.Statements
 			return sign != SystemConcepts.IsEqualTo && sign != SystemConcepts.IsNotEqualTo;
 		}
 
-		private static void makeAllValuesAlwaysEqualToThemselves(HashSet<IConcept> allValues, Dictionary<IConcept, Dictionary<IConcept, HashSet<IConcept>>> allSigns)
+		private void makeAllValuesAlwaysEqualToThemselves()
 		{
 			foreach (var value in allValues)
 			{
-				setCombination(allSigns, value, value, SystemConcepts.IsEqualTo);
+				setCombination(value, value, SystemConcepts.IsEqualTo);
 			}
 		}
 
-		private static Boolean updateInferredCombinations(HashSet<IConcept> allValues, Dictionary<IConcept, Dictionary<IConcept, HashSet<IConcept>>> allSigns)
+		private Boolean updateInferredCombinations()
 		{
 			Boolean combinationsUpdated = false;
 			foreach (var row in allValues)
@@ -59,14 +59,14 @@ namespace Inventor.Core.Statements
 				{
 					if (row != column)
 					{
-						combinationsUpdated |= updateInferredCombinationsFromCell(allSigns, row, column);
+						combinationsUpdated |= updateInferredCombinationsFromCell(row, column);
 					}
 				}
 			}
 			return combinationsUpdated;
 		}
 
-		private static Boolean updateInferredCombinationsFromCell(Dictionary<IConcept, Dictionary<IConcept, HashSet<IConcept>>> allSigns, IConcept row, IConcept column)
+		private Boolean updateInferredCombinationsFromCell(IConcept row, IConcept column)
 		{
 			Dictionary<IConcept, HashSet<IConcept>> combinationsRow;
 			HashSet<IConcept> signsRow;
@@ -75,14 +75,13 @@ namespace Inventor.Core.Statements
 				Dictionary<IConcept, HashSet<IConcept>> combinationsColumn;
 				if (allSigns.TryGetValue(column, out combinationsColumn)) // if current value has comparisons with other values
 				{
-					return updateAllInferredCombinationsWithinCell(allSigns, row, combinationsColumn, signsRow);
+					return updateAllInferredCombinationsWithinCell(row, combinationsColumn, signsRow);
 				}
 			}
 			return false;
 		}
 
-		private static Boolean updateAllInferredCombinationsWithinCell(
-			Dictionary<IConcept, Dictionary<IConcept, HashSet<IConcept>>> allSigns,
+		private Boolean updateAllInferredCombinationsWithinCell(
 			IConcept row,
 			Dictionary<IConcept, HashSet<IConcept>> combinationsColumn,
 			HashSet<IConcept> signsRow)
@@ -97,17 +96,16 @@ namespace Inventor.Core.Statements
 				{
 					foreach (var signColumn in signsColumn.ToList())
 					{
-						combinationsUpdated |= tryToUpdateCombinations(allSigns, row, signRow, signColumn, valueColumn);
+						combinationsUpdated |= tryToUpdateCombinations(row, signRow, signColumn, valueColumn);
 					}
 				}
 			}
 			return combinationsUpdated;
 		}
 
-		private static Boolean tryToUpdateCombinations(
-			Dictionary<IConcept, Dictionary<IConcept, HashSet<IConcept>>> allSigns,
+		private Boolean tryToUpdateCombinations(
 			IConcept row,
-			IConcept signRow, 
+			IConcept signRow,
 			IConcept signColumn,
 			IConcept valueColumn)
 		{
@@ -116,17 +114,17 @@ namespace Inventor.Core.Statements
 			var resultSign = SystemConcepts.CompareThreeValues(signRow, signColumn);
 			if (resultSign != null)
 			{
-				combinationsUpdated |= setCombination(allSigns, row, valueColumn, resultSign);
+				combinationsUpdated |= setCombination(row, valueColumn, resultSign);
 				if (canBeReverted(resultSign))
 				{
-					combinationsUpdated |= setCombination(allSigns, valueColumn, row, resultSign.Revert());
+					combinationsUpdated |= setCombination(valueColumn, row, resultSign.Revert());
 				}
 			}
 
 			return combinationsUpdated;
 		}
 
-		private static List<Contradiction> findContradictionsInMatrix(Dictionary<IConcept, Dictionary<IConcept, HashSet<IConcept>>> allSigns)
+		private List<Contradiction> findContradictionsInMatrix()
 		{
 			var foundContradictions = new List<Contradiction>();
 			foreach (var leftCombinations in allSigns)
@@ -142,7 +140,7 @@ namespace Inventor.Core.Statements
 			return foundContradictions;
 		}
 
-		private static Boolean setCombination(Dictionary<IConcept, Dictionary<IConcept, HashSet<IConcept>>> allSigns, IConcept left, IConcept right, IConcept sign)
+		private Boolean setCombination(IConcept left, IConcept right, IConcept sign)
 		{
 			Boolean updated = false;
 
