@@ -177,37 +177,61 @@ namespace Inventor.Core.Statements
 
 		private static Boolean updateInferredCombinationsFromCell(Dictionary<IConcept, Dictionary<IConcept, HashSet<IConcept>>> allSigns, IConcept row, IConcept column)
 		{
-			Boolean combinationsUpdated = false;
 			Dictionary<IConcept, HashSet<IConcept>> combinationsRow;
 			HashSet<IConcept> signsRow;
-			if (allSigns.TryGetValue(row, out combinationsRow) && combinationsRow.TryGetValue(column, out signsRow))
+			if (allSigns.TryGetValue(row, out combinationsRow) && combinationsRow.TryGetValue(column, out signsRow)) // if value in current cell is set
 			{
 				Dictionary<IConcept, HashSet<IConcept>> combinationsColumn;
-				if (allSigns.TryGetValue(column, out combinationsColumn))
+				if (allSigns.TryGetValue(column, out combinationsColumn)) // if current value has comparisons with other values
 				{
-					foreach (var kvp in combinationsColumn)
-					{
-						var valueColumn = kvp.Key;
-						var signsColumn = kvp.Value;
+					return updateAllInferredCombinationsWithinCell(allSigns, row, combinationsColumn, signsRow);
+				}
+			}
+			return false;
+		}
 
-						foreach (var signRow in signsRow.ToList())
-						{
-							foreach (var signColumn in signsColumn.ToList())
-							{
-								var resultSign = SystemConcepts.CompareThreeValues(signRow, signColumn);
-								if (resultSign != null)
-								{
-									combinationsUpdated |= setCombination(allSigns, row, valueColumn, resultSign);
-									if (canBeReverted(resultSign))
-									{
-										combinationsUpdated |= setCombination(allSigns, valueColumn, row, resultSign.Revert());
-									}
-								}
-							}
-						}
+		private static Boolean updateAllInferredCombinationsWithinCell(
+			Dictionary<IConcept, Dictionary<IConcept, HashSet<IConcept>>> allSigns,
+			IConcept row,
+			Dictionary<IConcept, HashSet<IConcept>> combinationsColumn,
+			HashSet<IConcept> signsRow)
+		{
+			Boolean combinationsUpdated = false;
+			foreach (var kvp in combinationsColumn)
+			{
+				var valueColumn = kvp.Key;
+				var signsColumn = kvp.Value;
+
+				foreach (var signRow in signsRow.ToList())
+				{
+					foreach (var signColumn in signsColumn.ToList())
+					{
+						combinationsUpdated |= tryToUpdateCombinations(allSigns, row, signRow, signColumn, valueColumn);
 					}
 				}
 			}
+			return combinationsUpdated;
+		}
+
+		private static Boolean tryToUpdateCombinations(
+			Dictionary<IConcept, Dictionary<IConcept, HashSet<IConcept>>> allSigns,
+			IConcept row,
+			IConcept signRow, 
+			IConcept signColumn,
+			IConcept valueColumn)
+		{
+			Boolean combinationsUpdated = false;
+
+			var resultSign = SystemConcepts.CompareThreeValues(signRow, signColumn);
+			if (resultSign != null)
+			{
+				combinationsUpdated |= setCombination(allSigns, row, valueColumn, resultSign);
+				if (canBeReverted(resultSign))
+				{
+					combinationsUpdated |= setCombination(allSigns, valueColumn, row, resultSign.Revert());
+				}
+			}
+
 			return combinationsUpdated;
 		}
 
