@@ -7,13 +7,13 @@ namespace Inventor.Core.Statements
 	public abstract class ContradictionsChecker<StatementT>
 		where StatementT : IStatement
 	{
-		private readonly HashSet<IConcept> _allValues; // all unique involved values
-		private readonly Dictionary<IConcept, Dictionary<IConcept, HashSet<IConcept>>> _allSigns; // matrix of known signs
+		protected readonly HashSet<IConcept> AllValues; // all unique involved values
+		protected readonly Dictionary<IConcept, Dictionary<IConcept, HashSet<IConcept>>> AllSigns; // matrix of known signs
 
 		protected ContradictionsChecker(IEnumerable<StatementT> statements)
 		{
-			_allValues = new HashSet<IConcept>();
-			_allSigns = new Dictionary<IConcept, Dictionary<IConcept, HashSet<IConcept>>>();
+			AllValues = new HashSet<IConcept>();
+			AllSigns = new Dictionary<IConcept, Dictionary<IConcept, HashSet<IConcept>>>();
 
 			foreach (var statement in statements)
 			{
@@ -21,8 +21,8 @@ namespace Inventor.Core.Statements
 				var rightValue = GetRightValue(statement);
 				var sign = GetSign(statement);
 
-				_allValues.Add(leftValue);
-				_allValues.Add(rightValue);
+				AllValues.Add(leftValue);
+				AllValues.Add(rightValue);
 
 				setCombination(leftValue, rightValue, sign);
 				if (canBeReverted(sign))
@@ -55,7 +55,7 @@ namespace Inventor.Core.Statements
 
 		private void makeAllValuesAlwaysEqualToThemselves()
 		{
-			foreach (var value in _allValues)
+			foreach (var value in AllValues)
 			{
 				setCombination(value, value, SystemConcepts.IsEqualTo);
 			}
@@ -64,9 +64,9 @@ namespace Inventor.Core.Statements
 		private Boolean updateInferredCombinations()
 		{
 			Boolean combinationsUpdated = false;
-			foreach (var row in _allValues)
+			foreach (var row in AllValues)
 			{
-				foreach (var column in _allValues)
+				foreach (var column in AllValues)
 				{
 					if (row != column)
 					{
@@ -81,10 +81,10 @@ namespace Inventor.Core.Statements
 		{
 			Dictionary<IConcept, HashSet<IConcept>> combinationsRow;
 			HashSet<IConcept> signsRow;
-			if (_allSigns.TryGetValue(row, out combinationsRow) && combinationsRow.TryGetValue(column, out signsRow)) // if value in current cell is set
+			if (AllSigns.TryGetValue(row, out combinationsRow) && combinationsRow.TryGetValue(column, out signsRow)) // if value in current cell is set
 			{
 				Dictionary<IConcept, HashSet<IConcept>> combinationsColumn;
-				if (_allSigns.TryGetValue(column, out combinationsColumn)) // if current value has comparisons with other values
+				if (AllSigns.TryGetValue(column, out combinationsColumn)) // if current value has comparisons with other values
 				{
 					return updateAllInferredCombinationsWithinCell(row, combinationsColumn, signsRow);
 				}
@@ -138,7 +138,7 @@ namespace Inventor.Core.Statements
 		private List<Contradiction> findContradictionsInMatrix()
 		{
 			var foundContradictions = new List<Contradiction>();
-			foreach (var leftCombinations in _allSigns)
+			foreach (var leftCombinations in AllSigns)
 			{
 				var left = leftCombinations.Key;
 				foreach (var rightCombinations in leftCombinations.Value)
@@ -157,9 +157,9 @@ namespace Inventor.Core.Statements
 
 			// get "row" using LEFT value as key, return true if row is added
 			Dictionary<IConcept, HashSet<IConcept>> combinations;
-			if (!_allSigns.TryGetValue(left, out combinations))
+			if (!AllSigns.TryGetValue(left, out combinations))
 			{
-				_allSigns[left] = combinations = new Dictionary<IConcept, HashSet<IConcept>>();
+				AllSigns[left] = combinations = new Dictionary<IConcept, HashSet<IConcept>>();
 				updated = true;
 			}
 
@@ -196,13 +196,13 @@ namespace Inventor.Core.Statements
 				{ SystemConcepts.IsLessThan, "<" },
 			};
 
-			var headers = _allValues.ToDictionary(
+			var headers = AllValues.ToDictionary(
 				value => value,
 				value => value.Name.GetValue(Localization.Language.Default));
 			int headersMaxLength = headers.Values.Max(h => h.Length);
 
 			int signsMaxCount = int.MinValue;
-			foreach (var dictionary in _allSigns.Values)
+			foreach (var dictionary in AllSigns.Values)
 			{
 				signsMaxCount = Math.Max(signsMaxCount, dictionary.Values.Max(list => list.Count));
 			}
@@ -218,15 +218,15 @@ namespace Inventor.Core.Statements
 			matrix.AppendLine(tableHeader);
 			matrix.AppendLine(afterHeaderLine);
 
-			foreach (var value1 in _allValues)
+			foreach (var value1 in AllValues)
 			{
 				matrix.Append(align(headers[value1], headersMaxLength));
 				matrix.Append("|");
 
 				Dictionary<IConcept, HashSet<IConcept>> row;
-				if (_allSigns.TryGetValue(value1, out row))
+				if (AllSigns.TryGetValue(value1, out row))
 				{
-					foreach (var value2 in _allValues)
+					foreach (var value2 in AllValues)
 					{
 						HashSet<IConcept> cellValue;
 						if (row.TryGetValue(value2, out cellValue))
@@ -238,13 +238,13 @@ namespace Inventor.Core.Statements
 							matrix.Append(emptyCell);
 						}
 
-						if (_allValues.Last() != value2)
+						if (AllValues.Last() != value2)
 						{
 							matrix.Append("|");
 						}
 					}
 
-					if (_allValues.Last() != value1)
+					if (AllValues.Last() != value1)
 					{
 						matrix.Append("|");
 					}
