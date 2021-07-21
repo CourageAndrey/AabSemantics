@@ -139,11 +139,16 @@ namespace Inventor.Core.Statements
 				allValues.Add(comparison.RightValue);
 
 				setCombination(allSigns, comparison.LeftValue, comparison.RightValue, comparison.ComparisonSign);
-				if (comparison.ComparisonSign != SystemConcepts.IsEqualTo && comparison.ComparisonSign != SystemConcepts.IsNotEqualTo)
+				if (canBeReverted(comparison.ComparisonSign))
 				{
 					setCombination(allSigns, comparison.RightValue, comparison.LeftValue, comparison.ComparisonSign.Revert());
 				}
 			}
+		}
+
+		private static Boolean canBeReverted(IConcept sign)
+		{
+			return sign != SystemConcepts.IsEqualTo && sign != SystemConcepts.IsNotEqualTo;
 		}
 
 		private static void makeAllValuesAlwaysEqualToThemselves(HashSet<IConcept> allValues, Dictionary<IConcept, Dictionary<IConcept, HashSet<IConcept>>> allSigns)
@@ -193,7 +198,7 @@ namespace Inventor.Core.Statements
 								if (resultSign != null)
 								{
 									combinationsUpdated |= setCombination(allSigns, row, valueColumn, resultSign);
-									if (resultSign != SystemConcepts.IsEqualTo && resultSign != SystemConcepts.IsNotEqualTo)
+									if (canBeReverted(resultSign))
 									{
 										combinationsUpdated |= setCombination(allSigns, valueColumn, row, resultSign.Revert());
 									}
