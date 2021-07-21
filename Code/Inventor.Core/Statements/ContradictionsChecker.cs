@@ -4,21 +4,22 @@ using System.Linq;
 
 namespace Inventor.Core.Statements
 {
-	public class ContradictionsChecker
+	public abstract class ContradictionsChecker<StatementT>
+		where StatementT : IStatement
 	{
 		private readonly HashSet<IConcept> _allValues; // all unique involved values
 		private readonly Dictionary<IConcept, Dictionary<IConcept, HashSet<IConcept>>> _allSigns; // matrix of known signs
 
-		public ContradictionsChecker(IEnumerable<ComparisonStatement> statements)
+		protected ContradictionsChecker(IEnumerable<StatementT> statements)
 		{
 			_allValues = new HashSet<IConcept>();
 			_allSigns = new Dictionary<IConcept, Dictionary<IConcept, HashSet<IConcept>>>();
 
 			foreach (var statement in statements)
 			{
-				var leftValue = statement.LeftValue;
-				var rightValue = statement.RightValue;
-				var sign = statement.ComparisonSign;
+				var leftValue = GetLeftValue(statement);
+				var rightValue = GetRightValue(statement);
+				var sign = GetSign(statement);
 
 				_allValues.Add(leftValue);
 				_allValues.Add(rightValue);
@@ -30,6 +31,12 @@ namespace Inventor.Core.Statements
 				}
 			}
 		}
+
+		protected abstract IConcept GetLeftValue(StatementT statement);
+
+		protected abstract IConcept GetRightValue(StatementT statement);
+
+		protected abstract IConcept GetSign(StatementT statement);
 
 		public List<Contradiction> CheckForContradictions()
 		{
@@ -283,6 +290,28 @@ namespace Inventor.Core.Statements
 		private static Boolean doesValueContradictToItself(HashSet<IConcept> signs, IConcept left, IConcept right)
 		{
 			return left == right && signs.Any(s => s != SystemConcepts.IsEqualTo);
+		}
+	}
+
+	public class ComparisonStatementContradictionsChecker : ContradictionsChecker<ComparisonStatement>
+	{
+		public ComparisonStatementContradictionsChecker(IEnumerable<ComparisonStatement> statements)
+			: base(statements)
+		{ }
+
+		protected override IConcept GetLeftValue(ComparisonStatement statement)
+		{
+			return statement.LeftValue;
+		}
+
+		protected override IConcept GetRightValue(ComparisonStatement statement)
+		{
+			return statement.RightValue;
+		}
+
+		protected override IConcept GetSign(ComparisonStatement statement)
+		{
+			return statement.ComparisonSign;
 		}
 	}
 }
