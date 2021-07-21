@@ -36,6 +36,8 @@ namespace Inventor.Core.Statements
 
 		protected abstract Boolean SetCombinationWithDescendants(IConcept leftValue, IConcept rightValue, IConcept sign);
 
+		protected abstract Boolean Contradicts(HashSet<IConcept> signs, IConcept left, IConcept right);
+
 		public List<Contradiction> CheckForContradictions()
 		{
 			while (updateInferredCombinations())
@@ -231,37 +233,15 @@ namespace Inventor.Core.Statements
 			return matrix.ToString();
 		}*/
 
-		private static void findContradictionsInCell(HashSet<IConcept> signs, IConcept left, IConcept right, List<Contradiction> foundContradictions)
+		private void findContradictionsInCell(HashSet<IConcept> signs, IConcept left, IConcept right, List<Contradiction> foundContradictions)
 		{
-			if (doesOneOrMoreContradictedSignsPairExist(signs) || doesValueContradictToItself(signs, left, right))
+			if (Contradicts(signs, left, right))
 			{
 				if (!foundContradictions.Any(c => c.Value1 == right && c.Value2 == left))
 				{
 					foundContradictions.Add(new Contradiction(left, right, signs));
 				}
 			}
-		}
-
-		private static Boolean doesOneOrMoreContradictedSignsPairExist(ICollection<IConcept> signs)
-		{
-			foreach (var sign1 in signs)
-			{
-				foreach (var sign2 in signs)
-				{
-					if (ComparisonStatement.Contradictions.Any(tuple =>
-						(tuple.Item1 == sign1 && tuple.Item2 == sign2) ||
-						(tuple.Item1 == sign2 && tuple.Item2 == sign1)))
-					{
-						return true;
-					}
-				}
-			}
-			return false;
-		}
-
-		private static Boolean doesValueContradictToItself(HashSet<IConcept> signs, IConcept left, IConcept right)
-		{
-			return left == right && signs.Any(s => s != SystemConcepts.IsEqualTo);
 		}
 	}
 
@@ -298,6 +278,11 @@ namespace Inventor.Core.Statements
 			return combinationsUpdated;
 		}
 
+		protected override Boolean Contradicts(HashSet<IConcept> signs, IConcept left, IConcept right)
+		{
+			return doesOneOrMoreContradictedSignsPairExist(signs) || doesValueContradictToItself(signs, left, right);
+		}
+
 		private static Boolean canBeReverted(IConcept sign)
 		{
 			return sign != SystemConcepts.IsEqualTo && sign != SystemConcepts.IsNotEqualTo;
@@ -309,6 +294,28 @@ namespace Inventor.Core.Statements
 			{
 				SetCombination(value, value, SystemConcepts.IsEqualTo);
 			}
+		}
+
+		private static Boolean doesOneOrMoreContradictedSignsPairExist(ICollection<IConcept> signs)
+		{
+			foreach (var sign1 in signs)
+			{
+				foreach (var sign2 in signs)
+				{
+					if (ComparisonStatement.Contradictions.Any(tuple =>
+						(tuple.Item1 == sign1 && tuple.Item2 == sign2) ||
+						(tuple.Item1 == sign2 && tuple.Item2 == sign1)))
+					{
+						return true;
+					}
+				}
+			}
+			return false;
+		}
+
+		private static Boolean doesValueContradictToItself(HashSet<IConcept> signs, IConcept left, IConcept right)
+		{
+			return left == right && signs.Any(s => s != SystemConcepts.IsEqualTo);
 		}
 	}
 }
