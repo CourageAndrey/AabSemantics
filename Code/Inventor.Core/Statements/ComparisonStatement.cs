@@ -282,7 +282,7 @@ namespace Inventor.Core.Statements
 			return updated;
 		}
 
-		private static string display(
+		/*private static string display(
 			ICollection<IConcept> allValues,
 			IDictionary<IConcept, Dictionary<IConcept, HashSet<IConcept>>> allSigns)
 		{
@@ -359,7 +359,7 @@ namespace Inventor.Core.Statements
 				matrix.AppendLine();
 			}
 			return matrix.ToString();
-		}
+		}*/
 
 		private static void findContradictionsInCell(HashSet<IConcept> signs, IConcept left, IConcept right, List<Contradiction> foundContradictions)
 		{
