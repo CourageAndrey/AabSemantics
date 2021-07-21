@@ -24,11 +24,7 @@ namespace Inventor.Core.Statements
 				AllValues.Add(leftValue);
 				AllValues.Add(rightValue);
 
-				setCombination(leftValue, rightValue, sign);
-				if (canBeReverted(sign))
-				{
-					setCombination(rightValue, leftValue, sign.Revert());
-				}
+				SetCombinationWithDescendants(leftValue, rightValue, sign);
 			}
 		}
 
@@ -38,27 +34,14 @@ namespace Inventor.Core.Statements
 
 		protected abstract IConcept GetSign(StatementT statement);
 
+		protected abstract Boolean SetCombinationWithDescendants(IConcept leftValue, IConcept rightValue, IConcept sign);
+
 		public List<Contradiction> CheckForContradictions()
 		{
-			makeAllValuesAlwaysEqualToThemselves();
-
 			while (updateInferredCombinations())
 			{ }
 
 			return findContradictionsInMatrix();
-		}
-
-		private static Boolean canBeReverted(IConcept sign)
-		{
-			return sign != SystemConcepts.IsEqualTo && sign != SystemConcepts.IsNotEqualTo;
-		}
-
-		private void makeAllValuesAlwaysEqualToThemselves()
-		{
-			foreach (var value in AllValues)
-			{
-				setCombination(value, value, SystemConcepts.IsEqualTo);
-			}
 		}
 
 		private Boolean updateInferredCombinations()
@@ -120,19 +103,8 @@ namespace Inventor.Core.Statements
 			IConcept signColumn,
 			IConcept valueColumn)
 		{
-			Boolean combinationsUpdated = false;
-
 			var resultSign = SystemConcepts.CompareThreeValues(signRow, signColumn);
-			if (resultSign != null)
-			{
-				combinationsUpdated |= setCombination(row, valueColumn, resultSign);
-				if (canBeReverted(resultSign))
-				{
-					combinationsUpdated |= setCombination(valueColumn, row, resultSign.Revert());
-				}
-			}
-
-			return combinationsUpdated;
+			return resultSign != null && SetCombinationWithDescendants(row, valueColumn, resultSign);
 		}
 
 		private List<Contradiction> findContradictionsInMatrix()
@@ -151,7 +123,7 @@ namespace Inventor.Core.Statements
 			return foundContradictions;
 		}
 
-		private Boolean setCombination(IConcept left, IConcept right, IConcept sign)
+		protected Boolean SetCombination(IConcept left, IConcept right, IConcept sign)
 		{
 			Boolean updated = false;
 
@@ -297,7 +269,9 @@ namespace Inventor.Core.Statements
 	{
 		public ComparisonStatementContradictionsChecker(IEnumerable<ComparisonStatement> statements)
 			: base(statements)
-		{ }
+		{
+			makeAllValuesAlwaysEqualToThemselves();
+		}
 
 		protected override IConcept GetLeftValue(ComparisonStatement statement)
 		{
@@ -312,6 +286,29 @@ namespace Inventor.Core.Statements
 		protected override IConcept GetSign(ComparisonStatement statement)
 		{
 			return statement.ComparisonSign;
+		}
+
+		protected override Boolean SetCombinationWithDescendants(IConcept leftValue, IConcept rightValue, IConcept sign)
+		{
+			Boolean combinationsUpdated = SetCombination(leftValue, rightValue, sign);
+			if (canBeReverted(sign))
+			{
+				combinationsUpdated |= SetCombination(rightValue, leftValue, sign.Revert());
+			}
+			return combinationsUpdated;
+		}
+
+		private static Boolean canBeReverted(IConcept sign)
+		{
+			return sign != SystemConcepts.IsEqualTo && sign != SystemConcepts.IsNotEqualTo;
+		}
+
+		private void makeAllValuesAlwaysEqualToThemselves()
+		{
+			foreach (var value in AllValues)
+			{
+				SetCombination(value, value, SystemConcepts.IsEqualTo);
+			}
 		}
 	}
 }
