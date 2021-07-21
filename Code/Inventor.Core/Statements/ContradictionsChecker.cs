@@ -318,4 +318,70 @@ namespace Inventor.Core.Statements
 			return left == right && signs.Any(s => s != SystemConcepts.IsEqualTo);
 		}
 	}
+
+	public class ProcessesStatementContradictionsChecker : ContradictionsChecker<ProcessesStatement>
+	{
+		public ProcessesStatementContradictionsChecker(IEnumerable<ProcessesStatement> statements)
+			: base(statements)
+		{ }
+
+		protected override IConcept GetLeftValue(ProcessesStatement statement)
+		{
+			return statement.ProcessA;
+		}
+
+		protected override IConcept GetRightValue(ProcessesStatement statement)
+		{
+			return statement.ProcessB;
+		}
+
+		protected override IConcept GetSign(ProcessesStatement statement)
+		{
+			return statement.SequenceSign;
+		}
+
+		protected override Boolean SetCombinationWithDescendants(IConcept leftValue, IConcept rightValue, IConcept sign)
+		{
+			Boolean combinationsUpdated = SetCombination(leftValue, rightValue, sign);
+			combinationsUpdated |= SetCombination(rightValue, leftValue, sign.Revert());
+			return combinationsUpdated;
+		}
+
+		protected override Boolean Contradicts(HashSet<IConcept> signs, IConcept left, IConcept right)
+		{
+			if (signs.Contains(SystemConcepts.Causes) && signs.Contains(SystemConcepts.IsCausedBy))
+			{
+				return true;
+			}
+
+			if (signs.Contains(SystemConcepts.StartsBeforeOtherStarted) && signs.Contains(SystemConcepts.StartsAfterOtherFinished))
+			{
+				return true;
+			}
+
+			var foundStartSigns = signs.Where(s => startSigns.Contains(s)).ToList();
+			var foundFinishSigns = signs.Where(s => finishSigns.Contains(s)).ToList();
+			return foundStartSigns.Count > 1 || foundFinishSigns.Count > 1;
+		}
+
+		private static readonly ICollection<IConcept> startSigns = new HashSet<IConcept>
+		{
+			SystemConcepts.StartsAfterOtherStarted,
+			SystemConcepts.StartsWhenOtherStarted,
+			SystemConcepts.StartsBeforeOtherStarted,
+			SystemConcepts.StartsAfterOtherFinished,
+			SystemConcepts.StartsWhenOtherFinished,
+			SystemConcepts.StartsBeforeOtherFinished,
+		};
+
+		private static readonly ICollection<IConcept> finishSigns = new HashSet<IConcept>
+		{
+			SystemConcepts.FinishesAfterOtherFinished,
+			SystemConcepts.FinishesWhenOtherFinished,
+			SystemConcepts.FinishesBeforeOtherFinished,
+			SystemConcepts.FinishesAfterOtherStarted,
+			SystemConcepts.FinishesWhenOtherStarted,
+			SystemConcepts.FinishesBeforeOtherStarted,
+		};
+	}
 }
