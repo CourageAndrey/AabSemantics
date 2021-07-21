@@ -178,7 +178,7 @@ namespace Inventor.Core.Statements
 			if (allSigns.TryGetValue(row, out combinationsRow) && combinationsRow.TryGetValue(column, out signsRow))
 			{
 				Dictionary<IConcept, HashSet<IConcept>> combinationsColumn;
-				if (allSigns.TryGetValue(row, out combinationsColumn))
+				if (allSigns.TryGetValue(column, out combinationsColumn))
 				{
 					foreach (var kvp in combinationsColumn)
 					{
