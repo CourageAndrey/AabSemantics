@@ -4,26 +4,12 @@ using System.Linq;
 
 namespace Inventor.Core.Statements
 {
-	public static class ContradictionsChecker
+	public class ContradictionsChecker
 	{
-		public static List<Contradiction> CheckForContradictions(IEnumerable<ComparisonStatement> statements)
-		{
-			HashSet<IConcept> allValues; // all unique involved values
-			Dictionary<IConcept, Dictionary<IConcept, HashSet<IConcept>>> allSigns; // matrix of known signs
-			initializeValueMatrix(statements, out allValues, out allSigns);
+		private readonly HashSet<IConcept> allValues; // all unique involved values
+		private readonly Dictionary<IConcept, Dictionary<IConcept, HashSet<IConcept>>> allSigns; // matrix of known signs
 
-			makeAllValuesAlwaysEqualToThemselves(allValues, allSigns);
-
-			while (updateInferredCombinations(allValues, allSigns))
-			{ }
-
-			return findContradictionsInMatrix(allSigns);
-		}
-
-		private static void initializeValueMatrix(
-			IEnumerable<ComparisonStatement> statements,
-			out HashSet<IConcept> allValues,
-			out Dictionary<IConcept, Dictionary<IConcept, HashSet<IConcept>>> allSigns)
+		public ContradictionsChecker(IEnumerable<ComparisonStatement> statements)
 		{
 			allValues = new HashSet<IConcept>();
 			allSigns = new Dictionary<IConcept, Dictionary<IConcept, HashSet<IConcept>>>();
@@ -39,6 +25,16 @@ namespace Inventor.Core.Statements
 					setCombination(allSigns, comparison.RightValue, comparison.LeftValue, comparison.ComparisonSign.Revert());
 				}
 			}
+		}
+
+		public List<Contradiction> CheckForContradictions()
+		{
+			makeAllValuesAlwaysEqualToThemselves(allValues, allSigns);
+
+			while (updateInferredCombinations(allValues, allSigns))
+			{ }
+
+			return findContradictionsInMatrix(allSigns);
 		}
 
 		private static Boolean canBeReverted(IConcept sign)
