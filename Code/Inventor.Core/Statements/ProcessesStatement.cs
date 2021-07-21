@@ -84,7 +84,24 @@ namespace Inventor.Core.Statements
 			else return false;
 		}
 
-		public static List<Contradiction> CheckForContradictions(IEnumerable<ProcessesStatement> statements)
+		#endregion
+
+		public ProcessesStatement SwapOperandsToMatchOrder(ProcessesQuestion question)
+		{
+			return ProcessA == question.ProcessB || ProcessB == question.ProcessA
+				? SwapOperands()
+				: this;
+		}
+
+		public ProcessesStatement SwapOperands()
+		{
+			return new ProcessesStatement(processA: ProcessB, processB: ProcessA, SequenceSign.Revert());
+		}
+	}
+
+	public static class ProcessesStatementConsistency
+	{
+		public static List<Contradiction> CheckForContradictions(this IEnumerable<ProcessesStatement> statements)
 		{
 			var allProcesses = new HashSet<IConcept>();
 			var allSigns = new Dictionary<IConcept, Dictionary<IConcept, HashSet<IConcept>>>();
@@ -223,19 +240,5 @@ namespace Inventor.Core.Statements
 			SystemConcepts.FinishesWhenOtherStarted,
 			SystemConcepts.FinishesBeforeOtherStarted,
 		};
-
-		#endregion
-
-		public ProcessesStatement SwapOperandsToMatchOrder(ProcessesQuestion question)
-		{
-			return ProcessA == question.ProcessB || ProcessB == question.ProcessA
-				? SwapOperands()
-				: this;
-		}
-
-		public ProcessesStatement SwapOperands()
-		{
-			return new ProcessesStatement(processA: ProcessB, processB: ProcessA, SequenceSign.Revert());
-		}
 	}
 }
