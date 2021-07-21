@@ -87,11 +87,10 @@ namespace Inventor.Test.Statements
 				var contradictions = statements.CheckForContradictions();
 
 				// assert
-				var contradiction = contradictions.Single();
-				Assert.AreNotSame(contradiction.Value1, contradiction.Value2);
+				var contradiction = contradictions.First(c => c.Value1 != c.Value2);
 				Assert.IsTrue(contradiction.Value1 == concept1 || contradiction.Value1 == concept2);
 				Assert.IsTrue(contradiction.Value2 == concept1 || contradiction.Value2 == concept2);
-				Assert.AreEqual(2, contradiction.Signs.Count);
+				Assert.LessOrEqual(2, contradiction.Signs.Count);
 				Assert.IsTrue(contradiction.Signs.Contains(contradictedPair.Item1));
 				Assert.IsTrue(contradiction.Signs.Contains(contradictedPair.Item2));
 			}
