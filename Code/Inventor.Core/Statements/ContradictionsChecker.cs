@@ -156,7 +156,7 @@ namespace Inventor.Core.Statements
 			return updated;
 		}
 
-		/*private string display()
+		/*protected string Display()
 		{
 			var align = new Func<string, int, string>((text, lenght) => text.PadLeft(lenght, ' '));
 
@@ -168,6 +168,21 @@ namespace Inventor.Core.Statements
 				{ SystemConcepts.IsGreaterThan, ">" },
 				{ SystemConcepts.IsLessThanOrEqualTo, "≤" },
 				{ SystemConcepts.IsLessThan, "<" },
+				{ StartsAfterOtherStarted, "SAS," },
+				{ StartsWhenOtherStarted, "SWS," },
+				{ StartsBeforeOtherStarted, "SBS," },
+				{ FinishesAfterOtherStarted, "FAS," },
+				{ FinishesWhenOtherStarted, "FWS," },
+				{ FinishesBeforeOtherStarted, "FBS," },
+				{ StartsAfterOtherFinished, "SAF," },
+				{ StartsWhenOtherFinished, "SWF," },
+				{ StartsBeforeOtherFinished, "SBF," },
+				{ FinishesAfterOtherFinished, "FAF," },
+				{ FinishesWhenOtherFinished, "FWF," },
+				{ FinishesBeforeOtherFinished, "FBF," },
+				{ Causes, "CCC," },
+				{ IsCausedBy, "ICB," },
+				{ SimultaneousWith, "SWW," },
 			};
 
 			var headers = AllValues.ToDictionary(
