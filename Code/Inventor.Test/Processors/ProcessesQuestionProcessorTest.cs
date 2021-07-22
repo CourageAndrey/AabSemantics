@@ -11,7 +11,6 @@ using Inventor.Core.Base;
 using Inventor.Core.Localization;
 using Inventor.Core.Questions;
 using Inventor.Core.Statements;
-using Inventor.Core.Processors;
 
 namespace Inventor.Test.Processors
 {
@@ -139,7 +138,7 @@ namespace Inventor.Test.Processors
 
 		private static IEnumerable<object[]> getAllValidCombinations()
 		{
-			foreach (var combinations in ProcessesQuestionProcessor.ValidSequenceCombinations)
+			foreach (var combinations in SequenceSigns.ValidSequenceCombinations)
 			{
 				var transitiveSign = combinations.Key;
 				foreach (var combination in combinations.Value)

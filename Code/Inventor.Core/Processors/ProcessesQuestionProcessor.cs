@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 
 using Inventor.Core.Answers;
@@ -108,7 +107,7 @@ namespace Inventor.Core.Processors
 				{
 					foreach (var transitiveStatement in transitiveStatements)
 					{
-						var sign = getSign(transitiveStatement.SequenceSign, childStatement.SequenceSign);
+						var sign = SequenceSigns.TryToCombineMutualSequences(transitiveStatement.SequenceSign, childStatement.SequenceSign);
 						if (sign != null)
 						{
 							resultStatements.Add(new ProcessesStatement(
@@ -129,110 +128,6 @@ namespace Inventor.Core.Processors
 			}
 
 			return Answer.CreateUnknown(context.Language);
-		}
-
-		internal static readonly IDictionary<IConcept, IDictionary<IConcept, IConcept>> ValidSequenceCombinations;
-
-		private IConcept getSign(IConcept transitiveSign, IConcept childSign)
-		{
-			IDictionary<IConcept, IConcept> d;
-			IConcept resultSign;
-			return ValidSequenceCombinations.TryGetValue(transitiveSign, out d) && d.TryGetValue(childSign, out resultSign)
-				? resultSign
-				: null;
-		}
-
-		static ProcessesQuestionProcessor()
-		{
-			ValidSequenceCombinations = new Dictionary<IConcept, IDictionary<IConcept, IConcept>>();
-
-			Action<IConcept, IConcept, IConcept> setValidCombination = (transitiveSign, childSign, resultSign) =>
-			{
-				IDictionary<IConcept, IConcept> d;
-				if (!ValidSequenceCombinations.TryGetValue(transitiveSign, out d))
-				{
-					ValidSequenceCombinations[transitiveSign] = d = new Dictionary<IConcept, IConcept>();
-				}
-				d.Add(childSign, resultSign);
-			};
-
-			foreach (var combination in new[]
-			{
-				new Tuple<IConcept, IConcept, IConcept>(SequenceSigns.StartsAfterOtherStarted, SequenceSigns.StartsAfterOtherStarted, SequenceSigns.StartsAfterOtherStarted),
-				new Tuple<IConcept, IConcept, IConcept>(SequenceSigns.StartsAfterOtherStarted, SequenceSigns.StartsWhenOtherStarted, SequenceSigns.StartsAfterOtherStarted),
-				new Tuple<IConcept, IConcept, IConcept>(SequenceSigns.StartsAfterOtherStarted, SequenceSigns.StartsAfterOtherFinished, SequenceSigns.StartsAfterOtherFinished),
-				new Tuple<IConcept, IConcept, IConcept>(SequenceSigns.StartsAfterOtherStarted, SequenceSigns.StartsWhenOtherFinished, SequenceSigns.StartsAfterOtherFinished),
-
-				new Tuple<IConcept, IConcept, IConcept>(SequenceSigns.StartsWhenOtherStarted, SequenceSigns.StartsAfterOtherStarted, SequenceSigns.StartsAfterOtherStarted),
-				new Tuple<IConcept, IConcept, IConcept>(SequenceSigns.StartsWhenOtherStarted, SequenceSigns.StartsWhenOtherStarted, SequenceSigns.StartsWhenOtherStarted),
-				new Tuple<IConcept, IConcept, IConcept>(SequenceSigns.StartsWhenOtherStarted, SequenceSigns.StartsBeforeOtherStarted, SequenceSigns.StartsBeforeOtherStarted),
-				new Tuple<IConcept, IConcept, IConcept>(SequenceSigns.StartsWhenOtherStarted, SequenceSigns.StartsAfterOtherFinished, SequenceSigns.StartsAfterOtherFinished),
-				new Tuple<IConcept, IConcept, IConcept>(SequenceSigns.StartsWhenOtherStarted, SequenceSigns.StartsWhenOtherFinished, SequenceSigns.StartsWhenOtherFinished),
-				new Tuple<IConcept, IConcept, IConcept>(SequenceSigns.StartsWhenOtherStarted, SequenceSigns.StartsBeforeOtherFinished, SequenceSigns.StartsBeforeOtherFinished),
-
-				new Tuple<IConcept, IConcept, IConcept>(SequenceSigns.StartsBeforeOtherStarted, SequenceSigns.StartsWhenOtherStarted, SequenceSigns.StartsBeforeOtherStarted),
-				new Tuple<IConcept, IConcept, IConcept>(SequenceSigns.StartsBeforeOtherStarted, SequenceSigns.StartsBeforeOtherStarted, SequenceSigns.StartsBeforeOtherStarted),
-				new Tuple<IConcept, IConcept, IConcept>(SequenceSigns.StartsBeforeOtherStarted, SequenceSigns.StartsWhenOtherFinished, SequenceSigns.StartsBeforeOtherFinished),
-				new Tuple<IConcept, IConcept, IConcept>(SequenceSigns.StartsBeforeOtherStarted, SequenceSigns.StartsBeforeOtherFinished, SequenceSigns.StartsBeforeOtherFinished),
-
-				new Tuple<IConcept, IConcept, IConcept>(SequenceSigns.FinishesAfterOtherStarted, SequenceSigns.StartsAfterOtherStarted, SequenceSigns.FinishesAfterOtherStarted),
-				new Tuple<IConcept, IConcept, IConcept>(SequenceSigns.FinishesAfterOtherStarted, SequenceSigns.StartsWhenOtherStarted, SequenceSigns.FinishesAfterOtherStarted),
-				new Tuple<IConcept, IConcept, IConcept>(SequenceSigns.FinishesAfterOtherStarted, SequenceSigns.StartsAfterOtherFinished, SequenceSigns.FinishesAfterOtherFinished),
-				new Tuple<IConcept, IConcept, IConcept>(SequenceSigns.FinishesAfterOtherStarted, SequenceSigns.StartsWhenOtherFinished, SequenceSigns.FinishesAfterOtherFinished),
-
-				new Tuple<IConcept, IConcept, IConcept>(SequenceSigns.FinishesWhenOtherStarted, SequenceSigns.StartsAfterOtherStarted, SequenceSigns.FinishesAfterOtherStarted),
-				new Tuple<IConcept, IConcept, IConcept>(SequenceSigns.FinishesWhenOtherStarted, SequenceSigns.StartsWhenOtherStarted, SequenceSigns.FinishesWhenOtherStarted),
-				new Tuple<IConcept, IConcept, IConcept>(SequenceSigns.FinishesWhenOtherStarted, SequenceSigns.StartsBeforeOtherStarted, SequenceSigns.FinishesBeforeOtherStarted),
-				new Tuple<IConcept, IConcept, IConcept>(SequenceSigns.FinishesWhenOtherStarted, SequenceSigns.StartsAfterOtherFinished, SequenceSigns.FinishesAfterOtherFinished),
-				new Tuple<IConcept, IConcept, IConcept>(SequenceSigns.FinishesWhenOtherStarted, SequenceSigns.StartsWhenOtherFinished, SequenceSigns.FinishesWhenOtherFinished),
-				new Tuple<IConcept, IConcept, IConcept>(SequenceSigns.FinishesWhenOtherStarted, SequenceSigns.StartsBeforeOtherFinished, SequenceSigns.FinishesBeforeOtherFinished),
-
-				new Tuple<IConcept, IConcept, IConcept>(SequenceSigns.FinishesBeforeOtherStarted, SequenceSigns.StartsWhenOtherStarted, SequenceSigns.FinishesBeforeOtherStarted),
-				new Tuple<IConcept, IConcept, IConcept>(SequenceSigns.FinishesBeforeOtherStarted, SequenceSigns.StartsBeforeOtherStarted, SequenceSigns.FinishesBeforeOtherStarted),
-				new Tuple<IConcept, IConcept, IConcept>(SequenceSigns.FinishesBeforeOtherStarted, SequenceSigns.StartsWhenOtherFinished, SequenceSigns.FinishesBeforeOtherFinished),
-				new Tuple<IConcept, IConcept, IConcept>(SequenceSigns.FinishesBeforeOtherStarted, SequenceSigns.StartsBeforeOtherFinished, SequenceSigns.FinishesBeforeOtherFinished),
-
-				new Tuple<IConcept, IConcept, IConcept>(SequenceSigns.StartsAfterOtherFinished, SequenceSigns.FinishesAfterOtherStarted, SequenceSigns.StartsAfterOtherStarted),
-				new Tuple<IConcept, IConcept, IConcept>(SequenceSigns.StartsAfterOtherFinished, SequenceSigns.FinishesWhenOtherStarted, SequenceSigns.StartsAfterOtherStarted),
-				new Tuple<IConcept, IConcept, IConcept>(SequenceSigns.StartsAfterOtherFinished, SequenceSigns.FinishesAfterOtherFinished, SequenceSigns.StartsAfterOtherFinished),
-				new Tuple<IConcept, IConcept, IConcept>(SequenceSigns.StartsAfterOtherFinished, SequenceSigns.FinishesWhenOtherFinished, SequenceSigns.StartsAfterOtherFinished),
-
-				new Tuple<IConcept, IConcept, IConcept>(SequenceSigns.StartsWhenOtherFinished, SequenceSigns.FinishesAfterOtherStarted, SequenceSigns.StartsAfterOtherStarted),
-				new Tuple<IConcept, IConcept, IConcept>(SequenceSigns.StartsWhenOtherFinished, SequenceSigns.FinishesWhenOtherStarted, SequenceSigns.StartsWhenOtherStarted),
-				new Tuple<IConcept, IConcept, IConcept>(SequenceSigns.StartsWhenOtherFinished, SequenceSigns.FinishesBeforeOtherStarted, SequenceSigns.StartsBeforeOtherStarted),
-				new Tuple<IConcept, IConcept, IConcept>(SequenceSigns.StartsWhenOtherFinished, SequenceSigns.FinishesAfterOtherFinished, SequenceSigns.StartsAfterOtherFinished),
-				new Tuple<IConcept, IConcept, IConcept>(SequenceSigns.StartsWhenOtherFinished, SequenceSigns.FinishesWhenOtherFinished, SequenceSigns.StartsWhenOtherFinished),
-				new Tuple<IConcept, IConcept, IConcept>(SequenceSigns.StartsWhenOtherFinished, SequenceSigns.FinishesBeforeOtherFinished, SequenceSigns.StartsBeforeOtherFinished),
-
-				new Tuple<IConcept, IConcept, IConcept>(SequenceSigns.StartsBeforeOtherFinished, SequenceSigns.FinishesWhenOtherStarted, SequenceSigns.StartsBeforeOtherStarted),
-				new Tuple<IConcept, IConcept, IConcept>(SequenceSigns.StartsBeforeOtherFinished, SequenceSigns.FinishesBeforeOtherStarted, SequenceSigns.StartsBeforeOtherStarted),
-				new Tuple<IConcept, IConcept, IConcept>(SequenceSigns.StartsBeforeOtherFinished, SequenceSigns.FinishesWhenOtherFinished, SequenceSigns.StartsBeforeOtherFinished),
-				new Tuple<IConcept, IConcept, IConcept>(SequenceSigns.StartsBeforeOtherFinished, SequenceSigns.FinishesBeforeOtherFinished, SequenceSigns.StartsBeforeOtherFinished),
-
-				new Tuple<IConcept, IConcept, IConcept>(SequenceSigns.FinishesAfterOtherFinished, SequenceSigns.FinishesAfterOtherStarted, SequenceSigns.FinishesAfterOtherStarted),
-				new Tuple<IConcept, IConcept, IConcept>(SequenceSigns.FinishesAfterOtherFinished, SequenceSigns.FinishesWhenOtherStarted, SequenceSigns.FinishesAfterOtherStarted),
-				new Tuple<IConcept, IConcept, IConcept>(SequenceSigns.FinishesAfterOtherFinished, SequenceSigns.FinishesAfterOtherFinished, SequenceSigns.FinishesAfterOtherFinished),
-				new Tuple<IConcept, IConcept, IConcept>(SequenceSigns.FinishesAfterOtherFinished, SequenceSigns.FinishesWhenOtherFinished, SequenceSigns.FinishesAfterOtherFinished),
-
-				new Tuple<IConcept, IConcept, IConcept>(SequenceSigns.FinishesWhenOtherFinished, SequenceSigns.FinishesAfterOtherStarted, SequenceSigns.FinishesAfterOtherStarted),
-				new Tuple<IConcept, IConcept, IConcept>(SequenceSigns.FinishesWhenOtherFinished, SequenceSigns.FinishesWhenOtherStarted, SequenceSigns.FinishesWhenOtherStarted),
-				new Tuple<IConcept, IConcept, IConcept>(SequenceSigns.FinishesWhenOtherFinished, SequenceSigns.FinishesBeforeOtherStarted, SequenceSigns.FinishesBeforeOtherStarted),
-				new Tuple<IConcept, IConcept, IConcept>(SequenceSigns.FinishesWhenOtherFinished, SequenceSigns.FinishesAfterOtherFinished, SequenceSigns.FinishesAfterOtherFinished),
-				new Tuple<IConcept, IConcept, IConcept>(SequenceSigns.FinishesWhenOtherFinished, SequenceSigns.FinishesWhenOtherFinished, SequenceSigns.FinishesWhenOtherFinished),
-				new Tuple<IConcept, IConcept, IConcept>(SequenceSigns.FinishesWhenOtherFinished, SequenceSigns.FinishesBeforeOtherFinished, SequenceSigns.FinishesBeforeOtherFinished),
-
-				new Tuple<IConcept, IConcept, IConcept>(SequenceSigns.FinishesBeforeOtherFinished, SequenceSigns.FinishesWhenOtherStarted, SequenceSigns.FinishesBeforeOtherStarted),
-				new Tuple<IConcept, IConcept, IConcept>(SequenceSigns.FinishesBeforeOtherFinished, SequenceSigns.FinishesBeforeOtherStarted, SequenceSigns.FinishesBeforeOtherStarted),
-				new Tuple<IConcept, IConcept, IConcept>(SequenceSigns.FinishesBeforeOtherFinished, SequenceSigns.FinishesWhenOtherFinished, SequenceSigns.FinishesBeforeOtherFinished),
-				new Tuple<IConcept, IConcept, IConcept>(SequenceSigns.FinishesBeforeOtherFinished, SequenceSigns.FinishesBeforeOtherFinished, SequenceSigns.FinishesBeforeOtherFinished),
-
-				new Tuple<IConcept, IConcept, IConcept>(SequenceSigns.Causes, SequenceSigns.Causes, SequenceSigns.Causes),
-				new Tuple<IConcept, IConcept, IConcept>(SequenceSigns.IsCausedBy, SequenceSigns.IsCausedBy, SequenceSigns.IsCausedBy),
-				new Tuple<IConcept, IConcept, IConcept>(SequenceSigns.SimultaneousWith, SequenceSigns.SimultaneousWith, SequenceSigns.SimultaneousWith),
-			})
-			{
-				setValidCombination(combination.Item1, combination.Item2, combination.Item3);
-			}
 		}
 	}
 }
