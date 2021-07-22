@@ -367,29 +367,9 @@ namespace Inventor.Core.Statements
 				return true;
 			}
 
-			var foundStartSigns = signs.Where(s => startSigns.Contains(s)).ToList();
-			var foundFinishSigns = signs.Where(s => finishSigns.Contains(s)).ToList();
+			var foundStartSigns = signs.Where(s => SequenceSigns.StartSigns.Contains(s)).ToList();
+			var foundFinishSigns = signs.Where(s => SequenceSigns.FinishSigns.Contains(s)).ToList();
 			return foundStartSigns.Count > 1 || foundFinishSigns.Count > 1;
 		}
-
-		private static readonly ICollection<IConcept> startSigns = new HashSet<IConcept>
-		{
-			SequenceSigns.StartsAfterOtherStarted,
-			SequenceSigns.StartsWhenOtherStarted,
-			SequenceSigns.StartsBeforeOtherStarted,
-			SequenceSigns.StartsAfterOtherFinished,
-			SequenceSigns.StartsWhenOtherFinished,
-			SequenceSigns.StartsBeforeOtherFinished,
-		};
-
-		private static readonly ICollection<IConcept> finishSigns = new HashSet<IConcept>
-		{
-			SequenceSigns.FinishesAfterOtherFinished,
-			SequenceSigns.FinishesWhenOtherFinished,
-			SequenceSigns.FinishesBeforeOtherFinished,
-			SequenceSigns.FinishesAfterOtherStarted,
-			SequenceSigns.FinishesWhenOtherStarted,
-			SequenceSigns.FinishesBeforeOtherStarted,
-		};
 	}
 }

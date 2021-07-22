@@ -322,6 +322,70 @@ namespace Inventor.Core
 			SimultaneousWith,
 		};
 
+		public static readonly ICollection<IConcept> StartSigns = new HashSet<IConcept>
+		{
+			StartsAfterOtherStarted,
+			StartsWhenOtherStarted,
+			StartsBeforeOtherStarted,
+			StartsAfterOtherFinished,
+			StartsWhenOtherFinished,
+			StartsBeforeOtherFinished,
+		};
+
+		public static readonly ICollection<IConcept> FinishSigns = new HashSet<IConcept>
+		{
+			FinishesAfterOtherFinished,
+			FinishesWhenOtherFinished,
+			FinishesBeforeOtherFinished,
+			FinishesAfterOtherStarted,
+			FinishesWhenOtherStarted,
+			FinishesBeforeOtherStarted,
+		};
+
+		public static readonly ICollection<IConcept> RelatedToStartSigns = new HashSet<IConcept>
+		{
+			StartsAfterOtherStarted,
+			StartsWhenOtherStarted,
+			StartsBeforeOtherStarted,
+			FinishesAfterOtherStarted,
+			FinishesWhenOtherStarted,
+			FinishesBeforeOtherStarted,
+		};
+
+		public static readonly ICollection<IConcept> RelatedToFinishSigns = new HashSet<IConcept>
+		{
+			StartsAfterOtherFinished,
+			StartsWhenOtherFinished,
+			StartsBeforeOtherFinished,
+			FinishesAfterOtherFinished,
+			FinishesWhenOtherFinished,
+			FinishesBeforeOtherFinished,
+		};
+
+		public static readonly ICollection<IConcept> AfterSigns = new HashSet<IConcept>
+		{
+			StartsAfterOtherStarted,
+			FinishesAfterOtherStarted,
+			StartsAfterOtherFinished,
+			FinishesAfterOtherFinished,
+		};
+
+		public static readonly ICollection<IConcept> WhenSigns = new HashSet<IConcept>
+		{
+			StartsWhenOtherStarted,
+			FinishesWhenOtherStarted,
+			StartsWhenOtherFinished,
+			FinishesWhenOtherFinished,
+		};
+
+		public static readonly ICollection<IConcept> BeforeSigns = new HashSet<IConcept>
+		{
+			StartsBeforeOtherStarted,
+			FinishesBeforeOtherStarted,
+			StartsBeforeOtherFinished,
+			FinishesBeforeOtherFinished,
+		};
+
 		#endregion
 
 		private static void ensureSuits(this IConcept sign)
