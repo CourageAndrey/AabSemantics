@@ -17,6 +17,25 @@ namespace Inventor.Test.Statements
 		private const int _testChainLength = 5;
 
 		[Test]
+		public void SingleStatementCanNotContradict()
+		{
+			// arrange
+			var value1 = createValueConcept(1);
+			var value2 = createValueConcept(2);
+
+			// act
+			foreach (var sign in ComparisonSigns.All)
+			{
+				var statements = new[] { new ComparisonStatement(value1, value2, sign) };
+
+				var contradictions = statements.CheckForContradictions();
+
+				// assert
+				Assert.AreEqual(0, contradictions.Count);
+			}
+		}
+
+		[Test]
 		public void SingleSignChainsHaveNoContradictions()
 		{
 			// arrange
