@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 
 using Inventor.Core.Attributes;
 using Inventor.Core.Base;
@@ -289,6 +290,28 @@ namespace Inventor.Core
 			return ValidSequenceCombinations.TryGetValue(transitiveSign, out d) && d.TryGetValue(childSign, out resultSign)
 				? resultSign
 				: null;
+		}
+
+		public static Boolean Contradicts(this ICollection<IConcept> signs)
+		{
+			foreach (var sign in signs)
+			{
+				ensureSuits(sign);
+			}
+
+			if (signs.Contains(Causes) && signs.Contains(IsCausedBy))
+			{
+				return true;
+			}
+
+			if (signs.Contains(StartsBeforeOtherStarted) && signs.Contains(StartsAfterOtherFinished))
+			{
+				return true;
+			}
+
+			var foundStartSigns = signs.Where(s => StartSigns.Contains(s)).ToList();
+			var foundFinishSigns = signs.Where(s => FinishSigns.Contains(s)).ToList();
+			return foundStartSigns.Count > 1 || foundFinishSigns.Count > 1;
 		}
 
 		static SequenceSigns()
