@@ -95,7 +95,7 @@ namespace Inventor.Core.Statements
 
 		public ProcessesStatement SwapOperands()
 		{
-			return new ProcessesStatement(processA: ProcessB, processB: ProcessA, SequenceSign.Revert());
+			return new ProcessesStatement(processA: ProcessB, processB: ProcessA, SequenceSigns.Revert(SequenceSign));
 		}
 	}
 

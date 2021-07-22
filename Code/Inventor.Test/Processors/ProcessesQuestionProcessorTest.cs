@@ -32,9 +32,9 @@ namespace Inventor.Test.Processors
 			knowledgeBase.Concepts.Add(processI = createProcess("Process I"));
 
 			var statementAI = new ProcessesStatement(processA, processI, signAI);
-			var statementIA = new ProcessesStatement(processI, processA, signAI.Revert());
+			var statementIA = new ProcessesStatement(processI, processA, SequenceSigns.Revert(signAI));
 			var statementIB = new ProcessesStatement(processI, processB, signIB);
-			var statementBI = new ProcessesStatement(processB, processI, signIB.Revert());
+			var statementBI = new ProcessesStatement(processB, processI, SequenceSigns.Revert(signIB));
 
 			foreach (var statementCombination in new[]
 			{
@@ -87,16 +87,16 @@ namespace Inventor.Test.Processors
 
 			var validCombinations = getAllValidCombinations().Select(array => new Tuple<IConcept, IConcept, IConcept>((IConcept) array[0], (IConcept) array[1], (IConcept) array[2])).ToList();
 
-			foreach (var signAI in SystemConcepts.SequenceSigns)
+			foreach (var signAI in SequenceSigns.All)
 			{
-				foreach (var signIB in SystemConcepts.SequenceSigns)
+				foreach (var signIB in SequenceSigns.All)
 				{
 					if (!validCombinations.Any(c => c.Item1 == signAI && c.Item2 == signIB))
 					{
 						var statementAI = new ProcessesStatement(processA, processI, signAI);
-						var statementIA = new ProcessesStatement(processI, processA, signAI.Revert());
+						var statementIA = new ProcessesStatement(processI, processA, SequenceSigns.Revert(signAI));
 						var statementIB = new ProcessesStatement(processI, processB, signIB);
-						var statementBI = new ProcessesStatement(processB, processI, signIB.Revert());
+						var statementBI = new ProcessesStatement(processB, processI, SequenceSigns.Revert(signIB));
 
 						foreach (var statementCombination in new[]
 						{

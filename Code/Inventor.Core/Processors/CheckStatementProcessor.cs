@@ -30,7 +30,7 @@ namespace Inventor.Core.Processors
 
 			var result = new FormattedText(
 				() => Strings.ParamAnswer,
-				new Dictionary<String, INamed> { { Strings.ParamAnswer, statements.Any() ? SystemConcepts.True : SystemConcepts.False } });
+				new Dictionary<String, INamed> { { Strings.ParamAnswer, statements.Any() ? LogicalValues.True : LogicalValues.False } });
 			result.Add(statements.Any() ? question.Statement.DescribeTrue(context.Language) : question.Statement.DescribeFalse(context.Language));
 			return new BooleanAnswer(
 				statements.Any(),

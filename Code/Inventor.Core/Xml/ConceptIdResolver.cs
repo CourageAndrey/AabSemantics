@@ -12,12 +12,15 @@ namespace Inventor.Core.Xml
 
 		static ConceptIdResolver()
 		{
-			foreach (var field in typeof(SystemConcepts).GetFields(BindingFlags.GetField | BindingFlags.Static | BindingFlags.Public).Where(f => f.FieldType == typeof(IConcept)))
+			foreach (var type in new[] { typeof(LogicalValues), typeof(ComparisonSigns), typeof(SequenceSigns) })
 			{
-				String id = field.Name;
-				IConcept concept = (IConcept) field.GetValue(null);
-				SystemConceptsById[id] = concept;
-				SystemConceptIds[concept] = id;
+				foreach (var field in type.GetFields(BindingFlags.GetField | BindingFlags.Static | BindingFlags.Public).Where(f => f.FieldType == typeof(IConcept)))
+				{
+					String id = field.Name;
+					IConcept concept = (IConcept)field.GetValue(null);
+					SystemConceptsById[id] = concept;
+					SystemConceptIds[concept] = id;
+				}
 			}
 		}
 	}
