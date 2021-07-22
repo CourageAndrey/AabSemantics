@@ -134,6 +134,13 @@ namespace Inventor.Core
 			}
 		}
 
+		public static Boolean CanBeReverted(this IConcept sign)
+		{
+			ensureSuits(sign);
+
+			return sign != IsEqualTo && sign != IsNotEqualTo;
+		}
+
 		public static IConcept CompareThreeValues(IConcept firstSign, IConcept secondSign)
 		{
 			if (firstSign == IsEqualTo)

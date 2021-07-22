@@ -286,7 +286,7 @@ namespace Inventor.Core.Statements
 		protected override Boolean SetCombinationWithDescendants(IConcept leftValue, IConcept rightValue, IConcept sign)
 		{
 			Boolean combinationsUpdated = SetCombination(leftValue, rightValue, sign);
-			if (canBeReverted(sign))
+			if (sign.CanBeReverted())
 			{
 				combinationsUpdated |= SetCombination(rightValue, leftValue, ComparisonSigns.Revert(sign));
 			}
@@ -296,11 +296,6 @@ namespace Inventor.Core.Statements
 		protected override Boolean Contradicts(HashSet<IConcept> signs, IConcept left, IConcept right)
 		{
 			return doesOneOrMoreContradictedSignsPairExist(signs) || doesValueContradictToItself(signs, left, right);
-		}
-
-		private static Boolean canBeReverted(IConcept sign)
-		{
-			return sign != ComparisonSigns.IsEqualTo && sign != ComparisonSigns.IsNotEqualTo;
 		}
 
 		private void makeAllValuesAlwaysEqualToThemselves()
