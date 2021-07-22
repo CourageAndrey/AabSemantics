@@ -208,7 +208,7 @@ namespace Inventor.Test.Statements
 			}
 		}
 
-		private IConcept createValueConcept(int number)
+		private static IConcept createValueConcept(int number)
 		{
 			var concept = new Concept(
 				new LocalizedStringVariable(new[] { new KeyValuePair<string, string>(Language.Default.Culture, number.ToString()) }),
@@ -217,7 +217,7 @@ namespace Inventor.Test.Statements
 			return concept;
 		}
 
-		private List<ComparisonStatement> createSimpleChain(List<IConcept> concepts, IConcept sign)
+		private static List<ComparisonStatement> createSimpleChain(List<IConcept> concepts, IConcept sign)
 		{
 			var statements = new List<ComparisonStatement>();
 			for (int i = 0; i < concepts.Count - 1; i++)
