@@ -84,16 +84,6 @@ namespace Inventor.Core.Statements
 			else return false;
 		}
 
-		internal static readonly ICollection<Tuple<IConcept, IConcept>> Contradictions = new List<Tuple<IConcept, IConcept>>
-		{
-			new Tuple<IConcept, IConcept>(ComparisonSigns.IsEqualTo, ComparisonSigns.IsNotEqualTo),
-			new Tuple<IConcept, IConcept>(ComparisonSigns.IsEqualTo, ComparisonSigns.IsGreaterThan),
-			new Tuple<IConcept, IConcept>(ComparisonSigns.IsEqualTo, ComparisonSigns.IsLessThan),
-			new Tuple<IConcept, IConcept>(ComparisonSigns.IsGreaterThan, ComparisonSigns.IsLessThan),
-			new Tuple<IConcept, IConcept>(ComparisonSigns.IsGreaterThan, ComparisonSigns.IsLessThanOrEqualTo),
-			new Tuple<IConcept, IConcept>(ComparisonSigns.IsLessThan, ComparisonSigns.IsGreaterThanOrEqualTo),
-		};
-
 		#endregion
 
 		public ComparisonStatement SwapOperandsToMatchOrder(ComparisonQuestion question)

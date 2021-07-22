@@ -76,7 +76,7 @@ namespace Inventor.Test.Statements
 			var concept2 = createValueConcept(2);
 
 			// act
-			foreach (var contradictedPair in ComparisonStatement.Contradictions)
+			foreach (var contradictedPair in ComparisonSigns.Contradictions)
 			{
 				var statements = new List<ComparisonStatement>
 				{

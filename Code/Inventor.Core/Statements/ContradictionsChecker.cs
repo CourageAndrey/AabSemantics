@@ -312,9 +312,7 @@ namespace Inventor.Core.Statements
 			{
 				foreach (var sign2 in signs)
 				{
-					if (ComparisonStatement.Contradictions.Any(tuple =>
-						(tuple.Item1 == sign1 && tuple.Item2 == sign2) ||
-						(tuple.Item1 == sign2 && tuple.Item2 == sign1)))
+					if (sign1.Contradicts(sign2))
 					{
 						return true;
 					}

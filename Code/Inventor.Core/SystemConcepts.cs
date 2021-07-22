@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-
+using System.Linq;
 using Inventor.Core.Attributes;
 using Inventor.Core.Base;
 using Inventor.Core.Localization;
@@ -98,7 +98,27 @@ namespace Inventor.Core
 			IsLessThan,
 		};
 
+		public static readonly ICollection<Tuple<IConcept, IConcept>> Contradictions = new List<Tuple<IConcept, IConcept>>
+		{
+			new Tuple<IConcept, IConcept>(IsEqualTo, IsNotEqualTo),
+			new Tuple<IConcept, IConcept>(IsEqualTo, IsGreaterThan),
+			new Tuple<IConcept, IConcept>(IsEqualTo, IsLessThan),
+			new Tuple<IConcept, IConcept>(IsGreaterThan, IsLessThan),
+			new Tuple<IConcept, IConcept>(IsGreaterThan, IsLessThanOrEqualTo),
+			new Tuple<IConcept, IConcept>(IsLessThan, IsGreaterThanOrEqualTo),
+		};
+
 		#endregion
+
+		public static Boolean Contradicts(this IConcept sign1, IConcept sign2)
+		{
+			ensureSuits(sign1);
+			ensureSuits(sign2);
+
+			return Contradictions.Any(tuple =>
+				tuple.Item1 == sign2 && tuple.Item2 == sign1 ||
+				tuple.Item1 == sign1 && tuple.Item2 == sign2);
+		}
 
 		private static void ensureSuits(this IConcept sign)
 		{
