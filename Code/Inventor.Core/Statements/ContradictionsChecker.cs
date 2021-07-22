@@ -38,6 +38,8 @@ namespace Inventor.Core.Statements
 
 		protected abstract Boolean Contradicts(HashSet<IConcept> signs, IConcept left, IConcept right);
 
+		protected abstract Boolean TryToUpdateCombinations(IConcept valueRow, IConcept signRow, IConcept signColumn, IConcept valueColumn);
+
 		public List<Contradiction> CheckForContradictions()
 		{
 			while (updateInferredCombinations())
@@ -92,21 +94,11 @@ namespace Inventor.Core.Statements
 				{
 					foreach (var signColumn in signsColumn.ToList())
 					{
-						combinationsUpdated |= tryToUpdateCombinations(valueRow, signRow, signColumn, valueColumn);
+						combinationsUpdated |= TryToUpdateCombinations(valueRow, signRow, signColumn, valueColumn);
 					}
 				}
 			}
 			return combinationsUpdated;
-		}
-
-		private Boolean tryToUpdateCombinations(
-			IConcept valueRow,
-			IConcept signRow,
-			IConcept signColumn,
-			IConcept valueColumn)
-		{
-			var resultSign = ComparisonSigns.CompareThreeValues(signRow, signColumn);
-			return resultSign != null && SetCombinationWithDescendants(valueRow, valueColumn, resultSign);
 		}
 
 		private List<Contradiction> findContradictionsInMatrix()
@@ -325,6 +317,12 @@ namespace Inventor.Core.Statements
 		{
 			return left == right && signs.Any(s => s != ComparisonSigns.IsEqualTo);
 		}
+
+		protected override Boolean TryToUpdateCombinations(IConcept valueRow, IConcept signRow, IConcept signColumn, IConcept valueColumn)
+		{
+			var resultSign = ComparisonSigns.CompareThreeValues(signRow, signColumn);
+			return resultSign != null && SetCombinationWithDescendants(valueRow, valueColumn, resultSign);
+		}
 	}
 
 	public class ProcessesStatementContradictionsChecker : ContradictionsChecker<ProcessesStatement>
@@ -370,6 +368,12 @@ namespace Inventor.Core.Statements
 			var foundStartSigns = signs.Where(s => SequenceSigns.StartSigns.Contains(s)).ToList();
 			var foundFinishSigns = signs.Where(s => SequenceSigns.FinishSigns.Contains(s)).ToList();
 			return foundStartSigns.Count > 1 || foundFinishSigns.Count > 1;
+		}
+
+		protected override Boolean TryToUpdateCombinations(IConcept valueRow, IConcept signRow, IConcept signColumn, IConcept valueColumn)
+		{
+			var resultSign = ComparisonSigns.CompareThreeValues(signRow, signColumn);
+			return resultSign != null && SetCombinationWithDescendants(valueRow, valueColumn, resultSign);
 		}
 	}
 }
