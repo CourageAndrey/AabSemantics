@@ -134,11 +134,7 @@ namespace Inventor.Test.Statements
 					ComparisonSigns.IsLessThan,
 				})
 				{
-					var statements = createSimpleChain(concepts.Take(chainLength).ToList(), sign);
-					statements.Add(new ComparisonStatement(
-						statements.Last().RightValue,
-						statements.First().LeftValue,
-						sign));
+					var statements = createSimpleLoop(concepts.Take(chainLength).ToList(), sign);
 
 					var contradictions = statements.CheckForContradictions();
 
@@ -227,6 +223,16 @@ namespace Inventor.Test.Statements
 					concepts[i + 1],
 					sign));
 			}
+			return statements;
+		}
+
+		private static List<ComparisonStatement> createSimpleLoop(List<IConcept> concepts, IConcept sign)
+		{
+			var statements = createSimpleChain(concepts, sign);
+			statements.Add(new ComparisonStatement(
+				statements.Last().RightValue,
+				statements.First().LeftValue,
+				sign));
 			return statements;
 		}
 	}
