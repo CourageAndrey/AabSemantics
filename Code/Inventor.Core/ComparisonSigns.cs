@@ -129,6 +129,9 @@ namespace Inventor.Core
 
 		public static IConcept CompareThreeValues(IConcept firstSign, IConcept secondSign)
 		{
+			ensureSuits(firstSign);
+			ensureSuits(secondSign);
+
 			if (firstSign == IsEqualTo)
 			{
 				return secondSign;

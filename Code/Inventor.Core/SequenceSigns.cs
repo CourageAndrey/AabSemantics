@@ -281,6 +281,9 @@ namespace Inventor.Core
 
 		public static IConcept TryToCombineMutualSequences(IConcept transitiveSign, IConcept childSign)
 		{
+			ensureSuits(transitiveSign);
+			ensureSuits(childSign);
+
 			IDictionary<IConcept, IConcept> d;
 			IConcept resultSign;
 			return ValidSequenceCombinations.TryGetValue(transitiveSign, out d) && d.TryGetValue(childSign, out resultSign)
