@@ -196,7 +196,7 @@ namespace Inventor.Core.Statements
 				signsMaxCount = Math.Max(signsMaxCount, dictionary.Values.Max(list => list.Count));
 			}
 
-			int columnWidth = Math.Max(headersMaxLength, signsMaxCount);
+			int columnWidth = Math.Max(headersMaxLength, signsMaxCount * signSymbols.Values.Max(v => v.Length));
 			string columnsHeader = string.Join("|", headers.Values.Select(h => align(h, columnWidth)));
 			string tableHeader = new string(' ', headersMaxLength) + "|" + columnsHeader;
 			string afterHeaderLine = new string(tableHeader.Select(c => c == '|' ? '+' : '-').ToArray());
