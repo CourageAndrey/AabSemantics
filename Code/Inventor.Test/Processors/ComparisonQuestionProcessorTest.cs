@@ -24,7 +24,7 @@ namespace Inventor.Test.Processors
 			var knowledgeBase = new TestKnowledgeBase(language);
 
 			// act
-			var question = new ComparisonQuestion(SystemConcepts.IsNotEqualTo, SystemConcepts.Causes);
+			var question = new ComparisonQuestion(ComparisonSigns.IsNotEqualTo, SequenceSigns.Causes);
 			var answer = question.Ask(knowledgeBase.KnowledgeBase.Context);
 
 			// assert
@@ -52,17 +52,17 @@ namespace Inventor.Test.Processors
 			Assert.AreSame(explanation1, explanation2);
 			Assert.IsTrue(explanation1.GetChildConcepts().Contains(knowledgeBase.Number0));
 			Assert.IsTrue(explanation1.GetChildConcepts().Contains(knowledgeBase.NumberZero));
-			Assert.IsTrue(explanation1.GetChildConcepts().Contains(SystemConcepts.IsEqualTo));
+			Assert.IsTrue(explanation1.GetChildConcepts().Contains(ComparisonSigns.IsEqualTo));
 
 			var statement1 = (ComparisonStatement) ((StatementAnswer) answer1).Result;
 			Assert.AreSame(knowledgeBase.Number0, statement1.LeftValue);
 			Assert.AreSame(knowledgeBase.NumberZero, statement1.RightValue);
-			Assert.AreSame(SystemConcepts.IsEqualTo, statement1.ComparisonSign);
+			Assert.AreSame(ComparisonSigns.IsEqualTo, statement1.ComparisonSign);
 
 			var statement2 = (ComparisonStatement) ((StatementAnswer) answer2).Result;
 			Assert.AreSame(knowledgeBase.NumberZero, statement2.LeftValue);
 			Assert.AreSame(knowledgeBase.Number0, statement2.RightValue);
-			Assert.AreSame(SystemConcepts.IsEqualTo, statement2.ComparisonSign);
+			Assert.AreSame(ComparisonSigns.IsEqualTo, statement2.ComparisonSign);
 		}
 
 		[Test]
@@ -115,7 +115,7 @@ namespace Inventor.Test.Processors
 							var statement = (ComparisonStatement)((StatementAnswer)answer).Result;
 							Assert.AreSame(orderedNumbers[l], statement.LeftValue);
 							Assert.AreSame(orderedNumbers[r], statement.RightValue);
-							Assert.AreSame(l > r ? SystemConcepts.IsGreaterThan : SystemConcepts.IsLessThan, statement.ComparisonSign);
+							Assert.AreSame(l > r ? ComparisonSigns.IsGreaterThan : ComparisonSigns.IsLessThan, statement.ComparisonSign);
 						}
 					}
 				}
@@ -131,27 +131,27 @@ namespace Inventor.Test.Processors
 
 			var comparisons = new[]
 			{
-				new Tuple<IConcept, IConcept, IConcept>(knowledgeBase.Number1or2, knowledgeBase.Number0, SystemConcepts.IsGreaterThan),
-				new Tuple<IConcept, IConcept, IConcept>(knowledgeBase.Number1or2, knowledgeBase.Number1, SystemConcepts.IsGreaterThanOrEqualTo),
-				new Tuple<IConcept, IConcept, IConcept>(knowledgeBase.Number1or2, knowledgeBase.Number2, SystemConcepts.IsLessThanOrEqualTo),
-				new Tuple<IConcept, IConcept, IConcept>(knowledgeBase.Number1or2, knowledgeBase.Number3, SystemConcepts.IsLessThan),
-				new Tuple<IConcept, IConcept, IConcept>(knowledgeBase.Number1or2, knowledgeBase.Number4, SystemConcepts.IsLessThan),
-				new Tuple<IConcept, IConcept, IConcept>(knowledgeBase.Number1or2, knowledgeBase.Number2or3, SystemConcepts.IsLessThanOrEqualTo),
-				new Tuple<IConcept, IConcept, IConcept>(knowledgeBase.Number1or2, knowledgeBase.Number3or4, SystemConcepts.IsLessThan),
-				new Tuple<IConcept, IConcept, IConcept>(knowledgeBase.Number2or3, knowledgeBase.Number0, SystemConcepts.IsGreaterThan),
-				new Tuple<IConcept, IConcept, IConcept>(knowledgeBase.Number2or3, knowledgeBase.Number1, SystemConcepts.IsGreaterThan),
-				new Tuple<IConcept, IConcept, IConcept>(knowledgeBase.Number2or3, knowledgeBase.Number2, SystemConcepts.IsGreaterThanOrEqualTo),
-				new Tuple<IConcept, IConcept, IConcept>(knowledgeBase.Number2or3, knowledgeBase.Number3, SystemConcepts.IsLessThanOrEqualTo),
-				new Tuple<IConcept, IConcept, IConcept>(knowledgeBase.Number2or3, knowledgeBase.Number4, SystemConcepts.IsLessThan),
-				new Tuple<IConcept, IConcept, IConcept>(knowledgeBase.Number2or3, knowledgeBase.Number1or2, SystemConcepts.IsGreaterThanOrEqualTo),
-				new Tuple<IConcept, IConcept, IConcept>(knowledgeBase.Number2or3, knowledgeBase.Number3or4, SystemConcepts.IsLessThanOrEqualTo),
-				new Tuple<IConcept, IConcept, IConcept>(knowledgeBase.Number3or4, knowledgeBase.Number0, SystemConcepts.IsGreaterThan),
-				new Tuple<IConcept, IConcept, IConcept>(knowledgeBase.Number3or4, knowledgeBase.Number1, SystemConcepts.IsGreaterThan),
-				new Tuple<IConcept, IConcept, IConcept>(knowledgeBase.Number3or4, knowledgeBase.Number2, SystemConcepts.IsGreaterThan),
-				new Tuple<IConcept, IConcept, IConcept>(knowledgeBase.Number3or4, knowledgeBase.Number3, SystemConcepts.IsGreaterThanOrEqualTo),
-				new Tuple<IConcept, IConcept, IConcept>(knowledgeBase.Number3or4, knowledgeBase.Number4, SystemConcepts.IsLessThanOrEqualTo),
-				new Tuple<IConcept, IConcept, IConcept>(knowledgeBase.Number3or4, knowledgeBase.Number1or2, SystemConcepts.IsGreaterThan),
-				new Tuple<IConcept, IConcept, IConcept>(knowledgeBase.Number3or4, knowledgeBase.Number2or3, SystemConcepts.IsGreaterThanOrEqualTo),
+				new Tuple<IConcept, IConcept, IConcept>(knowledgeBase.Number1or2, knowledgeBase.Number0, ComparisonSigns.IsGreaterThan),
+				new Tuple<IConcept, IConcept, IConcept>(knowledgeBase.Number1or2, knowledgeBase.Number1, ComparisonSigns.IsGreaterThanOrEqualTo),
+				new Tuple<IConcept, IConcept, IConcept>(knowledgeBase.Number1or2, knowledgeBase.Number2, ComparisonSigns.IsLessThanOrEqualTo),
+				new Tuple<IConcept, IConcept, IConcept>(knowledgeBase.Number1or2, knowledgeBase.Number3, ComparisonSigns.IsLessThan),
+				new Tuple<IConcept, IConcept, IConcept>(knowledgeBase.Number1or2, knowledgeBase.Number4, ComparisonSigns.IsLessThan),
+				new Tuple<IConcept, IConcept, IConcept>(knowledgeBase.Number1or2, knowledgeBase.Number2or3, ComparisonSigns.IsLessThanOrEqualTo),
+				new Tuple<IConcept, IConcept, IConcept>(knowledgeBase.Number1or2, knowledgeBase.Number3or4, ComparisonSigns.IsLessThan),
+				new Tuple<IConcept, IConcept, IConcept>(knowledgeBase.Number2or3, knowledgeBase.Number0, ComparisonSigns.IsGreaterThan),
+				new Tuple<IConcept, IConcept, IConcept>(knowledgeBase.Number2or3, knowledgeBase.Number1, ComparisonSigns.IsGreaterThan),
+				new Tuple<IConcept, IConcept, IConcept>(knowledgeBase.Number2or3, knowledgeBase.Number2, ComparisonSigns.IsGreaterThanOrEqualTo),
+				new Tuple<IConcept, IConcept, IConcept>(knowledgeBase.Number2or3, knowledgeBase.Number3, ComparisonSigns.IsLessThanOrEqualTo),
+				new Tuple<IConcept, IConcept, IConcept>(knowledgeBase.Number2or3, knowledgeBase.Number4, ComparisonSigns.IsLessThan),
+				new Tuple<IConcept, IConcept, IConcept>(knowledgeBase.Number2or3, knowledgeBase.Number1or2, ComparisonSigns.IsGreaterThanOrEqualTo),
+				new Tuple<IConcept, IConcept, IConcept>(knowledgeBase.Number2or3, knowledgeBase.Number3or4, ComparisonSigns.IsLessThanOrEqualTo),
+				new Tuple<IConcept, IConcept, IConcept>(knowledgeBase.Number3or4, knowledgeBase.Number0, ComparisonSigns.IsGreaterThan),
+				new Tuple<IConcept, IConcept, IConcept>(knowledgeBase.Number3or4, knowledgeBase.Number1, ComparisonSigns.IsGreaterThan),
+				new Tuple<IConcept, IConcept, IConcept>(knowledgeBase.Number3or4, knowledgeBase.Number2, ComparisonSigns.IsGreaterThan),
+				new Tuple<IConcept, IConcept, IConcept>(knowledgeBase.Number3or4, knowledgeBase.Number3, ComparisonSigns.IsGreaterThanOrEqualTo),
+				new Tuple<IConcept, IConcept, IConcept>(knowledgeBase.Number3or4, knowledgeBase.Number4, ComparisonSigns.IsLessThanOrEqualTo),
+				new Tuple<IConcept, IConcept, IConcept>(knowledgeBase.Number3or4, knowledgeBase.Number1or2, ComparisonSigns.IsGreaterThan),
+				new Tuple<IConcept, IConcept, IConcept>(knowledgeBase.Number3or4, knowledgeBase.Number2or3, ComparisonSigns.IsGreaterThanOrEqualTo),
 			};
 
 			foreach (var comparison in comparisons)
@@ -172,7 +172,7 @@ namespace Inventor.Test.Processors
 
 				Assert.AreSame(comparison.Item2, statement2.LeftValue);
 				Assert.AreSame(comparison.Item1, statement2.RightValue);
-				Assert.AreSame(comparison.Item3.Revert(), statement2.ComparisonSign);
+				Assert.AreSame(ComparisonSigns.Revert(comparison.Item3), statement2.ComparisonSign);
 			}
 		}
 	}

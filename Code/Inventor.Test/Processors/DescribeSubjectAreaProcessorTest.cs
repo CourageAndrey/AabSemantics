@@ -38,8 +38,8 @@ namespace Inventor.Test.Processors
 			var language = Language.Default;
 			var knowledgeBase = new TestKnowledgeBase(language);
 
-			var area = SystemConcepts.True;
-			var concept = SystemConcepts.False;
+			var area = LogicalValues.True;
+			var concept = LogicalValues.False;
 			var groupStatement = new GroupStatement(area, concept);
 			knowledgeBase.KnowledgeBase.Statements.Add(groupStatement);
 

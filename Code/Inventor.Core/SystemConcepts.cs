@@ -7,11 +7,9 @@ using Inventor.Core.Localization;
 
 namespace Inventor.Core
 {
-	public static class SystemConcepts
+	public static class LogicalValues
 	{
 		#region Properties
-
-		#region Logical values
 
 		public static readonly IConcept True = new Concept(
 			new LocalizedStringConstant(lang => lang.SystemConceptNames.True),
@@ -27,7 +25,7 @@ namespace Inventor.Core
 			Attributes = { IsBooleanAttribute.Value },
 		};
 
-		public static readonly ICollection<IConcept> LogicalValues = new HashSet<IConcept>
+		public static readonly ICollection<IConcept> All = new HashSet<IConcept>
 		{
 			True,
 			False,
@@ -35,7 +33,18 @@ namespace Inventor.Core
 
 		#endregion
 
-		#region Comparison signs
+		static LogicalValues()
+		{
+			foreach (var concept in All)
+			{
+				concept.Attributes.Add(IsValueAttribute.Value);
+			}
+		}
+	}
+
+	public static class ComparisonSigns
+	{
+		#region Properties
 
 		public static readonly IConcept IsEqualTo = new Concept(
 			new LocalizedStringConstant(lang => lang.SystemConceptNames.IsEqualTo),
@@ -79,7 +88,7 @@ namespace Inventor.Core
 			Attributes = { IsComparisonSignAttribute.Value },
 		};
 
-		public static readonly ICollection<IConcept> ComparisonSigns = new HashSet<IConcept>
+		public static readonly ICollection<IConcept> All = new HashSet<IConcept>
 		{
 			IsEqualTo,
 			IsNotEqualTo,
@@ -89,11 +98,13 @@ namespace Inventor.Core
 			IsLessThan,
 		};
 
+		#endregion
+
 		public static IConcept Revert(this IConcept sign)
 		{
-			if (!ComparisonSigns.Contains(sign) && !SequenceSigns.Contains(sign))
+			if (!All.Contains(sign))
 			{
-				throw new InvalidOperationException("Only comparison signs and process sequence signs can be reverted using this method.");
+				throw new InvalidOperationException("Only comparison signs can be reverted using this method.");
 			}
 
 			if (sign == IsGreaterThanOrEqualTo)
@@ -111,54 +122,6 @@ namespace Inventor.Core
 			else if (sign == IsLessThan)
 			{
 				return IsGreaterThan;
-			}
-			else if (sign == StartsAfterOtherStarted)
-			{
-				return StartsBeforeOtherStarted;
-			}
-			else if (sign == StartsBeforeOtherStarted)
-			{
-				return StartsAfterOtherStarted;
-			}
-			else if (sign == FinishesAfterOtherStarted)
-			{
-				return StartsBeforeOtherFinished;
-			}
-			else if (sign == FinishesWhenOtherStarted)
-			{
-				return StartsWhenOtherFinished;
-			}
-			else if (sign == FinishesBeforeOtherStarted)
-			{
-				return StartsAfterOtherFinished;
-			}
-			else if (sign == StartsAfterOtherFinished)
-			{
-				return FinishesBeforeOtherStarted;
-			}
-			else if (sign == StartsWhenOtherFinished)
-			{
-				return FinishesWhenOtherStarted;
-			}
-			else if (sign == StartsBeforeOtherFinished)
-			{
-				return FinishesAfterOtherStarted;
-			}
-			else if (sign == FinishesAfterOtherFinished)
-			{
-				return FinishesBeforeOtherFinished;
-			}
-			else if (sign == FinishesBeforeOtherFinished)
-			{
-				return FinishesAfterOtherFinished;
-			}
-			else if (sign == Causes)
-			{
-				return IsCausedBy;
-			}
-			else if (sign == IsCausedBy)
-			{
-				return Causes;
 			}
 			else
 			{
@@ -190,9 +153,18 @@ namespace Inventor.Core
 			}
 		}
 
-		#endregion
+		static ComparisonSigns()
+		{
+			foreach (var concept in All)
+			{
+				concept.Attributes.Add(IsValueAttribute.Value);
+			}
+		}
+	}
 
-		#region Sequence signs
+	public static class SequenceSigns
+	{
+		#region Properties
 
 		public static readonly IConcept StartsAfterOtherStarted = new Concept(
 			new LocalizedStringConstant(lang => lang.SystemConceptNames.StartsAfterOtherStarted),
@@ -299,7 +271,7 @@ namespace Inventor.Core
 			Attributes = { IsSequenceSignAttribute.Value },
 		};
 
-		public static readonly ICollection<IConcept> SequenceSigns = new HashSet<IConcept>
+		public static readonly ICollection<IConcept> All = new HashSet<IConcept>
 		{
 			StartsAfterOtherStarted,
 			StartsWhenOtherStarted,
@@ -320,31 +292,93 @@ namespace Inventor.Core
 
 		#endregion
 
-		#endregion
-
-		public static IEnumerable<IConcept> GetAll()
+		public static IConcept Revert(this IConcept sign)
 		{
-			foreach (var concept in LogicalValues)
+			if (!All.Contains(sign))
 			{
-				yield return concept;
+				throw new InvalidOperationException("Only process sequence signs can be reverted using this method.");
 			}
 
-			foreach (var concept in ComparisonSigns)
+			if (sign == StartsAfterOtherStarted)
 			{
-				yield return concept;
+				return StartsBeforeOtherStarted;
 			}
-
-			foreach (var concept in SequenceSigns)
+			else if (sign == StartsBeforeOtherStarted)
 			{
-				yield return concept;
+				return StartsAfterOtherStarted;
+			}
+			else if (sign == FinishesAfterOtherStarted)
+			{
+				return StartsBeforeOtherFinished;
+			}
+			else if (sign == FinishesWhenOtherStarted)
+			{
+				return StartsWhenOtherFinished;
+			}
+			else if (sign == FinishesBeforeOtherStarted)
+			{
+				return StartsAfterOtherFinished;
+			}
+			else if (sign == StartsAfterOtherFinished)
+			{
+				return FinishesBeforeOtherStarted;
+			}
+			else if (sign == StartsWhenOtherFinished)
+			{
+				return FinishesWhenOtherStarted;
+			}
+			else if (sign == StartsBeforeOtherFinished)
+			{
+				return FinishesAfterOtherStarted;
+			}
+			else if (sign == FinishesAfterOtherFinished)
+			{
+				return FinishesBeforeOtherFinished;
+			}
+			else if (sign == FinishesBeforeOtherFinished)
+			{
+				return FinishesAfterOtherFinished;
+			}
+			else if (sign == Causes)
+			{
+				return IsCausedBy;
+			}
+			else if (sign == IsCausedBy)
+			{
+				return Causes;
+			}
+			else
+			{
+				return sign;
 			}
 		}
 
-		static SystemConcepts()
+		static SequenceSigns()
 		{
-			foreach (var concept in GetAll())
+			foreach (var concept in All)
 			{
 				concept.Attributes.Add(IsValueAttribute.Value);
+			}
+		}
+	}
+
+	public static class SystemConcepts
+	{
+		public static IEnumerable<IConcept> GetAll()
+		{
+			foreach (var concept in LogicalValues.All)
+			{
+				yield return concept;
+			}
+
+			foreach (var concept in ComparisonSigns.All)
+			{
+				yield return concept;
+			}
+
+			foreach (var concept in SequenceSigns.All)
+			{
+				yield return concept;
 			}
 		}
 	}

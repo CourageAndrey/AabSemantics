@@ -84,7 +84,7 @@ namespace Inventor.Core.Processors
 						transitiveStatement = transitiveStatement.SwapOperands();
 					}
 
-					var resultSign = SystemConcepts.CompareThreeValues(childStatement.ComparisonSign, transitiveStatement.ComparisonSign);
+					var resultSign = ComparisonSigns.CompareThreeValues(childStatement.ComparisonSign, transitiveStatement.ComparisonSign);
 					if (resultSign != null)
 					{
 						var transitiveStatements = new List<IStatement>(answer.TransitiveStatements);

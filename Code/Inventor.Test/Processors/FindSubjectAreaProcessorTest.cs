@@ -77,7 +77,7 @@ namespace Inventor.Test.Processors
 			var knowledgeBase = new TestKnowledgeBase(language);
 			var concept = knowledgeBase.Base_Vehicle;
 
-			var secondSubjectArea = SystemConcepts.True;
+			var secondSubjectArea = LogicalValues.True;
 			knowledgeBase.KnowledgeBase.Statements.Add(new GroupStatement(secondSubjectArea, concept));
 
 			// act

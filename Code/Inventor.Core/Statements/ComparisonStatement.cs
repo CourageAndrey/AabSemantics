@@ -86,12 +86,12 @@ namespace Inventor.Core.Statements
 
 		internal static readonly ICollection<Tuple<IConcept, IConcept>> Contradictions = new List<Tuple<IConcept, IConcept>>
 		{
-			new Tuple<IConcept, IConcept>(SystemConcepts.IsEqualTo, SystemConcepts.IsNotEqualTo),
-			new Tuple<IConcept, IConcept>(SystemConcepts.IsEqualTo, SystemConcepts.IsGreaterThan),
-			new Tuple<IConcept, IConcept>(SystemConcepts.IsEqualTo, SystemConcepts.IsLessThan),
-			new Tuple<IConcept, IConcept>(SystemConcepts.IsGreaterThan, SystemConcepts.IsLessThan),
-			new Tuple<IConcept, IConcept>(SystemConcepts.IsGreaterThan, SystemConcepts.IsLessThanOrEqualTo),
-			new Tuple<IConcept, IConcept>(SystemConcepts.IsLessThan, SystemConcepts.IsGreaterThanOrEqualTo),
+			new Tuple<IConcept, IConcept>(ComparisonSigns.IsEqualTo, ComparisonSigns.IsNotEqualTo),
+			new Tuple<IConcept, IConcept>(ComparisonSigns.IsEqualTo, ComparisonSigns.IsGreaterThan),
+			new Tuple<IConcept, IConcept>(ComparisonSigns.IsEqualTo, ComparisonSigns.IsLessThan),
+			new Tuple<IConcept, IConcept>(ComparisonSigns.IsGreaterThan, ComparisonSigns.IsLessThan),
+			new Tuple<IConcept, IConcept>(ComparisonSigns.IsGreaterThan, ComparisonSigns.IsLessThanOrEqualTo),
+			new Tuple<IConcept, IConcept>(ComparisonSigns.IsLessThan, ComparisonSigns.IsGreaterThanOrEqualTo),
 		};
 
 		#endregion
@@ -105,7 +105,7 @@ namespace Inventor.Core.Statements
 
 		public ComparisonStatement SwapOperands()
 		{
-			return new ComparisonStatement(leftValue: RightValue, rightValue: LeftValue, ComparisonSign.Revert());
+			return new ComparisonStatement(leftValue: RightValue, rightValue: LeftValue, ComparisonSigns.Revert(ComparisonSign));
 		}
 	}
 

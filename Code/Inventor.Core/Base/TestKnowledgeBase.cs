@@ -513,18 +513,18 @@ namespace Inventor.Core.Base
 
 			KnowledgeBase.Statements.Add(new HasPartStatement(Base_Vehicle, Sign_MotorType));
 
-			KnowledgeBase.Statements.Add(new ComparisonStatement(Number0, NumberZero, SystemConcepts.IsEqualTo));
-			KnowledgeBase.Statements.Add(new ComparisonStatement(NumberNotZero, NumberZero, SystemConcepts.IsNotEqualTo));
-			KnowledgeBase.Statements.Add(new ComparisonStatement(Number0, Number1, SystemConcepts.IsLessThan));
-			KnowledgeBase.Statements.Add(new ComparisonStatement(Number1, Number2, SystemConcepts.IsLessThan));
-			KnowledgeBase.Statements.Add(new ComparisonStatement(Number3, Number2, SystemConcepts.IsGreaterThan));
-			KnowledgeBase.Statements.Add(new ComparisonStatement(Number4, Number3, SystemConcepts.IsGreaterThan));
-			KnowledgeBase.Statements.Add(new ComparisonStatement(Number1, Number1or2, SystemConcepts.IsLessThanOrEqualTo));
-			KnowledgeBase.Statements.Add(new ComparisonStatement(Number1or2, Number2, SystemConcepts.IsLessThanOrEqualTo));
-			KnowledgeBase.Statements.Add(new ComparisonStatement(Number2, Number2or3, SystemConcepts.IsLessThanOrEqualTo));
-			KnowledgeBase.Statements.Add(new ComparisonStatement(Number3, Number2or3, SystemConcepts.IsGreaterThanOrEqualTo));
-			KnowledgeBase.Statements.Add(new ComparisonStatement(Number4, Number3or4, SystemConcepts.IsGreaterThanOrEqualTo));
-			KnowledgeBase.Statements.Add(new ComparisonStatement(Number3or4, Number3, SystemConcepts.IsGreaterThanOrEqualTo));
+			KnowledgeBase.Statements.Add(new ComparisonStatement(Number0, NumberZero, ComparisonSigns.IsEqualTo));
+			KnowledgeBase.Statements.Add(new ComparisonStatement(NumberNotZero, NumberZero, ComparisonSigns.IsNotEqualTo));
+			KnowledgeBase.Statements.Add(new ComparisonStatement(Number0, Number1, ComparisonSigns.IsLessThan));
+			KnowledgeBase.Statements.Add(new ComparisonStatement(Number1, Number2, ComparisonSigns.IsLessThan));
+			KnowledgeBase.Statements.Add(new ComparisonStatement(Number3, Number2, ComparisonSigns.IsGreaterThan));
+			KnowledgeBase.Statements.Add(new ComparisonStatement(Number4, Number3, ComparisonSigns.IsGreaterThan));
+			KnowledgeBase.Statements.Add(new ComparisonStatement(Number1, Number1or2, ComparisonSigns.IsLessThanOrEqualTo));
+			KnowledgeBase.Statements.Add(new ComparisonStatement(Number1or2, Number2, ComparisonSigns.IsLessThanOrEqualTo));
+			KnowledgeBase.Statements.Add(new ComparisonStatement(Number2, Number2or3, ComparisonSigns.IsLessThanOrEqualTo));
+			KnowledgeBase.Statements.Add(new ComparisonStatement(Number3, Number2or3, ComparisonSigns.IsGreaterThanOrEqualTo));
+			KnowledgeBase.Statements.Add(new ComparisonStatement(Number4, Number3or4, ComparisonSigns.IsGreaterThanOrEqualTo));
+			KnowledgeBase.Statements.Add(new ComparisonStatement(Number3or4, Number3, ComparisonSigns.IsGreaterThanOrEqualTo));
 
 			#endregion
 		}

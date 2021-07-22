@@ -27,7 +27,7 @@ namespace Inventor.Test.Statements
 			}
 
 			// act
-			foreach (var sign in SystemConcepts.ComparisonSigns)
+			foreach (var sign in ComparisonSigns.All)
 			{
 				for (int revertCount = 0; revertCount < _testChainLength; revertCount++)
 				{
@@ -53,7 +53,7 @@ namespace Inventor.Test.Statements
 			var concept2 = createValueConcept(2);
 
 			// act
-			foreach (var sign in SystemConcepts.ComparisonSigns)
+			foreach (var sign in ComparisonSigns.All)
 			{
 				var statements = new List<ComparisonStatement>
 				{
@@ -111,8 +111,8 @@ namespace Inventor.Test.Statements
 			{
 				foreach (var sign in new[]
 				{
-					SystemConcepts.IsGreaterThan,
-					SystemConcepts.IsLessThan,
+					ComparisonSigns.IsGreaterThan,
+					ComparisonSigns.IsLessThan,
 				})
 				{
 					var statements = createSimpleChain(concepts.Take(chainLength).ToList(), sign);
@@ -140,15 +140,15 @@ namespace Inventor.Test.Statements
 			// act
 			foreach (var sign in new[]
 			{
-				SystemConcepts.IsGreaterThan,
-				SystemConcepts.IsLessThan,
-				SystemConcepts.IsNotEqualTo,
+				ComparisonSigns.IsGreaterThan,
+				ComparisonSigns.IsLessThan,
+				ComparisonSigns.IsNotEqualTo,
 			})
 			{
 				var statements = new List<ComparisonStatement>
 				{
-					new ComparisonStatement(a, b, SystemConcepts.IsEqualTo),
-					new ComparisonStatement(a, c, SystemConcepts.IsEqualTo),
+					new ComparisonStatement(a, b, ComparisonSigns.IsEqualTo),
+					new ComparisonStatement(a, c, ComparisonSigns.IsEqualTo),
 					new ComparisonStatement(b, c, sign),
 				};
 
@@ -168,9 +168,9 @@ namespace Inventor.Test.Statements
 			// act
 			foreach (var sign in new[]
 			{
-				SystemConcepts.IsGreaterThan,
-				SystemConcepts.IsLessThan,
-				SystemConcepts.IsNotEqualTo,
+				ComparisonSigns.IsGreaterThan,
+				ComparisonSigns.IsLessThan,
+				ComparisonSigns.IsNotEqualTo,
 			})
 			{
 				var statements = new List<ComparisonStatement>
@@ -184,7 +184,7 @@ namespace Inventor.Test.Statements
 				var contradiction = contradictions.Single();
 				Assert.AreSame(value, contradiction.Value1);
 				Assert.AreSame(value, contradiction.Value2);
-				Assert.IsTrue(contradiction.Signs.Contains(SystemConcepts.IsEqualTo));
+				Assert.IsTrue(contradiction.Signs.Contains(ComparisonSigns.IsEqualTo));
 				Assert.Less(1, contradiction.Signs.Count);
 			}
 		}

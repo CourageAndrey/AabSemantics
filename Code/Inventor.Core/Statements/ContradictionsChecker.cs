@@ -105,7 +105,7 @@ namespace Inventor.Core.Statements
 			IConcept signColumn,
 			IConcept valueColumn)
 		{
-			var resultSign = SystemConcepts.CompareThreeValues(signRow, signColumn);
+			var resultSign = ComparisonSigns.CompareThreeValues(signRow, signColumn);
 			return resultSign != null && SetCombinationWithDescendants(row, valueColumn, resultSign);
 		}
 
@@ -162,27 +162,27 @@ namespace Inventor.Core.Statements
 
 			var signSymbols = new Dictionary<IConcept, string>
 			{
-				{ SystemConcepts.IsEqualTo, "=" },
-				{ SystemConcepts.IsNotEqualTo, "≠" },
-				{ SystemConcepts.IsGreaterThanOrEqualTo, "≥" },
-				{ SystemConcepts.IsGreaterThan, ">" },
-				{ SystemConcepts.IsLessThanOrEqualTo, "≤" },
-				{ SystemConcepts.IsLessThan, "<" },
-				{ StartsAfterOtherStarted, "SAS," },
-				{ StartsWhenOtherStarted, "SWS," },
-				{ StartsBeforeOtherStarted, "SBS," },
-				{ FinishesAfterOtherStarted, "FAS," },
-				{ FinishesWhenOtherStarted, "FWS," },
-				{ FinishesBeforeOtherStarted, "FBS," },
-				{ StartsAfterOtherFinished, "SAF," },
-				{ StartsWhenOtherFinished, "SWF," },
-				{ StartsBeforeOtherFinished, "SBF," },
-				{ FinishesAfterOtherFinished, "FAF," },
-				{ FinishesWhenOtherFinished, "FWF," },
-				{ FinishesBeforeOtherFinished, "FBF," },
-				{ Causes, "CCC," },
-				{ IsCausedBy, "ICB," },
-				{ SimultaneousWith, "SWW," },
+				{ ComparisonSigns.IsEqualTo, "=" },
+				{ ComparisonSigns.IsNotEqualTo, "≠" },
+				{ ComparisonSigns.IsGreaterThanOrEqualTo, "≥" },
+				{ ComparisonSigns.IsGreaterThan, ">" },
+				{ ComparisonSigns.IsLessThanOrEqualTo, "≤" },
+				{ ComparisonSigns.IsLessThan, "<" },
+				{ SequenceSigns.StartsAfterOtherStarted, "SAS," },
+				{ SequenceSigns.StartsWhenOtherStarted, "SWS," },
+				{ SequenceSigns.StartsBeforeOtherStarted, "SBS," },
+				{ SequenceSigns.FinishesAfterOtherStarted, "FAS," },
+				{ SequenceSigns.FinishesWhenOtherStarted, "FWS," },
+				{ SequenceSigns.FinishesBeforeOtherStarted, "FBS," },
+				{ SequenceSigns.StartsAfterOtherFinished, "SAF," },
+				{ SequenceSigns.StartsWhenOtherFinished, "SWF," },
+				{ SequenceSigns.StartsBeforeOtherFinished, "SBF," },
+				{ SequenceSigns.FinishesAfterOtherFinished, "FAF," },
+				{ SequenceSigns.FinishesWhenOtherFinished, "FWF," },
+				{ SequenceSigns.FinishesBeforeOtherFinished, "FBF," },
+				{ SequenceSigns.Causes, "CCC," },
+				{ SequenceSigns.IsCausedBy, "ICB," },
+				{ SequenceSigns.SimultaneousWith, "SWW," },
 			};
 
 			var headers = AllValues.ToDictionary(
@@ -288,7 +288,7 @@ namespace Inventor.Core.Statements
 			Boolean combinationsUpdated = SetCombination(leftValue, rightValue, sign);
 			if (canBeReverted(sign))
 			{
-				combinationsUpdated |= SetCombination(rightValue, leftValue, sign.Revert());
+				combinationsUpdated |= SetCombination(rightValue, leftValue, ComparisonSigns.Revert(sign));
 			}
 			return combinationsUpdated;
 		}
@@ -300,14 +300,14 @@ namespace Inventor.Core.Statements
 
 		private static Boolean canBeReverted(IConcept sign)
 		{
-			return sign != SystemConcepts.IsEqualTo && sign != SystemConcepts.IsNotEqualTo;
+			return sign != ComparisonSigns.IsEqualTo && sign != ComparisonSigns.IsNotEqualTo;
 		}
 
 		private void makeAllValuesAlwaysEqualToThemselves()
 		{
 			foreach (var value in AllValues)
 			{
-				SetCombination(value, value, SystemConcepts.IsEqualTo);
+				SetCombination(value, value, ComparisonSigns.IsEqualTo);
 			}
 		}
 
@@ -330,7 +330,7 @@ namespace Inventor.Core.Statements
 
 		private static Boolean doesValueContradictToItself(HashSet<IConcept> signs, IConcept left, IConcept right)
 		{
-			return left == right && signs.Any(s => s != SystemConcepts.IsEqualTo);
+			return left == right && signs.Any(s => s != ComparisonSigns.IsEqualTo);
 		}
 	}
 
@@ -358,18 +358,18 @@ namespace Inventor.Core.Statements
 		protected override Boolean SetCombinationWithDescendants(IConcept leftValue, IConcept rightValue, IConcept sign)
 		{
 			Boolean combinationsUpdated = SetCombination(leftValue, rightValue, sign);
-			combinationsUpdated |= SetCombination(rightValue, leftValue, sign.Revert());
+			combinationsUpdated |= SetCombination(rightValue, leftValue, SequenceSigns.Revert(sign));
 			return combinationsUpdated;
 		}
 
 		protected override Boolean Contradicts(HashSet<IConcept> signs, IConcept left, IConcept right)
 		{
-			if (signs.Contains(SystemConcepts.Causes) && signs.Contains(SystemConcepts.IsCausedBy))
+			if (signs.Contains(SequenceSigns.Causes) && signs.Contains(SequenceSigns.IsCausedBy))
 			{
 				return true;
 			}
 
-			if (signs.Contains(SystemConcepts.StartsBeforeOtherStarted) && signs.Contains(SystemConcepts.StartsAfterOtherFinished))
+			if (signs.Contains(SequenceSigns.StartsBeforeOtherStarted) && signs.Contains(SequenceSigns.StartsAfterOtherFinished))
 			{
 				return true;
 			}
@@ -381,22 +381,22 @@ namespace Inventor.Core.Statements
 
 		private static readonly ICollection<IConcept> startSigns = new HashSet<IConcept>
 		{
-			SystemConcepts.StartsAfterOtherStarted,
-			SystemConcepts.StartsWhenOtherStarted,
-			SystemConcepts.StartsBeforeOtherStarted,
-			SystemConcepts.StartsAfterOtherFinished,
-			SystemConcepts.StartsWhenOtherFinished,
-			SystemConcepts.StartsBeforeOtherFinished,
+			SequenceSigns.StartsAfterOtherStarted,
+			SequenceSigns.StartsWhenOtherStarted,
+			SequenceSigns.StartsBeforeOtherStarted,
+			SequenceSigns.StartsAfterOtherFinished,
+			SequenceSigns.StartsWhenOtherFinished,
+			SequenceSigns.StartsBeforeOtherFinished,
 		};
 
 		private static readonly ICollection<IConcept> finishSigns = new HashSet<IConcept>
 		{
-			SystemConcepts.FinishesAfterOtherFinished,
-			SystemConcepts.FinishesWhenOtherFinished,
-			SystemConcepts.FinishesBeforeOtherFinished,
-			SystemConcepts.FinishesAfterOtherStarted,
-			SystemConcepts.FinishesWhenOtherStarted,
-			SystemConcepts.FinishesBeforeOtherStarted,
+			SequenceSigns.FinishesAfterOtherFinished,
+			SequenceSigns.FinishesWhenOtherFinished,
+			SequenceSigns.FinishesBeforeOtherFinished,
+			SequenceSigns.FinishesAfterOtherStarted,
+			SequenceSigns.FinishesWhenOtherStarted,
+			SequenceSigns.FinishesBeforeOtherStarted,
 		};
 	}
 }
