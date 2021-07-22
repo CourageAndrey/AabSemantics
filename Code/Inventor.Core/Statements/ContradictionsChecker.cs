@@ -355,19 +355,7 @@ namespace Inventor.Core.Statements
 
 		protected override Boolean Contradicts(HashSet<IConcept> signs, IConcept left, IConcept right)
 		{
-			if (signs.Contains(SequenceSigns.Causes) && signs.Contains(SequenceSigns.IsCausedBy))
-			{
-				return true;
-			}
-
-			if (signs.Contains(SequenceSigns.StartsBeforeOtherStarted) && signs.Contains(SequenceSigns.StartsAfterOtherFinished))
-			{
-				return true;
-			}
-
-			var foundStartSigns = signs.Where(s => SequenceSigns.StartSigns.Contains(s)).ToList();
-			var foundFinishSigns = signs.Where(s => SequenceSigns.FinishSigns.Contains(s)).ToList();
-			return foundStartSigns.Count > 1 || foundFinishSigns.Count > 1;
+			return signs.Contradicts();
 		}
 
 		protected override Boolean TryToUpdateCombinations(IConcept valueRow, IConcept signRow, IConcept signColumn, IConcept valueColumn)

@@ -127,24 +127,26 @@ namespace Inventor.Test.Statements
 			// act
 			foreach (var sign in SequenceSigns.All)
 			{
-				var revertedSign = SequenceSigns.Revert(sign);
-				if (sign != revertedSign)
+				foreach (var contradictedSign in SequenceSigns.All)
 				{
-					var statements = new List<ProcessesStatement>
+					if (new[] { sign, contradictedSign }.Contradicts())
 					{
-						new ProcessesStatement(conceptA, conceptB, sign),
-						new ProcessesStatement(conceptA, conceptB, revertedSign),
-					};
+						var statements = new List<ProcessesStatement>
+						{
+							new ProcessesStatement(conceptA, conceptB, sign),
+							new ProcessesStatement(conceptA, conceptB, contradictedSign),
+						};
 
-					var contradictions = statements.CheckForContradictions();
+						var contradictions = statements.CheckForContradictions();
 
-					// assert
-					var contradiction = contradictions.First(c => c.Value1 != c.Value2);
-					Assert.IsTrue(contradiction.Value1 == conceptA || contradiction.Value1 == conceptB);
-					Assert.IsTrue(contradiction.Value2 == conceptA || contradiction.Value2 == conceptB);
-					Assert.LessOrEqual(2, contradiction.Signs.Count);
-					Assert.IsTrue(contradiction.Signs.Contains(sign));
-					Assert.IsTrue(contradiction.Signs.Contains(revertedSign));
+						// assert
+						var contradiction = contradictions.First(c => c.Value1 != c.Value2);
+						Assert.IsTrue(contradiction.Value1 == conceptA || contradiction.Value1 == conceptB);
+						Assert.IsTrue(contradiction.Value2 == conceptA || contradiction.Value2 == conceptB);
+						Assert.LessOrEqual(2, contradiction.Signs.Count);
+						Assert.IsTrue(contradiction.Signs.Contains(sign));
+						Assert.IsTrue(contradiction.Signs.Contains(contradictedSign));
+					}
 				}
 			}
 		}
