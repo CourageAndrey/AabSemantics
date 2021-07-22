@@ -372,7 +372,7 @@ namespace Inventor.Core.Statements
 
 		protected override Boolean TryToUpdateCombinations(IConcept valueRow, IConcept signRow, IConcept signColumn, IConcept valueColumn)
 		{
-			var resultSign = ComparisonSigns.CompareThreeValues(signRow, signColumn);
+			var resultSign = SequenceSigns.TryToCombineMutualSequences(signRow, signColumn);
 			return resultSign != null && SetCombinationWithDescendants(valueRow, valueColumn, resultSign);
 		}
 	}
