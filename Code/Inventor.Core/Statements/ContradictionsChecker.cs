@@ -34,7 +34,7 @@ namespace Inventor.Core.Statements
 
 		protected abstract IConcept GetSign(StatementT statement);
 
-		protected abstract Boolean SetCombinationWithDescendants(IConcept leftValue, IConcept rightValue, IConcept sign);
+		protected abstract Boolean SetCombinationWithDescendants(IConcept valueRow, IConcept valueColumn, IConcept sign);
 
 		protected abstract Boolean Contradicts(HashSet<IConcept> signs, IConcept left, IConcept right);
 
@@ -78,7 +78,7 @@ namespace Inventor.Core.Statements
 		}
 
 		private Boolean updateAllInferredCombinationsWithinCell(
-			IConcept row,
+			IConcept valueRow,
 			Dictionary<IConcept, HashSet<IConcept>> combinationsColumn,
 			HashSet<IConcept> signsRow)
 		{
@@ -92,7 +92,7 @@ namespace Inventor.Core.Statements
 				{
 					foreach (var signColumn in signsColumn.ToList())
 					{
-						combinationsUpdated |= tryToUpdateCombinations(row, signRow, signColumn, valueColumn);
+						combinationsUpdated |= tryToUpdateCombinations(valueRow, signRow, signColumn, valueColumn);
 					}
 				}
 			}
@@ -100,13 +100,13 @@ namespace Inventor.Core.Statements
 		}
 
 		private Boolean tryToUpdateCombinations(
-			IConcept row,
+			IConcept valueRow,
 			IConcept signRow,
 			IConcept signColumn,
 			IConcept valueColumn)
 		{
 			var resultSign = ComparisonSigns.CompareThreeValues(signRow, signColumn);
-			return resultSign != null && SetCombinationWithDescendants(row, valueColumn, resultSign);
+			return resultSign != null && SetCombinationWithDescendants(valueRow, valueColumn, resultSign);
 		}
 
 		private List<Contradiction> findContradictionsInMatrix()
@@ -283,12 +283,12 @@ namespace Inventor.Core.Statements
 			return statement.ComparisonSign;
 		}
 
-		protected override Boolean SetCombinationWithDescendants(IConcept leftValue, IConcept rightValue, IConcept sign)
+		protected override Boolean SetCombinationWithDescendants(IConcept valueRow, IConcept valueColumn, IConcept sign)
 		{
-			Boolean combinationsUpdated = SetCombination(leftValue, rightValue, sign);
+			Boolean combinationsUpdated = SetCombination(valueRow, valueColumn, sign);
 			if (sign.CanBeReverted())
 			{
-				combinationsUpdated |= SetCombination(rightValue, leftValue, ComparisonSigns.Revert(sign));
+				combinationsUpdated |= SetCombination(valueColumn, valueRow, ComparisonSigns.Revert(sign));
 			}
 			return combinationsUpdated;
 		}
@@ -348,10 +348,10 @@ namespace Inventor.Core.Statements
 			return statement.SequenceSign;
 		}
 
-		protected override Boolean SetCombinationWithDescendants(IConcept leftValue, IConcept rightValue, IConcept sign)
+		protected override Boolean SetCombinationWithDescendants(IConcept valueRow, IConcept valueColumn, IConcept sign)
 		{
-			Boolean combinationsUpdated = SetCombination(leftValue, rightValue, sign);
-			combinationsUpdated |= SetCombination(rightValue, leftValue, SequenceSigns.Revert(sign));
+			Boolean combinationsUpdated = SetCombination(valueRow, valueColumn, sign);
+			combinationsUpdated |= SetCombination(valueColumn, valueRow, SequenceSigns.Revert(sign));
 			return combinationsUpdated;
 		}
 
