@@ -100,12 +100,17 @@ namespace Inventor.Core
 
 		#endregion
 
-		public static IConcept Revert(this IConcept sign)
+		private static void ensureSuits(this IConcept sign)
 		{
 			if (!All.Contains(sign))
 			{
-				throw new InvalidOperationException("Only comparison signs can be reverted using this method.");
+				throw new InvalidOperationException("This method can work only with comparison signs.");
 			}
+		}
+
+		public static IConcept Revert(this IConcept sign)
+		{
+			ensureSuits(sign);
 
 			if (sign == IsGreaterThanOrEqualTo)
 			{
@@ -292,12 +297,17 @@ namespace Inventor.Core
 
 		#endregion
 
-		public static IConcept Revert(this IConcept sign)
+		private static void ensureSuits(this IConcept sign)
 		{
 			if (!All.Contains(sign))
 			{
-				throw new InvalidOperationException("Only process sequence signs can be reverted using this method.");
+				throw new InvalidOperationException("This method can work only with process sequence signs.");
 			}
+		}
+
+		public static IConcept Revert(this IConcept sign)
+		{
+			ensureSuits(sign);
 
 			if (sign == StartsAfterOtherStarted)
 			{
