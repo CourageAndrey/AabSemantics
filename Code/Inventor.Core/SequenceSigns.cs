@@ -309,8 +309,8 @@ namespace Inventor.Core
 				return true;
 			}
 
-			var foundStartSigns = signs.Where(s => StartSigns.Contains(s)).ToList();
-			var foundFinishSigns = signs.Where(s => FinishSigns.Contains(s)).ToList();
+			var foundStartSigns = signs.Where(s => StartSigns.Contains(s)).Distinct().ToList();
+			var foundFinishSigns = signs.Where(s => FinishSigns.Contains(s)).Distinct().ToList();
 			return foundStartSigns.Count > 1 || foundFinishSigns.Count > 1;
 		}
 
