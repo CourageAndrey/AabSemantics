@@ -74,6 +74,8 @@
     <Compile Include="Processors\EnumerateSignsProcessorTest.cs" />
     <Compile Include="Processors\HasSignProcessorTest.cs" />
     <Compile Include="Processors\HasSignsProcessorTest.cs" />
+    <Compile Include="Processors\IsSignProcessorTest.cs" />
+    <Compile Include="Processors\IsValueProcessorTest.cs" />
     <Compile Include="Processors\ProcessesQuestionProcessorTest.cs" />
     <Compile Include="Processors\ComparisonQuestionProcessorTest.cs" />
     <Compile Include="Processors\DescribeSubjectAreaProcessorTest.cs" />
