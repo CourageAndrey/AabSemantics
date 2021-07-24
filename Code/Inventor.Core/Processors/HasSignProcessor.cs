@@ -28,7 +28,7 @@ namespace Inventor.Core.Processors
 
 		protected override Boolean DoesStatementMatch(IQuestionProcessingContext<HasSignQuestion> context, HasSignStatement statement)
 		{
-			return statement.Sign == context.Question.Sign;
+			return statement.Concept == context.Question.Concept && statement.Sign == context.Question.Sign;
 		}
 
 		protected override Boolean AreEnoughToAnswer(IQuestionProcessingContext<HasSignQuestion> context, ICollection<HasSignStatement> statements)
@@ -53,6 +53,27 @@ namespace Inventor.Core.Processors
 					yield return new NestedQuestion(new HasSignQuestion(parent, question.Sign, true), new IStatement[] { transitiveStatement });
 				}
 			}
+		}
+
+		protected override IAnswer ProcessChildAnswers(IQuestionProcessingContext<HasSignQuestion> questionProcessingContext, ICollection<HasSignStatement> statements, ICollection<ChildAnswer> childAnswers)
+		{
+			var resultStatements = new List<HasSignStatement>(statements);
+			var additionalStatements = new List<IStatement>();
+
+			foreach (var childAnswer in childAnswers)
+			{
+				if (((BooleanAnswer) childAnswer.Answer).Result)
+				{
+					var answerStatements = childAnswer.Answer.Explanation.Statements.OfType<HasSignStatement>().ToList();
+					resultStatements.AddRange(answerStatements);
+					additionalStatements.AddRange(childAnswer.Answer.Explanation.Statements.Except(answerStatements));
+					additionalStatements.AddRange(childAnswer.TransitiveStatements);
+				}
+			}
+
+			var result = CreateAnswer(questionProcessingContext, resultStatements);
+			result.Explanation.Expand(additionalStatements);
+			return result;
 		}
 	}
 }
