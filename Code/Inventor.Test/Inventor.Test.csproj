@@ -71,6 +71,7 @@
     <Compile Include="Processors\EnumerateChildrenProcessorTest.cs" />
     <Compile Include="Processors\EnumerateContainersProcessorTest.cs" />
     <Compile Include="Processors\EnumeratePartsProcessorTest.cs" />
+    <Compile Include="Processors\EnumerateSignsProcessorTest.cs" />
     <Compile Include="Processors\ProcessesQuestionProcessorTest.cs" />
     <Compile Include="Processors\ComparisonQuestionProcessorTest.cs" />
     <Compile Include="Processors\DescribeSubjectAreaProcessorTest.cs" />
