@@ -68,6 +68,9 @@
     <Compile Include="ConsistencyTest.cs" />
     <Compile Include="Localization\LocalizedStringsTest.cs" />
     <Compile Include="Processors\CheckStatementProcessorTest.cs" />
+    <Compile Include="Processors\EnumerateChildrenProcessorTest.cs" />
+    <Compile Include="Processors\EnumerateContainersProcessorTest.cs" />
+    <Compile Include="Processors\EnumeratePartsProcessorTest.cs" />
     <Compile Include="Processors\ProcessesQuestionProcessorTest.cs" />
     <Compile Include="Processors\ComparisonQuestionProcessorTest.cs" />
     <Compile Include="Processors\DescribeSubjectAreaProcessorTest.cs" />
