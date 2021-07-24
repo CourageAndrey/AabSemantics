@@ -101,6 +101,19 @@ namespace Inventor.Core.Base
 
 		#endregion
 
+		#region Car parts
+
+		public IConcept Part_Engine
+		{ get; }
+
+		public IConcept Part_Wheels
+		{ get; }
+
+		public IConcept Part_Body
+		{ get; }
+
+		#endregion
+
 		#region Comparable Values
 
 		public Concept Number0
@@ -381,6 +394,40 @@ namespace Inventor.Core.Base
 
 			#endregion
 
+			#region Car parts
+
+			KnowledgeBase.Concepts.Add(Part_Engine = new Concept(new LocalizedStringVariable(new Dictionary<String, String>
+			{
+				{ "ru-RU", "Двигатель" },
+				{ "en-US", "Engine" },
+			}), new LocalizedStringVariable(new Dictionary<String, String>
+			{
+				{ "ru-RU", "Двигатель." },
+				{ "en-US", "Engine." },
+			})));
+
+			KnowledgeBase.Concepts.Add(Part_Wheels = new Concept(new LocalizedStringVariable(new Dictionary<String, String>
+			{
+				{ "ru-RU", "Колёса" },
+				{ "en-US", "Wheels" },
+			}), new LocalizedStringVariable(new Dictionary<String, String>
+			{
+				{ "ru-RU", "Колёса." },
+				{ "en-US", "Wheels." },
+			})));
+
+			KnowledgeBase.Concepts.Add(Part_Body = new Concept(new LocalizedStringVariable(new Dictionary<String, String>
+			{
+				{ "ru-RU", "Кузов" },
+				{ "en-US", "Car body" },
+			}), new LocalizedStringVariable(new Dictionary<String, String>
+			{
+				{ "ru-RU", "Кузов." },
+				{ "en-US", "Car body." },
+			})));
+
+			#endregion
+
 			#region Comparable Values
 
 			Func<String, LocalizedStringVariable> getString = text => new LocalizedStringVariable(
@@ -460,6 +507,9 @@ namespace Inventor.Core.Base
 			KnowledgeBase.Statements.Add(new GroupStatement(SubjectArea_Transport, Vehicle_Fighter));
 			KnowledgeBase.Statements.Add(new GroupStatement(SubjectArea_Transport, Vehicle_Airbus));
 			KnowledgeBase.Statements.Add(new GroupStatement(SubjectArea_Transport, Vehicle_JetFighter));
+			KnowledgeBase.Statements.Add(new GroupStatement(SubjectArea_Transport, Part_Body));
+			KnowledgeBase.Statements.Add(new GroupStatement(SubjectArea_Transport, Part_Engine));
+			KnowledgeBase.Statements.Add(new GroupStatement(SubjectArea_Transport, Part_Wheels));
 
 			KnowledgeBase.Statements.Add(new GroupStatement(SubjectArea_Numbers, Number0));
 			KnowledgeBase.Statements.Add(new GroupStatement(SubjectArea_Numbers, NumberZero));
@@ -511,7 +561,9 @@ namespace Inventor.Core.Base
 			KnowledgeBase.Statements.Add(new SignValueStatement(Vehicle_Airbus, Sign_AreaType, AreaType_Air));
 			KnowledgeBase.Statements.Add(new SignValueStatement(Vehicle_JetFighter, Sign_AreaType, AreaType_Air));
 
-			KnowledgeBase.Statements.Add(new HasPartStatement(Base_Vehicle, Sign_MotorType));
+			KnowledgeBase.Statements.Add(new HasPartStatement(Vehicle_Car, Part_Body));
+			KnowledgeBase.Statements.Add(new HasPartStatement(Vehicle_Car, Part_Engine));
+			KnowledgeBase.Statements.Add(new HasPartStatement(Vehicle_Car, Part_Wheels));
 
 			KnowledgeBase.Statements.Add(new ComparisonStatement(Number0, NumberZero, ComparisonSigns.IsEqualTo));
 			KnowledgeBase.Statements.Add(new ComparisonStatement(NumberNotZero, NumberZero, ComparisonSigns.IsNotEqualTo));
