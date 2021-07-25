@@ -10,6 +10,7 @@ using Inventor.Core.Localization;
 
 namespace Inventor.Test.Xml
 {
+	[TestFixture]
 	public class SerializationTest
 	{
 		[Test]

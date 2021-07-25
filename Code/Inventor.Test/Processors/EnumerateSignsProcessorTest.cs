@@ -12,6 +12,7 @@ using Inventor.Core.Statements;
 
 namespace Inventor.Test.Processors
 {
+	[TestFixture]
 	public class EnumerateSignsProcessorTest
 	{
 		[Test]

@@ -9,6 +9,7 @@ using Inventor.Core.Base;
 
 namespace Inventor.Test.Xml
 {
+	[TestFixture]
 	public class AttributesTest
 	{
 		[Test]

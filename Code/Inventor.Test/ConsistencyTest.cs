@@ -6,6 +6,7 @@ using Inventor.Core;
 
 namespace Inventor.Test
 {
+	[TestFixture]
 	public class ConsistencyTest
 	{
 		[Test]
