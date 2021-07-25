@@ -11,6 +11,7 @@ using Inventor.Core.Utils;
 
 namespace Inventor.Test.Base
 {
+	[TestFixture]
 	public class ContextsTest
 	{
 		[Test]

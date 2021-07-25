@@ -12,6 +12,7 @@ using Inventor.Core.Statements;
 
 namespace Inventor.Test.Statements
 {
+	[TestFixture]
 	public class ProcessesStatementContradictionsCheckerTest
 	{
 		private const int _testChainLength = 5;
