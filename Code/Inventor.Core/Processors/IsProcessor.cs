@@ -49,5 +49,26 @@ namespace Inventor.Core.Processors
 				}
 			}
 		}
+
+		protected override IAnswer ProcessChildAnswers(IQuestionProcessingContext<IsQuestion> questionProcessingContext, ICollection<IsStatement> statements, ICollection<ChildAnswer> childAnswers)
+		{
+			var resultStatements = new List<IsStatement>(statements);
+			var additionalStatements = new List<IStatement>();
+
+			foreach (var childAnswer in childAnswers)
+			{
+				if (((BooleanAnswer) childAnswer.Answer).Result)
+				{
+					var answerStatements = childAnswer.Answer.Explanation.Statements.OfType<IsStatement>().ToList();
+					resultStatements.AddRange(answerStatements);
+					additionalStatements.AddRange(childAnswer.Answer.Explanation.Statements.Except(answerStatements));
+					additionalStatements.AddRange(childAnswer.TransitiveStatements);
+				}
+			}
+
+			var result = CreateAnswer(questionProcessingContext, resultStatements);
+			result.Explanation.Expand(additionalStatements);
+			return result;
+		}
 	}
 }
