@@ -83,6 +83,7 @@
     <Compile Include="Processors\DescribeSubjectAreaProcessorTest.cs" />
     <Compile Include="Processors\FindSubjectAreaProcessorTest.cs" />
     <Compile Include="Processors\QuestionWithConditionProcessorTest.cs" />
+    <Compile Include="Processors\SignValueProcessorTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Statements\ComparisonStatementContradictionsCheckerTest.cs" />
     <Compile Include="Statements\ParentChildTest.cs" />
