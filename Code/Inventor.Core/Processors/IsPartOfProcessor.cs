@@ -30,9 +30,9 @@ namespace Inventor.Core.Processors
 			return statement.Whole == context.Question.Parent && statement.Part == context.Question.Child;
 		}
 
-		protected override bool AreEnoughToAnswer(IQuestionProcessingContext<IsPartOfQuestion> context, ICollection<HasPartStatement> statements)
+		protected override bool NeedToCheckTransitives(IQuestionProcessingContext<IsPartOfQuestion> context, ICollection<HasPartStatement> statements)
 		{
-			return true;
+			return false;
 		}
 	}
 }
