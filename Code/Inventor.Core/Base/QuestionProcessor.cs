@@ -34,7 +34,7 @@ namespace Inventor.Core.Base
 
 			var statements = context.KnowledgeBase.Statements.Enumerate<StatementT>(context.ActiveContexts).Where(statement => DoesStatementMatch(context, statement)).ToList();
 
-			if (AreEnoughToAnswer(context, statements))
+			if (!NeedToCheckTransitives(context, statements))
 			{
 				return CreateAnswer(context, statements);
 			}
@@ -61,9 +61,9 @@ namespace Inventor.Core.Base
 
 		protected abstract Boolean DoesStatementMatch(IQuestionProcessingContext<QuestionT> context, StatementT statement);
 
-		protected virtual Boolean AreEnoughToAnswer(IQuestionProcessingContext<QuestionT> context, ICollection<StatementT> statements)
+		protected virtual Boolean NeedToCheckTransitives(IQuestionProcessingContext<QuestionT> context, ICollection<StatementT> statements)
 		{
-			return statements.Count > 0;
+			return statements.Count == 0;
 		}
 
 		protected abstract IAnswer CreateAnswer(IQuestionProcessingContext<QuestionT> context, ICollection<StatementT> statements);

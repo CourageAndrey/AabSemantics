@@ -30,9 +30,9 @@ namespace Inventor.Core.Processors
 			return statement.Concept == context.Question.Concept;
 		}
 
-		protected override Boolean AreEnoughToAnswer(IQuestionProcessingContext<HasSignsQuestion> context, ICollection<HasSignStatement> statements)
+		protected override Boolean NeedToCheckTransitives(IQuestionProcessingContext<HasSignsQuestion> context, ICollection<HasSignStatement> statements)
 		{
-			return !context.Question.Recursive;
+			return context.Question.Recursive;
 		}
 
 		protected override IEnumerable<NestedQuestion> GetNestedQuestions(IQuestionProcessingContext<HasSignsQuestion> context)

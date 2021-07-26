@@ -32,9 +32,9 @@ namespace Inventor.Core.Processors
 			return statement.Area == context.Question.Area && statement.Concept == context.Question.Concept;
 		}
 
-		protected override bool AreEnoughToAnswer(IQuestionProcessingContext<IsSubjectAreaQuestion> context, ICollection<GroupStatement> statements)
+		protected override bool NeedToCheckTransitives(IQuestionProcessingContext<IsSubjectAreaQuestion> context, ICollection<GroupStatement> statements)
 		{
-			return true;
+			return false;
 		}
 	}
 }

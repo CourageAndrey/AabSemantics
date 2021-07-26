@@ -31,9 +31,9 @@ namespace Inventor.Core.Processors
 			return statement.Sign == context.Question.Concept;
 		}
 
-		protected override Boolean AreEnoughToAnswer(IQuestionProcessingContext<IsSignQuestion> context, ICollection<HasSignStatement> statements)
+		protected override Boolean NeedToCheckTransitives(IQuestionProcessingContext<IsSignQuestion> context, ICollection<HasSignStatement> statements)
 		{
-			return true;
+			return false;
 		}
 	}
 }
