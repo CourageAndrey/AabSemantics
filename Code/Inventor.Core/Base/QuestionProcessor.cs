@@ -38,18 +38,20 @@ namespace Inventor.Core.Base
 			{
 				return CreateAnswer(context, statements);
 			}
-
-			var valuableAnswers = new List<ChildAnswer>();
-			foreach (var nested in GetNestedQuestions(context))
+			else
 			{
-				var answer = nested.Question.Ask(context);
-				if (!answer.IsEmpty)
+				var valuableAnswers = new List<ChildAnswer>();
+				foreach (var nested in GetNestedQuestions(context))
 				{
-					valuableAnswers.Add(new ChildAnswer(nested.Question, answer, nested.TransitiveStatements));
+					var answer = nested.Question.Ask(context);
+					if (!answer.IsEmpty)
+					{
+						valuableAnswers.Add(new ChildAnswer(nested.Question, answer, nested.TransitiveStatements));
+					}
 				}
-			}
 
-			return ProcessChildAnswers(context, statements, valuableAnswers);
+				return ProcessChildAnswers(context, statements, valuableAnswers);
+			}
 		}
 
 		protected virtual IEnumerable<IStatement> GetPreconditions(IQuestionProcessingContext<QuestionT> context)
