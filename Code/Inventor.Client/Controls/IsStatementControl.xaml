@@ -3,7 +3,7 @@
 		xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
 	<StackPanel Orientation="Vertical" Name="_contextControl">
 		<GroupBox Name="_groupAncestor">
-            <ComboBox Name="_comboBoxAncestor" SelectedItem="{Binding Path=Ancestor, Mode=TwoWay}" />
+			<ComboBox Name="_comboBoxAncestor" SelectedItem="{Binding Path=Ancestor, Mode=TwoWay}" />
 		</GroupBox>
 		<GroupBox Name="_groupDescendant">
             <ComboBox Name="_comboBoxDescendant" SelectedItem="{Binding Path=Descendant, Mode=TwoWay}" />
