@@ -40,8 +40,7 @@ namespace Inventor.Test.Processors
 
 			var question = new ComparisonQuestion(concept1, concept3);
 
-			var questionWithPreconditions = new ComparisonQuestion(concept1, concept3);
-			questionWithPreconditions.Preconditions.Add(preconditionComparison);
+			var questionWithPreconditions = new ComparisonQuestion(concept1, concept3, new IStatement[] { preconditionComparison });
 
 			// act
 			var answerWithoutPreconditions = question.Ask(knowledgeBase.Context);

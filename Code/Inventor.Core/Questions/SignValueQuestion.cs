@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace Inventor.Core.Questions
 {
@@ -10,7 +11,8 @@ namespace Inventor.Core.Questions
 		public IConcept Sign
 		{ get; }
 
-		public SignValueQuestion(IConcept concept, IConcept sign)
+		public SignValueQuestion(IConcept concept, IConcept sign, IEnumerable<IStatement> preconditions = null)
+			: base(preconditions)
 		{
 			if (concept == null) throw new ArgumentNullException(nameof(concept));
 			if (sign == null) throw new ArgumentNullException(nameof(sign));

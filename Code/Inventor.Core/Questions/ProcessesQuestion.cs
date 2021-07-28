@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace Inventor.Core.Questions
 {
@@ -10,7 +11,8 @@ namespace Inventor.Core.Questions
 		public IConcept ProcessB
 		{ get; set; }
 
-		public ProcessesQuestion(IConcept processA, IConcept processB)
+		public ProcessesQuestion(IConcept processA, IConcept processB, IEnumerable<IStatement> preconditions = null)
+			: base(preconditions)
 		{
 			if (processA == null) throw new ArgumentNullException(nameof(processA));
 			if (processB == null) throw new ArgumentNullException(nameof(processB));
