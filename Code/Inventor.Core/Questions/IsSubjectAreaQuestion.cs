@@ -46,12 +46,12 @@ namespace Inventor.Core.Questions
 				new Explanation(statements));
 		}
 
-		protected override Boolean DoesStatementMatch(IQuestionProcessingContext<IsSubjectAreaQuestion> context, GroupStatement statement)
+		protected override Boolean DoesStatementMatch(GroupStatement statement)
 		{
 			return statement.Area == Area && statement.Concept == Concept;
 		}
 
-		protected override bool NeedToCheckTransitives(IQuestionProcessingContext<IsSubjectAreaQuestion> context, ICollection<GroupStatement> statements)
+		protected override bool NeedToCheckTransitives(ICollection<GroupStatement> statements)
 		{
 			return false;
 		}

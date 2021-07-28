@@ -40,12 +40,12 @@ namespace Inventor.Core.Questions
 				new Explanation(statements));
 		}
 
-		protected override Boolean DoesStatementMatch(IQuestionProcessingContext<IsSignQuestion> context, HasSignStatement statement)
+		protected override Boolean DoesStatementMatch(HasSignStatement statement)
 		{
 			return statement.Sign == Concept;
 		}
 
-		protected override Boolean NeedToCheckTransitives(IQuestionProcessingContext<IsSignQuestion> context, ICollection<HasSignStatement> statements)
+		protected override Boolean NeedToCheckTransitives(ICollection<HasSignStatement> statements)
 		{
 			return false;
 		}

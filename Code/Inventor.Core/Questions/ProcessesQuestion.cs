@@ -61,7 +61,7 @@ namespace Inventor.Core.Questions
 			return new StatementsAnswer<ProcessesStatement>(resultStatements, text, explanation);
 		}
 
-		protected override bool DoesStatementMatch(IQuestionProcessingContext<ProcessesQuestion> context, ProcessesStatement statement)
+		protected override bool DoesStatementMatch(ProcessesStatement statement)
 		{
 			return	(statement.ProcessA == ProcessA && statement.ProcessB == ProcessB) ||
 					(statement.ProcessB == ProcessA && statement.ProcessA == ProcessB);

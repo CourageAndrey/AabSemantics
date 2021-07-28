@@ -47,7 +47,7 @@ namespace Inventor.Core.Questions
 			}
 		}
 
-		protected override Boolean DoesStatementMatch(IQuestionProcessingContext<SignValueQuestion> context, SignValueStatement statement)
+		protected override Boolean DoesStatementMatch(SignValueStatement statement)
 		{
 			return statement.Concept == Concept && statement.Sign == Sign;
 		}

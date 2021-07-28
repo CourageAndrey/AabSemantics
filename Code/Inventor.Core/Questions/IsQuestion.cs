@@ -47,7 +47,7 @@ namespace Inventor.Core.Questions
 				new Explanation(statements));
 		}
 
-		protected override Boolean DoesStatementMatch(IQuestionProcessingContext<IsQuestion> context, IsStatement statement)
+		protected override Boolean DoesStatementMatch(IsStatement statement)
 		{
 			return statement.Parent == Parent && statement.Child == Child;
 		}
