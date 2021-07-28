@@ -11,7 +11,7 @@
 		public Core.IConcept Parent
 		{ get; set; }
 
-		public override Core.Questions.IsQuestion BuildQuestion()
+		public override Core.Questions.IsQuestion BuildQuestionImplementation()
 		{
 			return new Core.Questions.IsQuestion(Child, Parent);
 		}

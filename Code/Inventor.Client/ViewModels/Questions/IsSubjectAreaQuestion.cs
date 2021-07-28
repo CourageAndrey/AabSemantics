@@ -11,7 +11,7 @@
 		public Core.IConcept Area
 		{ get; set; }
 
-		public override Core.Questions.IsSubjectAreaQuestion BuildQuestion()
+		public override Core.Questions.IsSubjectAreaQuestion BuildQuestionImplementation()
 		{
 			return new Core.Questions.IsSubjectAreaQuestion(Concept, Area);
 		}

@@ -15,7 +15,7 @@
 		public bool Recursive
 		{ get; set; }
 
-		public override Core.Questions.HasSignQuestion BuildQuestion()
+		public override Core.Questions.HasSignQuestion BuildQuestionImplementation()
 		{
 			return new Core.Questions.HasSignQuestion(Concept, Sign, Recursive);
 		}
