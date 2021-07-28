@@ -200,7 +200,10 @@ namespace Inventor.Test.Base
 		}
 
 		private class TestQuestion : IQuestion
-		{ }
+		{
+			public ICollection<IStatement> Preconditions
+			{ get; } = new IStatement[0];
+		}
 
 		private class TestStatement : IStatement
 		{
