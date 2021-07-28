@@ -13,7 +13,7 @@ using Inventor.Core.Statements;
 namespace Inventor.Test.Processors
 {
 	[TestFixture]
-	public class QuestionWithConditionProcessorTest
+	public class QuestionProcessorTest
 	{
 		[Test]
 		public void ExplainPreconditions()
@@ -39,7 +39,9 @@ namespace Inventor.Test.Processors
 			// ... and do not add it to knowledge base
 
 			var question = new ComparisonQuestion(concept1, concept3);
-			var questionWithPreconditions = new QuestionWithCondition(new IStatement[] { preconditionComparison }, question);
+
+			var questionWithPreconditions = new ComparisonQuestion(concept1, concept3);
+			questionWithPreconditions.Preconditions.Add(preconditionComparison);
 
 			// act
 			var answerWithoutPreconditions = question.Ask(knowledgeBase.Context);

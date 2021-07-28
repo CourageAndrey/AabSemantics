@@ -72,10 +72,6 @@ namespace Inventor.Core.Localization
 		{ get; set; }
 
 		[XmlElement]
-		public String QuestionWithCondition
-		{ get; set; }
-
-		[XmlElement]
 		public String ComparisonQuestion
 		{ get; set; }
 
@@ -157,7 +153,6 @@ namespace Inventor.Core.Localization
 				EnumerateContainersQuestion = "Составной частью чего может являться ПОНЯТИЕ?",
 				IsSubjectAreaQuestion = "Входит ли ПОНЯТИЕ в ПРЕДМЕТНАЯ_ОБЛАСТЬ?",
 				CheckStatementQuestion = "Верно ли, что...",
-				QuestionWithCondition = "При условии...",
 				ComparisonQuestion = "Сравнить ПОНЯТИЕ_СЛЕВА и ПОНЯТИЕ_СПРАВА",
 				ProcessesQuestion = "Какова последовательность ПРОЦЕССА_A и ПРОЦЕССА_B",
 				ParamParent = "РОДИТЕЛЬСКОЕ_ПОНЯТИЕ",

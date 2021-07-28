@@ -151,7 +151,6 @@
     <Compile Include="ViewModels\Questions\IsValueQuestion.cs" />
     <Compile Include="ViewModels\Questions\PropertyDescriptorAttribute.cs" />
     <Compile Include="ViewModels\Questions\QuestionDescriptorAttribute.cs" />
-    <Compile Include="ViewModels\Questions\QuestionWithCondition.cs" />
     <Compile Include="ViewModels\Questions\SignValueQuestion.cs" />
     <Compile Include="ViewModels\Questions\WhatQuestion.cs" />
     <Compile Include="ViewModels\Statements\ComparisonStatement.cs" />
