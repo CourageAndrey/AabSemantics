@@ -1,16 +1,10 @@
-﻿using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Linq;
+﻿using System.Linq;
 
 namespace Inventor.Client.ViewModels.Questions
 {
 	[QuestionDescriptor]
 	public sealed class QuestionWithCondition : QuestionViewModel<Core.Questions.QuestionWithCondition>
 	{
-		[PropertyDescriptor(true, "QuestionNames.ParamConditions")]
-		public ICollection<StatementViewModel> Conditions
-		{ get; } = new ObservableCollection<StatementViewModel>();
-
 		[PropertyDescriptor(true, "QuestionNames.ParamQuestion")]
 		public IQuestionViewModel Question
 		{ get; set; }
