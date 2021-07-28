@@ -26,7 +26,12 @@ namespace Inventor.Client
 		public ICollection<StatementViewModel> Preconditions
 		{ get; } = new ObservableCollection<StatementViewModel>();
 
-		public abstract QuestionT BuildQuestion();
+		public QuestionT BuildQuestion()
+		{
+			return BuildQuestionImplementation();
+		}
+
+		public abstract QuestionT BuildQuestionImplementation();
 
 		Core.IQuestion IQuestionViewModel.BuildQuestion()
 		{

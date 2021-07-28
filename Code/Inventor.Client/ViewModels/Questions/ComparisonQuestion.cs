@@ -11,7 +11,7 @@
 		public Core.IConcept RightValue
 		{ get; set; }
 
-		public override Core.Questions.ComparisonQuestion BuildQuestion()
+		public override Core.Questions.ComparisonQuestion BuildQuestionImplementation()
 		{
 			return new Core.Questions.ComparisonQuestion(LeftValue, RightValue);
 		}

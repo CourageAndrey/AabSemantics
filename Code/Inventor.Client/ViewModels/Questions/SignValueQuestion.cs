@@ -11,7 +11,7 @@
 		public Core.IConcept Sign
 		{ get; set; }
 
-		public override Core.Questions.SignValueQuestion BuildQuestion()
+		public override Core.Questions.SignValueQuestion BuildQuestionImplementation()
 		{
 			return new Core.Questions.SignValueQuestion(Concept, Sign);
 		}

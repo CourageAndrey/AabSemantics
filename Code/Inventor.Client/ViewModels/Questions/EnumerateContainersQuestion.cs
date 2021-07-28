@@ -7,7 +7,7 @@
 		public Core.IConcept Concept
 		{ get; set; }
 
-		public override Core.Questions.EnumerateContainersQuestion BuildQuestion()
+		public override Core.Questions.EnumerateContainersQuestion BuildQuestionImplementation()
 		{
 			return new Core.Questions.EnumerateContainersQuestion(Concept);
 		}

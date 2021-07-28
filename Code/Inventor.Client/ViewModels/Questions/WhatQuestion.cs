@@ -7,7 +7,7 @@
 		public Core.IConcept Concept
 		{ get; set; }
 
-		public override Core.Questions.WhatQuestion BuildQuestion()
+		public override Core.Questions.WhatQuestion BuildQuestionImplementation()
 		{
 			return new Core.Questions.WhatQuestion(Concept);
 		}

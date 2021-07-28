@@ -7,7 +7,7 @@
 		public StatementViewModel Statement
 		{ get; set; }
 
-		public override Core.Questions.CheckStatementQuestion BuildQuestion()
+		public override Core.Questions.CheckStatementQuestion BuildQuestionImplementation()
 		{
 			return new Core.Questions.CheckStatementQuestion(Statement.CreateStatement());
 		}

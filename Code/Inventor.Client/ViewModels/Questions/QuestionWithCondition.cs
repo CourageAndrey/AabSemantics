@@ -9,7 +9,7 @@ namespace Inventor.Client.ViewModels.Questions
 		public IQuestionViewModel Question
 		{ get; set; }
 
-		public override Core.Questions.QuestionWithCondition BuildQuestion()
+		public override Core.Questions.QuestionWithCondition BuildQuestionImplementation()
 		{
 			return new Core.Questions.QuestionWithCondition(Preconditions.Select(condition => condition.CreateStatement()), Question.BuildQuestion());
 		}

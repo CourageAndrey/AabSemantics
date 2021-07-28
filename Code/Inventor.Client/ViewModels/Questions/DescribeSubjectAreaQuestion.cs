@@ -7,7 +7,7 @@
 		public Core.IConcept Concept
 		{ get; set; }
 
-		public override Core.Questions.DescribeSubjectAreaQuestion BuildQuestion()
+		public override Core.Questions.DescribeSubjectAreaQuestion BuildQuestionImplementation()
 		{
 			return new Core.Questions.DescribeSubjectAreaQuestion(Concept);
 		}

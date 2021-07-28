@@ -11,7 +11,7 @@
 		public bool Recursive
 		{ get; set; }
 
-		public override Core.Questions.EnumerateSignsQuestion BuildQuestion()
+		public override Core.Questions.EnumerateSignsQuestion BuildQuestionImplementation()
 		{
 			return new Core.Questions.EnumerateSignsQuestion(Concept, Recursive);
 		}

@@ -11,7 +11,7 @@
 		public Core.IConcept Child
 		{ get; set; }
 
-		public override Core.Questions.IsPartOfQuestion BuildQuestion()
+		public override Core.Questions.IsPartOfQuestion BuildQuestionImplementation()
 		{
 			return new Core.Questions.IsPartOfQuestion(Child, Parent);
 		}

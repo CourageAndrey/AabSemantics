@@ -11,7 +11,7 @@
 		public Core.IConcept ProcessB
 		{ get; set; }
 
-		public override Core.Questions.ProcessesQuestion BuildQuestion()
+		public override Core.Questions.ProcessesQuestion BuildQuestionImplementation()
 		{
 			return new Core.Questions.ProcessesQuestion(ProcessA, ProcessB);
 		}
