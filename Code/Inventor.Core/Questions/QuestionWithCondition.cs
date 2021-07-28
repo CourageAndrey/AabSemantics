@@ -5,7 +5,7 @@ namespace Inventor.Core.Questions
 {
 	public sealed class QuestionWithCondition : IQuestion
 	{
-		public ICollection<IStatement> Conditions
+		public ICollection<IStatement> Preconditions
 		{ get; }
 
 		public IQuestion Question
@@ -16,7 +16,7 @@ namespace Inventor.Core.Questions
 			if (conditions == null) throw new ArgumentNullException(nameof(conditions));
 			if (question == null) throw new ArgumentNullException(nameof(question));
 
-			Conditions = new List<IStatement>(conditions);
+			Preconditions = new List<IStatement>(conditions);
 			Question = question;
 		}
 	}

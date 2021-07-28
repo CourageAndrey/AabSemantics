@@ -11,7 +11,7 @@ namespace Inventor.Core.Processors
 		public override IAnswer Process(IQuestionProcessingContext<QuestionWithCondition> context)
 		{
 			var question = context.Question;
-			return question.Question.Ask(context, question.Conditions);
+			return question.Question.Ask(context, question.Preconditions);
 		}
 	}
 }
