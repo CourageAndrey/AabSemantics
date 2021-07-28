@@ -2,17 +2,16 @@
 
 using NUnit.Framework;
 
-using Inventor.Core;
 using Inventor.Core.Answers;
 using Inventor.Core.Base;
 using Inventor.Core.Localization;
 using Inventor.Core.Questions;
 using Inventor.Core.Statements;
 
-namespace Inventor.Test.Processors
+namespace Inventor.Test.Questions
 {
 	[TestFixture]
-	public class EnumeratePartsProcessorTest
+	public class EnumerateContainersQuestionTest
 	{
 		[Test]
 		public void WhenNoRelationshipsReturnEmptyAnswer()
@@ -29,50 +28,50 @@ namespace Inventor.Test.Processors
 			knowledgeBase.Concepts.Add(partConcept);
 			knowledgeBase.Statements.Add(new HasPartStatement(wholeConcept, partConcept));
 
-			var questionToCheck = new EnumeratePartsQuestion(conceptToCheck);
-			var questionPart = new EnumeratePartsQuestion(partConcept);
+			var questionToCheck = new EnumerateContainersQuestion(conceptToCheck);
+			var questionWhole = new EnumerateContainersQuestion(wholeConcept);
 
 			// act
 			var answerToCheck = questionToCheck.Ask(knowledgeBase.Context);
 
-			var answerPart = questionPart.Ask(knowledgeBase.Context);
+			var answerWhole = questionWhole.Ask(knowledgeBase.Context);
 
 			// assert
 			Assert.IsTrue(answerToCheck.IsEmpty);
 			Assert.AreEqual(0, answerToCheck.Explanation.Statements.Count);
 
-			Assert.IsTrue(answerPart.IsEmpty);
-			Assert.AreEqual(0, answerPart.Explanation.Statements.Count);
+			Assert.IsTrue(answerWhole.IsEmpty);
+			Assert.AreEqual(0, answerWhole.Explanation.Statements.Count);
 		}
 
 		[Test]
-		public void ReturnAllParts()
+		public void ReturnAllContainers()
 		{
 			// arrange
 			var language = Language.Default;
 			var knowledgeBase = new KnowledgeBase(language);
 
-			var wholeConcept = new Concept();
-			knowledgeBase.Concepts.Add(wholeConcept);
+			var partConcept = new Concept();
+			knowledgeBase.Concepts.Add(partConcept);
 
-			const int partCount = 4;
+			const int containerCount = 4;
 
-			for (int i = 1; i <= partCount; i++)
+			for (int i = 1; i <= containerCount; i++)
 			{
 				// act
-				var partConcept = new Concept();
-				knowledgeBase.Concepts.Add(partConcept);
+				var wholeConcept = new Concept();
+				knowledgeBase.Concepts.Add(wholeConcept);
 				knowledgeBase.Statements.Add(new HasPartStatement(wholeConcept, partConcept));
 
-				var question = new EnumeratePartsQuestion(wholeConcept);
+				var question = new EnumerateContainersQuestion(partConcept);
 
 				var answer = question.Ask(knowledgeBase.Context);
 
 				// assert
 				Assert.IsFalse(answer.IsEmpty);
-				var partConcepts = ((ConceptsAnswer) answer).Result;
-				Assert.AreEqual(i, partConcepts.Count);
-				Assert.IsTrue(partConcepts.All(knowledgeBase.Concepts.Contains));
+				var containerConcepts = ((ConceptsAnswer) answer).Result;
+				Assert.AreEqual(i, containerConcepts.Count);
+				Assert.IsTrue(containerConcepts.All(knowledgeBase.Concepts.Contains));
 				Assert.AreEqual(i, answer.Explanation.Statements.Count);
 				Assert.IsFalse(knowledgeBase.Statements.Except(answer.Explanation.Statements).Any());
 			}

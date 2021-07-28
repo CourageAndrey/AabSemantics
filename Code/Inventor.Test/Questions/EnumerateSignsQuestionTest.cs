@@ -10,10 +10,10 @@ using Inventor.Core.Localization;
 using Inventor.Core.Questions;
 using Inventor.Core.Statements;
 
-namespace Inventor.Test.Processors
+namespace Inventor.Test.Questions
 {
 	[TestFixture]
-	public class EnumerateSignsProcessorTest
+	public class EnumerateSignsQuestionTest
 	{
 		[Test]
 		public void ReturnEmptyAnswerIfNoSigns()

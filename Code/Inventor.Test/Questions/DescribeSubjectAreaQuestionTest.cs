@@ -9,10 +9,10 @@ using Inventor.Core.Localization;
 using Inventor.Core.Questions;
 using Inventor.Core.Statements;
 
-namespace Inventor.Test.Processors
+namespace Inventor.Test.Questions
 {
 	[TestFixture]
-	public class DescribeSubjectAreaProcessorTest
+	public class DescribeSubjectAreaQuestionTest
 	{
 		[Test]
 		public void SubjectAreaWithoutConceptsHasNoConcepts()
