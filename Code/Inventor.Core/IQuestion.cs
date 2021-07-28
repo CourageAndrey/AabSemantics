@@ -16,7 +16,8 @@ namespace Inventor.Core
 			{
 				var questionType = question.GetType();
 				var questionRepository = context.QuestionRepository;
-				var questionProcessor = questionRepository.QuestionDefinitions[questionType].CreateProcessor();
+				var questionDefinition = questionRepository.QuestionDefinitions[questionType];
+				var questionProcessor = questionDefinition.CreateProcessor();
 				return questionProcessor.Process(questionContext);
 			}
 		}
