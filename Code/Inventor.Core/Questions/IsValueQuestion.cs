@@ -28,21 +28,21 @@ namespace Inventor.Core.Questions
 
 		protected override IAnswer CreateAnswer(IQuestionProcessingContext<IsValueQuestion> context, ICollection<SignValueStatement> statements)
 		{
-			bool isValue = context.Question.Concept.HasAttribute<IsValueAttribute>();
+			bool isValue = Concept.HasAttribute<IsValueAttribute>();
 			return new BooleanAnswer(
 				isValue,
 				new FormattedText(
 					isValue ? new Func<String>(() => context.Language.Answers.ValueTrue) : () => context.Language.Answers.ValueFalse,
 					new Dictionary<String, INamed>
 					{
-						{ Strings.ParamConcept, context.Question.Concept },
+						{ Strings.ParamConcept, Concept },
 					}),
 				new Explanation(statements));
 		}
 
 		protected override Boolean DoesStatementMatch(IQuestionProcessingContext<IsValueQuestion> context, SignValueStatement statement)
 		{
-			return statement.Value == context.Question.Concept;
+			return statement.Value == Concept;
 		}
 
 		protected override Boolean NeedToCheckTransitives(IQuestionProcessingContext<IsValueQuestion> context, ICollection<SignValueStatement> statements)

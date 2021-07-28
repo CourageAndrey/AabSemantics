@@ -32,7 +32,7 @@ namespace Inventor.Core.Questions
 			{
 				String format;
 				var parameters = statements.Select(r => r.Part).ToList().Enumerate(out format);
-				parameters.Add(Strings.ParamParent, context.Question.Concept);
+				parameters.Add(Strings.ParamParent, Concept);
 				return new ConceptsAnswer(
 					statements.Select(s => s.Part).ToList(),
 					new FormattedText(() => context.Language.Answers.EnumerateParts + format + ".", parameters),
@@ -46,7 +46,7 @@ namespace Inventor.Core.Questions
 
 		protected override Boolean DoesStatementMatch(IQuestionProcessingContext<EnumeratePartsQuestion> context, HasPartStatement statement)
 		{
-			return statement.Whole == context.Question.Concept;
+			return statement.Whole == Concept;
 		}
 	}
 }

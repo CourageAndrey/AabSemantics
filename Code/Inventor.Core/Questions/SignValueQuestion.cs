@@ -38,7 +38,7 @@ namespace Inventor.Core.Questions
 				var statement = statements.First();
 				return new ConceptAnswer(
 					statement.Value,
-					formatSignValue(statement, context.Question.Concept, context.Language),
+					formatSignValue(statement, Concept, context.Language),
 					new Explanation(statements));
 			}
 			else
@@ -49,7 +49,7 @@ namespace Inventor.Core.Questions
 
 		protected override Boolean DoesStatementMatch(IQuestionProcessingContext<SignValueQuestion> context, SignValueStatement statement)
 		{
-			return statement.Concept == context.Question.Concept && statement.Sign == context.Question.Sign;
+			return statement.Concept == Concept && statement.Sign == Sign;
 		}
 
 		protected override IEnumerable<NestedQuestion> GetNestedQuestions(IQuestionProcessingContext<SignValueQuestion> context)

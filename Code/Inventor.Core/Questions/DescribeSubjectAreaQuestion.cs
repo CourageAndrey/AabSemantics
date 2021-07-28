@@ -32,7 +32,7 @@ namespace Inventor.Core.Questions
 			{
 				String format;
 				var parameters = statements.Select(r => r.Concept).ToList().Enumerate(out format);
-				parameters.Add(Strings.ParamAnswer, context.Question.Concept);
+				parameters.Add(Strings.ParamAnswer, Concept);
 				return new ConceptsAnswer(
 					statements.Select(s => s.Concept).ToList(),
 					new FormattedText(() => context.Language.Answers.SubjectAreaConcepts + format + ".", parameters),
@@ -46,7 +46,7 @@ namespace Inventor.Core.Questions
 
 		protected override Boolean DoesStatementMatch(IQuestionProcessingContext<DescribeSubjectAreaQuestion> context, GroupStatement statement)
 		{
-			return statement.Area == context.Question.Concept;
+			return statement.Area == Concept;
 		}
 	}
 }

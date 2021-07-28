@@ -38,15 +38,15 @@ namespace Inventor.Core.Questions
 				statements.Any(),
 				new FormattedText(statements.Any() ? new Func<String>(() => context.Language.Answers.IsPartOfTrue) : () => context.Language.Answers.IsPartOfFalse, new Dictionary<String, INamed>
 				{
-					{ Strings.ParamParent, context.Question.Parent },
-					{ Strings.ParamChild, context.Question.Child },
+					{ Strings.ParamParent, Parent },
+					{ Strings.ParamChild, Child },
 				}),
 				new Explanation(statements));
 		}
 
 		protected override Boolean DoesStatementMatch(IQuestionProcessingContext<IsPartOfQuestion> context, HasPartStatement statement)
 		{
-			return statement.Whole == context.Question.Parent && statement.Part == context.Question.Child;
+			return statement.Whole == Parent && statement.Part == Child;
 		}
 
 		protected override bool NeedToCheckTransitives(IQuestionProcessingContext<IsPartOfQuestion> context, ICollection<HasPartStatement> statements)
