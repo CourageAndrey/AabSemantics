@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 
+using Inventor.Core.Statements;
+
 namespace Inventor.Core.Questions
 {
-	public sealed class EnumeratePartsQuestion : Question
+	public sealed class EnumeratePartsQuestion : Question, IQuestion<HasPartStatement>
 	{
 		public IConcept Concept
 		{ get; }

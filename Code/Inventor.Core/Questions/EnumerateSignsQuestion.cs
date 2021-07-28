@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 
+using Inventor.Core.Statements;
+
 namespace Inventor.Core.Questions
 {
-	public sealed class EnumerateSignsQuestion : Question
+	public sealed class EnumerateSignsQuestion : Question, IQuestion<HasSignStatement>
 	{
 		public IConcept Concept
 		{ get; }

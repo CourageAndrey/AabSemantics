@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 
+using Inventor.Core.Statements;
+
 namespace Inventor.Core.Questions
 {
-	public sealed class ProcessesQuestion : Question
+	public sealed class ProcessesQuestion : Question, IQuestion<ProcessesStatement>
 	{
 		public IConcept ProcessA
 		{ get; set; }

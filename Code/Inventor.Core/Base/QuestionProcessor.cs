@@ -21,7 +21,7 @@ namespace Inventor.Core.Base
 	}
 
 	public abstract class QuestionProcessor<QuestionT, StatementT> : QuestionProcessor<QuestionT>
-		where QuestionT : IQuestion
+		where QuestionT : IQuestion<StatementT>
 		where StatementT : IStatement
 	{
 		public override IAnswer Process(IQuestionProcessingContext<QuestionT> context)
