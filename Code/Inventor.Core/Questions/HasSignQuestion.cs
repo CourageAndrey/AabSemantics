@@ -40,28 +40,28 @@ namespace Inventor.Core.Questions
 			return new BooleanAnswer(
 				statements.Any(),
 				new FormattedText(
-					() => String.Format(statements.Any() ? context.Language.Answers.HasSignTrue : context.Language.Answers.HasSignFalse, context.Question.Recursive ? context.Language.Answers.RecursiveTrue : context.Language.Answers.RecursiveFalse),
+					() => String.Format(statements.Any() ? context.Language.Answers.HasSignTrue : context.Language.Answers.HasSignFalse, Recursive ? context.Language.Answers.RecursiveTrue : context.Language.Answers.RecursiveFalse),
 					new Dictionary<String, INamed>
 					{
-						{ Strings.ParamConcept, context.Question.Concept },
-						{ Strings.ParamSign, context.Question.Sign },
+						{ Strings.ParamConcept, Concept },
+						{ Strings.ParamSign, Sign },
 					}),
 				new Explanation(statements));
 		}
 
 		protected override Boolean DoesStatementMatch(IQuestionProcessingContext<HasSignQuestion> context, HasSignStatement statement)
 		{
-			return statement.Concept == context.Question.Concept && statement.Sign == context.Question.Sign;
+			return statement.Concept == Concept && statement.Sign == Sign;
 		}
 
 		protected override Boolean NeedToCheckTransitives(IQuestionProcessingContext<HasSignQuestion> context, ICollection<HasSignStatement> statements)
 		{
-			return context.Question.Recursive;
+			return Recursive;
 		}
 
 		protected override IEnumerable<NestedQuestion> GetNestedQuestions(IQuestionProcessingContext<HasSignQuestion> context)
 		{
-			if (!context.Question.Recursive) yield break;
+			if (!Recursive) yield break;
 
 			var alreadyViewedConcepts = new HashSet<IConcept>(context.ActiveContexts.OfType<IQuestionProcessingContext<HasSignQuestion>>().Select(questionContext => questionContext.Question.Concept));
 

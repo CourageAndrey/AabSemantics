@@ -32,7 +32,7 @@ namespace Inventor.Core.Questions
 			{
 				String format;
 				var parameters = statements.Select(r => r.Descendant).ToList().Enumerate(out format);
-				parameters.Add(Strings.ParamParent, context.Question.Concept);
+				parameters.Add(Strings.ParamParent, Concept);
 				return new ConceptsAnswer(
 					statements.Select(s => s.Descendant).ToList(),
 					new FormattedText(() => context.Language.Answers.Enumerate + format + ".", parameters),
@@ -46,7 +46,7 @@ namespace Inventor.Core.Questions
 
 		protected override Boolean DoesStatementMatch(IQuestionProcessingContext<EnumerateChildrenQuestion> context, IsStatement statement)
 		{
-			return statement.Ancestor == context.Question.Concept;
+			return statement.Ancestor == Concept;
 		}
 	}
 }

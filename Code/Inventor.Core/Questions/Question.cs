@@ -56,7 +56,7 @@ namespace Inventor.Core.Questions
 
 		public override IAnswer Process(IQuestionProcessingContext<QuestionT> context)
 		{
-			foreach (var statement in context.Question.Preconditions)
+			foreach (var statement in Preconditions)
 			{
 				statement.Context = context;
 				context.KnowledgeBase.Statements.Add(statement);

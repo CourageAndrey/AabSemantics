@@ -35,7 +35,7 @@ namespace Inventor.Core.Questions
 				{
 					result.Add(() => context.Language.Answers.SubjectArea, new Dictionary<String, INamed>
 					{
-						{ Strings.ParamConcept, context.Question.Concept },
+						{ Strings.ParamConcept, Concept },
 						{ Strings.ParamArea, statement.Area },
 					});
 				}
@@ -52,7 +52,7 @@ namespace Inventor.Core.Questions
 
 		protected override Boolean DoesStatementMatch(IQuestionProcessingContext<FindSubjectAreaQuestion> context, GroupStatement statement)
 		{
-			return statement.Concept == context.Question.Concept;
+			return statement.Concept == Concept;
 		}
 	}
 }

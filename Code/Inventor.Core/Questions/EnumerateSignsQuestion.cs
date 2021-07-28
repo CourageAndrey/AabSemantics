@@ -44,17 +44,17 @@ namespace Inventor.Core.Questions
 
 		protected override Boolean DoesStatementMatch(IQuestionProcessingContext<EnumerateSignsQuestion> context, HasSignStatement statement)
 		{
-			return statement.Concept == context.Question.Concept;
+			return statement.Concept == Concept;
 		}
 
 		protected override Boolean NeedToCheckTransitives(IQuestionProcessingContext<EnumerateSignsQuestion> context, ICollection<HasSignStatement> statements)
 		{
-			return context.Question.Recursive;
+			return Recursive;
 		}
 
 		protected override IEnumerable<NestedQuestion> GetNestedQuestions(IQuestionProcessingContext<EnumerateSignsQuestion> context)
 		{
-			if (!context.Question.Recursive) yield break;
+			if (!Recursive) yield break;
 
 			var alreadyViewedConcepts = new HashSet<IConcept>(context.ActiveContexts.OfType<IQuestionProcessingContext<EnumerateSignsQuestion>>().Select(questionContext => questionContext.Question.Concept));
 
@@ -111,11 +111,11 @@ namespace Inventor.Core.Questions
 		{
 			String format;
 			var parameters = signs.Enumerate(out format);
-			parameters[Strings.ParamConcept] = context.Question.Concept;
+			parameters[Strings.ParamConcept] = Concept;
 			return new ConceptsAnswer(
 				signs,
 				new FormattedText(
-					() => String.Format(context.Language.Answers.ConceptSigns, context.Question.Recursive ? context.Language.Answers.RecursiveTrue : context.Language.Answers.RecursiveFalse, format),
+					() => String.Format(context.Language.Answers.ConceptSigns, Recursive ? context.Language.Answers.RecursiveTrue : context.Language.Answers.RecursiveFalse, format),
 					parameters),
 				new Explanation(statements));
 		}

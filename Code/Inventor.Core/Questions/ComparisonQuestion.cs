@@ -58,8 +58,8 @@ namespace Inventor.Core.Questions
 
 		protected override bool DoesStatementMatch(IQuestionProcessingContext<ComparisonQuestion> context, ComparisonStatement statement)
 		{
-			return	(statement.LeftValue == context.Question.LeftValue && statement.RightValue == context.Question.RightValue) ||
-					(statement.RightValue == context.Question.LeftValue && statement.LeftValue == context.Question.RightValue);
+			return	(statement.LeftValue == LeftValue && statement.RightValue == RightValue) ||
+					(statement.RightValue == LeftValue && statement.LeftValue == RightValue);
 		}
 
 		protected override IEnumerable<NestedQuestion> GetNestedQuestions(IQuestionProcessingContext<ComparisonQuestion> context)
@@ -67,11 +67,11 @@ namespace Inventor.Core.Questions
 			foreach (var statement in context.KnowledgeBase.Statements.Enumerate<ComparisonStatement>(context.ActiveContexts))
 			{
 				IConcept newLeftValue = null;
-				if (statement.LeftValue == context.Question.LeftValue)
+				if (statement.LeftValue == LeftValue)
 				{
 					newLeftValue = statement.RightValue;
 				}
-				else if (statement.RightValue == context.Question.LeftValue)
+				else if (statement.RightValue == LeftValue)
 				{
 					newLeftValue = statement.LeftValue;
 				}
@@ -84,7 +84,7 @@ namespace Inventor.Core.Questions
 
 					if (!involvedValues.Contains(newLeftValue))
 					{
-						yield return new NestedQuestion(new ComparisonQuestion(newLeftValue, context.Question.RightValue), new IStatement[] { statement });
+						yield return new NestedQuestion(new ComparisonQuestion(newLeftValue, RightValue), new IStatement[] { statement });
 					}
 				}
 			}
@@ -111,7 +111,7 @@ namespace Inventor.Core.Questions
 						transitiveStatements.AddRange(answer.Answer.Explanation.Statements);
 
 						return createAnswer(
-							new ComparisonStatement(context.Question.LeftValue, context.Question.RightValue, resultSign),
+							new ComparisonStatement(LeftValue, RightValue, resultSign),
 							context,
 							transitiveStatements);
 					}

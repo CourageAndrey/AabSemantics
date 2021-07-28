@@ -63,8 +63,8 @@ namespace Inventor.Core.Questions
 
 		protected override bool DoesStatementMatch(IQuestionProcessingContext<ProcessesQuestion> context, ProcessesStatement statement)
 		{
-			return	(statement.ProcessA == context.Question.ProcessA && statement.ProcessB == context.Question.ProcessB) ||
-					(statement.ProcessB == context.Question.ProcessA && statement.ProcessA == context.Question.ProcessB);
+			return	(statement.ProcessA == ProcessA && statement.ProcessB == ProcessB) ||
+					(statement.ProcessB == ProcessA && statement.ProcessA == ProcessB);
 		}
 
 		protected override IEnumerable<NestedQuestion> GetNestedQuestions(IQuestionProcessingContext<ProcessesQuestion> context)
@@ -77,11 +77,11 @@ namespace Inventor.Core.Questions
 			foreach (var statement in context.KnowledgeBase.Statements.Enumerate<ProcessesStatement>(context.ActiveContexts))
 			{
 				IConcept newProcessA = null;
-				if (statement.ProcessA == context.Question.ProcessA)
+				if (statement.ProcessA == ProcessA)
 				{
 					newProcessA = statement.ProcessB;
 				}
-				else if (statement.ProcessB == context.Question.ProcessA)
+				else if (statement.ProcessB == ProcessA)
 				{
 					newProcessA = statement.ProcessA;
 				}
@@ -100,7 +100,7 @@ namespace Inventor.Core.Questions
 
 			foreach (var transitiveProcess in transitiveProcesses)
 			{
-				yield return new NestedQuestion(new ProcessesQuestion(transitiveProcess.Key, context.Question.ProcessB), transitiveProcess.Value);
+				yield return new NestedQuestion(new ProcessesQuestion(transitiveProcess.Key, ProcessB), transitiveProcess.Value);
 			}
 		}
 
@@ -131,8 +131,8 @@ namespace Inventor.Core.Questions
 						if (sign != null)
 						{
 							resultStatements.Add(new ProcessesStatement(
-								context.Question.ProcessA,
-								context.Question.ProcessB,
+								ProcessA,
+								ProcessB,
 								sign));
 						}
 					}

@@ -41,15 +41,15 @@ namespace Inventor.Core.Questions
 					yes ? new Func<String>(() => context.Language.Answers.IsTrue) : () => context.Language.Answers.IsFalse,
 					new Dictionary<String, INamed>
 					{
-						{ Strings.ParamParent, context.Question.Child },
-						{ Strings.ParamChild, context.Question.Parent },
+						{ Strings.ParamParent, Child },
+						{ Strings.ParamChild, Parent },
 					}),
 				new Explanation(statements));
 		}
 
 		protected override Boolean DoesStatementMatch(IQuestionProcessingContext<IsQuestion> context, IsStatement statement)
 		{
-			return statement.Parent == context.Question.Parent && statement.Child == context.Question.Child;
+			return statement.Parent == Parent && statement.Child == Child;
 		}
 
 		protected override IEnumerable<NestedQuestion> GetNestedQuestions(IQuestionProcessingContext<IsQuestion> context)
