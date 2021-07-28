@@ -44,7 +44,7 @@ namespace Inventor.Core.Questions
 			}
 		}
 
-		protected override Boolean DoesStatementMatch(IQuestionProcessingContext<EnumeratePartsQuestion> context, HasPartStatement statement)
+		protected override Boolean DoesStatementMatch(HasPartStatement statement)
 		{
 			return statement.Whole == Concept;
 		}

@@ -56,7 +56,7 @@ namespace Inventor.Core.Questions
 			return new StatementAnswer(resultStatement, text, explanation);
 		}
 
-		protected override bool DoesStatementMatch(IQuestionProcessingContext<ComparisonQuestion> context, ComparisonStatement statement)
+		protected override bool DoesStatementMatch(ComparisonStatement statement)
 		{
 			return	(statement.LeftValue == LeftValue && statement.RightValue == RightValue) ||
 					(statement.RightValue == LeftValue && statement.LeftValue == RightValue);

@@ -44,7 +44,7 @@ namespace Inventor.Core.Questions
 			}
 		}
 
-		protected override Boolean DoesStatementMatch(IQuestionProcessingContext<EnumerateChildrenQuestion> context, IsStatement statement)
+		protected override Boolean DoesStatementMatch(IsStatement statement)
 		{
 			return statement.Ancestor == Concept;
 		}

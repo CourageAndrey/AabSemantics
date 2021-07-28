@@ -44,12 +44,12 @@ namespace Inventor.Core.Questions
 				new Explanation(statements));
 		}
 
-		protected override Boolean DoesStatementMatch(IQuestionProcessingContext<IsPartOfQuestion> context, HasPartStatement statement)
+		protected override Boolean DoesStatementMatch(HasPartStatement statement)
 		{
 			return statement.Whole == Parent && statement.Part == Child;
 		}
 
-		protected override bool NeedToCheckTransitives(IQuestionProcessingContext<IsPartOfQuestion> context, ICollection<HasPartStatement> statements)
+		protected override bool NeedToCheckTransitives(ICollection<HasPartStatement> statements)
 		{
 			return false;
 		}

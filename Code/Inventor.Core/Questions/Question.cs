@@ -62,9 +62,9 @@ namespace Inventor.Core.Questions
 				context.KnowledgeBase.Statements.Add(statement);
 			}
 
-			var statements = context.KnowledgeBase.Statements.Enumerate<StatementT>(context.ActiveContexts).Where(statement => DoesStatementMatch(context, statement)).ToList();
+			var statements = context.KnowledgeBase.Statements.Enumerate<StatementT>(context.ActiveContexts).Where(statement => DoesStatementMatch(statement)).ToList();
 
-			if (!NeedToCheckTransitives(context, statements))
+			if (!NeedToCheckTransitives(statements))
 			{
 				return CreateAnswer(context, statements);
 			}
@@ -84,9 +84,9 @@ namespace Inventor.Core.Questions
 			}
 		}
 
-		protected abstract Boolean DoesStatementMatch(IQuestionProcessingContext<QuestionT> context, StatementT statement);
+		protected abstract Boolean DoesStatementMatch(StatementT statement);
 
-		protected virtual Boolean NeedToCheckTransitives(IQuestionProcessingContext<QuestionT> context, ICollection<StatementT> statements)
+		protected virtual Boolean NeedToCheckTransitives(ICollection<StatementT> statements)
 		{
 			return statements.Count == 0;
 		}

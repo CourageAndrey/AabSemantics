@@ -50,7 +50,7 @@ namespace Inventor.Core.Questions
 			}
 		}
 
-		protected override Boolean DoesStatementMatch(IQuestionProcessingContext<FindSubjectAreaQuestion> context, GroupStatement statement)
+		protected override Boolean DoesStatementMatch(GroupStatement statement)
 		{
 			return statement.Concept == Concept;
 		}
