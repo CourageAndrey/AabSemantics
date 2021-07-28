@@ -2,7 +2,6 @@
 
 using NUnit.Framework;
 
-using Inventor.Core;
 using Inventor.Core.Answers;
 using Inventor.Core.Attributes;
 using Inventor.Core.Base;
@@ -10,10 +9,10 @@ using Inventor.Core.Localization;
 using Inventor.Core.Questions;
 using Inventor.Core.Statements;
 
-namespace Inventor.Test.Processors
+namespace Inventor.Test.Questions
 {
 	[TestFixture]
-	public class IsSignProcessorTest
+	public class IsValueQuestionTest
 	{
 		[Test]
 		public void ReturnFalseIfNoAttribute()
@@ -25,7 +24,7 @@ namespace Inventor.Test.Processors
 			var concept = new Concept();
 			knowledgeBase.Concepts.Add(concept);
 
-			var question = new IsSignQuestion(concept);
+			var question = new IsValueQuestion(concept);
 
 			// act
 			var answer = question.Ask(knowledgeBase.Context);
@@ -44,10 +43,10 @@ namespace Inventor.Test.Processors
 			var knowledgeBase = new TestKnowledgeBase(language).KnowledgeBase;
 
 			var concept = new Concept();
-			concept.Attributes.Add(IsSignAttribute.Value);
+			concept.Attributes.Add(IsValueAttribute.Value);
 			knowledgeBase.Concepts.Add(concept);
 
-			var question = new IsSignQuestion(concept);
+			var question = new IsValueQuestion(concept);
 
 			// act
 			var answer = question.Ask(knowledgeBase.Context);
@@ -65,7 +64,7 @@ namespace Inventor.Test.Processors
 			var language = Language.Default;
 			var knowledgeBase = new TestKnowledgeBase(language);
 
-			var question = new IsSignQuestion(knowledgeBase.Sign_AreaType);
+			var question = new IsValueQuestion(knowledgeBase.MotorType_Combusion);
 
 			// act
 			var answer = question.Ask(knowledgeBase.KnowledgeBase.Context);
@@ -73,7 +72,7 @@ namespace Inventor.Test.Processors
 			// assert
 			Assert.IsFalse(answer.IsEmpty);
 			Assert.IsTrue(((BooleanAnswer) answer).Result);
-			Assert.IsTrue(answer.Explanation.Statements.OfType<HasSignStatement>().Any());
+			Assert.IsTrue(answer.Explanation.Statements.OfType<SignValueStatement>().Any());
 		}
 	}
 }

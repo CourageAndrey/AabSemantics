@@ -9,10 +9,10 @@ using Inventor.Core.Localization;
 using Inventor.Core.Questions;
 using Inventor.Core.Statements;
 
-namespace Inventor.Test.Processors
+namespace Inventor.Test.Questions
 {
 	[TestFixture]
-	public class IsProcessorTest
+	public class IsQuestionTest
 	{
 		[Test]
 		public void AnswerNotFound()

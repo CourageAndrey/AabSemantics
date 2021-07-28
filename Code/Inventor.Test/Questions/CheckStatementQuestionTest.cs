@@ -10,10 +10,10 @@ using Inventor.Core.Base;
 using Inventor.Core.Localization;
 using Inventor.Core.Questions;
 
-namespace Inventor.Test.Processors
+namespace Inventor.Test.Questions
 {
 	[TestFixture]
-	public class CheckStatementProcessorTest
+	public class CheckStatementQuestionTest
 	{
 		[Test]
 		public void ReturnEmptyAnswerIfNoMathingStatementsFound()

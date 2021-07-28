@@ -2,17 +2,16 @@
 
 using NUnit.Framework;
 
-using Inventor.Core;
 using Inventor.Core.Answers;
 using Inventor.Core.Base;
 using Inventor.Core.Localization;
 using Inventor.Core.Questions;
 using Inventor.Core.Statements;
 
-namespace Inventor.Test.Processors
+namespace Inventor.Test.Questions
 {
 	[TestFixture]
-	public class EnumerateChildrenProcessorTest
+	public class EnumerateChildrenQuestionTest
 	{
 		[Test]
 		public void WhenNoRelationshipsReturnEmptyAnswer()
