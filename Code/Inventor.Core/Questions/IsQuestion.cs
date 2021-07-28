@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 
+using Inventor.Core.Statements;
+
 namespace Inventor.Core.Questions
 {
-	public sealed class IsQuestion : Question
+	public sealed class IsQuestion : Question, IQuestion<IsStatement>
 	{
 		public IConcept Child
 		{ get; }

@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 
+using Inventor.Core.Statements;
+
 namespace Inventor.Core.Questions
 {
-	public sealed class ComparisonQuestion : Question
+	public sealed class ComparisonQuestion : Question, IQuestion<ComparisonStatement>
 	{
 		public IConcept LeftValue
 		{ get; set; }

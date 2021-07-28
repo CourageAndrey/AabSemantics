@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 
+using Inventor.Core.Statements;
+
 namespace Inventor.Core.Questions
 {
-	public sealed class DescribeSubjectAreaQuestion : Question
+	public sealed class DescribeSubjectAreaQuestion : Question, IQuestion<GroupStatement>
 	{
 		public IConcept Concept
 		{ get; }

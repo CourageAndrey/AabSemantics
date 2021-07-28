@@ -8,6 +8,11 @@ namespace Inventor.Core
 		{ get; }
 	}
 
+	public interface IQuestion<StatementT> : IQuestion
+		where StatementT : IStatement
+	{
+	}
+
 	public static class QuestionHelper
 	{
 		public static IAnswer Ask(this IQuestion question, IKnowledgeBaseContext context)
