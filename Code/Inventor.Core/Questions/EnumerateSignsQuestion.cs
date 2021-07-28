@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace Inventor.Core.Questions
 {
@@ -10,7 +11,8 @@ namespace Inventor.Core.Questions
 		public Boolean Recursive
 		{ get; }
 
-		public EnumerateSignsQuestion(IConcept concept, Boolean recursive)
+		public EnumerateSignsQuestion(IConcept concept, Boolean recursive, IEnumerable<IStatement> preconditions = null)
+			: base(preconditions)
 		{
 			if (concept == null) throw new ArgumentNullException(nameof(concept));
 

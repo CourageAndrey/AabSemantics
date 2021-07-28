@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace Inventor.Core.Questions
 {
@@ -10,7 +11,8 @@ namespace Inventor.Core.Questions
 		public IConcept RightValue
 		{ get; set; }
 
-		public ComparisonQuestion(IConcept leftValue, IConcept rightValue)
+		public ComparisonQuestion(IConcept leftValue, IConcept rightValue, IEnumerable<IStatement> preconditions = null)
+			: base(preconditions)
 		{
 			if (leftValue == null) throw new ArgumentNullException(nameof(leftValue));
 			if (rightValue == null) throw new ArgumentNullException(nameof(rightValue));

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace Inventor.Core.Questions
 {
@@ -7,7 +8,8 @@ namespace Inventor.Core.Questions
 		public IConcept Concept
 		{ get; }
 
-		public EnumerateContainersQuestion(IConcept concept)
+		public EnumerateContainersQuestion(IConcept concept, IEnumerable<IStatement> preconditions = null)
+			: base(preconditions)
 		{
 			if (concept == null) throw new ArgumentNullException(nameof(concept));
 

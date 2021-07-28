@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace Inventor.Core.Questions
 {
@@ -10,7 +11,8 @@ namespace Inventor.Core.Questions
 		public IConcept Child
 		{ get; }
 
-		public IsPartOfQuestion(IConcept child, IConcept parent)
+		public IsPartOfQuestion(IConcept child, IConcept parent, IEnumerable<IStatement> preconditions = null)
+			: base(preconditions)
 		{
 			if (child == null) throw new ArgumentNullException(nameof(child));
 			if (parent == null) throw new ArgumentNullException(nameof(parent));
