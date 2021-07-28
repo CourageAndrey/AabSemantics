@@ -7,11 +7,15 @@ namespace Inventor.Core.Questions
 {
 	public sealed class IsSubjectAreaQuestion : Question, IQuestion<GroupStatement>
 	{
+		#region Properties
+
 		public IConcept Concept
 		{ get; }
 
 		public IConcept Area
 		{ get; }
+
+		#endregion
 
 		public IsSubjectAreaQuestion(IConcept concept, IConcept area, IEnumerable<IStatement> preconditions = null)
 			: base(preconditions)

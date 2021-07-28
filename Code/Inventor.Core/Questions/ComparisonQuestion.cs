@@ -7,11 +7,15 @@ namespace Inventor.Core.Questions
 {
 	public sealed class ComparisonQuestion : Question, IQuestion<ComparisonStatement>
 	{
+		#region Properties
+
 		public IConcept LeftValue
 		{ get; set; }
 
 		public IConcept RightValue
 		{ get; set; }
+
+		#endregion
 
 		public ComparisonQuestion(IConcept leftValue, IConcept rightValue, IEnumerable<IStatement> preconditions = null)
 			: base(preconditions)

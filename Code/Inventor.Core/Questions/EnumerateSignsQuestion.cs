@@ -7,11 +7,15 @@ namespace Inventor.Core.Questions
 {
 	public sealed class EnumerateSignsQuestion : Question, IQuestion<HasSignStatement>
 	{
+		#region Properties
+
 		public IConcept Concept
 		{ get; }
 
 		public Boolean Recursive
 		{ get; }
+
+		#endregion
 
 		public EnumerateSignsQuestion(IConcept concept, Boolean recursive, IEnumerable<IStatement> preconditions = null)
 			: base(preconditions)

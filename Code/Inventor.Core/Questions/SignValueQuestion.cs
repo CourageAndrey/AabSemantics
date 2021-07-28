@@ -7,11 +7,15 @@ namespace Inventor.Core.Questions
 {
 	public sealed class SignValueQuestion : Question, IQuestion<SignValueStatement>
 	{
+		#region Properties
+
 		public IConcept Concept
 		{ get; }
 
 		public IConcept Sign
 		{ get; }
+
+		#endregion
 
 		public SignValueQuestion(IConcept concept, IConcept sign, IEnumerable<IStatement> preconditions = null)
 			: base(preconditions)
