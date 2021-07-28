@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Reflection;
 
 namespace Inventor.Core.Base
 {
@@ -14,15 +13,10 @@ namespace Inventor.Core.Base
 		{
 			QuestionDefinitions = new Dictionary<Type, QuestionDefinition>();
 
-			foreach (var processorType in Assembly.GetExecutingAssembly().GetTypes().Where(t => typeof(QuestionProcessor).IsAssignableFrom(t) && !t.IsAbstract))
+			var questionClass = typeof(IQuestion);
+			foreach (var questionType in questionClass.Assembly.GetTypes().Where(t => questionClass.IsAssignableFrom(t) && !t.IsAbstract))
 			{
-				var type = processorType;
-				while (!type.IsGenericType || type.GetGenericTypeDefinition() != typeof(QuestionProcessor<>))
-				{
-					type = type.BaseType;
-				}
-				var questionType = type.GetGenericArguments()[0];
-				DefineQuestion(new QuestionDefinition(questionType, processorType));
+				DefineQuestion(new QuestionDefinition(questionType));
 			}
 		}
 

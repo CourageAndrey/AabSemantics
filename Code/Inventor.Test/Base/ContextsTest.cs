@@ -8,6 +8,7 @@ using Inventor.Core;
 using Inventor.Core.Base;
 using Inventor.Core.Localization;
 using Inventor.Core.Utils;
+using Inventor.Core.Questions;
 
 namespace Inventor.Test.Base
 {
@@ -17,25 +18,17 @@ namespace Inventor.Test.Base
 		[Test]
 		public void UnfinishedContextDisposingFails()
 		{
-			bool createNestedContext = false;
-
 			var language = Language.Default;
 			var knowledgeBase = new KnowledgeBase(language);
-			knowledgeBase.Context.QuestionRepository.DefineQuestion(new QuestionDefinition(
-				typeof(TestQuestion),
-				l => string.Empty,
-				() => new TestQuestionProcessorCreateNestedContext(createNestedContext)));
-			var question = new TestQuestion();
 
 			Assert.DoesNotThrow(() =>
 			{
-				question.Ask(knowledgeBase.Context);
+				new TestQuestionCreateNestedContext(false).Ask(knowledgeBase.Context);
 			});
 
-			createNestedContext = true;
 			Assert.Throws<InvalidOperationException>(() =>
 			{
-				question.Ask(knowledgeBase.Context);
+				new TestQuestionCreateNestedContext(true).Ask(knowledgeBase.Context);
 			});
 		}
 
@@ -44,12 +37,8 @@ namespace Inventor.Test.Base
 		{
 			var language = Language.Default;
 			var knowledgeBase = new KnowledgeBase(language);
-			knowledgeBase.Context.QuestionRepository.DefineQuestion(new QuestionDefinition(
-				typeof(TestQuestion),
-				l => string.Empty,
-				() => new TestQuestionProcessorCreateContextKnowledge()));
 
-			new TestQuestion().Ask(knowledgeBase.Context);
+			new TestQuestionCreateContextKnowledge().Ask(knowledgeBase.Context);
 
 			Assert.IsFalse(knowledgeBase.Statements.Enumerate<TestStatement>().Any());
 		}
@@ -66,7 +55,7 @@ namespace Inventor.Test.Base
 			var systemContext = (SystemContext) knowledgeBaseContext.Parent;
 			Assert.IsTrue(systemContext.IsSystem);
 
-			var questionContext = knowledgeBaseContext.CreateQuestionContext(new TestQuestion());
+			var questionContext = knowledgeBaseContext.CreateQuestionContext(new TestQuestionCreateContextKnowledge());
 			Assert.IsFalse(questionContext.IsSystem);
 		}
 
@@ -76,14 +65,14 @@ namespace Inventor.Test.Base
 			// arrange
 			var language = Language.Default;
 			var knowledgeBase = new KnowledgeBase(language);
-			var question = new TestQuestion();
+			var question = new TestQuestionCreateContextKnowledge();
 
 			// act
 			var questionContext = knowledgeBase.Context.CreateQuestionContext(question);
 
 			// assert
 			var contextQuestion = questionContext.Question;
-			var typedContextQuestion = ((IQuestionProcessingContext<TestQuestion>) questionContext).Question;
+			var typedContextQuestion = ((IQuestionProcessingContext<TestQuestionCreateContextKnowledge>) questionContext).Question;
 			Assert.AreSame(question, contextQuestion);
 			Assert.AreSame(question, typedContextQuestion);
 		}
@@ -110,9 +99,9 @@ namespace Inventor.Test.Base
 			// arrange
 			var language = Language.Default;
 			var knowledgeBase = new KnowledgeBase(language);
-			var questionContext = knowledgeBase.Context.CreateQuestionContext(new TestQuestion());
-			var child1Context = questionContext.CreateQuestionContext(new TestQuestion());
-			var child2Context = questionContext.CreateQuestionContext(new TestQuestion());
+			var questionContext = knowledgeBase.Context.CreateQuestionContext(new TestQuestionCreateContextKnowledge());
+			var child1Context = questionContext.CreateQuestionContext(new TestQuestionCreateNestedContext(false));
+			var child2Context = questionContext.CreateQuestionContext(new TestQuestionCreateNestedContext(false));
 
 			// act & assert
 			Assert.Throws<InvalidOperationException>(() => questionContext.Dispose());
@@ -130,8 +119,8 @@ namespace Inventor.Test.Base
 			// arrange
 			var language = Language.Default;
 			var knowledgeBase = new KnowledgeBase(language);
-			var questionContext = knowledgeBase.Context.CreateQuestionContext(new TestQuestion());
-			var childQuestionContext = knowledgeBase.Context.CreateQuestionContext(new TestQuestion());
+			var questionContext = knowledgeBase.Context.CreateQuestionContext(new TestQuestionCreateContextKnowledge());
+			var childQuestionContext = knowledgeBase.Context.CreateQuestionContext(new TestQuestionCreateNestedContext(false));
 
 			// act
 			questionContext.Dispose();
@@ -199,12 +188,6 @@ namespace Inventor.Test.Base
 			{ get; set; }
 		}
 
-		private class TestQuestion : IQuestion
-		{
-			public ICollection<IStatement> Preconditions
-			{ get; } = new IStatement[0];
-		}
-
 		private class TestStatement : IStatement
 		{
 			public ILocalizedString Name
@@ -242,29 +225,34 @@ namespace Inventor.Test.Base
 			}
 		}
 
-		private class TestQuestionProcessorCreateNestedContext : QuestionProcessor<TestQuestion>
+		private abstract class TestQuestion<QuestionT> : Question<QuestionT>
+			where QuestionT : TestQuestion<QuestionT>
+		{
+		}
+
+		private class TestQuestionCreateNestedContext : TestQuestion<TestQuestionCreateNestedContext>
 		{
 			private readonly bool _createNestedContext;
 
-			public TestQuestionProcessorCreateNestedContext(bool createNestedContext)
+			public TestQuestionCreateNestedContext(bool createNestedContext)
 			{
 				_createNestedContext = createNestedContext;
 			}
 
-			public override IAnswer Process(IQuestionProcessingContext<TestQuestion> context)
+			public override IAnswer Process(IQuestionProcessingContext<TestQuestionCreateNestedContext> context)
 			{
 				if (_createNestedContext)
 				{
-					new QuestionProcessingContext<TestQuestion>(context, new TestQuestion());
+					new QuestionProcessingContext<TestQuestionCreateNestedContext>(context, new TestQuestionCreateNestedContext(false));
 				}
 
 				return null;
 			}
 		}
 
-		private class TestQuestionProcessorCreateContextKnowledge : QuestionProcessor<TestQuestion>
+		private class TestQuestionCreateContextKnowledge : TestQuestion<TestQuestionCreateContextKnowledge>
 		{
-			public override IAnswer Process(IQuestionProcessingContext<TestQuestion> context)
+			public override IAnswer Process(IQuestionProcessingContext<TestQuestionCreateContextKnowledge> context)
 			{
 				IStatement testStatement;
 				context.KnowledgeBase.Statements.Add(testStatement = new TestStatement());

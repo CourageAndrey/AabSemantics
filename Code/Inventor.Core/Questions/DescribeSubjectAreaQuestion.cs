@@ -1,11 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 
+using Inventor.Core.Answers;
+using Inventor.Core.Base;
+using Inventor.Core.Localization;
 using Inventor.Core.Statements;
 
 namespace Inventor.Core.Questions
 {
-	public sealed class DescribeSubjectAreaQuestion : Question<DescribeSubjectAreaQuestion>, IQuestion<GroupStatement>
+	public sealed class DescribeSubjectAreaQuestion : Question<DescribeSubjectAreaQuestion, GroupStatement>
 	{
 		#region Properties
 
@@ -20,6 +24,29 @@ namespace Inventor.Core.Questions
 			if (concept == null) throw new ArgumentNullException(nameof(concept));
 
 			Concept = concept;
+		}
+
+		protected override IAnswer CreateAnswer(IQuestionProcessingContext<DescribeSubjectAreaQuestion> context, ICollection<GroupStatement> statements)
+		{
+			if (statements.Any())
+			{
+				String format;
+				var parameters = statements.Select(r => r.Concept).ToList().Enumerate(out format);
+				parameters.Add(Strings.ParamAnswer, context.Question.Concept);
+				return new ConceptsAnswer(
+					statements.Select(s => s.Concept).ToList(),
+					new FormattedText(() => context.Language.Answers.SubjectAreaConcepts + format + ".", parameters),
+					new Explanation(statements));
+			}
+			else
+			{
+				return Answer.CreateUnknown(context.Language);
+			}
+		}
+
+		protected override Boolean DoesStatementMatch(IQuestionProcessingContext<DescribeSubjectAreaQuestion> context, GroupStatement statement)
+		{
+			return statement.Area == context.Question.Concept;
 		}
 	}
 }
