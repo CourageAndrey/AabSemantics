@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace Inventor.Core.Questions
 {
-	public sealed class WhatQuestion : Question
+	public sealed class WhatQuestion : Question<WhatQuestion>
 	{
 		#region Properties
 

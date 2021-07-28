@@ -16,4 +16,13 @@ namespace Inventor.Core.Questions
 			Preconditions = new List<IStatement>(preconditions ?? new IStatement[0]);
 		}
 	}
+
+	public abstract class Question<QuestionT> : Question
+		where QuestionT : Question<QuestionT>
+	{
+		protected Question(IEnumerable<IStatement> preconditions = null)
+			: base(preconditions)
+		{
+		}
+	}
 }

@@ -5,7 +5,7 @@ using Inventor.Core.Statements;
 
 namespace Inventor.Core.Questions
 {
-	public sealed class DescribeSubjectAreaQuestion : Question, IQuestion<GroupStatement>
+	public sealed class DescribeSubjectAreaQuestion : Question<DescribeSubjectAreaQuestion>, IQuestion<GroupStatement>
 	{
 		#region Properties
 
