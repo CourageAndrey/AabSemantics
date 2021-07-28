@@ -5,8 +5,12 @@ namespace Inventor.Core.Questions
 {
 	public sealed class WhatQuestion : Question
 	{
+		#region Properties
+
 		public IConcept Concept
 		{ get; }
+
+		#endregion
 
 		public WhatQuestion(IConcept concept, IEnumerable<IStatement> preconditions = null)
 			: base(preconditions)

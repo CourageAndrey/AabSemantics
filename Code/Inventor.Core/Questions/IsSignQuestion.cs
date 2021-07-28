@@ -7,8 +7,12 @@ namespace Inventor.Core.Questions
 {
 	public class IsSignQuestion : Question, IQuestion<HasSignStatement>
 	{
+		#region Properties
+
 		public IConcept Concept
 		{ get; }
+
+		#endregion
 
 		public IsSignQuestion(IConcept concept, IEnumerable<IStatement> preconditions = null)
 			: base(preconditions)

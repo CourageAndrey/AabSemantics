@@ -7,8 +7,12 @@ namespace Inventor.Core.Questions
 {
 	public sealed class EnumerateContainersQuestion : Question, IQuestion<HasPartStatement>
 	{
+		#region Properties
+
 		public IConcept Concept
 		{ get; }
+
+		#endregion
 
 		public EnumerateContainersQuestion(IConcept concept, IEnumerable<IStatement> preconditions = null)
 			: base(preconditions)

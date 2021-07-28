@@ -7,11 +7,15 @@ namespace Inventor.Core.Questions
 {
 	public sealed class ProcessesQuestion : Question, IQuestion<ProcessesStatement>
 	{
+		#region Properties
+
 		public IConcept ProcessA
 		{ get; set; }
 
 		public IConcept ProcessB
 		{ get; set; }
+
+		#endregion
 
 		public ProcessesQuestion(IConcept processA, IConcept processB, IEnumerable<IStatement> preconditions = null)
 			: base(preconditions)
