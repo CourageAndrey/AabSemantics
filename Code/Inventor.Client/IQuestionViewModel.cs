@@ -28,7 +28,12 @@ namespace Inventor.Client
 
 		public QuestionT BuildQuestion()
 		{
-			return BuildQuestionImplementation();
+			var question = BuildQuestionImplementation();
+			foreach (var statement in Preconditions)
+			{
+				question.Preconditions.Add(statement.CreateStatement());
+			}
+			return question;
 		}
 
 		public abstract QuestionT BuildQuestionImplementation();
