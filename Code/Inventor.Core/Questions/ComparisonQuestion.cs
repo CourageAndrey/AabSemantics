@@ -2,7 +2,7 @@
 
 namespace Inventor.Core.Questions
 {
-	public sealed class ComparisonQuestion : IQuestion
+	public sealed class ComparisonQuestion : Question
 	{
 		public IConcept LeftValue
 		{ get; set; }

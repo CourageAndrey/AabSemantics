@@ -2,7 +2,7 @@
 
 namespace Inventor.Core.Questions
 {
-	public class IsSignQuestion : IQuestion
+	public class IsSignQuestion : Question
 	{
 		public IConcept Concept
 		{ get; }

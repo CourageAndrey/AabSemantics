@@ -2,7 +2,7 @@
 
 namespace Inventor.Core.Questions
 {
-	public sealed class ProcessesQuestion : IQuestion
+	public sealed class ProcessesQuestion : Question
 	{
 		public IConcept ProcessA
 		{ get; set; }
