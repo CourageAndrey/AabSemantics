@@ -26,7 +26,7 @@ namespace Inventor.Core.Base
 	{
 		public override IAnswer Process(IQuestionProcessingContext<QuestionT> context)
 		{
-			foreach (var statement in GetPreconditions(context))
+			foreach (var statement in context.Question.Preconditions)
 			{
 				statement.Context = context;
 				context.KnowledgeBase.Statements.Add(statement);
@@ -52,11 +52,6 @@ namespace Inventor.Core.Base
 
 				return ProcessChildAnswers(context, statements, valuableAnswers);
 			}
-		}
-
-		protected virtual IEnumerable<IStatement> GetPreconditions(IQuestionProcessingContext<QuestionT> context)
-		{
-			yield break;
 		}
 
 		protected abstract Boolean DoesStatementMatch(IQuestionProcessingContext<QuestionT> context, StatementT statement);
