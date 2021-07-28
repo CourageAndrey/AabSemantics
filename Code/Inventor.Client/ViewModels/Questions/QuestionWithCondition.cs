@@ -11,7 +11,7 @@ namespace Inventor.Client.ViewModels.Questions
 
 		public override Core.Questions.QuestionWithCondition BuildQuestion()
 		{
-			return new Core.Questions.QuestionWithCondition(Conditions.Select(condition => condition.CreateStatement()), Question.BuildQuestion());
+			return new Core.Questions.QuestionWithCondition(Preconditions.Select(condition => condition.CreateStatement()), Question.BuildQuestion());
 		}
 	}
 }
