@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace Inventor.Core.Questions
 {
-	public sealed class QuestionWithCondition : IQuestion
+	public sealed class QuestionWithCondition : Question
 	{
 		public ICollection<IStatement> Preconditions
 		{ get; }

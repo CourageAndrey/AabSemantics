@@ -2,7 +2,7 @@
 
 namespace Inventor.Core.Questions
 {
-	public sealed class IsSubjectAreaQuestion : IQuestion
+	public sealed class IsSubjectAreaQuestion : Question
 	{
 		public IConcept Concept
 		{ get; }

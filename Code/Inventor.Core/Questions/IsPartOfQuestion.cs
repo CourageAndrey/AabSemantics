@@ -2,7 +2,7 @@
 
 namespace Inventor.Core.Questions
 {
-	public sealed class IsPartOfQuestion : IQuestion
+	public sealed class IsPartOfQuestion : Question
 	{
 		public IConcept Parent
 		{ get; }
