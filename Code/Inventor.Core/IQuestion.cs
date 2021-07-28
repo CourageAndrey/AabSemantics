@@ -4,6 +4,8 @@ namespace Inventor.Core
 {
 	public interface IQuestion
 	{
+		ICollection<IStatement> Preconditions
+		{ get; }
 	}
 
 	public static class QuestionHelper
