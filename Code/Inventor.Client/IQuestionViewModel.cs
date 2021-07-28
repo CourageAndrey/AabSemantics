@@ -7,7 +7,7 @@ namespace Inventor.Client
 {
 	public interface IQuestionViewModel
 	{
-		ICollection<StatementViewModel> Conditions
+		ICollection<StatementViewModel> Preconditions
 		{ get; }
 
 		Core.IQuestion BuildQuestion();
@@ -23,7 +23,7 @@ namespace Inventor.Client
 		where QuestionT : Core.IQuestion
 	{
 		[PropertyDescriptor(true, "QuestionNames.ParamConditions")]
-		public ICollection<StatementViewModel> Conditions
+		public ICollection<StatementViewModel> Preconditions
 		{ get; } = new ObservableCollection<StatementViewModel>();
 
 		public abstract QuestionT BuildQuestion();
