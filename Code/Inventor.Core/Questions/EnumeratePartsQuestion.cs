@@ -5,7 +5,7 @@ using Inventor.Core.Statements;
 
 namespace Inventor.Core.Questions
 {
-	public sealed class EnumeratePartsQuestion : Question, IQuestion<HasPartStatement>
+	public sealed class EnumeratePartsQuestion : Question<EnumeratePartsQuestion>, IQuestion<HasPartStatement>
 	{
 		#region Properties
 

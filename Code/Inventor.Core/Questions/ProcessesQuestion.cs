@@ -5,7 +5,7 @@ using Inventor.Core.Statements;
 
 namespace Inventor.Core.Questions
 {
-	public sealed class ProcessesQuestion : Question, IQuestion<ProcessesStatement>
+	public sealed class ProcessesQuestion : Question<ProcessesQuestion>, IQuestion<ProcessesStatement>
 	{
 		#region Properties
 

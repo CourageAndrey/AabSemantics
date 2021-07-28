@@ -5,7 +5,7 @@ using Inventor.Core.Statements;
 
 namespace Inventor.Core.Questions
 {
-	public sealed class HasSignsQuestion : Question, IQuestion<HasSignStatement>
+	public sealed class HasSignsQuestion : Question<HasSignsQuestion>, IQuestion<HasSignStatement>
 	{
 		#region Properties
 
