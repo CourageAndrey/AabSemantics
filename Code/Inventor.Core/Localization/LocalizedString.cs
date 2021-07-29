@@ -18,7 +18,7 @@ namespace Inventor.Core.Localization
 		}
 	}
 
-	public sealed class LocalizedStringVariable : LocalizedString
+	public class LocalizedStringVariable : LocalizedString
 	{
 		#region Properties
 
@@ -100,7 +100,7 @@ namespace Inventor.Core.Localization
 		#endregion
 	}
 
-	public sealed class LocalizedStringConstant : LocalizedString
+	public class LocalizedStringConstant : LocalizedString
 	{
 		#region Properties
 

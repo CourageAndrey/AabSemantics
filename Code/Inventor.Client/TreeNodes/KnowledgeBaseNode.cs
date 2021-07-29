@@ -8,7 +8,7 @@ using Inventor.Core;
 
 namespace Inventor.Client.TreeNodes
 {
-	public sealed class KnowledgeBaseNode : ExtendedTreeNode
+	public class KnowledgeBaseNode : ExtendedTreeNode
 	{
 		#region Properties
 

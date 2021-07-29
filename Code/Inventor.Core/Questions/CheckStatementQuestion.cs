@@ -8,7 +8,7 @@ using Inventor.Core.Localization;
 
 namespace Inventor.Core.Questions
 {
-	public sealed class CheckStatementQuestion : Question
+	public class CheckStatementQuestion : Question
 	{
 		#region Properties
 

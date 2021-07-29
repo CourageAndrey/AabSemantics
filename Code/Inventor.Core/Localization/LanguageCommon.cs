@@ -4,7 +4,7 @@ using System.Xml.Serialization;
 namespace Inventor.Core.Localization
 {
 	[Serializable]
-	public sealed class LanguageCommon : ILanguageCommon
+	public class LanguageCommon : ILanguageCommon
 	{
 		#region Properties
 

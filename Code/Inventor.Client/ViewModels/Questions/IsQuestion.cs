@@ -1,7 +1,7 @@
 ﻿namespace Inventor.Client.ViewModels.Questions
 {
 	[QuestionDescriptor]
-	public sealed class IsQuestion : QuestionViewModel<Core.Questions.IsQuestion>
+	public class IsQuestion : QuestionViewModel<Core.Questions.IsQuestion>
 	{
 		[PropertyDescriptor(true, "QuestionNames.ParamChild")]
 		public Core.IConcept Child

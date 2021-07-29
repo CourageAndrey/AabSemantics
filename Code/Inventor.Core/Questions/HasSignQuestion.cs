@@ -9,7 +9,7 @@ using Inventor.Core.Statements;
 
 namespace Inventor.Core.Questions
 {
-	public sealed class HasSignQuestion : Question
+	public class HasSignQuestion : Question
 	{
 		#region Properties
 

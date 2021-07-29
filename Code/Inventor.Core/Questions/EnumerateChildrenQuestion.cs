@@ -9,7 +9,7 @@ using Inventor.Core.Statements;
 
 namespace Inventor.Core.Questions
 {
-	public sealed class EnumerateChildrenQuestion : Question
+	public class EnumerateChildrenQuestion : Question
 	{
 		#region Properties
 

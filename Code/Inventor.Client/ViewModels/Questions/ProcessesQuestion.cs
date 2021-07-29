@@ -1,7 +1,7 @@
 ﻿namespace Inventor.Client.ViewModels.Questions
 {
 	[QuestionDescriptor]
-	public sealed class ProcessesQuestion : QuestionViewModel<Core.Questions.ProcessesQuestion>
+	public class ProcessesQuestion : QuestionViewModel<Core.Questions.ProcessesQuestion>
 	{
 		[PropertyDescriptor(true, "QuestionNames.ParamProcessA")]
 		public Core.IConcept ProcessA

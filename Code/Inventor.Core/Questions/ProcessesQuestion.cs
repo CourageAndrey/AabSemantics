@@ -8,7 +8,7 @@ using Inventor.Core.Statements;
 
 namespace Inventor.Core.Questions
 {
-	public sealed class ProcessesQuestion : Question
+	public class ProcessesQuestion : Question
 	{
 		#region Properties
 

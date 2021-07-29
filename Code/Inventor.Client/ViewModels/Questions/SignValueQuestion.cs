@@ -1,7 +1,7 @@
 ﻿namespace Inventor.Client.ViewModels.Questions
 {
 	[QuestionDescriptor]
-	public sealed class SignValueQuestion : QuestionViewModel<Core.Questions.SignValueQuestion>
+	public class SignValueQuestion : QuestionViewModel<Core.Questions.SignValueQuestion>
 	{
 		[PropertyDescriptor(true, "QuestionNames.ParamConcept")]
 		public Core.IConcept Concept

@@ -4,7 +4,7 @@ using System.Xml.Serialization;
 namespace Inventor.Client.Localization
 {
 	[Serializable]
-	public sealed class LanguageErrors : ILanguageErrors
+	public class LanguageErrors : ILanguageErrors
 	{
 		#region Properties
 
