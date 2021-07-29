@@ -10,7 +10,7 @@ using Inventor.Core.Statements;
 namespace Inventor.Core.Questions
 {
 	[Obsolete("This class will be removed as soon as QuestionDialog supports CheckStatementQuestion. Please, use CheckStatementQuestion with corresponding statement instead.")]
-	public sealed class IsQuestion : Question<IsQuestion, IsStatement>
+	public sealed class IsQuestion : Question
 	{
 		#region Properties
 
@@ -32,7 +32,15 @@ namespace Inventor.Core.Questions
 			Parent = parent;
 		}
 
-		protected override IAnswer CreateAnswer(IQuestionProcessingContext<IsQuestion> context, ICollection<IsStatement> statements, ICollection<ChildAnswer> childAnswers)
+		public override IAnswer Process(IQuestionProcessingContext context)
+		{
+			return context
+				.From<IsQuestion, IsStatement>(DoesStatementMatch)
+				.ProcessTransitives(NeedToCheckTransitives, GetNestedQuestions)
+				.Select(CreateAnswer);
+		}
+
+		private IAnswer CreateAnswer(IQuestionProcessingContext<IsQuestion> context, ICollection<IsStatement> statements, ICollection<ChildAnswer> childAnswers)
 		{
 			if (!NeedToCheckTransitives(statements))
 			{
@@ -54,17 +62,17 @@ namespace Inventor.Core.Questions
 			}
 		}
 
-		protected override Boolean DoesStatementMatch(IsStatement statement)
+		private Boolean DoesStatementMatch(IsStatement statement)
 		{
 			return statement.Parent == Parent && statement.Child == Child;
 		}
 
-		protected override Boolean NeedToCheckTransitives(ICollection<IsStatement> statements)
+		private Boolean NeedToCheckTransitives(ICollection<IsStatement> statements)
 		{
 			return statements.Count == 0;
 		}
 
-		protected override IEnumerable<NestedQuestion> GetNestedQuestions(IQuestionProcessingContext<IsQuestion> context)
+		private IEnumerable<NestedQuestion> GetNestedQuestions(IQuestionProcessingContext<IsQuestion> context)
 		{
 			var alreadyViewedConcepts = new HashSet<IConcept>(context.ActiveContexts.OfType<IQuestionProcessingContext<IsQuestion>>().Select(questionContext => questionContext.Question.Child));
 
@@ -81,7 +89,7 @@ namespace Inventor.Core.Questions
 			}
 		}
 
-		protected override IAnswer ProcessChildAnswers(IQuestionProcessingContext<IsQuestion> questionProcessingContext, ICollection<IsStatement> statements, ICollection<ChildAnswer> childAnswers)
+		private IAnswer ProcessChildAnswers(IQuestionProcessingContext<IsQuestion> questionProcessingContext, ICollection<IsStatement> statements, ICollection<ChildAnswer> childAnswers)
 		{
 			var resultStatements = new List<IsStatement>(statements);
 			var additionalStatements = new List<IStatement>();

@@ -10,7 +10,7 @@ using Inventor.Core.Statements;
 
 namespace Inventor.Core.Questions
 {
-	public class IsSignQuestion : Question<IsSignQuestion, HasSignStatement>
+	public class IsSignQuestion : Question
 	{
 		#region Properties
 
@@ -27,7 +27,14 @@ namespace Inventor.Core.Questions
 			Concept = concept;
 		}
 
-		protected override IAnswer CreateAnswer(IQuestionProcessingContext<IsSignQuestion> context, ICollection<HasSignStatement> statements, ICollection<ChildAnswer> childAnswers)
+		public override IAnswer Process(IQuestionProcessingContext context)
+		{
+			return context
+				.From<IsSignQuestion, HasSignStatement>(DoesStatementMatch)
+				.Select(CreateAnswer);
+		}
+
+		private IAnswer CreateAnswer(IQuestionProcessingContext<IsSignQuestion> context, ICollection<HasSignStatement> statements, ICollection<ChildAnswer> childAnswers)
 		{
 			bool isSign = Concept.HasAttribute<IsSignAttribute>();
 			return new BooleanAnswer(
@@ -41,17 +48,17 @@ namespace Inventor.Core.Questions
 				new Explanation(statements));
 		}
 
-		protected override Boolean DoesStatementMatch(HasSignStatement statement)
+		private Boolean DoesStatementMatch(HasSignStatement statement)
 		{
 			return statement.Sign == Concept;
 		}
 
-		protected override Boolean NeedToCheckTransitives(ICollection<HasSignStatement> statements)
+		private Boolean NeedToCheckTransitives(ICollection<HasSignStatement> statements)
 		{
 			return false;
 		}
 
-		protected override IAnswer ProcessChildAnswers(IQuestionProcessingContext<IsSignQuestion> context, ICollection<HasSignStatement> statements, ICollection<ChildAnswer> childAnswers)
+		private IAnswer ProcessChildAnswers(IQuestionProcessingContext<IsSignQuestion> context, ICollection<HasSignStatement> statements, ICollection<ChildAnswer> childAnswers)
 		{
 			throw new NotSupportedException();
 		}

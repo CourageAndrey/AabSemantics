@@ -10,7 +10,7 @@ using Inventor.Core.Statements;
 namespace Inventor.Core.Questions
 {
 	[Obsolete("This class will be removed as soon as QuestionDialog supports CheckStatementQuestion. Please, use CheckStatementQuestion with corresponding statement instead.")]
-	public sealed class IsPartOfQuestion : Question<IsPartOfQuestion, HasPartStatement>
+	public sealed class IsPartOfQuestion : Question
 	{
 		#region Properties
 
@@ -32,7 +32,14 @@ namespace Inventor.Core.Questions
 			Parent = parent;
 		}
 
-		protected override IAnswer CreateAnswer(IQuestionProcessingContext<IsPartOfQuestion> context, ICollection<HasPartStatement> statements, ICollection<ChildAnswer> childAnswers)
+		public override IAnswer Process(IQuestionProcessingContext context)
+		{
+			return context
+				.From<IsPartOfQuestion, HasPartStatement>(DoesStatementMatch)
+				.Select(CreateAnswer);
+		}
+
+		private IAnswer CreateAnswer(IQuestionProcessingContext<IsPartOfQuestion> context, ICollection<HasPartStatement> statements, ICollection<ChildAnswer> childAnswers)
 		{
 			return new BooleanAnswer(
 				statements.Any(),
@@ -44,17 +51,17 @@ namespace Inventor.Core.Questions
 				new Explanation(statements));
 		}
 
-		protected override Boolean DoesStatementMatch(HasPartStatement statement)
+		private Boolean DoesStatementMatch(HasPartStatement statement)
 		{
 			return statement.Whole == Parent && statement.Part == Child;
 		}
 
-		protected override bool NeedToCheckTransitives(ICollection<HasPartStatement> statements)
+		private bool NeedToCheckTransitives(ICollection<HasPartStatement> statements)
 		{
 			return false;
 		}
 
-		protected override IAnswer ProcessChildAnswers(IQuestionProcessingContext<IsPartOfQuestion> context, ICollection<HasPartStatement> statements, ICollection<ChildAnswer> childAnswers)
+		private IAnswer ProcessChildAnswers(IQuestionProcessingContext<IsPartOfQuestion> context, ICollection<HasPartStatement> statements, ICollection<ChildAnswer> childAnswers)
 		{
 			throw new NotSupportedException();
 		}
