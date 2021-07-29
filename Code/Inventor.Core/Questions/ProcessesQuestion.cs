@@ -67,6 +67,11 @@ namespace Inventor.Core.Questions
 					(statement.ProcessB == ProcessA && statement.ProcessA == ProcessB);
 		}
 
+		protected override Boolean NeedToCheckTransitives(ICollection<ProcessesStatement> statements)
+		{
+			return statements.Count == 0;
+		}
+
 		protected override IEnumerable<NestedQuestion> GetNestedQuestions(IQuestionProcessingContext<ProcessesQuestion> context)
 		{
 			var involvedValues = new HashSet<IConcept>(context.ActiveContexts

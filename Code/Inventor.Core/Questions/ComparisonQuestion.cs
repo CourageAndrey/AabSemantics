@@ -62,6 +62,11 @@ namespace Inventor.Core.Questions
 					(statement.RightValue == LeftValue && statement.LeftValue == RightValue);
 		}
 
+		protected override Boolean NeedToCheckTransitives(ICollection<ComparisonStatement> statements)
+		{
+			return statements.Count == 0;
+		}
+
 		protected override IEnumerable<NestedQuestion> GetNestedQuestions(IQuestionProcessingContext<ComparisonQuestion> context)
 		{
 			foreach (var statement in context.KnowledgeBase.Statements.Enumerate<ComparisonStatement>(context.ActiveContexts))

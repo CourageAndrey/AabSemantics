@@ -52,6 +52,11 @@ namespace Inventor.Core.Questions
 			return statement.Parent == Parent && statement.Child == Child;
 		}
 
+		protected override Boolean NeedToCheckTransitives(ICollection<IsStatement> statements)
+		{
+			return statements.Count == 0;
+		}
+
 		protected override IEnumerable<NestedQuestion> GetNestedQuestions(IQuestionProcessingContext<IsQuestion> context)
 		{
 			var alreadyViewedConcepts = new HashSet<IConcept>(context.ActiveContexts.OfType<IQuestionProcessingContext<IsQuestion>>().Select(questionContext => questionContext.Question.Child));

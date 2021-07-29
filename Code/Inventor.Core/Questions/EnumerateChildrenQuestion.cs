@@ -48,5 +48,10 @@ namespace Inventor.Core.Questions
 		{
 			return statement.Ancestor == Concept;
 		}
+
+		protected override Boolean NeedToCheckTransitives(ICollection<IsStatement> statements)
+		{
+			return statements.Count == 0;
+		}
 	}
 }
