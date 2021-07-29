@@ -56,12 +56,6 @@ namespace Inventor.Core.Questions
 
 		public override IAnswer Process(IQuestionProcessingContext<QuestionT> context)
 		{
-			foreach (var statement in Preconditions)
-			{
-				statement.Context = context;
-				context.KnowledgeBase.Statements.Add(statement);
-			}
-
 			var statements = context.KnowledgeBase.Statements.Enumerate<StatementT>(context.ActiveContexts).Where(statement => DoesStatementMatch(statement)).ToList();
 
 			if (!NeedToCheckTransitives(statements))
