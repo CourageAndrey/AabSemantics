@@ -56,7 +56,7 @@ namespace Inventor.Core.Questions
 
 		protected override Boolean NeedToCheckTransitives(ICollection<HasSignStatement> statements)
 		{
-			return Recursive;
+			return statements.Count == 0 && Recursive;
 		}
 
 		protected override IEnumerable<NestedQuestion> GetNestedQuestions(IQuestionProcessingContext<HasSignQuestion> context)
