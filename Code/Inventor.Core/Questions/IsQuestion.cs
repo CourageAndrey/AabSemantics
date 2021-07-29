@@ -35,8 +35,8 @@ namespace Inventor.Core.Questions
 		public override IAnswer Process(IQuestionProcessingContext context)
 		{
 			return context
-				.From<IsQuestion, IsStatement>(DoesStatementMatch)
-				.ProcessTransitives(NeedToCheckTransitives, GetNestedQuestions)
+				.From<IsQuestion, IsStatement>(s => s.Parent == Parent && s.Child == Child)
+				.ProcessTransitives(s => s.Count == 0, GetNestedQuestions)
 				.Select(CreateAnswer);
 		}
 
@@ -70,16 +70,6 @@ namespace Inventor.Core.Questions
 						{ Strings.ParamChild, Parent },
 					}),
 				new Explanation(explanation));
-		}
-
-		private Boolean DoesStatementMatch(IsStatement statement)
-		{
-			return statement.Parent == Parent && statement.Child == Child;
-		}
-
-		private Boolean NeedToCheckTransitives(ICollection<IsStatement> statements)
-		{
-			return statements.Count == 0;
 		}
 
 		private IEnumerable<NestedQuestion> GetNestedQuestions(IQuestionProcessingContext<IsQuestion> context)

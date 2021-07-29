@@ -29,7 +29,7 @@ namespace Inventor.Core.Questions
 		public override IAnswer Process(IQuestionProcessingContext context)
 		{
 			return context
-				.From<FindSubjectAreaQuestion, GroupStatement>(DoesStatementMatch)
+				.From<FindSubjectAreaQuestion, GroupStatement>(s => s.Concept == Concept)
 				.Select(CreateAnswer);
 		}
 
@@ -60,11 +60,6 @@ namespace Inventor.Core.Questions
 			}
 
 			return Answer.CreateUnknown(context.Language);
-		}
-
-		private Boolean DoesStatementMatch(GroupStatement statement)
-		{
-			return statement.Concept == Concept;
 		}
 	}
 }

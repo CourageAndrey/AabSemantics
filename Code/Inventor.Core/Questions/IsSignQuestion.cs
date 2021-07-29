@@ -29,7 +29,7 @@ namespace Inventor.Core.Questions
 		public override IAnswer Process(IQuestionProcessingContext context)
 		{
 			return context
-				.From<IsSignQuestion, HasSignStatement>(DoesStatementMatch)
+				.From<IsSignQuestion, HasSignStatement>(s => s.Sign == Concept)
 				.Select(CreateAnswer);
 		}
 
@@ -45,11 +45,6 @@ namespace Inventor.Core.Questions
 						{ Strings.ParamConcept, Concept },
 					}),
 				new Explanation(statements));
-		}
-
-		private Boolean DoesStatementMatch(HasSignStatement statement)
-		{
-			return statement.Sign == Concept;
 		}
 	}
 }

@@ -29,7 +29,7 @@ namespace Inventor.Core.Questions
 		public override IAnswer Process(IQuestionProcessingContext context)
 		{
 			return context
-				.From<EnumerateContainersQuestion, HasPartStatement>(DoesStatementMatch)
+				.From<EnumerateContainersQuestion, HasPartStatement>(s => s.Part == Concept)
 				.Select(CreateAnswer);
 		}
 
@@ -54,11 +54,6 @@ namespace Inventor.Core.Questions
 			}
 
 			return Answer.CreateUnknown(context.Language);
-		}
-
-		private Boolean DoesStatementMatch(HasPartStatement statement)
-		{
-			return statement.Part == Concept;
 		}
 	}
 }
