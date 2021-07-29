@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 
 namespace Inventor.Core.Questions
 {
@@ -56,7 +55,7 @@ namespace Inventor.Core.Questions
 
 		public override IAnswer Process(IQuestionProcessingContext<QuestionT> context)
 		{
-			var statements = context.From<StatementT>(DoesStatementMatch);
+			var statements = context.From<QuestionT, StatementT>(DoesStatementMatch).Statements;
 
 			ICollection<ChildAnswer> childAnswers;
 			if (NeedToCheckTransitives(statements))
@@ -95,13 +94,11 @@ namespace Inventor.Core.Questions
 
 	public static class QuestionProcessingExtensions
 	{
-		public static List<StatementT> From<StatementT>(this IKnowledgeBaseContext context, Func<StatementT, Boolean> match)
+		public static StatementQuestionProcessor<QuestionT, StatementT> From<QuestionT, StatementT>(this IQuestionProcessingContext<QuestionT> context, Func<StatementT, Boolean> match)
+			where QuestionT : Question<QuestionT, StatementT>
 			where StatementT : IStatement
 		{
-			return context.KnowledgeBase.Statements
-				.Enumerate<StatementT>(context.ActiveContexts)
-				.Where(match)
-				.ToList();
+			return new StatementQuestionProcessor<QuestionT, StatementT>(context, match);
 		}
 	}
 }
