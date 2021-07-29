@@ -57,6 +57,20 @@ namespace Inventor.Core.Questions
 			return statements.Count == 0;
 		}
 
+		protected override IAnswer ProcessChildAnswers(IQuestionProcessingContext<SignValueQuestion> context, ICollection<SignValueStatement> statements, ICollection<ChildAnswer> childAnswers)
+		{
+			if (childAnswers.Count > 0)
+			{
+				var answer = childAnswers.First();
+				answer.Answer.Explanation.Expand(answer.TransitiveStatements);
+				return answer.Answer;
+			}
+			else
+			{
+				return Answers.Answer.CreateUnknown(context.Language);
+			}
+		}
+
 		protected override IEnumerable<NestedQuestion> GetNestedQuestions(IQuestionProcessingContext<SignValueQuestion> context)
 		{
 			var alreadyViewedConcepts = new HashSet<IConcept>(context.ActiveContexts.OfType<IQuestionProcessingContext<SignValueQuestion>>().Select(questionContext => questionContext.Question.Concept));

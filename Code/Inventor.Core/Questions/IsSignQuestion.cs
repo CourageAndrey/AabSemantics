@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 
 using Inventor.Core.Answers;
 using Inventor.Core.Attributes;
@@ -48,6 +49,20 @@ namespace Inventor.Core.Questions
 		protected override Boolean NeedToCheckTransitives(ICollection<HasSignStatement> statements)
 		{
 			return false;
+		}
+
+		protected override IAnswer ProcessChildAnswers(IQuestionProcessingContext<IsSignQuestion> context, ICollection<HasSignStatement> statements, ICollection<ChildAnswer> childAnswers)
+		{
+			if (childAnswers.Count > 0)
+			{
+				var answer = childAnswers.First();
+				answer.Answer.Explanation.Expand(answer.TransitiveStatements);
+				return answer.Answer;
+			}
+			else
+			{
+				return Answers.Answer.CreateUnknown(context.Language);
+			}
 		}
 	}
 }

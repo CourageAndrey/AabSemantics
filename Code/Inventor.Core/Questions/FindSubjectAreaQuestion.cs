@@ -59,5 +59,19 @@ namespace Inventor.Core.Questions
 		{
 			return statements.Count == 0;
 		}
+
+		protected override IAnswer ProcessChildAnswers(IQuestionProcessingContext<FindSubjectAreaQuestion> context, ICollection<GroupStatement> statements, ICollection<ChildAnswer> childAnswers)
+		{
+			if (childAnswers.Count > 0)
+			{
+				var answer = childAnswers.First();
+				answer.Answer.Explanation.Expand(answer.TransitiveStatements);
+				return answer.Answer;
+			}
+			else
+			{
+				return Answers.Answer.CreateUnknown(context.Language);
+			}
+		}
 	}
 }
