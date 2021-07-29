@@ -52,15 +52,5 @@ namespace Inventor.Core.Questions
 		{
 			return statement.Sign == Concept;
 		}
-
-		private Boolean NeedToCheckTransitives(ICollection<HasSignStatement> statements)
-		{
-			return false;
-		}
-
-		private IAnswer ProcessChildAnswers(IQuestionProcessingContext<IsSignQuestion> context, ICollection<HasSignStatement> statements, ICollection<ChildAnswer> childAnswers)
-		{
-			throw new NotSupportedException();
-		}
 	}
 }

@@ -55,15 +55,5 @@ namespace Inventor.Core.Questions
 		{
 			return statement.Whole == Parent && statement.Part == Child;
 		}
-
-		private bool NeedToCheckTransitives(ICollection<HasPartStatement> statements)
-		{
-			return false;
-		}
-
-		private IAnswer ProcessChildAnswers(IQuestionProcessingContext<IsPartOfQuestion> context, ICollection<HasPartStatement> statements, ICollection<ChildAnswer> childAnswers)
-		{
-			throw new NotSupportedException();
-		}
 	}
 }

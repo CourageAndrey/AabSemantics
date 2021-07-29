@@ -51,15 +51,5 @@ namespace Inventor.Core.Questions
 		{
 			return statement.Value == Concept;
 		}
-
-		private Boolean NeedToCheckTransitives(ICollection<SignValueStatement> statements)
-		{
-			return false;
-		}
-
-		private IAnswer ProcessChildAnswers(IQuestionProcessingContext<IsValueQuestion> context, ICollection<SignValueStatement> statements, ICollection<ChildAnswer> childAnswers)
-		{
-			throw new NotSupportedException();
-		}
 	}
 }
