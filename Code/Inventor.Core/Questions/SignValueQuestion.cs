@@ -41,25 +41,23 @@ namespace Inventor.Core.Questions
 
 		private IAnswer CreateAnswer(IQuestionProcessingContext<SignValueQuestion> context, ICollection<SignValueStatement> statements, ICollection<ChildAnswer> childAnswers)
 		{
-			if (!NeedToCheckTransitives(statements))
+			var statement = statements.FirstOrDefault();
+			if (statement != null)
 			{
-				if (statements.Any())
-				{
-					var statement = statements.First();
-					return new ConceptAnswer(
-						statement.Value,
-						formatSignValue(statement, Concept, context.Language),
-						new Explanation(statements));
-				}
-				else
-				{
-					return Answer.CreateUnknown(context.Language);
-				}
+				return new ConceptAnswer(
+					statement.Value,
+					formatSignValue(statement, Concept, context.Language),
+					new Explanation(statements));
 			}
-			else
+
+			var childAnswer = childAnswers.FirstOrDefault();
+			if (childAnswer != null)
 			{
-				return ProcessChildAnswers(context, statements, childAnswers);
+				childAnswer.Answer.Explanation.Expand(childAnswer.TransitiveStatements);
+				return childAnswer.Answer;
 			}
+
+			return Answer.CreateUnknown(context.Language);
 		}
 
 		private Boolean DoesStatementMatch(SignValueStatement statement)
@@ -70,20 +68,6 @@ namespace Inventor.Core.Questions
 		private Boolean NeedToCheckTransitives(ICollection<SignValueStatement> statements)
 		{
 			return statements.Count == 0;
-		}
-
-		private IAnswer ProcessChildAnswers(IQuestionProcessingContext<SignValueQuestion> context, ICollection<SignValueStatement> statements, ICollection<ChildAnswer> childAnswers)
-		{
-			if (childAnswers.Count > 0)
-			{
-				var answer = childAnswers.First();
-				answer.Answer.Explanation.Expand(answer.TransitiveStatements);
-				return answer.Answer;
-			}
-			else
-			{
-				return Answers.Answer.CreateUnknown(context.Language);
-			}
 		}
 
 		private IEnumerable<NestedQuestion> GetNestedQuestions(IQuestionProcessingContext<SignValueQuestion> context)

@@ -40,21 +40,32 @@ namespace Inventor.Core.Questions
 
 		private IAnswer CreateAnswer(IQuestionProcessingContext<EnumerateSignsQuestion> context, ICollection<HasSignStatement> statements, ICollection<ChildAnswer> childAnswers)
 		{
-			if (!NeedToCheckTransitives(statements))
+			var allSigns = new HashSet<IConcept>(statements.Select(hs => hs.Sign));
+			var allStatements = new HashSet<IStatement>(statements);
+
+			foreach (var answer in childAnswers)
 			{
-				if (statements.Any())
+				var conceptsAnswer = answer.Answer as ConceptsAnswer;
+				if (conceptsAnswer != null)
 				{
-					return formatAnswer(context, statements.Select(hs => hs.Sign).ToList(), statements.OfType<IStatement>().ToList());
-				}
-				else
-				{
-					return Answer.CreateUnknown(context.Language);
+					foreach (var sign in conceptsAnswer.Result)
+					{
+						allSigns.Add(sign);
+					}
+					foreach (var statement in conceptsAnswer.Explanation.Statements)
+					{
+						allStatements.Add(statement);
+					}
+					foreach (var statement in answer.TransitiveStatements)
+					{
+						allStatements.Add(statement);
+					}
 				}
 			}
-			else
-			{
-				return ProcessChildAnswers(context, statements, childAnswers);
-			}
+
+			return allSigns.Count > 0
+				? formatAnswer(context, allSigns, allStatements)
+				: Answer.CreateUnknown(context.Language);
 		}
 
 		private Boolean DoesStatementMatch(HasSignStatement statement)
@@ -84,42 +95,6 @@ namespace Inventor.Core.Questions
 					yield return new NestedQuestion(new EnumerateSignsQuestion(parent, true), new IStatement[] { transitiveStatement });
 				}
 			}
-		}
-
-		private IAnswer ProcessChildAnswers(IQuestionProcessingContext<EnumerateSignsQuestion> context, ICollection<HasSignStatement> statements, ICollection<ChildAnswer> childAnswers)
-		{
-			var allSigns = new HashSet<IConcept>();
-			var allStatements = new HashSet<IStatement>();
-
-			foreach (var statement in statements)
-			{
-				allSigns.Add(statement.Sign);
-				allStatements.Add(statement);
-			}
-
-			foreach (var answer in childAnswers)
-			{
-				var conceptsAnswer = answer.Answer as ConceptsAnswer;
-				if (conceptsAnswer != null)
-				{
-					foreach (var sign in conceptsAnswer.Result)
-					{
-						allSigns.Add(sign);
-					}
-					foreach (var statement in conceptsAnswer.Explanation.Statements)
-					{
-						allStatements.Add(statement);
-					}
-					foreach (var statement in answer.TransitiveStatements)
-					{
-						allStatements.Add(statement);
-					}
-				}
-			}
-
-			return allSigns.Count > 0
-				? formatAnswer(context, allSigns, allStatements)
-				: Answer.CreateUnknown(context.Language);
 		}
 
 		private IAnswer formatAnswer(IQuestionProcessingContext<EnumerateSignsQuestion> context, ICollection<IConcept> signs, ICollection<IStatement> statements)

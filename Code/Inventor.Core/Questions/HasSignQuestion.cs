@@ -45,23 +45,34 @@ namespace Inventor.Core.Questions
 
 		private IAnswer CreateAnswer(IQuestionProcessingContext<HasSignQuestion> context, ICollection<HasSignStatement> statements, ICollection<ChildAnswer> childAnswers)
 		{
-			if (!NeedToCheckTransitives(statements))
+			Boolean result = false;
+			var explanation = new List<IStatement>(statements);
+
+			if (statements.Count > 0)
 			{
-				return new BooleanAnswer(
-					statements.Any(),
-					new FormattedText(
-						() => String.Format(statements.Any() ? context.Language.Answers.HasSignTrue : context.Language.Answers.HasSignFalse, Recursive ? context.Language.Answers.RecursiveTrue : context.Language.Answers.RecursiveFalse),
-						new Dictionary<String, INamed>
-						{
-							{ Strings.ParamConcept, Concept },
-							{ Strings.ParamSign, Sign },
-						}),
-					new Explanation(statements));
+				result = true;
 			}
-			else
+
+			foreach (var childAnswer in childAnswers)
 			{
-				return ProcessChildAnswers(context, statements, childAnswers);
+				if (((BooleanAnswer) childAnswer.Answer).Result)
+				{
+					result = true;
+					explanation.AddRange(childAnswer.Answer.Explanation.Statements);
+					explanation.AddRange(childAnswer.TransitiveStatements);
+				}
 			}
+
+			return new BooleanAnswer(
+				result,
+				new FormattedText(
+					() => String.Format(result ? context.Language.Answers.HasSignTrue : context.Language.Answers.HasSignFalse, Recursive ? context.Language.Answers.RecursiveTrue : context.Language.Answers.RecursiveFalse),
+					new Dictionary<String, INamed>
+					{
+						{ Strings.ParamConcept, Concept },
+						{ Strings.ParamSign, Sign },
+					}),
+				new Explanation(explanation));
 		}
 
 		private Boolean DoesStatementMatch(HasSignStatement statement)
@@ -91,27 +102,6 @@ namespace Inventor.Core.Questions
 					yield return new NestedQuestion(new HasSignQuestion(parent, question.Sign, true), new IStatement[] { transitiveStatement });
 				}
 			}
-		}
-
-		private IAnswer ProcessChildAnswers(IQuestionProcessingContext<HasSignQuestion> questionProcessingContext, ICollection<HasSignStatement> statements, ICollection<ChildAnswer> childAnswers)
-		{
-			var resultStatements = new List<HasSignStatement>(statements);
-			var additionalStatements = new List<IStatement>();
-
-			foreach (var childAnswer in childAnswers)
-			{
-				if (((BooleanAnswer) childAnswer.Answer).Result)
-				{
-					var answerStatements = childAnswer.Answer.Explanation.Statements.OfType<HasSignStatement>().ToList();
-					resultStatements.AddRange(answerStatements);
-					additionalStatements.AddRange(childAnswer.Answer.Explanation.Statements.Except(answerStatements));
-					additionalStatements.AddRange(childAnswer.TransitiveStatements);
-				}
-			}
-
-			var result = CreateAnswer(questionProcessingContext, resultStatements, new ChildAnswer[0]);
-			result.Explanation.Expand(additionalStatements);
-			return result;
 		}
 	}
 }

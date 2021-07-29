@@ -35,51 +35,30 @@ namespace Inventor.Core.Questions
 
 		private IAnswer CreateAnswer(IQuestionProcessingContext<DescribeSubjectAreaQuestion> context, ICollection<GroupStatement> statements, ICollection<ChildAnswer> childAnswers)
 		{
-			if (!NeedToCheckTransitives(statements))
+			if (statements.Any())
 			{
-				if (statements.Any())
-				{
-					String format;
-					var parameters = statements.Select(r => r.Concept).ToList().Enumerate(out format);
-					parameters.Add(Strings.ParamAnswer, Concept);
-					return new ConceptsAnswer(
-						statements.Select(s => s.Concept).ToList(),
-						new FormattedText(() => context.Language.Answers.SubjectAreaConcepts + format + ".", parameters),
-						new Explanation(statements));
-				}
-				else
-				{
-					return Answer.CreateUnknown(context.Language);
-				}
+				String format;
+				var parameters = statements.Select(r => r.Concept).ToList().Enumerate(out format);
+				parameters.Add(Strings.ParamAnswer, Concept);
+				return new ConceptsAnswer(
+					statements.Select(s => s.Concept).ToList(),
+					new FormattedText(() => context.Language.Answers.SubjectAreaConcepts + format + ".", parameters),
+					new Explanation(statements));
 			}
-			else
+
+			var childAnswer = childAnswers.FirstOrDefault();
+			if (childAnswer != null)
 			{
-				return ProcessChildAnswers(context, statements, childAnswers);
+				childAnswer.Answer.Explanation.Expand(childAnswer.TransitiveStatements);
+				return childAnswer.Answer;
 			}
+
+			return Answer.CreateUnknown(context.Language);
 		}
 
 		private Boolean DoesStatementMatch(GroupStatement statement)
 		{
 			return statement.Area == Concept;
-		}
-
-		private Boolean NeedToCheckTransitives(ICollection<GroupStatement> statements)
-		{
-			return statements.Count == 0;
-		}
-
-		private IAnswer ProcessChildAnswers(IQuestionProcessingContext<DescribeSubjectAreaQuestion> context, ICollection<GroupStatement> statements, ICollection<ChildAnswer> childAnswers)
-		{
-			if (childAnswers.Count > 0)
-			{
-				var answer = childAnswers.First();
-				answer.Answer.Explanation.Expand(answer.TransitiveStatements);
-				return answer.Answer;
-			}
-			else
-			{
-				return Answers.Answer.CreateUnknown(context.Language);
-			}
 		}
 	}
 }
