@@ -77,8 +77,8 @@ namespace Inventor.Core.Questions
 
 	public static class QuestionProcessingExtensions
 	{
-		public static StatementQuestionProcessor<QuestionT, StatementT> From<QuestionT, StatementT>(this IQuestionProcessingContext<QuestionT> context, Func<StatementT, Boolean> match)
-			where QuestionT : Question<QuestionT, StatementT>
+		public static StatementQuestionProcessor<QuestionT, StatementT> From<QuestionT, StatementT>(this IQuestionProcessingContext context, Func<StatementT, Boolean> match)
+			where QuestionT : IQuestion
 			where StatementT : IStatement
 		{
 			return new StatementQuestionProcessor<QuestionT, StatementT>(context, match);
