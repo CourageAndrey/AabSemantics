@@ -57,15 +57,5 @@ namespace Inventor.Core.Questions
 		{
 			return statement.Area == Area && statement.Concept == Concept;
 		}
-
-		private bool NeedToCheckTransitives(ICollection<GroupStatement> statements)
-		{
-			return false;
-		}
-
-		private IAnswer ProcessChildAnswers(IQuestionProcessingContext<IsSubjectAreaQuestion> context, ICollection<GroupStatement> statements, ICollection<ChildAnswer> childAnswers)
-		{
-			throw new NotSupportedException();
-		}
 	}
 }
