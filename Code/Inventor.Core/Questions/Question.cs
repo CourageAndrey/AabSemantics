@@ -55,10 +55,10 @@ namespace Inventor.Core.Questions
 
 		public override IAnswer Process(IQuestionProcessingContext<QuestionT> context)
 		{
-			var processor = context
+			return context
 				.From<QuestionT, StatementT>(DoesStatementMatch)
-				.ProcessTransitives(NeedToCheckTransitives, GetNestedQuestions);
-			return CreateAnswer(context, processor.Statements, processor.ChildAnswers);
+				.ProcessTransitives(NeedToCheckTransitives, GetNestedQuestions)
+				.Select(CreateAnswer);
 		}
 
 		protected abstract Boolean DoesStatementMatch(StatementT statement);

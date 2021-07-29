@@ -55,5 +55,10 @@ namespace Inventor.Core.Questions
 			}
 			return this;
 		}
+
+		public IAnswer Select(Func<IQuestionProcessingContext<QuestionT>, ICollection<StatementT>, ICollection<ChildAnswer>, IAnswer> formatter)
+		{
+			return formatter(Context, Statements, ChildAnswers);
+		}
 	}
 }
