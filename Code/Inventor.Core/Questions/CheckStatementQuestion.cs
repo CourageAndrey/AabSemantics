@@ -27,25 +27,24 @@ namespace Inventor.Core.Questions
 
 		public override IAnswer Process(IQuestionProcessingContext context)
 		{
-			var question = (CheckStatementQuestion) context.Question;
 			var allStatements = context.KnowledgeBase.Statements.Enumerate(context.ActiveContexts);
 
 			IEnumerable<IStatement> statements;
-			var parentChild = question.Statement as IParentChild<IConcept>;
+			var parentChild = Statement as IParentChild<IConcept>;
 			if (parentChild != null)
 			{
-				statements = allStatements.FindPath(question.Statement.GetType(), parentChild.Parent, parentChild.Child);
+				statements = allStatements.FindPath(Statement.GetType(), parentChild.Parent, parentChild.Child);
 			}
 			else
 			{
-				var statement = allStatements.FirstOrDefault(p => p.Equals(question.Statement));
+				var statement = allStatements.FirstOrDefault(p => p.Equals(Statement));
 				statements = statement != null ? new[] { statement } : new IStatement[0];
 			}
 
 			var result = new FormattedText(
 				() => Strings.ParamAnswer,
 				new Dictionary<String, INamed> { { Strings.ParamAnswer, statements.Any() ? LogicalValues.True : LogicalValues.False } });
-			result.Add(statements.Any() ? question.Statement.DescribeTrue(context.Language) : question.Statement.DescribeFalse(context.Language));
+			result.Add(statements.Any() ? Statement.DescribeTrue(context.Language) : Statement.DescribeFalse(context.Language));
 			return new BooleanAnswer(
 				statements.Any(),
 				result,
