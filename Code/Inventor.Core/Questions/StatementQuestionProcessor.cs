@@ -16,6 +16,9 @@ namespace Inventor.Core.Questions
 		public ICollection<StatementT> Statements
 		{ get; }
 
+		public ICollection<ChildAnswer> ChildAnswers
+		{ get; private set; }
+
 		#endregion
 
 		public StatementQuestionProcessor(IQuestionProcessingContext<QuestionT> context, Func<StatementT, Boolean> match)
@@ -26,6 +29,31 @@ namespace Inventor.Core.Questions
 				.Enumerate<StatementT>(context.ActiveContexts)
 				.Where(match)
 				.ToList();
+
+			ChildAnswers = new ChildAnswer[0];
+		}
+
+		public StatementQuestionProcessor<QuestionT, StatementT> ProcessTransitives(
+			Func<ICollection<StatementT>, Boolean> needToProcess,
+			Func<IQuestionProcessingContext<QuestionT>, IEnumerable<NestedQuestion>> getNestedQuestions)
+		{
+			if (needToProcess(Statements))
+			{
+				ChildAnswers = new List<ChildAnswer>();
+				foreach (var nested in getNestedQuestions(Context))
+				{
+					var answer = nested.Question.Ask(Context);
+					if (!answer.IsEmpty)
+					{
+						ChildAnswers.Add(new ChildAnswer(nested.Question, answer, nested.TransitiveStatements));
+					}
+				}
+			}
+			else
+			{
+				ChildAnswers = new ChildAnswer[0];
+			}
+			return this;
 		}
 	}
 }
