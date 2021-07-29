@@ -9,7 +9,7 @@ using Inventor.Core.Statements;
 
 namespace Inventor.Core.Questions
 {
-	public sealed class DescribeSubjectAreaQuestion : Question<DescribeSubjectAreaQuestion, GroupStatement>
+	public sealed class DescribeSubjectAreaQuestion : Question
 	{
 		#region Properties
 
@@ -26,7 +26,14 @@ namespace Inventor.Core.Questions
 			Concept = concept;
 		}
 
-		protected override IAnswer CreateAnswer(IQuestionProcessingContext<DescribeSubjectAreaQuestion> context, ICollection<GroupStatement> statements, ICollection<ChildAnswer> childAnswers)
+		public override IAnswer Process(IQuestionProcessingContext context)
+		{
+			return context
+				.From<DescribeSubjectAreaQuestion, GroupStatement>(DoesStatementMatch)
+				.Select(CreateAnswer);
+		}
+
+		private IAnswer CreateAnswer(IQuestionProcessingContext<DescribeSubjectAreaQuestion> context, ICollection<GroupStatement> statements, ICollection<ChildAnswer> childAnswers)
 		{
 			if (!NeedToCheckTransitives(statements))
 			{
@@ -51,17 +58,17 @@ namespace Inventor.Core.Questions
 			}
 		}
 
-		protected override Boolean DoesStatementMatch(GroupStatement statement)
+		private Boolean DoesStatementMatch(GroupStatement statement)
 		{
 			return statement.Area == Concept;
 		}
 
-		protected override Boolean NeedToCheckTransitives(ICollection<GroupStatement> statements)
+		private Boolean NeedToCheckTransitives(ICollection<GroupStatement> statements)
 		{
 			return statements.Count == 0;
 		}
 
-		protected override IAnswer ProcessChildAnswers(IQuestionProcessingContext<DescribeSubjectAreaQuestion> context, ICollection<GroupStatement> statements, ICollection<ChildAnswer> childAnswers)
+		private IAnswer ProcessChildAnswers(IQuestionProcessingContext<DescribeSubjectAreaQuestion> context, ICollection<GroupStatement> statements, ICollection<ChildAnswer> childAnswers)
 		{
 			if (childAnswers.Count > 0)
 			{

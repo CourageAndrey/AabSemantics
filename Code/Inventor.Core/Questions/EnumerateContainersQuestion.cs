@@ -9,7 +9,7 @@ using Inventor.Core.Statements;
 
 namespace Inventor.Core.Questions
 {
-	public sealed class EnumerateContainersQuestion : Question<EnumerateContainersQuestion, HasPartStatement>
+	public sealed class EnumerateContainersQuestion : Question
 	{
 		#region Properties
 
@@ -26,7 +26,14 @@ namespace Inventor.Core.Questions
 			Concept = concept;
 		}
 
-		protected override IAnswer CreateAnswer(IQuestionProcessingContext<EnumerateContainersQuestion> context, ICollection<HasPartStatement> statements, ICollection<ChildAnswer> childAnswers)
+		public override IAnswer Process(IQuestionProcessingContext context)
+		{
+			return context
+				.From<EnumerateContainersQuestion, HasPartStatement>(DoesStatementMatch)
+				.Select(CreateAnswer);
+		}
+
+		private IAnswer CreateAnswer(IQuestionProcessingContext<EnumerateContainersQuestion> context, ICollection<HasPartStatement> statements, ICollection<ChildAnswer> childAnswers)
 		{
 			if (!NeedToCheckTransitives(statements))
 			{
@@ -51,17 +58,17 @@ namespace Inventor.Core.Questions
 			}
 		}
 
-		protected override Boolean DoesStatementMatch(HasPartStatement statement)
+		private Boolean DoesStatementMatch(HasPartStatement statement)
 		{
 			return statement.Part == Concept;
 		}
 
-		protected override Boolean NeedToCheckTransitives(ICollection<HasPartStatement> statements)
+		private Boolean NeedToCheckTransitives(ICollection<HasPartStatement> statements)
 		{
 			return statements.Count == 0;
 		}
 
-		protected override IAnswer ProcessChildAnswers(IQuestionProcessingContext<EnumerateContainersQuestion> context, ICollection<HasPartStatement> statements, ICollection<ChildAnswer> childAnswers)
+		private IAnswer ProcessChildAnswers(IQuestionProcessingContext<EnumerateContainersQuestion> context, ICollection<HasPartStatement> statements, ICollection<ChildAnswer> childAnswers)
 		{
 			if (childAnswers.Count > 0)
 			{

@@ -8,7 +8,7 @@ using Inventor.Core.Localization;
 
 namespace Inventor.Core.Questions
 {
-	public sealed class CheckStatementQuestion : Question<CheckStatementQuestion>
+	public sealed class CheckStatementQuestion : Question
 	{
 		#region Properties
 
@@ -25,9 +25,9 @@ namespace Inventor.Core.Questions
 			Statement = statement;
 		}
 
-		public override IAnswer Process(IQuestionProcessingContext<CheckStatementQuestion> context)
+		public override IAnswer Process(IQuestionProcessingContext context)
 		{
-			var question = context.Question;
+			var question = (CheckStatementQuestion) context.Question;
 			var allStatements = context.KnowledgeBase.Statements.Enumerate(context.ActiveContexts);
 
 			IEnumerable<IStatement> statements;

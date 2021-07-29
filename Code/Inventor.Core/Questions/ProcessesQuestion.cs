@@ -8,7 +8,7 @@ using Inventor.Core.Statements;
 
 namespace Inventor.Core.Questions
 {
-	public sealed class ProcessesQuestion : Question<ProcessesQuestion, ProcessesStatement>
+	public sealed class ProcessesQuestion : Question
 	{
 		#region Properties
 
@@ -30,7 +30,15 @@ namespace Inventor.Core.Questions
 			ProcessB = processB;
 		}
 
-		protected override IAnswer CreateAnswer(IQuestionProcessingContext<ProcessesQuestion> context, ICollection<ProcessesStatement> statements, ICollection<ChildAnswer> childAnswers)
+		public override IAnswer Process(IQuestionProcessingContext context)
+		{
+			return context
+				.From<ProcessesQuestion, ProcessesStatement>(DoesStatementMatch)
+				.ProcessTransitives(NeedToCheckTransitives, GetNestedQuestions)
+				.Select(CreateAnswer);
+		}
+
+		private IAnswer CreateAnswer(IQuestionProcessingContext<ProcessesQuestion> context, ICollection<ProcessesStatement> statements, ICollection<ChildAnswer> childAnswers)
 		{
 			if (!NeedToCheckTransitives(statements))
 			{
@@ -68,18 +76,18 @@ namespace Inventor.Core.Questions
 			return new StatementsAnswer<ProcessesStatement>(resultStatements, text, explanation);
 		}
 
-		protected override bool DoesStatementMatch(ProcessesStatement statement)
+		private bool DoesStatementMatch(ProcessesStatement statement)
 		{
 			return	(statement.ProcessA == ProcessA && statement.ProcessB == ProcessB) ||
 					(statement.ProcessB == ProcessA && statement.ProcessA == ProcessB);
 		}
 
-		protected override Boolean NeedToCheckTransitives(ICollection<ProcessesStatement> statements)
+		private Boolean NeedToCheckTransitives(ICollection<ProcessesStatement> statements)
 		{
 			return statements.Count == 0;
 		}
 
-		protected override IEnumerable<NestedQuestion> GetNestedQuestions(IQuestionProcessingContext<ProcessesQuestion> context)
+		private IEnumerable<NestedQuestion> GetNestedQuestions(IQuestionProcessingContext<ProcessesQuestion> context)
 		{
 			var involvedValues = new HashSet<IConcept>(context.ActiveContexts
 				.OfType<IQuestionProcessingContext<ProcessesQuestion>>()
@@ -116,7 +124,7 @@ namespace Inventor.Core.Questions
 			}
 		}
 
-		protected override IAnswer ProcessChildAnswers(IQuestionProcessingContext<ProcessesQuestion> context, ICollection<ProcessesStatement> statements, ICollection<ChildAnswer> childAnswers)
+		private IAnswer ProcessChildAnswers(IQuestionProcessingContext<ProcessesQuestion> context, ICollection<ProcessesStatement> statements, ICollection<ChildAnswer> childAnswers)
 		{
 			foreach (var answer in childAnswers)
 			{

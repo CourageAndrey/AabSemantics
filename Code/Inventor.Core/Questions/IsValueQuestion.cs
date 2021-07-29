@@ -9,7 +9,7 @@ using Inventor.Core.Statements;
 
 namespace Inventor.Core.Questions
 {
-	public sealed class IsValueQuestion : Question<IsValueQuestion, SignValueStatement>
+	public sealed class IsValueQuestion : Question
 	{
 		#region Properties
 
@@ -26,7 +26,14 @@ namespace Inventor.Core.Questions
 			Concept = concept;
 		}
 
-		protected override IAnswer CreateAnswer(IQuestionProcessingContext<IsValueQuestion> context, ICollection<SignValueStatement> statements, ICollection<ChildAnswer> childAnswers)
+		public override IAnswer Process(IQuestionProcessingContext context)
+		{
+			return context
+				.From<IsValueQuestion, SignValueStatement>(DoesStatementMatch)
+				.Select(CreateAnswer);
+		}
+
+		private IAnswer CreateAnswer(IQuestionProcessingContext<IsValueQuestion> context, ICollection<SignValueStatement> statements, ICollection<ChildAnswer> childAnswers)
 		{
 			bool isValue = Concept.HasAttribute<IsValueAttribute>();
 			return new BooleanAnswer(
@@ -40,17 +47,17 @@ namespace Inventor.Core.Questions
 				new Explanation(statements));
 		}
 
-		protected override Boolean DoesStatementMatch(SignValueStatement statement)
+		private Boolean DoesStatementMatch(SignValueStatement statement)
 		{
 			return statement.Value == Concept;
 		}
 
-		protected override Boolean NeedToCheckTransitives(ICollection<SignValueStatement> statements)
+		private Boolean NeedToCheckTransitives(ICollection<SignValueStatement> statements)
 		{
 			return false;
 		}
 
-		protected override IAnswer ProcessChildAnswers(IQuestionProcessingContext<IsValueQuestion> context, ICollection<SignValueStatement> statements, ICollection<ChildAnswer> childAnswers)
+		private IAnswer ProcessChildAnswers(IQuestionProcessingContext<IsValueQuestion> context, ICollection<SignValueStatement> statements, ICollection<ChildAnswer> childAnswers)
 		{
 			throw new NotSupportedException();
 		}

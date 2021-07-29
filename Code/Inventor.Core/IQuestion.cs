@@ -9,9 +9,4 @@ namespace Inventor.Core
 
 		IAnswer Ask(IKnowledgeBaseContext context);
 	}
-
-	public interface IQuestion<StatementT> : IQuestion
-		where StatementT : IStatement
-	{
-	}
 }

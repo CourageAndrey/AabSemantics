@@ -10,7 +10,7 @@ using Inventor.Core.Statements;
 namespace Inventor.Core.Questions
 {
 	[Obsolete("This class will be removed as soon as QuestionDialog supports CheckStatementQuestion. Please, use CheckStatementQuestion with corresponding statement instead.")]
-	public sealed class IsSubjectAreaQuestion : Question<IsSubjectAreaQuestion, GroupStatement>
+	public sealed class IsSubjectAreaQuestion : Question
 	{
 		#region Properties
 
@@ -32,7 +32,14 @@ namespace Inventor.Core.Questions
 			Area = area;
 		}
 
-		protected override IAnswer CreateAnswer(IQuestionProcessingContext<IsSubjectAreaQuestion> context, ICollection<GroupStatement> statements, ICollection<ChildAnswer> childAnswers)
+		public override IAnswer Process(IQuestionProcessingContext context)
+		{
+			return context
+				.From<IsSubjectAreaQuestion, GroupStatement>(DoesStatementMatch)
+				.Select(CreateAnswer);
+		}
+
+		private IAnswer CreateAnswer(IQuestionProcessingContext<IsSubjectAreaQuestion> context, ICollection<GroupStatement> statements, ICollection<ChildAnswer> childAnswers)
 		{
 			return new BooleanAnswer(
 				statements.Any(),
@@ -46,17 +53,17 @@ namespace Inventor.Core.Questions
 				new Explanation(statements));
 		}
 
-		protected override Boolean DoesStatementMatch(GroupStatement statement)
+		private Boolean DoesStatementMatch(GroupStatement statement)
 		{
 			return statement.Area == Area && statement.Concept == Concept;
 		}
 
-		protected override bool NeedToCheckTransitives(ICollection<GroupStatement> statements)
+		private bool NeedToCheckTransitives(ICollection<GroupStatement> statements)
 		{
 			return false;
 		}
 
-		protected override IAnswer ProcessChildAnswers(IQuestionProcessingContext<IsSubjectAreaQuestion> context, ICollection<GroupStatement> statements, ICollection<ChildAnswer> childAnswers)
+		private IAnswer ProcessChildAnswers(IQuestionProcessingContext<IsSubjectAreaQuestion> context, ICollection<GroupStatement> statements, ICollection<ChildAnswer> childAnswers)
 		{
 			throw new NotSupportedException();
 		}

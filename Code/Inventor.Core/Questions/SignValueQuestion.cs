@@ -9,7 +9,7 @@ using Inventor.Core.Statements;
 
 namespace Inventor.Core.Questions
 {
-	public sealed class SignValueQuestion : Question<SignValueQuestion, SignValueStatement>
+	public sealed class SignValueQuestion : Question
 	{
 		#region Properties
 
@@ -31,7 +31,15 @@ namespace Inventor.Core.Questions
 			Sign = sign;
 		}
 
-		protected override IAnswer CreateAnswer(IQuestionProcessingContext<SignValueQuestion> context, ICollection<SignValueStatement> statements, ICollection<ChildAnswer> childAnswers)
+		public override IAnswer Process(IQuestionProcessingContext context)
+		{
+			return context
+				.From<SignValueQuestion, SignValueStatement>(DoesStatementMatch)
+				.ProcessTransitives(NeedToCheckTransitives, GetNestedQuestions)
+				.Select(CreateAnswer);
+		}
+
+		private IAnswer CreateAnswer(IQuestionProcessingContext<SignValueQuestion> context, ICollection<SignValueStatement> statements, ICollection<ChildAnswer> childAnswers)
 		{
 			if (!NeedToCheckTransitives(statements))
 			{
@@ -54,17 +62,17 @@ namespace Inventor.Core.Questions
 			}
 		}
 
-		protected override Boolean DoesStatementMatch(SignValueStatement statement)
+		private Boolean DoesStatementMatch(SignValueStatement statement)
 		{
 			return statement.Concept == Concept && statement.Sign == Sign;
 		}
 
-		protected override Boolean NeedToCheckTransitives(ICollection<SignValueStatement> statements)
+		private Boolean NeedToCheckTransitives(ICollection<SignValueStatement> statements)
 		{
 			return statements.Count == 0;
 		}
 
-		protected override IAnswer ProcessChildAnswers(IQuestionProcessingContext<SignValueQuestion> context, ICollection<SignValueStatement> statements, ICollection<ChildAnswer> childAnswers)
+		private IAnswer ProcessChildAnswers(IQuestionProcessingContext<SignValueQuestion> context, ICollection<SignValueStatement> statements, ICollection<ChildAnswer> childAnswers)
 		{
 			if (childAnswers.Count > 0)
 			{
@@ -78,7 +86,7 @@ namespace Inventor.Core.Questions
 			}
 		}
 
-		protected override IEnumerable<NestedQuestion> GetNestedQuestions(IQuestionProcessingContext<SignValueQuestion> context)
+		private IEnumerable<NestedQuestion> GetNestedQuestions(IQuestionProcessingContext<SignValueQuestion> context)
 		{
 			var alreadyViewedConcepts = new HashSet<IConcept>(context.ActiveContexts.OfType<IQuestionProcessingContext<SignValueQuestion>>().Select(questionContext => questionContext.Question.Concept));
 

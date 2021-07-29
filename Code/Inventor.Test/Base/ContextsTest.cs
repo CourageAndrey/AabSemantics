@@ -225,12 +225,7 @@ namespace Inventor.Test.Base
 			}
 		}
 
-		private abstract class TestQuestion<QuestionT> : Question<QuestionT>
-			where QuestionT : TestQuestion<QuestionT>
-		{
-		}
-
-		private class TestQuestionCreateNestedContext : TestQuestion<TestQuestionCreateNestedContext>
+		private class TestQuestionCreateNestedContext : Question
 		{
 			private readonly bool _createNestedContext;
 
@@ -239,7 +234,7 @@ namespace Inventor.Test.Base
 				_createNestedContext = createNestedContext;
 			}
 
-			public override IAnswer Process(IQuestionProcessingContext<TestQuestionCreateNestedContext> context)
+			public override IAnswer Process(IQuestionProcessingContext context)
 			{
 				if (_createNestedContext)
 				{
@@ -250,9 +245,9 @@ namespace Inventor.Test.Base
 			}
 		}
 
-		private class TestQuestionCreateContextKnowledge : TestQuestion<TestQuestionCreateContextKnowledge>
+		private class TestQuestionCreateContextKnowledge : Question
 		{
-			public override IAnswer Process(IQuestionProcessingContext<TestQuestionCreateContextKnowledge> context)
+			public override IAnswer Process(IQuestionProcessingContext context)
 			{
 				IStatement testStatement;
 				context.KnowledgeBase.Statements.Add(testStatement = new TestStatement());

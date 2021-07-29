@@ -9,7 +9,7 @@ using Inventor.Core.Statements;
 
 namespace Inventor.Core.Questions
 {
-	public sealed class HasSignQuestion : Question<HasSignQuestion, HasSignStatement>
+	public sealed class HasSignQuestion : Question
 	{
 		#region Properties
 
@@ -35,7 +35,15 @@ namespace Inventor.Core.Questions
 			Recursive = recursive;
 		}
 
-		protected override IAnswer CreateAnswer(IQuestionProcessingContext<HasSignQuestion> context, ICollection<HasSignStatement> statements, ICollection<ChildAnswer> childAnswers)
+		public override IAnswer Process(IQuestionProcessingContext context)
+		{
+			return context
+				.From<HasSignQuestion, HasSignStatement>(DoesStatementMatch)
+				.ProcessTransitives(NeedToCheckTransitives, GetNestedQuestions)
+				.Select(CreateAnswer);
+		}
+
+		private IAnswer CreateAnswer(IQuestionProcessingContext<HasSignQuestion> context, ICollection<HasSignStatement> statements, ICollection<ChildAnswer> childAnswers)
 		{
 			if (!NeedToCheckTransitives(statements))
 			{
@@ -56,17 +64,17 @@ namespace Inventor.Core.Questions
 			}
 		}
 
-		protected override Boolean DoesStatementMatch(HasSignStatement statement)
+		private Boolean DoesStatementMatch(HasSignStatement statement)
 		{
 			return statement.Concept == Concept && statement.Sign == Sign;
 		}
 
-		protected override Boolean NeedToCheckTransitives(ICollection<HasSignStatement> statements)
+		private Boolean NeedToCheckTransitives(ICollection<HasSignStatement> statements)
 		{
 			return statements.Count == 0 && Recursive;
 		}
 
-		protected override IEnumerable<NestedQuestion> GetNestedQuestions(IQuestionProcessingContext<HasSignQuestion> context)
+		private IEnumerable<NestedQuestion> GetNestedQuestions(IQuestionProcessingContext<HasSignQuestion> context)
 		{
 			if (!Recursive) yield break;
 
@@ -85,7 +93,7 @@ namespace Inventor.Core.Questions
 			}
 		}
 
-		protected override IAnswer ProcessChildAnswers(IQuestionProcessingContext<HasSignQuestion> questionProcessingContext, ICollection<HasSignStatement> statements, ICollection<ChildAnswer> childAnswers)
+		private IAnswer ProcessChildAnswers(IQuestionProcessingContext<HasSignQuestion> questionProcessingContext, ICollection<HasSignStatement> statements, ICollection<ChildAnswer> childAnswers)
 		{
 			var resultStatements = new List<HasSignStatement>(statements);
 			var additionalStatements = new List<IStatement>();

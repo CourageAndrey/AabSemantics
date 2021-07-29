@@ -8,7 +8,7 @@ using Inventor.Core.Statements;
 
 namespace Inventor.Core.Questions
 {
-	public sealed class ComparisonQuestion : Question<ComparisonQuestion, ComparisonStatement>
+	public sealed class ComparisonQuestion : Question
 	{
 		#region Properties
 
@@ -30,7 +30,15 @@ namespace Inventor.Core.Questions
 			RightValue = rightValue;
 		}
 
-		protected override IAnswer CreateAnswer(IQuestionProcessingContext<ComparisonQuestion> context, ICollection<ComparisonStatement> statements, ICollection<ChildAnswer> childAnswers)
+		public override IAnswer Process(IQuestionProcessingContext context)
+		{
+			return context
+				.From<ComparisonQuestion, ComparisonStatement>(DoesStatementMatch)
+				.ProcessTransitives(NeedToCheckTransitives, GetNestedQuestions)
+				.Select(CreateAnswer);
+		}
+
+		private IAnswer CreateAnswer(IQuestionProcessingContext<ComparisonQuestion> context, ICollection<ComparisonStatement> statements, ICollection<ChildAnswer> childAnswers)
 		{
 			if (!NeedToCheckTransitives(statements))
 			{
@@ -63,18 +71,18 @@ namespace Inventor.Core.Questions
 			return new StatementAnswer(resultStatement, text, explanation);
 		}
 
-		protected override bool DoesStatementMatch(ComparisonStatement statement)
+		private bool DoesStatementMatch(ComparisonStatement statement)
 		{
 			return	(statement.LeftValue == LeftValue && statement.RightValue == RightValue) ||
 					(statement.RightValue == LeftValue && statement.LeftValue == RightValue);
 		}
 
-		protected override Boolean NeedToCheckTransitives(ICollection<ComparisonStatement> statements)
+		private Boolean NeedToCheckTransitives(ICollection<ComparisonStatement> statements)
 		{
 			return statements.Count == 0;
 		}
 
-		protected override IEnumerable<NestedQuestion> GetNestedQuestions(IQuestionProcessingContext<ComparisonQuestion> context)
+		private IEnumerable<NestedQuestion> GetNestedQuestions(IQuestionProcessingContext<ComparisonQuestion> context)
 		{
 			foreach (var statement in context.KnowledgeBase.Statements.Enumerate<ComparisonStatement>(context.ActiveContexts))
 			{
@@ -102,7 +110,7 @@ namespace Inventor.Core.Questions
 			}
 		}
 
-		protected override IAnswer ProcessChildAnswers(IQuestionProcessingContext<ComparisonQuestion> context, ICollection<ComparisonStatement> statements, ICollection<ChildAnswer> childAnswers)
+		private IAnswer ProcessChildAnswers(IQuestionProcessingContext<ComparisonQuestion> context, ICollection<ComparisonStatement> statements, ICollection<ChildAnswer> childAnswers)
 		{
 			foreach (var answer in childAnswers)
 			{

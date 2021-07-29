@@ -9,7 +9,7 @@ using Inventor.Core.Statements;
 
 namespace Inventor.Core.Questions
 {
-	public sealed class WhatQuestion : Question<WhatQuestion>
+	public sealed class WhatQuestion : Question
 	{
 		#region Properties
 
@@ -26,9 +26,9 @@ namespace Inventor.Core.Questions
 			Concept = concept;
 		}
 
-		public override IAnswer Process(IQuestionProcessingContext<WhatQuestion> context)
+		public override IAnswer Process(IQuestionProcessingContext context)
 		{
-			var question = context.Question;
+			var question = (WhatQuestion) context.Question;
 			var allStatements = context.KnowledgeBase.Statements.Enumerate(context.ActiveContexts);
 
 			var statements = allStatements.Enumerate<IsStatement>(context.ActiveContexts).Where(c => c.Descendant == question.Concept).ToList();
