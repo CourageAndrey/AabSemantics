@@ -42,24 +42,34 @@ namespace Inventor.Core.Questions
 
 		private IAnswer CreateAnswer(IQuestionProcessingContext<IsQuestion> context, ICollection<IsStatement> statements, ICollection<ChildAnswer> childAnswers)
 		{
-			if (!NeedToCheckTransitives(statements))
+			Boolean result = false;
+			var explanation = new List<IStatement>(statements);
+
+			if (statements.Count > 0)
 			{
-				Boolean yes = statements.Any();
-				return new BooleanAnswer(
-					yes,
-					new FormattedText(
-						yes ? new Func<String>(() => context.Language.Answers.IsTrue) : () => context.Language.Answers.IsFalse,
-						new Dictionary<String, INamed>
-						{
-							{ Strings.ParamParent, Child },
-							{ Strings.ParamChild, Parent },
-						}),
-					new Explanation(statements));
+				result = true;
 			}
-			else
+
+			foreach (var childAnswer in childAnswers)
 			{
-				return ProcessChildAnswers(context, statements, childAnswers);
+				if (((BooleanAnswer)childAnswer.Answer).Result)
+				{
+					result = true;
+					explanation.AddRange(childAnswer.Answer.Explanation.Statements);
+					explanation.AddRange(childAnswer.TransitiveStatements);
+				}
 			}
+
+			return new BooleanAnswer(
+				result,
+				new FormattedText(
+					result ? new Func<String>(() => context.Language.Answers.IsTrue) : () => context.Language.Answers.IsFalse,
+					new Dictionary<String, INamed>
+					{
+						{ Strings.ParamParent, Child },
+						{ Strings.ParamChild, Parent },
+					}),
+				new Explanation(explanation));
 		}
 
 		private Boolean DoesStatementMatch(IsStatement statement)
@@ -87,27 +97,6 @@ namespace Inventor.Core.Questions
 					yield return new NestedQuestion(new IsQuestion(parent, question.Parent), new IStatement[] { transitiveStatement });
 				}
 			}
-		}
-
-		private IAnswer ProcessChildAnswers(IQuestionProcessingContext<IsQuestion> questionProcessingContext, ICollection<IsStatement> statements, ICollection<ChildAnswer> childAnswers)
-		{
-			var resultStatements = new List<IsStatement>(statements);
-			var additionalStatements = new List<IStatement>();
-
-			foreach (var childAnswer in childAnswers)
-			{
-				if (((BooleanAnswer) childAnswer.Answer).Result)
-				{
-					var answerStatements = childAnswer.Answer.Explanation.Statements.OfType<IsStatement>().ToList();
-					resultStatements.AddRange(answerStatements);
-					additionalStatements.AddRange(childAnswer.Answer.Explanation.Statements.Except(answerStatements));
-					additionalStatements.AddRange(childAnswer.TransitiveStatements);
-				}
-			}
-
-			var result = CreateAnswer(questionProcessingContext, resultStatements, new ChildAnswer[0]);
-			result.Explanation.Expand(additionalStatements);
-			return result;
 		}
 	}
 }

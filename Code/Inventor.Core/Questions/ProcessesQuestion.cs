@@ -40,21 +40,9 @@ namespace Inventor.Core.Questions
 
 		private IAnswer CreateAnswer(IQuestionProcessingContext<ProcessesQuestion> context, ICollection<ProcessesStatement> statements, ICollection<ChildAnswer> childAnswers)
 		{
-			if (!NeedToCheckTransitives(statements))
-			{
-				if (statements.Any())
-				{
-					return createAnswer(statements, context);
-				}
-				else
-				{
-					return Answer.CreateUnknown(context.Language);
-				}
-			}
-			else
-			{
-				return ProcessChildAnswers(context, statements, childAnswers);
-			}
+			return statements.Count > 0
+				? createAnswer(statements, context)
+				: ProcessChildAnswers(context, statements, childAnswers);
 		}
 
 		private static StatementsAnswer<ProcessesStatement> createAnswer(ICollection<ProcessesStatement> statements, IQuestionProcessingContext<ProcessesQuestion> context, ICollection<IStatement> transitiveStatements = null)
