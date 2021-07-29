@@ -89,19 +89,7 @@ namespace Inventor.Core.Questions
 			yield break;
 		}
 
-		protected virtual IAnswer ProcessChildAnswers(IQuestionProcessingContext<QuestionT> context, ICollection<StatementT> statements, ICollection<ChildAnswer> childAnswers)
-		{
-			if (childAnswers.Count > 0)
-			{
-				var answer = childAnswers.First();
-				answer.Answer.Explanation.Expand(answer.TransitiveStatements);
-				return answer.Answer;
-			}
-			else
-			{
-				return Answers.Answer.CreateUnknown(context.Language);
-			}
-		}
+		protected abstract IAnswer ProcessChildAnswers(IQuestionProcessingContext<QuestionT> context, ICollection<StatementT> statements, ICollection<ChildAnswer> childAnswers);
 	}
 
 	public static class QuestionProcessingExtensions
