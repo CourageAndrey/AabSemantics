@@ -32,7 +32,7 @@ namespace Inventor.Core.Questions
 			Parent = parent;
 		}
 
-		protected override IAnswer CreateAnswer(IQuestionProcessingContext<IsPartOfQuestion> context, ICollection<HasPartStatement> statements)
+		protected override IAnswer CreateAnswer(IQuestionProcessingContext<IsPartOfQuestion> context, ICollection<HasPartStatement> statements, ICollection<ChildAnswer> childAnswers)
 		{
 			return new BooleanAnswer(
 				statements.Any(),
@@ -56,16 +56,7 @@ namespace Inventor.Core.Questions
 
 		protected override IAnswer ProcessChildAnswers(IQuestionProcessingContext<IsPartOfQuestion> context, ICollection<HasPartStatement> statements, ICollection<ChildAnswer> childAnswers)
 		{
-			if (childAnswers.Count > 0)
-			{
-				var answer = childAnswers.First();
-				answer.Answer.Explanation.Expand(answer.TransitiveStatements);
-				return answer.Answer;
-			}
-			else
-			{
-				return Answers.Answer.CreateUnknown(context.Language);
-			}
+			throw new NotSupportedException();
 		}
 	}
 }

@@ -58,31 +58,32 @@ namespace Inventor.Core.Questions
 		{
 			var statements = context.From<StatementT>(DoesStatementMatch);
 
-			if (!NeedToCheckTransitives(statements))
+			ICollection<ChildAnswer> childAnswers;
+			if (NeedToCheckTransitives(statements))
 			{
-				return CreateAnswer(context, statements);
-			}
-			else
-			{
-				var valuableAnswers = new List<ChildAnswer>();
+				childAnswers = new List<ChildAnswer>();
 				foreach (var nested in GetNestedQuestions(context))
 				{
 					var answer = nested.Question.Ask(context);
 					if (!answer.IsEmpty)
 					{
-						valuableAnswers.Add(new ChildAnswer(nested.Question, answer, nested.TransitiveStatements));
+						childAnswers.Add(new ChildAnswer(nested.Question, answer, nested.TransitiveStatements));
 					}
 				}
-
-				return ProcessChildAnswers(context, statements, valuableAnswers);
 			}
+			else
+			{
+				childAnswers = new ChildAnswer[0];
+			}
+
+			return CreateAnswer(context, statements, childAnswers);
 		}
 
 		protected abstract Boolean DoesStatementMatch(StatementT statement);
 
 		protected abstract Boolean NeedToCheckTransitives(ICollection<StatementT> statements);
 
-		protected abstract IAnswer CreateAnswer(IQuestionProcessingContext<QuestionT> context, ICollection<StatementT> statements);
+		protected abstract IAnswer CreateAnswer(IQuestionProcessingContext<QuestionT> context, ICollection<StatementT> statements, ICollection<ChildAnswer> childAnswers);
 
 		protected virtual IEnumerable<NestedQuestion> GetNestedQuestions(IQuestionProcessingContext<QuestionT> context)
 		{

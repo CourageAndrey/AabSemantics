@@ -27,7 +27,7 @@ namespace Inventor.Core.Questions
 			Concept = concept;
 		}
 
-		protected override IAnswer CreateAnswer(IQuestionProcessingContext<IsSignQuestion> context, ICollection<HasSignStatement> statements)
+		protected override IAnswer CreateAnswer(IQuestionProcessingContext<IsSignQuestion> context, ICollection<HasSignStatement> statements, ICollection<ChildAnswer> childAnswers)
 		{
 			bool isSign = Concept.HasAttribute<IsSignAttribute>();
 			return new BooleanAnswer(
@@ -53,16 +53,7 @@ namespace Inventor.Core.Questions
 
 		protected override IAnswer ProcessChildAnswers(IQuestionProcessingContext<IsSignQuestion> context, ICollection<HasSignStatement> statements, ICollection<ChildAnswer> childAnswers)
 		{
-			if (childAnswers.Count > 0)
-			{
-				var answer = childAnswers.First();
-				answer.Answer.Explanation.Expand(answer.TransitiveStatements);
-				return answer.Answer;
-			}
-			else
-			{
-				return Answers.Answer.CreateUnknown(context.Language);
-			}
+			throw new NotSupportedException();
 		}
 	}
 }

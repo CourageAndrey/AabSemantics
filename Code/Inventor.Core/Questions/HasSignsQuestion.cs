@@ -30,17 +30,24 @@ namespace Inventor.Core.Questions
 			Recursive = recursive;
 		}
 
-		protected override IAnswer CreateAnswer(IQuestionProcessingContext<HasSignsQuestion> context, ICollection<HasSignStatement> statements)
+		protected override IAnswer CreateAnswer(IQuestionProcessingContext<HasSignsQuestion> context, ICollection<HasSignStatement> statements, ICollection<ChildAnswer> childAnswers)
 		{
-			return new BooleanAnswer(
-				statements.Any(),
-				new FormattedText(
-					() => String.Format(statements.Any() ? context.Language.Answers.HasSignsTrue : context.Language.Answers.HasSignsFalse, Recursive ? context.Language.Answers.RecursiveTrue : context.Language.Answers.RecursiveFalse),
-					new Dictionary<String, INamed>
-					{
-						{ Strings.ParamConcept, Concept },
-					}),
-				new Explanation(statements));
+			if (!NeedToCheckTransitives(statements))
+			{
+				return new BooleanAnswer(
+					statements.Any(),
+					new FormattedText(
+						() => String.Format(statements.Any() ? context.Language.Answers.HasSignsTrue : context.Language.Answers.HasSignsFalse, Recursive ? context.Language.Answers.RecursiveTrue : context.Language.Answers.RecursiveFalse),
+						new Dictionary<String, INamed>
+						{
+							{ Strings.ParamConcept, Concept },
+						}),
+					new Explanation(statements));
+			}
+			else
+			{
+				return ProcessChildAnswers(context, statements, childAnswers);
+			}
 		}
 
 		protected override Boolean DoesStatementMatch(HasSignStatement statement)
@@ -88,7 +95,8 @@ namespace Inventor.Core.Questions
 				}
 			}
 
-			var result = CreateAnswer(questionProcessingContext, resultStatements);
+#warning Stack overflow is possible!
+			var result = CreateAnswer(questionProcessingContext, resultStatements, new ChildAnswer[0]);
 			result.Explanation.Expand(additionalStatements);
 			return result;
 		}
