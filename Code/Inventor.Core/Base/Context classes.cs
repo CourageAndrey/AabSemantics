@@ -112,7 +112,13 @@ namespace Inventor.Core.Base
 		{
 			var concreteContextType = typeof(QuestionProcessingContext<>).MakeGenericType(question.GetType());
 			var contextConstructor = concreteContextType.GetConstructors(BindingFlags.NonPublic | BindingFlags.Instance).Single();
-			return contextConstructor.Invoke(new Object[] { this, question }) as IQuestionProcessingContext;
+			var resultContext = contextConstructor.Invoke(new Object[] { this, question }) as IQuestionProcessingContext;
+			foreach (var statement in question.Preconditions)
+			{
+				statement.Context = resultContext;
+				resultContext.KnowledgeBase.Statements.Add(statement);
+			}
+			return resultContext;
 		}
 	}
 
