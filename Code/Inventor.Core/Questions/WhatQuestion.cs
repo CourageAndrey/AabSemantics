@@ -28,10 +28,9 @@ namespace Inventor.Core.Questions
 
 		public override IAnswer Process(IQuestionProcessingContext context)
 		{
-			var question = (WhatQuestion) context.Question;
 			var allStatements = context.KnowledgeBase.Statements.Enumerate(context.ActiveContexts);
 
-			var statements = allStatements.Enumerate<IsStatement>(context.ActiveContexts).Where(c => c.Descendant == question.Concept).ToList();
+			var statements = allStatements.Enumerate<IsStatement>(context.ActiveContexts).Where(c => c.Descendant == Concept).ToList();
 			if (statements.Any())
 			{
 				var result = new FormattedText();
@@ -40,7 +39,7 @@ namespace Inventor.Core.Questions
 				{
 					foreach (var sign in HasSignStatement.GetSigns(allStatements, statement.Ancestor, false))
 					{
-						var diff = SignValueStatement.GetSignValue(allStatements, question.Concept, sign.Sign);
+						var diff = SignValueStatement.GetSignValue(allStatements, Concept, sign.Sign);
 						if (diff != null)
 						{
 							difference.Add(diff);
@@ -50,7 +49,7 @@ namespace Inventor.Core.Questions
 					{
 						result.Add(() => context.Language.Answers.IsDescriptionWithSign, new Dictionary<String, INamed>
 						{
-							{ Strings.ParamChild, question.Concept },
+							{ Strings.ParamChild, Concept },
 							{ Strings.ParamParent, statement.Ancestor },
 						});
 						foreach (var diff in difference)
@@ -66,7 +65,7 @@ namespace Inventor.Core.Questions
 					{
 						result.Add(() => context.Language.Answers.IsDescription, new Dictionary<String, INamed>
 						{
-							{ Strings.ParamChild, question.Concept },
+							{ Strings.ParamChild, Concept },
 							{ Strings.ParamParent, statement.Ancestor },
 						});
 					}
