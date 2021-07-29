@@ -52,6 +52,11 @@ namespace Inventor.Core.Questions
 			return statement.Concept == Concept && statement.Sign == Sign;
 		}
 
+		protected override Boolean NeedToCheckTransitives(ICollection<SignValueStatement> statements)
+		{
+			return statements.Count == 0;
+		}
+
 		protected override IEnumerable<NestedQuestion> GetNestedQuestions(IQuestionProcessingContext<SignValueQuestion> context)
 		{
 			var alreadyViewedConcepts = new HashSet<IConcept>(context.ActiveContexts.OfType<IQuestionProcessingContext<SignValueQuestion>>().Select(questionContext => questionContext.Question.Concept));

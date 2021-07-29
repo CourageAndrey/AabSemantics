@@ -80,10 +80,7 @@ namespace Inventor.Core.Questions
 
 		protected abstract Boolean DoesStatementMatch(StatementT statement);
 
-		protected virtual Boolean NeedToCheckTransitives(ICollection<StatementT> statements)
-		{
-			return statements.Count == 0;
-		}
+		protected abstract Boolean NeedToCheckTransitives(ICollection<StatementT> statements);
 
 		protected abstract IAnswer CreateAnswer(IQuestionProcessingContext<QuestionT> context, ICollection<StatementT> statements);
 

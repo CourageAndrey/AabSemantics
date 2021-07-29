@@ -48,5 +48,10 @@ namespace Inventor.Core.Questions
 		{
 			return statement.Area == Concept;
 		}
+
+		protected override Boolean NeedToCheckTransitives(ICollection<GroupStatement> statements)
+		{
+			return statements.Count == 0;
+		}
 	}
 }
