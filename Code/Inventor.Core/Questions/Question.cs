@@ -56,7 +56,7 @@ namespace Inventor.Core.Questions
 
 		public override IAnswer Process(IQuestionProcessingContext<QuestionT> context)
 		{
-			var statements = context.KnowledgeBase.Statements.Enumerate<StatementT>(context.ActiveContexts).Where(statement => DoesStatementMatch(statement)).ToList();
+			var statements = context.From<StatementT>(DoesStatementMatch);
 
 			if (!NeedToCheckTransitives(statements))
 			{
@@ -104,6 +104,18 @@ namespace Inventor.Core.Questions
 			{
 				return Answers.Answer.CreateUnknown(context.Language);
 			}
+		}
+	}
+
+	public static class QuestionProcessingExtensions
+	{
+		public static List<StatementT> From<StatementT>(this IKnowledgeBaseContext context, Func<StatementT, Boolean> match)
+			where StatementT : IStatement
+		{
+			return context.KnowledgeBase.Statements
+				.Enumerate<StatementT>(context.ActiveContexts)
+				.Where(match)
+				.ToList();
 		}
 	}
 }
