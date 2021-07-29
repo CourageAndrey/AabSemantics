@@ -10,7 +10,7 @@ using Inventor.Core.Statements;
 namespace Inventor.Core.Questions
 {
 	[Obsolete("This class will be removed as soon as QuestionDialog supports CheckStatementQuestion. Please, use CheckStatementQuestion with corresponding statement instead.")]
-	public sealed class IsSubjectAreaQuestion : Question
+	public class IsSubjectAreaQuestion : Question
 	{
 		#region Properties
 

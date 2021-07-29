@@ -8,7 +8,7 @@ using Inventor.Core.Utils;
 
 namespace Inventor.Core.Base
 {
-	public sealed class KnowledgeBase : IKnowledgeBase
+	public class KnowledgeBase : IKnowledgeBase
 	{
 		#region Properties
 

@@ -1,7 +1,7 @@
 ﻿namespace Inventor.Client.ViewModels.Questions
 {
 	[QuestionDescriptor]
-	public sealed class WhatQuestion : QuestionViewModel<Core.Questions.WhatQuestion>
+	public class WhatQuestion : QuestionViewModel<Core.Questions.WhatQuestion>
 	{
 		[PropertyDescriptor(true, "QuestionNames.ParamConcept")]
 		public Core.IConcept Concept

@@ -19,7 +19,7 @@ namespace Inventor.Client
 	}
 
 	[Serializable]
-	public sealed class ExceptionWrapper : IExceptionWrapper, IEquatable<ExceptionWrapper>
+	public class ExceptionWrapper : IExceptionWrapper, IEquatable<ExceptionWrapper>
 	{
 		#region Properties
 

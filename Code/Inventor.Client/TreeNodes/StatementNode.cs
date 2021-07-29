@@ -6,7 +6,7 @@ using Inventor.Core;
 
 namespace Inventor.Client.TreeNodes
 {
-	public sealed class StatementNode : ExtendedTreeNode
+	public class StatementNode : ExtendedTreeNode
 	{
 		#region Properties
 

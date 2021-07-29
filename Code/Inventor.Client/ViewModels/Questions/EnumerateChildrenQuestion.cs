@@ -1,7 +1,7 @@
 ﻿namespace Inventor.Client.ViewModels.Questions
 {
 	[QuestionDescriptor]
-	public sealed class EnumerateChildrenQuestion : QuestionViewModel<Core.Questions.EnumerateChildrenQuestion>
+	public class EnumerateChildrenQuestion : QuestionViewModel<Core.Questions.EnumerateChildrenQuestion>
 	{
 		[PropertyDescriptor(true, "QuestionNames.ParamConcept")]
 		public Core.IConcept Concept

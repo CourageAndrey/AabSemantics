@@ -6,7 +6,7 @@ using Inventor.Core.Localization;
 
 namespace Inventor.Core
 {
-	public sealed class FormattedText
+	public class FormattedText
 	{
 		#region Properties
 

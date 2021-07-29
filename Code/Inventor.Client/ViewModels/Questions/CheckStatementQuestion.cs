@@ -1,7 +1,7 @@
 ﻿namespace Inventor.Client.ViewModels.Questions
 {
 	[QuestionDescriptor]
-	public sealed class CheckStatementQuestion : QuestionViewModel<Core.Questions.CheckStatementQuestion>
+	public class CheckStatementQuestion : QuestionViewModel<Core.Questions.CheckStatementQuestion>
 	{
 		[PropertyDescriptor(true, "QuestionNames.ParamStatement")]
 		public StatementViewModel Statement

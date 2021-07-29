@@ -1,7 +1,7 @@
 ﻿namespace Inventor.Client.ViewModels.Questions
 {
 	[QuestionDescriptor]
-	public sealed class ComparisonQuestion : QuestionViewModel<Core.Questions.ComparisonQuestion>
+	public class ComparisonQuestion : QuestionViewModel<Core.Questions.ComparisonQuestion>
 	{
 		[PropertyDescriptor(true, "QuestionNames.ParamLeftValue")]
 		public Core.IConcept LeftValue
