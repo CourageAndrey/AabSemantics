@@ -29,7 +29,7 @@ namespace Inventor.Core.Questions
 		public override IAnswer Process(IQuestionProcessingContext context)
 		{
 			return context
-				.From<EnumerateChildrenQuestion, IsStatement>(DoesStatementMatch)
+				.From<EnumerateChildrenQuestion, IsStatement>(s => s.Ancestor == Concept)
 				.Select(CreateAnswer);
 		}
 
@@ -54,11 +54,6 @@ namespace Inventor.Core.Questions
 			}
 
 			return Answer.CreateUnknown(context.Language);
-		}
-
-		private Boolean DoesStatementMatch(IsStatement statement)
-		{
-			return statement.Ancestor == Concept;
 		}
 	}
 }

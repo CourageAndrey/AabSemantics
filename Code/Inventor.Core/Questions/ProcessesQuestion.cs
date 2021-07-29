@@ -33,8 +33,8 @@ namespace Inventor.Core.Questions
 		public override IAnswer Process(IQuestionProcessingContext context)
 		{
 			return context
-				.From<ProcessesQuestion, ProcessesStatement>(DoesStatementMatch)
-				.ProcessTransitives(NeedToCheckTransitives, GetNestedQuestions)
+				.From<ProcessesQuestion, ProcessesStatement>(s => (s.ProcessA == ProcessA && s.ProcessB == ProcessB) || (s.ProcessB == ProcessA && s.ProcessA == ProcessB))
+				.ProcessTransitives(s => s.Count == 0, GetNestedQuestions)
 				.Select(CreateAnswer);
 		}
 
@@ -62,17 +62,6 @@ namespace Inventor.Core.Questions
 				: new Explanation(transitiveStatements);
 
 			return new StatementsAnswer<ProcessesStatement>(resultStatements, text, explanation);
-		}
-
-		private bool DoesStatementMatch(ProcessesStatement statement)
-		{
-			return	(statement.ProcessA == ProcessA && statement.ProcessB == ProcessB) ||
-					(statement.ProcessB == ProcessA && statement.ProcessA == ProcessB);
-		}
-
-		private Boolean NeedToCheckTransitives(ICollection<ProcessesStatement> statements)
-		{
-			return statements.Count == 0;
 		}
 
 		private IEnumerable<NestedQuestion> GetNestedQuestions(IQuestionProcessingContext<ProcessesQuestion> context)

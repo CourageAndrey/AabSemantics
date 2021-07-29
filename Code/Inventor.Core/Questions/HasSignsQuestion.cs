@@ -33,8 +33,8 @@ namespace Inventor.Core.Questions
 		public override IAnswer Process(IQuestionProcessingContext context)
 		{
 			return context
-				.From<HasSignsQuestion, HasSignStatement>(DoesStatementMatch)
-				.ProcessTransitives(NeedToCheckTransitives, GetNestedQuestions)
+				.From<HasSignsQuestion, HasSignStatement>(s => s.Concept == Concept)
+				.ProcessTransitives(s => Recursive, GetNestedQuestions)
 				.Select(CreateAnswer);
 		}
 
@@ -67,16 +67,6 @@ namespace Inventor.Core.Questions
 						{ Strings.ParamConcept, Concept },
 					}),
 				new Explanation(explanation));
-		}
-
-		private Boolean DoesStatementMatch(HasSignStatement statement)
-		{
-			return statement.Concept == Concept;
-		}
-
-		private Boolean NeedToCheckTransitives(ICollection<HasSignStatement> statements)
-		{
-			return Recursive;
 		}
 
 		private IEnumerable<NestedQuestion> GetNestedQuestions(IQuestionProcessingContext<HasSignsQuestion> context)

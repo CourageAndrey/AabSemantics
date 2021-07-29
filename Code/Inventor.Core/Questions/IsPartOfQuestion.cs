@@ -35,7 +35,7 @@ namespace Inventor.Core.Questions
 		public override IAnswer Process(IQuestionProcessingContext context)
 		{
 			return context
-				.From<IsPartOfQuestion, HasPartStatement>(DoesStatementMatch)
+				.From<IsPartOfQuestion, HasPartStatement>(s => s.Whole == Parent && s.Part == Child)
 				.Select(CreateAnswer);
 		}
 
@@ -49,11 +49,6 @@ namespace Inventor.Core.Questions
 					{ Strings.ParamChild, Child },
 				}),
 				new Explanation(statements));
-		}
-
-		private Boolean DoesStatementMatch(HasPartStatement statement)
-		{
-			return statement.Whole == Parent && statement.Part == Child;
 		}
 	}
 }

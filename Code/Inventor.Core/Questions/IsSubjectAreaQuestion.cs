@@ -35,7 +35,7 @@ namespace Inventor.Core.Questions
 		public override IAnswer Process(IQuestionProcessingContext context)
 		{
 			return context
-				.From<IsSubjectAreaQuestion, GroupStatement>(DoesStatementMatch)
+				.From<IsSubjectAreaQuestion, GroupStatement>(s => s.Area == Area && s.Concept == Concept)
 				.Select(CreateAnswer);
 		}
 
@@ -51,11 +51,6 @@ namespace Inventor.Core.Questions
 						{ Strings.ParamConcept, Concept },
 					}),
 				new Explanation(statements));
-		}
-
-		private Boolean DoesStatementMatch(GroupStatement statement)
-		{
-			return statement.Area == Area && statement.Concept == Concept;
 		}
 	}
 }

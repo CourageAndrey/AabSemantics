@@ -33,8 +33,8 @@ namespace Inventor.Core.Questions
 		public override IAnswer Process(IQuestionProcessingContext context)
 		{
 			return context
-				.From<ComparisonQuestion, ComparisonStatement>(DoesStatementMatch)
-				.ProcessTransitives(NeedToCheckTransitives, GetNestedQuestions)
+				.From<ComparisonQuestion, ComparisonStatement>(s => (s.LeftValue == LeftValue && s.RightValue == RightValue) || (s.RightValue == LeftValue && s.LeftValue == RightValue))
+				.ProcessTransitives(s => s.Count == 0, GetNestedQuestions)
 				.Select(CreateAnswer);
 		}
 
@@ -57,17 +57,6 @@ namespace Inventor.Core.Questions
 				: new Explanation(transitiveStatements);
 
 			return new StatementAnswer(resultStatement, text, explanation);
-		}
-
-		private bool DoesStatementMatch(ComparisonStatement statement)
-		{
-			return	(statement.LeftValue == LeftValue && statement.RightValue == RightValue) ||
-					(statement.RightValue == LeftValue && statement.LeftValue == RightValue);
-		}
-
-		private Boolean NeedToCheckTransitives(ICollection<ComparisonStatement> statements)
-		{
-			return statements.Count == 0;
 		}
 
 		private IEnumerable<NestedQuestion> GetNestedQuestions(IQuestionProcessingContext<ComparisonQuestion> context)

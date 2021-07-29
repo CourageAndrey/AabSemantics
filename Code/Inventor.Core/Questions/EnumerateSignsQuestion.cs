@@ -33,8 +33,8 @@ namespace Inventor.Core.Questions
 		public override IAnswer Process(IQuestionProcessingContext context)
 		{
 			return context
-				.From<EnumerateSignsQuestion, HasSignStatement>(DoesStatementMatch)
-				.ProcessTransitives(NeedToCheckTransitives, GetNestedQuestions)
+				.From<EnumerateSignsQuestion, HasSignStatement>(s => s.Concept == Concept)
+				.ProcessTransitives(s => Recursive, GetNestedQuestions)
 				.Select(CreateAnswer);
 		}
 
@@ -66,16 +66,6 @@ namespace Inventor.Core.Questions
 			return allSigns.Count > 0
 				? formatAnswer(context, allSigns, allStatements)
 				: Answer.CreateUnknown(context.Language);
-		}
-
-		private Boolean DoesStatementMatch(HasSignStatement statement)
-		{
-			return statement.Concept == Concept;
-		}
-
-		private Boolean NeedToCheckTransitives(ICollection<HasSignStatement> statements)
-		{
-			return Recursive;
 		}
 
 		private IEnumerable<NestedQuestion> GetNestedQuestions(IQuestionProcessingContext<EnumerateSignsQuestion> context)
