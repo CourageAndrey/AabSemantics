@@ -26,21 +26,28 @@ namespace Inventor.Core.Questions
 			Concept = concept;
 		}
 
-		protected override IAnswer CreateAnswer(IQuestionProcessingContext<DescribeSubjectAreaQuestion> context, ICollection<GroupStatement> statements)
+		protected override IAnswer CreateAnswer(IQuestionProcessingContext<DescribeSubjectAreaQuestion> context, ICollection<GroupStatement> statements, ICollection<ChildAnswer> childAnswers)
 		{
-			if (statements.Any())
+			if (!NeedToCheckTransitives(statements))
 			{
-				String format;
-				var parameters = statements.Select(r => r.Concept).ToList().Enumerate(out format);
-				parameters.Add(Strings.ParamAnswer, Concept);
-				return new ConceptsAnswer(
-					statements.Select(s => s.Concept).ToList(),
-					new FormattedText(() => context.Language.Answers.SubjectAreaConcepts + format + ".", parameters),
-					new Explanation(statements));
+				if (statements.Any())
+				{
+					String format;
+					var parameters = statements.Select(r => r.Concept).ToList().Enumerate(out format);
+					parameters.Add(Strings.ParamAnswer, Concept);
+					return new ConceptsAnswer(
+						statements.Select(s => s.Concept).ToList(),
+						new FormattedText(() => context.Language.Answers.SubjectAreaConcepts + format + ".", parameters),
+						new Explanation(statements));
+				}
+				else
+				{
+					return Answer.CreateUnknown(context.Language);
+				}
 			}
 			else
 			{
-				return Answer.CreateUnknown(context.Language);
+				return ProcessChildAnswers(context, statements, childAnswers);
 			}
 		}
 

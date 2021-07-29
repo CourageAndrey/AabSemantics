@@ -32,19 +32,26 @@ namespace Inventor.Core.Questions
 			Parent = parent;
 		}
 
-		protected override IAnswer CreateAnswer(IQuestionProcessingContext<IsQuestion> context, ICollection<IsStatement> statements)
+		protected override IAnswer CreateAnswer(IQuestionProcessingContext<IsQuestion> context, ICollection<IsStatement> statements, ICollection<ChildAnswer> childAnswers)
 		{
-			Boolean yes = statements.Any();
-			return new BooleanAnswer(
-				yes,
-				new FormattedText(
-					yes ? new Func<String>(() => context.Language.Answers.IsTrue) : () => context.Language.Answers.IsFalse,
-					new Dictionary<String, INamed>
-					{
-						{ Strings.ParamParent, Child },
-						{ Strings.ParamChild, Parent },
-					}),
-				new Explanation(statements));
+			if (!NeedToCheckTransitives(statements))
+			{
+				Boolean yes = statements.Any();
+				return new BooleanAnswer(
+					yes,
+					new FormattedText(
+						yes ? new Func<String>(() => context.Language.Answers.IsTrue) : () => context.Language.Answers.IsFalse,
+						new Dictionary<String, INamed>
+						{
+							{ Strings.ParamParent, Child },
+							{ Strings.ParamChild, Parent },
+						}),
+					new Explanation(statements));
+			}
+			else
+			{
+				return ProcessChildAnswers(context, statements, childAnswers);
+			}
 		}
 
 		protected override Boolean DoesStatementMatch(IsStatement statement)
@@ -90,7 +97,7 @@ namespace Inventor.Core.Questions
 				}
 			}
 
-			var result = CreateAnswer(questionProcessingContext, resultStatements);
+			var result = CreateAnswer(questionProcessingContext, resultStatements, new ChildAnswer[0]);
 			result.Explanation.Expand(additionalStatements);
 			return result;
 		}

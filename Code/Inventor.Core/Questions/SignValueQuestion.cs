@@ -31,19 +31,26 @@ namespace Inventor.Core.Questions
 			Sign = sign;
 		}
 
-		protected override IAnswer CreateAnswer(IQuestionProcessingContext<SignValueQuestion> context, ICollection<SignValueStatement> statements)
+		protected override IAnswer CreateAnswer(IQuestionProcessingContext<SignValueQuestion> context, ICollection<SignValueStatement> statements, ICollection<ChildAnswer> childAnswers)
 		{
-			if (statements.Any())
+			if (!NeedToCheckTransitives(statements))
 			{
-				var statement = statements.First();
-				return new ConceptAnswer(
-					statement.Value,
-					formatSignValue(statement, Concept, context.Language),
-					new Explanation(statements));
+				if (statements.Any())
+				{
+					var statement = statements.First();
+					return new ConceptAnswer(
+						statement.Value,
+						formatSignValue(statement, Concept, context.Language),
+						new Explanation(statements));
+				}
+				else
+				{
+					return Answer.CreateUnknown(context.Language);
+				}
 			}
 			else
 			{
-				return Answer.CreateUnknown(context.Language);
+				return ProcessChildAnswers(context, statements, childAnswers);
 			}
 		}
 

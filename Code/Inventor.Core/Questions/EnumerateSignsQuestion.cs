@@ -30,15 +30,22 @@ namespace Inventor.Core.Questions
 			Recursive = recursive;
 		}
 
-		protected override IAnswer CreateAnswer(IQuestionProcessingContext<EnumerateSignsQuestion> context, ICollection<HasSignStatement> statements)
+		protected override IAnswer CreateAnswer(IQuestionProcessingContext<EnumerateSignsQuestion> context, ICollection<HasSignStatement> statements, ICollection<ChildAnswer> childAnswers)
 		{
-			if (statements.Any())
+			if (!NeedToCheckTransitives(statements))
 			{
-				return formatAnswer(context, statements.Select(hs => hs.Sign).ToList(), statements.OfType<IStatement>().ToList());
+				if (statements.Any())
+				{
+					return formatAnswer(context, statements.Select(hs => hs.Sign).ToList(), statements.OfType<IStatement>().ToList());
+				}
+				else
+				{
+					return Answer.CreateUnknown(context.Language);
+				}
 			}
 			else
 			{
-				return Answer.CreateUnknown(context.Language);
+				return ProcessChildAnswers(context, statements, childAnswers);
 			}
 		}
 

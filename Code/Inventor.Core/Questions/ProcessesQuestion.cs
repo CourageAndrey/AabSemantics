@@ -30,15 +30,22 @@ namespace Inventor.Core.Questions
 			ProcessB = processB;
 		}
 
-		protected override IAnswer CreateAnswer(IQuestionProcessingContext<ProcessesQuestion> context, ICollection<ProcessesStatement> statements)
+		protected override IAnswer CreateAnswer(IQuestionProcessingContext<ProcessesQuestion> context, ICollection<ProcessesStatement> statements, ICollection<ChildAnswer> childAnswers)
 		{
-			if (statements.Any())
+			if (!NeedToCheckTransitives(statements))
 			{
-				return createAnswer(statements, context);
+				if (statements.Any())
+				{
+					return createAnswer(statements, context);
+				}
+				else
+				{
+					return Answer.CreateUnknown(context.Language);
+				}
 			}
 			else
 			{
-				return Answer.CreateUnknown(context.Language);
+				return ProcessChildAnswers(context, statements, childAnswers);
 			}
 		}
 
