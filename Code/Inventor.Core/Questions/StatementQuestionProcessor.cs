@@ -5,7 +5,7 @@ using System.Linq;
 namespace Inventor.Core.Questions
 {
 	public class StatementQuestionProcessor<QuestionT, StatementT>
-		where QuestionT : Question<QuestionT, StatementT>
+		where QuestionT : IQuestion
 		where StatementT : IStatement
 	{
 		#region Properties
@@ -21,9 +21,9 @@ namespace Inventor.Core.Questions
 
 		#endregion
 
-		public StatementQuestionProcessor(IQuestionProcessingContext<QuestionT> context, Func<StatementT, Boolean> match)
+		public StatementQuestionProcessor(IQuestionProcessingContext context, Func<StatementT, Boolean> match)
 		{
-			Context = context;
+			Context = (IQuestionProcessingContext<QuestionT>) context;
 
 			Statements = context.KnowledgeBase.Statements
 				.Enumerate<StatementT>(context.ActiveContexts)
