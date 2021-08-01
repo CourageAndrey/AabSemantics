@@ -19,15 +19,15 @@ namespace Inventor.Test.Questions
 		{
 			// arrange
 			var language = Language.Default;
-			var knowledgeBase = new TestKnowledgeBase(language).KnowledgeBase;
+			var semanticNetwork = new TestSemanticNetwork(language).SemanticNetwork;
 
 			var concept = new Concept();
-			knowledgeBase.Concepts.Add(concept);
+			semanticNetwork.Concepts.Add(concept);
 
 			var question = new IsValueQuestion(concept);
 
 			// act
-			var answer = question.Ask(knowledgeBase.Context);
+			var answer = question.Ask(semanticNetwork.Context);
 
 			// assert
 			Assert.IsFalse(answer.IsEmpty);
@@ -40,16 +40,16 @@ namespace Inventor.Test.Questions
 		{
 			// arrange
 			var language = Language.Default;
-			var knowledgeBase = new TestKnowledgeBase(language).KnowledgeBase;
+			var semanticNetwork = new TestSemanticNetwork(language).SemanticNetwork;
 
 			var concept = new Concept();
 			concept.Attributes.Add(IsValueAttribute.Value);
-			knowledgeBase.Concepts.Add(concept);
+			semanticNetwork.Concepts.Add(concept);
 
 			var question = new IsValueQuestion(concept);
 
 			// act
-			var answer = question.Ask(knowledgeBase.Context);
+			var answer = question.Ask(semanticNetwork.Context);
 
 			// assert
 			Assert.IsFalse(answer.IsEmpty);
@@ -62,12 +62,12 @@ namespace Inventor.Test.Questions
 		{
 			// arrange
 			var language = Language.Default;
-			var knowledgeBase = new TestKnowledgeBase(language);
+			var semanticNetwork = new TestSemanticNetwork(language);
 
-			var question = new IsValueQuestion(knowledgeBase.MotorType_Combusion);
+			var question = new IsValueQuestion(semanticNetwork.MotorType_Combusion);
 
 			// act
-			var answer = question.Ask(knowledgeBase.KnowledgeBase.Context);
+			var answer = question.Ask(semanticNetwork.SemanticNetwork.Context);
 
 			// assert
 			Assert.IsFalse(answer.IsEmpty);

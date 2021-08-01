@@ -4,7 +4,7 @@ namespace Inventor.Core.Localization
 {
 	internal static class Strings
 	{
-		public const String TostringKnowledgeBase = "KNOWLEDGE_BASE";
+		public const String TostringSemanticNetwork = "KNOWLEDGE_BASE";
 		public const String TostringConcept = "CONCEPT";
 		public const String TostringStatement = "STATEMENT";
 		public const String TostringFormatted = "FORMATTED_STRING";

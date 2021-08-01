@@ -15,10 +15,10 @@ namespace Inventor.Client.Dialogs
 			InitializeComponent();
 		}
 
-		public void Initialize(ILanguage language, IKnowledgeBase knowledgeBase)
+		public void Initialize(ILanguage language, ISemanticNetwork semanticNetwork)
 		{
 			_radioGroup.Children.Clear();
-			foreach (var statementDefinition in knowledgeBase.Context.StatementRepository.StatementDefinitions.Values)
+			foreach (var statementDefinition in semanticNetwork.Context.StatementRepository.StatementDefinitions.Values)
 			{
 				var radioButton = new RadioButton
 				{

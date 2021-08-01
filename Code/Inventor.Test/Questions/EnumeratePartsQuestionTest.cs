@@ -18,23 +18,23 @@ namespace Inventor.Test.Questions
 		{
 			// arrange
 			var language = Language.Default;
-			var knowledgeBase = new KnowledgeBase(language);
+			var semanticNetwork = new SemanticNetwork(language);
 
 			var conceptToCheck = new Concept();
 			var wholeConcept = new Concept();
 			var partConcept = new Concept();
-			knowledgeBase.Concepts.Add(conceptToCheck);
-			knowledgeBase.Concepts.Add(wholeConcept);
-			knowledgeBase.Concepts.Add(partConcept);
-			knowledgeBase.Statements.Add(new HasPartStatement(wholeConcept, partConcept));
+			semanticNetwork.Concepts.Add(conceptToCheck);
+			semanticNetwork.Concepts.Add(wholeConcept);
+			semanticNetwork.Concepts.Add(partConcept);
+			semanticNetwork.Statements.Add(new HasPartStatement(wholeConcept, partConcept));
 
 			var questionToCheck = new EnumeratePartsQuestion(conceptToCheck);
 			var questionPart = new EnumeratePartsQuestion(partConcept);
 
 			// act
-			var answerToCheck = questionToCheck.Ask(knowledgeBase.Context);
+			var answerToCheck = questionToCheck.Ask(semanticNetwork.Context);
 
-			var answerPart = questionPart.Ask(knowledgeBase.Context);
+			var answerPart = questionPart.Ask(semanticNetwork.Context);
 
 			// assert
 			Assert.IsTrue(answerToCheck.IsEmpty);
@@ -49,10 +49,10 @@ namespace Inventor.Test.Questions
 		{
 			// arrange
 			var language = Language.Default;
-			var knowledgeBase = new KnowledgeBase(language);
+			var semanticNetwork = new SemanticNetwork(language);
 
 			var wholeConcept = new Concept();
-			knowledgeBase.Concepts.Add(wholeConcept);
+			semanticNetwork.Concepts.Add(wholeConcept);
 
 			const int partCount = 4;
 
@@ -60,20 +60,20 @@ namespace Inventor.Test.Questions
 			{
 				// act
 				var partConcept = new Concept();
-				knowledgeBase.Concepts.Add(partConcept);
-				knowledgeBase.Statements.Add(new HasPartStatement(wholeConcept, partConcept));
+				semanticNetwork.Concepts.Add(partConcept);
+				semanticNetwork.Statements.Add(new HasPartStatement(wholeConcept, partConcept));
 
 				var question = new EnumeratePartsQuestion(wholeConcept);
 
-				var answer = question.Ask(knowledgeBase.Context);
+				var answer = question.Ask(semanticNetwork.Context);
 
 				// assert
 				Assert.IsFalse(answer.IsEmpty);
 				var partConcepts = ((ConceptsAnswer) answer).Result;
 				Assert.AreEqual(i, partConcepts.Count);
-				Assert.IsTrue(partConcepts.All(knowledgeBase.Concepts.Contains));
+				Assert.IsTrue(partConcepts.All(semanticNetwork.Concepts.Contains));
 				Assert.AreEqual(i, answer.Explanation.Statements.Count);
-				Assert.IsFalse(knowledgeBase.Statements.Except(answer.Explanation.Statements).Any());
+				Assert.IsFalse(semanticNetwork.Statements.Except(answer.Explanation.Statements).Any());
 			}
 		}
 	}

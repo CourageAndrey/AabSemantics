@@ -20,7 +20,7 @@ namespace Inventor.Test.Questions
 		{
 			// arrange
 			var language = Language.Default;
-			var knowledgeBase = new KnowledgeBase(language);
+			var semanticNetwork = new SemanticNetwork(language);
 
 			var concept1 = new Concept();
 			concept1.Attributes.Add(IsValueAttribute.Value);
@@ -28,12 +28,12 @@ namespace Inventor.Test.Questions
 			concept2.Attributes.Add(IsValueAttribute.Value);
 			var concept3 = new Concept();
 			concept3.Attributes.Add(IsValueAttribute.Value);
-			knowledgeBase.Concepts.Add(concept1);
-			knowledgeBase.Concepts.Add(concept2);
-			knowledgeBase.Concepts.Add(concept3);
+			semanticNetwork.Concepts.Add(concept1);
+			semanticNetwork.Concepts.Add(concept2);
+			semanticNetwork.Concepts.Add(concept3);
 
 			var initialComparison = new ComparisonStatement(concept1, concept2, ComparisonSigns.IsEqualTo);
-			knowledgeBase.Statements.Add(initialComparison);
+			semanticNetwork.Statements.Add(initialComparison);
 
 			var preconditionComparison = new ComparisonStatement(concept2, concept3, ComparisonSigns.IsEqualTo);
 			// ... and do not add it to knowledge base
@@ -43,8 +43,8 @@ namespace Inventor.Test.Questions
 			var questionWithPreconditions = new ComparisonQuestion(concept1, concept3, new IStatement[] { preconditionComparison });
 
 			// act
-			var answerWithoutPreconditions = question.Ask(knowledgeBase.Context);
-			var answerWithPreconditions = questionWithPreconditions.Ask(knowledgeBase.Context);
+			var answerWithoutPreconditions = question.Ask(semanticNetwork.Context);
+			var answerWithPreconditions = questionWithPreconditions.Ask(semanticNetwork.Context);
 
 			// assert
 			Assert.IsTrue(answerWithoutPreconditions.IsEmpty);
@@ -59,7 +59,7 @@ namespace Inventor.Test.Questions
 			Assert.IsTrue(answerWithPreconditions.Explanation.Statements.Contains(initialComparison));
 			Assert.IsTrue(answerWithPreconditions.Explanation.Statements.Contains(preconditionComparison));
 
-			Assert.AreSame(initialComparison, knowledgeBase.Statements.Single());
+			Assert.AreSame(initialComparison, semanticNetwork.Statements.Single());
 		}
 	}
 }

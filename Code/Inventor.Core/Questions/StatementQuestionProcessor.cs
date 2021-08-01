@@ -25,7 +25,7 @@ namespace Inventor.Core.Questions
 		{
 			Context = (IQuestionProcessingContext<QuestionT>) context;
 
-			Statements = context.KnowledgeBase.Statements
+			Statements = context.SemanticNetwork.Statements
 				.Enumerate<StatementT>(context.ActiveContexts)
 				.Where(match)
 				.ToList();

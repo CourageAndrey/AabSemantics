@@ -20,16 +20,16 @@ namespace Inventor.Test.Questions
 		{
 			// arrange
 			var language = Language.Default;
-			var knowledgeBase = new KnowledgeBase(language);
+			var semanticNetwork = new SemanticNetwork(language);
 			var statementToCheck = new TestStatement(1);
 			var statementWrong = new TestStatement(2);
 			var question = new CheckStatementQuestion(statementToCheck);
 
 			// act
-			var answerNoStatements = question.Ask(knowledgeBase.Context);
+			var answerNoStatements = question.Ask(semanticNetwork.Context);
 
-			knowledgeBase.Statements.Add(statementWrong);
-			var answerWrongStatement = question.Ask(knowledgeBase.Context);
+			semanticNetwork.Statements.Add(statementWrong);
+			var answerWrongStatement = question.Ask(semanticNetwork.Context);
 
 			// assert
 			var answer = (BooleanAnswer) answerNoStatements;
@@ -48,17 +48,17 @@ namespace Inventor.Test.Questions
 		{
 			// arrange
 			var language = Language.Default;
-			var knowledgeBase = new KnowledgeBase(language);
+			var semanticNetwork = new SemanticNetwork(language);
 			var statementToCheck = new TestStatement(1);
 			var statementRight = new TestStatement(1);
 			var statementWrong = new TestStatement(2);
-			knowledgeBase.Statements.Add(statementRight);
-			knowledgeBase.Statements.Add(statementWrong);
+			semanticNetwork.Statements.Add(statementRight);
+			semanticNetwork.Statements.Add(statementWrong);
 
 			// act
-			var answerToCheck = new CheckStatementQuestion(statementToCheck).Ask(knowledgeBase.Context);
+			var answerToCheck = new CheckStatementQuestion(statementToCheck).Ask(semanticNetwork.Context);
 
-			var answerRight = new CheckStatementQuestion(statementRight).Ask(knowledgeBase.Context);
+			var answerRight = new CheckStatementQuestion(statementRight).Ask(semanticNetwork.Context);
 
 			// assert
 			Assert.IsFalse(answerToCheck.IsEmpty);
@@ -76,24 +76,24 @@ namespace Inventor.Test.Questions
 			// arrange
 			var language = Language.Default;
 
-			var knowledgeBase = new KnowledgeBase(language);
+			var semanticNetwork = new SemanticNetwork(language);
 			var conceptParent = new Concept(new LocalizedStringConstant(l => "parent"));
 			var conceptIntermediate = new Concept(new LocalizedStringConstant(l => "intermediate"));
 			var conceptChild = new Concept(new LocalizedStringConstant(l => "child"));
-			knowledgeBase.Concepts.Add(conceptParent);
-			knowledgeBase.Concepts.Add(conceptIntermediate);
-			knowledgeBase.Concepts.Add(conceptChild);
+			semanticNetwork.Concepts.Add(conceptParent);
+			semanticNetwork.Concepts.Add(conceptIntermediate);
+			semanticNetwork.Concepts.Add(conceptChild);
 
 			var statementPI = new TransitiveTestStatement(conceptParent, conceptIntermediate);
 			var statementIC = new TransitiveTestStatement(conceptIntermediate, conceptChild);
-			knowledgeBase.Statements.Add(statementPI);
-			knowledgeBase.Statements.Add(statementIC);
+			semanticNetwork.Statements.Add(statementPI);
+			semanticNetwork.Statements.Add(statementIC);
 
 			var statementToCheck = new TransitiveTestStatement(conceptParent, conceptChild);
 			var question = new CheckStatementQuestion(statementToCheck);
 
 			// act
-			var answer = question.Ask(knowledgeBase.Context);
+			var answer = question.Ask(semanticNetwork.Context);
 
 			// assert
 			Assert.IsFalse(answer.IsEmpty);

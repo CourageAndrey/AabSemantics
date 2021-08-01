@@ -18,12 +18,12 @@ namespace Inventor.Test.Questions
 		{
 			// arrange
 			var language = Language.Default;
-			var knowledgeBase = new TestKnowledgeBase(language);
+			var semanticNetwork = new TestSemanticNetwork(language);
 
-			var question = new IsSubjectAreaQuestion(knowledgeBase.SubjectArea_Numbers, knowledgeBase.Base_Vehicle);
+			var question = new IsSubjectAreaQuestion(semanticNetwork.SubjectArea_Numbers, semanticNetwork.Base_Vehicle);
 
 			// act
-			var answer = question.Ask(knowledgeBase.KnowledgeBase.Context);
+			var answer = question.Ask(semanticNetwork.SemanticNetwork.Context);
 
 			// assert
 			Assert.IsFalse(answer.IsEmpty);
@@ -36,19 +36,19 @@ namespace Inventor.Test.Questions
 		{
 			// arrange
 			var language = Language.Default;
-			var knowledgeBase = new TestKnowledgeBase(language);
+			var semanticNetwork = new TestSemanticNetwork(language);
 
-			var question = new IsSubjectAreaQuestion(knowledgeBase.Base_Vehicle, knowledgeBase.SubjectArea_Transport);
+			var question = new IsSubjectAreaQuestion(semanticNetwork.Base_Vehicle, semanticNetwork.SubjectArea_Transport);
 
 			// act
-			var answer = question.Ask(knowledgeBase.KnowledgeBase.Context);
+			var answer = question.Ask(semanticNetwork.SemanticNetwork.Context);
 
 			// assert
 			Assert.IsFalse(answer.IsEmpty);
 			Assert.IsTrue(((BooleanAnswer) answer).Result);
 
 			var statement = (GroupStatement) answer.Explanation.Statements.Single();
-			Assert.IsTrue(statement.Concept == knowledgeBase.Base_Vehicle && statement.Area == knowledgeBase.SubjectArea_Transport);
+			Assert.IsTrue(statement.Concept == semanticNetwork.Base_Vehicle && statement.Area == semanticNetwork.SubjectArea_Transport);
 		}
 	}
 }

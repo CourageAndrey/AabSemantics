@@ -13,12 +13,12 @@ namespace Inventor.Client.Controls
 			InitializeComponent();
 		}
 
-		public void Initialize(IKnowledgeBase knowledgeBase, ILanguage language)
+		public void Initialize(ISemanticNetwork semanticNetwork, ILanguage language)
 		{
-			var wrappedConcepts = knowledgeBase.Concepts.Where(c => c.HasAttribute<IsValueAttribute>()).Select(c => new ConceptItem(c, language)).ToList();
+			var wrappedConcepts = semanticNetwork.Concepts.Where(c => c.HasAttribute<IsValueAttribute>()).Select(c => new ConceptItem(c, language)).ToList();
 			_comboBoxLeftValue.ItemsSource = wrappedConcepts;
 			_comboBoxRightValue.ItemsSource = wrappedConcepts;
-			_comboBoxComparisonSign.ItemsSource = knowledgeBase.Concepts.Where(c => c.HasAttribute<IsComparisonSignAttribute>()).Select(c => new ConceptItem(c, language)).ToList();
+			_comboBoxComparisonSign.ItemsSource = semanticNetwork.Concepts.Where(c => c.HasAttribute<IsComparisonSignAttribute>()).Select(c => new ConceptItem(c, language)).ToList();
 
 			_groupLeftValue.Header = language.Ui.Editing.PropertyLeftValue;
 			_groupRightValue.Header = language.Ui.Editing.PropertyRightValue;

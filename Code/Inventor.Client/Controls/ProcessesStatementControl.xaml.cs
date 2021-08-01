@@ -13,12 +13,12 @@ namespace Inventor.Client.Controls
 			InitializeComponent();
 		}
 
-		public void Initialize(IKnowledgeBase knowledgeBase, ILanguage language)
+		public void Initialize(ISemanticNetwork semanticNetwork, ILanguage language)
 		{
-			var wrappedConcepts = knowledgeBase.Concepts.Where(c => c.HasAttribute<IsProcessAttribute>()).Select(c => new ConceptItem(c, language)).ToList();
+			var wrappedConcepts = semanticNetwork.Concepts.Where(c => c.HasAttribute<IsProcessAttribute>()).Select(c => new ConceptItem(c, language)).ToList();
 			_comboBoxProcessA.ItemsSource = wrappedConcepts;
 			_comboBoxProcessB.ItemsSource = wrappedConcepts;
-			_comboBoxSequenceSign.ItemsSource = knowledgeBase.Concepts.Where(c => c.HasAttribute<IsSequenceSignAttribute>()).Select(c => new ConceptItem(c, language)).ToList();
+			_comboBoxSequenceSign.ItemsSource = semanticNetwork.Concepts.Where(c => c.HasAttribute<IsSequenceSignAttribute>()).Select(c => new ConceptItem(c, language)).ToList();
 
 			_groupProcessA.Header = language.Ui.Editing.PropertyProcessA;
 			_groupProcessB.Header = language.Ui.Editing.PropertyProcessB;

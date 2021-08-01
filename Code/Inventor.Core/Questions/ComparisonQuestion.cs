@@ -61,7 +61,7 @@ namespace Inventor.Core.Questions
 
 		private IEnumerable<NestedQuestion> GetNestedQuestions(IQuestionProcessingContext<ComparisonQuestion> context)
 		{
-			foreach (var statement in context.KnowledgeBase.Statements.Enumerate<ComparisonStatement>(context.ActiveContexts))
+			foreach (var statement in context.SemanticNetwork.Statements.Enumerate<ComparisonStatement>(context.ActiveContexts))
 			{
 				IConcept newLeftValue = null;
 				if (statement.LeftValue == LeftValue)

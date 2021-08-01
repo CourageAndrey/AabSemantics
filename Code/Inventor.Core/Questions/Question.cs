@@ -17,7 +17,7 @@ namespace Inventor.Core.Questions
 			Preconditions = new List<IStatement>(preconditions ?? new IStatement[0]);
 		}
 
-		public IAnswer Ask(IKnowledgeBaseContext context)
+		public IAnswer Ask(ISemanticNetworkContext context)
 		{
 			using (var questionContext = context.CreateQuestionContext(this))
 			{

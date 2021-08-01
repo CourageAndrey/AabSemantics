@@ -38,14 +38,14 @@ namespace Inventor.Client
 				createNew, loadFromFile, saveToFile,
 				() => createOpenFileDialog(_application.CurrentLanguage), () => createSaveFileDialog(_application.CurrentLanguage),
 				(s, a) => { },
-				application.KnowledgeBase);
-			reloadKnowledgeBaseTree();
+				application.SemanticNetwork);
+			reloadSemanticNetworkTree();
 		}
 
 		private readonly ObjectDataProvider _localizationProvider;
 		private readonly Localizator _localizator;
 		private InventorApplication _application;
-		private KnowledgeBaseNode _knowledgeBaseNode;
+		private SemanticNetworkNode _semanticNetworkNode;
 		private SaveLoadController _saveLoadController;
 
 		private void selectedLanguageChanged(object sender, SelectionChangedEventArgs e)
@@ -58,39 +58,39 @@ namespace Inventor.Client
 
 		private void saveToFile(IChangeable changeable, string fileName)
 		{
-			_knowledgeBaseNode.KnowledgeBase.Save(fileName);
+			_semanticNetworkNode.SemanticNetwork.Save(fileName);
 		}
 
 		private IChangeable loadFromFile(string fileName)
 		{
-			_application.KnowledgeBase = KnowledgeBase.Load(fileName, _application.CurrentLanguage);
-			reloadKnowledgeBaseTree();
-			return _application.KnowledgeBase;
+			_application.SemanticNetwork = SemanticNetwork.Load(fileName, _application.CurrentLanguage);
+			reloadSemanticNetworkTree();
+			return _application.SemanticNetwork;
 		}
 
 		private IChangeable createNew()
 		{
-			_application.KnowledgeBase = new KnowledgeBase(_application.CurrentLanguage);
-			reloadKnowledgeBaseTree();
-			return _application.KnowledgeBase;
+			_application.SemanticNetwork = new SemanticNetwork(_application.CurrentLanguage);
+			reloadSemanticNetworkTree();
+			return _application.SemanticNetwork;
 		}
 
 		private void createTestClick(object sender, RoutedEventArgs e)
 		{
-			_application.KnowledgeBase = new TestKnowledgeBase(_application.CurrentLanguage).KnowledgeBase;
-			reloadKnowledgeBaseTree();
-			_saveLoadController.ChangeEntity(_application.KnowledgeBase);
+			_application.SemanticNetwork = new TestSemanticNetwork(_application.CurrentLanguage).SemanticNetwork;
+			reloadSemanticNetworkTree();
+			_saveLoadController.ChangeEntity(_application.SemanticNetwork);
 		}
 
-		private void reloadKnowledgeBaseTree()
+		private void reloadSemanticNetworkTree()
 		{
-			treeViewKnowledgeBase.Items.Clear();
-			if (_knowledgeBaseNode != null)
+			treeViewSemanticNetwork.Items.Clear();
+			if (_semanticNetworkNode != null)
 			{
-				_knowledgeBaseNode.Clear();
+				_semanticNetworkNode.Clear();
 			}
-			treeViewKnowledgeBase.Items.Add(_knowledgeBaseNode = new KnowledgeBaseNode(_application.KnowledgeBase, _application));
-			_knowledgeBaseNode.IsExpanded = true;
+			treeViewSemanticNetwork.Items.Add(_semanticNetworkNode = new SemanticNetworkNode(_application.SemanticNetwork, _application));
+			_semanticNetworkNode.IsExpanded = true;
 		}
 
 		#endregion
@@ -99,14 +99,14 @@ namespace Inventor.Client
 
 		private void askQuestionClick(object sender, RoutedEventArgs e)
 		{
-			var dialog = new QuestionDialog(_application.KnowledgeBase, _application.CurrentLanguage)
+			var dialog = new QuestionDialog(_application.SemanticNetwork, _application.CurrentLanguage)
 			{
 				Owner = this,
 			};
 			if (dialog.ShowDialog() == true)
 			{
 				var question = dialog.Question.BuildQuestion();
-				var answer = question.Ask(_application.KnowledgeBase.Context);
+				var answer = question.Ask(_application.SemanticNetwork.Context);
 
 				var processingResult = answer.Description;
 				if (answer.Explanation.Statements.Count > 0)
@@ -135,7 +135,7 @@ namespace Inventor.Client
 		{
 			new FormattedTextDialog(
 				_application.CurrentLanguage,
-				_application.KnowledgeBase.DescribeRules(_application.CurrentLanguage),
+				_application.SemanticNetwork.DescribeRules(_application.CurrentLanguage),
 				knowledgeObjectPicked)
 			{
 				Owner = this,
@@ -147,7 +147,7 @@ namespace Inventor.Client
 		{
 			new FormattedTextDialog(
 				_application.CurrentLanguage,
-				_application.KnowledgeBase.CheckConsistensy(_application.CurrentLanguage),
+				_application.SemanticNetwork.CheckConsistensy(_application.CurrentLanguage),
 				knowledgeObjectPicked)
 			{
 				Owner = this,
@@ -183,10 +183,10 @@ namespace Inventor.Client
 
 		private void knowledgeObjectPicked(INamed entity)
 		{
-			var path = _knowledgeBaseNode.Find(entity).OfType<object>().ToList();
+			var path = _semanticNetworkNode.Find(entity).OfType<object>().ToList();
 			if (path.Count > 0)
 			{
-				treeViewKnowledgeBase.ExecuteWithItem(path, item =>
+				treeViewSemanticNetwork.ExecuteWithItem(path, item =>
 				{
 					item.IsSelected = true;
 					item.BringIntoView();
@@ -201,18 +201,18 @@ namespace Inventor.Client
 		private void addKnowledgeClick(object sender, RoutedEventArgs e)
 		{
 			Type type = null;
-			var selectedItem = treeViewKnowledgeBase.SelectedItem;
-			if (selectedItem is ConceptNode || selectedItem is KnowledgeBaseConceptsNode)
+			var selectedItem = treeViewSemanticNetwork.SelectedItem;
+			if (selectedItem is ConceptNode || selectedItem is SemanticNetworkConceptsNode)
 			{
 				type = typeof(Concept);
 			}
-			else if (selectedItem is StatementNode || selectedItem is KnowledgeBaseStatementsNode)
+			else if (selectedItem is StatementNode || selectedItem is SemanticNetworkStatementsNode)
 			{
 				var statementTypesDialog = new SelectStatementTypeDialog
 				{
 					Owner = this,
 				};
-				statementTypesDialog.Initialize(_application.CurrentLanguage, _application.KnowledgeBase);
+				statementTypesDialog.Initialize(_application.CurrentLanguage, _application.SemanticNetwork);
 				if (statementTypesDialog.ShowDialog() == true)
 				{
 					type = statementTypesDialog.SelectedType;
@@ -221,22 +221,22 @@ namespace Inventor.Client
 			if (type == null) return;
 
 			IKnowledgeViewModel viewModel = ViewModels.Factory.CreateByCoreType(type, _application.CurrentLanguage);
-			var editDialog = viewModel.CreateEditDialog(this, _application.KnowledgeBase, _application.CurrentLanguage);
+			var editDialog = viewModel.CreateEditDialog(this, _application.SemanticNetwork, _application.CurrentLanguage);
 
 			if (editDialog.ShowDialog() == true)
 			{
-				viewModel.ApplyCreate(_application.KnowledgeBase);
+				viewModel.ApplyCreate(_application.SemanticNetwork);
 			}
 		}
 
 		private void editKnowledgeClick(object sender, RoutedEventArgs e)
 		{
-			var selectedNode = treeViewKnowledgeBase.SelectedItem as ExtendedTreeNode;
+			var selectedNode = treeViewSemanticNetwork.SelectedItem as ExtendedTreeNode;
 			if (selectedNode == null) return;
 			var viewModel = ViewModels.Factory.CreateByTreeNode(selectedNode, _application.CurrentLanguage);
 			if (viewModel == null) return;
 
-			var editDialog = viewModel.CreateEditDialog(this, _application.KnowledgeBase, _application.CurrentLanguage);
+			var editDialog = viewModel.CreateEditDialog(this, _application.SemanticNetwork, _application.CurrentLanguage);
 
 			if (editDialog.ShowDialog() == true)
 			{
@@ -247,30 +247,30 @@ namespace Inventor.Client
 
 		private void deleteKnowledgeClick(object sender, RoutedEventArgs e)
 		{
-			var conceptNode = treeViewKnowledgeBase.SelectedItem as ConceptNode;
+			var conceptNode = treeViewSemanticNetwork.SelectedItem as ConceptNode;
 			if (conceptNode != null)
 			{
-				_application.KnowledgeBase.Concepts.Remove(conceptNode.Concept);
+				_application.SemanticNetwork.Concepts.Remove(conceptNode.Concept);
 				return;
 			}
 
-			var statementNode = treeViewKnowledgeBase.SelectedItem as StatementNode;
+			var statementNode = treeViewSemanticNetwork.SelectedItem as StatementNode;
 			if (statementNode != null)
 			{
-				_application.KnowledgeBase.Statements.Remove(statementNode.Statement);
+				_application.SemanticNetwork.Statements.Remove(statementNode.Statement);
 				return;
 			}
 		}
 
 		private void knowledgeContextMenuOpening(object sender, ContextMenuEventArgs e)
 		{
-			var selectedItem = treeViewKnowledgeBase.SelectedItem;
-			bool isKnowledgeBaseNode = selectedItem is KnowledgeBaseNode;
-			//bool isConceptsNode = selectedItem is KnowledgeBaseConceptsNode;
-			//bool isStatementsNode = selectedItem is KnowledgeBaseStatementsNode;
+			var selectedItem = treeViewSemanticNetwork.SelectedItem;
+			bool isSemanticNetworkNode = selectedItem is SemanticNetworkNode;
+			//bool isConceptsNode = selectedItem is SemanticNetworkConceptsNode;
+			//bool isStatementsNode = selectedItem is SemanticNetworkStatementsNode;
 			bool isConceptNode = selectedItem is ConceptNode;
 			var statementNode = selectedItem as StatementNode;
-			_addKnowledgeItem.Visibility = !isKnowledgeBaseNode
+			_addKnowledgeItem.Visibility = !isSemanticNetworkNode
 				? Visibility.Visible
 				: Visibility.Collapsed;
 			_editKnowledgeItem.Visibility = _deleteKnowledgeItem.Visibility = isConceptNode || statementNode?.Statement.Context.IsSystem == false

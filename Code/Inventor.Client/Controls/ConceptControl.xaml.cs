@@ -13,7 +13,7 @@ namespace Inventor.Client.Controls
 			InitializeComponent();
 		}
 
-		public void Initialize(IKnowledgeBase knowledgeBase, ILanguage language)
+		public void Initialize(ISemanticNetwork semanticNetwork, ILanguage language)
 		{
 			_groupName.Header = language.Ui.Editing.PropertyName;
 			_groupHint.Header = language.Ui.Editing.PropertyHint;

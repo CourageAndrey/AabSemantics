@@ -26,7 +26,7 @@ namespace Inventor.Client.Dialogs
 
 		#endregion
 
-		public QuestionDialog(IKnowledgeBase knowledgeBase, ILanguage language)
+		public QuestionDialog(ISemanticNetwork semanticNetwork, ILanguage language)
 		{
 			_language = language;
 
@@ -42,8 +42,8 @@ namespace Inventor.Client.Dialogs
 			panelSelectQuestion.Visibility = Visibility.Visible;
 			panelQuestionParams.Visibility = Visibility.Hidden;
 
-			_knowledgeBase = knowledgeBase;
-			foreach (var questionDefinition in knowledgeBase.Context.QuestionRepository.QuestionDefinitions.Values)
+			_semanticNetwork = semanticNetwork;
+			foreach (var questionDefinition in semanticNetwork.Context.QuestionRepository.QuestionDefinitions.Values)
 			{
 				var genericType = typeof(QuestionViewModel<>).MakeGenericType(questionDefinition.QuestionType);
 				var viewModelType = Assembly.GetExecutingAssembly().GetTypes().First(t => !t.IsAbstract && genericType.IsAssignableFrom(t));
@@ -62,7 +62,7 @@ namespace Inventor.Client.Dialogs
 		}
 
 		private readonly Dictionary<string, Func<IQuestionViewModel>> _questions = new Dictionary<string, Func<IQuestionViewModel>>();
-		private readonly IKnowledgeBase _knowledgeBase;
+		private readonly ISemanticNetwork _semanticNetwork;
 		private readonly List<ComboBox> _requiredFieldSelectors = new List<ComboBox>();
 
 		private void buttonCreateClick(object sender, RoutedEventArgs e)
@@ -116,7 +116,7 @@ namespace Inventor.Client.Dialogs
 			ComboBox comboBox;
 			panelQuestionParams.Children.Add(comboBox = new ComboBox
 			{
-				ItemsSource = _knowledgeBase.Concepts,
+				ItemsSource = _semanticNetwork.Concepts,
 				Margin = new Thickness(2),
 				MinWidth = 50,
 				DataContext = Question,
@@ -189,7 +189,7 @@ namespace Inventor.Client.Dialogs
 					{
 						Owner = this,
 					};
-					statementTypesDialog.Initialize(_language, _knowledgeBase);
+					statementTypesDialog.Initialize(_language, _semanticNetwork);
 					if (statementTypesDialog.ShowDialog() == true)
 					{
 						statementType = statementTypesDialog.SelectedType;
@@ -203,7 +203,7 @@ namespace Inventor.Client.Dialogs
 					viewModel = viewModel.Clone();
 				}
 
-				var editDialog = viewModel.Clone().CreateEditDialog(this, _knowledgeBase, _language);
+				var editDialog = viewModel.Clone().CreateEditDialog(this, _semanticNetwork, _language);
 
 				if (editDialog.ShowDialog() == true)
 				{
@@ -252,7 +252,7 @@ namespace Inventor.Client.Dialogs
 				{
 					Owner = this,
 				};
-				statementTypesDialog.Initialize(_language, _knowledgeBase);
+				statementTypesDialog.Initialize(_language, _semanticNetwork);
 				if (statementTypesDialog.ShowDialog() == true)
 				{
 					statementType = statementTypesDialog.SelectedType;
@@ -261,7 +261,7 @@ namespace Inventor.Client.Dialogs
 
 				viewModel = (StatementViewModel) ViewModels.Factory.CreateByCoreType(statementType, _language);
 
-				var editDialog = viewModel.CreateEditDialog(this, _knowledgeBase, _language);
+				var editDialog = viewModel.CreateEditDialog(this, _semanticNetwork, _language);
 
 				if (editDialog.ShowDialog() == true)
 				{
@@ -297,7 +297,7 @@ namespace Inventor.Client.Dialogs
 
 				var viewModel = statement.Clone();
 
-				var editDialog = viewModel.CreateEditDialog(this, _knowledgeBase, _language);
+				var editDialog = viewModel.CreateEditDialog(this, _semanticNetwork, _language);
 
 				if (editDialog.ShowDialog() == true)
 				{
@@ -348,7 +348,7 @@ namespace Inventor.Client.Dialogs
 				var question = editButton.Tag as IQuestionViewModel;
 				if (question == null || MessageBox.Show(_language.Ui.CreateNewQuestion, _language.Common.Question, MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
 				{
-					var dialog = new QuestionDialog(_knowledgeBase, _language)
+					var dialog = new QuestionDialog(_semanticNetwork, _language)
 					{
 						Owner = this,
 					};
@@ -359,7 +359,7 @@ namespace Inventor.Client.Dialogs
 				}
 				else
 				{
-					var dialog = new QuestionDialog(_knowledgeBase, _language)
+					var dialog = new QuestionDialog(_semanticNetwork, _language)
 					{
 						Owner = this,
 					};
@@ -373,7 +373,7 @@ namespace Inventor.Client.Dialogs
 				if (question != null)
 				{
 					editButton.Tag = question;
-					var questionDefinition = _knowledgeBase.Context.QuestionRepository.QuestionDefinitions[question.BuildQuestion().GetType()];
+					var questionDefinition = _semanticNetwork.Context.QuestionRepository.QuestionDefinitions[question.BuildQuestion().GetType()];
 					editButton.Content = $"{_language.QuestionNames.ParamQuestion}: {questionDefinition.GetName(_language)}";
 				}
 			};

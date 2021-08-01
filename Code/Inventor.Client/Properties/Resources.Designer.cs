@@ -83,9 +83,9 @@ namespace Inventor.Client.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap KnowledgeBase {
+        internal static System.Drawing.Bitmap SemanticNetwork {
             get {
-                object obj = ResourceManager.GetObject("KnowledgeBase", resourceCulture);
+                object obj = ResourceManager.GetObject("SemanticNetwork", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

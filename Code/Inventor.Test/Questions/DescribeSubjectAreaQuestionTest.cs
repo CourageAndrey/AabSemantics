@@ -19,12 +19,12 @@ namespace Inventor.Test.Questions
 		{
 			// arrange
 			var language = Language.Default;
-			var knowledgeBase = new TestKnowledgeBase(language);
+			var semanticNetwork = new TestSemanticNetwork(language);
 			var noSubjectAreaConcept = SystemConcepts.GetAll().First();
 
 			// act
 			var question = new DescribeSubjectAreaQuestion(noSubjectAreaConcept);
-			var answer = question.Ask(knowledgeBase.KnowledgeBase.Context);
+			var answer = question.Ask(semanticNetwork.SemanticNetwork.Context);
 
 			// assert
 			Assert.IsTrue(answer.IsEmpty);
@@ -36,16 +36,16 @@ namespace Inventor.Test.Questions
 		{
 			// arrange
 			var language = Language.Default;
-			var knowledgeBase = new TestKnowledgeBase(language);
+			var semanticNetwork = new TestSemanticNetwork(language);
 
 			var area = LogicalValues.True;
 			var concept = LogicalValues.False;
 			var groupStatement = new GroupStatement(area, concept);
-			knowledgeBase.KnowledgeBase.Statements.Add(groupStatement);
+			semanticNetwork.SemanticNetwork.Statements.Add(groupStatement);
 
 			// act
 			var question = new DescribeSubjectAreaQuestion(area);
-			var answer = question.Ask(knowledgeBase.KnowledgeBase.Context);
+			var answer = question.Ask(semanticNetwork.SemanticNetwork.Context);
 
 			// assert
 			Assert.IsFalse(answer.IsEmpty);
@@ -61,11 +61,11 @@ namespace Inventor.Test.Questions
 		{
 			// arrange
 			var language = Language.Default;
-			var knowledgeBase = new TestKnowledgeBase(language);
+			var semanticNetwork = new TestSemanticNetwork(language);
 
 			// act
-			var question = new DescribeSubjectAreaQuestion(knowledgeBase.SubjectArea_Transport);
-			var answer = question.Ask(knowledgeBase.KnowledgeBase.Context);
+			var question = new DescribeSubjectAreaQuestion(semanticNetwork.SubjectArea_Transport);
+			var answer = question.Ask(semanticNetwork.SemanticNetwork.Context);
 
 			// assert
 			Assert.IsFalse(answer.IsEmpty);
@@ -76,7 +76,7 @@ namespace Inventor.Test.Questions
 			var groupStatements = answer.Explanation.Statements.OfType<GroupStatement>().ToList();
 			Assert.AreEqual(answer.Explanation.Statements.Count, groupStatements.Count);
 
-			Assert.IsTrue(groupStatements.All(statement => statement.Area == knowledgeBase.SubjectArea_Transport));
+			Assert.IsTrue(groupStatements.All(statement => statement.Area == semanticNetwork.SubjectArea_Transport));
 			Assert.AreEqual(groupStatements.Count, conceptsAnswer.Result.Count);
 			Assert.AreEqual(groupStatements.Count, groupStatements.Select(statement => statement.Concept).Intersect(conceptsAnswer.Result).Count());
 		}

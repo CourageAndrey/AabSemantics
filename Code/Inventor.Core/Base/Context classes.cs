@@ -70,19 +70,19 @@ namespace Inventor.Core.Base
 			: base(language, null)
 		{ }
 
-		public IKnowledgeBaseContext Instantiate(IKnowledgeBase knowledgeBase, IStatementRepository statementRepository, IQuestionRepository questionRepository, IAttributeRepository attributeRepository)
+		public ISemanticNetworkContext Instantiate(ISemanticNetwork semanticNetwork, IStatementRepository statementRepository, IQuestionRepository questionRepository, IAttributeRepository attributeRepository)
 		{
 			if (Children.Count > 0) throw new InvalidOperationException("Impossible to instantiate system context more than once.");
 
-			return new KnowledgeBaseContext(Language, this, knowledgeBase, statementRepository, questionRepository, attributeRepository);
+			return new SemanticNetworkContext(Language, this, semanticNetwork, statementRepository, questionRepository, attributeRepository);
 		}
 	}
 
-	public class KnowledgeBaseContext : Context, IKnowledgeBaseContext
+	public class SemanticNetworkContext : Context, ISemanticNetworkContext
 	{
 		#region Properties
 
-		public IKnowledgeBase KnowledgeBase
+		public ISemanticNetwork SemanticNetwork
 		{ get; }
 
 		public IStatementRepository StatementRepository
@@ -99,10 +99,10 @@ namespace Inventor.Core.Base
 
 		#endregion
 
-		public KnowledgeBaseContext(ILanguage language, IContext parent, IKnowledgeBase knowledgeBase, IStatementRepository statementRepository, IQuestionRepository questionRepository, IAttributeRepository attributeRepository)
+		public SemanticNetworkContext(ILanguage language, IContext parent, ISemanticNetwork semanticNetwork, IStatementRepository statementRepository, IQuestionRepository questionRepository, IAttributeRepository attributeRepository)
 			: base(language, parent)
 		{
-			KnowledgeBase = knowledgeBase;
+			SemanticNetwork = semanticNetwork;
 			StatementRepository = statementRepository;
 			QuestionRepository = questionRepository;
 			AttributeRepository = attributeRepository;
@@ -116,16 +116,16 @@ namespace Inventor.Core.Base
 			foreach (var statement in question.Preconditions)
 			{
 				statement.Context = resultContext;
-				resultContext.KnowledgeBase.Statements.Add(statement);
+				resultContext.SemanticNetwork.Statements.Add(statement);
 			}
 			return resultContext;
 		}
 	}
 
-	public class DisposableProcessingContext : KnowledgeBaseContext, IDisposable
+	public class DisposableProcessingContext : SemanticNetworkContext, IDisposable
 	{
-		internal DisposableProcessingContext(IKnowledgeBaseContext parent)
-			: base(parent.Language, parent, parent.KnowledgeBase, parent.StatementRepository, parent.QuestionRepository, parent.AttributeRepository)
+		internal DisposableProcessingContext(ISemanticNetworkContext parent)
+			: base(parent.Language, parent, parent.SemanticNetwork, parent.StatementRepository, parent.QuestionRepository, parent.AttributeRepository)
 		{ }
 
 		private Boolean _disposed;
@@ -141,7 +141,7 @@ namespace Inventor.Core.Base
 
 				foreach (var knowledge in Scope)
 				{
-					KnowledgeBase.Statements.Remove(knowledge);
+					SemanticNetwork.Statements.Remove(knowledge);
 				}
 
 				Parent.Children.Remove(this);
@@ -168,7 +168,7 @@ namespace Inventor.Core.Base
 
 		#endregion
 
-		internal QuestionProcessingContext(IKnowledgeBaseContext parent, QuestionT question)
+		internal QuestionProcessingContext(ISemanticNetworkContext parent, QuestionT question)
 			: base(parent)
 		{
 			_question = question;

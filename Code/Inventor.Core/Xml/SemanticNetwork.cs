@@ -5,8 +5,8 @@ using System.Xml.Serialization;
 
 namespace Inventor.Core.Xml
 {
-	[Serializable, XmlRoot(nameof(KnowledgeBase))]
-	public class KnowledgeBase
+	[Serializable, XmlRoot(nameof(SemanticNetwork))]
+	public class SemanticNetwork
 	{
 		#region Properties
 
@@ -34,26 +34,26 @@ namespace Inventor.Core.Xml
 
 		#region Constructors
 
-		public KnowledgeBase()
+		public SemanticNetwork()
 		{ }
 
-		public KnowledgeBase(Base.KnowledgeBase knowledgeBase)
+		public SemanticNetwork(Base.SemanticNetwork semanticNetwork)
 		{
-			Name = new LocalizedString(knowledgeBase.Name);
+			Name = new LocalizedString(semanticNetwork.Name);
 
 			var systemConcepts = new HashSet<IConcept>(SystemConcepts.GetAll());
 			var conceptsCache = new Dictionary<IConcept, Int32>();
-			Concepts = knowledgeBase.Concepts.Except(systemConcepts).Select(concept => new Concept(concept, conceptsCache)).ToList();
+			Concepts = semanticNetwork.Concepts.Except(systemConcepts).Select(concept => new Concept(concept, conceptsCache)).ToList();
 
 			var conceptIdResolver = new LoadIdResolver(conceptsCache);
-			Statements = knowledgeBase.Statements.Select(statement => Statement.Load(statement, conceptIdResolver)).ToList();
+			Statements = semanticNetwork.Statements.Select(statement => Statement.Load(statement, conceptIdResolver)).ToList();
 		}
 
 		#endregion
 
-		public Base.KnowledgeBase Load(ILanguage language)
+		public Base.SemanticNetwork Load(ILanguage language)
 		{
-			var result = new Base.KnowledgeBase(language);
+			var result = new Base.SemanticNetwork(language);
 			Name.LoadTo(result.Name);
 
 			var conceptsCache = new Dictionary<Concept, IConcept>();

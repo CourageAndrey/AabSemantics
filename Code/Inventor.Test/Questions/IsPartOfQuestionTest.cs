@@ -19,12 +19,12 @@ namespace Inventor.Test.Questions
 		{
 			// arrange
 			var language = Language.Default;
-			var knowledgeBase = new TestKnowledgeBase(language);
+			var semanticNetwork = new TestSemanticNetwork(language);
 
-			var question = new IsPartOfQuestion(knowledgeBase.Part_Engine, knowledgeBase.Base_Vehicle);
+			var question = new IsPartOfQuestion(semanticNetwork.Part_Engine, semanticNetwork.Base_Vehicle);
 
 			// act
-			var answer = question.Ask(knowledgeBase.KnowledgeBase.Context);
+			var answer = question.Ask(semanticNetwork.SemanticNetwork.Context);
 
 			// assert
 			Assert.IsFalse(answer.IsEmpty);
@@ -37,19 +37,19 @@ namespace Inventor.Test.Questions
 		{
 			// arrange
 			var language = Language.Default;
-			var knowledgeBase = new TestKnowledgeBase(language);
+			var semanticNetwork = new TestSemanticNetwork(language);
 
-			var question = new IsPartOfQuestion(knowledgeBase.Part_Engine, knowledgeBase.Vehicle_Car);
+			var question = new IsPartOfQuestion(semanticNetwork.Part_Engine, semanticNetwork.Vehicle_Car);
 
 			// act
-			var answer = question.Ask(knowledgeBase.KnowledgeBase.Context);
+			var answer = question.Ask(semanticNetwork.SemanticNetwork.Context);
 
 			// assert
 			Assert.IsFalse(answer.IsEmpty);
 			Assert.IsTrue(((BooleanAnswer) answer).Result);
 
 			var statement = (HasPartStatement) answer.Explanation.Statements.Single();
-			Assert.IsTrue(statement.Whole == knowledgeBase.Vehicle_Car && statement.Part == knowledgeBase.Part_Engine);
+			Assert.IsTrue(statement.Whole == semanticNetwork.Vehicle_Car && statement.Part == semanticNetwork.Part_Engine);
 		}
 	}
 }
