@@ -71,7 +71,7 @@ namespace Inventor.Core.Questions
 				.Select(c => c.Question.ProcessA));
 
 			var transitiveProcesses = new Dictionary<IConcept, ICollection<IStatement>>();
-			foreach (var statement in context.KnowledgeBase.Statements.Enumerate<ProcessesStatement>(context.ActiveContexts))
+			foreach (var statement in context.SemanticNetwork.Statements.Enumerate<ProcessesStatement>(context.ActiveContexts))
 			{
 				IConcept newProcessA = null;
 				if (statement.ProcessA == ProcessA)

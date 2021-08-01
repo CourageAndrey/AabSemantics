@@ -19,12 +19,12 @@ namespace Inventor.Test.Questions
 		{
 			// arrange
 			var language = Language.Default;
-			var knowledgeBase = new TestKnowledgeBase(language);
+			var semanticNetwork = new TestSemanticNetwork(language);
 
-			var question = new IsQuestion(knowledgeBase.Sign_AreaType, knowledgeBase.Base_Vehicle);
+			var question = new IsQuestion(semanticNetwork.Sign_AreaType, semanticNetwork.Base_Vehicle);
 
 			// act
-			var answer = question.Ask(knowledgeBase.KnowledgeBase.Context);
+			var answer = question.Ask(semanticNetwork.SemanticNetwork.Context);
 
 			// assert
 			Assert.IsFalse(answer.IsEmpty);
@@ -37,20 +37,20 @@ namespace Inventor.Test.Questions
 		{
 			// arrange
 			var language = Language.Default;
-			var knowledgeBase = new TestKnowledgeBase(language);
+			var semanticNetwork = new TestSemanticNetwork(language);
 
-			var question = new IsQuestion(knowledgeBase.Vehicle_Airbus, knowledgeBase.Base_Vehicle);
+			var question = new IsQuestion(semanticNetwork.Vehicle_Airbus, semanticNetwork.Base_Vehicle);
 
 			// act
-			var answer = question.Ask(knowledgeBase.KnowledgeBase.Context);
+			var answer = question.Ask(semanticNetwork.SemanticNetwork.Context);
 
 			//assert
 			Assert.IsFalse(answer.IsEmpty);
 			Assert.IsTrue(((BooleanAnswer) answer).Result);
 
 			var classification = (IsStatement) answer.Explanation.Statements.Single();
-			Assert.AreSame(knowledgeBase.Base_Vehicle, classification.Ancestor);
-			Assert.AreSame(knowledgeBase.Vehicle_Airbus, classification.Descendant);
+			Assert.AreSame(semanticNetwork.Base_Vehicle, classification.Ancestor);
+			Assert.AreSame(semanticNetwork.Vehicle_Airbus, classification.Descendant);
 		}
 
 		[Test]
@@ -58,18 +58,18 @@ namespace Inventor.Test.Questions
 		{
 			// arrange
 			var language = Language.Default;
-			var knowledgeBase = new TestKnowledgeBase(language);
+			var semanticNetwork = new TestSemanticNetwork(language);
 
 			var hugeAirbus = new Concept();
-			knowledgeBase.KnowledgeBase.Concepts.Add(hugeAirbus);
+			semanticNetwork.SemanticNetwork.Concepts.Add(hugeAirbus);
 
-			var classification = new IsStatement(knowledgeBase.Vehicle_Airbus, hugeAirbus);
-			knowledgeBase.KnowledgeBase.Statements.Add(classification);
+			var classification = new IsStatement(semanticNetwork.Vehicle_Airbus, hugeAirbus);
+			semanticNetwork.SemanticNetwork.Statements.Add(classification);
 
-			var question = new IsQuestion(hugeAirbus, knowledgeBase.Base_Vehicle);
+			var question = new IsQuestion(hugeAirbus, semanticNetwork.Base_Vehicle);
 
 			// act
-			var answer = question.Ask(knowledgeBase.KnowledgeBase.Context);
+			var answer = question.Ask(semanticNetwork.SemanticNetwork.Context);
 
 			//assert
 			Assert.IsFalse(answer.IsEmpty);

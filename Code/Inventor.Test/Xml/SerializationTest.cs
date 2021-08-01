@@ -14,21 +14,21 @@ namespace Inventor.Test.Xml
 	public class SerializationTest
 	{
 		[Test]
-		public void CheckLargeKnowledgeBaseSerialization()
+		public void CheckLargeSemanticNetworkSerialization()
 		{
 			// arrange
 			var language = Language.Default;
-			var knowledgeBase = new TestKnowledgeBase(language).KnowledgeBase;
-			var name = (LocalizedStringVariable)knowledgeBase.Name;
+			var semanticNetwork = new TestSemanticNetwork(language).SemanticNetwork;
+			var name = (LocalizedStringVariable)semanticNetwork.Name;
 			var locales = name.Locales;
 			string testFileName = Path.GetTempFileName();
 
 			// act
-			KnowledgeBase restored;
+			SemanticNetwork restored;
 			try
 			{
-				knowledgeBase.Save(testFileName);
-				restored = KnowledgeBase.Load(testFileName, language);
+				semanticNetwork.Save(testFileName);
+				restored = SemanticNetwork.Load(testFileName, language);
 			}
 			finally
 			{
@@ -47,8 +47,8 @@ namespace Inventor.Test.Xml
 			}
 
 			var conceptMapping = new Dictionary<IConcept, IConcept>();
-			Assert.AreEqual(knowledgeBase.Concepts.Count, restored.Concepts.Count);
-			foreach (var concept in knowledgeBase.Concepts/*.Except(systemConcepts)*/)
+			Assert.AreEqual(semanticNetwork.Concepts.Count, restored.Concepts.Count);
+			foreach (var concept in semanticNetwork.Concepts/*.Except(systemConcepts)*/)
 			{
 				var restoredConcept = restored.Concepts.Single(c =>
 					c.Name.GetValue(language) == concept.Name.GetValue(language) &&
@@ -69,8 +69,8 @@ namespace Inventor.Test.Xml
 				}
 			}
 
-			Assert.AreEqual(knowledgeBase.Statements.Count, restored.Statements.Count);
-			foreach (var statement in knowledgeBase.Statements)
+			Assert.AreEqual(semanticNetwork.Statements.Count, restored.Statements.Count);
+			foreach (var statement in semanticNetwork.Statements)
 			{
 				var statementType = statement.GetType();
 				var childConcepts = statement.GetChildConcepts().Select(c => conceptMapping[c]).ToList();

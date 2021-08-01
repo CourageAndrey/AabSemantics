@@ -45,13 +45,13 @@ namespace Inventor.Client.ViewModels.Statements
 
 		#region Implementation of IViewModel
 
-		public override Window CreateEditDialog(Window owner, IKnowledgeBase knowledgeBase, ILanguage language)
+		public override Window CreateEditDialog(Window owner, ISemanticNetwork semanticNetwork, ILanguage language)
 		{
 			var control = new ProcessesStatementControl
 			{
 				Statement = this,
 			};
-			control.Initialize(knowledgeBase, language);
+			control.Initialize(semanticNetwork, language);
 			var dialog = new EditDialog
 			{
 				Owner = owner,

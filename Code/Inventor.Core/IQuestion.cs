@@ -7,6 +7,6 @@ namespace Inventor.Core
 		ICollection<IStatement> Preconditions
 		{ get; }
 
-		IAnswer Ask(IKnowledgeBaseContext context);
+		IAnswer Ask(ISemanticNetworkContext context);
 	}
 }

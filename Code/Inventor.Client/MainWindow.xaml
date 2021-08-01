@@ -61,7 +61,7 @@
 				</StackPanel>
 			</ToolBar>
 		</ToolBarPanel>
-		<TreeView Name="treeViewKnowledgeBase" Margin="2">
+		<TreeView Name="treeViewSemanticNetwork" Margin="2">
 			<TreeView.ContextMenu>
 				<ContextMenu ContextMenuOpening="knowledgeContextMenuOpening">
 					<MenuItem Header="{Binding Source={StaticResource language}, Path=Ui.MainForm.ContextMenuKnowledgeAdd, Mode=OneTime}" Name="_addKnowledgeItem" Click="addKnowledgeClick" />

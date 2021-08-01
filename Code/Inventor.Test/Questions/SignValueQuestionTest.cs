@@ -18,11 +18,11 @@ namespace Inventor.Test.Questions
 		{
 			// arrange
 			var language = Language.Default;
-			var knowledgeBase = new TestKnowledgeBase(language);
-			var question = new SignValueQuestion(knowledgeBase.Base_Vehicle, knowledgeBase.Sign_AreaType);
+			var semanticNetwork = new TestSemanticNetwork(language);
+			var question = new SignValueQuestion(semanticNetwork.Base_Vehicle, semanticNetwork.Sign_AreaType);
 
 			// act
-			var answer = question.Ask(knowledgeBase.KnowledgeBase.Context);
+			var answer = question.Ask(semanticNetwork.SemanticNetwork.Context);
 
 			// assert
 			Assert.IsTrue(answer.IsEmpty);
@@ -34,15 +34,15 @@ namespace Inventor.Test.Questions
 		{
 			// arrange
 			var language = Language.Default;
-			var knowledgeBase = new TestKnowledgeBase(language);
-			var question = new SignValueQuestion(knowledgeBase.Vehicle_Car, knowledgeBase.Sign_AreaType);
+			var semanticNetwork = new TestSemanticNetwork(language);
+			var question = new SignValueQuestion(semanticNetwork.Vehicle_Car, semanticNetwork.Sign_AreaType);
 
 			// act
-			var answer = question.Ask(knowledgeBase.KnowledgeBase.Context);
+			var answer = question.Ask(semanticNetwork.SemanticNetwork.Context);
 
 			// assert
 			Assert.IsFalse(answer.IsEmpty);
-			Assert.AreSame(knowledgeBase.AreaType_Ground, ((ConceptAnswer) answer).Result);
+			Assert.AreSame(semanticNetwork.AreaType_Ground, ((ConceptAnswer) answer).Result);
 			Assert.AreSame(typeof(SignValueStatement), answer.Explanation.Statements.Single().GetType());
 		}
 
@@ -51,22 +51,22 @@ namespace Inventor.Test.Questions
 		{
 			// arrange
 			var language = Language.Default;
-			var knowledgeBase = new TestKnowledgeBase(language);
+			var semanticNetwork = new TestSemanticNetwork(language);
 
 			var truck = new Concept();
-			knowledgeBase.KnowledgeBase.Concepts.Add(truck);
+			semanticNetwork.SemanticNetwork.Concepts.Add(truck);
 
-			var classification = new IsStatement(knowledgeBase.Vehicle_Car, truck);
-			knowledgeBase.KnowledgeBase.Statements.Add(classification);
+			var classification = new IsStatement(semanticNetwork.Vehicle_Car, truck);
+			semanticNetwork.SemanticNetwork.Statements.Add(classification);
 
-			var question = new SignValueQuestion(truck, knowledgeBase.Sign_AreaType);
+			var question = new SignValueQuestion(truck, semanticNetwork.Sign_AreaType);
 
 			// act
-			var answer = question.Ask(knowledgeBase.KnowledgeBase.Context);
+			var answer = question.Ask(semanticNetwork.SemanticNetwork.Context);
 
 			// assert
 			Assert.IsFalse(answer.IsEmpty);
-			Assert.AreSame(knowledgeBase.AreaType_Ground, ((ConceptAnswer) answer).Result);
+			Assert.AreSame(semanticNetwork.AreaType_Ground, ((ConceptAnswer) answer).Result);
 			Assert.AreEqual(2, answer.Explanation.Statements.Count);
 			Assert.IsTrue(answer.Explanation.Statements.Contains(classification));
 			Assert.AreEqual(1, answer.Explanation.Statements.OfType<SignValueStatement>().Count());
@@ -77,25 +77,25 @@ namespace Inventor.Test.Questions
 		{
 			// arrange
 			var language = Language.Default;
-			var knowledgeBase = new TestKnowledgeBase(language);
+			var semanticNetwork = new TestSemanticNetwork(language);
 
 			var flyingCar = new Concept();
-			knowledgeBase.KnowledgeBase.Concepts.Add(flyingCar);
+			semanticNetwork.SemanticNetwork.Concepts.Add(flyingCar);
 
-			var classification = new IsStatement(knowledgeBase.Vehicle_Car, flyingCar);
-			knowledgeBase.KnowledgeBase.Statements.Add(classification);
+			var classification = new IsStatement(semanticNetwork.Vehicle_Car, flyingCar);
+			semanticNetwork.SemanticNetwork.Statements.Add(classification);
 
-			var newValue = new SignValueStatement(flyingCar, knowledgeBase.Sign_AreaType, knowledgeBase.AreaType_Air);
-			knowledgeBase.KnowledgeBase.Statements.Add(newValue);
+			var newValue = new SignValueStatement(flyingCar, semanticNetwork.Sign_AreaType, semanticNetwork.AreaType_Air);
+			semanticNetwork.SemanticNetwork.Statements.Add(newValue);
 
-			var question = new SignValueQuestion(flyingCar, knowledgeBase.Sign_AreaType);
+			var question = new SignValueQuestion(flyingCar, semanticNetwork.Sign_AreaType);
 
 			// act
-			var answer = question.Ask(knowledgeBase.KnowledgeBase.Context);
+			var answer = question.Ask(semanticNetwork.SemanticNetwork.Context);
 
 			// assert
 			Assert.IsFalse(answer.IsEmpty);
-			Assert.AreSame(knowledgeBase.AreaType_Air, ((ConceptAnswer) answer).Result);
+			Assert.AreSame(semanticNetwork.AreaType_Air, ((ConceptAnswer) answer).Result);
 			Assert.AreSame(newValue, answer.Explanation.Statements.Single());
 		}
 	}

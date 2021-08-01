@@ -42,7 +42,7 @@ namespace Inventor.Client
 		private String ConfigurationFile
 		{ get { return Path.Combine(StartupPath, InventorConfiguration.FileName); } }
 
-		public IKnowledgeBase KnowledgeBase
+		public ISemanticNetwork SemanticNetwork
 		{ get; internal set; }
 
 		#endregion
@@ -101,9 +101,9 @@ namespace Inventor.Client
 			var application = new InventorApplication();
 
 #if DEBUG
-			application.KnowledgeBase = new Core.Base.TestKnowledgeBase(application.CurrentLanguage).KnowledgeBase;
+			application.SemanticNetwork = new Core.Base.TestSemanticNetwork(application.CurrentLanguage).SemanticNetwork;
 #else
-			application.KnowledgeBase = Core.Base.KnowledgeBase.New(application.CurrentLanguage);
+			application.SemanticNetwork = Core.Base.SemanticNetwork.New(application.CurrentLanguage);
 #endif
 			application.MainForm.Initialize(application);
 			application.MainWindow.Show();

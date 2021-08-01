@@ -45,14 +45,14 @@ namespace Inventor.Client.ViewModels
 
 		private Core.Base.Concept _boundObject;
 
-		public Window CreateEditDialog(Window owner, Core.IKnowledgeBase knowledgeBase, ILanguage language)
+		public Window CreateEditDialog(Window owner, Core.ISemanticNetwork semanticNetwork, ILanguage language)
 		{
-			updateAttributes(knowledgeBase.Context.AttributeRepository, language);
+			updateAttributes(semanticNetwork.Context.AttributeRepository, language);
 			var control = new ConceptControl
 			{
 				EditValue = this,
 			};
-			control.Initialize(knowledgeBase, language);
+			control.Initialize(semanticNetwork, language);
 			var dialog = new EditDialog
 			{
 				Owner = owner,
@@ -77,9 +77,9 @@ namespace Inventor.Client.ViewModels
 			}
 		}
 
-		public void ApplyCreate(Core.IKnowledgeBase knowledgeBase)
+		public void ApplyCreate(Core.ISemanticNetwork semanticNetwork)
 		{
-			knowledgeBase.Concepts.Add(_boundObject = new Core.Base.Concept(Name.Create(), Hint.Create()));
+			semanticNetwork.Concepts.Add(_boundObject = new Core.Base.Concept(Name.Create(), Hint.Create()));
 
 			foreach (var attribute in Attributes)
 			{

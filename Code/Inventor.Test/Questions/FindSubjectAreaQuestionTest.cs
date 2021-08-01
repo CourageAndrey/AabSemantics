@@ -20,14 +20,14 @@ namespace Inventor.Test.Questions
 		{
 			// arrange
 			var language = Language.Default;
-			var knowledgeBase = new TestKnowledgeBase(language);
-			var conceptsWithoutSubjectArea = new List<IConcept>(SystemConcepts.GetAll()) { knowledgeBase.SubjectArea_Transport };
+			var semanticNetwork = new TestSemanticNetwork(language);
+			var conceptsWithoutSubjectArea = new List<IConcept>(SystemConcepts.GetAll()) { semanticNetwork.SubjectArea_Transport };
 
 			foreach (var concept in conceptsWithoutSubjectArea)
 			{
 				// act
 				var question = new FindSubjectAreaQuestion(concept);
-				var answer = question.Ask(knowledgeBase.KnowledgeBase.Context);
+				var answer = question.Ask(semanticNetwork.SemanticNetwork.Context);
 
 				// assert
 				Assert.IsTrue(answer.IsEmpty);
@@ -40,22 +40,22 @@ namespace Inventor.Test.Questions
 		{
 			// arrange
 			var language = Language.Default;
-			var knowledgeBase = new TestKnowledgeBase(language);
+			var semanticNetwork = new TestSemanticNetwork(language);
 
 			IList<IConcept> subjectAreas = new IConcept[]
 			{
-				knowledgeBase.SubjectArea_Transport,
-				knowledgeBase.SubjectArea_Numbers,
+				semanticNetwork.SubjectArea_Transport,
+				semanticNetwork.SubjectArea_Numbers,
 			};
 
 			var conceptsWithoutSubjectArea = new List<IConcept>(SystemConcepts.GetAll());
 			conceptsWithoutSubjectArea.AddRange(subjectAreas);
 
-			foreach (var concept in knowledgeBase.KnowledgeBase.Concepts.Except(conceptsWithoutSubjectArea))
+			foreach (var concept in semanticNetwork.SemanticNetwork.Concepts.Except(conceptsWithoutSubjectArea))
 			{
 				// act
 				var question = new FindSubjectAreaQuestion(concept);
-				var answer = question.Ask(knowledgeBase.KnowledgeBase.Context);
+				var answer = question.Ask(semanticNetwork.SemanticNetwork.Context);
 
 				// assert
 				Assert.IsFalse(answer.IsEmpty);
@@ -74,24 +74,24 @@ namespace Inventor.Test.Questions
 		{
 			// arrange
 			var language = Language.Default;
-			var knowledgeBase = new TestKnowledgeBase(language);
-			var concept = knowledgeBase.Base_Vehicle;
+			var semanticNetwork = new TestSemanticNetwork(language);
+			var concept = semanticNetwork.Base_Vehicle;
 
 			var secondSubjectArea = LogicalValues.True;
-			knowledgeBase.KnowledgeBase.Statements.Add(new GroupStatement(secondSubjectArea, concept));
+			semanticNetwork.SemanticNetwork.Statements.Add(new GroupStatement(secondSubjectArea, concept));
 
 			// act
 			var question = new FindSubjectAreaQuestion(concept);
-			var answer = question.Ask(knowledgeBase.KnowledgeBase.Context);
+			var answer = question.Ask(semanticNetwork.SemanticNetwork.Context);
 
 			// assert
 			Assert.IsFalse(answer.IsEmpty);
 
 			Assert.AreEqual(2, answer.Explanation.Statements.Count);
-			Assert.IsTrue(answer.Explanation.Statements.OfType<GroupStatement>().Any(s => s.Area == knowledgeBase.SubjectArea_Transport && s.Concept == concept));
+			Assert.IsTrue(answer.Explanation.Statements.OfType<GroupStatement>().Any(s => s.Area == semanticNetwork.SubjectArea_Transport && s.Concept == concept));
 			Assert.IsTrue(answer.Explanation.Statements.OfType<GroupStatement>().Any(s => s.Area == secondSubjectArea && s.Concept == concept));
 			var conceptsAnswer = (ConceptsAnswer) answer;
-			Assert.IsTrue(conceptsAnswer.Result.Contains(knowledgeBase.SubjectArea_Transport));
+			Assert.IsTrue(conceptsAnswer.Result.Contains(semanticNetwork.SubjectArea_Transport));
 			Assert.IsTrue(conceptsAnswer.Result.Contains(secondSubjectArea));
 		}
 	}

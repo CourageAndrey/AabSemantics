@@ -19,16 +19,16 @@ namespace Inventor.Test.Base
 		public void UnfinishedContextDisposingFails()
 		{
 			var language = Language.Default;
-			var knowledgeBase = new KnowledgeBase(language);
+			var semanticNetwork = new SemanticNetwork(language);
 
 			Assert.DoesNotThrow(() =>
 			{
-				new TestQuestionCreateNestedContext(false).Ask(knowledgeBase.Context);
+				new TestQuestionCreateNestedContext(false).Ask(semanticNetwork.Context);
 			});
 
 			Assert.Throws<InvalidOperationException>(() =>
 			{
-				new TestQuestionCreateNestedContext(true).Ask(knowledgeBase.Context);
+				new TestQuestionCreateNestedContext(true).Ask(semanticNetwork.Context);
 			});
 		}
 
@@ -36,11 +36,11 @@ namespace Inventor.Test.Base
 		public void ContextDisposingRemovesRelatedKnowledge()
 		{
 			var language = Language.Default;
-			var knowledgeBase = new KnowledgeBase(language);
+			var semanticNetwork = new SemanticNetwork(language);
 
-			new TestQuestionCreateContextKnowledge().Ask(knowledgeBase.Context);
+			new TestQuestionCreateContextKnowledge().Ask(semanticNetwork.Context);
 
-			Assert.IsFalse(knowledgeBase.Statements.Enumerate<TestStatement>().Any());
+			Assert.IsFalse(semanticNetwork.Statements.Enumerate<TestStatement>().Any());
 		}
 
 		[Test]
@@ -48,14 +48,14 @@ namespace Inventor.Test.Base
 		{
 			var language = Language.Default;
 
-			var knowledgeBase = new KnowledgeBase(language);
-			var knowledgeBaseContext = (KnowledgeBaseContext) knowledgeBase.Context;
-			Assert.IsFalse(knowledgeBaseContext.IsSystem);
+			var semanticNetwork = new SemanticNetwork(language);
+			var semanticNetworkContext = (SemanticNetworkContext) semanticNetwork.Context;
+			Assert.IsFalse(semanticNetworkContext.IsSystem);
 
-			var systemContext = (SystemContext) knowledgeBaseContext.Parent;
+			var systemContext = (SystemContext) semanticNetworkContext.Parent;
 			Assert.IsTrue(systemContext.IsSystem);
 
-			var questionContext = knowledgeBaseContext.CreateQuestionContext(new TestQuestionCreateContextKnowledge());
+			var questionContext = semanticNetworkContext.CreateQuestionContext(new TestQuestionCreateContextKnowledge());
 			Assert.IsFalse(questionContext.IsSystem);
 		}
 
@@ -64,11 +64,11 @@ namespace Inventor.Test.Base
 		{
 			// arrange
 			var language = Language.Default;
-			var knowledgeBase = new KnowledgeBase(language);
+			var semanticNetwork = new SemanticNetwork(language);
 			var question = new TestQuestionCreateContextKnowledge();
 
 			// act
-			var questionContext = knowledgeBase.Context.CreateQuestionContext(question);
+			var questionContext = semanticNetwork.Context.CreateQuestionContext(question);
 
 			// assert
 			var contextQuestion = questionContext.Question;
@@ -78,16 +78,16 @@ namespace Inventor.Test.Base
 		}
 
 		[Test]
-		public void ImpossibleToInstantiateMoreThanOneKnowledgeBaseContextOutOfOneSystemContext()
+		public void ImpossibleToInstantiateMoreThanOneSemanticNetworkContextOutOfOneSystemContext()
 		{
 			// arrange
 			var language = Language.Default;
-			var knowledgeBase = new KnowledgeBase(language);
-			var systemContext = (SystemContext) knowledgeBase.Context.Parent;
+			var semanticNetwork = new SemanticNetwork(language);
+			var systemContext = (SystemContext) semanticNetwork.Context.Parent;
 
 			// act & assert
 			Assert.Throws<InvalidOperationException>(() => systemContext.Instantiate(
-				new TestKnowledgeBase(),
+				new TestSemanticNetwork(),
 				new TestStatementRepository(),
 				new TestQuestionRepository(),
 				new TestAttributeRepository()));
@@ -98,8 +98,8 @@ namespace Inventor.Test.Base
 		{
 			// arrange
 			var language = Language.Default;
-			var knowledgeBase = new KnowledgeBase(language);
-			var questionContext = knowledgeBase.Context.CreateQuestionContext(new TestQuestionCreateContextKnowledge());
+			var semanticNetwork = new SemanticNetwork(language);
+			var questionContext = semanticNetwork.Context.CreateQuestionContext(new TestQuestionCreateContextKnowledge());
 			var child1Context = questionContext.CreateQuestionContext(new TestQuestionCreateNestedContext(false));
 			var child2Context = questionContext.CreateQuestionContext(new TestQuestionCreateNestedContext(false));
 
@@ -118,9 +118,9 @@ namespace Inventor.Test.Base
 		{
 			// arrange
 			var language = Language.Default;
-			var knowledgeBase = new KnowledgeBase(language);
-			var questionContext = knowledgeBase.Context.CreateQuestionContext(new TestQuestionCreateContextKnowledge());
-			var childQuestionContext = knowledgeBase.Context.CreateQuestionContext(new TestQuestionCreateNestedContext(false));
+			var semanticNetwork = new SemanticNetwork(language);
+			var questionContext = semanticNetwork.Context.CreateQuestionContext(new TestQuestionCreateContextKnowledge());
+			var childQuestionContext = semanticNetwork.Context.CreateQuestionContext(new TestQuestionCreateNestedContext(false));
 
 			// act
 			questionContext.Dispose();
@@ -130,14 +130,14 @@ namespace Inventor.Test.Base
 			Assert.DoesNotThrow(() => questionContext.Dispose());
 		}
 
-		private class TestKnowledgeBase : IKnowledgeBase
+		private class TestSemanticNetwork : ISemanticNetwork
 		{
 			public ILocalizedString Name
 			{ get; set; }
 
 			public event EventHandler Changed;
 
-			public IKnowledgeBaseContext Context
+			public ISemanticNetworkContext Context
 			{ get; set; }
 
 			public ICollection<IConcept> Concepts
@@ -250,11 +250,11 @@ namespace Inventor.Test.Base
 			public override IAnswer Process(IQuestionProcessingContext context)
 			{
 				IStatement testStatement;
-				context.KnowledgeBase.Statements.Add(testStatement = new TestStatement());
+				context.SemanticNetwork.Statements.Add(testStatement = new TestStatement());
 				testStatement.Context = context;
 				context.Scope.Add(testStatement);
 
-				Assert.IsTrue(context.KnowledgeBase.Statements.Enumerate<TestStatement>(context).Any());
+				Assert.IsTrue(context.SemanticNetwork.Statements.Enumerate<TestStatement>(context).Any());
 
 				return null;
 			}

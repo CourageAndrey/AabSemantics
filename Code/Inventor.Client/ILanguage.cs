@@ -223,7 +223,7 @@ namespace Inventor.Client
 
 	public interface ILanguageMisc
 	{
-		String NameKnowledgeBase
+		String NameSemanticNetwork
 		{ get; }
 
 		String NameCategoryConcepts

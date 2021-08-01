@@ -6,22 +6,22 @@ namespace Inventor.Client
 {
 	public interface IKnowledgeViewModel
 	{
-		Window CreateEditDialog(Window owner, IKnowledgeBase knowledgeBase, ILanguage language);
+		Window CreateEditDialog(Window owner, ISemanticNetwork semanticNetwork, ILanguage language);
 
-		void ApplyCreate(IKnowledgeBase knowledgeBase);
+		void ApplyCreate(ISemanticNetwork semanticNetwork);
 
 		void ApplyUpdate();
 	}
 
 	public abstract class StatementViewModel : IKnowledgeViewModel
 	{
-		public abstract Window CreateEditDialog(Window owner, IKnowledgeBase knowledgeBase, ILanguage language);
+		public abstract Window CreateEditDialog(Window owner, ISemanticNetwork semanticNetwork, ILanguage language);
 
 		public abstract StatementViewModel Clone();
 
-		public void ApplyCreate(IKnowledgeBase knowledgeBase)
+		public void ApplyCreate(ISemanticNetwork semanticNetwork)
 		{
-			knowledgeBase.Statements.Add(CreateStatement());
+			semanticNetwork.Statements.Add(CreateStatement());
 		}
 
 		public abstract void ApplyUpdate();

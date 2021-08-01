@@ -18,23 +18,23 @@ namespace Inventor.Test.Questions
 		{
 			// arrange
 			var language = Language.Default;
-			var knowledgeBase = new KnowledgeBase(language);
+			var semanticNetwork = new SemanticNetwork(language);
 
 			var conceptToCheck = new Concept();
 			var parentConcept = new Concept();
 			var childConcept = new Concept();
-			knowledgeBase.Concepts.Add(conceptToCheck);
-			knowledgeBase.Concepts.Add(parentConcept);
-			knowledgeBase.Concepts.Add(childConcept);
-			knowledgeBase.Statements.Add(new IsStatement(parentConcept, childConcept));
+			semanticNetwork.Concepts.Add(conceptToCheck);
+			semanticNetwork.Concepts.Add(parentConcept);
+			semanticNetwork.Concepts.Add(childConcept);
+			semanticNetwork.Statements.Add(new IsStatement(parentConcept, childConcept));
 
 			var questionToCheck = new EnumerateChildrenQuestion(conceptToCheck);
 			var questionChild = new EnumerateChildrenQuestion(childConcept);
 
 			// act
-			var answerToCheck = questionToCheck.Ask(knowledgeBase.Context);
+			var answerToCheck = questionToCheck.Ask(semanticNetwork.Context);
 
-			var answerChild = questionChild.Ask(knowledgeBase.Context);
+			var answerChild = questionChild.Ask(semanticNetwork.Context);
 
 			// assert
 			Assert.IsTrue(answerToCheck.IsEmpty);
@@ -49,10 +49,10 @@ namespace Inventor.Test.Questions
 		{
 			// arrange
 			var language = Language.Default;
-			var knowledgeBase = new KnowledgeBase(language);
+			var semanticNetwork = new SemanticNetwork(language);
 
 			var parentConcept = new Concept();
-			knowledgeBase.Concepts.Add(parentConcept);
+			semanticNetwork.Concepts.Add(parentConcept);
 
 			const int childCount = 4;
 
@@ -60,20 +60,20 @@ namespace Inventor.Test.Questions
 			{
 				// act
 				var childConcept = new Concept();
-				knowledgeBase.Concepts.Add(childConcept);
-				knowledgeBase.Statements.Add(new IsStatement(parentConcept, childConcept));
+				semanticNetwork.Concepts.Add(childConcept);
+				semanticNetwork.Statements.Add(new IsStatement(parentConcept, childConcept));
 
 				var question = new EnumerateChildrenQuestion(parentConcept);
 
-				var answer = question.Ask(knowledgeBase.Context);
+				var answer = question.Ask(semanticNetwork.Context);
 
 				// assert
 				Assert.IsFalse(answer.IsEmpty);
 				var childConcepts = ((ConceptsAnswer) answer).Result;
 				Assert.AreEqual(i, childConcepts.Count);
-				Assert.IsTrue(childConcepts.All(knowledgeBase.Concepts.Contains));
+				Assert.IsTrue(childConcepts.All(semanticNetwork.Concepts.Contains));
 				Assert.AreEqual(i, answer.Explanation.Statements.Count);
-				Assert.IsFalse(knowledgeBase.Statements.Except(answer.Explanation.Statements).Any());
+				Assert.IsFalse(semanticNetwork.Statements.Except(answer.Explanation.Statements).Any());
 			}
 		}
 	}

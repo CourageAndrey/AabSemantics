@@ -23,12 +23,12 @@ namespace Inventor.Test.Questions
 		{
 			// arrange
 			var language = Language.Default;
-			var knowledgeBase = new KnowledgeBase(language);
+			var semanticNetwork = new SemanticNetwork(language);
 
 			IConcept processA, processB, processI;
-			knowledgeBase.Concepts.Add(processA = createProcess("Process A"));
-			knowledgeBase.Concepts.Add(processB = createProcess("Process B"));
-			knowledgeBase.Concepts.Add(processI = createProcess("Process I"));
+			semanticNetwork.Concepts.Add(processA = createProcess("Process A"));
+			semanticNetwork.Concepts.Add(processB = createProcess("Process B"));
+			semanticNetwork.Concepts.Add(processI = createProcess("Process I"));
 
 			var statementAI = new ProcessesStatement(processA, processI, signAI);
 			var statementIA = new ProcessesStatement(processI, processA, SequenceSigns.Revert(signAI));
@@ -45,12 +45,12 @@ namespace Inventor.Test.Questions
 			{
 				try
 				{
-					knowledgeBase.Statements.Add(statementCombination.Item1);
-					knowledgeBase.Statements.Add(statementCombination.Item2);
+					semanticNetwork.Statements.Add(statementCombination.Item1);
+					semanticNetwork.Statements.Add(statementCombination.Item2);
 
 					// act
 					var question = new ProcessesQuestion(processA, processB);
-					var answer = question.Ask(knowledgeBase.Context);
+					var answer = question.Ask(semanticNetwork.Context);
 
 					// assert
 					Assert.IsFalse(answer.IsEmpty);
@@ -66,8 +66,8 @@ namespace Inventor.Test.Questions
 				}
 				finally
 				{
-					knowledgeBase.Statements.Remove(statementCombination.Item1);
-					knowledgeBase.Statements.Remove(statementCombination.Item2);
+					semanticNetwork.Statements.Remove(statementCombination.Item1);
+					semanticNetwork.Statements.Remove(statementCombination.Item2);
 				}
 			}
 		}
@@ -77,12 +77,12 @@ namespace Inventor.Test.Questions
 		{
 			// arrange
 			var language = Language.Default;
-			var knowledgeBase = new KnowledgeBase(language);
+			var semanticNetwork = new SemanticNetwork(language);
 
 			IConcept processA, processB, processI;
-			knowledgeBase.Concepts.Add(processA = createProcess("Process A"));
-			knowledgeBase.Concepts.Add(processB = createProcess("Process B"));
-			knowledgeBase.Concepts.Add(processI = createProcess("Process I"));
+			semanticNetwork.Concepts.Add(processA = createProcess("Process A"));
+			semanticNetwork.Concepts.Add(processB = createProcess("Process B"));
+			semanticNetwork.Concepts.Add(processI = createProcess("Process I"));
 
 			var validCombinations = getAllValidCombinations().Select(array => new Tuple<IConcept, IConcept, IConcept>((IConcept) array[0], (IConcept) array[1], (IConcept) array[2])).ToList();
 
@@ -107,12 +107,12 @@ namespace Inventor.Test.Questions
 						{
 							try
 							{
-								knowledgeBase.Statements.Add(statementCombination.Item1);
-								knowledgeBase.Statements.Add(statementCombination.Item2);
+								semanticNetwork.Statements.Add(statementCombination.Item1);
+								semanticNetwork.Statements.Add(statementCombination.Item2);
 
 								// act
 								var question = new ProcessesQuestion(processA, processB);
-								var answer = question.Ask(knowledgeBase.Context);
+								var answer = question.Ask(semanticNetwork.Context);
 
 								// assert
 								Assert.IsTrue(answer.IsEmpty);
@@ -120,8 +120,8 @@ namespace Inventor.Test.Questions
 							}
 							finally
 							{
-								knowledgeBase.Statements.Remove(statementCombination.Item1);
-								knowledgeBase.Statements.Remove(statementCombination.Item2);
+								semanticNetwork.Statements.Remove(statementCombination.Item1);
+								semanticNetwork.Statements.Remove(statementCombination.Item2);
 							}
 						}
 					}

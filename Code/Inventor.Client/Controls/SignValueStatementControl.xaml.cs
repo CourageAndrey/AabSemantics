@@ -13,9 +13,9 @@ namespace Inventor.Client.Controls
 			InitializeComponent();
 		}
 
-		public void Initialize(IKnowledgeBase knowledgeBase, ILanguage language)
+		public void Initialize(ISemanticNetwork semanticNetwork, ILanguage language)
 		{
-			var wrappedConcepts = knowledgeBase.Concepts.Select(c => new ConceptItem(c, language)).ToList();
+			var wrappedConcepts = semanticNetwork.Concepts.Select(c => new ConceptItem(c, language)).ToList();
 			_comboBoxConcept.ItemsSource = wrappedConcepts;
 			_comboBoxSign.ItemsSource = wrappedConcepts.Where(c => c.Concept.HasAttribute<IsSignAttribute>()).ToList();
 			_comboBoxValue.ItemsSource = wrappedConcepts.Where(c => c.Concept.HasAttribute<IsValueAttribute>()).ToList();

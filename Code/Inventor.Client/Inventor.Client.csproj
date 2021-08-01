@@ -124,9 +124,9 @@
     <Compile Include="Dialogs\FormattedTextDialog.xaml.cs">
       <DependentUpon>FormattedTextDialog.xaml</DependentUpon>
     </Compile>
-    <Compile Include="TreeNodes\KnowledgeBaseConceptsNode.cs" />
-    <Compile Include="TreeNodes\KnowledgeBaseNode.cs" />
-    <Compile Include="TreeNodes\KnowledgeBaseStatementsNode.cs" />
+    <Compile Include="TreeNodes\SemanticNetworkConceptsNode.cs" />
+    <Compile Include="TreeNodes\SemanticNetworkNode.cs" />
+    <Compile Include="TreeNodes\SemanticNetworkStatementsNode.cs" />
     <Compile Include="Dialogs\QuestionDialog.xaml.cs">
       <DependentUpon>QuestionDialog.xaml</DependentUpon>
     </Compile>
@@ -255,7 +255,7 @@
     <Resource Include="Resources\Concept.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Resources\KnowledgeBase.png" />
+    <Resource Include="Resources\SemanticNetwork.png" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Resources\Statement.png" />

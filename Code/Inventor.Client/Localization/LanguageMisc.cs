@@ -8,7 +8,7 @@ namespace Inventor.Client.Localization
 		#region Properties
 
 		[XmlElement]
-		public String NameKnowledgeBase
+		public String NameSemanticNetwork
 		{ get; set; }
 
 		[XmlElement]
@@ -61,7 +61,7 @@ namespace Inventor.Client.Localization
 		{
 			return new LanguageMisc
 			{
-				NameKnowledgeBase = "База знаний",
+				NameSemanticNetwork = "База знаний",
 				NameCategoryConcepts = "Понятия",
 				NameCategoryStatements = "Утверждения",
 				StrictEnumeration = " и не может принимать другое значение",

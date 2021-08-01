@@ -20,14 +20,14 @@ namespace Inventor.Test.Questions
 		{
 			// arrange
 			var language = Language.Default;
-			var knowledgeBase = new TestKnowledgeBase(language).KnowledgeBase;
+			var semanticNetwork = new TestSemanticNetwork(language).SemanticNetwork;
 
 			var questionWithoutRecursion = new HasSignQuestion(LogicalValues.True, LogicalValues.False, false);
 			var questionWithRecursion = new HasSignQuestion(LogicalValues.True, LogicalValues.False, true);
 
 			// act
-			var answerWithoutRecursion = questionWithoutRecursion.Ask(knowledgeBase.Context);
-			var answerWithRecursion = questionWithRecursion.Ask(knowledgeBase.Context);
+			var answerWithoutRecursion = questionWithoutRecursion.Ask(semanticNetwork.Context);
+			var answerWithRecursion = questionWithRecursion.Ask(semanticNetwork.Context);
 
 			// assert
 			Assert.IsFalse(answerWithoutRecursion.IsEmpty);
@@ -44,12 +44,12 @@ namespace Inventor.Test.Questions
 		{
 			// arrange
 			var language = Language.Default;
-			var knowledgeBase = new TestKnowledgeBase(language);
+			var semanticNetwork = new TestSemanticNetwork(language);
 
-			var question = new HasSignQuestion(knowledgeBase.Vehicle_Motorcycle, knowledgeBase.Sign_AreaType, false);
+			var question = new HasSignQuestion(semanticNetwork.Vehicle_Motorcycle, semanticNetwork.Sign_AreaType, false);
 
 			// act
-			var answer = question.Ask(knowledgeBase.KnowledgeBase.Context);
+			var answer = question.Ask(semanticNetwork.SemanticNetwork.Context);
 
 			// assert
 			Assert.IsFalse(answer.IsEmpty);
@@ -62,21 +62,21 @@ namespace Inventor.Test.Questions
 		{
 			// arrange
 			var language = Language.Default;
-			var knowledgeBase = new TestKnowledgeBase(language);
+			var semanticNetwork = new TestSemanticNetwork(language);
 
 			var ownSign = new Concept();
 			ownSign.Attributes.Add(IsSignAttribute.Value);
-			knowledgeBase.KnowledgeBase.Concepts.Add(ownSign);
+			semanticNetwork.SemanticNetwork.Concepts.Add(ownSign);
 
-			var ownSignStatement = new HasSignStatement(knowledgeBase.Vehicle_Motorcycle, ownSign);
-			knowledgeBase.KnowledgeBase.Statements.Add(ownSignStatement);
+			var ownSignStatement = new HasSignStatement(semanticNetwork.Vehicle_Motorcycle, ownSign);
+			semanticNetwork.SemanticNetwork.Statements.Add(ownSignStatement);
 
-			var questionOwnSign = new HasSignQuestion(knowledgeBase.Vehicle_Motorcycle, ownSign, false);
-			var questionInheritedSign = new HasSignQuestion(knowledgeBase.Vehicle_Motorcycle, knowledgeBase.Sign_AreaType, false);
+			var questionOwnSign = new HasSignQuestion(semanticNetwork.Vehicle_Motorcycle, ownSign, false);
+			var questionInheritedSign = new HasSignQuestion(semanticNetwork.Vehicle_Motorcycle, semanticNetwork.Sign_AreaType, false);
 
 			// act
-			var answerOwnSign = questionOwnSign.Ask(knowledgeBase.KnowledgeBase.Context);
-			var answerInheritedSign = questionInheritedSign.Ask(knowledgeBase.KnowledgeBase.Context);
+			var answerOwnSign = questionOwnSign.Ask(semanticNetwork.SemanticNetwork.Context);
+			var answerInheritedSign = questionInheritedSign.Ask(semanticNetwork.SemanticNetwork.Context);
 
 			// assert
 			Assert.IsFalse(answerOwnSign.IsEmpty);
@@ -93,21 +93,21 @@ namespace Inventor.Test.Questions
 		{
 			// arrange
 			var language = Language.Default;
-			var knowledgeBase = new TestKnowledgeBase(language);
+			var semanticNetwork = new TestSemanticNetwork(language);
 
 			var ownSign = new Concept();
 			ownSign.Attributes.Add(IsSignAttribute.Value);
-			knowledgeBase.KnowledgeBase.Concepts.Add(ownSign);
+			semanticNetwork.SemanticNetwork.Concepts.Add(ownSign);
 
-			var ownSignStatement = new HasSignStatement(knowledgeBase.Vehicle_Motorcycle, ownSign);
-			knowledgeBase.KnowledgeBase.Statements.Add(ownSignStatement);
+			var ownSignStatement = new HasSignStatement(semanticNetwork.Vehicle_Motorcycle, ownSign);
+			semanticNetwork.SemanticNetwork.Statements.Add(ownSignStatement);
 
-			var questionOwnSign = new HasSignQuestion(knowledgeBase.Vehicle_Motorcycle, ownSign, true);
-			var questionInheritedSign = new HasSignQuestion(knowledgeBase.Vehicle_Motorcycle, knowledgeBase.Sign_AreaType, true);
+			var questionOwnSign = new HasSignQuestion(semanticNetwork.Vehicle_Motorcycle, ownSign, true);
+			var questionInheritedSign = new HasSignQuestion(semanticNetwork.Vehicle_Motorcycle, semanticNetwork.Sign_AreaType, true);
 
 			// act
-			var answerOwnSign = questionOwnSign.Ask(knowledgeBase.KnowledgeBase.Context);
-			var answerInheritedSign = questionInheritedSign.Ask(knowledgeBase.KnowledgeBase.Context);
+			var answerOwnSign = questionOwnSign.Ask(semanticNetwork.SemanticNetwork.Context);
+			var answerInheritedSign = questionInheritedSign.Ask(semanticNetwork.SemanticNetwork.Context);
 
 			// assert
 			Assert.IsFalse(answerOwnSign.IsEmpty);
