@@ -77,7 +77,7 @@ namespace Inventor.Client.ViewModels
 			}
 		}
 
-		public void ApplyCreate(Core.ISemanticNetwork semanticNetwork)
+		public object ApplyCreate(Core.ISemanticNetwork semanticNetwork)
 		{
 			semanticNetwork.Concepts.Add(_boundObject = new Core.Base.Concept(Name.Create(), Hint.Create()));
 
@@ -88,6 +88,8 @@ namespace Inventor.Client.ViewModels
 					_boundObject.Attributes.Add(attribute.Value);
 				}
 			}
+
+			return _boundObject;
 		}
 
 		public void ApplyUpdate()
