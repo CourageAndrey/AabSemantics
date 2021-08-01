@@ -8,7 +8,7 @@ namespace Inventor.Client
 	{
 		Window CreateEditDialog(Window owner, ISemanticNetwork semanticNetwork, ILanguage language);
 
-		void ApplyCreate(ISemanticNetwork semanticNetwork);
+		object ApplyCreate(ISemanticNetwork semanticNetwork);
 
 		void ApplyUpdate();
 	}
@@ -19,9 +19,11 @@ namespace Inventor.Client
 
 		public abstract StatementViewModel Clone();
 
-		public void ApplyCreate(ISemanticNetwork semanticNetwork)
+		public object ApplyCreate(ISemanticNetwork semanticNetwork)
 		{
-			semanticNetwork.Statements.Add(CreateStatement());
+			var statement = CreateStatement();
+			semanticNetwork.Statements.Add(statement);
+			return statement;
 		}
 
 		public abstract void ApplyUpdate();
