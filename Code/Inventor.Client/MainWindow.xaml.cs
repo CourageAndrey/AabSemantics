@@ -198,6 +198,36 @@ namespace Inventor.Client
 
 		#region Knowledge Tree Menu
 
+		private void renameClick(object sender, RoutedEventArgs e)
+		{
+			var semanticNetworkNode = treeViewSemanticNetwork.SelectedItem as SemanticNetworkNode;
+			if (semanticNetworkNode == null) return;
+
+			var editingName = semanticNetworkNode.SemanticNetwork.Name;
+
+			var control = new Controls.LocalizedStringVariableControl();
+			control.Localize(_application.CurrentLanguage);
+			control.EditValue = ViewModels.LocalizedString.From(editingName);
+
+			var dialog = new EditDialog
+			{
+				Owner = this,
+				Editor = control,
+				Title = editingName.GetValue(_application.CurrentLanguage),
+				SizeToContent = SizeToContent.WidthAndHeight,
+				MinWidth = 200,
+				MinHeight = 100,
+				WindowStartupLocation = WindowStartupLocation.CenterOwner,
+			};
+			dialog.Localize(_application.CurrentLanguage);
+
+			if (dialog.ShowDialog() == true)
+			{
+				control.EditValue.Apply(editingName);
+				semanticNetworkNode.RefreshView();
+			}
+		}
+
 		private void addKnowledgeClick(object sender, RoutedEventArgs e)
 		{
 			Type type = null;
@@ -271,6 +301,9 @@ namespace Inventor.Client
 			//bool isStatementsNode = selectedItem is SemanticNetworkStatementsNode;
 			bool isConceptNode = selectedItem is ConceptNode;
 			var statementNode = selectedItem as StatementNode;
+			_rename.Visibility = isSemanticNetworkNode
+				? Visibility.Visible
+				: Visibility.Collapsed;
 			_addKnowledgeItem.Visibility = !isSemanticNetworkNode
 				? Visibility.Visible
 				: Visibility.Collapsed;

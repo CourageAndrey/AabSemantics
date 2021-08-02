@@ -130,6 +130,9 @@ namespace Inventor.Client
 		String Configuration
 		{ get; }
 
+		String ContextMenuRename
+		{ get; }
+
 		String ContextMenuKnowledgeAdd
 		{ get; }
 
