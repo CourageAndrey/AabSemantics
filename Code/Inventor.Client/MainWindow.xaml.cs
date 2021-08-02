@@ -150,28 +150,6 @@ namespace Inventor.Client
 			}.Show();
 		}
 
-		private static OpenFileDialog createOpenFileDialog(ILanguage language)
-		{
-			return new OpenFileDialog
-			{
-				DefaultExt = ".xml",
-				Filter = language.Misc.DialogKbFileFilter,
-				RestoreDirectory = true,
-				Title = language.Misc.DialogKbOpenTitle,
-			};
-		}
-
-		private static SaveFileDialog createSaveFileDialog(ILanguage language)
-		{
-			return new SaveFileDialog
-			{
-				DefaultExt = ".xml",
-				Filter = language.Misc.DialogKbFileFilter,
-				RestoreDirectory = true,
-				Title = language.Misc.DialogKbSaveTitle,
-			};
-		}
-
 		#endregion
 
 		#region Object picking
@@ -312,6 +290,30 @@ namespace Inventor.Client
 
 		#region Save/Load
 
+		private OpenFileDialog createOpenFileDialog()
+		{
+			var language = _application.CurrentLanguage;
+			return new OpenFileDialog
+			{
+				DefaultExt = ".xml",
+				Filter = language.Misc.DialogKbFileFilter,
+				RestoreDirectory = true,
+				Title = language.Misc.DialogKbOpenTitle,
+			};
+		}
+
+		private SaveFileDialog createSaveFileDialog()
+		{
+			var language = _application.CurrentLanguage;
+			return new SaveFileDialog
+			{
+				DefaultExt = ".xml",
+				Filter = language.Misc.DialogKbFileFilter,
+				RestoreDirectory = true,
+				Title = language.Misc.DialogKbSaveTitle,
+			};
+		}
+
 		private void update()
 		{
 			buttonNew.IsEnabled = buttonLoad.IsEnabled = buttonSaveAs.IsEnabled = true;
@@ -344,7 +346,7 @@ namespace Inventor.Client
 
 		private void buttonLoad_Click(object sender, RoutedEventArgs e)
 		{
-			var dialog = createOpenFileDialog(_application.CurrentLanguage);
+			var dialog = createOpenFileDialog();
 			dialog.FileName = _fileName;
 			if (dialog.ShowDialog() == true)
 			{
@@ -368,7 +370,7 @@ namespace Inventor.Client
 
 		private void buttonSaveAs_Click(object sender, RoutedEventArgs e)
 		{
-			var dialog = createSaveFileDialog(_application.CurrentLanguage);
+			var dialog = createSaveFileDialog();
 			dialog.FileName = _fileName;
 			if (dialog.ShowDialog() == true)
 			{
