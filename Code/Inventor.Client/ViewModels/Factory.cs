@@ -11,7 +11,7 @@ namespace Inventor.Client.ViewModels
 		{
 			if (type == typeof(Core.Base.Concept))
 			{
-				return new Concept();
+				return new Concept(language);
 			}
 			else if (type == typeof(Core.Statements.HasPartStatement))
 			{
