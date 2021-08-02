@@ -52,6 +52,10 @@ namespace Inventor.Client.Localization
 		{ get; set; }
 
 		[XmlElement]
+		public String ContextMenuRename
+		{ get; set; }
+
+		[XmlElement]
 		public String ContextMenuKnowledgeAdd
 		{ get; set; }
 
@@ -80,6 +84,7 @@ namespace Inventor.Client.Localization
 				AskQuestion = "Задать вопрос...",
 				SelectLanguage = "Язык:",
 				Configuration = "Настройки...",
+				ContextMenuRename = "Переименовать...",
 				ContextMenuKnowledgeAdd = "Добавить...",
 				ContextMenuKnowledgeEdit = "Редактировать...",
 				ContextMenuKnowledgeDelete = "Удалить",
