@@ -314,7 +314,7 @@ namespace Inventor.Client
 			};
 		}
 
-		private void update()
+		private void updateFileButtons()
 		{
 			buttonNew.IsEnabled = buttonLoad.IsEnabled = buttonSaveAs.IsEnabled = true;
 			buttonSave.IsEnabled = _isChanged;
@@ -333,7 +333,7 @@ namespace Inventor.Client
 
 			_isChanged = false;
 			_fileName = newFileName;
-			update();
+			updateFileButtons();
 		}
 
 		private void buttonNew_Click(object sender, RoutedEventArgs e)
@@ -364,7 +364,7 @@ namespace Inventor.Client
 			{
 				saveToFile(_entity, _fileName);
 				_isChanged = false;
-				update();
+				updateFileButtons();
 			}
 		}
 
@@ -376,14 +376,14 @@ namespace Inventor.Client
 			{
 				saveToFile(_entity, _fileName = dialog.FileName);
 				_isChanged = false;
-				update();
+				updateFileButtons();
 			}
 		}
 
 		private void entityModified(Object sender, EventArgs eventArgs)
 		{
 			_isChanged = true;
-			update();
+			updateFileButtons();
 		}
 
 		private IChangeable _entity;
