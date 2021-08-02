@@ -34,11 +34,7 @@ namespace Inventor.Client
 		internal void Initialize(InventorApplication application)
 		{
 			dockPanelMain.DataContext = _application = application;
-			_saveLoadController = new SaveLoadController(buttonNew, buttonLoad, buttonSave, buttonSaveAs,
-				createNew, loadFromFile, saveToFile,
-				() => createOpenFileDialog(_application.CurrentLanguage), () => createSaveFileDialog(_application.CurrentLanguage),
-				(s, a) => { },
-				application.SemanticNetwork);
+			ChangeEntity(application.SemanticNetwork ?? createNew());
 			reloadSemanticNetworkTree();
 		}
 
@@ -46,7 +42,6 @@ namespace Inventor.Client
 		private readonly Localizator _localizator;
 		private InventorApplication _application;
 		private SemanticNetworkNode _semanticNetworkNode;
-		private SaveLoadController _saveLoadController;
 
 		private void selectedLanguageChanged(object sender, SelectionChangedEventArgs e)
 		{
@@ -79,7 +74,7 @@ namespace Inventor.Client
 		{
 			_application.SemanticNetwork = new TestSemanticNetwork(_application.CurrentLanguage).SemanticNetwork;
 			reloadSemanticNetworkTree();
-			_saveLoadController.ChangeEntity(_application.SemanticNetwork);
+			ChangeEntity(_application.SemanticNetwork);
 		}
 
 		private void reloadSemanticNetworkTree()
@@ -312,6 +307,86 @@ namespace Inventor.Client
 					? Visibility.Visible
 					: Visibility.Collapsed;
 		}
+
+		#endregion
+
+		#region Save/Load
+
+		private void update()
+		{
+			buttonNew.IsEnabled = buttonLoad.IsEnabled = buttonSaveAs.IsEnabled = true;
+			buttonSave.IsEnabled = _isChanged;
+		}
+
+		public void ChangeEntity(IChangeable newEntity, String newFileName = null)
+		{
+			if (newEntity == null) throw new ArgumentNullException(nameof(newEntity));
+
+			if (_entity != null)
+			{
+				_entity.Changed -= entityModified;
+			}
+			_entity = newEntity;
+			_entity.Changed += entityModified;
+
+			_isChanged = false;
+			_fileName = newFileName;
+			update();
+		}
+
+		private void buttonNew_Click(object sender, RoutedEventArgs e)
+		{
+			var semanticNetwork = new SemanticNetwork(_application.CurrentLanguage);
+			_application.SemanticNetwork = semanticNetwork;
+			reloadSemanticNetworkTree();
+			ChangeEntity(semanticNetwork);
+		}
+
+		private void buttonLoad_Click(object sender, RoutedEventArgs e)
+		{
+			var dialog = createOpenFileDialog(_application.CurrentLanguage);
+			dialog.FileName = _fileName;
+			if (dialog.ShowDialog() == true)
+			{
+				ChangeEntity(loadFromFile(dialog.FileName), dialog.FileName);
+			}
+		}
+
+		private void buttonSave_Click(object sender, RoutedEventArgs e)
+		{
+			if (String.IsNullOrEmpty(_fileName))
+			{
+				buttonSaveAs_Click(sender, e);
+			}
+			else
+			{
+				saveToFile(_entity, _fileName);
+				_isChanged = false;
+				update();
+			}
+		}
+
+		private void buttonSaveAs_Click(object sender, RoutedEventArgs e)
+		{
+			var dialog = createSaveFileDialog(_application.CurrentLanguage);
+			dialog.FileName = _fileName;
+			if (dialog.ShowDialog() == true)
+			{
+				saveToFile(_entity, _fileName = dialog.FileName);
+				_isChanged = false;
+				update();
+			}
+		}
+
+		private void entityModified(Object sender, EventArgs eventArgs)
+		{
+			_isChanged = true;
+			update();
+		}
+
+		private IChangeable _entity;
+		private Boolean _isChanged;
+		private String _fileName;
 
 		#endregion
 	}

@@ -27,16 +27,16 @@
 	<DockPanel LastChildFill="True" Name="dockPanelMain">
 		<ToolBarPanel Orientation="Horizontal" DockPanel.Dock="Top">
 			<ToolBar>
-				<Button ToolTip="{Binding Source={StaticResource language}, Path=Ui.MainForm.CreateNew, Mode=OneTime}" Name="buttonNew"  Margin="2">
+				<Button ToolTip="{Binding Source={StaticResource language}, Path=Ui.MainForm.CreateNew, Mode=OneTime}" Name="buttonNew"  Margin="2" Click="buttonNew_Click">
 					<Image Source="Resources/New.png" Width="24" Height="24" />
 				</Button>
-				<Button ToolTip="{Binding Source={StaticResource language}, Path=Ui.MainForm.Load, Mode=OneTime}" Name="buttonLoad" Margin="2">
+				<Button ToolTip="{Binding Source={StaticResource language}, Path=Ui.MainForm.Load, Mode=OneTime}" Name="buttonLoad" Margin="2" Click="buttonLoad_Click">
 					<Image Source="Resources/Open.png" Width="24" Height="24" />
 				</Button>
-				<Button ToolTip="{Binding Source={StaticResource language}, Path=Ui.MainForm.Save, Mode=OneTime}" Name="buttonSave" Margin="2">
+				<Button ToolTip="{Binding Source={StaticResource language}, Path=Ui.MainForm.Save, Mode=OneTime}" Name="buttonSave" Margin="2" Click="buttonSave_Click">
 					<Image Source="Resources/Save.png" Width="24" Height="24" />
 				</Button>
-				<Button ToolTip="{Binding Source={StaticResource language}, Path=Ui.MainForm.SaveAs, Mode=OneTime}" Name="buttonSaveAs" Margin="2">
+				<Button ToolTip="{Binding Source={StaticResource language}, Path=Ui.MainForm.SaveAs, Mode=OneTime}" Name="buttonSaveAs" Margin="2" Click="buttonSaveAs_Click">
 					<Image Source="Resources/SaveAs.png" Width="24" Height="24" />
 				</Button>
 				<Button ToolTip="{Binding Source={StaticResource language}, Path=Ui.MainForm.CreateTest, Mode=OneTime}" Click="createTestClick" Margin="2">
