@@ -27,7 +27,7 @@ namespace Inventor.Client.ViewModels.Statements
 		public IsStatement(Core.Statements.IsStatement statement, ILanguage language)
 			: this(new ConceptItem(statement.Ancestor, language), new ConceptItem(statement.Descendant, language), language)
 		{
-			_boundObject = statement;
+			BoundObject = statement;
 		}
 
 		public IsStatement(ConceptItem ancestor, ConceptItem descendant, ILanguage language)
@@ -69,7 +69,7 @@ namespace Inventor.Client.ViewModels.Statements
 
 		public override void ApplyUpdate()
 		{
-			_boundObject.Update(Ancestor.Concept, Descendant.Concept);
+			BoundObject.Update(Ancestor.Concept, Descendant.Concept);
 		}
 
 		#endregion

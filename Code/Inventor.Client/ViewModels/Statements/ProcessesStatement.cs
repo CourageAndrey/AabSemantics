@@ -30,7 +30,7 @@ namespace Inventor.Client.ViewModels.Statements
 		public ProcessesStatement(Core.Statements.ProcessesStatement statement, ILanguage language)
 			: this(new ConceptItem(statement.ProcessA, language), new ConceptItem(statement.ProcessB, language), new ConceptItem(statement.SequenceSign, language), language)
 		{
-			_boundObject = statement;
+			BoundObject = statement;
 		}
 
 		public ProcessesStatement(ConceptItem processA, ConceptItem processB, ConceptItem sequenceSign, ILanguage language)
@@ -73,7 +73,7 @@ namespace Inventor.Client.ViewModels.Statements
 
 		public override void ApplyUpdate()
 		{
-			_boundObject.Update(ProcessA.Concept, ProcessB.Concept, SequenceSign.Concept);
+			BoundObject.Update(ProcessA.Concept, ProcessB.Concept, SequenceSign.Concept);
 		}
 
 		#endregion

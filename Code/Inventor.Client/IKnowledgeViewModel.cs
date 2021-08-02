@@ -15,6 +15,9 @@ namespace Inventor.Client
 
 	public abstract class StatementViewModel : IKnowledgeViewModel
 	{
+		public abstract IStatement BoundStatement
+		{ get; }
+
 		public abstract Window CreateEditDialog(Window owner, ISemanticNetwork semanticNetwork, ILanguage language);
 
 		public abstract StatementViewModel Clone();
@@ -34,7 +37,12 @@ namespace Inventor.Client
 	public abstract class StatementViewModel<StatementT> : StatementViewModel
 		where StatementT : class, IStatement
 	{
-		protected StatementT _boundObject;
+		public override IStatement BoundStatement
+		{ get { return BoundObject;} }
+
+		public StatementT BoundObject
+		{ get; protected set; }
+
 		protected readonly ILanguage _language;
 
 		protected StatementViewModel(ILanguage language)
@@ -44,14 +52,14 @@ namespace Inventor.Client
 
 		public override IStatement CreateStatement()
 		{
-			return _boundObject = CreateStatementImplementation();
+			return BoundObject = CreateStatementImplementation();
 		}
 
 		protected abstract StatementT CreateStatementImplementation();
 
 		public override string ToString()
 		{
-			var statement = _boundObject ?? CreateStatementImplementation();
+			var statement = BoundObject ?? CreateStatementImplementation();
 			var text = statement.DescribeTrue(_language);
 			return text.GetPlainText(_language);
 		}
