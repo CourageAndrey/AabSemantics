@@ -223,7 +223,8 @@ namespace Inventor.Client
 
 			if (dialog.ShowDialog() == true)
 			{
-				control.EditValue.Apply(editingName);
+				var command = control.EditValue.CreateRenameCommand(_application.SemanticNetwork);
+				command.Apply();
 				semanticNetworkNode.RefreshView();
 			}
 		}
