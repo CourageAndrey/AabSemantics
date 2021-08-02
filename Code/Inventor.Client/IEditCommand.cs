@@ -1,5 +1,6 @@
 ﻿using Inventor.Client.Commands;
 using Inventor.Client.TreeNodes;
+using Inventor.Client.ViewModels;
 using Inventor.Core;
 
 namespace Inventor.Client
@@ -80,6 +81,11 @@ namespace Inventor.Client
 			}
 
 			return null;
+		}
+
+		public static IEditCommand CreateRenameCommand(this LocalizedString name, ISemanticNetwork semanticNetwork)
+		{
+			return new RenameSemanticNetworkCommand(semanticNetwork, name);
 		}
 	}
 }
