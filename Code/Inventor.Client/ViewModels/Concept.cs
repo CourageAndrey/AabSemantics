@@ -23,8 +23,10 @@ namespace Inventor.Client.ViewModels
 
 		#region Constructors
 
-		public Concept()
-			: this(new LocalizedStringVariable(), new LocalizedStringVariable())
+		public Concept(ILanguage language)
+			: this(
+				new LocalizedStringVariable(new Dictionary<string, string> { { language.Culture, string.Empty }, }),
+				new LocalizedStringVariable())
 		{ }
 
 		public Concept(Core.Base.Concept concept)
