@@ -30,7 +30,7 @@ namespace Inventor.Client.ViewModels.Statements
 		public ComparisonStatement(Core.Statements.ComparisonStatement statement, ILanguage language)
 			: this(new ConceptItem(statement.LeftValue, language), new ConceptItem(statement.RightValue, language), new ConceptItem(statement.ComparisonSign, language), language)
 		{
-			_boundObject = statement;
+			BoundObject = statement;
 		}
 
 		public ComparisonStatement(ConceptItem leftValue, ConceptItem rightValue, ConceptItem comparisonSign, ILanguage language)
@@ -73,7 +73,7 @@ namespace Inventor.Client.ViewModels.Statements
 
 		public override void ApplyUpdate()
 		{
-			_boundObject.Update(LeftValue.Concept, RightValue.Concept, ComparisonSign.Concept);
+			BoundObject.Update(LeftValue.Concept, RightValue.Concept, ComparisonSign.Concept);
 		}
 
 		#endregion

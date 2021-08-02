@@ -30,7 +30,7 @@ namespace Inventor.Client.ViewModels.Statements
 		public SignValueStatement(Core.Statements.SignValueStatement statement, ILanguage language)
 			: this(new ConceptItem(statement.Concept, language), new ConceptItem(statement.Sign, language), new ConceptItem(statement.Value, language), language)
 		{
-			_boundObject = statement;
+			BoundObject = statement;
 		}
 
 		public SignValueStatement(ConceptItem concept, ConceptItem sign, ConceptItem value, ILanguage language)
@@ -73,7 +73,7 @@ namespace Inventor.Client.ViewModels.Statements
 
 		public override void ApplyUpdate()
 		{
-			_boundObject.Update(Concept.Concept, Sign.Concept, Value.Concept);
+			BoundObject.Update(Concept.Concept, Sign.Concept, Value.Concept);
 		}
 
 		#endregion

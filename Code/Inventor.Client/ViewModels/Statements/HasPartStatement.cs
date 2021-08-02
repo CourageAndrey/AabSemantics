@@ -27,7 +27,7 @@ namespace Inventor.Client.ViewModels.Statements
 		public HasPartStatement(Core.Statements.HasPartStatement statement, ILanguage language)
 			: this(new ConceptItem(statement.Whole, language), new ConceptItem(statement.Part, language), language)
 		{
-			_boundObject = statement;
+			BoundObject = statement;
 		}
 
 		public HasPartStatement(ConceptItem whole, ConceptItem part, ILanguage language)
@@ -69,7 +69,7 @@ namespace Inventor.Client.ViewModels.Statements
 
 		public override void ApplyUpdate()
 		{
-			_boundObject.Update(Whole.Concept, Part.Concept);
+			BoundObject.Update(Whole.Concept, Part.Concept);
 		}
 
 		#endregion

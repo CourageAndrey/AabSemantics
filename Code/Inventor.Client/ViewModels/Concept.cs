@@ -30,7 +30,7 @@ namespace Inventor.Client.ViewModels
 		public Concept(Core.Base.Concept concept)
 			: this(LocalizedString.From(concept.Name), LocalizedString.From(concept.Hint))
 		{
-			_boundObject = concept;
+			BoundObject = concept;
 		}
 
 		public Concept(LocalizedString name, LocalizedString hint)
@@ -43,7 +43,8 @@ namespace Inventor.Client.ViewModels
 
 		#region Implementation of IViewModel
 
-		private Core.Base.Concept _boundObject;
+		public Core.Base.Concept BoundObject
+		{ get; private set; }
 
 		public Window CreateEditDialog(Window owner, Core.ISemanticNetwork semanticNetwork, ILanguage language)
 		{
@@ -70,39 +71,39 @@ namespace Inventor.Client.ViewModels
 		private void updateAttributes(Core.IAttributeRepository attributeRepository, ILanguage language)
 		{
 			Attributes.Clear();
-			Attributes.Add(new ConceptAttribute(Core.AttributeDefinition.None, language, _boundObject == null || _boundObject.Attributes.Count == 0));
+			Attributes.Add(new ConceptAttribute(Core.AttributeDefinition.None, language, BoundObject == null || BoundObject.Attributes.Count == 0));
 			foreach (var attributeDefinition in attributeRepository.AttributeDefinitions.Values)
 			{
-				Attributes.Add(new ConceptAttribute(attributeDefinition, language, _boundObject != null && _boundObject.Attributes.Contains(attributeDefinition.AttributeValue)));
+				Attributes.Add(new ConceptAttribute(attributeDefinition, language, BoundObject != null && BoundObject.Attributes.Contains(attributeDefinition.AttributeValue)));
 			}
 		}
 
 		public object ApplyCreate(Core.ISemanticNetwork semanticNetwork)
 		{
-			semanticNetwork.Concepts.Add(_boundObject = new Core.Base.Concept(Name.Create(), Hint.Create()));
+			semanticNetwork.Concepts.Add(BoundObject = new Core.Base.Concept(Name.Create(), Hint.Create()));
 
 			foreach (var attribute in Attributes)
 			{
 				if (attribute.IsOn && attribute.Value != null)
 				{
-					_boundObject.Attributes.Add(attribute.Value);
+					BoundObject.Attributes.Add(attribute.Value);
 				}
 			}
 
-			return _boundObject;
+			return BoundObject;
 		}
 
 		public void ApplyUpdate()
 		{
-			Name?.Apply(_boundObject.Name);
-			Hint?.Apply(_boundObject.Hint);
+			Name?.Apply(BoundObject.Name);
+			Hint?.Apply(BoundObject.Hint);
 
-			_boundObject.Attributes.Clear();
+			BoundObject.Attributes.Clear();
 			foreach (var attribute in Attributes)
 			{
 				if (attribute.IsOn && attribute.Value != null)
 				{
-					_boundObject.Attributes.Add(attribute.Value);
+					BoundObject.Attributes.Add(attribute.Value);
 				}
 			}
 		}

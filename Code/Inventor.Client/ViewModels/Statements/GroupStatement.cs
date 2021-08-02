@@ -27,7 +27,7 @@ namespace Inventor.Client.ViewModels.Statements
 		public GroupStatement(Core.Statements.GroupStatement statement, ILanguage language)
 			: this(new ConceptItem(statement.Area, language), new ConceptItem(statement.Concept, language), language)
 		{
-			_boundObject = statement;
+			BoundObject = statement;
 		}
 
 		public GroupStatement(ConceptItem area, ConceptItem concept, ILanguage language)
@@ -69,7 +69,7 @@ namespace Inventor.Client.ViewModels.Statements
 
 		public override void ApplyUpdate()
 		{
-			_boundObject.Update(Area.Concept, Concept.Concept);
+			BoundObject.Update(Area.Concept, Concept.Concept);
 		}
 
 		#endregion

@@ -27,7 +27,7 @@ namespace Inventor.Client.ViewModels.Statements
 		public HasSignStatement(Core.Statements.HasSignStatement statement, ILanguage language)
 			: this(new ConceptItem(statement.Concept, language), new ConceptItem(statement.Sign, language), language)
 		{
-			_boundObject = statement;
+			BoundObject = statement;
 		}
 
 		public HasSignStatement(ConceptItem concept, ConceptItem sign, ILanguage language)
@@ -69,7 +69,7 @@ namespace Inventor.Client.ViewModels.Statements
 
 		public override void ApplyUpdate()
 		{
-			_boundObject.Update(Concept.Concept, Sign.Concept);
+			BoundObject.Update(Concept.Concept, Sign.Concept);
 		}
 
 		#endregion
