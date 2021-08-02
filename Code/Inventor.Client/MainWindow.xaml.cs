@@ -225,7 +225,11 @@ namespace Inventor.Client
 
 			if (editDialog.ShowDialog() == true)
 			{
-				viewModel.ApplyCreate(_application.SemanticNetwork);
+				var command = viewModel.CreateAddCommand(_application.SemanticNetwork);
+				if (command != null)
+				{
+					command.Apply();
+				}
 			}
 		}
 
@@ -240,25 +244,22 @@ namespace Inventor.Client
 
 			if (editDialog.ShowDialog() == true)
 			{
-				viewModel.ApplyUpdate();
+				var command = viewModel.CreateEditCommand(_application.SemanticNetwork, _application.CurrentLanguage);
+				if (command != null)
+				{
+					command.Apply();
+				}
 				selectedNode.RefreshView();
 			}
 		}
 
 		private void deleteKnowledgeClick(object sender, RoutedEventArgs e)
 		{
-			var conceptNode = treeViewSemanticNetwork.SelectedItem as ConceptNode;
-			if (conceptNode != null)
+			var extendedNode = treeViewSemanticNetwork.SelectedItem as ExtendedTreeNode;
+			var command = extendedNode.CreateDeleteCommand(_application.SemanticNetwork);
+			if (command != null)
 			{
-				_application.SemanticNetwork.Concepts.Remove(conceptNode.Concept);
-				return;
-			}
-
-			var statementNode = treeViewSemanticNetwork.SelectedItem as StatementNode;
-			if (statementNode != null)
-			{
-				_application.SemanticNetwork.Statements.Remove(statementNode.Statement);
-				return;
+				command.Apply();
 			}
 		}
 

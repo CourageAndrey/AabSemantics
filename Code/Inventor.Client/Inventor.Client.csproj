@@ -56,6 +56,13 @@
     <Reference Include="WindowsFormsIntegration" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Commands\AddConceptCommand.cs" />
+    <Compile Include="Commands\AddStatementCommand.cs" />
+    <Compile Include="Commands\DeleteConceptCommand.cs" />
+    <Compile Include="Commands\DeleteStatementCommand.cs" />
+    <Compile Include="Commands\EditConceptCommand.cs" />
+    <Compile Include="Commands\EditStatementCommand.cs" />
+    <Compile Include="Commands\RenameSemanticNetworkCommand.cs" />
     <Compile Include="Controls\ComparisonStatementControl.xaml.cs">
       <DependentUpon>ComparisonStatementControl.xaml</DependentUpon>
     </Compile>
@@ -78,6 +85,7 @@
     <Compile Include="Controls\ProcessesStatementControl.xaml.cs">
       <DependentUpon>ProcessesStatementControl.xaml</DependentUpon>
     </Compile>
+    <Compile Include="IEditCommand.cs" />
     <Compile Include="ILanguage.cs" />
     <Compile Include="IQuestionViewModel.cs" />
     <Compile Include="Localization\Language.cs" />
