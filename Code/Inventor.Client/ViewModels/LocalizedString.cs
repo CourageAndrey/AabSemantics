@@ -14,7 +14,7 @@ namespace Inventor.Client.ViewModels
 
 		public static LocalizedString From(ILocalizedString value)
 		{
-			return value is LocalizedStringVariable
+			return value is Core.Localization.LocalizedStringVariable
 				? new LocalizedStringVariable(value as Core.Localization.LocalizedStringVariable) as LocalizedString
 				: new LocalizedStringConstant(value as Core.Localization.LocalizedStringConstant);
 		}
