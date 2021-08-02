@@ -138,7 +138,6 @@
     <Compile Include="Dialogs\QuestionDialog.xaml.cs">
       <DependentUpon>QuestionDialog.xaml</DependentUpon>
     </Compile>
-    <Compile Include="SaveLoadController.cs" />
     <Compile Include="UiHelper.cs" />
     <Compile Include="ViewModels\Concept.cs" />
     <Compile Include="ViewModels\Questions\CheckStatementQuestion.cs" />
