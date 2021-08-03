@@ -3,7 +3,7 @@
 		xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
 		xmlns:localization="clr-namespace:Inventor.Client.Localization"
 		xmlns:treeNodes="clr-namespace:Inventor.Client.TreeNodes"
-		Width="800" Height="600" WindowStartupLocation="CenterScreen" Icon="Inventor.ico">
+		Width="800" Height="600" WindowStartupLocation="CenterScreen" Icon="Inventor.ico" Closing="onWindowClosing">
 	<Window.Resources>
 		<ObjectDataProvider x:Key="language" ObjectType="{x:Type localization:Localizator}" />
 		<Style x:Key="bigTextStyle">
@@ -39,7 +39,7 @@
 				<Button ToolTip="{Binding Source={StaticResource language}, Path=Ui.MainForm.SaveAs, Mode=OneTime}" Name="buttonSaveAs" Margin="2" Click="buttonSaveAs_Click">
 					<Image Source="Resources/SaveAs.png" Width="24" Height="24" />
 				</Button>
-				<Button ToolTip="{Binding Source={StaticResource language}, Path=Ui.MainForm.CreateTest, Mode=OneTime}" Click="createTestClick" Margin="2">
+				<Button ToolTip="{Binding Source={StaticResource language}, Path=Ui.MainForm.CreateTest, Mode=OneTime}" Click="buttonCreateTest_Click" Margin="2">
 					<Image Source="Resources/CreateTest.png" Width="24" Height="24" />
 				</Button>
 			</ToolBar>

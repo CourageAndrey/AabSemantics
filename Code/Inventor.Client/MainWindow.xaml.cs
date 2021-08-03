@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
@@ -23,19 +24,12 @@ namespace Inventor.Client
 
 			_localizationProvider = (ObjectDataProvider) Resources["language"];
 			_localizator = (Localizator) _localizationProvider.Data;
-
-			SetBinding(TitleProperty, new Binding("Ui.MainForm.Title")
-			{
-				Source = _localizationProvider,
-				Mode = BindingMode.OneTime,
-			});
 		}
 
 		internal void Initialize(InventorApplication application)
 		{
 			dockPanelMain.DataContext = _application = application;
-			ChangeEntity(application.SemanticNetwork ?? createNew());
-			reloadSemanticNetworkTree();
+			setModel(application.SemanticNetwork, string.Empty);
 		}
 
 		private readonly ObjectDataProvider _localizationProvider;
@@ -48,47 +42,6 @@ namespace Inventor.Client
 			_localizator.Change(_application.CurrentLanguage);
 			_localizationProvider.Refresh();
 		}
-
-		#region Main menu
-
-		private void saveToFile(IChangeable changeable, string fileName)
-		{
-			_semanticNetworkNode.SemanticNetwork.Save(fileName);
-		}
-
-		private IChangeable loadFromFile(string fileName)
-		{
-			_application.SemanticNetwork = SemanticNetwork.Load(fileName, _application.CurrentLanguage);
-			reloadSemanticNetworkTree();
-			return _application.SemanticNetwork;
-		}
-
-		private IChangeable createNew()
-		{
-			_application.SemanticNetwork = new SemanticNetwork(_application.CurrentLanguage);
-			reloadSemanticNetworkTree();
-			return _application.SemanticNetwork;
-		}
-
-		private void createTestClick(object sender, RoutedEventArgs e)
-		{
-			_application.SemanticNetwork = new TestSemanticNetwork(_application.CurrentLanguage).SemanticNetwork;
-			reloadSemanticNetworkTree();
-			ChangeEntity(_application.SemanticNetwork);
-		}
-
-		private void reloadSemanticNetworkTree()
-		{
-			treeViewSemanticNetwork.Items.Clear();
-			if (_semanticNetworkNode != null)
-			{
-				_semanticNetworkNode.Clear();
-			}
-			treeViewSemanticNetwork.Items.Add(_semanticNetworkNode = new SemanticNetworkNode(_application.SemanticNetwork, _application));
-			_semanticNetworkNode.IsExpanded = true;
-		}
-
-		#endregion
 
 		#region Knowledgebase actions
 
@@ -197,7 +150,7 @@ namespace Inventor.Client
 			if (dialog.ShowDialog() == true)
 			{
 				var command = control.EditValue.CreateRenameCommand(_application.SemanticNetwork);
-				command.Apply();
+				PerformCommand(command);
 				semanticNetworkNode.RefreshView();
 			}
 		}
@@ -232,7 +185,7 @@ namespace Inventor.Client
 				var command = viewModel.CreateAddCommand(_application.SemanticNetwork);
 				if (command != null)
 				{
-					command.Apply();
+					PerformCommand(command);
 				}
 			}
 		}
@@ -251,7 +204,7 @@ namespace Inventor.Client
 				var command = viewModel.CreateEditCommand(_application.SemanticNetwork, _application.CurrentLanguage);
 				if (command != null)
 				{
-					command.Apply();
+					PerformCommand(command);
 				}
 				selectedNode.RefreshView();
 			}
@@ -263,7 +216,7 @@ namespace Inventor.Client
 			var command = extendedNode.CreateDeleteCommand(_application.SemanticNetwork);
 			if (command != null)
 			{
-				command.Apply();
+				PerformCommand(command);
 			}
 		}
 
@@ -290,6 +243,17 @@ namespace Inventor.Client
 
 		#region Save/Load
 
+		private void reloadSemanticNetworkTree()
+		{
+			treeViewSemanticNetwork.Items.Clear();
+			if (_semanticNetworkNode != null)
+			{
+				_semanticNetworkNode.Clear();
+			}
+			treeViewSemanticNetwork.Items.Add(_semanticNetworkNode = new SemanticNetworkNode(_application.SemanticNetwork, _application));
+			_semanticNetworkNode.IsExpanded = true;
+		}
+
 		private OpenFileDialog createOpenFileDialog()
 		{
 			var language = _application.CurrentLanguage;
@@ -314,81 +278,136 @@ namespace Inventor.Client
 			};
 		}
 
-		private void updateFileButtons()
+		private void refreshFileButtonsAndTitle()
 		{
 			buttonNew.IsEnabled = buttonLoad.IsEnabled = buttonSaveAs.IsEnabled = true;
-			buttonSave.IsEnabled = _isChanged;
-		}
+			buttonSave.IsEnabled = isChanged();
 
-		public void ChangeEntity(IChangeable newEntity, String newFileName = null)
-		{
-			if (newEntity == null) throw new ArgumentNullException(nameof(newEntity));
-
-			if (_entity != null)
-			{
-				_entity.Changed -= entityModified;
-			}
-			_entity = newEntity;
-			_entity.Changed += entityModified;
-
-			_isChanged = false;
-			_fileName = newFileName;
-			updateFileButtons();
+			string changesSign = isChanged() ? "*" : string.Empty;
+			Title = $"{_fileName}{changesSign} - {_application.CurrentLanguage.Ui.MainForm.Title}";
 		}
 
 		private void buttonNew_Click(object sender, RoutedEventArgs e)
 		{
-			var semanticNetwork = new SemanticNetwork(_application.CurrentLanguage);
-			_application.SemanticNetwork = semanticNetwork;
-			reloadSemanticNetworkTree();
-			ChangeEntity(semanticNetwork);
+			if (canProceedAfterSave())
+			{
+				setModel(new SemanticNetwork(_application.CurrentLanguage), string.Empty);
+			}
 		}
 
 		private void buttonLoad_Click(object sender, RoutedEventArgs e)
 		{
-			var dialog = createOpenFileDialog();
-			dialog.FileName = _fileName;
-			if (dialog.ShowDialog() == true)
+			if (canProceedAfterSave())
 			{
-				ChangeEntity(loadFromFile(dialog.FileName), dialog.FileName);
+				var dialog = createOpenFileDialog();
+				dialog.FileName = _fileName;
+				if (dialog.ShowDialog() == true)
+				{
+					setModel(SemanticNetwork.Load(dialog.FileName, _application.CurrentLanguage), dialog.FileName);
+				}
 			}
 		}
 
 		private void buttonSave_Click(object sender, RoutedEventArgs e)
 		{
-			if (String.IsNullOrEmpty(_fileName))
+			if (string.IsNullOrEmpty(_fileName))
 			{
-				buttonSaveAs_Click(sender, e);
+				saveAs();
 			}
 			else
 			{
-				saveToFile(_entity, _fileName);
-				_isChanged = false;
-				updateFileButtons();
+				_semanticNetworkNode.SemanticNetwork.Save(_fileName);
+				_savedPointer = _currentEditPointer;
+				refreshFileButtonsAndTitle();
 			}
 		}
 
 		private void buttonSaveAs_Click(object sender, RoutedEventArgs e)
 		{
+			saveAs();
+		}
+
+		private void buttonCreateTest_Click(object sender, RoutedEventArgs e)
+		{
+			if (canProceedAfterSave())
+			{
+				setModel(new TestSemanticNetwork(_application.CurrentLanguage).SemanticNetwork, string.Empty);
+			}
+		}
+
+		private bool canProceedAfterSave()
+		{
+			if (!isChanged()) return true;
+
+			var language = _application.CurrentLanguage.Ui.MainForm;
+			var promptResult = MessageBox.Show(
+				language.SavePromt,
+				language.SaveTitle,
+				MessageBoxButton.YesNoCancel,
+				MessageBoxImage.Question);
+
+			return	promptResult == MessageBoxResult.No ||
+					(promptResult == MessageBoxResult.Yes && saveAs());
+		}
+
+		private void setModel(ISemanticNetwork semanticNetwork, string fileName)
+		{
+			_application.SemanticNetwork = semanticNetwork;
+			reloadSemanticNetworkTree();
+
+			_fileName = fileName;
+
+			_editHistory.Clear();
+			_savedPointer = _currentEditPointer = -1;
+
+			refreshFileButtonsAndTitle();
+		}
+
+		private bool saveAs()
+		{
 			var dialog = createSaveFileDialog();
 			dialog.FileName = _fileName;
 			if (dialog.ShowDialog() == true)
 			{
-				saveToFile(_entity, _fileName = dialog.FileName);
-				_isChanged = false;
-				updateFileButtons();
+				_semanticNetworkNode.SemanticNetwork.Save(_fileName = dialog.FileName);
+				_savedPointer = _currentEditPointer;
+				refreshFileButtonsAndTitle();
+				return true;
+			}
+			else
+			{
+				return false;
 			}
 		}
 
-		private void entityModified(Object sender, EventArgs eventArgs)
+		private String _fileName;
+		private readonly List<IEditCommand> _editHistory = new List<IEditCommand>();
+		private int _currentEditPointer = -1;
+		private int _savedPointer = -1;
+
+		private bool isChanged()
 		{
-			_isChanged = true;
-			updateFileButtons();
+			return _editHistory.Count > 0 && _currentEditPointer != _savedPointer;
 		}
 
-		private IChangeable _entity;
-		private Boolean _isChanged;
-		private String _fileName;
+		public void PerformCommand(IEditCommand command)
+		{
+			command.Apply();
+
+			_editHistory.RemoveRange(_currentEditPointer + 1, _editHistory.Count - _currentEditPointer - 1);
+
+			_currentEditPointer = _editHistory.Count;
+			_editHistory.Add(command);
+			refreshFileButtonsAndTitle();
+		}
+
+		private void onWindowClosing(object sender, CancelEventArgs e)
+		{
+			if (!canProceedAfterSave())
+			{
+				e.Cancel = true;
+			}
+		}
 
 		#endregion
 	}
