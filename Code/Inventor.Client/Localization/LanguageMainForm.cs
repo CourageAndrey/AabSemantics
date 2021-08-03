@@ -67,6 +67,14 @@ namespace Inventor.Client.Localization
 		public String ContextMenuKnowledgeDelete
 		{ get; set; }
 
+		[XmlElement]
+		public String SavePromt
+		{ get; set; }
+
+		[XmlElement]
+		public String SaveTitle
+		{ get; set; }
+
 		#endregion
 
 		internal static LanguageMainForm CreateDefault()
@@ -88,6 +96,8 @@ namespace Inventor.Client.Localization
 				ContextMenuKnowledgeAdd = "Добавить...",
 				ContextMenuKnowledgeEdit = "Редактировать...",
 				ContextMenuKnowledgeDelete = "Удалить",
+				SavePromt = "Файл был изменён. Сохранить изменения?",
+				SaveTitle = "Сохранение изменений",
 			};
 		}
 	}

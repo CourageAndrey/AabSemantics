@@ -141,6 +141,12 @@ namespace Inventor.Client
 
 		String ContextMenuKnowledgeDelete
 		{ get; }
+
+		String SavePromt
+		{ get; }
+
+		String SaveTitle
+		{ get; }
 	}
 
 	public interface ILanguageQuestionDialog
