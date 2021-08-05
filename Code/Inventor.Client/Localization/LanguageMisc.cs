@@ -20,14 +20,6 @@ namespace Inventor.Client.Localization
 		{ get; set; }
 
 		[XmlElement]
-		public String StrictEnumeration
-		{ get; set; }
-
-		[XmlElement]
-		public String ClasificationSign
-		{ get; set; }
-
-		[XmlElement]
 		public String Rules
 		{ get; set; }
 
@@ -64,8 +56,6 @@ namespace Inventor.Client.Localization
 				NameSemanticNetwork = "База знаний",
 				NameCategoryConcepts = "Понятия",
 				NameCategoryStatements = "Утверждения",
-				StrictEnumeration = " и не может принимать другое значение",
-				ClasificationSign = " по признаку \"{0}\"",
 				Rules = "Все правила базы знаний:",
 				Answer = "Ответ:",
 				Required = "обязательный",

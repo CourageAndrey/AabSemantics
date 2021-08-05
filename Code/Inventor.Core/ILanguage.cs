@@ -74,32 +74,7 @@ namespace Inventor.Core
 
 		#endregion
 
-		#region MainMenu
-
-		String Exit
-		{ get; }
-
-		String SelectedLanguage
-		{ get; }
-
-		String Help
-		{ get; }
-
-		String About
-		{ get; }
-
-		String Configuration
-		{ get; }
-
-		#endregion
-
-		String WaitPromt
-		{ get; }
-
 		String Question
-		{ get; }
-
-		String ViewPicture
 		{ get; }
 	}
 
@@ -349,9 +324,6 @@ namespace Inventor.Core
 		{ get; }
 
 		String ErrorCyclic
-		{ get; }
-
-		String ErrorMultipleSubjectArea
 		{ get; }
 
 		String ErrorMultipleSign

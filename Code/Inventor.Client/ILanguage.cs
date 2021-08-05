@@ -10,21 +10,12 @@ namespace Inventor.Client
 		ILanguageUi Ui
 		{ get; }
 
-		ILanguageErrorsInventor ErrorsInventor
-		{ get; }
-
-		ILanguageConfiguration Configuration
-		{ get; }
-
 		ILanguageMisc Misc
 		{ get; }
 	}
 
 	public interface ILanguageErrors
 	{
-		String Warning
-		{ get; }
-
 		String InnerException
 		{ get; }
 
@@ -53,12 +44,6 @@ namespace Inventor.Client
 		{ get; }
 
 		String SaveFilter
-		{ get; }
-
-		String LocalizationError
-		{ get; }
-
-		String TypeIsntEnumerable
 		{ get; }
 	}
 
@@ -125,9 +110,6 @@ namespace Inventor.Client
 		{ get; }
 
 		String SelectLanguage
-		{ get; }
-
-		String Configuration
 		{ get; }
 
 		String ContextMenuRename
@@ -218,18 +200,6 @@ namespace Inventor.Client
 		{ get; }
 	}
 
-	public interface ILanguageErrorsInventor
-	{
-		String UnknownQuestion
-		{ get; }
-	}
-
-	public interface ILanguageConfiguration
-	{
-		String AutoValidate
-		{ get; }
-	}
-
 	public interface ILanguageMisc
 	{
 		String NameSemanticNetwork
@@ -239,12 +209,6 @@ namespace Inventor.Client
 		{ get; }
 
 		String NameCategoryStatements
-		{ get; }
-
-		String StrictEnumeration
-		{ get; }
-
-		String ClasificationSign
 		{ get; }
 
 		String Rules
