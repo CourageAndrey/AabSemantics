@@ -44,6 +44,14 @@
 				</Button>
 			</ToolBar>
 			<ToolBar>
+				<Button ToolTip="Undo" Margin="5" Name="_buttonUndo" Click="undoMenuClick">
+					<Image Width="24" Height="24" Margin="5" Source="Resources/Undo.png" />
+				</Button>
+				<Button ToolTip="Redo" Margin="5" Name="_buttonRedo" Click="redoMenuClick">
+					<Image Width="24" Height="24" Margin="5" Source="Resources/Redo.png" />
+				</Button>
+			</ToolBar>
+			<ToolBar>
 				<Button ToolTip="{Binding Source={StaticResource language}, Path=Ui.MainForm.AskQuestion, Mode=OneTime}" Click="askQuestionClick" Margin="2">
 					<Image Source="Resources/KbQuestion.png" Width="24" Height="24" />
 				</Button>
