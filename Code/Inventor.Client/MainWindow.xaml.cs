@@ -283,6 +283,9 @@ namespace Inventor.Client
 			buttonNew.IsEnabled = buttonLoad.IsEnabled = buttonSaveAs.IsEnabled = true;
 			buttonSave.IsEnabled = isChanged();
 
+			_buttonUndo.IsEnabled = _editHistory.Count > 0 && _currentEditPointer >= 0;
+			_buttonRedo.IsEnabled = _editHistory.Count > 0 && _currentEditPointer < _editHistory.Count - 1;
+
 			string changesSign = isChanged() ? "*" : string.Empty;
 			Title = $"{_fileName}{changesSign} - {_application.CurrentLanguage.Ui.MainForm.Title}";
 		}
@@ -407,6 +410,20 @@ namespace Inventor.Client
 			{
 				e.Cancel = true;
 			}
+		}
+
+		private void undoMenuClick(object sender, RoutedEventArgs e)
+		{
+			_editHistory[_currentEditPointer].Rollback();
+			_currentEditPointer--;
+			refreshFileButtonsAndTitle();
+		}
+
+		private void redoMenuClick(object sender, RoutedEventArgs e)
+		{
+			_currentEditPointer++;
+			_editHistory[_currentEditPointer].Apply();
+			refreshFileButtonsAndTitle();
 		}
 
 		#endregion
