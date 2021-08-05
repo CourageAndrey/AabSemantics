@@ -56,12 +56,6 @@ namespace Inventor.Client.Localization
 		public ILanguageUi Ui
 		{ get { return _language?.Ui; } }
 
-		public ILanguageErrorsInventor ErrorsInventor
-		{ get { return _language?.ErrorsInventor; } }
-
-		public ILanguageConfiguration Configuration
-		{ get { return _language?.Configuration; } }
-
 		public Core.ILanguageSystemConcepts SystemConceptNames
 		{ get { return _language?.SystemConceptNames; } }
 

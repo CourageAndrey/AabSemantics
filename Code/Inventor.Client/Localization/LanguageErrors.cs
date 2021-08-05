@@ -9,10 +9,6 @@ namespace Inventor.Client.Localization
 		#region Properties
 
 		[XmlElement]
-		public String Warning
-		{ get; set; }
-
-		[XmlElement]
 		public String InnerException
 		{ get; set; }
 
@@ -52,21 +48,12 @@ namespace Inventor.Client.Localization
 		public String SaveFilter
 		{ get; set; }
 
-		[XmlElement]
-		public String LocalizationError
-		{ get; set; }
-
-		[XmlElement]
-		public String TypeIsntEnumerable
-		{ get; set; }
-
 		#endregion
 
 		internal static LanguageErrors CreateDefault()
 		{
 			return new LanguageErrors
 			{
-				Warning = "Внимание",
 				InnerException = "Вложенное исключение",
 				DialogHeader = "Во время выполнения программы произошла ошибка",
 				DialogMessageCommon = "Пожалуйста, свяжитесь с разработчиком и передайте ему файл с описанием ошибки (формируется при нажатии на кнопке \"Сохранить\").",
@@ -77,8 +64,6 @@ namespace Inventor.Client.Localization
 				Message = "Сообщение:",
 				Stack = "Стек вызовов:",
 				SaveFilter = "XML-файл|*.xml",
-				LocalizationError = "[ Ошибка локализации ]",
-				TypeIsntEnumerable = "Тип {0} не является перечислимым (enum)!",
 			};
 		}
 	}

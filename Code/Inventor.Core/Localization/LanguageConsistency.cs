@@ -24,10 +24,6 @@ namespace Inventor.Core.Localization
 		{ get; set; }
 
 		[XmlElement]
-		public String ErrorMultipleSubjectArea
-		{ get; set; }
-
-		[XmlElement]
 		public String ErrorMultipleSign
 		{ get; set; }
 
@@ -57,7 +53,6 @@ namespace Inventor.Core.Localization
 				CheckOk = "В результате проверки ошибок не выявлено.",
 				ErrorDuplicate = $"Дублирование отношения {Strings.ParamStatement}.",
 				ErrorCyclic = $"Отношение {Strings.ParamStatement} приводит к циклической ссылке понятий друг на друга.",
-				ErrorMultipleSubjectArea = $"Предметная область {Strings.ParamArea} задана более одного раза.",
 				ErrorMultipleSign = $"{Strings.ParamStatement} приводит к повторному определению признака у понятия.",
 				ErrorMultipleSignValue = $"Значение признака {Strings.ParamSign} понятия {Strings.ParamConcept} не может быть корректно определено, так как задано в нескольких его предках.",
 				ErrorSignWithoutValue = $"{Strings.ParamStatement} задаёт значение признака, который отсутствует у понятия.",

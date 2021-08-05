@@ -40,40 +40,8 @@ namespace Inventor.Core.Localization
 
 		#endregion
 
-		#region MainMenu
-
-		[XmlElement]
-		public String Exit
-		{ get; set; }
-
-		[XmlElement]
-		public String SelectedLanguage
-		{ get; set; }
-
-		[XmlElement]
-		public String Help
-		{ get; set; }
-
-		[XmlElement]
-		public String About
-		{ get; set; }
-
-		[XmlElement]
-		public String Configuration
-		{ get; set; }
-
-		#endregion
-
-		[XmlElement]
-		public String WaitPromt
-		{ get; set; }
-
 		[XmlElement]
 		public String Question
-		{ get; set; }
-
-		[XmlElement]
-		public String ViewPicture
 		{ get; set; }
 
 		#endregion
@@ -90,15 +58,7 @@ namespace Inventor.Core.Localization
 				Save = "Сохранить",
 				SaveFile = "Выберите файл для сохранения...",
 
-				Exit = "Выход",
-				SelectedLanguage = "Выбранный язык",
-				Help = "Справка",
-				About = "О программе",
-				Configuration = "Настройки",
-
-				WaitPromt = "Пожалуйста, подождите",
 				Question = "Вопрос",
-				ViewPicture = "Просмотреть изображение...",
 			};
 		}
 	}

@@ -23,10 +23,6 @@ namespace Inventor.Client.Localization
 		[XmlIgnore]
 		private const String ElementUi = "Ui";
 		[XmlIgnore]
-		private const String ElementErrorsInventor = "ErrorsInventor";
-		[XmlIgnore]
-		private const String ElementConfiguration = "Configuration";
-		[XmlIgnore]
 		private const String ElementMisc = "Misc";
 
 		#endregion
@@ -39,14 +35,6 @@ namespace Inventor.Client.Localization
 
 		[XmlElement(ElementUi)]
 		public LanguageUi UiXml
-		{ get; set; }
-
-		[XmlElement(ElementErrorsInventor)]
-		public LanguageErrorsInventor ErrorsInventorXml
-		{ get; set; }
-
-		[XmlElement(ElementConfiguration)]
-		public LanguageConfiguration ConfigurationXml
 		{ get; set; }
 
 		[XmlElement(ElementMisc)]
@@ -64,14 +52,6 @@ namespace Inventor.Client.Localization
 		[XmlIgnore]
 		public ILanguageUi Ui
 		{ get { return UiXml; } }
-
-		[XmlIgnore]
-		public ILanguageErrorsInventor ErrorsInventor
-		{ get { return ErrorsInventorXml; } }
-
-		[XmlIgnore]
-		public ILanguageConfiguration Configuration
-		{ get { return ConfigurationXml; } }
 
 		[XmlIgnore]
 		public ILanguageMisc Misc
@@ -100,8 +80,6 @@ namespace Inventor.Client.Localization
 				AnswersXml = @default.AnswersXml,
 				AttributesXml = @default.AttributesXml,
 				UiXml = LanguageUi.CreateDefault(),
-				ErrorsInventorXml = LanguageErrorsInventor.CreateDefault(),
-				ConfigurationXml = LanguageConfiguration.CreateDefault(),
 				SystemConceptNamesXml = @default.SystemConceptNamesXml,
 				SystemConceptHintsXml = @default.SystemConceptHintsXml,
 				ConsistencyXml = @default.ConsistencyXml,
