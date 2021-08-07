@@ -76,7 +76,6 @@ namespace Inventor.Core.Questions
 			String titleConceptCaption,
 			Func<ILanguage, String> answerFormat)
 		{
-			var language = Context.Language;
 			if (Statements.Any())
 			{
 				var resultConcepts = Statements.Select(resultConceptSelector).ToList();
@@ -87,10 +86,16 @@ namespace Inventor.Core.Questions
 
 				Answer = new ConceptsAnswer(
 					resultConcepts,
-					new FormattedText(() => answerFormat(language) + format + ".", parameters),
+					new FormattedText(() => answerFormat(Context.Language) + format + ".", parameters),
 					new Explanation(Statements.OfType<IStatement>()));
 			}
-			else
+
+			return this;
+		}
+
+		public StatementQuestionProcessor<QuestionT, StatementT> IfEmptyTrySelectFirstChild()
+		{
+			if (Answer.IsEmpty)
 			{
 				var childAnswer = ChildAnswers.FirstOrDefault();
 				if (childAnswer != null)
