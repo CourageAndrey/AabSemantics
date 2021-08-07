@@ -30,7 +30,7 @@ namespace Inventor.Core.Questions
 				.SelectConcepts(
 					statement => statement.Concept,
 					question => question.Concept,
-					Strings.ParamAnswer,
+					Strings.ParamArea,
 					language => language.Answers.SubjectAreaConcepts);
 		}
 	}
