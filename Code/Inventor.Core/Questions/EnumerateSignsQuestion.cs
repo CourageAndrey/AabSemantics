@@ -35,7 +35,8 @@ namespace Inventor.Core.Questions
 			return context
 				.From<EnumerateSignsQuestion, HasSignStatement>(s => s.Concept == Concept)
 				.ProcessTransitives(s => Recursive, GetNestedQuestions)
-				.Select(CreateAnswer);
+				.Select(CreateAnswer)
+				.Answer;
 		}
 
 		private IAnswer CreateAnswer(IQuestionProcessingContext<EnumerateSignsQuestion> context, ICollection<HasSignStatement> statements, ICollection<ChildAnswer> childAnswers)

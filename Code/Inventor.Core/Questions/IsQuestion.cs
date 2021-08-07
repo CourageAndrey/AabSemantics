@@ -37,7 +37,8 @@ namespace Inventor.Core.Questions
 			return context
 				.From<IsQuestion, IsStatement>(s => s.Parent == Parent && s.Child == Child)
 				.ProcessTransitives(s => s.Count == 0, GetNestedQuestions)
-				.Select(CreateAnswer);
+				.Select(CreateAnswer)
+				.Answer;
 		}
 
 		private IAnswer CreateAnswer(IQuestionProcessingContext<IsQuestion> context, ICollection<IsStatement> statements, ICollection<ChildAnswer> childAnswers)

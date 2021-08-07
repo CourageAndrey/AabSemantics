@@ -36,7 +36,8 @@ namespace Inventor.Core.Questions
 		{
 			return context
 				.From<IsPartOfQuestion, HasPartStatement>(s => s.Whole == Parent && s.Part == Child)
-				.Select(CreateAnswer);
+				.Select(CreateAnswer)
+				.Answer;
 		}
 
 		private IAnswer CreateAnswer(IQuestionProcessingContext<IsPartOfQuestion> context, ICollection<HasPartStatement> statements, ICollection<ChildAnswer> childAnswers)
