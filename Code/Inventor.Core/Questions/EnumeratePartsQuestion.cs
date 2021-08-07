@@ -1,9 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 
-using Inventor.Core.Answers;
-using Inventor.Core.Base;
 using Inventor.Core.Localization;
 using Inventor.Core.Statements;
 
@@ -30,31 +27,13 @@ namespace Inventor.Core.Questions
 		{
 			return context
 				.From<EnumeratePartsQuestion, HasPartStatement>(s => s.Whole == Concept)
-				.Select(CreateAnswer)
+				.SelectConcepts(
+					statement => statement.Part,
+					question => question.Concept,
+					Strings.ParamParent,
+					language => language.Answers.EnumerateParts)
+				.IfEmptyTrySelectFirstChild()
 				.Answer;
-		}
-
-		private IAnswer CreateAnswer(IQuestionProcessingContext<EnumeratePartsQuestion> context, ICollection<HasPartStatement> statements, ICollection<ChildAnswer> childAnswers)
-		{
-			if (statements.Any())
-			{
-				String format;
-				var parameters = statements.Select(r => r.Part).ToList().Enumerate(out format);
-				parameters.Add(Strings.ParamParent, Concept);
-				return new ConceptsAnswer(
-					statements.Select(s => s.Part).ToList(),
-					new FormattedText(() => context.Language.Answers.EnumerateParts + format + ".", parameters),
-					new Explanation(statements));
-			}
-
-			var childAnswer = childAnswers.FirstOrDefault();
-			if (childAnswer != null)
-			{
-				childAnswer.Answer.Explanation.Expand(childAnswer.TransitiveStatements);
-				return childAnswer.Answer;
-			}
-
-			return Answer.CreateUnknown(context.Language);
 		}
 	}
 }
