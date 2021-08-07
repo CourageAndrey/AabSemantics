@@ -2,8 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 
-using Inventor.Core.Answers;
-using Inventor.Core.Base;
 using Inventor.Core.Localization;
 using Inventor.Core.Statements;
 
@@ -36,29 +34,18 @@ namespace Inventor.Core.Questions
 			return context
 				.From<SignValueQuestion, SignValueStatement>(s => s.Concept == Concept && s.Sign == Sign)
 				.WithTransitives(s => s.Count == 0, GetNestedQuestions)
-				.Select(CreateAnswer)
+				.SelectFirstConcept(
+					statement => statement.Value,
+					language => language.Answers.SignValue,
+					statement => new Dictionary<String, INamed>
+					{
+						{ Strings.ParamConcept, Concept },
+						{ Strings.ParamSign, statement.Sign },
+						{ Strings.ParamValue, statement.Value },
+						{ Strings.ParamDefined, statement.Concept },
+					})
+				.IfEmptyTrySelectFirstChild()
 				.Answer;
-		}
-
-		private IAnswer CreateAnswer(IQuestionProcessingContext<SignValueQuestion> context, ICollection<SignValueStatement> statements, ICollection<ChildAnswer> childAnswers)
-		{
-			var statement = statements.FirstOrDefault();
-			if (statement != null)
-			{
-				return new ConceptAnswer(
-					statement.Value,
-					formatSignValue(statement, Concept, context.Language),
-					new Explanation(statements));
-			}
-
-			var childAnswer = childAnswers.FirstOrDefault();
-			if (childAnswer != null)
-			{
-				childAnswer.Answer.Explanation.Expand(childAnswer.TransitiveStatements);
-				return childAnswer.Answer;
-			}
-
-			return Answer.CreateUnknown(context.Language);
 		}
 
 		private IEnumerable<NestedQuestion> GetNestedQuestions(IQuestionProcessingContext<SignValueQuestion> context)
@@ -76,21 +63,6 @@ namespace Inventor.Core.Questions
 					yield return new NestedQuestion(new SignValueQuestion(parent, question.Sign), new IStatement[] { transitiveStatement });
 				}
 			}
-		}
-
-		private static FormattedText formatSignValue(SignValueStatement value, IConcept original, ILanguage language)
-		{
-			return value != null
-				? new FormattedText(
-					() => language.Answers.SignValue,
-					new Dictionary<String, INamed>
-					{
-						{ Strings.ParamConcept, original },
-						{ Strings.ParamSign, value.Sign },
-						{ Strings.ParamValue, value.Value },
-						{ Strings.ParamDefined, value.Concept },
-					})
-				: null;
 		}
 	}
 }
