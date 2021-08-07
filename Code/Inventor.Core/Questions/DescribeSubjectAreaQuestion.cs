@@ -27,7 +27,7 @@ namespace Inventor.Core.Questions
 		{
 			return context
 				.From<DescribeSubjectAreaQuestion, GroupStatement>(s => s.Area == Concept)
-				.SelectConcepts(
+				.SelectAllConcepts(
 					statement => statement.Concept,
 					question => question.Concept,
 					Strings.ParamArea,

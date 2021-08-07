@@ -27,7 +27,7 @@ namespace Inventor.Core.Questions
 		{
 			return context
 				.From<EnumeratePartsQuestion, HasPartStatement>(s => s.Whole == Concept)
-				.SelectConcepts(
+				.SelectAllConcepts(
 					statement => statement.Part,
 					question => question.Concept,
 					Strings.ParamParent,

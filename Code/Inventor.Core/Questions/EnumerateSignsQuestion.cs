@@ -34,7 +34,7 @@ namespace Inventor.Core.Questions
 				.From<EnumerateSignsQuestion, HasSignStatement>(s => s.Concept == Concept)
 				.WithTransitives(s => Recursive, GetNestedQuestions)
 				.AggregateTransitivesToStatements()
-				.SelectConcepts(
+				.SelectAllConcepts(
 					statement => statement.Sign,
 					question => question.Concept,
 					Strings.ParamConcept,
