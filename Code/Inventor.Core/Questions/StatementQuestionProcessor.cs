@@ -41,7 +41,7 @@ namespace Inventor.Core.Questions
 			Answer = Answers.Answer.CreateUnknown(Context.Language);
 		}
 
-		public StatementQuestionProcessor<QuestionT, StatementT> ProcessTransitives(
+		public StatementQuestionProcessor<QuestionT, StatementT> WithTransitives(
 			Func<ICollection<StatementT>, Boolean> needToProcess,
 			Func<IQuestionProcessingContext<QuestionT>, IEnumerable<NestedQuestion>> getNestedQuestions)
 		{
