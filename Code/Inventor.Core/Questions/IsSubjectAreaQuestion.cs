@@ -2,8 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 
-using Inventor.Core.Answers;
-using Inventor.Core.Base;
 using Inventor.Core.Localization;
 using Inventor.Core.Statements;
 
@@ -36,22 +34,16 @@ namespace Inventor.Core.Questions
 		{
 			return context
 				.From<IsSubjectAreaQuestion, GroupStatement>(s => s.Area == Area && s.Concept == Concept)
-				.Select(CreateAnswer)
-				.Answer;
-		}
-
-		private IAnswer CreateAnswer(IQuestionProcessingContext<IsSubjectAreaQuestion> context, ICollection<GroupStatement> statements, ICollection<ChildAnswer> childAnswers)
-		{
-			return new BooleanAnswer(
-				statements.Any(),
-				new FormattedText(
-					statements.Any() ? new Func<String>(() => context.Language.Answers.IsSubjectAreaTrue) : () => context.Language.Answers.IsSubjectAreaFalse,
+				.SelectBoolean(
+					statements => statements.Any(),
+					language => language.Answers.IsSubjectAreaTrue,
+					language => language.Answers.IsSubjectAreaFalse,
 					new Dictionary<String, INamed>
 					{
 						{ Strings.ParamArea, Area },
 						{ Strings.ParamConcept, Concept },
-					}),
-				new Explanation(statements));
+					})
+				.Answer;
 		}
 	}
 }
