@@ -22,6 +22,9 @@ namespace Inventor.Core.Questions
 		public ICollection<ChildAnswer> ChildAnswers
 		{ get; private set; }
 
+		public ICollection<IStatement> AdditionalTransitives
+		{ get; private set; }
+
 		public IAnswer Answer
 		{ get; private set; }
 
@@ -37,6 +40,8 @@ namespace Inventor.Core.Questions
 				.ToList();
 
 			ChildAnswers = new ChildAnswer[0];
+
+			AdditionalTransitives = new IStatement[0];
 
 			Answer = Answers.Answer.CreateUnknown(Context.Language);
 		}
@@ -104,6 +109,44 @@ namespace Inventor.Core.Questions
 					Answer = childAnswer.Answer;
 				}
 			}
+
+			return this;
+		}
+
+		public StatementQuestionProcessor<QuestionT, StatementT> AggregateTransitivesToStatements()
+		{
+			var additionalTransitives = new List<IStatement>();
+			foreach (var answer in ChildAnswers)
+			{
+				foreach (var statement in answer.Answer.Explanation.Statements)
+				{
+					if (statement is StatementT)
+					{
+						Statements.Add((StatementT) statement);
+					}
+					else
+					{
+						additionalTransitives.Add(statement);
+					}
+				}
+
+				if (!answer.Answer.IsEmpty)
+				{
+					additionalTransitives.AddRange(answer.TransitiveStatements);
+				}
+			}
+
+			if (additionalTransitives.Count > 0)
+			{
+				AdditionalTransitives = additionalTransitives;
+			}
+
+			return this;
+		}
+
+		public StatementQuestionProcessor<QuestionT, StatementT> AppendAdditionalTransitives()
+		{
+			Answer.Explanation.Expand(AdditionalTransitives);
 
 			return this;
 		}
