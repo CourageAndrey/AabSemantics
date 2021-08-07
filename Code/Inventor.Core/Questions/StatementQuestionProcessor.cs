@@ -117,6 +117,24 @@ namespace Inventor.Core.Questions
 			return this;
 		}
 
+		public StatementQuestionProcessor<QuestionT, StatementT> SelectBoolean(
+			Func<ICollection<StatementT>, Boolean> valueGetter,
+			Func<ILanguage, String> trueFormat,
+			Func<ILanguage, String> falseFormat,
+			IDictionary<String, INamed> parameters)
+		{
+			Boolean value = valueGetter(Statements);
+
+			Answer = new BooleanAnswer(
+				value,
+				new FormattedText(
+					value ? new Func<String>(() => trueFormat(Context.Language)) : () => falseFormat(Context.Language),
+					parameters),
+				new Explanation(Statements.OfType<IStatement>()));
+
+			return this;
+		}
+
 		public StatementQuestionProcessor<QuestionT, StatementT> IfEmptyTrySelectFirstChild()
 		{
 			if (Answer.IsEmpty)

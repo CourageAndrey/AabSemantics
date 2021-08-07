@@ -1,9 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-using Inventor.Core.Answers;
 using Inventor.Core.Attributes;
-using Inventor.Core.Base;
 using Inventor.Core.Localization;
 using Inventor.Core.Statements;
 
@@ -30,22 +28,15 @@ namespace Inventor.Core.Questions
 		{
 			return context
 				.From<IsValueQuestion, SignValueStatement>(s => s.Value == Concept)
-				.Select(CreateAnswer)
-				.Answer;
-		}
-
-		private IAnswer CreateAnswer(IQuestionProcessingContext<IsValueQuestion> context, ICollection<SignValueStatement> statements, ICollection<ChildAnswer> childAnswers)
-		{
-			bool isValue = Concept.HasAttribute<IsValueAttribute>();
-			return new BooleanAnswer(
-				isValue,
-				new FormattedText(
-					isValue ? new Func<String>(() => context.Language.Answers.ValueTrue) : () => context.Language.Answers.ValueFalse,
+				.SelectBoolean(
+					statements => Concept.HasAttribute<IsValueAttribute>(),
+					language => language.Answers.ValueTrue,
+					language => language.Answers.ValueFalse,
 					new Dictionary<String, INamed>
 					{
 						{ Strings.ParamConcept, Concept },
-					}),
-				new Explanation(statements));
+					})
+				.Answer;
 		}
 	}
 }
