@@ -27,7 +27,7 @@ namespace Inventor.Core.Questions
 		{
 			return context
 				.From<EnumerateChildrenQuestion, IsStatement>(s => s.Ancestor == Concept)
-				.SelectConcepts(
+				.SelectAllConcepts(
 					statement => statement.Descendant,
 					question => question.Concept,
 					Strings.ParamParent,

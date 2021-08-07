@@ -75,7 +75,7 @@ namespace Inventor.Core.Questions
 			return this;
 		}
 
-		public StatementQuestionProcessor<QuestionT, StatementT> SelectConcepts(
+		public StatementQuestionProcessor<QuestionT, StatementT> SelectAllConcepts(
 			Func<StatementT, IConcept> resultConceptSelector,
 			Func<QuestionT, IConcept> titleConceptSelector,
 			String titleConceptCaption,
