@@ -34,7 +34,7 @@ namespace Inventor.Core.Questions
 		{
 			return context
 				.From<HasSignsQuestion, HasSignStatement>(s => s.Concept == Concept)
-				.ProcessTransitives(s => Recursive, GetNestedQuestions)
+				.WithTransitives(s => Recursive, GetNestedQuestions)
 				.Select(CreateAnswer)
 				.Answer;
 		}

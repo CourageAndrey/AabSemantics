@@ -36,7 +36,7 @@ namespace Inventor.Core.Questions
 		{
 			return context
 				.From<IsQuestion, IsStatement>(s => s.Parent == Parent && s.Child == Child)
-				.ProcessTransitives(s => s.Count == 0, GetNestedQuestions)
+				.WithTransitives(s => s.Count == 0, GetNestedQuestions)
 				.Select(CreateAnswer)
 				.Answer;
 		}
