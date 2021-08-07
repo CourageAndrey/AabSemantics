@@ -2,6 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 
+using Inventor.Core.Answers;
+using Inventor.Core.Base;
+
 namespace Inventor.Core.Questions
 {
 	public class StatementQuestionProcessor<QuestionT, StatementT>
@@ -59,6 +62,38 @@ namespace Inventor.Core.Questions
 		public IAnswer Select(Func<IQuestionProcessingContext<QuestionT>, ICollection<StatementT>, ICollection<ChildAnswer>, IAnswer> formatter)
 		{
 			return formatter(Context, Statements, ChildAnswers);
+		}
+
+		public IAnswer SelectConcepts(
+			Func<StatementT, IConcept> resultConceptSelector,
+			Func<QuestionT, IConcept> titleConceptSelector,
+			String titleConceptCaption,
+			Func<ILanguage, String> answerFormat)
+		{
+			var language = Context.Language;
+
+			if (Statements.Any())
+			{
+				var resultConcepts = Statements.Select(resultConceptSelector).ToList();
+
+				String format;
+				var parameters = resultConcepts.Enumerate(out format);
+				parameters.Add(titleConceptCaption, titleConceptSelector(Context.Question));
+
+				return new ConceptsAnswer(
+					resultConcepts,
+					new FormattedText(() => answerFormat(language) + format + ".", parameters),
+					new Explanation(Statements.OfType<IStatement>()));
+			}
+
+			var childAnswer = ChildAnswers.FirstOrDefault();
+			if (childAnswer != null)
+			{
+				childAnswer.Answer.Explanation.Expand(childAnswer.TransitiveStatements);
+				return childAnswer.Answer;
+			}
+
+			return Answer.CreateUnknown(language);
 		}
 	}
 }
