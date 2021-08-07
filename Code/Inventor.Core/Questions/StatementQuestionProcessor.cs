@@ -37,6 +37,8 @@ namespace Inventor.Core.Questions
 				.ToList();
 
 			ChildAnswers = new ChildAnswer[0];
+
+			Answer = Answers.Answer.CreateUnknown(Context.Language);
 		}
 
 		public StatementQuestionProcessor<QuestionT, StatementT> ProcessTransitives(
@@ -96,11 +98,6 @@ namespace Inventor.Core.Questions
 					childAnswer.Answer.Explanation.Expand(childAnswer.TransitiveStatements);
 					Answer = childAnswer.Answer;
 				}
-			}
-
-			if (Answer == null)
-			{
-				Answer = Answers.Answer.CreateUnknown(language);
 			}
 
 			return this;
