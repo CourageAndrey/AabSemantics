@@ -30,7 +30,8 @@ namespace Inventor.Core.Questions
 		{
 			return context
 				.From<IsSignQuestion, HasSignStatement>(s => s.Sign == Concept)
-				.Select(CreateAnswer);
+				.Select(CreateAnswer)
+				.Answer;
 		}
 
 		private IAnswer CreateAnswer(IQuestionProcessingContext<IsSignQuestion> context, ICollection<HasSignStatement> statements, ICollection<ChildAnswer> childAnswers)

@@ -22,6 +22,9 @@ namespace Inventor.Core.Questions
 		public ICollection<ChildAnswer> ChildAnswers
 		{ get; private set; }
 
+		public IAnswer Answer
+		{ get; private set; }
+
 		#endregion
 
 		public StatementQuestionProcessor(IQuestionProcessingContext context, Func<StatementT, Boolean> match)
@@ -59,19 +62,19 @@ namespace Inventor.Core.Questions
 			return this;
 		}
 
-		public IAnswer Select(Func<IQuestionProcessingContext<QuestionT>, ICollection<StatementT>, ICollection<ChildAnswer>, IAnswer> formatter)
+		public StatementQuestionProcessor<QuestionT, StatementT> Select(Func<IQuestionProcessingContext<QuestionT>, ICollection<StatementT>, ICollection<ChildAnswer>, IAnswer> formatter)
 		{
-			return formatter(Context, Statements, ChildAnswers);
+			Answer = formatter(Context, Statements, ChildAnswers);
+			return this;
 		}
 
-		public IAnswer SelectConcepts(
+		public StatementQuestionProcessor<QuestionT, StatementT> SelectConcepts(
 			Func<StatementT, IConcept> resultConceptSelector,
 			Func<QuestionT, IConcept> titleConceptSelector,
 			String titleConceptCaption,
 			Func<ILanguage, String> answerFormat)
 		{
 			var language = Context.Language;
-
 			if (Statements.Any())
 			{
 				var resultConcepts = Statements.Select(resultConceptSelector).ToList();
@@ -80,20 +83,27 @@ namespace Inventor.Core.Questions
 				var parameters = resultConcepts.Enumerate(out format);
 				parameters.Add(titleConceptCaption, titleConceptSelector(Context.Question));
 
-				return new ConceptsAnswer(
+				Answer = new ConceptsAnswer(
 					resultConcepts,
 					new FormattedText(() => answerFormat(language) + format + ".", parameters),
 					new Explanation(Statements.OfType<IStatement>()));
 			}
-
-			var childAnswer = ChildAnswers.FirstOrDefault();
-			if (childAnswer != null)
+			else
 			{
-				childAnswer.Answer.Explanation.Expand(childAnswer.TransitiveStatements);
-				return childAnswer.Answer;
+				var childAnswer = ChildAnswers.FirstOrDefault();
+				if (childAnswer != null)
+				{
+					childAnswer.Answer.Explanation.Expand(childAnswer.TransitiveStatements);
+					Answer = childAnswer.Answer;
+				}
 			}
 
-			return Answer.CreateUnknown(language);
+			if (Answer == null)
+			{
+				Answer = Answers.Answer.CreateUnknown(language);
+			}
+
+			return this;
 		}
 	}
 }

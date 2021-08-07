@@ -30,7 +30,8 @@ namespace Inventor.Core.Questions
 		{
 			return context
 				.From<EnumeratePartsQuestion, HasPartStatement>(s => s.Whole == Concept)
-				.Select(CreateAnswer);
+				.Select(CreateAnswer)
+				.Answer;
 		}
 
 		private IAnswer CreateAnswer(IQuestionProcessingContext<EnumeratePartsQuestion> context, ICollection<HasPartStatement> statements, ICollection<ChildAnswer> childAnswers)

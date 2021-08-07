@@ -36,7 +36,8 @@ namespace Inventor.Core.Questions
 		{
 			return context
 				.From<IsSubjectAreaQuestion, GroupStatement>(s => s.Area == Area && s.Concept == Concept)
-				.Select(CreateAnswer);
+				.Select(CreateAnswer)
+				.Answer;
 		}
 
 		private IAnswer CreateAnswer(IQuestionProcessingContext<IsSubjectAreaQuestion> context, ICollection<GroupStatement> statements, ICollection<ChildAnswer> childAnswers)

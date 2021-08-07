@@ -36,7 +36,8 @@ namespace Inventor.Core.Questions
 			return context
 				.From<SignValueQuestion, SignValueStatement>(s => s.Concept == Concept && s.Sign == Sign)
 				.ProcessTransitives(s => s.Count == 0, GetNestedQuestions)
-				.Select(CreateAnswer);
+				.Select(CreateAnswer)
+				.Answer;
 		}
 
 		private IAnswer CreateAnswer(IQuestionProcessingContext<SignValueQuestion> context, ICollection<SignValueStatement> statements, ICollection<ChildAnswer> childAnswers)
