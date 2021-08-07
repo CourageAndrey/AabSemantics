@@ -2,8 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 
-using Inventor.Core.Answers;
-using Inventor.Core.Base;
 using Inventor.Core.Localization;
 using Inventor.Core.Statements;
 
@@ -35,38 +33,14 @@ namespace Inventor.Core.Questions
 			return context
 				.From<EnumerateSignsQuestion, HasSignStatement>(s => s.Concept == Concept)
 				.WithTransitives(s => Recursive, GetNestedQuestions)
-				.Select(CreateAnswer)
+				.AggregateTransitivesToStatements()
+				.SelectConcepts(
+					statement => statement.Sign,
+					question => question.Concept,
+					Strings.ParamConcept,
+					language => language.Answers.ConceptSigns + (Recursive ? language.Answers.RecursiveTrue : language.Answers.RecursiveFalse))
+				.AppendAdditionalTransitives()
 				.Answer;
-		}
-
-		private IAnswer CreateAnswer(IQuestionProcessingContext<EnumerateSignsQuestion> context, ICollection<HasSignStatement> statements, ICollection<ChildAnswer> childAnswers)
-		{
-			var allSigns = new HashSet<IConcept>(statements.Select(hs => hs.Sign));
-			var allStatements = new HashSet<IStatement>(statements);
-
-			foreach (var answer in childAnswers)
-			{
-				var conceptsAnswer = answer.Answer as ConceptsAnswer;
-				if (conceptsAnswer != null)
-				{
-					foreach (var sign in conceptsAnswer.Result)
-					{
-						allSigns.Add(sign);
-					}
-					foreach (var statement in conceptsAnswer.Explanation.Statements)
-					{
-						allStatements.Add(statement);
-					}
-					foreach (var statement in answer.TransitiveStatements)
-					{
-						allStatements.Add(statement);
-					}
-				}
-			}
-
-			return allSigns.Count > 0
-				? formatAnswer(context, allSigns, allStatements)
-				: Answer.CreateUnknown(context.Language);
 		}
 
 		private IEnumerable<NestedQuestion> GetNestedQuestions(IQuestionProcessingContext<EnumerateSignsQuestion> context)
@@ -86,19 +60,6 @@ namespace Inventor.Core.Questions
 					yield return new NestedQuestion(new EnumerateSignsQuestion(parent, true), new IStatement[] { transitiveStatement });
 				}
 			}
-		}
-
-		private IAnswer formatAnswer(IQuestionProcessingContext<EnumerateSignsQuestion> context, ICollection<IConcept> signs, ICollection<IStatement> statements)
-		{
-			String format;
-			var parameters = signs.Enumerate(out format);
-			parameters[Strings.ParamConcept] = Concept;
-			return new ConceptsAnswer(
-				signs,
-				new FormattedText(
-					() => String.Format(context.Language.Answers.ConceptSigns, Recursive ? context.Language.Answers.RecursiveTrue : context.Language.Answers.RecursiveFalse, format),
-					parameters),
-				new Explanation(statements));
 		}
 	}
 }
