@@ -98,6 +98,25 @@ namespace Inventor.Core.Questions
 			return this;
 		}
 
+		public StatementQuestionProcessor<QuestionT, StatementT> SelectFirstConcept(
+			Func<StatementT, IConcept> resultConceptSelector,
+			Func<ILanguage, String> answerFormat,
+			Func<StatementT, IDictionary<String, INamed>> getParameters)
+		{
+			var statement = Statements.FirstOrDefault();
+			if (statement != null)
+			{
+				Answer = new ConceptAnswer(
+					resultConceptSelector(statement),
+					new FormattedText(
+						() => answerFormat(Context.Language),
+						getParameters(statement)),
+					new Explanation(Statements.OfType<IStatement>()));
+			}
+
+			return this;
+		}
+
 		public StatementQuestionProcessor<QuestionT, StatementT> IfEmptyTrySelectFirstChild()
 		{
 			if (Answer.IsEmpty)
