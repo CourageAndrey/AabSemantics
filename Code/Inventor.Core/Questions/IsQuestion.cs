@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 
 using Inventor.Core.Localization;
 using Inventor.Core.Statements;
@@ -34,7 +33,10 @@ namespace Inventor.Core.Questions
 		{
 			return context
 				.From<IsQuestion, IsStatement>(s => s.Parent == Parent && s.Child == Child)
-				.WithTransitives(s => s.Count == 0, GetNestedQuestions)
+				.WithTransitives(
+					statements => statements.Count == 0,
+					question => question.Child,
+					newSubject => new IsQuestion(newSubject, Parent))
 				.SelectBooleanIncludingChildren(
 					statements => statements.Count > 0,
 					language => language.Answers.IsTrue,
@@ -45,23 +47,6 @@ namespace Inventor.Core.Questions
 						{ Strings.ParamChild, Parent },
 					})
 				.Answer;
-		}
-
-		private IEnumerable<NestedQuestion> GetNestedQuestions(IQuestionProcessingContext<IsQuestion> context)
-		{
-			var alreadyViewedConcepts = new HashSet<IConcept>(context.ActiveContexts.OfType<IQuestionProcessingContext<IsQuestion>>().Select(questionContext => questionContext.Question.Child));
-
-			var question = context.Question;
-			var transitiveStatements = context.SemanticNetwork.Statements.Enumerate<IsStatement>(context.ActiveContexts).Where(isStatement => isStatement.Child == question.Child);
-
-			foreach (var transitiveStatement in transitiveStatements)
-			{
-				var parent = transitiveStatement.Parent;
-				if (!alreadyViewedConcepts.Contains(parent))
-				{
-					yield return new NestedQuestion(new IsQuestion(parent, question.Parent), new IStatement[] { transitiveStatement });
-				}
-			}
 		}
 	}
 }
