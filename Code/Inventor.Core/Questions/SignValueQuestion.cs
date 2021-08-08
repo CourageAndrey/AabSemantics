@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 
 using Inventor.Core.Localization;
 using Inventor.Core.Statements;
@@ -33,7 +32,10 @@ namespace Inventor.Core.Questions
 		{
 			return context
 				.From<SignValueQuestion, SignValueStatement>(s => s.Concept == Concept && s.Sign == Sign)
-				.WithTransitives(s => s.Count == 0, GetNestedQuestions)
+				.WithTransitives(
+					statements => statements.Count == 0,
+					question => question.Concept,
+					newSubject => new SignValueQuestion(newSubject, Sign))
 				.SelectFirstConcept(
 					statement => statement.Value,
 					language => language.Answers.SignValue,
@@ -46,23 +48,6 @@ namespace Inventor.Core.Questions
 					})
 				.IfEmptyTrySelectFirstChild()
 				.Answer;
-		}
-
-		private IEnumerable<NestedQuestion> GetNestedQuestions(IQuestionProcessingContext<SignValueQuestion> context)
-		{
-			var alreadyViewedConcepts = new HashSet<IConcept>(context.ActiveContexts.OfType<IQuestionProcessingContext<SignValueQuestion>>().Select(questionContext => questionContext.Question.Concept));
-
-			var question = context.Question;
-			var transitiveStatements = context.SemanticNetwork.Statements.Enumerate<IsStatement>(context.ActiveContexts).Where(isStatement => isStatement.Child == question.Concept);
-
-			foreach (var transitiveStatement in transitiveStatements)
-			{
-				var parent = transitiveStatement.Parent;
-				if (!alreadyViewedConcepts.Contains(parent))
-				{
-					yield return new NestedQuestion(new SignValueQuestion(parent, question.Sign), new IStatement[] { transitiveStatement });
-				}
-			}
 		}
 	}
 }

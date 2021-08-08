@@ -69,6 +69,38 @@ namespace Inventor.Core.Questions
 			return this;
 		}
 
+		public StatementQuestionProcessor<QuestionT, StatementT> WithTransitives(
+			Func<ICollection<StatementT>, Boolean> needToProcess,
+			Func<QuestionT, IConcept> getQuestionSubject,
+			Func<IConcept, QuestionT> createQuestionForSubject)
+		{
+			return WithTransitives(needToProcess, context => GetNestedQuestions(getQuestionSubject, createQuestionForSubject));
+		}
+
+		private IEnumerable<NestedQuestion> GetNestedQuestions(
+			Func<QuestionT, IConcept> getQuestionSubject,
+			Func<IConcept, QuestionT> createQuestionForSubject)
+		{
+			var alreadyViewedConcepts = new HashSet<IConcept>(Context.ActiveContexts
+				.OfType<IQuestionProcessingContext<QuestionT>>()
+				.Select(questionContext => getQuestionSubject(questionContext.Question)));
+
+			var question = Context.Question;
+			var subject = getQuestionSubject(question);
+			var transitiveStatements = Context.SemanticNetwork.Statements
+				.Enumerate<Statements.IsStatement>(Context.ActiveContexts)
+				.Where(isStatement => isStatement.Child == subject);
+
+			foreach (var transitiveStatement in transitiveStatements)
+			{
+				var parent = transitiveStatement.Parent;
+				if (!alreadyViewedConcepts.Contains(parent))
+				{
+					yield return new NestedQuestion(createQuestionForSubject(parent), new IStatement[] { transitiveStatement });
+				}
+			}
+		}
+
 		public StatementQuestionProcessor<QuestionT, StatementT> Select(Func<IQuestionProcessingContext<QuestionT>, ICollection<StatementT>, ICollection<ChildAnswer>, IAnswer> formatter)
 		{
 			Answer = formatter(Context, Statements, ChildAnswers);
