@@ -2,8 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 
-using Inventor.Core.Answers;
-using Inventor.Core.Base;
 using Inventor.Core.Localization;
 using Inventor.Core.Statements;
 
@@ -37,40 +35,16 @@ namespace Inventor.Core.Questions
 			return context
 				.From<IsQuestion, IsStatement>(s => s.Parent == Parent && s.Child == Child)
 				.WithTransitives(s => s.Count == 0, GetNestedQuestions)
-				.Select(CreateAnswer)
-				.Answer;
-		}
-
-		private IAnswer CreateAnswer(IQuestionProcessingContext<IsQuestion> context, ICollection<IsStatement> statements, ICollection<ChildAnswer> childAnswers)
-		{
-			Boolean result = false;
-			var explanation = new List<IStatement>(statements);
-
-			if (statements.Count > 0)
-			{
-				result = true;
-			}
-
-			foreach (var childAnswer in childAnswers)
-			{
-				if (((BooleanAnswer)childAnswer.Answer).Result)
-				{
-					result = true;
-					explanation.AddRange(childAnswer.Answer.Explanation.Statements);
-					explanation.AddRange(childAnswer.TransitiveStatements);
-				}
-			}
-
-			return new BooleanAnswer(
-				result,
-				new FormattedText(
-					result ? new Func<String>(() => context.Language.Answers.IsTrue) : () => context.Language.Answers.IsFalse,
+				.SelectBooleanIncludingChildren(
+					statements => statements.Count > 0,
+					language => language.Answers.IsTrue,
+					language => language.Answers.IsFalse,
 					new Dictionary<String, INamed>
 					{
 						{ Strings.ParamParent, Child },
 						{ Strings.ParamChild, Parent },
-					}),
-				new Explanation(explanation));
+					})
+				.Answer;
 		}
 
 		private IEnumerable<NestedQuestion> GetNestedQuestions(IQuestionProcessingContext<IsQuestion> context)

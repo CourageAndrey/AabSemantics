@@ -2,8 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 
-using Inventor.Core.Answers;
-using Inventor.Core.Base;
 using Inventor.Core.Localization;
 using Inventor.Core.Statements;
 
@@ -40,40 +38,16 @@ namespace Inventor.Core.Questions
 			return context
 				.From<HasSignQuestion, HasSignStatement>(s => s.Concept == Concept && s.Sign == Sign)
 				.WithTransitives(s => s.Count == 0 && Recursive, GetNestedQuestions)
-				.Select(CreateAnswer)
-				.Answer;
-		}
-
-		private IAnswer CreateAnswer(IQuestionProcessingContext<HasSignQuestion> context, ICollection<HasSignStatement> statements, ICollection<ChildAnswer> childAnswers)
-		{
-			Boolean result = false;
-			var explanation = new List<IStatement>(statements);
-
-			if (statements.Count > 0)
-			{
-				result = true;
-			}
-
-			foreach (var childAnswer in childAnswers)
-			{
-				if (((BooleanAnswer) childAnswer.Answer).Result)
-				{
-					result = true;
-					explanation.AddRange(childAnswer.Answer.Explanation.Statements);
-					explanation.AddRange(childAnswer.TransitiveStatements);
-				}
-			}
-
-			return new BooleanAnswer(
-				result,
-				new FormattedText(
-					() => String.Format(result ? context.Language.Answers.HasSignTrue : context.Language.Answers.HasSignFalse, Recursive ? context.Language.Answers.RecursiveTrue : context.Language.Answers.RecursiveFalse),
+				.SelectBooleanIncludingChildren(
+					statements => statements.Count > 0,
+					language => language.Answers.HasSignTrue + (Recursive ? language.Answers.RecursiveTrue : language.Answers.RecursiveFalse) + ".",
+					language => language.Answers.HasSignFalse + (Recursive ? language.Answers.RecursiveTrue : language.Answers.RecursiveFalse) + ".",
 					new Dictionary<String, INamed>
 					{
 						{ Strings.ParamConcept, Concept },
 						{ Strings.ParamSign, Sign },
-					}),
-				new Explanation(explanation));
+					})
+				.Answer;
 		}
 
 		private IEnumerable<NestedQuestion> GetNestedQuestions(IQuestionProcessingContext<HasSignQuestion> context)
