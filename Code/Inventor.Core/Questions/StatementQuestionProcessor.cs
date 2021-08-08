@@ -135,6 +135,40 @@ namespace Inventor.Core.Questions
 			return this;
 		}
 
+		public StatementQuestionProcessor<QuestionT, StatementT> SelectBooleanIncludingChildren(
+			Func<ICollection<StatementT>, Boolean> valueGetter,
+			Func<ILanguage, String> trueFormat,
+			Func<ILanguage, String> falseFormat,
+			IDictionary<String, INamed> parameters)
+		{
+			Boolean result = false;
+			var explanation = new List<IStatement>(Statements.OfType<IStatement>());
+
+			if (Statements.Count > 0)
+			{
+				result = true;
+			}
+
+			foreach (var childAnswer in ChildAnswers)
+			{
+				if (((BooleanAnswer) childAnswer.Answer).Result)
+				{
+					result = true;
+					explanation.AddRange(childAnswer.Answer.Explanation.Statements);
+					explanation.AddRange(childAnswer.TransitiveStatements);
+				}
+			}
+
+			Answer = new BooleanAnswer(
+				result,
+				new FormattedText(
+					result ? new Func<String>(() => trueFormat(Context.Language)) : () => falseFormat(Context.Language),
+					parameters),
+				new Explanation(explanation));
+
+			return this;
+		}
+
 		public StatementQuestionProcessor<QuestionT, StatementT> IfEmptyTrySelectFirstChild()
 		{
 			if (Answer.IsEmpty)
