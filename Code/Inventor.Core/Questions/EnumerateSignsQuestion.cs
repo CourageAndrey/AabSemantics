@@ -45,8 +45,6 @@ namespace Inventor.Core.Questions
 
 		private IEnumerable<NestedQuestion> GetNestedQuestions(IQuestionProcessingContext<EnumerateSignsQuestion> context)
 		{
-			if (!Recursive) yield break;
-
 			var alreadyViewedConcepts = new HashSet<IConcept>(context.ActiveContexts.OfType<IQuestionProcessingContext<EnumerateSignsQuestion>>().Select(questionContext => questionContext.Question.Concept));
 
 			var question = context.Question;
