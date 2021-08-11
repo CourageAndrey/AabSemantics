@@ -41,13 +41,13 @@ namespace Inventor.Core.Localization
 		{
 			return new LanguageAttributes
 			{
-				None = "Не заданы...",
-				IsSign = "Является признаком",
-				IsValue = "Является значением",
-				IsProcess = "Является процессом",
-				IsBoolean = "Является логическим значением",
-				IsComparisonSign = "Является знаком сравнения двух значений",
-				IsSequenceSign = "Является знаком сравнения времени протекания процессов",
+				None = "None...",
+				IsSign = "Is Sign",
+				IsValue = "Is Value",
+				IsProcess = "Is Process",
+				IsBoolean = "Is Boolean",
+				IsComparisonSign = "Is Comparison Sign",
+				IsSequenceSign = "Is Processes Sequence Sign",
 			};
 		}
 	}

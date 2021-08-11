@@ -49,15 +49,15 @@ namespace Inventor.Core.Localization
 		{
 			return new LanguageConsistency
 			{
-				CheckResult = "Результат проверки",
-				CheckOk = "В результате проверки ошибок не выявлено.",
-				ErrorDuplicate = $"Дублирование отношения {Strings.ParamStatement}.",
-				ErrorCyclic = $"Отношение {Strings.ParamStatement} приводит к циклической ссылке понятий друг на друга.",
-				ErrorMultipleSign = $"{Strings.ParamStatement} приводит к повторному определению признака у понятия.",
-				ErrorMultipleSignValue = $"Значение признака {Strings.ParamSign} понятия {Strings.ParamConcept} не может быть корректно определено, так как задано в нескольких его предках.",
-				ErrorSignWithoutValue = $"{Strings.ParamStatement} задаёт значение признака, который отсутствует у понятия.",
-				ErrorComparisonContradiction = $"Невозможно сравнить {Strings.ParamLeftValue} и {Strings.ParamRightValue}. Возможные значения: ",
-				ErrorProcessesContradiction = $"Невозможно установить взаимную последовательность {Strings.ParamProcessA} и {Strings.ParamProcessB}. Возможные варианты: ",
+				CheckResult = "Check result",
+				CheckOk = "There is no errors.",
+				ErrorDuplicate = $"Statement {Strings.ParamStatement} is duplicated.",
+				ErrorCyclic = $"Statement {Strings.ParamStatement} causes cyclic references.",
+				ErrorMultipleSign = $"Statement {Strings.ParamStatement} cause sign value overload.",
+				ErrorMultipleSignValue = $"Value of {Strings.ParamSign} sign of {Strings.ParamConcept} concept is uncertain, because many ancestors define  their own values.",
+				ErrorSignWithoutValue = $"{Strings.ParamStatement} defines value of sign, which does not belong to concept.",
+				ErrorComparisonContradiction = $"Impossible to compare {Strings.ParamLeftValue} and {Strings.ParamRightValue}. Possible cases: ",
+				ErrorProcessesContradiction = $"Impossible to detect sequence between {Strings.ParamProcessA} and {Strings.ParamProcessB}. Possible cases: ",
 			};
 		}
 	}

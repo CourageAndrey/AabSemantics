@@ -36,7 +36,7 @@ namespace Inventor.Test.Questions
 			semanticNetwork.Statements.Add(initialComparison);
 
 			var preconditionComparison = new ComparisonStatement(concept2, concept3, ComparisonSigns.IsEqualTo);
-			// ... and do not add it to knowledge base
+			// ... and do not add it to semantic network
 
 			var question = new ComparisonQuestion(concept1, concept3);
 

@@ -21,8 +21,8 @@ namespace Inventor.Client.Localization
 		{
 			return new LanguageQuestionDialog
 			{
-				Title = "Формирование вопроса",
-				SelectQuestion = "Выберите вопрос: ",
+				Title = "New question",
+				SelectQuestion = "Chose question: ",
 			};
 		}
 	}
