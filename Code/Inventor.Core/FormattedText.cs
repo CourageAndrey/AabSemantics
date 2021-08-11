@@ -46,6 +46,11 @@ namespace Inventor.Core
 			_lines.Add(new FormattedLine(formatter, parameters));
 		}
 
+		public void AddEmptyLine()
+		{
+			Add(() => String.Empty, new Dictionary<String, INamed>());
+		}
+
 		public StringBuilder GetPlainText(ILanguage language)
 		{
 			var result = new StringBuilder();

@@ -49,7 +49,7 @@ namespace Inventor.Core.Questions
 						writeJustClassification(context.Language, result, statement);
 					}
 
-					result.Add(() => String.Empty, new Dictionary<String, INamed>());
+					result.AddEmptyLine();
 				}
 				return new Answer(result, new Explanation(explanation), false);
 			}
