@@ -37,42 +37,18 @@ namespace Inventor.Core.Questions
 				var explanation = new List<SignValueStatement>();
 				foreach (var statement in isStatements)
 				{
-					var difference = new List<SignValueStatement>();
-					foreach (var sign in HasSignStatement.GetSigns(allStatements, statement.Ancestor, false))
-					{
-						var diff = SignValueStatement.GetSignValue(allStatements, Concept, sign.Sign);
-						if (diff != null)
-						{
-							difference.Add(diff);
-						}
-					}
-
+					var difference = getDifferenceBetweenAncestorAndDescendant(allStatements, statement);
 					explanation.AddRange(difference);
 
 					if (difference.Count > 0)
 					{
-						result.Add(() => context.Language.Answers.IsDescriptionWithSign, new Dictionary<String, INamed>
-						{
-							{ Strings.ParamChild, Concept },
-							{ Strings.ParamParent, statement.Ancestor },
-						});
-						foreach (var diff in difference)
-						{
-							result.Add(() => context.Language.Answers.IsDescriptionWithSignValue, new Dictionary<String, INamed>
-							{
-								{ Strings.ParamSign, diff.Sign },
-								{ Strings.ParamValue, diff.Value },
-							});
-						}
+						writeClassificationWithDifference(context.Language, result, statement, difference);
 					}
 					else
 					{
-						result.Add(() => context.Language.Answers.IsDescription, new Dictionary<String, INamed>
-						{
-							{ Strings.ParamChild, Concept },
-							{ Strings.ParamParent, statement.Ancestor },
-						});
+						writeJustClassification(context.Language, result, statement);
 					}
+
 					result.Add(() => String.Empty, new Dictionary<String, INamed>());
 				}
 				return new Answer(result, new Explanation(explanation), false);
@@ -81,6 +57,52 @@ namespace Inventor.Core.Questions
 			{
 				return Answer.CreateUnknown(context.Language);
 			}
+		}
+
+		private List<SignValueStatement> getDifferenceBetweenAncestorAndDescendant(List<IStatement> allStatements, IsStatement isStatement)
+		{
+			var difference = new List<SignValueStatement>();
+			foreach (var sign in HasSignStatement.GetSigns(allStatements, isStatement.Ancestor, false))
+			{
+				var signValue = SignValueStatement.GetSignValue(allStatements, Concept, sign.Sign);
+				if (signValue != null)
+				{
+					difference.Add(signValue);
+				}
+			}
+			return difference;
+		}
+
+		private void writeClassificationWithDifference(ILanguage language, FormattedText result, IsStatement statement, List<SignValueStatement> difference)
+		{
+			result.Add(() => language.Answers.IsDescriptionWithSign, new Dictionary<String, INamed>
+			{
+				{ Strings.ParamChild, Concept },
+				{ Strings.ParamParent, statement.Ancestor },
+			});
+
+			foreach (var diff in difference)
+			{
+				writeSignDifference(language, result, diff);
+			}
+		}
+
+		private static void writeSignDifference(ILanguage language, FormattedText result, SignValueStatement diff)
+		{
+			result.Add(() => language.Answers.IsDescriptionWithSignValue, new Dictionary<String, INamed>
+			{
+				{ Strings.ParamSign, diff.Sign },
+				{ Strings.ParamValue, diff.Value },
+			});
+		}
+
+		private void writeJustClassification(ILanguage language, FormattedText result, IsStatement statement)
+		{
+			result.Add(() => language.Answers.IsDescription, new Dictionary<String, INamed>
+			{
+				{ Strings.ParamChild, Concept },
+				{ Strings.ParamParent, statement.Ancestor },
+			});
 		}
 	}
 }
