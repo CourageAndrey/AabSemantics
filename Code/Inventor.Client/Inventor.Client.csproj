@@ -311,7 +311,9 @@
     <Resource Include="Inventor.ico" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Languages\" />
+    <None Include="Localization\Русский.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Inventor.Core\Inventor.Core.csproj">
