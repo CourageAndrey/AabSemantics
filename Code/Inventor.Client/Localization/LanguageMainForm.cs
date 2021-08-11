@@ -77,7 +77,7 @@ namespace Inventor.Client.Localization
 		{
 			return new LanguageMainForm
 			{
-				Title = "Auxiliary tool \"Inventor\" (demo-version)",
+				Title = "Auxiliary tool \"Inventor\"",
 				CreateNew = "Create new semantic network",
 				Load = "Open...",
 				Save = "Save",
