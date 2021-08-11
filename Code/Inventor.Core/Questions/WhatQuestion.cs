@@ -30,12 +30,12 @@ namespace Inventor.Core.Questions
 		{
 			var allStatements = context.SemanticNetwork.Statements.Enumerate(context.ActiveContexts).ToList();
 
-			var statements = allStatements.Enumerate<IsStatement>(context.ActiveContexts).Where(c => c.Descendant == Concept).ToList();
-			if (statements.Any())
+			var isStatements = allStatements.Enumerate<IsStatement>(context.ActiveContexts).Where(c => c.Descendant == Concept).ToList();
+			if (isStatements.Any())
 			{
 				var result = new FormattedText();
 				var difference = new List<SignValueStatement>();
-				foreach (var statement in statements)
+				foreach (var statement in isStatements)
 				{
 					foreach (var sign in HasSignStatement.GetSigns(allStatements, statement.Ancestor, false))
 					{
