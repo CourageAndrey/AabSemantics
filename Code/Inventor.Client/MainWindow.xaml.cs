@@ -41,6 +41,8 @@ namespace Inventor.Client
 		{
 			_localizator.Change(_application.CurrentLanguage);
 			_localizationProvider.Refresh();
+			reloadSemanticNetworkTree();
+			refreshFileButtonsAndTitle();
 		}
 
 		#region Knowledgebase actions
