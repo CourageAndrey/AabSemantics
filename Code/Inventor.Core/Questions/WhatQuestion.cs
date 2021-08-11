@@ -34,9 +34,10 @@ namespace Inventor.Core.Questions
 			if (isStatements.Any())
 			{
 				var result = new FormattedText();
-				var difference = new List<SignValueStatement>();
+				var explanation = new List<SignValueStatement>();
 				foreach (var statement in isStatements)
 				{
+					var difference = new List<SignValueStatement>();
 					foreach (var sign in HasSignStatement.GetSigns(allStatements, statement.Ancestor, false))
 					{
 						var diff = SignValueStatement.GetSignValue(allStatements, Concept, sign.Sign);
@@ -45,6 +46,9 @@ namespace Inventor.Core.Questions
 							difference.Add(diff);
 						}
 					}
+
+					explanation.AddRange(difference);
+
 					if (difference.Count > 0)
 					{
 						result.Add(() => context.Language.Answers.IsDescriptionWithSign, new Dictionary<String, INamed>
@@ -71,7 +75,7 @@ namespace Inventor.Core.Questions
 					}
 					result.Add(() => String.Empty, new Dictionary<String, INamed>());
 				}
-				return new Answer(result, new Explanation(difference), false);
+				return new Answer(result, new Explanation(explanation), false);
 			}
 			else
 			{
