@@ -17,9 +17,9 @@ namespace Inventor.Core.Localization
 		[XmlIgnore]
 		private const String ElementCommon = "Common";
 		[XmlIgnore]
-		private const String DefaultCulture = "ru-RU";
+		private const String DefaultCulture = "en-US";
 		[XmlIgnore]
-		private const String DefaultName = "Русский";
+		private const String DefaultName = "English";
 		[XmlIgnore]
 		private const String ElementStatementNames = "StatementNames";
 		[XmlIgnore]

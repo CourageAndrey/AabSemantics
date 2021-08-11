@@ -53,16 +53,16 @@ namespace Inventor.Client.Localization
 		{
 			return new LanguageMisc
 			{
-				NameSemanticNetwork = "База знаний",
-				NameCategoryConcepts = "Понятия",
-				NameCategoryStatements = "Утверждения",
-				Rules = "Все правила базы знаний:",
-				Answer = "Ответ:",
-				Required = "обязательный",
-				DialogKbOpenTitle = "Загрузка базы знаний",
-				DialogKbSaveTitle = "Сохранение базы знаний",
-				DialogKbFileFilter = "XML с базой знаний|*.xml",
-				Concept = "Понятие",
+				NameSemanticNetwork = "Semantic network",
+				NameCategoryConcepts = "Concepts",
+				NameCategoryStatements = "Statements",
+				Rules = "All semantic network rules:",
+				Answer = "Answer:",
+				Required = "required",
+				DialogKbOpenTitle = "Open semantic network",
+				DialogKbSaveTitle = "Save semantic network",
+				DialogKbFileFilter = "Semantic network XML|*.xml",
+				Concept = "Concept",
 			};
 		}
 	}

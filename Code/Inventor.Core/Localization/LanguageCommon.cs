@@ -50,15 +50,15 @@ namespace Inventor.Core.Localization
 		{
 			return new LanguageCommon
 			{
-				Close = "Закрыть",
-				Ok = "ОК",
-				Cancel = "Отмена",
-				Abort = "Прервать выполнение",
-				Ignore = "Пропустить",
-				Save = "Сохранить",
-				SaveFile = "Выберите файл для сохранения...",
+				Close = "Close",
+				Ok = "OK",
+				Cancel = "Cancel",
+				Abort = "Abort",
+				Ignore = "Ignore",
+				Save = "Save",
+				SaveFile = "Please, chose save file...",
 
-				Question = "Вопрос",
+				Question = "Question",
 			};
 		}
 	}

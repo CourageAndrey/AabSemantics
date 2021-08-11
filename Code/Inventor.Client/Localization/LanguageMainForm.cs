@@ -77,22 +77,22 @@ namespace Inventor.Client.Localization
 		{
 			return new LanguageMainForm
 			{
-				Title = "Вспомогательная утилита \"Изобретатель\" (демо-версия)",
-				CreateNew = "Создать новую базу знаний",
-				Load = "Открыть...",
-				Save = "Сохранить",
-				SaveAs = "Сохранить как...",
-				CreateTest = "Создать тестовую базу знаний",
-				DescribeKnowledge = "Описать все знания...",
-				CheckKnowledge = "Выполнить проверку знаний на непротиворечивость...",
-				AskQuestion = "Задать вопрос...",
-				SelectLanguage = "Язык:",
-				ContextMenuRename = "Переименовать...",
-				ContextMenuKnowledgeAdd = "Добавить...",
-				ContextMenuKnowledgeEdit = "Редактировать...",
-				ContextMenuKnowledgeDelete = "Удалить",
-				SavePromt = "Файл был изменён. Сохранить изменения?",
-				SaveTitle = "Сохранение изменений",
+				Title = "Auxiliary tool \"Inventor\" (demo-version)",
+				CreateNew = "Create new semantic network",
+				Load = "Open...",
+				Save = "Save",
+				SaveAs = "Save As...",
+				CreateTest = "Create test semantic network",
+				DescribeKnowledge = "Describe all knowledge...",
+				CheckKnowledge = "Check consistency of knowledge...",
+				AskQuestion = "Ask question...",
+				SelectLanguage = "Language:",
+				ContextMenuRename = "Rename...",
+				ContextMenuKnowledgeAdd = "Add...",
+				ContextMenuKnowledgeEdit = "Edit...",
+				ContextMenuKnowledgeDelete = "Delete",
+				SavePromt = "File has been modified. Save changes?",
+				SaveTitle = "Saving changes",
 			};
 		}
 	}

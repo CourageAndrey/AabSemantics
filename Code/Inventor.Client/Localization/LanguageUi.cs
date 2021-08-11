@@ -76,13 +76,13 @@ namespace Inventor.Client.Localization
 		{
 			return new LanguageUi
 			{
-				Ok = "ОК",
-				Cancel = "Отмена",
-				Next = "Далее >",
-				Back = "< Назад",
-				StatementTypeDialogHeader = "Выберите тип утверждения",
-				CreateNewStatement = "Создать новое утверждение? (Нет - редактирование старого)",
-				CreateNewQuestion = "Создать новый вопрос? (Нет - редактирование старого)",
+				Ok = "OK",
+				Cancel = "Cancel",
+				Next = "Next >",
+				Back = "< Prev",
+				StatementTypeDialogHeader = "Chose statement type",
+				CreateNewStatement = "Create new statement? (No - edit existing)",
+				CreateNewQuestion = "Create new question? (No - edit existing)",
 				QuestionDialogXml = LanguageQuestionDialog.CreateDefault(),
 				MainFormXml = LanguageMainForm.CreateDefault(),
 				EditingXml = LanguageEditing.CreateDefault(),

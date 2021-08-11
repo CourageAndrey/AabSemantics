@@ -54,16 +54,16 @@ namespace Inventor.Client.Localization
 		{
 			return new LanguageErrors
 			{
-				InnerException = "Вложенное исключение",
-				DialogHeader = "Во время выполнения программы произошла ошибка",
-				DialogMessageCommon = "Пожалуйста, свяжитесь с разработчиком и передайте ему файл с описанием ошибки (формируется при нажатии на кнопке \"Сохранить\").",
-				DialogMessageFatal = "Критическая ошибка не была обработана. Приложение вероятнее всего будет принудительно закрыто. Пожалуйста, свяжитесь с разработчиком и передайте ему файл с описанием ошибки (формируется при нажатии на кнопке \"Сохранить\").",
-				DialogMessageInner = "Описание вложенного исключения",
-				DialogMessageView = "Просмотр свойств ошибки",
-				Class = "Класс:",
-				Message = "Сообщение:",
-				Stack = "Стек вызовов:",
-				SaveFilter = "XML-файл|*.xml",
+				InnerException = "Inner Exception",
+				DialogHeader = "An error occured",
+				DialogMessageCommon = "Please, contact program developer and forward exception details file (press \"Save\" to create it).",
+				DialogMessageFatal = "Critcial error occured. Application will be forcibly terminated. Please, contact program developer and forward exception details file (press \"Save\" to create it).",
+				DialogMessageInner = "Inner error details",
+				DialogMessageView = "Error details",
+				Class = "Class:",
+				Message = "Message:",
+				Stack = "Stack trace:",
+				SaveFilter = "XML-file|*.xml",
 			};
 		}
 	}

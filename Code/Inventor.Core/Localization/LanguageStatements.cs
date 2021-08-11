@@ -41,13 +41,13 @@ namespace Inventor.Core.Localization
 		{
 			return new LanguageStatements
 			{
-				SubjectArea = "Предметная область",
-				Clasification = "Классификация",
-				HasSign = "Признак",
-				SignValue = "Значение признака",
-				Composition = "Часть-целое",
-				Comparison = "Сравнение",
-				Processes = "Процессы",
+				SubjectArea = "Subject Area",
+				Clasification = "Clasification",
+				HasSign = "Has Sign",
+				SignValue = "Sign Value",
+				Composition = "Composition",
+				Comparison = "Comparison",
+				Processes = "Processes",
 			};
 		}
 
@@ -55,13 +55,13 @@ namespace Inventor.Core.Localization
 		{
 			return new LanguageStatements
 			{
-				SubjectArea = "Отношение описывает вхождение терминов в некоторую предметную область.",
-				Clasification = "Отношение описывает связь между родительским и дочерним (подчинённым) понятиями.",
-				HasSign = "Отношение описывает наличие некоторого признака, описывающего свойства понятия.",
-				SignValue = "Отношение описывает значение признака, свойственного данному понятию.",
-				Composition = "Отношение описывает вхождение одного понятия в другое качестве элемента структуры последнего.",
-				Comparison = "Отношение описывает сравнение двух значений",
-				Processes = "Отношение описывает временные и причинно-следственные отношения между процессами",
+				SubjectArea = "Statement declares, that concept belongs to some subject area.",
+				Clasification = "Statement declares, that one concept (descendant) is (implements, instantiates, subclass) another one (ancestor).",
+				HasSign = "Statement declares, that concept has certain sign.",
+				SignValue = "Statement declares, that concept has defined sign value.",
+				Composition = "Statement declares, that one concept is a part of another one.",
+				Comparison = "Statement declares, how two values can be compared with each other.",
+				Processes = "Statement declares, how two processes relate one to other on the time scale.",
 			};
 		}
 
@@ -69,11 +69,11 @@ namespace Inventor.Core.Localization
 		{
 			return new LanguageStatements
 			{
-				SubjectArea = String.Format("Понятие {0} входит в предметную область {1}.", Strings.ParamConcept, Strings.ParamArea),
-				Clasification = String.Format("{0} есть {1}.", Strings.ParamChild, Strings.ParamParent),
-				HasSign = String.Format("{0} имеет признак {1}.", Strings.ParamConcept, Strings.ParamSign),
-				SignValue = String.Format("{0} имеет значение признака {1} равным {2}.", Strings.ParamConcept, Strings.ParamSign, Strings.ParamValue),
-				Composition = String.Format("{0} является частью {1}.", Strings.ParamChild, Strings.ParamParent),
+				SubjectArea = String.Format("Concept {0} belongs to {1} subject area.", Strings.ParamConcept, Strings.ParamArea),
+				Clasification = String.Format("{0} is {1}.", Strings.ParamChild, Strings.ParamParent),
+				HasSign = String.Format("{0} has {1} sign.", Strings.ParamConcept, Strings.ParamSign),
+				SignValue = String.Format("{1} sign value of {0} is equal to {2}.", Strings.ParamConcept, Strings.ParamSign, Strings.ParamValue),
+				Composition = String.Format("{0} is part of {1}.", Strings.ParamChild, Strings.ParamParent),
 				Comparison = String.Format("{0} {1} {2}.", Strings.ParamLeftValue, Strings.ParamComparisonSign, Strings.ParamRightValue),
 				Processes = String.Format("{0} {1} {2}.", Strings.ParamProcessA, Strings.ParamSequenceSign, Strings.ParamProcessB),
 			};
@@ -83,13 +83,13 @@ namespace Inventor.Core.Localization
 		{
 			return new LanguageStatements
 			{
-				SubjectArea = String.Format("Понятие {0} не входит в предметную область {1}.", Strings.ParamConcept, Strings.ParamArea),
-				Clasification = String.Format("{0} не есть {1}.", Strings.ParamChild, Strings.ParamParent),
-				HasSign = String.Format("У {0} отсутствует признак {1}.", Strings.ParamConcept, Strings.ParamSign),
-				SignValue = String.Format("{0} не имеет значение признака {1} равным {2}.", Strings.ParamConcept, Strings.ParamSign, Strings.ParamValue),
-				Composition = String.Format("{0} не является частью {1}.", Strings.ParamChild, Strings.ParamParent),
-				Comparison = String.Format("Неверно, что {0} {1} {2}.", Strings.ParamLeftValue, Strings.ParamComparisonSign, Strings.ParamRightValue),
-				Processes = String.Format("Неверно, что {0} {1} {2}.", Strings.ParamProcessA, Strings.ParamSequenceSign, Strings.ParamProcessB),
+				SubjectArea = String.Format("Concept {0} does not belong to {1} subject area.", Strings.ParamConcept, Strings.ParamArea),
+				Clasification = String.Format("{0} is not {1}.", Strings.ParamChild, Strings.ParamParent),
+				HasSign = String.Format("{0} has not {1} sign.", Strings.ParamConcept, Strings.ParamSign),
+				SignValue = String.Format("{1} sign value of {0} is not equal to {2}.", Strings.ParamConcept, Strings.ParamSign, Strings.ParamValue),
+				Composition = String.Format("{0} is not part of {1}.", Strings.ParamChild, Strings.ParamParent),
+				Comparison = String.Format("It's false, that {0} {1} {2}.", Strings.ParamLeftValue, Strings.ParamComparisonSign, Strings.ParamRightValue),
+				Processes = String.Format("It's false, that {0} {1} {2}.", Strings.ParamProcessA, Strings.ParamSequenceSign, Strings.ParamProcessB),
 			};
 		}
 
@@ -97,13 +97,13 @@ namespace Inventor.Core.Localization
 		{
 			return new LanguageStatements
 			{
-				SubjectArea = String.Format("Входит ли понятие {0} в предметную область {1}?", Strings.ParamConcept, Strings.ParamArea),
-				Clasification = String.Format("На самом ли деле {0} есть {1}?", Strings.ParamChild, Strings.ParamParent),
-				HasSign = String.Format("Есть ли у {0} признак {1}?", Strings.ParamConcept, Strings.ParamSign),
-				SignValue = String.Format("Является ли {2} значением признака {1} у {0}?", Strings.ParamConcept, Strings.ParamSign, Strings.ParamValue),
-				Composition = String.Format("Является ли {0} частью {1}?", Strings.ParamChild, Strings.ParamParent),
-				Comparison = String.Format("Верно ли, что {0} {1} {2}?", Strings.ParamLeftValue, Strings.ParamComparisonSign, Strings.ParamRightValue),
-				Processes = String.Format("Верно ли, что {0} {1} {2}?", Strings.ParamProcessA, Strings.ParamSequenceSign, Strings.ParamProcessB),
+				SubjectArea = String.Format("Does {0} belong to {1} subject area?", Strings.ParamConcept, Strings.ParamArea),
+				Clasification = String.Format("Is {0} a {1}?", Strings.ParamChild, Strings.ParamParent),
+				HasSign = String.Format("Has {0} got {1} sign?", Strings.ParamConcept, Strings.ParamSign),
+				SignValue = String.Format("Is {2} the value of {0}s {1} sign?", Strings.ParamConcept, Strings.ParamSign, Strings.ParamValue),
+				Composition = String.Format("Is {0} part of {1}?", Strings.ParamChild, Strings.ParamParent),
+				Comparison = String.Format("Is it true, that {0} {1} {2}?", Strings.ParamLeftValue, Strings.ParamComparisonSign, Strings.ParamRightValue),
+				Processes = String.Format("Is it true, that {0} {1} {2}?", Strings.ParamProcessA, Strings.ParamSequenceSign, Strings.ParamProcessB),
 			};
 		}
 	}

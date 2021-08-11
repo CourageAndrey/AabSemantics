@@ -152,7 +152,7 @@ namespace Inventor.Core.Base
 
 		public TestSemanticNetwork(ILanguage language)
 		{
-			#region Knowledge Base
+			#region Semantic network
 
 			SemanticNetwork = new SemanticNetwork(language);
 			((LocalizedStringVariable) SemanticNetwork.Name).SetLocale("ru-RU", "Тестовая база знаний");

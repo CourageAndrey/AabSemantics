@@ -75,7 +75,7 @@ namespace Inventor.Test.Xml
 				var statementType = statement.GetType();
 				var childConcepts = statement.GetChildConcepts().Select(c => conceptMapping[c]).ToList();
 
-				// Note: check method Single() below means, that test knowledge base can not contain statement duplicates.
+				// Note: check method Single() below means, that test semantic network can not contain statement duplicates.
 				restored.Statements.Single(s => statementType == s.GetType() && childConcepts.SequenceEqual(s.GetChildConcepts()));
 			}
 		}
