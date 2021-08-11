@@ -28,7 +28,7 @@ namespace Inventor.Core.Questions
 
 		public override IAnswer Process(IQuestionProcessingContext context)
 		{
-			var allStatements = context.SemanticNetwork.Statements.Enumerate(context.ActiveContexts);
+			var allStatements = context.SemanticNetwork.Statements.Enumerate(context.ActiveContexts).ToList();
 
 			var statements = allStatements.Enumerate<IsStatement>(context.ActiveContexts).Where(c => c.Descendant == Concept).ToList();
 			if (statements.Any())
