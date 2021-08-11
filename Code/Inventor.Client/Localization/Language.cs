@@ -9,7 +9,7 @@ using Inventor.Core.Utils;
 
 namespace Inventor.Client.Localization
 {
-	[Serializable, XmlRoot(RootName)]
+	[Serializable, XmlType("WpfClient" + RootName), XmlRoot("WpfClient" + RootName)]
 	public class Language : Core.Localization.Language, ILanguage
 	{
 		#region Constants
