@@ -3,7 +3,7 @@ using System.Xml.Serialization;
 
 namespace Inventor.Core.Localization
 {
-	[Serializable, XmlRoot(RootName)]
+	[Serializable, XmlType(RootName), XmlRoot(RootName)]
 	public class Language : ILanguage
 	{
 		#region Constants
