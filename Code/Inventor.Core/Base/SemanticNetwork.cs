@@ -136,17 +136,6 @@ namespace Inventor.Core.Base
 			new Xml.SemanticNetwork(this).SerializeToFile(fileName);
 		}
 
-		public event EventHandler Changed;
-
-		private void raiseChanged()
-		{
-			var handler = Volatile.Read(ref Changed);
-			if (handler != null)
-			{
-				handler(this, EventArgs.Empty);
-			}
-		}
-
 		#endregion
 	}
 }

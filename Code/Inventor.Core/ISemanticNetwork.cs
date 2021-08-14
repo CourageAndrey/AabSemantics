@@ -8,7 +8,7 @@ using Inventor.Core.Utils;
 
 namespace Inventor.Core
 {
-	public interface ISemanticNetwork : INamed, IChangeable
+	public interface ISemanticNetwork : INamed
 	{
 		ISemanticNetworkContext Context
 		{ get; }
