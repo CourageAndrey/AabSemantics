@@ -135,8 +135,6 @@ namespace Inventor.Test.Base
 			public ILocalizedString Name
 			{ get; set; }
 
-			public event EventHandler Changed;
-
 			public ISemanticNetworkContext Context
 			{ get; set; }
 
