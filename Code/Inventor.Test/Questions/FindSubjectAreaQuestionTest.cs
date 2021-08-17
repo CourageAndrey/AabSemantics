@@ -78,7 +78,7 @@ namespace Inventor.Test.Questions
 			var concept = semanticNetwork.Base_Vehicle;
 
 			var secondSubjectArea = LogicalValues.True;
-			semanticNetwork.SemanticNetwork.Statements.Add(new GroupStatement(secondSubjectArea, concept));
+			semanticNetwork.SemanticNetwork.DeclareThat(concept).BelongsToSubjectArea(secondSubjectArea);
 
 			// act
 			var question = new FindSubjectAreaQuestion(concept);

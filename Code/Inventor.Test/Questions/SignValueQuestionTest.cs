@@ -1,5 +1,5 @@
 ﻿using System.Linq;
-
+using Inventor.Core;
 using NUnit.Framework;
 
 using Inventor.Core.Answers;
@@ -56,8 +56,7 @@ namespace Inventor.Test.Questions
 			var truck = new Concept();
 			semanticNetwork.SemanticNetwork.Concepts.Add(truck);
 
-			var classification = new IsStatement(semanticNetwork.Vehicle_Car, truck);
-			semanticNetwork.SemanticNetwork.Statements.Add(classification);
+			var classification = semanticNetwork.SemanticNetwork.DeclareThat(truck).IsDescendantOf(semanticNetwork.Vehicle_Car);
 
 			var question = new SignValueQuestion(truck, semanticNetwork.Sign_AreaType);
 
@@ -82,11 +81,9 @@ namespace Inventor.Test.Questions
 			var flyingCar = new Concept();
 			semanticNetwork.SemanticNetwork.Concepts.Add(flyingCar);
 
-			var classification = new IsStatement(semanticNetwork.Vehicle_Car, flyingCar);
-			semanticNetwork.SemanticNetwork.Statements.Add(classification);
+			semanticNetwork.SemanticNetwork.DeclareThat(flyingCar).IsDescendantOf(semanticNetwork.Vehicle_Car);
 
-			var newValue = new SignValueStatement(flyingCar, semanticNetwork.Sign_AreaType, semanticNetwork.AreaType_Air);
-			semanticNetwork.SemanticNetwork.Statements.Add(newValue);
+			var newValue = semanticNetwork.SemanticNetwork.DeclareThat(semanticNetwork.AreaType_Air).IsSignValue(flyingCar, semanticNetwork.Sign_AreaType);
 
 			var question = new SignValueQuestion(flyingCar, semanticNetwork.Sign_AreaType);
 

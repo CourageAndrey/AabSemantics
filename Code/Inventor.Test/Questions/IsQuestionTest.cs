@@ -63,8 +63,7 @@ namespace Inventor.Test.Questions
 			var hugeAirbus = new Concept();
 			semanticNetwork.SemanticNetwork.Concepts.Add(hugeAirbus);
 
-			var classification = new IsStatement(semanticNetwork.Vehicle_Airbus, hugeAirbus);
-			semanticNetwork.SemanticNetwork.Statements.Add(classification);
+			var classification = semanticNetwork.SemanticNetwork.DeclareThat(hugeAirbus).IsDescendantOf(semanticNetwork.Vehicle_Airbus);
 
 			var question = new IsQuestion(hugeAirbus, semanticNetwork.Base_Vehicle);
 

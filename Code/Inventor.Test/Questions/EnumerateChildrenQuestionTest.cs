@@ -1,5 +1,5 @@
 ﻿using System.Linq;
-
+using Inventor.Core;
 using NUnit.Framework;
 
 using Inventor.Core.Answers;
@@ -26,7 +26,7 @@ namespace Inventor.Test.Questions
 			semanticNetwork.Concepts.Add(conceptToCheck);
 			semanticNetwork.Concepts.Add(parentConcept);
 			semanticNetwork.Concepts.Add(childConcept);
-			semanticNetwork.Statements.Add(new IsStatement(parentConcept, childConcept));
+			semanticNetwork.DeclareThat(childConcept).IsDescendantOf(parentConcept);
 
 			var questionToCheck = new EnumerateChildrenQuestion(conceptToCheck);
 			var questionChild = new EnumerateChildrenQuestion(childConcept);
@@ -61,7 +61,7 @@ namespace Inventor.Test.Questions
 				// act
 				var childConcept = new Concept();
 				semanticNetwork.Concepts.Add(childConcept);
-				semanticNetwork.Statements.Add(new IsStatement(parentConcept, childConcept));
+				semanticNetwork.DeclareThat(childConcept).IsDescendantOf(parentConcept);
 
 				var question = new EnumerateChildrenQuestion(parentConcept);
 
