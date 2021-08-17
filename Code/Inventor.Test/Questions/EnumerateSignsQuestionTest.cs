@@ -65,8 +65,7 @@ namespace Inventor.Test.Questions
 			ownSign.Attributes.Add(IsSignAttribute.Value);
 			semanticNetwork.SemanticNetwork.Concepts.Add(ownSign);
 
-			var ownSignStatement = new HasSignStatement(semanticNetwork.Vehicle_Motorcycle, ownSign);
-			semanticNetwork.SemanticNetwork.Statements.Add(ownSignStatement);
+			var ownSignStatement = semanticNetwork.SemanticNetwork.DeclareThat(ownSign).IsSignOf(semanticNetwork.Vehicle_Motorcycle);
 
 			var question = new EnumerateSignsQuestion(semanticNetwork.Vehicle_Motorcycle, false);
 
@@ -109,8 +108,7 @@ namespace Inventor.Test.Questions
 			ownSign.Attributes.Add(IsSignAttribute.Value);
 			semanticNetwork.SemanticNetwork.Concepts.Add(ownSign);
 
-			var ownSignStatement = new HasSignStatement(semanticNetwork.Vehicle_Motorcycle, ownSign);
-			semanticNetwork.SemanticNetwork.Statements.Add(ownSignStatement);
+			var ownSignStatement = semanticNetwork.SemanticNetwork.DeclareThat(ownSign).IsSignOf(semanticNetwork.Vehicle_Motorcycle);
 
 			var question = new EnumerateSignsQuestion(semanticNetwork.Vehicle_Motorcycle, true);
 

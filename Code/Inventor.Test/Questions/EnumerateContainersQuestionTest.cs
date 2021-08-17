@@ -1,5 +1,5 @@
 ﻿using System.Linq;
-
+using Inventor.Core;
 using NUnit.Framework;
 
 using Inventor.Core.Answers;
@@ -26,7 +26,7 @@ namespace Inventor.Test.Questions
 			semanticNetwork.Concepts.Add(conceptToCheck);
 			semanticNetwork.Concepts.Add(wholeConcept);
 			semanticNetwork.Concepts.Add(partConcept);
-			semanticNetwork.Statements.Add(new HasPartStatement(wholeConcept, partConcept));
+			semanticNetwork.DeclareThat(partConcept).IsPartOf(wholeConcept);
 
 			var questionToCheck = new EnumerateContainersQuestion(conceptToCheck);
 			var questionWhole = new EnumerateContainersQuestion(wholeConcept);
@@ -61,7 +61,7 @@ namespace Inventor.Test.Questions
 				// act
 				var wholeConcept = new Concept();
 				semanticNetwork.Concepts.Add(wholeConcept);
-				semanticNetwork.Statements.Add(new HasPartStatement(wholeConcept, partConcept));
+				semanticNetwork.DeclareThat(partConcept).IsPartOf(wholeConcept);
 
 				var question = new EnumerateContainersQuestion(partConcept);
 

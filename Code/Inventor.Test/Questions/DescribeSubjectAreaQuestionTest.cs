@@ -40,8 +40,7 @@ namespace Inventor.Test.Questions
 
 			var area = LogicalValues.True;
 			var concept = LogicalValues.False;
-			var groupStatement = new GroupStatement(area, concept);
-			semanticNetwork.SemanticNetwork.Statements.Add(groupStatement);
+			var groupStatement = semanticNetwork.SemanticNetwork.DeclareThat(concept).BelongsToSubjectArea(area);
 
 			// act
 			var question = new DescribeSubjectAreaQuestion(area);
