@@ -12,34 +12,68 @@ using Inventor.Core.Questions;
 
 namespace Inventor.Test.Base
 {
+	// This test checks Question processing contexts, base on default implementation of IQuestion.Ask() method.
+	//
+	//	public IAnswer Ask(ISemanticNetworkContext context)
+	//	{
+	//		using (var questionContext = context.CreateQuestionContext(this))
+	//		{
+	//			return Process(questionContext);
+	//		}
+	//	}
 	[TestFixture]
 	public class ContextsTest
 	{
 		[Test]
-		public void UnfinishedContextDisposingFails()
+		public void EnsureThatImpossibleToDisposeContextWhichHasNotDisposedChildContexts()
 		{
 			var language = Language.Default;
 			var semanticNetwork = new SemanticNetwork(language);
 
 			Assert.DoesNotThrow(() =>
 			{
+				// test context is created without children and can be successfully disposed
 				new TestQuestionCreateNestedContext(false).Ask(semanticNetwork.Context);
 			});
 
 			Assert.Throws<InvalidOperationException>(() =>
 			{
+				// test context is created with unfinished children and fails to dispose
 				new TestQuestionCreateNestedContext(true).Ask(semanticNetwork.Context);
 			});
 		}
 
+		// This test partially duplicates previous one.
 		[Test]
-		public void ContextDisposingRemovesRelatedKnowledge()
+		public void ImpossibleToDisposeContextWithActiveChildren()
+		{
+			// arrange
+			var language = Language.Default;
+			var semanticNetwork = new SemanticNetwork(language);
+			var questionContext = semanticNetwork.Context.CreateQuestionContext(new TestQuestionCreateContextKnowledge());
+			var child1Context = questionContext.CreateQuestionContext(new TestQuestionCreateNestedContext(false));
+			var child2Context = questionContext.CreateQuestionContext(new TestQuestionCreateNestedContext(false));
+
+			// act & assert
+			Assert.Throws<InvalidOperationException>(() => questionContext.Dispose());
+
+			child1Context.Dispose();
+			Assert.Throws<InvalidOperationException>(() => questionContext.Dispose());
+
+			child2Context.Dispose();
+			Assert.DoesNotThrow(() => questionContext.Dispose());
+		}
+
+		[Test]
+		public void ContextDisposingRemovesStatementsAddedByIt()
 		{
 			var language = Language.Default;
 			var semanticNetwork = new SemanticNetwork(language);
 
+			// this context adds to semantic network new test statement, attached to this context
 			new TestQuestionCreateContextKnowledge().Ask(semanticNetwork.Context);
 
+			// as context has been disposed after previous line, ensure, that added test stametement(s) was (were) also deleted
 			Assert.IsFalse(semanticNetwork.Statements.Enumerate<TestStatement>().Any());
 		}
 
@@ -91,26 +125,6 @@ namespace Inventor.Test.Base
 				new TestStatementRepository(),
 				new TestQuestionRepository(),
 				new TestAttributeRepository()));
-		}
-
-		[Test]
-		public void ImpossibleToDisposeContextWithActiveChildren()
-		{
-			// arrange
-			var language = Language.Default;
-			var semanticNetwork = new SemanticNetwork(language);
-			var questionContext = semanticNetwork.Context.CreateQuestionContext(new TestQuestionCreateContextKnowledge());
-			var child1Context = questionContext.CreateQuestionContext(new TestQuestionCreateNestedContext(false));
-			var child2Context = questionContext.CreateQuestionContext(new TestQuestionCreateNestedContext(false));
-
-			// act & assert
-			Assert.Throws<InvalidOperationException>(() => questionContext.Dispose());
-
-			child1Context.Dispose();
-			Assert.Throws<InvalidOperationException>(() => questionContext.Dispose());
-
-			child2Context.Dispose();
-			Assert.DoesNotThrow(() => questionContext.Dispose());
 		}
 
 		[Test]
