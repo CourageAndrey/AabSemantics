@@ -6,7 +6,6 @@ using Inventor.Core;
 using Inventor.Core.Answers;
 using Inventor.Core.Base;
 using Inventor.Core.Localization;
-using Inventor.Core.Questions;
 using Inventor.Core.Statements;
 
 namespace Inventor.Test.Questions
@@ -23,8 +22,7 @@ namespace Inventor.Test.Questions
 			var noSubjectAreaConcept = SystemConcepts.GetAll().First();
 
 			// act
-			var question = new DescribeSubjectAreaQuestion(noSubjectAreaConcept);
-			var answer = question.Ask(semanticNetwork.SemanticNetwork.Context);
+			var answer = semanticNetwork.SemanticNetwork.Ask().WhichConceptsBelongToSubjectArea(noSubjectAreaConcept);
 
 			// assert
 			Assert.IsTrue(answer.IsEmpty);
@@ -43,8 +41,7 @@ namespace Inventor.Test.Questions
 			var groupStatement = semanticNetwork.SemanticNetwork.DeclareThat(concept).BelongsToSubjectArea(area);
 
 			// act
-			var question = new DescribeSubjectAreaQuestion(area);
-			var answer = question.Ask(semanticNetwork.SemanticNetwork.Context);
+			var answer = semanticNetwork.SemanticNetwork.Ask().WhichConceptsBelongToSubjectArea(area);
 
 			// assert
 			Assert.IsFalse(answer.IsEmpty);
@@ -63,8 +60,7 @@ namespace Inventor.Test.Questions
 			var semanticNetwork = new TestSemanticNetwork(language);
 
 			// act
-			var question = new DescribeSubjectAreaQuestion(semanticNetwork.SubjectArea_Transport);
-			var answer = question.Ask(semanticNetwork.SemanticNetwork.Context);
+			var answer = semanticNetwork.SemanticNetwork.Ask().WhichConceptsBelongToSubjectArea(semanticNetwork.SubjectArea_Transport);
 
 			// assert
 			Assert.IsFalse(answer.IsEmpty);

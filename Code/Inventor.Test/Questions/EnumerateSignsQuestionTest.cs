@@ -23,11 +23,10 @@ namespace Inventor.Test.Questions
 			var semanticNetwork = new TestSemanticNetwork(language).SemanticNetwork;
 
 			var questionWithoutRecursion = new EnumerateSignsQuestion(LogicalValues.True, false);
-			var questionWithRecursion = new EnumerateSignsQuestion(LogicalValues.True, true);
 
 			// act
 			var answerWithoutRecursion = questionWithoutRecursion.Ask(semanticNetwork.Context);
-			var answerWithRecursion = questionWithRecursion.Ask(semanticNetwork.Context);
+			var answerWithRecursion = semanticNetwork.Ask().WhichSignsHas(LogicalValues.True);
 
 			// assert
 			Assert.IsTrue(answerWithoutRecursion.IsEmpty);
@@ -110,10 +109,8 @@ namespace Inventor.Test.Questions
 
 			var ownSignStatement = semanticNetwork.SemanticNetwork.DeclareThat(ownSign).IsSignOf(semanticNetwork.Vehicle_Motorcycle);
 
-			var question = new EnumerateSignsQuestion(semanticNetwork.Vehicle_Motorcycle, true);
-
 			// act
-			var answer = (ConceptsAnswer) question.Ask(semanticNetwork.SemanticNetwork.Context);
+			var answer = (ConceptsAnswer) semanticNetwork.SemanticNetwork.Ask().WhichSignsHas(semanticNetwork.Vehicle_Motorcycle);
 
 			// assert
 			Assert.IsFalse(answer.IsEmpty);

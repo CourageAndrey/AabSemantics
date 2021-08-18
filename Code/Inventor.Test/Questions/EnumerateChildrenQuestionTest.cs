@@ -1,12 +1,11 @@
 ﻿using System.Linq;
-using Inventor.Core;
+
 using NUnit.Framework;
 
+using Inventor.Core;
 using Inventor.Core.Answers;
 using Inventor.Core.Base;
 using Inventor.Core.Localization;
-using Inventor.Core.Questions;
-using Inventor.Core.Statements;
 
 namespace Inventor.Test.Questions
 {
@@ -28,13 +27,10 @@ namespace Inventor.Test.Questions
 			semanticNetwork.Concepts.Add(childConcept);
 			semanticNetwork.DeclareThat(childConcept).IsDescendantOf(parentConcept);
 
-			var questionToCheck = new EnumerateChildrenQuestion(conceptToCheck);
-			var questionChild = new EnumerateChildrenQuestion(childConcept);
-
 			// act
-			var answerToCheck = questionToCheck.Ask(semanticNetwork.Context);
+			var answerToCheck = semanticNetwork.Ask().WhichDescendantsHas(conceptToCheck);
 
-			var answerChild = questionChild.Ask(semanticNetwork.Context);
+			var answerChild = semanticNetwork.Ask().WhichDescendantsHas(childConcept);
 
 			// assert
 			Assert.IsTrue(answerToCheck.IsEmpty);
@@ -63,9 +59,7 @@ namespace Inventor.Test.Questions
 				semanticNetwork.Concepts.Add(childConcept);
 				semanticNetwork.DeclareThat(childConcept).IsDescendantOf(parentConcept);
 
-				var question = new EnumerateChildrenQuestion(parentConcept);
-
-				var answer = question.Ask(semanticNetwork.Context);
+				var answer = semanticNetwork.Ask().WhichDescendantsHas(parentConcept);
 
 				// assert
 				Assert.IsFalse(answer.IsEmpty);

@@ -8,7 +8,6 @@ using Inventor.Core;
 using Inventor.Core.Answers;
 using Inventor.Core.Base;
 using Inventor.Core.Localization;
-using Inventor.Core.Questions;
 using Inventor.Core.Statements;
 
 namespace Inventor.Test.Questions
@@ -24,8 +23,7 @@ namespace Inventor.Test.Questions
 			var semanticNetwork = new TestSemanticNetwork(language);
 
 			// act
-			var question = new ComparisonQuestion(ComparisonSigns.IsNotEqualTo, SequenceSigns.Causes);
-			var answer = question.Ask(semanticNetwork.SemanticNetwork.Context);
+			var answer = semanticNetwork.SemanticNetwork.Ask().HowCompared(ComparisonSigns.IsNotEqualTo, SequenceSigns.Causes);
 
 			// assert
 			Assert.IsTrue(answer.IsEmpty);
@@ -40,11 +38,9 @@ namespace Inventor.Test.Questions
 			var semanticNetwork = new TestSemanticNetwork(language);
 
 			// act
-			var question1 = new ComparisonQuestion(semanticNetwork.Number0, semanticNetwork.NumberZero);
-			var answer1 = question1.Ask(semanticNetwork.SemanticNetwork.Context);
+			var answer1 = semanticNetwork.SemanticNetwork.Ask().HowCompared(semanticNetwork.Number0, semanticNetwork.NumberZero);
 
-			var question2 = new ComparisonQuestion(semanticNetwork.NumberZero, semanticNetwork.Number0);
-			var answer2 = question2.Ask(semanticNetwork.SemanticNetwork.Context);
+			var answer2 = semanticNetwork.SemanticNetwork.Ask().HowCompared(semanticNetwork.NumberZero, semanticNetwork.Number0);
 
 			// assert
 			var explanation1 = (ComparisonStatement) answer1.Explanation.Statements.Single();
@@ -99,8 +95,7 @@ namespace Inventor.Test.Questions
 						if (l != r) // because "A=A" automatic precondition is not defined
 						{
 							// act
-							var question = new ComparisonQuestion(orderedNumbers[l], orderedNumbers[r]);
-							var answer = question.Ask(semanticNetwork.SemanticNetwork.Context);
+							var answer = semanticNetwork.SemanticNetwork.Ask().HowCompared(orderedNumbers[l], orderedNumbers[r]);
 
 							// assert
 							var explanation = answer.Explanation.Statements;
@@ -157,12 +152,10 @@ namespace Inventor.Test.Questions
 			foreach (var comparison in comparisons)
 			{
 				// act
-				var question1 = new ComparisonQuestion(comparison.Item1, comparison.Item2);
-				var answer1 = question1.Ask(semanticNetwork.SemanticNetwork.Context);
+				var answer1 = semanticNetwork.SemanticNetwork.Ask().HowCompared(comparison.Item1, comparison.Item2);
 				var statement1 = (ComparisonStatement) ((StatementAnswer) answer1).Result;
 
-				var question2 = new ComparisonQuestion(comparison.Item2, comparison.Item1);
-				var answer2 = question2.Ask(semanticNetwork.SemanticNetwork.Context);
+				var answer2 = semanticNetwork.SemanticNetwork.Ask().HowCompared(comparison.Item2, comparison.Item1);
 				var statement2 = (ComparisonStatement) ((StatementAnswer) answer2).Result;
 
 				// assert

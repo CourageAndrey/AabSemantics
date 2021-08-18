@@ -2,11 +2,11 @@
 
 using NUnit.Framework;
 
+using Inventor.Core;
 using Inventor.Core.Answers;
 using Inventor.Core.Attributes;
 using Inventor.Core.Base;
 using Inventor.Core.Localization;
-using Inventor.Core.Questions;
 using Inventor.Core.Statements;
 
 namespace Inventor.Test.Questions
@@ -24,10 +24,8 @@ namespace Inventor.Test.Questions
 			var concept = new Concept();
 			semanticNetwork.Concepts.Add(concept);
 
-			var question = new IsSignQuestion(concept);
-
 			// act
-			var answer = question.Ask(semanticNetwork.Context);
+			var answer = semanticNetwork.Ask().IfIsSign(concept);
 
 			// assert
 			Assert.IsFalse(answer.IsEmpty);
@@ -46,10 +44,8 @@ namespace Inventor.Test.Questions
 			concept.Attributes.Add(IsSignAttribute.Value);
 			semanticNetwork.Concepts.Add(concept);
 
-			var question = new IsSignQuestion(concept);
-
 			// act
-			var answer = question.Ask(semanticNetwork.Context);
+			var answer = semanticNetwork.Ask().IfIsSign(concept);
 
 			// assert
 			Assert.IsFalse(answer.IsEmpty);
@@ -64,10 +60,8 @@ namespace Inventor.Test.Questions
 			var language = Language.Default;
 			var semanticNetwork = new TestSemanticNetwork(language);
 
-			var question = new IsSignQuestion(semanticNetwork.Sign_AreaType);
-
 			// act
-			var answer = question.Ask(semanticNetwork.SemanticNetwork.Context);
+			var answer = semanticNetwork.SemanticNetwork.Ask().IfIsSign(semanticNetwork.Sign_AreaType);
 
 			// assert
 			Assert.IsFalse(answer.IsEmpty);

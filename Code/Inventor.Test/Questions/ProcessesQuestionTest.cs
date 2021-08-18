@@ -9,7 +9,6 @@ using Inventor.Core.Answers;
 using Inventor.Core.Attributes;
 using Inventor.Core.Base;
 using Inventor.Core.Localization;
-using Inventor.Core.Questions;
 using Inventor.Core.Statements;
 
 namespace Inventor.Test.Questions
@@ -49,8 +48,7 @@ namespace Inventor.Test.Questions
 					semanticNetwork.Statements.Add(statementCombination.Item2);
 
 					// act
-					var question = new ProcessesQuestion(processA, processB);
-					var answer = question.Ask(semanticNetwork.Context);
+					var answer = semanticNetwork.Ask().WhatIsMutualSequenceOfProcesses(processA, processB);
 
 					// assert
 					Assert.IsFalse(answer.IsEmpty);
@@ -111,8 +109,7 @@ namespace Inventor.Test.Questions
 								semanticNetwork.Statements.Add(statementCombination.Item2);
 
 								// act
-								var question = new ProcessesQuestion(processA, processB);
-								var answer = question.Ask(semanticNetwork.Context);
+								var answer = semanticNetwork.Ask().WhatIsMutualSequenceOfProcesses(processA, processB);
 
 								// assert
 								Assert.IsTrue(answer.IsEmpty);

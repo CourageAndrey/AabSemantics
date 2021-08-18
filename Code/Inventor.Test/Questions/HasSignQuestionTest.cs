@@ -23,11 +23,10 @@ namespace Inventor.Test.Questions
 			var semanticNetwork = new TestSemanticNetwork(language).SemanticNetwork;
 
 			var questionWithoutRecursion = new HasSignQuestion(LogicalValues.True, LogicalValues.False, false);
-			var questionWithRecursion = new HasSignQuestion(LogicalValues.True, LogicalValues.False, true);
 
 			// act
 			var answerWithoutRecursion = questionWithoutRecursion.Ask(semanticNetwork.Context);
-			var answerWithRecursion = questionWithRecursion.Ask(semanticNetwork.Context);
+			var answerWithRecursion = semanticNetwork.Ask().IfHasSign(LogicalValues.True, LogicalValues.False);
 
 			// assert
 			Assert.IsFalse(answerWithoutRecursion.IsEmpty);
@@ -100,12 +99,9 @@ namespace Inventor.Test.Questions
 
 			var ownSignStatement = semanticNetwork.SemanticNetwork.DeclareThat(semanticNetwork.Vehicle_Motorcycle).HasSign(ownSign);
 
-			var questionOwnSign = new HasSignQuestion(semanticNetwork.Vehicle_Motorcycle, ownSign, true);
-			var questionInheritedSign = new HasSignQuestion(semanticNetwork.Vehicle_Motorcycle, semanticNetwork.Sign_AreaType, true);
-
 			// act
-			var answerOwnSign = questionOwnSign.Ask(semanticNetwork.SemanticNetwork.Context);
-			var answerInheritedSign = questionInheritedSign.Ask(semanticNetwork.SemanticNetwork.Context);
+			var answerOwnSign = semanticNetwork.SemanticNetwork.Ask().IfHasSign(semanticNetwork.Vehicle_Motorcycle, ownSign);
+			var answerInheritedSign = semanticNetwork.SemanticNetwork.Ask().IfHasSign(semanticNetwork.Vehicle_Motorcycle, semanticNetwork.Sign_AreaType);
 
 			// assert
 			Assert.IsFalse(answerOwnSign.IsEmpty);
