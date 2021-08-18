@@ -8,7 +8,6 @@ using Inventor.Core;
 using Inventor.Core.Answers;
 using Inventor.Core.Base;
 using Inventor.Core.Localization;
-using Inventor.Core.Questions;
 
 namespace Inventor.Test.Questions
 {
@@ -23,13 +22,12 @@ namespace Inventor.Test.Questions
 			var semanticNetwork = new SemanticNetwork(language);
 			var statementToCheck = new TestStatement(1);
 			var statementWrong = new TestStatement(2);
-			var question = new CheckStatementQuestion(statementToCheck);
 
 			// act
-			var answerNoStatements = question.Ask(semanticNetwork.Context);
+			var answerNoStatements = semanticNetwork.Ask().IsTrueThat(statementToCheck);
 
 			semanticNetwork.Statements.Add(statementWrong);
-			var answerWrongStatement = question.Ask(semanticNetwork.Context);
+			var answerWrongStatement = semanticNetwork.Ask().IsTrueThat(statementToCheck);
 
 			// assert
 			var answer = (BooleanAnswer) answerNoStatements;
@@ -56,9 +54,9 @@ namespace Inventor.Test.Questions
 			semanticNetwork.Statements.Add(statementWrong);
 
 			// act
-			var answerToCheck = new CheckStatementQuestion(statementToCheck).Ask(semanticNetwork.Context);
+			var answerToCheck = semanticNetwork.Ask().IsTrueThat(statementToCheck);
 
-			var answerRight = new CheckStatementQuestion(statementRight).Ask(semanticNetwork.Context);
+			var answerRight = semanticNetwork.Ask().IsTrueThat(statementRight);
 
 			// assert
 			Assert.IsFalse(answerToCheck.IsEmpty);
@@ -90,10 +88,9 @@ namespace Inventor.Test.Questions
 			semanticNetwork.Statements.Add(statementIC);
 
 			var statementToCheck = new TransitiveTestStatement(conceptParent, conceptChild);
-			var question = new CheckStatementQuestion(statementToCheck);
 
 			// act
-			var answer = question.Ask(semanticNetwork.Context);
+			var answer = semanticNetwork.Ask().IsTrueThat(statementToCheck);
 
 			// assert
 			Assert.IsFalse(answer.IsEmpty);

@@ -2,10 +2,10 @@
 
 using NUnit.Framework;
 
+using Inventor.Core;
 using Inventor.Core.Answers;
 using Inventor.Core.Base;
 using Inventor.Core.Localization;
-using Inventor.Core.Questions;
 using Inventor.Core.Statements;
 
 namespace Inventor.Test.Questions
@@ -20,10 +20,8 @@ namespace Inventor.Test.Questions
 			var language = Language.Default;
 			var semanticNetwork = new TestSemanticNetwork(language);
 
-			var question = new IsSubjectAreaQuestion(semanticNetwork.SubjectArea_Numbers, semanticNetwork.Base_Vehicle);
-
 			// act
-			var answer = question.Ask(semanticNetwork.SemanticNetwork.Context);
+			var answer = semanticNetwork.SemanticNetwork.Ask().IfConceptBelongsToSubjectArea(semanticNetwork.Base_Vehicle, semanticNetwork.SubjectArea_Numbers);
 
 			// assert
 			Assert.IsFalse(answer.IsEmpty);
@@ -38,10 +36,8 @@ namespace Inventor.Test.Questions
 			var language = Language.Default;
 			var semanticNetwork = new TestSemanticNetwork(language);
 
-			var question = new IsSubjectAreaQuestion(semanticNetwork.Base_Vehicle, semanticNetwork.SubjectArea_Transport);
-
 			// act
-			var answer = question.Ask(semanticNetwork.SemanticNetwork.Context);
+			var answer = semanticNetwork.SemanticNetwork.Ask().IfConceptBelongsToSubjectArea(semanticNetwork.Base_Vehicle, semanticNetwork.SubjectArea_Transport);
 
 			// assert
 			Assert.IsFalse(answer.IsEmpty);

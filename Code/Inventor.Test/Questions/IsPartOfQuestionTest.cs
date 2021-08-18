@@ -6,7 +6,6 @@ using Inventor.Core;
 using Inventor.Core.Answers;
 using Inventor.Core.Base;
 using Inventor.Core.Localization;
-using Inventor.Core.Questions;
 using Inventor.Core.Statements;
 
 namespace Inventor.Test.Questions
@@ -21,10 +20,8 @@ namespace Inventor.Test.Questions
 			var language = Language.Default;
 			var semanticNetwork = new TestSemanticNetwork(language);
 
-			var question = new IsPartOfQuestion(semanticNetwork.Part_Engine, semanticNetwork.Base_Vehicle);
-
 			// act
-			var answer = question.Ask(semanticNetwork.SemanticNetwork.Context);
+			var answer = semanticNetwork.SemanticNetwork.Ask().IfIsPartOf(semanticNetwork.Part_Engine, semanticNetwork.Base_Vehicle);
 
 			// assert
 			Assert.IsFalse(answer.IsEmpty);
@@ -39,10 +36,8 @@ namespace Inventor.Test.Questions
 			var language = Language.Default;
 			var semanticNetwork = new TestSemanticNetwork(language);
 
-			var question = new IsPartOfQuestion(semanticNetwork.Part_Engine, semanticNetwork.Vehicle_Car);
-
 			// act
-			var answer = question.Ask(semanticNetwork.SemanticNetwork.Context);
+			var answer = semanticNetwork.SemanticNetwork.Ask().IfIsPartOf(semanticNetwork.Part_Engine, semanticNetwork.Vehicle_Car);
 
 			// assert
 			Assert.IsFalse(answer.IsEmpty);

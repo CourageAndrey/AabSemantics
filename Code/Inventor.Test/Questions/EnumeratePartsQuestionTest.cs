@@ -6,8 +6,6 @@ using Inventor.Core;
 using Inventor.Core.Answers;
 using Inventor.Core.Base;
 using Inventor.Core.Localization;
-using Inventor.Core.Questions;
-using Inventor.Core.Statements;
 
 namespace Inventor.Test.Questions
 {
@@ -29,13 +27,10 @@ namespace Inventor.Test.Questions
 			semanticNetwork.Concepts.Add(partConcept);
 			semanticNetwork.DeclareThat(partConcept).IsPartOf(wholeConcept);
 
-			var questionToCheck = new EnumeratePartsQuestion(conceptToCheck);
-			var questionPart = new EnumeratePartsQuestion(partConcept);
-
 			// act
-			var answerToCheck = questionToCheck.Ask(semanticNetwork.Context);
+			var answerToCheck = semanticNetwork.Ask().WhichPartsHas(conceptToCheck);
 
-			var answerPart = questionPart.Ask(semanticNetwork.Context);
+			var answerPart = semanticNetwork.Ask().WhichPartsHas(partConcept);
 
 			// assert
 			Assert.IsTrue(answerToCheck.IsEmpty);
@@ -64,9 +59,7 @@ namespace Inventor.Test.Questions
 				semanticNetwork.Concepts.Add(partConcept);
 				semanticNetwork.DeclareThat(partConcept).IsPartOf(wholeConcept);
 
-				var question = new EnumeratePartsQuestion(wholeConcept);
-
-				var answer = question.Ask(semanticNetwork.Context);
+				var answer = semanticNetwork.Ask().WhichPartsHas(wholeConcept);
 
 				// assert
 				Assert.IsFalse(answer.IsEmpty);

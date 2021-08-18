@@ -7,7 +7,6 @@ using Inventor.Core.Answers;
 using Inventor.Core.Attributes;
 using Inventor.Core.Base;
 using Inventor.Core.Localization;
-using Inventor.Core.Questions;
 using Inventor.Core.Statements;
 
 namespace Inventor.Test.Questions
@@ -37,13 +36,9 @@ namespace Inventor.Test.Questions
 			var preconditionComparison = new ComparisonStatement(concept2, concept3, ComparisonSigns.IsEqualTo);
 			// ... and do not add it to semantic network
 
-			var question = new ComparisonQuestion(concept1, concept3);
-
-			var questionWithPreconditions = new ComparisonQuestion(concept1, concept3, new IStatement[] { preconditionComparison });
-
 			// act
-			var answerWithoutPreconditions = question.Ask(semanticNetwork.Context);
-			var answerWithPreconditions = questionWithPreconditions.Ask(semanticNetwork.Context);
+			var answerWithoutPreconditions = semanticNetwork.Ask().HowCompared(concept1, concept3);
+			var answerWithPreconditions = semanticNetwork.Supposing(new IStatement[] { preconditionComparison }).Ask().HowCompared(concept1, concept3);
 
 			// assert
 			Assert.IsTrue(answerWithoutPreconditions.IsEmpty);

@@ -1,12 +1,11 @@
 ﻿using System.Linq;
-using Inventor.Core;
+
 using NUnit.Framework;
 
+using Inventor.Core;
 using Inventor.Core.Answers;
 using Inventor.Core.Base;
 using Inventor.Core.Localization;
-using Inventor.Core.Questions;
-using Inventor.Core.Statements;
 
 namespace Inventor.Test.Questions
 {
@@ -28,13 +27,10 @@ namespace Inventor.Test.Questions
 			semanticNetwork.Concepts.Add(partConcept);
 			semanticNetwork.DeclareThat(partConcept).IsPartOf(wholeConcept);
 
-			var questionToCheck = new EnumerateContainersQuestion(conceptToCheck);
-			var questionWhole = new EnumerateContainersQuestion(wholeConcept);
-
 			// act
-			var answerToCheck = questionToCheck.Ask(semanticNetwork.Context);
+			var answerToCheck = semanticNetwork.Ask().WhichContainersInclude(conceptToCheck);
 
-			var answerWhole = questionWhole.Ask(semanticNetwork.Context);
+			var answerWhole = semanticNetwork.Ask().WhichContainersInclude(wholeConcept);
 
 			// assert
 			Assert.IsTrue(answerToCheck.IsEmpty);
@@ -63,9 +59,7 @@ namespace Inventor.Test.Questions
 				semanticNetwork.Concepts.Add(wholeConcept);
 				semanticNetwork.DeclareThat(partConcept).IsPartOf(wholeConcept);
 
-				var question = new EnumerateContainersQuestion(partConcept);
-
-				var answer = question.Ask(semanticNetwork.Context);
+				var answer = semanticNetwork.Ask().WhichContainersInclude(partConcept);
 
 				// assert
 				Assert.IsFalse(answer.IsEmpty);

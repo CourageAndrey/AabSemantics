@@ -7,7 +7,6 @@ using Inventor.Core;
 using Inventor.Core.Answers;
 using Inventor.Core.Base;
 using Inventor.Core.Localization;
-using Inventor.Core.Questions;
 using Inventor.Core.Statements;
 
 namespace Inventor.Test.Questions
@@ -26,8 +25,7 @@ namespace Inventor.Test.Questions
 			foreach (var concept in conceptsWithoutSubjectArea)
 			{
 				// act
-				var question = new FindSubjectAreaQuestion(concept);
-				var answer = question.Ask(semanticNetwork.SemanticNetwork.Context);
+				var answer = semanticNetwork.SemanticNetwork.Ask().ToWhichSubjectAreasBelongs(concept);
 
 				// assert
 				Assert.IsTrue(answer.IsEmpty);
@@ -54,8 +52,7 @@ namespace Inventor.Test.Questions
 			foreach (var concept in semanticNetwork.SemanticNetwork.Concepts.Except(conceptsWithoutSubjectArea))
 			{
 				// act
-				var question = new FindSubjectAreaQuestion(concept);
-				var answer = question.Ask(semanticNetwork.SemanticNetwork.Context);
+				var answer = semanticNetwork.SemanticNetwork.Ask().ToWhichSubjectAreasBelongs(concept);
 
 				// assert
 				Assert.IsFalse(answer.IsEmpty);
@@ -81,8 +78,7 @@ namespace Inventor.Test.Questions
 			semanticNetwork.SemanticNetwork.DeclareThat(concept).BelongsToSubjectArea(secondSubjectArea);
 
 			// act
-			var question = new FindSubjectAreaQuestion(concept);
-			var answer = question.Ask(semanticNetwork.SemanticNetwork.Context);
+			var answer = semanticNetwork.SemanticNetwork.Ask().ToWhichSubjectAreasBelongs(concept);
 
 			// assert
 			Assert.IsFalse(answer.IsEmpty);

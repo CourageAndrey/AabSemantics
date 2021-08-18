@@ -1,11 +1,11 @@
 ﻿using System.Linq;
-using Inventor.Core;
+
 using NUnit.Framework;
 
+using Inventor.Core;
 using Inventor.Core.Answers;
 using Inventor.Core.Base;
 using Inventor.Core.Localization;
-using Inventor.Core.Questions;
 using Inventor.Core.Statements;
 
 namespace Inventor.Test.Questions
@@ -19,10 +19,9 @@ namespace Inventor.Test.Questions
 			// arrange
 			var language = Language.Default;
 			var semanticNetwork = new TestSemanticNetwork(language);
-			var question = new SignValueQuestion(semanticNetwork.Base_Vehicle, semanticNetwork.Sign_AreaType);
 
 			// act
-			var answer = question.Ask(semanticNetwork.SemanticNetwork.Context);
+			var answer = semanticNetwork.SemanticNetwork.Ask().WhatIsSignValue(semanticNetwork.Base_Vehicle, semanticNetwork.Sign_AreaType);
 
 			// assert
 			Assert.IsTrue(answer.IsEmpty);
@@ -35,10 +34,9 @@ namespace Inventor.Test.Questions
 			// arrange
 			var language = Language.Default;
 			var semanticNetwork = new TestSemanticNetwork(language);
-			var question = new SignValueQuestion(semanticNetwork.Vehicle_Car, semanticNetwork.Sign_AreaType);
 
 			// act
-			var answer = question.Ask(semanticNetwork.SemanticNetwork.Context);
+			var answer = semanticNetwork.SemanticNetwork.Ask().WhatIsSignValue(semanticNetwork.Vehicle_Car, semanticNetwork.Sign_AreaType);
 
 			// assert
 			Assert.IsFalse(answer.IsEmpty);
@@ -58,10 +56,8 @@ namespace Inventor.Test.Questions
 
 			var classification = semanticNetwork.SemanticNetwork.DeclareThat(truck).IsDescendantOf(semanticNetwork.Vehicle_Car);
 
-			var question = new SignValueQuestion(truck, semanticNetwork.Sign_AreaType);
-
 			// act
-			var answer = question.Ask(semanticNetwork.SemanticNetwork.Context);
+			var answer = semanticNetwork.SemanticNetwork.Ask().WhatIsSignValue(truck, semanticNetwork.Sign_AreaType);
 
 			// assert
 			Assert.IsFalse(answer.IsEmpty);
@@ -85,10 +81,8 @@ namespace Inventor.Test.Questions
 
 			var newValue = semanticNetwork.SemanticNetwork.DeclareThat(semanticNetwork.AreaType_Air).IsSignValue(flyingCar, semanticNetwork.Sign_AreaType);
 
-			var question = new SignValueQuestion(flyingCar, semanticNetwork.Sign_AreaType);
-
 			// act
-			var answer = question.Ask(semanticNetwork.SemanticNetwork.Context);
+			var answer = semanticNetwork.SemanticNetwork.Ask().WhatIsSignValue(flyingCar, semanticNetwork.Sign_AreaType);
 
 			// assert
 			Assert.IsFalse(answer.IsEmpty);
