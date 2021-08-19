@@ -64,6 +64,7 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
+    <Compile Include="Answers\StatementsAnswerTest.cs" />
     <Compile Include="Base\ContextsTest.cs" />
     <Compile Include="ConsistencyTest.cs" />
     <Compile Include="Localization\LocalizedStringsTest.cs" />
