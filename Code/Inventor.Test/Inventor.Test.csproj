@@ -83,6 +83,7 @@
     <Compile Include="Questions\ComparisonQuestionTest.cs" />
     <Compile Include="Questions\DescribeSubjectAreaQuestionTest.cs" />
     <Compile Include="Questions\FindSubjectAreaQuestionTest.cs" />
+    <Compile Include="Questions\QuestionBuilderTest.cs" />
     <Compile Include="Questions\QuestionTest.cs" />
     <Compile Include="Questions\SignValueQuestionTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
