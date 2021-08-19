@@ -4,10 +4,13 @@ using Inventor.Core;
 
 namespace Inventor.Client.ViewModels
 {
-	public class ConceptItem : IEquatable<ConceptItem>
+	public class ConceptItem : IEquatable<ConceptItem>, INamed
 	{
 		public IConcept Concept
 		{ get; }
+
+		public ILocalizedString Name
+		{ get { return Concept.Name; } }
 
 		private readonly ILanguage _language;
 

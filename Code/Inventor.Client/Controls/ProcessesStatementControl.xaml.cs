@@ -11,6 +11,10 @@ namespace Inventor.Client.Controls
 		public ProcessesStatementControl()
 		{
 			InitializeComponent();
+
+			_comboBoxProcessA.MakeAutoComplete();
+			_comboBoxProcessB.MakeAutoComplete();
+			_comboBoxSequenceSign.MakeAutoComplete();
 		}
 
 		public void Initialize(ISemanticNetwork semanticNetwork, ILanguage language)

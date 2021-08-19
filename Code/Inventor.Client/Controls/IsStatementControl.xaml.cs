@@ -10,6 +10,9 @@ namespace Inventor.Client.Controls
 		public IsStatementControl()
 		{
 			InitializeComponent();
+
+			_comboBoxAncestor.MakeAutoComplete();
+			_comboBoxDescendant.MakeAutoComplete();
 		}
 
 		public void Initialize(ISemanticNetwork semanticNetwork, ILanguage language)
