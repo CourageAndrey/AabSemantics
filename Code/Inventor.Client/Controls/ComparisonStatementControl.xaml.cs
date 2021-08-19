@@ -11,6 +11,10 @@ namespace Inventor.Client.Controls
 		public ComparisonStatementControl()
 		{
 			InitializeComponent();
+
+			_comboBoxLeftValue.MakeAutoComplete();
+			_comboBoxRightValue.MakeAutoComplete();
+			_comboBoxComparisonSign.MakeAutoComplete();
 		}
 
 		public void Initialize(ISemanticNetwork semanticNetwork, ILanguage language)

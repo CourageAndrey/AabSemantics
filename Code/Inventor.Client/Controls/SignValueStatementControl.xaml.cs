@@ -11,6 +11,10 @@ namespace Inventor.Client.Controls
 		public SignValueStatementControl()
 		{
 			InitializeComponent();
+
+			_comboBoxConcept.MakeAutoComplete();
+			_comboBoxSign.MakeAutoComplete();
+			_comboBoxValue.MakeAutoComplete();
 		}
 
 		public void Initialize(ISemanticNetwork semanticNetwork, ILanguage language)

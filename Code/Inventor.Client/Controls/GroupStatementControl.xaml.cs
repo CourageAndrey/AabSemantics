@@ -10,6 +10,9 @@ namespace Inventor.Client.Controls
 		public GroupStatementControl()
 		{
 			InitializeComponent();
+
+			_comboBoxConcept.MakeAutoComplete();
+			_comboBoxArea.MakeAutoComplete();
 		}
 
 		public void Initialize(ISemanticNetwork semanticNetwork, ILanguage language)

@@ -121,6 +121,7 @@ namespace Inventor.Client.Dialogs
 				MinWidth = 50,
 				DataContext = Question,
 			});
+			comboBox.MakeAutoComplete();
 			comboBox.SetValue(Grid.RowProperty, gridRow);
 			comboBox.SetValue(Grid.ColumnProperty, 1);
 			if (propertyDescriptor.Required)
@@ -128,7 +129,11 @@ namespace Inventor.Client.Dialogs
 				_requiredFieldSelectors.Add(comboBox);
 				comboBox.SelectionChanged += propertyValueSelected;
 			}
-			comboBox.SetBinding(Selector.SelectedItemProperty, new Binding {Path = new PropertyPath(propertyInfo.Name), Mode = BindingMode.TwoWay});
+			comboBox.SetBinding(Selector.SelectedItemProperty, new Binding
+			{
+				Path = new PropertyPath(propertyInfo.Name),
+				Mode = BindingMode.TwoWay,
+			});
 		}
 
 		private void createCheckBox(PropertyDescriptorAttribute propertyDescriptor, PropertyInfo propertyInfo, int gridRow)
