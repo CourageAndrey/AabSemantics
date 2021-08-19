@@ -37,7 +37,7 @@ namespace Inventor.Core.Xml
 		public SemanticNetwork()
 		{ }
 
-		public SemanticNetwork(Base.SemanticNetwork semanticNetwork)
+		public SemanticNetwork(ISemanticNetwork semanticNetwork)
 		{
 			Name = new LocalizedString(semanticNetwork.Name);
 
