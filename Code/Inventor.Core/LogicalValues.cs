@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 using Inventor.Core.Attributes;
 using Inventor.Core.Base;
@@ -31,6 +32,57 @@ namespace Inventor.Core
 		};
 
 		#endregion
+
+		private static void ensureSuits(this IConcept value)
+		{
+			if (!All.Contains(value))
+			{
+				throw new InvalidOperationException("This method can work only with logical values.");
+			}
+		}
+
+		public static IConcept Invert(this IConcept value)
+		{
+			ensureSuits(value);
+
+			if (value == True)
+			{
+				return False;
+			}
+			else if (value == False)
+			{
+				return True;
+			}
+			else
+			{
+				return value;
+			}
+		}
+
+		public static Boolean ToBoolean(this IConcept value)
+		{
+			ensureSuits(value);
+
+			if (value == True)
+			{
+				return true;
+			}
+			else if (value == False)
+			{
+				return false;
+			}
+			else
+			{
+				throw new NotSupportedException();
+			}
+		}
+
+		public static IConcept ToLogicalValue(this Boolean value)
+		{
+			return value
+				? True
+				: False;
+		}
 
 		static LogicalValues()
 		{
