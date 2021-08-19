@@ -43,7 +43,7 @@ namespace Inventor.Core.Questions
 
 			var result = new FormattedText(
 				() => Strings.ParamAnswer,
-				new Dictionary<String, INamed> { { Strings.ParamAnswer, statements.Any() ? LogicalValues.True : LogicalValues.False } });
+				new Dictionary<String, INamed> { { Strings.ParamAnswer, statements.Any().ToLogicalValue() } });
 			result.Add(statements.Any() ? Statement.DescribeTrue(context.Language) : Statement.DescribeFalse(context.Language));
 			return new BooleanAnswer(
 				statements.Any(),
