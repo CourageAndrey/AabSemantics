@@ -56,7 +56,7 @@ namespace Inventor.Test.Xml
 				conceptMapping[concept] = restoredConcept;
 			}
 
-			var systemConcepts = new HashSet<IConcept>(SystemConcepts.GetAll());
+			var systemConcepts = new HashSet<IConcept>(Core.SystemConcepts.GetAll());
 			foreach (var mapping in conceptMapping)
 			{
 				if (systemConcepts.Contains(mapping.Key))

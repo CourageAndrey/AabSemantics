@@ -92,6 +92,9 @@
     <Compile Include="Statements\ParentChildTest.cs" />
     <Compile Include="Statements\ProcessesStatementContradictionsCheckerTest.cs" />
     <Compile Include="Statements\StatementBuilderTest.cs" />
+    <Compile Include="SystemConcepts\ComparisonSignsTest.cs" />
+    <Compile Include="SystemConcepts\LogicalValuesTest.cs" />
+    <Compile Include="SystemConcepts\SequenceSignsTest.cs" />
     <Compile Include="Utils\EventCollectionTest.cs" />
     <Compile Include="Utils\XmlHelperTest.cs" />
     <Compile Include="Xml\AttributesTest.cs" />
