@@ -123,19 +123,5 @@ namespace Inventor.Core.Base
 		{
 			return String.Format("{0} : {1}", Strings.TostringSemanticNetwork, Name);
 		}
-
-		#region Serialization
-
-		public static SemanticNetwork Load(String fileName, ILanguage language)
-		{
-			return fileName.DeserializeFromFile<Xml.SemanticNetwork>().Load(language);
-		}
-
-		public void Save(String fileName)
-		{
-			new Xml.SemanticNetwork(this).SerializeToFile(fileName);
-		}
-
-		#endregion
 	}
 }

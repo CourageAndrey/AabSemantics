@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Xml.Serialization;
 
+using Inventor.Core.Utils;
+
 namespace Inventor.Core.Xml
 {
 	[Serializable, XmlRoot(nameof(SemanticNetwork))]
@@ -69,6 +71,21 @@ namespace Inventor.Core.Xml
 			}
 
 			return result;
+		}
+	}
+
+	public static class SemanticNetworkXmlExtensions
+	{
+		public static Base.SemanticNetwork LoadSemanticNetworkFromXml(this String fileName, ILanguage language)
+		{
+			var xmlSnapshot = fileName.DeserializeFromFile<SemanticNetwork>();
+			return xmlSnapshot.Load(language);
+		}
+
+		public static void Save(this ISemanticNetwork semanticNetwork, String fileName)
+		{
+			var xmlSnapshot = new SemanticNetwork(semanticNetwork);
+			xmlSnapshot.SerializeToFile(fileName);
 		}
 	}
 }

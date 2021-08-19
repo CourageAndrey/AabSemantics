@@ -165,11 +165,6 @@ namespace Inventor.Test.Base
 			public event EventHandler<ItemEventArgs<IStatement>> StatementAdded;
 
 			public event EventHandler<ItemEventArgs<IStatement>> StatementRemoved;
-
-			public void Save(string fileName)
-			{
-				throw new NotSupportedException();
-			}
 		}
 
 		private class TestStatementRepository : IStatementRepository
