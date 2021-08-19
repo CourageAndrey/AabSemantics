@@ -7,6 +7,7 @@ using NUnit.Framework;
 using Inventor.Core;
 using Inventor.Core.Base;
 using Inventor.Core.Localization;
+using Inventor.Core.Xml;
 
 namespace Inventor.Test.Xml
 {
@@ -24,11 +25,11 @@ namespace Inventor.Test.Xml
 			string testFileName = Path.GetTempFileName();
 
 			// act
-			SemanticNetwork restored;
+			Core.Base.SemanticNetwork restored;
 			try
 			{
 				semanticNetwork.Save(testFileName);
-				restored = SemanticNetwork.Load(testFileName, language);
+				restored = testFileName.LoadSemanticNetworkFromXml(language);
 			}
 			finally
 			{

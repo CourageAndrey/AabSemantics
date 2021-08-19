@@ -13,6 +13,7 @@ using Inventor.Client.Localization;
 using Inventor.Client.TreeNodes;
 using Inventor.Core;
 using Inventor.Core.Base;
+using Inventor.Core.Xml;
 
 namespace Inventor.Client
 {
@@ -163,7 +164,7 @@ namespace Inventor.Client
 			var selectedItem = treeViewSemanticNetwork.SelectedItem;
 			if (selectedItem is ConceptNode || selectedItem is SemanticNetworkConceptsNode)
 			{
-				type = typeof(Concept);
+				type = typeof(Core.Base.Concept);
 			}
 			else if (selectedItem is StatementNode || selectedItem is SemanticNetworkStatementsNode)
 			{
@@ -296,7 +297,7 @@ namespace Inventor.Client
 		{
 			if (canProceedAfterSave())
 			{
-				setModel(new SemanticNetwork(_application.CurrentLanguage), string.Empty);
+				setModel(new Core.Base.SemanticNetwork(_application.CurrentLanguage), string.Empty);
 			}
 		}
 
@@ -308,7 +309,7 @@ namespace Inventor.Client
 				dialog.FileName = _fileName;
 				if (dialog.ShowDialog() == true)
 				{
-					setModel(SemanticNetwork.Load(dialog.FileName, _application.CurrentLanguage), dialog.FileName);
+					setModel(dialog.FileName.LoadSemanticNetworkFromXml(_application.CurrentLanguage), dialog.FileName);
 				}
 			}
 		}

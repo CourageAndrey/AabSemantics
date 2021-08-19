@@ -23,8 +23,6 @@ namespace Inventor.Core
 		event EventHandler<ItemEventArgs<IConcept>> ConceptRemoved;
 		event EventHandler<ItemEventArgs<IStatement>> StatementAdded;
 		event EventHandler<ItemEventArgs<IStatement>> StatementRemoved;
-
-		void Save(String fileName);
 	}
 
 	public static class SemanticNetworkHelper
