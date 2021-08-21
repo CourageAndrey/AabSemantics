@@ -17,9 +17,9 @@ namespace Inventor.Core.Questions
 			Preconditions = new List<IStatement>(preconditions ?? new IStatement[0]);
 		}
 
-		public IAnswer Ask(ISemanticNetworkContext context)
+		public IAnswer Ask(ISemanticNetworkContext context, ILanguage language = null)
 		{
-			using (var questionContext = context.CreateQuestionContext(this))
+			using (var questionContext = context.CreateQuestionContext(this, language))
 			{
 				return Process(questionContext);
 			}
