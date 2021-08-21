@@ -116,10 +116,6 @@ namespace Inventor.Core.Localization
 		{ get; set; }
 
 		[XmlElement]
-		public String ProcessesSequence
-		{ get; set; }
-
-		[XmlElement]
 		public String Explanation
 		{ get; set; }
 
@@ -156,7 +152,6 @@ namespace Inventor.Core.Localization
 				IsPartOfFalse = $"No, {Strings.ParamChild} is not part of {Strings.ParamParent}.",
 				EnumerateParts = $"{Strings.ParamParent} consists of: ",
 				EnumerateContainers = $"{Strings.ParamChild} is part of: ",
-				ProcessesSequence = $"{Strings.ParamProcessA} {Strings.ParamSequenceSign} {Strings.ParamProcessB}",
 				Explanation = "Explanation:",
 			};
 		}
