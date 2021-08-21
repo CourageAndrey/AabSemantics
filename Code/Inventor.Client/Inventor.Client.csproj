@@ -97,6 +97,7 @@
     <Compile Include="Localization\LanguageUi.cs" />
     <Compile Include="Localization\Localizator.cs" />
     <Compile Include="ViewModels\ConceptAttribute.cs" />
+    <Compile Include="ViewModels\ConceptDecorator.cs" />
     <Compile Include="ViewModels\ConceptItem.cs" />
     <Compile Include="Controls\SignValueStatementControl.xaml.cs">
       <DependentUpon>SignValueStatementControl.xaml</DependentUpon>

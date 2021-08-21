@@ -10,6 +10,7 @@ using System.Windows.Controls.Primitives;
 using System.Windows.Data;
 
 using Inventor.Client.Converters;
+using Inventor.Client.ViewModels;
 using Inventor.Client.ViewModels.Questions;
 using Inventor.Core;
 
@@ -116,7 +117,7 @@ namespace Inventor.Client.Dialogs
 			ComboBox comboBox;
 			panelQuestionParams.Children.Add(comboBox = new ComboBox
 			{
-				ItemsSource = _semanticNetwork.Concepts,
+				ItemsSource = _semanticNetwork.Concepts.Select(c => new ConceptDecorator(c, _language)),
 				Margin = new Thickness(2),
 				MinWidth = 50,
 				DataContext = Question,
