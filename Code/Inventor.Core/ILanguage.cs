@@ -281,9 +281,6 @@ namespace Inventor.Core
 		String EnumerateContainers
 		{ get; }
 
-		String ProcessesSequence
-		{ get; }
-
 		String Explanation
 		{ get; }
 	}
