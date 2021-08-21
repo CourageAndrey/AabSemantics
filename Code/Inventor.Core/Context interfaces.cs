@@ -43,7 +43,7 @@ namespace Inventor.Core
 		IAttributeRepository AttributeRepository
 		{ get; }
 
-		IQuestionProcessingContext CreateQuestionContext(IQuestion question);
+		IQuestionProcessingContext CreateQuestionContext(IQuestion question, ILanguage language = null);
 	}
 
 	public interface IQuestionProcessingContext : ISemanticNetworkContext, IDisposable

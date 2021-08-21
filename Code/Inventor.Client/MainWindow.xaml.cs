@@ -57,7 +57,7 @@ namespace Inventor.Client
 			if (dialog.ShowDialog() == true)
 			{
 				var question = dialog.Question.BuildQuestion();
-				var answer = question.Ask(_application.SemanticNetwork.Context);
+				var answer = question.Ask(_application.SemanticNetwork.Context, _application.CurrentLanguage);
 
 				var processingResult = answer.Description;
 				if (answer.Explanation.Statements.Count > 0)

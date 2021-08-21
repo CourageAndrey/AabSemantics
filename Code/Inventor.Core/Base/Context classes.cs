@@ -10,7 +10,7 @@ namespace Inventor.Core.Base
 		#region Properties
 
 		public ILanguage Language
-		{ get; }
+		{ get; protected set; }
 
 		public ICollection<IStatement> Scope
 		{ get; }
@@ -108,11 +108,11 @@ namespace Inventor.Core.Base
 			AttributeRepository = attributeRepository;
 		}
 
-		public IQuestionProcessingContext CreateQuestionContext(IQuestion question)
+		public IQuestionProcessingContext CreateQuestionContext(IQuestion question, ILanguage language = null)
 		{
 			var concreteContextType = typeof(QuestionProcessingContext<>).MakeGenericType(question.GetType());
 			var contextConstructor = concreteContextType.GetConstructors(BindingFlags.NonPublic | BindingFlags.Instance).Single();
-			var resultContext = contextConstructor.Invoke(new Object[] { this, question }) as IQuestionProcessingContext;
+			var resultContext = contextConstructor.Invoke(new Object[] { this, question, language }) as IQuestionProcessingContext;
 			foreach (var statement in question.Preconditions)
 			{
 				statement.Context = resultContext;
@@ -168,10 +168,14 @@ namespace Inventor.Core.Base
 
 		#endregion
 
-		internal QuestionProcessingContext(ISemanticNetworkContext parent, QuestionT question)
+		internal QuestionProcessingContext(ISemanticNetworkContext parent, QuestionT question, ILanguage language = null)
 			: base(parent)
 		{
 			_question = question;
+			if (language != null)
+			{
+				Language = language;
+			}
 		}
 	}
 }
