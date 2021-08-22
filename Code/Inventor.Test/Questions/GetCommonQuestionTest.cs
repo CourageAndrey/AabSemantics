@@ -100,8 +100,8 @@ namespace Inventor.Test.Questions
 			var differentParent = "Different Parent".CreateConcept();
 			var concept1 = "Concept 1".CreateConcept();
 			var concept2 = "Concept 2".CreateConcept();
-			concept1.Attributes.Add(IsProcessAttribute.Value);
-			concept2.Attributes.Add(IsProcessAttribute.Value);
+			concept1.WithAttribute(IsProcessAttribute.Value);
+			concept2.WithAttribute(IsProcessAttribute.Value);
 			semanticNetwork.Concepts.Add(parent);
 			semanticNetwork.Concepts.Add(parentOfParent);
 			semanticNetwork.Concepts.Add(differentParent);
@@ -132,7 +132,7 @@ namespace Inventor.Test.Questions
 				signPseudoDifference,
 			})
 			{
-				sign.Attributes.Add(IsSignAttribute.Value);
+				sign.WithAttribute(IsSignAttribute.Value);
 			}
 			semanticNetwork.Concepts.Add(signSameValues);
 			semanticNetwork.Concepts.Add(signBothNotSet);

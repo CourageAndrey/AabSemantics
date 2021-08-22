@@ -61,7 +61,7 @@ namespace Inventor.Test.Questions
 			var semanticNetwork = new TestSemanticNetwork(language);
 
 			var ownSign = TestHelper.CreateConcept();
-			ownSign.Attributes.Add(IsSignAttribute.Value);
+			ownSign.WithAttribute(IsSignAttribute.Value);
 			semanticNetwork.SemanticNetwork.Concepts.Add(ownSign);
 
 			var ownSignStatement = semanticNetwork.SemanticNetwork.DeclareThat(ownSign).IsSignOf(semanticNetwork.Vehicle_Motorcycle);
@@ -104,7 +104,7 @@ namespace Inventor.Test.Questions
 			var semanticNetwork = new TestSemanticNetwork(language);
 
 			var ownSign = TestHelper.CreateConcept();
-			ownSign.Attributes.Add(IsSignAttribute.Value);
+			ownSign.WithAttribute(IsSignAttribute.Value);
 			semanticNetwork.SemanticNetwork.Concepts.Add(ownSign);
 
 			var ownSignStatement = semanticNetwork.SemanticNetwork.DeclareThat(ownSign).IsSignOf(semanticNetwork.Vehicle_Motorcycle);

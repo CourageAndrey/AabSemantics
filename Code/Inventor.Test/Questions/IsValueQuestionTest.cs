@@ -41,7 +41,7 @@ namespace Inventor.Test.Questions
 			var semanticNetwork = new TestSemanticNetwork(language).SemanticNetwork;
 
 			var concept = TestHelper.CreateConcept();
-			concept.Attributes.Add(IsValueAttribute.Value);
+			concept.WithAttribute(IsValueAttribute.Value);
 			semanticNetwork.Concepts.Add(concept);
 
 			// act

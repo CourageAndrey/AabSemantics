@@ -3,6 +3,7 @@ using System.Windows;
 
 using Inventor.Client.Controls;
 using Inventor.Client.Dialogs;
+using Inventor.Core;
 
 namespace Inventor.Client.ViewModels
 {
@@ -88,7 +89,7 @@ namespace Inventor.Client.ViewModels
 			{
 				if (attribute.IsOn && attribute.Value != null)
 				{
-					BoundObject.Attributes.Add(attribute.Value);
+					BoundObject.WithAttribute(attribute.Value);
 				}
 			}
 
@@ -100,12 +101,12 @@ namespace Inventor.Client.ViewModels
 			Name?.Apply(BoundObject.Name);
 			Hint?.Apply(BoundObject.Hint);
 
-			BoundObject.Attributes.Clear();
+			BoundObject.WithoutAttributes();
 			foreach (var attribute in Attributes)
 			{
 				if (attribute.IsOn && attribute.Value != null)
 				{
-					BoundObject.Attributes.Add(attribute.Value);
+					BoundObject.WithAttribute(attribute.Value);
 				}
 			}
 		}

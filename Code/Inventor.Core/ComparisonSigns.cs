@@ -14,45 +14,27 @@ namespace Inventor.Core
 
 		public static readonly IConcept IsEqualTo = new Concept(
 			new LocalizedStringConstant(lang => lang.SystemConceptNames.IsEqualTo),
-			new LocalizedStringConstant(lang => lang.SystemConceptHints.IsEqualTo))
-		{
-			Attributes = { IsComparisonSignAttribute.Value },
-		};
+			new LocalizedStringConstant(lang => lang.SystemConceptHints.IsEqualTo));
 
 		public static readonly IConcept IsNotEqualTo = new Concept(
 			new LocalizedStringConstant(lang => lang.SystemConceptNames.IsNotEqualTo),
-			new LocalizedStringConstant(lang => lang.SystemConceptHints.IsNotEqualTo))
-		{
-			Attributes = { IsComparisonSignAttribute.Value },
-		};
+			new LocalizedStringConstant(lang => lang.SystemConceptHints.IsNotEqualTo));
 
 		public static readonly IConcept IsGreaterThanOrEqualTo = new Concept(
 			new LocalizedStringConstant(lang => lang.SystemConceptNames.IsGreaterThanOrEqualTo),
-			new LocalizedStringConstant(lang => lang.SystemConceptHints.IsGreaterThanOrEqualTo))
-		{
-			Attributes = { IsComparisonSignAttribute.Value },
-		};
+			new LocalizedStringConstant(lang => lang.SystemConceptHints.IsGreaterThanOrEqualTo));
 
 		public static readonly IConcept IsGreaterThan = new Concept(
 			new LocalizedStringConstant(lang => lang.SystemConceptNames.IsGreaterThan),
-			new LocalizedStringConstant(lang => lang.SystemConceptHints.IsGreaterThan))
-		{
-			Attributes = { IsComparisonSignAttribute.Value },
-		};
+			new LocalizedStringConstant(lang => lang.SystemConceptHints.IsGreaterThan));
 
 		public static readonly IConcept IsLessThanOrEqualTo = new Concept(
 			new LocalizedStringConstant(lang => lang.SystemConceptNames.IsLessThanOrEqualTo),
-			new LocalizedStringConstant(lang => lang.SystemConceptHints.IsLessThanOrEqualTo))
-		{
-			Attributes = { IsComparisonSignAttribute.Value },
-		};
+			new LocalizedStringConstant(lang => lang.SystemConceptHints.IsLessThanOrEqualTo));
 
 		public static readonly IConcept IsLessThan = new Concept(
 			new LocalizedStringConstant(lang => lang.SystemConceptNames.IsLessThan),
-			new LocalizedStringConstant(lang => lang.SystemConceptHints.IsLessThan))
-		{
-			Attributes = { IsComparisonSignAttribute.Value },
-		};
+			new LocalizedStringConstant(lang => lang.SystemConceptHints.IsLessThan));
 
 		public static readonly ICollection<IConcept> All = new HashSet<IConcept>
 		{
@@ -158,7 +140,7 @@ namespace Inventor.Core
 		{
 			foreach (var concept in All)
 			{
-				concept.Attributes.Add(IsValueAttribute.Value);
+				concept.WithAttributes(new IAttribute[] { IsValueAttribute.Value, IsComparisonSignAttribute.Value });
 			}
 		}
 	}

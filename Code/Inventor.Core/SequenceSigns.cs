@@ -14,108 +14,63 @@ namespace Inventor.Core
 
 		public static readonly IConcept StartsAfterOtherStarted = new Concept(
 			new LocalizedStringConstant(lang => lang.SystemConceptNames.StartsAfterOtherStarted),
-			new LocalizedStringConstant(lang => lang.SystemConceptHints.StartsAfterOtherStarted))
-		{
-			Attributes = { IsSequenceSignAttribute.Value },
-		};
+			new LocalizedStringConstant(lang => lang.SystemConceptHints.StartsAfterOtherStarted));
 
 		public static readonly IConcept StartsWhenOtherStarted = new Concept(
 			new LocalizedStringConstant(lang => lang.SystemConceptNames.StartsWhenOtherStarted),
-			new LocalizedStringConstant(lang => lang.SystemConceptHints.StartsWhenOtherStarted))
-		{
-			Attributes = { IsSequenceSignAttribute.Value },
-		};
+			new LocalizedStringConstant(lang => lang.SystemConceptHints.StartsWhenOtherStarted));
 
 		public static readonly IConcept StartsBeforeOtherStarted = new Concept(
 			new LocalizedStringConstant(lang => lang.SystemConceptNames.StartsBeforeOtherStarted),
-			new LocalizedStringConstant(lang => lang.SystemConceptHints.StartsBeforeOtherStarted))
-		{
-			Attributes = { IsSequenceSignAttribute.Value },
-		};
+			new LocalizedStringConstant(lang => lang.SystemConceptHints.StartsBeforeOtherStarted));
 
 		public static readonly IConcept FinishesAfterOtherStarted = new Concept(
 			new LocalizedStringConstant(lang => lang.SystemConceptNames.FinishesAfterOtherStarted),
-			new LocalizedStringConstant(lang => lang.SystemConceptHints.FinishesAfterOtherStarted))
-		{
-			Attributes = { IsSequenceSignAttribute.Value },
-		};
+			new LocalizedStringConstant(lang => lang.SystemConceptHints.FinishesAfterOtherStarted));
 
 		public static readonly IConcept FinishesWhenOtherStarted = new Concept(
 			new LocalizedStringConstant(lang => lang.SystemConceptNames.FinishesWhenOtherStarted),
-			new LocalizedStringConstant(lang => lang.SystemConceptHints.FinishesWhenOtherStarted))
-		{
-			Attributes = { IsSequenceSignAttribute.Value },
-		};
+			new LocalizedStringConstant(lang => lang.SystemConceptHints.FinishesWhenOtherStarted));
 
 		public static readonly IConcept FinishesBeforeOtherStarted = new Concept(
 			new LocalizedStringConstant(lang => lang.SystemConceptNames.FinishesBeforeOtherStarted),
-			new LocalizedStringConstant(lang => lang.SystemConceptHints.FinishesBeforeOtherStarted))
-		{
-			Attributes = { IsSequenceSignAttribute.Value },
-		};
+			new LocalizedStringConstant(lang => lang.SystemConceptHints.FinishesBeforeOtherStarted));
 
 		public static readonly IConcept StartsAfterOtherFinished = new Concept(
 			new LocalizedStringConstant(lang => lang.SystemConceptNames.StartsAfterOtherFinished),
-			new LocalizedStringConstant(lang => lang.SystemConceptHints.StartsAfterOtherFinished))
-		{
-			Attributes = { IsSequenceSignAttribute.Value },
-		};
+			new LocalizedStringConstant(lang => lang.SystemConceptHints.StartsAfterOtherFinished));
 
 		public static readonly IConcept StartsWhenOtherFinished = new Concept(
 			new LocalizedStringConstant(lang => lang.SystemConceptNames.StartsWhenOtherFinished),
-			new LocalizedStringConstant(lang => lang.SystemConceptHints.StartsWhenOtherFinished))
-		{
-			Attributes = { IsSequenceSignAttribute.Value },
-		};
+			new LocalizedStringConstant(lang => lang.SystemConceptHints.StartsWhenOtherFinished));
 
 		public static readonly IConcept StartsBeforeOtherFinished = new Concept(
 			new LocalizedStringConstant(lang => lang.SystemConceptNames.StartsBeforeOtherFinished),
-			new LocalizedStringConstant(lang => lang.SystemConceptHints.StartsBeforeOtherFinished))
-		{
-			Attributes = { IsSequenceSignAttribute.Value },
-		};
+			new LocalizedStringConstant(lang => lang.SystemConceptHints.StartsBeforeOtherFinished));
 
 		public static readonly IConcept FinishesAfterOtherFinished = new Concept(
 			new LocalizedStringConstant(lang => lang.SystemConceptNames.FinishesAfterOtherFinished),
-			new LocalizedStringConstant(lang => lang.SystemConceptHints.FinishesAfterOtherFinished))
-		{
-			Attributes = { IsSequenceSignAttribute.Value },
-		};
+			new LocalizedStringConstant(lang => lang.SystemConceptHints.FinishesAfterOtherFinished));
 
 		public static readonly IConcept FinishesWhenOtherFinished = new Concept(
 			new LocalizedStringConstant(lang => lang.SystemConceptNames.FinishesWhenOtherFinished),
-			new LocalizedStringConstant(lang => lang.SystemConceptHints.FinishesWhenOtherFinished))
-		{
-			Attributes = { IsSequenceSignAttribute.Value },
-		};
+			new LocalizedStringConstant(lang => lang.SystemConceptHints.FinishesWhenOtherFinished));
 
 		public static readonly IConcept FinishesBeforeOtherFinished = new Concept(
 			new LocalizedStringConstant(lang => lang.SystemConceptNames.FinishesBeforeOtherFinished),
-			new LocalizedStringConstant(lang => lang.SystemConceptHints.FinishesBeforeOtherFinished))
-		{
-			Attributes = { IsSequenceSignAttribute.Value },
-		};
+			new LocalizedStringConstant(lang => lang.SystemConceptHints.FinishesBeforeOtherFinished));
 
 		public static readonly IConcept Causes = new Concept(
 			new LocalizedStringConstant(lang => lang.SystemConceptNames.Causes),
-			new LocalizedStringConstant(lang => lang.SystemConceptHints.Causes))
-		{
-			Attributes = { IsSequenceSignAttribute.Value },
-		};
+			new LocalizedStringConstant(lang => lang.SystemConceptHints.Causes));
 
 		public static readonly IConcept IsCausedBy = new Concept(
 			new LocalizedStringConstant(lang => lang.SystemConceptNames.IsCausedBy),
-			new LocalizedStringConstant(lang => lang.SystemConceptHints.IsCausedBy))
-		{
-			Attributes = { IsSequenceSignAttribute.Value },
-		};
+			new LocalizedStringConstant(lang => lang.SystemConceptHints.IsCausedBy));
 
 		public static readonly IConcept SimultaneousWith = new Concept(
 			new LocalizedStringConstant(lang => lang.SystemConceptNames.SimultaneousWith),
-			new LocalizedStringConstant(lang => lang.SystemConceptHints.SimultaneousWith))
-		{
-			Attributes = { IsSequenceSignAttribute.Value },
-		};
+			new LocalizedStringConstant(lang => lang.SystemConceptHints.SimultaneousWith));
 
 		public static readonly ICollection<IConcept> All = new HashSet<IConcept>
 		{
@@ -318,7 +273,7 @@ namespace Inventor.Core
 		{
 			foreach (var concept in All)
 			{
-				concept.Attributes.Add(IsValueAttribute.Value);
+				concept.WithAttributes(new IAttribute[] { IsValueAttribute.Value, IsSequenceSignAttribute.Value });
 			}
 
 			ValidSequenceCombinations = new Dictionary<IConcept, IDictionary<IConcept, IConcept>>();
