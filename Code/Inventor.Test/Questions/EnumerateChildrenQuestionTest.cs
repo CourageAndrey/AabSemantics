@@ -19,9 +19,9 @@ namespace Inventor.Test.Questions
 			var language = Language.Default;
 			var semanticNetwork = new SemanticNetwork(language);
 
-			var conceptToCheck = new Concept();
-			var parentConcept = new Concept();
-			var childConcept = new Concept();
+			var conceptToCheck = TestHelper.CreateConcept();
+			var parentConcept = TestHelper.CreateConcept();
+			var childConcept = TestHelper.CreateConcept();
 			semanticNetwork.Concepts.Add(conceptToCheck);
 			semanticNetwork.Concepts.Add(parentConcept);
 			semanticNetwork.Concepts.Add(childConcept);
@@ -47,7 +47,7 @@ namespace Inventor.Test.Questions
 			var language = Language.Default;
 			var semanticNetwork = new SemanticNetwork(language);
 
-			var parentConcept = new Concept();
+			var parentConcept = TestHelper.CreateConcept();
 			semanticNetwork.Concepts.Add(parentConcept);
 
 			const int childCount = 4;
@@ -55,7 +55,7 @@ namespace Inventor.Test.Questions
 			for (int i = 1; i <= childCount; i++)
 			{
 				// act
-				var childConcept = new Concept();
+				var childConcept = TestHelper.CreateConcept();
 				semanticNetwork.Concepts.Add(childConcept);
 				semanticNetwork.DeclareThat(childConcept).IsDescendantOf(parentConcept);
 

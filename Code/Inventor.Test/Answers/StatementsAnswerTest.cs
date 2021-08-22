@@ -1,15 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Linq;
 
 using NUnit.Framework;
 
 using Inventor.Core;
 using Inventor.Core.Answers;
 using Inventor.Core.Base;
-using Inventor.Core.Localization;
-using Inventor.Core.Utils;
-using Inventor.Core.Questions;
 using Inventor.Core.Statements;
 
 namespace Inventor.Test.Answers
@@ -22,8 +17,8 @@ namespace Inventor.Test.Answers
 		{
 			// arrange
 
-			var concept1 = new Concept();
-			var concept2 = new Concept();
+			var concept1 = TestHelper.CreateConcept();
+			var concept2 = TestHelper.CreateConcept();
 
 			var resultStatementsTyped = new IsStatement[]
 			{

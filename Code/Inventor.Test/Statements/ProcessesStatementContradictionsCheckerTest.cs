@@ -6,8 +6,6 @@ using NUnit.Framework;
 
 using Inventor.Core;
 using Inventor.Core.Attributes;
-using Inventor.Core.Base;
-using Inventor.Core.Localization;
 using Inventor.Core.Statements;
 
 namespace Inventor.Test.Statements
@@ -181,9 +179,7 @@ namespace Inventor.Test.Statements
 
 		private static IConcept createProcessConcept(string name)
 		{
-			var concept = new Concept(
-				new LocalizedStringVariable(new[] { new KeyValuePair<string, string>(Language.Default.Culture, name) }),
-				new LocalizedStringVariable(new[] { new KeyValuePair<string, string>(Language.Default.Culture, name) }));
+			var concept = name.CreateConcept();
 			concept.Attributes.Add(IsProcessAttribute.Value);
 			return concept;
 		}

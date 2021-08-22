@@ -75,9 +75,9 @@ namespace Inventor.Test.Questions
 			var language = Language.Default;
 
 			var semanticNetwork = new SemanticNetwork(language);
-			var conceptParent = new Concept(new LocalizedStringConstant(l => "parent"));
-			var conceptIntermediate = new Concept(new LocalizedStringConstant(l => "intermediate"));
-			var conceptChild = new Concept(new LocalizedStringConstant(l => "child"));
+			var conceptParent = "parent".CreateConcept();
+			var conceptIntermediate = "intermediate".CreateConcept();
+			var conceptChild = "child".CreateConcept();
 			semanticNetwork.Concepts.Add(conceptParent);
 			semanticNetwork.Concepts.Add(conceptIntermediate);
 			semanticNetwork.Concepts.Add(conceptChild);

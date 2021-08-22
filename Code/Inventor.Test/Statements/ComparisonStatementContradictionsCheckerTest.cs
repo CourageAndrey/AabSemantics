@@ -6,8 +6,6 @@ using NUnit.Framework;
 
 using Inventor.Core;
 using Inventor.Core.Attributes;
-using Inventor.Core.Base;
-using Inventor.Core.Localization;
 using Inventor.Core.Statements;
 
 namespace Inventor.Test.Statements
@@ -207,9 +205,7 @@ namespace Inventor.Test.Statements
 
 		private static IConcept createValueConcept(int number)
 		{
-			var concept = new Concept(
-				new LocalizedStringVariable(new[] { new KeyValuePair<string, string>(Language.Default.Culture, number.ToString()) }),
-				new LocalizedStringVariable(new[] { new KeyValuePair<string, string>(Language.Default.Culture, number.ToString()) }));
+			var concept = number.CreateConcept();
 			concept.Attributes.Add(IsValueAttribute.Value);
 			return concept;
 		}

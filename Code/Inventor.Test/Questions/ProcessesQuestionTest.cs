@@ -128,7 +128,7 @@ namespace Inventor.Test.Questions
 
 		private static IConcept createProcess(string name)
 		{
-			var process = new Concept(new LocalizedStringConstant(l => name), new LocalizedStringConstant(l => name));
+			var process = name.CreateConcept();
 			process.Attributes.Add(IsProcessAttribute.Value);
 			return process;
 		}
