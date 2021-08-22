@@ -55,7 +55,7 @@ namespace Inventor.Test.Questions
 			var language = Language.Default;
 			var semanticNetwork = new TestSemanticNetwork(language);
 
-			var hugeAirbus = new Concept();
+			var hugeAirbus = TestHelper.CreateConcept();
 			semanticNetwork.SemanticNetwork.Concepts.Add(hugeAirbus);
 
 			var classification = semanticNetwork.SemanticNetwork.DeclareThat(hugeAirbus).IsDescendantOf(semanticNetwork.Vehicle_Airbus);

@@ -95,11 +95,11 @@ namespace Inventor.Test.Questions
 
 		internal static void CreateCompareConceptsTest(ISemanticNetwork semanticNetwork)
 		{
-			var parent = new Concept(new LocalizedStringConstant(l => "Parent 1"));
-			var parentOfParent = new Concept(new LocalizedStringConstant(l => "Parent 2"));
-			var differentParent = new Concept(new LocalizedStringConstant(l => "Different Parent"));
-			var concept1 = new Concept(new LocalizedStringConstant(l => "Concept 1"));
-			var concept2 = new Concept(new LocalizedStringConstant(l => "Concept 2"));
+			var parent = "Parent 1".CreateConcept();
+			var parentOfParent = "Parent 2".CreateConcept();
+			var differentParent = "Different Parent".CreateConcept();
+			var concept1 = "Concept 1".CreateConcept();
+			var concept2 = "Concept 2".CreateConcept();
 			concept1.Attributes.Add(IsProcessAttribute.Value);
 			concept2.Attributes.Add(IsProcessAttribute.Value);
 			semanticNetwork.Concepts.Add(parent);
@@ -114,13 +114,13 @@ namespace Inventor.Test.Questions
 			semanticNetwork.DeclareThat(differentParent).IsAncestorOf(concept1);
 			semanticNetwork.DeclareThat(differentParent).IsAncestorOf(concept2);
 
-			var signSameValues = new Concept(new LocalizedStringConstant(l => SignSameValues));
-			var signBothNotSet = new Concept(new LocalizedStringConstant(l => SignBothNotSet));
-			var signDifferentValues = new Concept(new LocalizedStringConstant(l => SignDifferentValues));
-			var signFirstNotSet = new Concept(new LocalizedStringConstant(l => SignFirstNotSet));
-			var signSecondNotSet = new Concept(new LocalizedStringConstant(l => SignSecondNotSet));
-			var signPseudoCommon = new Concept(new LocalizedStringConstant(l => SignPseudoCommon));
-			var signPseudoDifference = new Concept(new LocalizedStringConstant(l => SignPseudoDifference));
+			var signSameValues = SignSameValues.CreateConcept();
+			var signBothNotSet = SignBothNotSet.CreateConcept();
+			var signDifferentValues = SignDifferentValues.CreateConcept();
+			var signFirstNotSet = SignFirstNotSet.CreateConcept();
+			var signSecondNotSet = SignSecondNotSet.CreateConcept();
+			var signPseudoCommon = SignPseudoCommon.CreateConcept();
+			var signPseudoDifference = SignPseudoDifference.CreateConcept();
 			foreach (var sign in new[]
 			{
 				signSameValues,

@@ -304,20 +304,20 @@ namespace Inventor.Test.Statements
 		[Test]
 		public void CheckPathFinding()
 		{
-			var parent1 = new Concept(null, null);
-			var topMedium1 = new Concept(null, null);
-			var bottomMedium1 = new Concept(null, null);
-			var child1 = new Concept(null, null);
-			var parent2 = new Concept(null, null);
-			var topMedium2 = new Concept(null, null);
-			var bottomMedium2 = new Concept(null, null);
-			var child2 = new Concept(null, null);
-			var parentNoConnection = new Concept(null, null);
-			var childNoConnection = new Concept(null, null);
-			var parent2Path = new Concept(null, null);
-			var medium2Path1 = new Concept(null, null);
-			var medium2Path2 = new Concept(null, null);
-			var child2Path = new Concept(null, null);
+			var parent1 = TestHelper.CreateConcept();
+			var topMedium1 = TestHelper.CreateConcept();
+			var bottomMedium1 = TestHelper.CreateConcept();
+			var child1 = TestHelper.CreateConcept();
+			var parent2 = TestHelper.CreateConcept();
+			var topMedium2 = TestHelper.CreateConcept();
+			var bottomMedium2 = TestHelper.CreateConcept();
+			var child2 = TestHelper.CreateConcept();
+			var parentNoConnection = TestHelper.CreateConcept();
+			var childNoConnection = TestHelper.CreateConcept();
+			var parent2Path = TestHelper.CreateConcept();
+			var medium2Path1 = TestHelper.CreateConcept();
+			var medium2Path2 = TestHelper.CreateConcept();
+			var child2Path = TestHelper.CreateConcept();
 
 			var statements = new IStatement[]
 			{
@@ -356,9 +356,9 @@ namespace Inventor.Test.Statements
 		[Test]
 		public void CheckRecursivePaths()
 		{
-			var a = new Concept(null, null);
-			var b = new Concept(null, null);
-			var c = new Concept(null, null);
+			var a = TestHelper.CreateConcept();
+			var b = TestHelper.CreateConcept();
+			var c = TestHelper.CreateConcept();
 
 			var statementsValid1 = new IStatement[]
 			{

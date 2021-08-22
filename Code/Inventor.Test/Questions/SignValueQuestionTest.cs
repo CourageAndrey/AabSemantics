@@ -51,7 +51,7 @@ namespace Inventor.Test.Questions
 			var language = Language.Default;
 			var semanticNetwork = new TestSemanticNetwork(language);
 
-			var truck = new Concept();
+			var truck = TestHelper.CreateConcept();
 			semanticNetwork.SemanticNetwork.Concepts.Add(truck);
 
 			var classification = semanticNetwork.SemanticNetwork.DeclareThat(truck).IsDescendantOf(semanticNetwork.Vehicle_Car);
@@ -74,7 +74,7 @@ namespace Inventor.Test.Questions
 			var language = Language.Default;
 			var semanticNetwork = new TestSemanticNetwork(language);
 
-			var flyingCar = new Concept();
+			var flyingCar = TestHelper.CreateConcept();
 			semanticNetwork.SemanticNetwork.Concepts.Add(flyingCar);
 
 			semanticNetwork.SemanticNetwork.DeclareThat(flyingCar).IsDescendantOf(semanticNetwork.Vehicle_Car);
