@@ -80,6 +80,14 @@ namespace Inventor.Core.Localization
 		{ get; set; }
 
 		[XmlElement]
+		public String GetCommonQuestion
+		{ get; set; }
+
+		[XmlElement]
+		public String GetDifferencesQuestion
+		{ get; set; }
+
+		[XmlElement]
 		public String ParamParent
 		{ get; set; }
 
@@ -131,6 +139,14 @@ namespace Inventor.Core.Localization
 		public String ParamProcessB
 		{ get; set; }
 
+		[XmlElement]
+		public String ParamConcept1
+		{ get; set; }
+
+		[XmlElement]
+		public String ParamConcept2
+		{ get; set; }
+
 		#endregion
 
 		internal static LanguageQuestionNames CreateDefault()
@@ -155,6 +171,8 @@ namespace Inventor.Core.Localization
 				CheckStatementQuestion = "Is this true, that...",
 				ComparisonQuestion = "Compare LEFT_VALUE and RIGHT_VALUE",
 				ProcessesQuestion = "Compare mutual sequence of PROCESS_A and PROCESS_B",
+				GetCommonQuestion = "What in common CONCEPT_1 and CONCEPT_2 have?",
+				GetDifferencesQuestion = "What is the difference between CONCEPT_1 and CONCEPT_2?",
 				ParamParent = "PARENT",
 				ParamChild = "CHILD",
 				ParamConcept = "CONCEPT",
@@ -168,6 +186,8 @@ namespace Inventor.Core.Localization
 				ParamRightValue = "Right value",
 				ParamProcessA = "Process A",
 				ParamProcessB = "Process B",
+				ParamConcept1 = "Concept 1",
+				ParamConcept2 = "Concept 2",
 			};
 		}
 	}

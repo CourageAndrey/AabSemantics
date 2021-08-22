@@ -116,6 +116,46 @@ namespace Inventor.Core.Localization
 		{ get; set; }
 
 		[XmlElement]
+		public String CanNotCompareConcepts
+		{ get; set; }
+
+		[XmlElement]
+		public String CompareConceptsResult
+		{ get; set; }
+
+		[XmlElement]
+		public String CompareConceptsParents
+		{ get; set; }
+
+		[XmlElement]
+		public String CompareConceptsCommon
+		{ get; set; }
+
+		[XmlElement]
+		public String CompareConceptsNoCommon
+		{ get; set; }
+
+		[XmlElement]
+		public String CompareConceptsCommonNotSet
+		{ get; set; }
+
+		[XmlElement]
+		public String CompareConceptsDifference
+		{ get; set; }
+
+		[XmlElement]
+		public String CompareConceptsFirstNotSet
+		{ get; set; }
+
+		[XmlElement]
+		public String CompareConceptsSecondNotSet
+		{ get; set; }
+
+		[XmlElement]
+		public String CompareConceptsNoDifference
+		{ get; set; }
+
+		[XmlElement]
 		public String Explanation
 		{ get; set; }
 
@@ -152,6 +192,16 @@ namespace Inventor.Core.Localization
 				IsPartOfFalse = $"No, {Strings.ParamChild} is not part of {Strings.ParamParent}.",
 				EnumerateParts = $"{Strings.ParamParent} consists of: ",
 				EnumerateContainers = $"{Strings.ParamChild} is part of: ",
+				CanNotCompareConcepts = $"Concepts {Strings.ParamConcept1} and {Strings.ParamConcept2} have no common ancestors and can not be compared.",
+				CompareConceptsResult = $"Result of {Strings.ParamConcept1} and {Strings.ParamConcept2} comparison:",
+				CompareConceptsParents = "Common ancestors: ",
+				CompareConceptsCommon = $"Both have {Strings.ParamSign} sign value equal to {Strings.ParamValue}.",
+				CompareConceptsNoCommon = "No common found according to existing information.",
+				CompareConceptsCommonNotSet = "{Strings.ParamSign} sign value is not set for both concepts.",
+				CompareConceptsDifference = $"First have {Strings.ParamSign} sign value equal to {Strings.ParamConcept1}, and second one equal to {Strings.ParamConcept2}.",
+				CompareConceptsFirstNotSet = $"First have {Strings.ParamSign} sign value not set, and second one equal to {Strings.ParamConcept2}.",
+				CompareConceptsSecondNotSet = $"First have {Strings.ParamSign} sign value equal to {Strings.ParamConcept1}, and second one not set.",
+				CompareConceptsNoDifference = "No differences found according to existing information.",
 				Explanation = "Explanation:",
 			};
 		}

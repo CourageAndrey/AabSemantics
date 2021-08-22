@@ -73,6 +73,8 @@
     <Compile Include="Questions\EnumerateContainersQuestionTest.cs" />
     <Compile Include="Questions\EnumeratePartsQuestionTest.cs" />
     <Compile Include="Questions\EnumerateSignsQuestionTest.cs" />
+    <Compile Include="Questions\GetCommonQuestionTest.cs" />
+    <Compile Include="Questions\GetDifferencesQuestionTest.cs" />
     <Compile Include="Questions\HasSignQuestionTest.cs" />
     <Compile Include="Questions\HasSignsQuestionTest.cs" />
     <Compile Include="Questions\IsPartOfQuestionTest.cs" />
