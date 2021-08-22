@@ -461,27 +461,27 @@ namespace Inventor.Core.Base
 
 			#region Concept Attributes
 
-			Sign_MotorType.Attributes.Add(IsSignAttribute.Value);
-			Sign_AreaType.Attributes.Add(IsSignAttribute.Value);
+			Sign_MotorType.WithAttribute(IsSignAttribute.Value);
+			Sign_AreaType.WithAttribute(IsSignAttribute.Value);
 
-			MotorType_Muscles.Attributes.Add(IsValueAttribute.Value);
-			MotorType_Steam.Attributes.Add(IsValueAttribute.Value);
-			MotorType_Combusion.Attributes.Add(IsValueAttribute.Value);
-			MotorType_Jet.Attributes.Add(IsValueAttribute.Value);
-			AreaType_Ground.Attributes.Add(IsValueAttribute.Value);
-			AreaType_Water.Attributes.Add(IsValueAttribute.Value);
-			AreaType_Air.Attributes.Add(IsValueAttribute.Value);
+			MotorType_Muscles.WithAttribute(IsValueAttribute.Value);
+			MotorType_Steam.WithAttribute(IsValueAttribute.Value);
+			MotorType_Combusion.WithAttribute(IsValueAttribute.Value);
+			MotorType_Jet.WithAttribute(IsValueAttribute.Value);
+			AreaType_Ground.WithAttribute(IsValueAttribute.Value);
+			AreaType_Water.WithAttribute(IsValueAttribute.Value);
+			AreaType_Air.WithAttribute(IsValueAttribute.Value);
 
-			Number0.Attributes.Add(IsValueAttribute.Value);
-			NumberZero.Attributes.Add(IsValueAttribute.Value);
-			NumberNotZero.Attributes.Add(IsValueAttribute.Value);
-			Number1.Attributes.Add(IsValueAttribute.Value);
-			Number1or2.Attributes.Add(IsValueAttribute.Value);
-			Number2.Attributes.Add(IsValueAttribute.Value);
-			Number2or3.Attributes.Add(IsValueAttribute.Value);
-			Number3.Attributes.Add(IsValueAttribute.Value);
-			Number3or4.Attributes.Add(IsValueAttribute.Value);
-			Number4.Attributes.Add(IsValueAttribute.Value);
+			Number0.WithAttribute(IsValueAttribute.Value);
+			NumberZero.WithAttribute(IsValueAttribute.Value);
+			NumberNotZero.WithAttribute(IsValueAttribute.Value);
+			Number1.WithAttribute(IsValueAttribute.Value);
+			Number1or2.WithAttribute(IsValueAttribute.Value);
+			Number2.WithAttribute(IsValueAttribute.Value);
+			Number2or3.WithAttribute(IsValueAttribute.Value);
+			Number3.WithAttribute(IsValueAttribute.Value);
+			Number3or4.WithAttribute(IsValueAttribute.Value);
+			Number4.WithAttribute(IsValueAttribute.Value);
 
 			#endregion
 

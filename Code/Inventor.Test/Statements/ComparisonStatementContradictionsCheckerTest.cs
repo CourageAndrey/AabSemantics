@@ -206,7 +206,7 @@ namespace Inventor.Test.Statements
 		private static IConcept createValueConcept(int number)
 		{
 			var concept = number.CreateConcept();
-			concept.Attributes.Add(IsValueAttribute.Value);
+			concept.WithAttribute(IsValueAttribute.Value);
 			return concept;
 		}
 

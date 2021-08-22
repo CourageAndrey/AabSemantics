@@ -18,7 +18,7 @@ namespace Inventor.Test.Xml
 		{
 			// arrange
 			var concept = new Concept();
-			concept.Attributes.Add(attribute);
+			concept.WithAttribute(attribute);
 
 			var cache = new Dictionary<IConcept, int>();
 
@@ -37,7 +37,7 @@ namespace Inventor.Test.Xml
 			var concept = new Concept();
 			foreach (var attribute in getAllAttributes())
 			{
-				concept.Attributes.Add(attribute);
+				concept.WithAttribute(attribute);
 			}
 
 			var cache = new Dictionary<IConcept, int>();
@@ -55,7 +55,7 @@ namespace Inventor.Test.Xml
 		{
 			// arrange
 			var concept = new Concept();
-			concept.Attributes.Add(new WrongAttribute());
+			concept.WithAttribute(new WrongAttribute());
 
 			var cache = new Dictionary<IConcept, int>();
 

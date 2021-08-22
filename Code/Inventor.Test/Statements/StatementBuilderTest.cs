@@ -62,7 +62,7 @@ namespace Inventor.Test.Statements
 
 			var concept = TestHelper.CreateConcept();
 			var sign = TestHelper.CreateConcept();
-			sign.Attributes.Add(IsSignAttribute.Value);
+			sign.WithAttribute(IsSignAttribute.Value);
 
 			// act
 			var statementByConstuctor = new HasSignStatement(concept, sign);
@@ -103,9 +103,9 @@ namespace Inventor.Test.Statements
 
 			var concept = TestHelper.CreateConcept();
 			var sign = TestHelper.CreateConcept();
-			sign.Attributes.Add(IsSignAttribute.Value);
+			sign.WithAttribute(IsSignAttribute.Value);
 			var value = TestHelper.CreateConcept();
-			value.Attributes.Add(IsValueAttribute.Value);
+			value.WithAttribute(IsValueAttribute.Value);
 
 			// act
 			var statementByConstuctor = new SignValueStatement(concept, sign, value);
@@ -125,9 +125,9 @@ namespace Inventor.Test.Statements
 			var semanticNetwork = new SemanticNetwork(language);
 
 			var leftValue = TestHelper.CreateConcept();
-			leftValue.Attributes.Add(IsValueAttribute.Value);
+			leftValue.WithAttribute(IsValueAttribute.Value);
 			var rightValue = TestHelper.CreateConcept();
-			rightValue.Attributes.Add(IsValueAttribute.Value);
+			rightValue.WithAttribute(IsValueAttribute.Value);
 
 			var statementsByConstuctor = new List<ComparisonStatement>();
 			var statementsByBuilder = new List<ComparisonStatement>();
@@ -166,9 +166,9 @@ namespace Inventor.Test.Statements
 			var semanticNetwork = new SemanticNetwork(language);
 
 			var processA = TestHelper.CreateConcept();
-			processA.Attributes.Add(IsProcessAttribute.Value);
+			processA.WithAttribute(IsProcessAttribute.Value);
 			var processB = TestHelper.CreateConcept();
-			processB.Attributes.Add(IsProcessAttribute.Value);
+			processB.WithAttribute(IsProcessAttribute.Value);
 
 			var statementsByConstuctor = new List<ProcessesStatement>();
 			var statementsByBuilder = new List<ProcessesStatement>();

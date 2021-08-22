@@ -13,17 +13,11 @@ namespace Inventor.Core
 
 		public static readonly IConcept True = new Concept(
 			new LocalizedStringConstant(lang => lang.SystemConceptNames.True),
-			new LocalizedStringConstant(lang => lang.SystemConceptHints.True))
-		{
-			Attributes = { IsBooleanAttribute.Value },
-		};
+			new LocalizedStringConstant(lang => lang.SystemConceptHints.True));
 
 		public static readonly IConcept False = new Concept(
 			new LocalizedStringConstant(lang => lang.SystemConceptNames.False),
-			new LocalizedStringConstant(lang => lang.SystemConceptHints.False))
-		{
-			Attributes = { IsBooleanAttribute.Value },
-		};
+			new LocalizedStringConstant(lang => lang.SystemConceptHints.False));
 
 		public static readonly ICollection<IConcept> All = new HashSet<IConcept>
 		{
@@ -88,7 +82,7 @@ namespace Inventor.Core
 		{
 			foreach (var concept in All)
 			{
-				concept.Attributes.Add(IsValueAttribute.Value);
+				concept.WithAttributes(new IAttribute[] { IsValueAttribute.Value, IsBooleanAttribute.Value });
 			}
 		}
 	}

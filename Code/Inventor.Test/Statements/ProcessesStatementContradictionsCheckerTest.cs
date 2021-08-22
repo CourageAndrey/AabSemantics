@@ -180,7 +180,7 @@ namespace Inventor.Test.Statements
 		private static IConcept createProcessConcept(string name)
 		{
 			var concept = name.CreateConcept();
-			concept.Attributes.Add(IsProcessAttribute.Value);
+			concept.WithAttribute(IsProcessAttribute.Value);
 			return concept;
 		}
 
