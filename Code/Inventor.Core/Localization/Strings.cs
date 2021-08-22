@@ -11,6 +11,8 @@ namespace Inventor.Core.Localization
 		public const String TostringLocalized = "LOCALIZED_STRING";
 
 		public const String ParamConcept = "#CONCEPT#";
+		public const String ParamConcept1 = "#CONCEPT1#";
+		public const String ParamConcept2 = "#CONCEPT2#";
 		public const String ParamArea = "#AREA#";
 		public const String ParamChild = "#CHILD#";
 		public const String ParamParent = "#PARENT#";

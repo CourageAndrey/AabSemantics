@@ -146,5 +146,17 @@ namespace Inventor.Core
 			var question = new WhatQuestion(concept, builder.Preconditions);
 			return question.Ask(builder.SemanticNetwork.Context);
 		}
+
+		public static IAnswer WhatInCommon(this QuestionBuilder builder, IConcept concept1, IConcept concept2)
+		{
+			var question = new GetCommonQuestion(concept1, concept2, builder.Preconditions);
+			return question.Ask(builder.SemanticNetwork.Context);
+		}
+
+		public static IAnswer WhatIsTheDifference(this QuestionBuilder builder, IConcept concept1, IConcept concept2)
+		{
+			var question = new GetDifferencesQuestion(concept1, concept2, builder.Preconditions);
+			return question.Ask(builder.SemanticNetwork.Context);
+		}
 	}
 }

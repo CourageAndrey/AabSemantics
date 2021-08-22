@@ -140,6 +140,8 @@
     <Compile Include="UiHelper.cs" />
     <Compile Include="ViewModels\Concept.cs" />
     <Compile Include="ViewModels\Questions\CheckStatementQuestion.cs" />
+    <Compile Include="ViewModels\Questions\GetCommonQuestion.cs" />
+    <Compile Include="ViewModels\Questions\GetDifferencesQuestion.cs" />
     <Compile Include="ViewModels\Questions\ProcessesQuestion.cs" />
     <Compile Include="ViewModels\Questions\ComparisonQuestion.cs" />
     <Compile Include="ViewModels\Questions\DescribeSubjectAreaQuestion.cs" />

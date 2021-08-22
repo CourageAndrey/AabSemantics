@@ -158,6 +158,12 @@ namespace Inventor.Core
 		String ProcessesQuestion
 		{ get; }
 
+		String GetCommonQuestion
+		{ get; }
+
+		String GetDifferencesQuestion
+		{ get; }
+
 		String ParamParent
 		{ get; }
 
@@ -195,6 +201,12 @@ namespace Inventor.Core
 		{ get; }
 
 		String ParamProcessB
+		{ get; }
+
+		String ParamConcept1
+		{ get; }
+
+		String ParamConcept2
 		{ get; }
 	}
 
@@ -279,6 +291,36 @@ namespace Inventor.Core
 		{ get; }
 
 		String EnumerateContainers
+		{ get; }
+
+		String CanNotCompareConcepts
+		{ get; }
+
+		String CompareConceptsResult
+		{ get; }
+
+		String CompareConceptsParents
+		{ get; }
+
+		String CompareConceptsCommon
+		{ get; }
+
+		String CompareConceptsCommonNotSet
+		{ get; }
+
+		String CompareConceptsNoCommon
+		{ get; }
+
+		String CompareConceptsDifference
+		{ get; }
+
+		String CompareConceptsFirstNotSet
+		{ get; }
+
+		String CompareConceptsSecondNotSet
+		{ get; }
+
+		String CompareConceptsNoDifference
 		{ get; }
 
 		String Explanation
