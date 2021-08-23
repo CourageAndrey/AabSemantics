@@ -11,7 +11,7 @@ namespace Inventor.Core.Xml
 		#region Properties
 
 		[XmlAttribute]
-		public Int32 ID
+		public String ID
 		{ get; set; }
 
 		[XmlElement]
@@ -39,13 +39,12 @@ namespace Inventor.Core.Xml
 		public Concept()
 		{ }
 
-		public Concept(IConcept concept, IDictionary<IConcept, Int32> conceptsCache)
+		public Concept(IConcept concept)
 		{
 			Name = new LocalizedString(concept.Name);
 			Hint = new LocalizedString(concept.Hint);
 			Attributes = concept.Attributes.Select(a => Attribute.Save(a)).ToList();
-
-			conceptsCache[concept] = ID = conceptsCache.Count;
+			ID = concept.ID;
 		}
 
 		#endregion
@@ -58,7 +57,7 @@ namespace Inventor.Core.Xml
 			var hint = new Localization.LocalizedStringVariable();
 			Hint.LoadTo(hint);
 
-			return new Base.Concept(name, hint).WithAttributes(Attributes.Select(a => a.Load()));
+			return new Base.Concept(ID, name, hint).WithAttributes(Attributes.Select(a => a.Load()));
 		}
 	}
 }

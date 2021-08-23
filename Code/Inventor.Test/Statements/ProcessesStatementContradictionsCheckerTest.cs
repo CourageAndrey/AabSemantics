@@ -25,7 +25,7 @@ namespace Inventor.Test.Statements
 			// act
 			foreach (var sign in SequenceSigns.All)
 			{
-				var statements = new[] { new ProcessesStatement(processA, processB, sign) };
+				var statements = new[] { new ProcessesStatement(null, processA, processB, sign) };
 
 				var contradictions = statements.CheckForContradictions();
 
@@ -50,8 +50,8 @@ namespace Inventor.Test.Statements
 				{
 					var statements = new[]
 					{
-						new ProcessesStatement(processA, processI, signAI),
-						new ProcessesStatement(processI, processB, signIB),
+						new ProcessesStatement(null, processA, processI, signAI),
+						new ProcessesStatement(null, processI, processB, signIB),
 					};
 
 					var contradictions = statements.CheckForContradictions();
@@ -105,8 +105,8 @@ namespace Inventor.Test.Statements
 			{
 				var statements = new List<ProcessesStatement>
 				{
-					new ProcessesStatement(concept1, concept2, sign),
-					new ProcessesStatement(concept1, concept2, sign),
+					new ProcessesStatement(null, concept1, concept2, sign),
+					new ProcessesStatement(null, concept1, concept2, sign),
 				};
 
 				var contradictions = statements.CheckForContradictions();
@@ -132,8 +132,8 @@ namespace Inventor.Test.Statements
 					{
 						var statements = new List<ProcessesStatement>
 						{
-							new ProcessesStatement(conceptA, conceptB, sign),
-							new ProcessesStatement(conceptA, conceptB, contradictedSign),
+							new ProcessesStatement(null, conceptA, conceptB, sign),
+							new ProcessesStatement(null, conceptA, conceptB, contradictedSign),
 						};
 
 						var contradictions = statements.CheckForContradictions();
@@ -189,8 +189,7 @@ namespace Inventor.Test.Statements
 			var statements = new List<ProcessesStatement>();
 			for (int i = 0; i < concepts.Count - 1; i++)
 			{
-				statements.Add(new ProcessesStatement(
-					concepts[i],
+				statements.Add(new ProcessesStatement(null, concepts[i],
 					concepts[i + 1],
 					sign));
 			}
@@ -200,8 +199,7 @@ namespace Inventor.Test.Statements
 		private static List<ProcessesStatement> createSimpleLoop(List<IConcept> concepts, IConcept sign)
 		{
 			var statements = createSimpleChain(concepts, sign);
-			statements.Add(new ProcessesStatement(
-				statements.Last().ProcessB,
+			statements.Add(new ProcessesStatement(null, statements.Last().ProcessB,
 				statements.First().ProcessA,
 				sign));
 			return statements;

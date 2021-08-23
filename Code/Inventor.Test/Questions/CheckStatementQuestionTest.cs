@@ -106,7 +106,7 @@ namespace Inventor.Test.Questions
 			{ get; }
 
 			public TestStatement(int number)
-				: base(new LocalizedStringConstant(l => number.ToString()), new LocalizedStringConstant(l => number.ToString()))
+				: base(number.ToString(), new LocalizedStringConstant(l => number.ToString()), new LocalizedStringConstant(l => number.ToString()))
 			{
 				Number = number;
 			}
@@ -142,7 +142,7 @@ namespace Inventor.Test.Questions
 			{ get; }
 
 			public TransitiveTestStatement(IConcept parent, IConcept child)
-				: base(new LocalizedStringConstant(l => string.Empty), new LocalizedStringConstant(l => string.Empty))
+				: base(string.Empty.EnsureIdIsSet(), new LocalizedStringConstant(l => string.Empty), new LocalizedStringConstant(l => string.Empty))
 			{
 				Parent = parent;
 				Child = child;

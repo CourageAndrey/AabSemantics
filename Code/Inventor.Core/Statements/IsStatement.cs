@@ -25,17 +25,18 @@ namespace Inventor.Core.Statements
 
 		#endregion
 
-		public IsStatement(IConcept ancestor, IConcept descendant)
-			: base(new Func<ILanguage, String>(language => language.StatementNames.Clasification), new Func<ILanguage, String>(language => language.StatementHints.Clasification))
+		public IsStatement(String id, IConcept ancestor, IConcept descendant)
+			: base(id, new Func<ILanguage, String>(language => language.StatementNames.Clasification), new Func<ILanguage, String>(language => language.StatementHints.Clasification))
 		{
-			Update(ancestor, descendant);
+			Update(id, ancestor, descendant);
 		}
 
-		public void Update(IConcept ancestor, IConcept descendant)
+		public void Update(String id, IConcept ancestor, IConcept descendant)
 		{
 			if (ancestor == null) throw new ArgumentNullException(nameof(ancestor));
 			if (descendant == null) throw new ArgumentNullException(nameof(descendant));
 
+			Update(id);
 			Ancestor = ancestor;
 			Descendant = descendant;
 		}

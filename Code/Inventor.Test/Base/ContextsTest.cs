@@ -200,6 +200,9 @@ namespace Inventor.Test.Base
 			public ILocalizedString Name
 			{ get; } = null;
 
+			public string ID
+			{ get; } = null;
+
 			public IContext Context
 			{ get; set; }
 

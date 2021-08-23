@@ -24,17 +24,18 @@ namespace Inventor.Core.Statements
 
 		#endregion
 
-		public HasPartStatement(IConcept whole, IConcept part)
-			: base(new Func<ILanguage, String>(language => language.StatementNames.Composition), new Func<ILanguage, String>(language => language.StatementHints.Composition))
+		public HasPartStatement(String id, IConcept whole, IConcept part)
+			: base(id, new Func<ILanguage, String>(language => language.StatementNames.Composition), new Func<ILanguage, String>(language => language.StatementHints.Composition))
 		{
-			Update(whole, part);
+			Update(id, whole, part);
 		}
 
-		public void Update(IConcept whole, IConcept part)
+		public void Update(String id, IConcept whole, IConcept part)
 		{
 			if (whole == null) throw new ArgumentNullException(nameof(whole));
 			if (part == null) throw new ArgumentNullException(nameof(part));
 
+			Update(id);
 			Whole = whole;
 			Part = part;
 		}

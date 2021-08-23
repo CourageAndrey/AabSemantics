@@ -12,6 +12,9 @@ namespace Inventor.Core.Base
 		public ILocalizedString Name
 		{ get; }
 
+		public String ID
+		{ get; private set; }
+
 		public ILocalizedString Hint
 		{ get; }
 
@@ -22,18 +25,24 @@ namespace Inventor.Core.Base
 
 		#region Constructors
 
-		public Concept(ILocalizedString name = null, ILocalizedString hint = null)
+		public Concept(String id = null, ILocalizedString name = null, ILocalizedString hint = null)
 		{
 			Name = name ?? new LocalizedStringVariable();
+			ID = id.EnsureIdIsSet();
 			Hint = hint ?? new LocalizedStringVariable();
 			Attributes = new HashSet<IAttribute>();
 		}
 
 		#endregion
 
+		public virtual void UpdateIdIfAllowed(String id)
+		{
+			ID = id.EnsureIdIsSet();
+		}
+
 		public override String ToString()
 		{
-			return String.Format("{0} : {1}", Strings.TostringConcept, Name);
+			return this.GetTypeWithId();
 		}
 	}
 }

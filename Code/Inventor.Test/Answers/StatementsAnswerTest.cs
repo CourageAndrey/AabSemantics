@@ -22,8 +22,8 @@ namespace Inventor.Test.Answers
 
 			var resultStatementsTyped = new IsStatement[]
 			{
-				new IsStatement(concept1, concept2),
-				new IsStatement(concept2, concept1),
+				new IsStatement(null, concept1, concept2),
+				new IsStatement(null, concept2, concept1),
 			};
 
 			var resultStatementsUntyped = resultStatementsTyped.OfType<IStatement>().ToArray();
@@ -32,8 +32,8 @@ namespace Inventor.Test.Answers
 
 			var explanationStatements = new IStatement[]
 			{
-				new HasPartStatement(concept1, concept2),
-				new HasPartStatement(concept2, concept1),
+				new HasPartStatement(null, concept1, concept2),
+				new HasPartStatement(null, concept2, concept1),
 			};
 
 			var typedAnswer = new StatementsAnswer<IsStatement>(resultStatementsTyped, text, new Explanation(explanationStatements));

@@ -24,17 +24,17 @@ namespace Inventor.Client.ViewModels.Statements
 		#region Constructors
 
 		public SignValueStatement(ILanguage language)
-			: this(null as ConceptItem, null, null, language)
+			: this(string.Empty, null, null, null, language)
 		{ }
 
 		public SignValueStatement(Core.Statements.SignValueStatement statement, ILanguage language)
-			: this(new ConceptItem(statement.Concept, language), new ConceptItem(statement.Sign, language), new ConceptItem(statement.Value, language), language)
+			: this(statement.ID, new ConceptItem(statement.Concept, language), new ConceptItem(statement.Sign, language), new ConceptItem(statement.Value, language), language)
 		{
 			BoundObject = statement;
 		}
 
-		public SignValueStatement(ConceptItem concept, ConceptItem sign, ConceptItem value, ILanguage language)
-			: base(language)
+		public SignValueStatement(string id, ConceptItem concept, ConceptItem sign, ConceptItem value, ILanguage language)
+			: base(id, language)
 		{
 			Concept = concept;
 			Sign = sign;
@@ -68,19 +68,19 @@ namespace Inventor.Client.ViewModels.Statements
 
 		protected override Core.Statements.SignValueStatement CreateStatementImplementation()
 		{
-			return new Core.Statements.SignValueStatement(Concept.Concept, Sign.Concept, Value.Concept);
+			return new Core.Statements.SignValueStatement(ID, Concept.Concept, Sign.Concept, Value.Concept);
 		}
 
 		public override void ApplyUpdate()
 		{
-			BoundObject.Update(Concept.Concept, Sign.Concept, Value.Concept);
+			BoundObject.Update(ID, Concept.Concept, Sign.Concept, Value.Concept);
 		}
 
 		#endregion
 
 		public override StatementViewModel Clone()
 		{
-			return new SignValueStatement(Concept, Sign, Value, _language);
+			return new SignValueStatement(ID, Concept, Sign, Value, _language);
 		}
 	}
 }

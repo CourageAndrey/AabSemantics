@@ -161,7 +161,7 @@ namespace Inventor.Core.Base
 
 			#region Subject Areas
 
-			SemanticNetwork.Concepts.Add(SubjectArea_Transport = new Concept(new LocalizedStringVariable(new Dictionary<String, String>
+			SemanticNetwork.Concepts.Add(SubjectArea_Transport = new Concept(nameof(SubjectArea_Transport), new LocalizedStringVariable(new Dictionary<String, String>
 			{
 				{ "ru-RU", "Транспорт" },
 				{ "en-US", "Transport" },
@@ -171,7 +171,7 @@ namespace Inventor.Core.Base
 				{ "en-US", "Vehicles." },
 			})));
 
-			SemanticNetwork.Concepts.Add(SubjectArea_Numbers = new Concept(new LocalizedStringVariable(new Dictionary<String, String>
+			SemanticNetwork.Concepts.Add(SubjectArea_Numbers = new Concept(nameof(SubjectArea_Numbers), new LocalizedStringVariable(new Dictionary<String, String>
 			{
 				{ "ru-RU", "Числа" },
 				{ "en-US", "Numbers" },
@@ -185,7 +185,7 @@ namespace Inventor.Core.Base
 
 			#region Base Concepts
 
-			SemanticNetwork.Concepts.Add(Base_Vehicle = new Concept(new LocalizedStringVariable(new Dictionary<String, String>
+			SemanticNetwork.Concepts.Add(Base_Vehicle = new Concept(nameof(Base_Vehicle), new LocalizedStringVariable(new Dictionary<String, String>
 			{
 				{ "ru-RU", "Транспортное средство" },
 				{ "en-US", "Vehicle" },
@@ -199,7 +199,7 @@ namespace Inventor.Core.Base
 
 			#region Signs
 
-			SemanticNetwork.Concepts.Add(Sign_MotorType = new Concept(new LocalizedStringVariable(new Dictionary<String, String>
+			SemanticNetwork.Concepts.Add(Sign_MotorType = new Concept(nameof(Sign_MotorType), new LocalizedStringVariable(new Dictionary<String, String>
 			{
 				{ "ru-RU", "Движитель" },
 				{ "en-US", "Mover" },
@@ -209,7 +209,7 @@ namespace Inventor.Core.Base
 				{ "en-US", "Initiator of movement." },
 			})));
 
-			SemanticNetwork.Concepts.Add(Sign_AreaType = new Concept(new LocalizedStringVariable(new Dictionary<String, String>
+			SemanticNetwork.Concepts.Add(Sign_AreaType = new Concept(nameof(Sign_AreaType), new LocalizedStringVariable(new Dictionary<String, String>
 			{
 				{ "ru-RU", "Среда передвижения" },
 				{ "en-US", "Movement area" },
@@ -223,7 +223,7 @@ namespace Inventor.Core.Base
 
 			#region Motor types
 
-			SemanticNetwork.Concepts.Add(MotorType_Muscles = new Concept(new LocalizedStringVariable(new Dictionary<String, String>
+			SemanticNetwork.Concepts.Add(MotorType_Muscles = new Concept(nameof(MotorType_Muscles), new LocalizedStringVariable(new Dictionary<String, String>
 			{
 				{ "ru-RU", "Мускульная сила" },
 				{ "en-US", "Muscles" },
@@ -233,7 +233,7 @@ namespace Inventor.Core.Base
 				{ "en-US", "To use own muscles in order to move." },
 			})));
 
-			SemanticNetwork.Concepts.Add(MotorType_Steam = new Concept(new LocalizedStringVariable(new Dictionary<String, String>
+			SemanticNetwork.Concepts.Add(MotorType_Steam = new Concept(nameof(MotorType_Steam), new LocalizedStringVariable(new Dictionary<String, String>
 			{
 				{ "ru-RU", "Паровая тяга" },
 				{ "en-US", "Steam engine" },
@@ -243,7 +243,7 @@ namespace Inventor.Core.Base
 				{ "en-US", "To use steam engine to move." },
 			})));
 
-			SemanticNetwork.Concepts.Add(MotorType_Combusion = new Concept(new LocalizedStringVariable(new Dictionary<String, String>
+			SemanticNetwork.Concepts.Add(MotorType_Combusion = new Concept(nameof(MotorType_Combusion), new LocalizedStringVariable(new Dictionary<String, String>
 			{
 				{ "ru-RU", "Внутреннее сгорание" },
 				{ "en-US", "Combustion engine" },
@@ -253,7 +253,7 @@ namespace Inventor.Core.Base
 				{ "en-US", "To use combustion engine to move." },
 			})));
 
-			SemanticNetwork.Concepts.Add(MotorType_Jet = new Concept(new LocalizedStringVariable(new Dictionary<String, String>
+			SemanticNetwork.Concepts.Add(MotorType_Jet = new Concept(nameof(MotorType_Jet), new LocalizedStringVariable(new Dictionary<String, String>
 			{
 				{ "ru-RU", "Реактивная тяга" },
 				{ "en-US", "Jet engine" },
@@ -267,7 +267,7 @@ namespace Inventor.Core.Base
 
 			#region Area types
 
-			SemanticNetwork.Concepts.Add(AreaType_Ground = new Concept(new LocalizedStringVariable(new Dictionary<String, String>
+			SemanticNetwork.Concepts.Add(AreaType_Ground = new Concept(nameof(AreaType_Ground), new LocalizedStringVariable(new Dictionary<String, String>
 			{
 				{ "ru-RU", "Земля" },
 				{ "en-US", "Ground" },
@@ -277,7 +277,7 @@ namespace Inventor.Core.Base
 				{ "en-US", "Plain ground." },
 			})));
 
-			SemanticNetwork.Concepts.Add(AreaType_Water = new Concept(new LocalizedStringVariable(new Dictionary<String, String>
+			SemanticNetwork.Concepts.Add(AreaType_Water = new Concept(nameof(AreaType_Water), new LocalizedStringVariable(new Dictionary<String, String>
 			{
 				{ "ru-RU", "Вода" },
 				{ "en-US", "Water" },
@@ -287,7 +287,7 @@ namespace Inventor.Core.Base
 				{ "en-US", "Water surface." },
 			})));
 
-			SemanticNetwork.Concepts.Add(AreaType_Air = new Concept(new LocalizedStringVariable(new Dictionary<String, String>
+			SemanticNetwork.Concepts.Add(AreaType_Air = new Concept(nameof(AreaType_Air), new LocalizedStringVariable(new Dictionary<String, String>
 			{
 				{ "ru-RU", "Воздух" },
 				{ "en-US", "Air" },
@@ -301,7 +301,7 @@ namespace Inventor.Core.Base
 
 			#region Certain Transportation Devices
 
-			SemanticNetwork.Concepts.Add(Vehicle_Bicycle = new Concept(new LocalizedStringVariable(new Dictionary<String, String>
+			SemanticNetwork.Concepts.Add(Vehicle_Bicycle = new Concept(nameof(Vehicle_Bicycle), new LocalizedStringVariable(new Dictionary<String, String>
 			{
 				{ "ru-RU", "Велосипед" },
 				{ "en-US", "Bicycle" },
@@ -311,7 +311,7 @@ namespace Inventor.Core.Base
 				{ "en-US", "Two wheels of fun." },
 			})));
 
-			SemanticNetwork.Concepts.Add(Vehicle_Curragh = new Concept(new LocalizedStringVariable(new Dictionary<String, String>
+			SemanticNetwork.Concepts.Add(Vehicle_Curragh = new Concept(nameof(Vehicle_Curragh), new LocalizedStringVariable(new Dictionary<String, String>
 			{
 				{ "ru-RU", "Курага" },
 				{ "en-US", "Curragh" },
@@ -321,7 +321,7 @@ namespace Inventor.Core.Base
 				{ "en-US", "It is not a bot itself yet." },
 			})));
 
-			SemanticNetwork.Concepts.Add(Vehicle_SteamLocomotive = new Concept(new LocalizedStringVariable(new Dictionary<String, String>
+			SemanticNetwork.Concepts.Add(Vehicle_SteamLocomotive = new Concept(nameof(Vehicle_SteamLocomotive), new LocalizedStringVariable(new Dictionary<String, String>
 			{
 				{ "ru-RU", "Паровоз" },
 				{ "en-US", "Steam locomotive" },
@@ -331,7 +331,7 @@ namespace Inventor.Core.Base
 				{ "en-US", "Obsolete train." },
 			})));
 
-			SemanticNetwork.Concepts.Add(Vehicle_Steamboat = new Concept(new LocalizedStringVariable(new Dictionary<String, String>
+			SemanticNetwork.Concepts.Add(Vehicle_Steamboat = new Concept(nameof(Vehicle_Steamboat), new LocalizedStringVariable(new Dictionary<String, String>
 			{
 				{ "ru-RU", "Пароход" },
 				{ "en-US", "Steamboat" },
@@ -341,7 +341,7 @@ namespace Inventor.Core.Base
 				{ "en-US", "Obsolete boat type." },
 			})));
 
-			SemanticNetwork.Concepts.Add(Vehicle_Car = new Concept(new LocalizedStringVariable(new Dictionary<String, String>
+			SemanticNetwork.Concepts.Add(Vehicle_Car = new Concept(nameof(Vehicle_Car), new LocalizedStringVariable(new Dictionary<String, String>
 			{
 				{ "ru-RU", "Автомобиль" },
 				{ "en-US", "Car" },
@@ -351,7 +351,7 @@ namespace Inventor.Core.Base
 				{ "en-US", "4-wheels standard vehicle." },
 			})));
 
-			SemanticNetwork.Concepts.Add(Vehicle_Motorcycle = new Concept(new LocalizedStringVariable(new Dictionary<String, String>
+			SemanticNetwork.Concepts.Add(Vehicle_Motorcycle = new Concept(nameof(Vehicle_Motorcycle), new LocalizedStringVariable(new Dictionary<String, String>
 			{
 				{ "ru-RU", "Мотоцикл" },
 				{ "en-US", "Motorcycle" },
@@ -361,7 +361,7 @@ namespace Inventor.Core.Base
 				{ "en-US", "Half of a car." },
 			})));
 
-			SemanticNetwork.Concepts.Add(Vehicle_Fighter = new Concept(new LocalizedStringVariable(new Dictionary<String, String>
+			SemanticNetwork.Concepts.Add(Vehicle_Fighter = new Concept(nameof(Vehicle_Fighter), new LocalizedStringVariable(new Dictionary<String, String>
 			{
 				{ "ru-RU", "Поршневой истребитель" },
 				{ "en-US", "Fighter" },
@@ -371,7 +371,7 @@ namespace Inventor.Core.Base
 				{ "en-US", "Obsolete aircraft." },
 			})));
 
-			SemanticNetwork.Concepts.Add(Vehicle_Airbus = new Concept(new LocalizedStringVariable(new Dictionary<String, String>
+			SemanticNetwork.Concepts.Add(Vehicle_Airbus = new Concept(nameof(Vehicle_Airbus), new LocalizedStringVariable(new Dictionary<String, String>
 			{
 				{ "ru-RU", "Аэробус" },
 				{ "en-US", "Airbus" },
@@ -381,7 +381,7 @@ namespace Inventor.Core.Base
 				{ "en-US", "Large civil airplane." },
 			})));
 
-			SemanticNetwork.Concepts.Add(Vehicle_JetFighter = new Concept(new LocalizedStringVariable(new Dictionary<String, String>
+			SemanticNetwork.Concepts.Add(Vehicle_JetFighter = new Concept(nameof(Vehicle_JetFighter), new LocalizedStringVariable(new Dictionary<String, String>
 			{
 				{ "ru-RU", "Реактивный истребитель" },
 				{ "en-US", "Jet fighter" },
@@ -395,7 +395,7 @@ namespace Inventor.Core.Base
 
 			#region Car parts
 
-			SemanticNetwork.Concepts.Add(Part_Engine = new Concept(new LocalizedStringVariable(new Dictionary<String, String>
+			SemanticNetwork.Concepts.Add(Part_Engine = new Concept(nameof(Part_Engine), new LocalizedStringVariable(new Dictionary<String, String>
 			{
 				{ "ru-RU", "Двигатель" },
 				{ "en-US", "Engine" },
@@ -405,7 +405,7 @@ namespace Inventor.Core.Base
 				{ "en-US", "Engine." },
 			})));
 
-			SemanticNetwork.Concepts.Add(Part_Wheels = new Concept(new LocalizedStringVariable(new Dictionary<String, String>
+			SemanticNetwork.Concepts.Add(Part_Wheels = new Concept(nameof(Part_Wheels), new LocalizedStringVariable(new Dictionary<String, String>
 			{
 				{ "ru-RU", "Колёса" },
 				{ "en-US", "Wheels" },
@@ -415,7 +415,7 @@ namespace Inventor.Core.Base
 				{ "en-US", "Wheels." },
 			})));
 
-			SemanticNetwork.Concepts.Add(Part_Body = new Concept(new LocalizedStringVariable(new Dictionary<String, String>
+			SemanticNetwork.Concepts.Add(Part_Body = new Concept(nameof(Part_Body), new LocalizedStringVariable(new Dictionary<String, String>
 			{
 				{ "ru-RU", "Кузов" },
 				{ "en-US", "Car body" },
@@ -437,25 +437,25 @@ namespace Inventor.Core.Base
 				});
 			Func<Int32, LocalizedStringVariable> getStringByNumber = number => getString(number.ToString());
 
-			SemanticNetwork.Concepts.Add(Number0 = new Concept(getStringByNumber(0), getStringByNumber(0)));
+			SemanticNetwork.Concepts.Add(Number0 = new Concept("0", getStringByNumber(0), getStringByNumber(0)));
 
-			SemanticNetwork.Concepts.Add(NumberZero = new Concept(getString("_0_"), getString("_0_")));
+			SemanticNetwork.Concepts.Add(NumberZero = new Concept("_0_", getString("_0_"), getString("_0_")));
 
-			SemanticNetwork.Concepts.Add(NumberNotZero = new Concept(getString("!0"), getString("!0")));
+			SemanticNetwork.Concepts.Add(NumberNotZero = new Concept("!0", getString("!0"), getString("!0")));
 
-			SemanticNetwork.Concepts.Add(Number1 = new Concept(getStringByNumber(1), getStringByNumber(1)));
+			SemanticNetwork.Concepts.Add(Number1 = new Concept("1", getStringByNumber(1), getStringByNumber(1)));
 
-			SemanticNetwork.Concepts.Add(Number1or2 = new Concept(getString("1 || 2"), getString("1 || 2")));
+			SemanticNetwork.Concepts.Add(Number1or2 = new Concept("1 || 2", getString("1 || 2"), getString("1 || 2")));
 
-			SemanticNetwork.Concepts.Add(Number2 = new Concept(getStringByNumber(2), getStringByNumber(2)));
+			SemanticNetwork.Concepts.Add(Number2 = new Concept("2", getStringByNumber(2), getStringByNumber(2)));
 
-			SemanticNetwork.Concepts.Add(Number2or3 = new Concept(getString("2 || 3"), getString("2 || 3")));
+			SemanticNetwork.Concepts.Add(Number2or3 = new Concept("2 || 3", getString("2 || 3"), getString("2 || 3")));
 
-			SemanticNetwork.Concepts.Add(Number3 = new Concept(getStringByNumber(3), getStringByNumber(3)));
+			SemanticNetwork.Concepts.Add(Number3 = new Concept("3", getStringByNumber(3), getStringByNumber(3)));
 
-			SemanticNetwork.Concepts.Add(Number3or4 = new Concept(getString("3 || 4"), getString("3 || 4")));
+			SemanticNetwork.Concepts.Add(Number3or4 = new Concept("3 || 4", getString("3 || 4"), getString("3 || 4")));
 
-			SemanticNetwork.Concepts.Add(Number4 = new Concept(getStringByNumber(4), getStringByNumber(4)));
+			SemanticNetwork.Concepts.Add(Number4 = new Concept("4", getStringByNumber(4), getStringByNumber(4)));
 
 			#endregion
 

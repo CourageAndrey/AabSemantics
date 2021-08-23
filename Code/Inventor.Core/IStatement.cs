@@ -4,7 +4,7 @@ using System.Linq;
 
 namespace Inventor.Core
 {
-	public interface IStatement : INamed
+	public interface IStatement : INamed, IIdentifiable
 	{
 		IContext Context
 		{ get; set; }

@@ -27,18 +27,19 @@ namespace Inventor.Core.Xml
 		public SignValueStatement()
 		{ }
 
-		public SignValueStatement(Statements.SignValueStatement statement, LoadIdResolver conceptIdResolver)
+		public SignValueStatement(Statements.SignValueStatement statement)
 		{
-			Concept = conceptIdResolver.GetConceptId(statement.Concept);
-			Sign = conceptIdResolver.GetConceptId(statement.Sign);
-			Value = conceptIdResolver.GetConceptId(statement.Value);
+			ID = statement.ID;
+			Concept = statement.Concept?.ID;
+			Sign = statement.Sign?.ID;
+			Value = statement.Value?.ID;
 		}
 
 		#endregion
 
-		public override IStatement Save(SaveIdResolver conceptIdResolver)
+		public override IStatement Save(ConceptIdResolver conceptIdResolver)
 		{
-			return new Statements.SignValueStatement(conceptIdResolver.GetConceptById(Concept), conceptIdResolver.GetConceptById(Sign), conceptIdResolver.GetConceptById(Value));
+			return new Statements.SignValueStatement(ID, conceptIdResolver.GetConceptById(Concept), conceptIdResolver.GetConceptById(Sign), conceptIdResolver.GetConceptById(Value));
 		}
 	}
 }

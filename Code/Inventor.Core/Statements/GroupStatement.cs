@@ -24,17 +24,18 @@ namespace Inventor.Core.Statements
 
 		#endregion
 
-		public GroupStatement(IConcept area, IConcept concept)
-			: base(new Func<ILanguage, String>(language => language.StatementNames.SubjectArea), new Func<ILanguage, String>(language => language.StatementHints.SubjectArea))
+		public GroupStatement(String id, IConcept area, IConcept concept)
+			: base(id, new Func<ILanguage, String>(language => language.StatementNames.SubjectArea), new Func<ILanguage, String>(language => language.StatementHints.SubjectArea))
 		{
-			Update(area, concept);
+			Update(id, area, concept);
 		}
 
-		public void Update(IConcept area, IConcept concept)
+		public void Update(String id, IConcept area, IConcept concept)
 		{
 			if (area == null) throw new ArgumentNullException(nameof(area));
 			if (concept == null) throw new ArgumentNullException(nameof(concept));
 
+			Update(id);
 			Area = area;
 			Concept = concept;
 		}

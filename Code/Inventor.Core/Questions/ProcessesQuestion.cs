@@ -128,8 +128,7 @@ namespace Inventor.Core.Questions
 						var sign = SequenceSigns.TryToCombineMutualSequences(transitiveStatement.SequenceSign, childStatement.SequenceSign);
 						if (sign != null)
 						{
-							resultStatements.Add(new ProcessesStatement(
-								ProcessA,
+							resultStatements.Add(new ProcessesStatement(null, ProcessA,
 								ProcessB,
 								sign));
 						}

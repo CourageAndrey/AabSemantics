@@ -21,17 +21,17 @@ namespace Inventor.Client.ViewModels.Statements
 		#region Constructors
 
 		public IsStatement(ILanguage language)
-			: this(null as ConceptItem, null, language)
+			: this(string.Empty, null, null, language)
 		{ }
 
 		public IsStatement(Core.Statements.IsStatement statement, ILanguage language)
-			: this(new ConceptItem(statement.Ancestor, language), new ConceptItem(statement.Descendant, language), language)
+			: this(statement.ID, new ConceptItem(statement.Ancestor, language), new ConceptItem(statement.Descendant, language), language)
 		{
 			BoundObject = statement;
 		}
 
-		public IsStatement(ConceptItem ancestor, ConceptItem descendant, ILanguage language)
-			: base(language)
+		public IsStatement(string id, ConceptItem ancestor, ConceptItem descendant, ILanguage language)
+			: base(id, language)
 		{
 			Ancestor = ancestor;
 			Descendant = descendant;
@@ -64,19 +64,19 @@ namespace Inventor.Client.ViewModels.Statements
 
 		protected override Core.Statements.IsStatement CreateStatementImplementation()
 		{
-			return new Core.Statements.IsStatement(Ancestor.Concept, Descendant.Concept);
+			return new Core.Statements.IsStatement(ID, Ancestor.Concept, Descendant.Concept);
 		}
 
 		public override void ApplyUpdate()
 		{
-			BoundObject.Update(Ancestor.Concept, Descendant.Concept);
+			BoundObject.Update(ID, Ancestor.Concept, Descendant.Concept);
 		}
 
 		#endregion
 
 		public override StatementViewModel Clone()
 		{
-			return new IsStatement(Ancestor, Descendant, _language);
+			return new IsStatement(ID, Ancestor, Descendant, _language);
 		}
 	}
 }

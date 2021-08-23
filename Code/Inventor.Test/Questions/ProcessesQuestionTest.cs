@@ -29,10 +29,10 @@ namespace Inventor.Test.Questions
 			semanticNetwork.Concepts.Add(processB = createProcess("Process B"));
 			semanticNetwork.Concepts.Add(processI = createProcess("Process I"));
 
-			var statementAI = new ProcessesStatement(processA, processI, signAI);
-			var statementIA = new ProcessesStatement(processI, processA, SequenceSigns.Revert(signAI));
-			var statementIB = new ProcessesStatement(processI, processB, signIB);
-			var statementBI = new ProcessesStatement(processB, processI, SequenceSigns.Revert(signIB));
+			var statementAI = new ProcessesStatement(null, processA, processI, signAI);
+			var statementIA = new ProcessesStatement(null, processI, processA, SequenceSigns.Revert(signAI));
+			var statementIB = new ProcessesStatement(null, processI, processB, signIB);
+			var statementBI = new ProcessesStatement(null, processB, processI, SequenceSigns.Revert(signIB));
 
 			foreach (var statementCombination in new[]
 			{
@@ -90,10 +90,10 @@ namespace Inventor.Test.Questions
 				{
 					if (!validCombinations.Any(c => c.Item1 == signAI && c.Item2 == signIB))
 					{
-						var statementAI = new ProcessesStatement(processA, processI, signAI);
-						var statementIA = new ProcessesStatement(processI, processA, SequenceSigns.Revert(signAI));
-						var statementIB = new ProcessesStatement(processI, processB, signIB);
-						var statementBI = new ProcessesStatement(processB, processI, SequenceSigns.Revert(signIB));
+						var statementAI = new ProcessesStatement(null, processA, processI, signAI);
+						var statementIA = new ProcessesStatement(null, processI, processA, SequenceSigns.Revert(signAI));
+						var statementIB = new ProcessesStatement(null, processI, processB, signIB);
+						var statementBI = new ProcessesStatement(null, processB, processI, SequenceSigns.Revert(signIB));
 
 						foreach (var statementCombination in new[]
 						{

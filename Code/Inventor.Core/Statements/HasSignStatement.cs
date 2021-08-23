@@ -20,18 +20,19 @@ namespace Inventor.Core.Statements
 
 		#endregion
 
-		public HasSignStatement(IConcept concept, IConcept sign)
-			: base(new Func<ILanguage, String>(language => language.StatementNames.HasSign), new Func<ILanguage, String>(language => language.StatementHints.HasSign))
+		public HasSignStatement(String id, IConcept concept, IConcept sign)
+			: base(id, new Func<ILanguage, String>(language => language.StatementNames.HasSign), new Func<ILanguage, String>(language => language.StatementHints.HasSign))
 		{
-			Update(concept, sign);
+			Update(id, concept, sign);
 		}
 
-		public void Update(IConcept concept, IConcept sign)
+		public void Update(String id, IConcept concept, IConcept sign)
 		{
 			if (concept == null) throw new ArgumentNullException(nameof(concept));
 			if (sign == null) throw new ArgumentNullException(nameof(sign));
 			if (!sign.HasAttribute<IsSignAttribute>()) throw new ArgumentException("Sign concept has to be marked as IsSign Attribute.", nameof(sign));
 
+			Update(id);
 			Concept = concept;
 			Sign = sign;
 		}

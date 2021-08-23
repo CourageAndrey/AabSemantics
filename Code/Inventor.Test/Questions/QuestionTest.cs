@@ -33,7 +33,7 @@ namespace Inventor.Test.Questions
 
 			var initialComparison = semanticNetwork.DeclareThat(concept1).IsEqualTo(concept2);
 
-			var preconditionComparison = new ComparisonStatement(concept2, concept3, ComparisonSigns.IsEqualTo);
+			var preconditionComparison = new ComparisonStatement(null, concept2, concept3, ComparisonSigns.IsEqualTo);
 			// ... and do not add it to semantic network
 
 			// act

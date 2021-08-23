@@ -15,6 +15,9 @@ namespace Inventor.Client
 
 	public abstract class StatementViewModel : IKnowledgeViewModel
 	{
+		public string ID
+		{ get; set; }
+
 		public abstract IStatement BoundStatement
 		{ get; }
 
@@ -45,8 +48,9 @@ namespace Inventor.Client
 
 		protected readonly ILanguage _language;
 
-		protected StatementViewModel(ILanguage language)
+		protected StatementViewModel(string id, ILanguage language)
 		{
+			ID = id;
 			_language = language;
 		}
 
