@@ -24,6 +24,7 @@ namespace Inventor.Client.Controls
 			_comboBoxRightValue.ItemsSource = wrappedConcepts;
 			_comboBoxComparisonSign.ItemsSource = semanticNetwork.Concepts.Where(c => c.HasAttribute<IsComparisonSignAttribute>()).Select(c => new ConceptItem(c, language)).ToList();
 
+			_groupID.Header = language.Ui.Editing.PropertyID;
 			_groupLeftValue.Header = language.Ui.Editing.PropertyLeftValue;
 			_groupRightValue.Header = language.Ui.Editing.PropertyRightValue;
 			_groupComparisonSign.Header = language.Ui.Editing.PropertyComparisonSign;
@@ -32,7 +33,11 @@ namespace Inventor.Client.Controls
 		public StatementViewModel Statement
 		{
 			get { return _contextControl.DataContext as ViewModels.Statements.ComparisonStatement; }
-			set { _contextControl.DataContext = value; }
+			set
+			{
+				_contextControl.DataContext = value;
+				_idControl.IsReadOnly = value.BoundStatement?.Context is Core.Base.SystemContext;
+			}
 		}
 	}
 }

@@ -40,6 +40,10 @@ namespace Inventor.Client.Localization
 		{ get; set; }
 
 		[XmlElement]
+		public String PropertyID
+		{ get; set; }
+
+		[XmlElement]
 		public String PropertyName
 		{ get; set; }
 
@@ -97,6 +101,7 @@ namespace Inventor.Client.Localization
 				PropertyAncestor = "Ancestor",
 				PropertyDescendant = "Descendant",
 				PropertyArea = "Subject Area",
+				PropertyID = "ID",
 				PropertyName = "Name",
 				PropertyHint = "Hint",
 				PropertyLeftValue = "Left Value",

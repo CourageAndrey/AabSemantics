@@ -166,6 +166,9 @@ namespace Inventor.Client
 		String PropertyArea
 		{ get; }
 
+		String PropertyID
+		{ get; }
+
 		String PropertyName
 		{ get; }
 

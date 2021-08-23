@@ -21,6 +21,7 @@ namespace Inventor.Client.Controls
 			_comboBoxAncestor.ItemsSource = wrappedConcepts;
 			_comboBoxDescendant.ItemsSource = wrappedConcepts;
 
+			_groupID.Header = language.Ui.Editing.PropertyID;
 			_groupAncestor.Header = language.Ui.Editing.PropertyAncestor;
 			_groupDescendant.Header = language.Ui.Editing.PropertyDescendant;
 		}
@@ -28,7 +29,11 @@ namespace Inventor.Client.Controls
 		public StatementViewModel Statement
 		{
 			get { return _contextControl.DataContext as ViewModels.Statements.IsStatement; }
-			set { _contextControl.DataContext = value; }
+			set
+			{
+				_contextControl.DataContext = value;
+				_idControl.IsReadOnly = value.BoundStatement?.Context is Core.Base.SystemContext;
+			}
 		}
 	}
 }

@@ -24,6 +24,7 @@ namespace Inventor.Client.Controls
 			_comboBoxSign.ItemsSource = wrappedConcepts.Where(c => c.Concept.HasAttribute<IsSignAttribute>()).ToList();
 			_comboBoxValue.ItemsSource = wrappedConcepts.Where(c => c.Concept.HasAttribute<IsValueAttribute>()).ToList();
 
+			_groupID.Header = language.Ui.Editing.PropertyID;
 			_groupConcept.Header = language.Ui.Editing.PropertyConcept;
 			_groupSign.Header = language.Ui.Editing.PropertySign;
 			_groupValue.Header = language.Ui.Editing.PropertyValue;
@@ -32,7 +33,11 @@ namespace Inventor.Client.Controls
 		public StatementViewModel Statement
 		{
 			get { return _contextControl.DataContext as ViewModels.Statements.SignValueStatement; }
-			set { _contextControl.DataContext = value; }
+			set
+			{
+				_contextControl.DataContext = value;
+				_idControl.IsReadOnly = value.BoundStatement?.Context is Core.Base.SystemContext;
+			}
 		}
 	}
 }

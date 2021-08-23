@@ -24,6 +24,7 @@ namespace Inventor.Client.Controls
 			_comboBoxProcessB.ItemsSource = wrappedConcepts;
 			_comboBoxSequenceSign.ItemsSource = semanticNetwork.Concepts.Where(c => c.HasAttribute<IsSequenceSignAttribute>()).Select(c => new ConceptItem(c, language)).ToList();
 
+			_groupID.Header = language.Ui.Editing.PropertyID;
 			_groupProcessA.Header = language.Ui.Editing.PropertyProcessA;
 			_groupProcessB.Header = language.Ui.Editing.PropertyProcessB;
 			_groupSequenceSign.Header = language.Ui.Editing.PropertySequenceSign;
@@ -32,7 +33,11 @@ namespace Inventor.Client.Controls
 		public StatementViewModel Statement
 		{
 			get { return _contextControl.DataContext as ViewModels.Statements.ProcessesStatement; }
-			set { _contextControl.DataContext = value; }
+			set
+			{
+				_contextControl.DataContext = value;
+				_idControl.IsReadOnly = value.BoundStatement?.Context is Core.Base.SystemContext;
+			}
 		}
 	}
 }
