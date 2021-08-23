@@ -51,7 +51,12 @@ namespace Inventor.Core.Base
 
 		public FormattedLine DescribeTrue(ILanguage language)
 		{
-			return new FormattedLine(GetDescriptionText(language.TrueStatementFormatStrings), GetDescriptionParameters());
+			var formatter = GetDescriptionText(language.TrueStatementFormatStrings);
+
+			var parameters = GetDescriptionParameters();
+			parameters[Strings.ParamStatement] = this;
+
+			return new FormattedLine(() => formatter() + $" ({Strings.ParamStatement})", parameters);
 		}
 
 		public FormattedLine DescribeFalse(ILanguage language)
