@@ -23,13 +23,13 @@ namespace Inventor.Core.Statements
 
 		#endregion
 
-		public ComparisonStatement(IConcept leftValue, IConcept rightValue, IConcept comparisonSign)
-			: base(new Func<ILanguage, String>(language => language.StatementNames.Comparison), new Func<ILanguage, String>(language => language.StatementHints.Comparison))
+		public ComparisonStatement(String id, IConcept leftValue, IConcept rightValue, IConcept comparisonSign)
+			: base(id, new Func<ILanguage, String>(language => language.StatementNames.Comparison), new Func<ILanguage, String>(language => language.StatementHints.Comparison))
 		{
-			Update(leftValue, rightValue, comparisonSign);
+			Update(id, leftValue, rightValue, comparisonSign);
 		}
 
-		public void Update(IConcept leftValue, IConcept rightValue, IConcept comparisonSign)
+		public void Update(String id, IConcept leftValue, IConcept rightValue, IConcept comparisonSign)
 		{
 			if (leftValue == null) throw new ArgumentNullException(nameof(leftValue));
 			if (rightValue == null) throw new ArgumentNullException(nameof(rightValue));
@@ -38,6 +38,7 @@ namespace Inventor.Core.Statements
 			if (!rightValue.HasAttribute<IsValueAttribute>()) throw new ArgumentException("Right value concept has to be marked as IsValue Attribute.", nameof(rightValue));
 			if (!comparisonSign.HasAttribute<IsComparisonSignAttribute>()) throw new ArgumentException("Comparison Sign concept has to be marked as IsComparisonSign Attribute.", nameof(comparisonSign));
 
+			Update(id);
 			LeftValue = leftValue;
 			RightValue = rightValue;
 			ComparisonSign = comparisonSign;
@@ -94,7 +95,7 @@ namespace Inventor.Core.Statements
 
 		public ComparisonStatement SwapOperands()
 		{
-			return new ComparisonStatement(leftValue: RightValue, rightValue: LeftValue, ComparisonSigns.Revert(ComparisonSign));
+			return new ComparisonStatement(null, leftValue: RightValue, rightValue: LeftValue, comparisonSign: ComparisonSigns.Revert(ComparisonSign));
 		}
 	}
 

@@ -21,17 +21,17 @@ namespace Inventor.Client.ViewModels.Statements
 		#region Constructors
 
 		public HasSignStatement(ILanguage language)
-			: this(null as ConceptItem, null, language)
+			: this(string.Empty, null, null, language)
 		{ }
 
 		public HasSignStatement(Core.Statements.HasSignStatement statement, ILanguage language)
-			: this(new ConceptItem(statement.Concept, language), new ConceptItem(statement.Sign, language), language)
+			: this(statement.ID, new ConceptItem(statement.Concept, language), new ConceptItem(statement.Sign, language), language)
 		{
 			BoundObject = statement;
 		}
 
-		public HasSignStatement(ConceptItem concept, ConceptItem sign, ILanguage language)
-			: base(language)
+		public HasSignStatement(string id, ConceptItem concept, ConceptItem sign, ILanguage language)
+			: base(id, language)
 		{
 			Concept = concept;
 			Sign = sign;
@@ -64,19 +64,19 @@ namespace Inventor.Client.ViewModels.Statements
 
 		protected override Core.Statements.HasSignStatement CreateStatementImplementation()
 		{
-			return new Core.Statements.HasSignStatement(Concept.Concept, Sign.Concept);
+			return new Core.Statements.HasSignStatement(ID, Concept.Concept, Sign.Concept);
 		}
 
 		public override void ApplyUpdate()
 		{
-			BoundObject.Update(Concept.Concept, Sign.Concept);
+			BoundObject.Update(ID, Concept.Concept, Sign.Concept);
 		}
 
 		#endregion
 
 		public override StatementViewModel Clone()
 		{
-			return new HasSignStatement(Concept, Sign, _language);
+			return new HasSignStatement(ID, Concept, Sign, _language);
 		}
 	}
 }

@@ -358,7 +358,7 @@ namespace Inventor.Test.Questions
 			var numberMinus1 = TestHelper.CreateConcept();
 			numberMinus1.WithAttribute(IsValueAttribute.Value);
 
-			var precondition = new ComparisonStatement(numberMinus1, semanticNetwork.Number0, ComparisonSigns.IsLessThan);
+			var precondition = new ComparisonStatement(null, numberMinus1, semanticNetwork.Number0, ComparisonSigns.IsLessThan);
 			var preconditions = new IStatement[] { precondition };
 
 			// act

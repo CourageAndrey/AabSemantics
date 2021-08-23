@@ -23,17 +23,18 @@ namespace Inventor.Core.Xml
 		public GroupStatement()
 		{ }
 
-		public GroupStatement(Statements.GroupStatement statement, LoadIdResolver conceptIdResolver)
+		public GroupStatement(Statements.GroupStatement statement)
 		{
-			Area = conceptIdResolver.GetConceptId(statement.Area);
-			Concept = conceptIdResolver.GetConceptId(statement.Concept);
+			ID = statement.ID;
+			Area = statement.Area?.ID;
+			Concept = statement.Concept?.ID;
 		}
 
 		#endregion
 
-		public override IStatement Save(SaveIdResolver conceptIdResolver)
+		public override IStatement Save(ConceptIdResolver conceptIdResolver)
 		{
-			return new Statements.GroupStatement(conceptIdResolver.GetConceptById(Area), conceptIdResolver.GetConceptById(Concept));
+			return new Statements.GroupStatement(ID, conceptIdResolver.GetConceptById(Area), conceptIdResolver.GetConceptById(Concept));
 		}
 	}
 }

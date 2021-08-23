@@ -23,17 +23,18 @@ namespace Inventor.Core.Xml
 		public HasPartStatement()
 		{ }
 
-		public HasPartStatement(Statements.HasPartStatement statement, LoadIdResolver conceptIdResolver)
+		public HasPartStatement(Statements.HasPartStatement statement)
 		{
-			Whole = conceptIdResolver.GetConceptId(statement.Whole);
-			Part = conceptIdResolver.GetConceptId(statement.Part);
+			ID = statement.ID;
+			Whole = statement.Whole?.ID;
+			Part = statement.Part?.ID;
 		}
 
 		#endregion
 
-		public override IStatement Save(SaveIdResolver conceptIdResolver)
+		public override IStatement Save(ConceptIdResolver conceptIdResolver)
 		{
-			return new Statements.HasPartStatement(conceptIdResolver.GetConceptById(Whole), conceptIdResolver.GetConceptById(Part));
+			return new Statements.HasPartStatement(ID, conceptIdResolver.GetConceptById(Whole), conceptIdResolver.GetConceptById(Part));
 		}
 	}
 }

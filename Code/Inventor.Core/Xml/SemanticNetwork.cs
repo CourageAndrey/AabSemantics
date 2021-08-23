@@ -44,11 +44,9 @@ namespace Inventor.Core.Xml
 			Name = new LocalizedString(semanticNetwork.Name);
 
 			var systemConcepts = new HashSet<IConcept>(SystemConcepts.GetAll());
-			var conceptsCache = new Dictionary<IConcept, Int32>();
-			Concepts = semanticNetwork.Concepts.Except(systemConcepts).Select(concept => new Concept(concept, conceptsCache)).ToList();
+			Concepts = semanticNetwork.Concepts.Except(systemConcepts).Select(concept => new Concept(concept)).ToList();
 
-			var conceptIdResolver = new LoadIdResolver(conceptsCache);
-			Statements = semanticNetwork.Statements.Select(statement => Statement.Load(statement, conceptIdResolver)).ToList();
+			Statements = semanticNetwork.Statements.Select(statement => Statement.Load(statement)).ToList();
 		}
 
 		#endregion
@@ -64,7 +62,7 @@ namespace Inventor.Core.Xml
 				result.Concepts.Add(conceptsCache[concept] = concept.Load());
 			}
 
-			var conceptIdResolver = new SaveIdResolver(conceptsCache);
+			var conceptIdResolver = new ConceptIdResolver(conceptsCache);
 			foreach (var statement in Statements)
 			{
 				result.Statements.Add(statement.Save(conceptIdResolver));

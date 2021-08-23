@@ -24,17 +24,17 @@ namespace Inventor.Client.ViewModels.Statements
 		#region Constructors
 
 		public ProcessesStatement(ILanguage language)
-			: this(null as ConceptItem, null, null, language)
+			: this(string.Empty, null, null, null, language)
 		{ }
 
 		public ProcessesStatement(Core.Statements.ProcessesStatement statement, ILanguage language)
-			: this(new ConceptItem(statement.ProcessA, language), new ConceptItem(statement.ProcessB, language), new ConceptItem(statement.SequenceSign, language), language)
+			: this(statement.ID, new ConceptItem(statement.ProcessA, language), new ConceptItem(statement.ProcessB, language), new ConceptItem(statement.SequenceSign, language), language)
 		{
 			BoundObject = statement;
 		}
 
-		public ProcessesStatement(ConceptItem processA, ConceptItem processB, ConceptItem sequenceSign, ILanguage language)
-			: base(language)
+		public ProcessesStatement(string id, ConceptItem processA, ConceptItem processB, ConceptItem sequenceSign, ILanguage language)
+			: base(id, language)
 		{
 			ProcessA = processA;
 			ProcessB = processB;
@@ -68,19 +68,19 @@ namespace Inventor.Client.ViewModels.Statements
 
 		protected override Core.Statements.ProcessesStatement CreateStatementImplementation()
 		{
-			return new Core.Statements.ProcessesStatement(ProcessA.Concept, ProcessB.Concept, SequenceSign.Concept);
+			return new Core.Statements.ProcessesStatement(ID, ProcessA.Concept, ProcessB.Concept, SequenceSign.Concept);
 		}
 
 		public override void ApplyUpdate()
 		{
-			BoundObject.Update(ProcessA.Concept, ProcessB.Concept, SequenceSign.Concept);
+			BoundObject.Update(ID, ProcessA.Concept, ProcessB.Concept, SequenceSign.Concept);
 		}
 
 		#endregion
 
 		public override StatementViewModel Clone()
 		{
-			return new ProcessesStatement(ProcessA, ProcessB, SequenceSign, _language);
+			return new ProcessesStatement(ID, ProcessA, ProcessB, SequenceSign, _language);
 		}
 	}
 }

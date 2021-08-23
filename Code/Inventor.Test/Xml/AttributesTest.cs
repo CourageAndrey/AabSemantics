@@ -20,10 +20,8 @@ namespace Inventor.Test.Xml
 			var concept = new Concept();
 			concept.WithAttribute(attribute);
 
-			var cache = new Dictionary<IConcept, int>();
-
 			// act
-			var xml = new Core.Xml.Concept(concept, cache);
+			var xml = new Core.Xml.Concept(concept);
 			var restored = xml.Load();
 
 			// assert
@@ -40,10 +38,8 @@ namespace Inventor.Test.Xml
 				concept.WithAttribute(attribute);
 			}
 
-			var cache = new Dictionary<IConcept, int>();
-
 			// act
-			var xml = new Core.Xml.Concept(concept, cache);
+			var xml = new Core.Xml.Concept(concept);
 			var restored = xml.Load();
 
 			// assert
@@ -57,10 +53,8 @@ namespace Inventor.Test.Xml
 			var concept = new Concept();
 			concept.WithAttribute(new WrongAttribute());
 
-			var cache = new Dictionary<IConcept, int>();
-
 			// act & assert
-			Assert.Throws<NotSupportedException>(() => new Core.Xml.Concept(concept, cache));
+			Assert.Throws<NotSupportedException>(() => new Core.Xml.Concept(concept));
 		}
 
 		private IEnumerable<IAttribute> getAllAttributes()

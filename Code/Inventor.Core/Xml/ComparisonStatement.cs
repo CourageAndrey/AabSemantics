@@ -27,18 +27,19 @@ namespace Inventor.Core.Xml
 		public ComparisonStatement()
 		{ }
 
-		public ComparisonStatement(Statements.ComparisonStatement statement, LoadIdResolver conceptIdResolver)
+		public ComparisonStatement(Statements.ComparisonStatement statement)
 		{
-			LeftValue = conceptIdResolver.GetConceptId(statement.LeftValue);
-			RightValue = conceptIdResolver.GetConceptId(statement.RightValue);
-			ComparisonSign = conceptIdResolver.GetConceptId(statement.ComparisonSign);
+			ID = statement.ID;
+			LeftValue = statement.LeftValue?.ID;
+			RightValue = statement.RightValue?.ID;
+			ComparisonSign = statement.ComparisonSign?.ID;
 		}
 
 		#endregion
 
-		public override IStatement Save(SaveIdResolver conceptIdResolver)
+		public override IStatement Save(ConceptIdResolver conceptIdResolver)
 		{
-			return new Statements.ComparisonStatement(conceptIdResolver.GetConceptById(LeftValue), conceptIdResolver.GetConceptById(RightValue), conceptIdResolver.GetConceptById(ComparisonSign));
+			return new Statements.ComparisonStatement(ID, conceptIdResolver.GetConceptById(LeftValue), conceptIdResolver.GetConceptById(RightValue), conceptIdResolver.GetConceptById(ComparisonSign));
 		}
 	}
 }

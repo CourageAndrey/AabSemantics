@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 using Inventor.Core;
 
@@ -10,6 +11,9 @@ namespace Inventor.Client.ViewModels
 
 		public ILocalizedString Name
 		{ get { return Concept.Name; } }
+
+		public String ID
+		{ get { return Concept.ID; } }
 
 		public ILocalizedString Hint
 		{ get { return Concept.Hint; } }

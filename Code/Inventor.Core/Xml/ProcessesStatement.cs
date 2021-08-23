@@ -27,18 +27,19 @@ namespace Inventor.Core.Xml
 		public ProcessesStatement()
 		{ }
 
-		public ProcessesStatement(Statements.ProcessesStatement statement, LoadIdResolver conceptIdResolver)
+		public ProcessesStatement(Statements.ProcessesStatement statement)
 		{
-			ProcessA = conceptIdResolver.GetConceptId(statement.ProcessA);
-			ProcessB = conceptIdResolver.GetConceptId(statement.ProcessB);
-			SequenceSign = conceptIdResolver.GetConceptId(statement.SequenceSign);
+			ID = statement.ID;
+			ProcessA = statement.ProcessA?.ID;
+			ProcessB = statement.ProcessB?.ID;
+			SequenceSign = statement.SequenceSign?.ID;
 		}
 
 		#endregion
 
-		public override IStatement Save(SaveIdResolver conceptIdResolver)
+		public override IStatement Save(ConceptIdResolver conceptIdResolver)
 		{
-			return new Statements.ProcessesStatement(conceptIdResolver.GetConceptById(ProcessA), conceptIdResolver.GetConceptById(ProcessB), conceptIdResolver.GetConceptById(SequenceSign));
+			return new Statements.ProcessesStatement(ID, conceptIdResolver.GetConceptById(ProcessA), conceptIdResolver.GetConceptById(ProcessB), conceptIdResolver.GetConceptById(SequenceSign));
 		}
 	}
 }

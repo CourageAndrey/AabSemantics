@@ -21,17 +21,17 @@ namespace Inventor.Client.ViewModels.Statements
 		#region Constructors
 
 		public HasPartStatement(ILanguage language)
-			: this(null as ConceptItem, null, language)
+			: this(string.Empty, null, null, language)
 		{ }
 
 		public HasPartStatement(Core.Statements.HasPartStatement statement, ILanguage language)
-			: this(new ConceptItem(statement.Whole, language), new ConceptItem(statement.Part, language), language)
+			: this(statement.ID, new ConceptItem(statement.Whole, language), new ConceptItem(statement.Part, language), language)
 		{
 			BoundObject = statement;
 		}
 
-		public HasPartStatement(ConceptItem whole, ConceptItem part, ILanguage language)
-			: base(language)
+		public HasPartStatement(string id, ConceptItem whole, ConceptItem part, ILanguage language)
+			: base(id, language)
 		{
 			Whole = whole;
 			Part = part;
@@ -64,19 +64,19 @@ namespace Inventor.Client.ViewModels.Statements
 
 		protected override Core.Statements.HasPartStatement CreateStatementImplementation()
 		{
-			return new Core.Statements.HasPartStatement(Whole.Concept, Part.Concept);
+			return new Core.Statements.HasPartStatement(ID, Whole.Concept, Part.Concept);
 		}
 
 		public override void ApplyUpdate()
 		{
-			BoundObject.Update(Whole.Concept, Part.Concept);
+			BoundObject.Update(ID, Whole.Concept, Part.Concept);
 		}
 
 		#endregion
 
 		public override StatementViewModel Clone()
 		{
-			return new HasPartStatement(Whole, Part, _language);
+			return new HasPartStatement(ID, Whole, Part, _language);
 		}
 	}
 }

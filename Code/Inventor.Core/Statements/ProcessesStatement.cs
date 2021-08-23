@@ -23,13 +23,13 @@ namespace Inventor.Core.Statements
 
 		#endregion
 
-		public ProcessesStatement(IConcept processA, IConcept processB, IConcept sequenceSign)
-			: base(new Func<ILanguage, String>(language => language.StatementNames.Processes), new Func<ILanguage, String>(language => language.StatementHints.Processes))
+		public ProcessesStatement(String id, IConcept processA, IConcept processB, IConcept sequenceSign)
+			: base(id, new Func<ILanguage, String>(language => language.StatementNames.Processes), new Func<ILanguage, String>(language => language.StatementHints.Processes))
 		{
-			Update(processA, processB, sequenceSign);
+			Update(id, processA, processB, sequenceSign);
 		}
 
-		public void Update(IConcept processA, IConcept processB, IConcept sequenceSign)
+		public void Update(String id, IConcept processA, IConcept processB, IConcept sequenceSign)
 		{
 			if (processA == null) throw new ArgumentNullException(nameof(processA));
 			if (processB == null) throw new ArgumentNullException(nameof(processB));
@@ -38,6 +38,7 @@ namespace Inventor.Core.Statements
 			if (!processB.HasAttribute<IsProcessAttribute>()) throw new ArgumentException("Process B concept has to be marked as IsProcess Attribute.", nameof(processB));
 			if (!sequenceSign.HasAttribute<IsSequenceSignAttribute>()) throw new ArgumentException("Sequence Sign concept has to be marked as IsSequenceSign Attribute.", nameof(sequenceSign));
 
+			Update(id);
 			ProcessA = processA;
 			ProcessB = processB;
 			SequenceSign = sequenceSign;
@@ -94,7 +95,7 @@ namespace Inventor.Core.Statements
 
 		public ProcessesStatement SwapOperands()
 		{
-			return new ProcessesStatement(processA: ProcessB, processB: ProcessA, SequenceSigns.Revert(SequenceSign));
+			return new ProcessesStatement(null, processA: ProcessB, processB: ProcessA, sequenceSign: SequenceSigns.Revert(SequenceSign));
 		}
 	}
 

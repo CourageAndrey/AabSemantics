@@ -327,7 +327,7 @@ namespace Inventor.Test.Statements
 				new TestPath(parent2, topMedium2),
 				new TestPath(topMedium2, bottomMedium2),
 				new TestPath(bottomMedium2, child2),
-				new IsStatement(parentNoConnection, childNoConnection),
+				new IsStatement(null, parentNoConnection, childNoConnection),
 				new TestPath(parent2Path, medium2Path1),
 				new TestPath(parent2Path, medium2Path2),
 				new TestPath(medium2Path1, child2Path),
@@ -458,6 +458,9 @@ namespace Inventor.Test.Statements
 			}
 
 			public ILocalizedString Name
+			{ get { throw new NotSupportedException(); } }
+
+			public string ID
 			{ get { throw new NotSupportedException(); } }
 
 			public IContext Context

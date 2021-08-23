@@ -23,17 +23,18 @@ namespace Inventor.Core.Xml
 		public IsStatement()
 		{ }
 
-		public IsStatement(Statements.IsStatement statement, LoadIdResolver conceptIdResolver)
+		public IsStatement(Statements.IsStatement statement)
 		{
-			Ancestor = conceptIdResolver.GetConceptId(statement.Ancestor);
-			Descendant = conceptIdResolver.GetConceptId(statement.Descendant);
+			ID = statement.ID;
+			Ancestor = statement.Ancestor?.ID;
+			Descendant = statement.Descendant?.ID;
 		}
 
 		#endregion
 
-		public override IStatement Save(SaveIdResolver conceptIdResolver)
+		public override IStatement Save(ConceptIdResolver conceptIdResolver)
 		{
-			return new Statements.IsStatement(conceptIdResolver.GetConceptById(Ancestor), conceptIdResolver.GetConceptById(Descendant));
+			return new Statements.IsStatement(ID, conceptIdResolver.GetConceptById(Ancestor), conceptIdResolver.GetConceptById(Descendant));
 		}
 	}
 }

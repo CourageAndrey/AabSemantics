@@ -21,17 +21,17 @@ namespace Inventor.Client.ViewModels.Statements
 		#region Constructors
 
 		public GroupStatement(ILanguage language)
-			: this(null as ConceptItem, null, language)
+			: this(string.Empty, null, null, language)
 		{ }
 
 		public GroupStatement(Core.Statements.GroupStatement statement, ILanguage language)
-			: this(new ConceptItem(statement.Area, language), new ConceptItem(statement.Concept, language), language)
+			: this(statement.ID, new ConceptItem(statement.Area, language), new ConceptItem(statement.Concept, language), language)
 		{
 			BoundObject = statement;
 		}
 
-		public GroupStatement(ConceptItem area, ConceptItem concept, ILanguage language)
-			: base(language)
+		public GroupStatement(string id, ConceptItem area, ConceptItem concept, ILanguage language)
+			: base(id, language)
 		{
 			Area = area;
 			Concept = concept;
@@ -64,19 +64,19 @@ namespace Inventor.Client.ViewModels.Statements
 
 		protected override Core.Statements.GroupStatement CreateStatementImplementation()
 		{
-			return new Core.Statements.GroupStatement(Area.Concept, Concept.Concept);
+			return new Core.Statements.GroupStatement(ID, Area.Concept, Concept.Concept);
 		}
 
 		public override void ApplyUpdate()
 		{
-			BoundObject.Update(Area.Concept, Concept.Concept);
+			BoundObject.Update(ID, Area.Concept, Concept.Concept);
 		}
 
 		#endregion
 
 		public override StatementViewModel Clone()
 		{
-			return new GroupStatement(Area, Concept, _language);
+			return new GroupStatement(ID, Area, Concept, _language);
 		}
 	}
 }

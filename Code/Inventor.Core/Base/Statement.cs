@@ -13,6 +13,9 @@ namespace Inventor.Core.Base
 		public ILocalizedString Name
 		{ get; }
 
+		public String ID
+		{ get; private set; }
+
 		public IContext Context
 		{ get; set; }
 
@@ -25,11 +28,13 @@ namespace Inventor.Core.Base
 
 		public override sealed String ToString()
 		{
-			return String.Format("{0} \"{1}\"", Strings.TostringStatement, Name);
+			return this.GetTypeWithId();
 		}
 
-		protected Statement(ILocalizedString name, ILocalizedString hint = null)
+		protected Statement(String id, ILocalizedString name, ILocalizedString hint = null)
 		{
+			Update(id);
+
 			if (name != null)
 			{
 				Name = name;
@@ -65,6 +70,11 @@ namespace Inventor.Core.Base
 
 		#endregion
 
+		public void Update(String id)
+		{
+			ID = id.EnsureIdIsSet();
+		}
+
 		public abstract Boolean CheckUnique(IEnumerable<IStatement> statements);
 
 #pragma warning disable 659
@@ -81,7 +91,8 @@ namespace Inventor.Core.Base
 	public abstract class Statement<StatementT> : Statement, IEquatable<StatementT>
 		where StatementT : Statement<StatementT>
 	{
-		protected Statement(LocalizedString name, LocalizedString hint = null) : base(name, hint)
+		protected Statement(String id, LocalizedString name, LocalizedString hint = null)
+			: base(id, name, hint)
 		{ }
 
 		public override sealed Boolean CheckUnique(IEnumerable<IStatement> statements)

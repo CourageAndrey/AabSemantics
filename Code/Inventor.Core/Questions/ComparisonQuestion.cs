@@ -109,7 +109,7 @@ namespace Inventor.Core.Questions
 						transitiveStatements.AddRange(answer.Answer.Explanation.Statements);
 
 						return createAnswer(
-							new ComparisonStatement(LeftValue, RightValue, resultSign),
+							new ComparisonStatement(null, LeftValue, RightValue, resultSign),
 							context,
 							transitiveStatements);
 					}

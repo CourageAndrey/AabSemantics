@@ -14,6 +14,9 @@ namespace Inventor.Client.ViewModels
 		public LocalizedString Name
 		{ get; }
 
+		public string ID
+		{ get; set; }
+
 		public LocalizedString Hint
 		{ get; }
 
@@ -25,20 +28,20 @@ namespace Inventor.Client.ViewModels
 		#region Constructors
 
 		public Concept(ILanguage language)
-			: this(
-				new LocalizedStringVariable(new Dictionary<string, string> { { language.Culture, string.Empty }, }),
-				new LocalizedStringVariable())
+			: this(null,
+				new LocalizedStringVariable(new Dictionary<string, string> { { language.Culture, string.Empty }, }), new LocalizedStringVariable())
 		{ }
 
 		public Concept(Core.Base.Concept concept)
-			: this(LocalizedString.From(concept.Name), LocalizedString.From(concept.Hint))
+			: this(concept.ID, LocalizedString.From(concept.Name), LocalizedString.From(concept.Hint))
 		{
 			BoundObject = concept;
 		}
 
-		public Concept(LocalizedString name, LocalizedString hint)
+		public Concept(string id, LocalizedString name, LocalizedString hint)
 		{
 			Name = name;
+			ID = id;
 			Hint = hint;
 		}
 
@@ -83,7 +86,7 @@ namespace Inventor.Client.ViewModels
 
 		public object ApplyCreate(Core.ISemanticNetwork semanticNetwork)
 		{
-			semanticNetwork.Concepts.Add(BoundObject = new Core.Base.Concept(Name.Create(), Hint.Create()));
+			semanticNetwork.Concepts.Add(BoundObject = new Core.Base.Concept(ID, Name.Create(), Hint.Create()));
 
 			foreach (var attribute in Attributes)
 			{
@@ -99,6 +102,7 @@ namespace Inventor.Client.ViewModels
 		public void ApplyUpdate()
 		{
 			Name?.Apply(BoundObject.Name);
+			BoundObject.UpdateIdIfAllowed(ID);
 			Hint?.Apply(BoundObject.Hint);
 
 			BoundObject.WithoutAttributes();

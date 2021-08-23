@@ -20,7 +20,7 @@ namespace Inventor.Test
 
 		public static IConcept CreateConcept(this string name)
 		{
-			return new Concept(new LocalizedStringConstant(language => name));
+			return new Concept(name, new LocalizedStringConstant(language => name));
 		}
 
 		#endregion

@@ -4,7 +4,7 @@ using System.Linq;
 
 namespace Inventor.Core
 {
-	public interface IConcept : INamed
+	public interface IConcept : INamed, IIdentifiable
 	{
 		ILocalizedString Hint
 		{ get; }

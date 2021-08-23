@@ -23,13 +23,13 @@ namespace Inventor.Core.Statements
 
 		#endregion
 
-		public SignValueStatement(IConcept concept, IConcept sign, IConcept value)
-			: base(new Func<ILanguage, String>(language => language.StatementNames.SignValue), new Func<ILanguage, String>(language => language.StatementHints.SignValue))
+		public SignValueStatement(String id, IConcept concept, IConcept sign, IConcept value)
+			: base(id, new Func<ILanguage, String>(language => language.StatementNames.SignValue), new Func<ILanguage, String>(language => language.StatementHints.SignValue))
 		{
-			Update(concept, sign, value);
+			Update(id, concept, sign, value);
 		}
 
-		public void Update(IConcept concept, IConcept sign, IConcept value)
+		public void Update(String id, IConcept concept, IConcept sign, IConcept value)
 		{
 			if (concept == null) throw new ArgumentNullException(nameof(concept));
 			if (sign == null) throw new ArgumentNullException(nameof(sign));
@@ -37,6 +37,7 @@ namespace Inventor.Core.Statements
 			if (!sign.HasAttribute<IsSignAttribute>()) throw new ArgumentException("Sign concept has to be marked as IsSign Attribute.", nameof(sign));
 			if (!value.HasAttribute<IsValueAttribute>()) throw new ArgumentException("Value concept has to be marked as IsValue Attribute.", nameof(value));
 
+			Update(id);
 			Concept = concept;
 			Sign = sign;
 			Value = value;

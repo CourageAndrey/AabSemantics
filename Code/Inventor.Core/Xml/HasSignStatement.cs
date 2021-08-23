@@ -23,17 +23,18 @@ namespace Inventor.Core.Xml
 		public HasSignStatement()
 		{ }
 
-		public HasSignStatement(Statements.HasSignStatement statement, LoadIdResolver conceptIdResolver)
+		public HasSignStatement(Statements.HasSignStatement statement)
 		{
-			Concept = conceptIdResolver.GetConceptId(statement.Concept);
-			Sign = conceptIdResolver.GetConceptId(statement.Sign);
+			ID = statement.ID;
+			Concept = statement.Concept?.ID;
+			Sign = statement.Sign?.ID;
 		}
 
 		#endregion
 
-		public override IStatement Save(SaveIdResolver conceptIdResolver)
+		public override IStatement Save(ConceptIdResolver conceptIdResolver)
 		{
-			return new Statements.HasSignStatement(conceptIdResolver.GetConceptById(Concept), conceptIdResolver.GetConceptById(Sign));
+			return new Statements.HasSignStatement(ID, conceptIdResolver.GetConceptById(Concept), conceptIdResolver.GetConceptById(Sign));
 		}
 	}
 }

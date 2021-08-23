@@ -24,17 +24,17 @@ namespace Inventor.Client.ViewModels.Statements
 		#region Constructors
 
 		public ComparisonStatement(ILanguage language)
-			: this(null as ConceptItem, null, null, language)
+			: this(string.Empty, null, null, null, language)
 		{ }
 
 		public ComparisonStatement(Core.Statements.ComparisonStatement statement, ILanguage language)
-			: this(new ConceptItem(statement.LeftValue, language), new ConceptItem(statement.RightValue, language), new ConceptItem(statement.ComparisonSign, language), language)
+			: this(statement.ID, new ConceptItem(statement.LeftValue, language), new ConceptItem(statement.RightValue, language), new ConceptItem(statement.ComparisonSign, language), language)
 		{
 			BoundObject = statement;
 		}
 
-		public ComparisonStatement(ConceptItem leftValue, ConceptItem rightValue, ConceptItem comparisonSign, ILanguage language)
-			: base(language)
+		public ComparisonStatement(string id, ConceptItem leftValue, ConceptItem rightValue, ConceptItem comparisonSign, ILanguage language)
+			: base(id, language)
 		{
 			LeftValue = leftValue;
 			RightValue = rightValue;
@@ -68,19 +68,19 @@ namespace Inventor.Client.ViewModels.Statements
 
 		protected override Core.Statements.ComparisonStatement CreateStatementImplementation()
 		{
-			return new Core.Statements.ComparisonStatement(LeftValue.Concept, RightValue.Concept, ComparisonSign.Concept);
+			return new Core.Statements.ComparisonStatement(ID, LeftValue.Concept, RightValue.Concept, ComparisonSign.Concept);
 		}
 
 		public override void ApplyUpdate()
 		{
-			BoundObject.Update(LeftValue.Concept, RightValue.Concept, ComparisonSign.Concept);
+			BoundObject.Update(ID, LeftValue.Concept, RightValue.Concept, ComparisonSign.Concept);
 		}
 
 		#endregion
 
 		public override StatementViewModel Clone()
 		{
-			return new ComparisonStatement(LeftValue, RightValue, ComparisonSign, _language);
+			return new ComparisonStatement(ID, LeftValue, RightValue, ComparisonSign, _language);
 		}
 	}
 }

@@ -25,7 +25,7 @@ namespace Inventor.Test.Statements
 			// act
 			foreach (var sign in ComparisonSigns.All)
 			{
-				var statements = new[] { new ComparisonStatement(value1, value2, sign) };
+				var statements = new[] { new ComparisonStatement(null, value1, value2, sign) };
 
 				var contradictions = statements.CheckForContradictions();
 
@@ -75,8 +75,8 @@ namespace Inventor.Test.Statements
 			{
 				var statements = new List<ComparisonStatement>
 				{
-					new ComparisonStatement(concept1, concept2, sign),
-					new ComparisonStatement(concept1, concept2, sign),
+					new ComparisonStatement(null, concept1, concept2, sign),
+					new ComparisonStatement(null, concept1, concept2, sign),
 				};
 
 				var contradictions = statements.CheckForContradictions();
@@ -98,8 +98,8 @@ namespace Inventor.Test.Statements
 			{
 				var statements = new List<ComparisonStatement>
 				{
-					new ComparisonStatement(concept1, concept2, contradictedPair.Item1),
-					new ComparisonStatement(concept1, concept2, contradictedPair.Item2),
+					new ComparisonStatement(null, concept1, concept2, contradictedPair.Item1),
+					new ComparisonStatement(null, concept1, concept2, contradictedPair.Item2),
 				};
 
 				var contradictions = statements.CheckForContradictions();
@@ -161,9 +161,9 @@ namespace Inventor.Test.Statements
 			{
 				var statements = new List<ComparisonStatement>
 				{
-					new ComparisonStatement(a, b, ComparisonSigns.IsEqualTo),
-					new ComparisonStatement(a, c, ComparisonSigns.IsEqualTo),
-					new ComparisonStatement(b, c, sign),
+					new ComparisonStatement(null, a, b, ComparisonSigns.IsEqualTo),
+					new ComparisonStatement(null, a, c, ComparisonSigns.IsEqualTo),
+					new ComparisonStatement(null, b, c, sign),
 				};
 
 				var contradictions = statements.CheckForContradictions();
@@ -189,7 +189,7 @@ namespace Inventor.Test.Statements
 			{
 				var statements = new List<ComparisonStatement>
 				{
-					new ComparisonStatement(value, value, sign),
+					new ComparisonStatement(null, value, value, sign),
 				};
 
 				var contradictions = statements.CheckForContradictions();
@@ -215,8 +215,7 @@ namespace Inventor.Test.Statements
 			var statements = new List<ComparisonStatement>();
 			for (int i = 0; i < concepts.Count - 1; i++)
 			{
-				statements.Add(new ComparisonStatement(
-					concepts[i],
+				statements.Add(new ComparisonStatement(null, concepts[i],
 					concepts[i + 1],
 					sign));
 			}
@@ -226,8 +225,7 @@ namespace Inventor.Test.Statements
 		private static List<ComparisonStatement> createSimpleLoop(List<IConcept> concepts, IConcept sign)
 		{
 			var statements = createSimpleChain(concepts, sign);
-			statements.Add(new ComparisonStatement(
-				statements.Last().RightValue,
+			statements.Add(new ComparisonStatement(null, statements.Last().RightValue,
 				statements.First().LeftValue,
 				sign));
 			return statements;
