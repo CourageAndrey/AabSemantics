@@ -15,6 +15,7 @@ namespace Inventor.Client.Controls
 
 		public void Initialize(ISemanticNetwork semanticNetwork, ILanguage language)
 		{
+			_groupID.Header = language.Ui.Editing.PropertyID;
 			_groupName.Header = language.Ui.Editing.PropertyName;
 			_groupHint.Header = language.Ui.Editing.PropertyHint;
 			_groupAttributes.Header = language.Ui.Editing.PropertyAttributes;
@@ -30,6 +31,7 @@ namespace Inventor.Client.Controls
 			{
 				_contextControl.DataContext = _concept = value;
 
+				_idControl.IsReadOnly = value.BoundObject is Core.Base.SystemConcept;
 				_nameControl.IsEnabled = value.Name != null;
 				_hintControl.IsEnabled = value.Hint != null;
 				_groupAttributes.IsEnabled = value.Attributes != null;
