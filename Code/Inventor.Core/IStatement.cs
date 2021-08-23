@@ -4,13 +4,10 @@ using System.Linq;
 
 namespace Inventor.Core
 {
-	public interface IStatement : INamed, IIdentifiable
+	public interface IStatement : IKnowledge
 	{
 		IContext Context
 		{ get; set; }
-
-		ILocalizedString Hint
-		{ get; }
 
 		IEnumerable<IConcept> GetChildConcepts();
 
