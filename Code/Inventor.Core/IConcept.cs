@@ -4,11 +4,8 @@ using System.Linq;
 
 namespace Inventor.Core
 {
-	public interface IConcept : INamed, IIdentifiable
+	public interface IConcept : IKnowledge
 	{
-		ILocalizedString Hint
-		{ get; }
-
 		ICollection<IAttribute> Attributes
 		{ get; }
 	}
