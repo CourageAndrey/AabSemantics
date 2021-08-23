@@ -106,7 +106,7 @@ namespace Inventor.Core.Questions
 		{
 			foreach (var answer in childAnswers)
 			{
-				var childStatements = (answer.Answer as StatementsAnswer<ProcessesStatement>)?.Result ?? new ProcessesStatement[0];
+				var childStatements = (answer.Answer as StatementsAnswer<ProcessesStatement>)?.Result ?? Array.Empty<ProcessesStatement>();
 				var resultStatements = new List<ProcessesStatement>();
 
 				var transitiveStatements = answer.TransitiveStatements.OfType<ProcessesStatement>().ToList();

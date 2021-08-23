@@ -110,7 +110,7 @@ namespace Inventor.Client
 
 		private static IEnumerable<INamed> getOriginalItemSource(this ComboBox comboBox)
 		{
-			return (comboBox.Tag as System.Collections.IEnumerable ?? new INamed[0]).OfType<INamed>();
+			return (comboBox.Tag as System.Collections.IEnumerable ?? Array.Empty<INamed>()).OfType<INamed>();
 		}
 
 		private static IEnumerable<INamed> filter(this IEnumerable<INamed> items, string searchPattern)

@@ -66,7 +66,7 @@ namespace Inventor.Core
 				pathsToCheck = nextStep;
 			}
 
-			return new IStatement[0];
+			return Array.Empty<IStatement>();
 		}
 
 		public static List<T> GetParentsAllLevels<T, RelationshipT>(this IEnumerable<RelationshipT> relationships, T item, List<RelationshipT> involvedRelationships = null)

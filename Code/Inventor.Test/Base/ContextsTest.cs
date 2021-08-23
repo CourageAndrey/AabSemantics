@@ -211,7 +211,7 @@ namespace Inventor.Test.Base
 
 			public IEnumerable<IConcept> GetChildConcepts()
 			{
-				return new IConcept[0];
+				return Array.Empty<IConcept>();
 			}
 
 			public FormattedLine DescribeTrue(ILanguage language)
