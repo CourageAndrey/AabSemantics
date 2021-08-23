@@ -152,11 +152,11 @@ namespace Inventor.Test.Utils
 			#region Constructors
 
 			public Test()
-				: this(null, 0, default(DateTime), null, new Test[0], new Test[0])
+				: this(null, 0, default(DateTime), null, Array.Empty<Test>(), Array.Empty<Test>())
 			{ }
 
 			public Test(string @string, int @int)
-				: this(@string, @int, DateTime.Now, null, new Test[0], new Test[0])
+				: this(@string, @int, DateTime.Now, null, Array.Empty<Test>(), Array.Empty<Test>())
 			{ }
 
 			public Test(

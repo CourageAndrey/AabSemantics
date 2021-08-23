@@ -39,9 +39,9 @@ namespace Inventor.Core.Questions
 				.Where(match)
 				.ToList();
 
-			ChildAnswers = new ChildAnswer[0];
+			ChildAnswers = Array.Empty<ChildAnswer>();
 
-			AdditionalTransitives = new IStatement[0];
+			AdditionalTransitives = Array.Empty<IStatement>();
 
 			Answer = Answers.Answer.CreateUnknown(Context.Language);
 		}
@@ -64,7 +64,7 @@ namespace Inventor.Core.Questions
 			}
 			else
 			{
-				ChildAnswers = new ChildAnswer[0];
+				ChildAnswers = Array.Empty<ChildAnswer>();
 			}
 			return this;
 		}

@@ -18,8 +18,8 @@ namespace Inventor.Test.Statements
 		{
 			foreach (string node in All)
 			{
-				Assert.AreEqual(0, new TestParentChild[0].GetParentsOneLevel(node).Count);
-				Assert.AreEqual(0, new TestParentChild[0].GetParentsAllLevels(node).Count);
+				Assert.AreEqual(0, Array.Empty<TestParentChild>().GetParentsOneLevel(node).Count);
+				Assert.AreEqual(0, Array.Empty<TestParentChild>().GetParentsAllLevels(node).Count);
 			}
 
 			var allRelationships = createTestSet();
@@ -32,8 +32,8 @@ namespace Inventor.Test.Statements
 		{
 			foreach (string node in All)
 			{
-				Assert.AreEqual(0, new TestParentChild[0].GetChildrenOnLevel(node).Count);
-				Assert.AreEqual(0, new TestParentChild[0].GetChildrenAllLevels(node).Count);
+				Assert.AreEqual(0, Array.Empty<TestParentChild>().GetChildrenOnLevel(node).Count);
+				Assert.AreEqual(0, Array.Empty<TestParentChild>().GetChildrenAllLevels(node).Count);
 			}
 
 			var allRelationships = createTestSet();

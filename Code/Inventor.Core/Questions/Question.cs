@@ -14,7 +14,7 @@ namespace Inventor.Core.Questions
 
 		protected Question(IEnumerable<IStatement> preconditions = null)
 		{
-			Preconditions = new List<IStatement>(preconditions ?? new IStatement[0]);
+			Preconditions = new List<IStatement>(preconditions ?? Array.Empty<IStatement>());
 		}
 
 		public IAnswer Ask(ISemanticNetworkContext context, ILanguage language = null)

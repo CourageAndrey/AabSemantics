@@ -38,7 +38,7 @@ namespace Inventor.Core.Questions
 			else
 			{
 				var statement = allStatements.FirstOrDefault(p => p.Equals(Statement));
-				statements = statement != null ? new[] { statement } : new IStatement[0];
+				statements = statement != null ? new[] { statement } : Array.Empty<IStatement>();
 			}
 
 			var result = new FormattedText(

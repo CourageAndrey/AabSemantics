@@ -54,7 +54,7 @@ namespace Inventor.Core.Questions
 							{ Strings.ParamConcept1, Concept1 },
 							{ Strings.ParamConcept2, Concept2 },
 						}),
-					new Explanation(new IStatement[0]),
+					new Explanation(Array.Empty<IStatement>()),
 					true);
 			}
 
