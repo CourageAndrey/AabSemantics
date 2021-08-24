@@ -177,6 +177,8 @@ namespace Inventor.Core.Questions
 				AppendAdditionalTransitives();
 			}
 
+			IfEmptyTrySelectFirstChild();
+
 			return this;
 		}
 
@@ -240,7 +242,7 @@ namespace Inventor.Core.Questions
 			return this;
 		}
 
-		public StatementQuestionProcessor<QuestionT, StatementT> IfEmptyTrySelectFirstChild()
+		protected virtual void IfEmptyTrySelectFirstChild()
 		{
 			if (Answer.IsEmpty)
 			{
@@ -251,8 +253,6 @@ namespace Inventor.Core.Questions
 					Answer = childAnswer.Answer;
 				}
 			}
-
-			return this;
 		}
 
 		public StatementQuestionProcessor<QuestionT, StatementT> AggregateTransitivesToStatements()
