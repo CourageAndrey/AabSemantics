@@ -36,7 +36,7 @@ namespace Inventor.Core.Questions
 				.From<ComparisonQuestion, ComparisonStatement>()
 				.WithTransitives(s => s.Count == 0, GetNestedQuestions)
 				.Where(s => (s.LeftValue == LeftValue && s.RightValue == RightValue) || (s.RightValue == LeftValue && s.LeftValue == RightValue))
-				.Select(CreateAnswer);
+				.SelectCustom(CreateAnswer);
 		}
 
 		private IAnswer CreateAnswer(IQuestionProcessingContext<ComparisonQuestion> context, ICollection<ComparisonStatement> statements, ICollection<ChildAnswer> childAnswers)

@@ -115,7 +115,7 @@ namespace Inventor.Core.Questions
 			}
 		}
 
-		public IAnswer Select(Func<IQuestionProcessingContext<QuestionT>, ICollection<StatementT>, ICollection<ChildAnswer>, IAnswer> formatter)
+		public IAnswer SelectCustom(Func<IQuestionProcessingContext<QuestionT>, ICollection<StatementT>, ICollection<ChildAnswer>, IAnswer> formatter)
 		{
 			ProcessChildrenIfNeed();
 
