@@ -33,7 +33,6 @@ namespace Inventor.Core.Questions
 					question => question.Concept,
 					Strings.ParamConcept,
 					language => language.Answers.SubjectArea)
-				.IfEmptyTrySelectFirstChild()
 				.Answer;
 		}
 	}
