@@ -46,8 +46,7 @@ namespace Inventor.Core.Questions
 						{ Strings.ParamSign, statement.Sign },
 						{ Strings.ParamValue, statement.Value },
 						{ Strings.ParamDefined, statement.Concept },
-					})
-				.Answer;
+					});
 		}
 	}
 }

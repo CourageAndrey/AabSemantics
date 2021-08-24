@@ -36,8 +36,7 @@ namespace Inventor.Core.Questions
 					new Dictionary<String, INamed>
 					{
 						{ Strings.ParamConcept, Concept },
-					})
-				.Answer;
+					});
 		}
 	}
 }
