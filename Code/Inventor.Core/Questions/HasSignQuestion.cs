@@ -49,8 +49,7 @@ namespace Inventor.Core.Questions
 					{
 						{ Strings.ParamConcept, Concept },
 						{ Strings.ParamSign, Sign },
-					})
-				.Answer;
+					});
 		}
 	}
 }

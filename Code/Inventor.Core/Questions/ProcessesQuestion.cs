@@ -36,8 +36,7 @@ namespace Inventor.Core.Questions
 				.From<ProcessesQuestion, ProcessesStatement>()
 				.WithTransitives(s => s.Count == 0, GetNestedQuestions)
 				.Where(s => (s.ProcessA == ProcessA && s.ProcessB == ProcessB) || (s.ProcessB == ProcessA && s.ProcessA == ProcessB))
-				.Select(CreateAnswer)
-				.Answer;
+				.Select(CreateAnswer);
 		}
 
 		private IAnswer CreateAnswer(IQuestionProcessingContext<ProcessesQuestion> context, ICollection<ProcessesStatement> statements, ICollection<ChildAnswer> childAnswers)

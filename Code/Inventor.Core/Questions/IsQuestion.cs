@@ -46,8 +46,7 @@ namespace Inventor.Core.Questions
 					{
 						{ Strings.ParamParent, Child },
 						{ Strings.ParamChild, Parent },
-					})
-				.Answer;
+					});
 		}
 	}
 }

@@ -25,9 +25,6 @@ namespace Inventor.Core.Questions
 		public ICollection<IStatement> AdditionalTransitives
 		{ get; private set; }
 
-		public IAnswer Answer
-		{ get; private set; }
-
 		private Func<ICollection<StatementT>, Boolean> _needToProcessTransitives = statements => false;
 		private Func<IQuestionProcessingContext<QuestionT>, IEnumerable<NestedQuestion>> _getTransitives = context => Array.Empty<NestedQuestion>();
 		private Boolean _needToAggregateTransitivesToStatements;
@@ -40,7 +37,6 @@ namespace Inventor.Core.Questions
 			Statements = Array.Empty<StatementT>();
 			ChildAnswers = Array.Empty<ChildAnswer>();
 			AdditionalTransitives = Array.Empty<IStatement>();
-			Answer = Answers.Answer.CreateUnknown(Context.Language);
 		}
 
 		public StatementQuestionProcessor<QuestionT, StatementT> Where(Func<StatementT, Boolean> match)
@@ -119,18 +115,18 @@ namespace Inventor.Core.Questions
 			}
 		}
 
-		public StatementQuestionProcessor<QuestionT, StatementT> Select(Func<IQuestionProcessingContext<QuestionT>, ICollection<StatementT>, ICollection<ChildAnswer>, IAnswer> formatter)
+		public IAnswer Select(Func<IQuestionProcessingContext<QuestionT>, ICollection<StatementT>, ICollection<ChildAnswer>, IAnswer> formatter)
 		{
 			ProcessChildrenIfNeed();
 
-			Answer = formatter(Context, Statements, ChildAnswers);
+			var answer = formatter(Context, Statements, ChildAnswers);
 
-			AppendAdditionalTransitives();
+			answer.Explanation.Expand(AdditionalTransitives);
 
-			return this;
+			return answer;
 		}
 
-		public StatementQuestionProcessor<QuestionT, StatementT> SelectAllConcepts(
+		public IAnswer SelectAllConcepts(
 			Func<StatementT, IConcept> resultConceptSelector,
 			Func<QuestionT, IConcept> titleConceptSelector,
 			String titleConceptCaption,
@@ -146,43 +142,62 @@ namespace Inventor.Core.Questions
 				var parameters = resultConcepts.Enumerate(out format);
 				parameters.Add(titleConceptCaption, titleConceptSelector(Context.Question));
 
-				Answer = new ConceptsAnswer(
+				var answer = new ConceptsAnswer(
 					resultConcepts,
 					new FormattedText(() => answerFormat(Context.Language) + format + ".", parameters),
 					new Explanation(Statements.OfType<IStatement>()));
 
-				AppendAdditionalTransitives();
-			}
+				answer.Explanation.Expand(AdditionalTransitives);
 
-			return this;
+				return answer;
+			}
+			else
+			{
+				return Answer.CreateUnknown(Context.Language);
+			}
 		}
 
-		public StatementQuestionProcessor<QuestionT, StatementT> SelectFirstConcept(
+		public IAnswer SelectFirstConcept(
 			Func<StatementT, IConcept> resultConceptSelector,
 			Func<ILanguage, String> answerFormat,
 			Func<StatementT, IDictionary<String, INamed>> getParameters)
 		{
 			ProcessChildrenIfNeed();
 
+			IAnswer answer = null;
+
 			var statement = Statements.FirstOrDefault();
 			if (statement != null)
 			{
-				Answer = new ConceptAnswer(
+				answer = new ConceptAnswer(
 					resultConceptSelector(statement),
 					new FormattedText(
 						() => answerFormat(Context.Language),
 						getParameters(statement)),
 					new Explanation(Statements.OfType<IStatement>()));
 
-				AppendAdditionalTransitives();
+				answer.Explanation.Expand(AdditionalTransitives);
 			}
 
-			IfEmptyTrySelectFirstChild();
+			if (answer == null)
+			{
+				var childAnswer = ChildAnswers.FirstOrDefault();
+				if (childAnswer != null)
+				{
+					childAnswer.Answer.Explanation.Expand(childAnswer.TransitiveStatements);
+					answer = childAnswer.Answer;
+				}
+			}
 
-			return this;
+			if (answer == null)
+			{
+				return Answer.CreateUnknown(Context.Language);
+			}
+
+			return answer;
 		}
 
-		public StatementQuestionProcessor<QuestionT, StatementT> SelectBoolean(
+		public BooleanAnswer SelectBoolean(
 			Func<ICollection<StatementT>, Boolean> valueGetter,
 			Func<ILanguage, String> trueFormat,
 			Func<ILanguage, String> falseFormat,
@@ -192,19 +207,19 @@ namespace Inventor.Core.Questions
 
 			Boolean value = valueGetter(Statements);
 
-			Answer = new BooleanAnswer(
+			var answer = new BooleanAnswer(
 				value,
 				new FormattedText(
 					value ? new Func<String>(() => trueFormat(Context.Language)) : () => falseFormat(Context.Language),
 					parameters),
 				new Explanation(Statements.OfType<IStatement>()));
 
-			AppendAdditionalTransitives();
+			answer.Explanation.Expand(AdditionalTransitives);
 
-			return this;
+			return answer;
 		}
 
-		public StatementQuestionProcessor<QuestionT, StatementT> SelectBooleanIncludingChildren(
+		public BooleanAnswer SelectBooleanIncludingChildren(
 			Func<ICollection<StatementT>, Boolean> valueGetter,
 			Func<ILanguage, String> trueFormat,
 			Func<ILanguage, String> falseFormat,
@@ -230,29 +245,16 @@ namespace Inventor.Core.Questions
 				}
 			}
 
-			Answer = new BooleanAnswer(
+			var answer = new BooleanAnswer(
 				result,
 				new FormattedText(
 					result ? new Func<String>(() => trueFormat(Context.Language)) : () => falseFormat(Context.Language),
 					parameters),
 				new Explanation(explanation));
 
-			AppendAdditionalTransitives();
+			answer.Explanation.Expand(AdditionalTransitives);
 
-			return this;
-		}
-
-		protected virtual void IfEmptyTrySelectFirstChild()
-		{
-			if (Answer.IsEmpty)
-			{
-				var childAnswer = ChildAnswers.FirstOrDefault();
-				if (childAnswer != null)
-				{
-					childAnswer.Answer.Explanation.Expand(childAnswer.TransitiveStatements);
-					Answer = childAnswer.Answer;
-				}
-			}
+			return answer;
 		}
 
 		public StatementQuestionProcessor<QuestionT, StatementT> AggregateTransitivesToStatements()
@@ -288,11 +290,6 @@ namespace Inventor.Core.Questions
 			{
 				AdditionalTransitives = additionalTransitives;
 			}
-		}
-
-		protected virtual void AppendAdditionalTransitives()
-		{
-			Answer.Explanation.Expand(AdditionalTransitives);
 		}
 	}
 }
