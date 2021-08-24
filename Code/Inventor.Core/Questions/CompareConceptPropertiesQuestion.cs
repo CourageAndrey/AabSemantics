@@ -95,7 +95,7 @@ namespace Inventor.Core.Questions
 
 			return new Answers.ConceptsAnswer(
 				resultSignValues.Keys,
-				formatAnswer(context.Language, parents, resultSignValues, explanation),
+				formatAnswer(context.Language, parents, resultSignValues),
 				new Explanation(explanation));
 		}
 
@@ -108,8 +108,7 @@ namespace Inventor.Core.Questions
 		private FormattedText formatAnswer(
 			ILanguage language,
 			ICollection<IConcept> parents,
-			IDictionary<IConcept, Tuple<IConcept, IConcept>> signValueStatements,
-			ICollection<IStatement> explanation)
+			IDictionary<IConcept, Tuple<IConcept, IConcept>> signValueStatements)
 		{
 			var result = new FormattedText(
 				() => language.Answers.CompareConceptsResult,
