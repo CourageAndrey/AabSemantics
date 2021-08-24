@@ -43,7 +43,7 @@ namespace Inventor.Core.Questions
 		{
 			return statements.Count > 0
 				? createAnswer(statements, context)
-				: ProcessChildAnswers(context, statements, childAnswers);
+				: ProcessChildAnswers(context, childAnswers);
 		}
 
 		private static StatementsAnswer<ProcessesStatement> createAnswer(ICollection<ProcessesStatement> statements, IQuestionProcessingContext<ProcessesQuestion> context, ICollection<IStatement> transitiveStatements = null)
@@ -102,7 +102,7 @@ namespace Inventor.Core.Questions
 			}
 		}
 
-		private IAnswer ProcessChildAnswers(IQuestionProcessingContext<ProcessesQuestion> context, ICollection<ProcessesStatement> statements, ICollection<ChildAnswer> childAnswers)
+		private IAnswer ProcessChildAnswers(IQuestionProcessingContext<ProcessesQuestion> context, ICollection<ChildAnswer> childAnswers)
 		{
 			foreach (var answer in childAnswers)
 			{
