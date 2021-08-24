@@ -33,11 +33,11 @@ namespace Inventor.Core.Questions
 		{
 			return context
 				.From<IsQuestion, IsStatement>()
-				.Where(s => s.Parent == Parent && s.Child == Child)
 				.WithTransitives(
 					statements => statements.Count == 0,
 					question => question.Child,
 					newSubject => new IsQuestion(newSubject, Parent))
+				.Where(s => s.Parent == Parent && s.Child == Child)
 				.SelectBooleanIncludingChildren(
 					statements => statements.Count > 0,
 					language => language.Answers.IsTrue,

@@ -28,6 +28,9 @@ namespace Inventor.Core.Questions
 		public IAnswer Answer
 		{ get; private set; }
 
+		private Func<ICollection<StatementT>, Boolean> _needToProcess = statements => false;
+		private Func<IQuestionProcessingContext<QuestionT>, IEnumerable<NestedQuestion>> _getNestedQuestions = context => Array.Empty<NestedQuestion>();
+
 		#endregion
 
 		public StatementQuestionProcessor(IQuestionProcessingContext context)
@@ -45,17 +48,11 @@ namespace Inventor.Core.Questions
 				.Enumerate<StatementT>(Context.ActiveContexts)
 				.Where(match)
 				.ToList();
-			return this;
-		}
 
-		public StatementQuestionProcessor<QuestionT, StatementT> WithTransitives(
-			Func<ICollection<StatementT>, Boolean> needToProcess,
-			Func<IQuestionProcessingContext<QuestionT>, IEnumerable<NestedQuestion>> getNestedQuestions)
-		{
-			if (needToProcess(Statements))
+			if (_needToProcess(Statements))
 			{
 				ChildAnswers = new List<ChildAnswer>();
-				foreach (var nested in getNestedQuestions(Context))
+				foreach (var nested in _getNestedQuestions(Context))
 				{
 					var answer = nested.Question.Ask(Context);
 					if (!answer.IsEmpty)
@@ -68,6 +65,16 @@ namespace Inventor.Core.Questions
 			{
 				ChildAnswers = Array.Empty<ChildAnswer>();
 			}
+
+			return this;
+		}
+
+		public StatementQuestionProcessor<QuestionT, StatementT> WithTransitives(
+			Func<ICollection<StatementT>, Boolean> needToProcess,
+			Func<IQuestionProcessingContext<QuestionT>, IEnumerable<NestedQuestion>> getNestedQuestions)
+		{
+			_needToProcess = needToProcess;
+			_getNestedQuestions = getNestedQuestions;
 			return this;
 		}
 
