@@ -47,7 +47,6 @@ namespace Inventor.Core.Questions
 						{ Strings.ParamValue, statement.Value },
 						{ Strings.ParamDefined, statement.Concept },
 					})
-				.IfEmptyTrySelectFirstChild()
 				.Answer;
 		}
 	}
