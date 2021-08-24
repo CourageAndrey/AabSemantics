@@ -42,7 +42,6 @@ namespace Inventor.Core.Questions
 					question => question.Concept,
 					Strings.ParamConcept,
 					language => language.Answers.ConceptSigns + (Recursive ? language.Answers.RecursiveTrue : language.Answers.RecursiveFalse) + ": ")
-				.AppendAdditionalTransitives()
 				.Answer;
 		}
 	}

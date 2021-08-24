@@ -30,6 +30,7 @@ namespace Inventor.Core.Questions
 
 		private Func<ICollection<StatementT>, Boolean> _needToProcess = statements => false;
 		private Func<IQuestionProcessingContext<QuestionT>, IEnumerable<NestedQuestion>> _getNestedQuestions = context => Array.Empty<NestedQuestion>();
+		private Boolean _needToAggregateTransitivesToStatements;
 
 		#endregion
 
@@ -49,8 +50,6 @@ namespace Inventor.Core.Questions
 				.Where(match)
 				.ToList();
 
-			ProcessChildrenIfNeed();
-
 			return this;
 		}
 
@@ -66,6 +65,11 @@ namespace Inventor.Core.Questions
 					{
 						ChildAnswers.Add(new ChildAnswer(nested.Question, answer, nested.TransitiveStatements));
 					}
+				}
+
+				if (_needToAggregateTransitivesToStatements)
+				{
+					DoAggregateTransitivesToStatements();
 				}
 			}
 			else
@@ -117,7 +121,12 @@ namespace Inventor.Core.Questions
 
 		public StatementQuestionProcessor<QuestionT, StatementT> Select(Func<IQuestionProcessingContext<QuestionT>, ICollection<StatementT>, ICollection<ChildAnswer>, IAnswer> formatter)
 		{
+			ProcessChildrenIfNeed();
+
 			Answer = formatter(Context, Statements, ChildAnswers);
+
+			AppendAdditionalTransitives();
+
 			return this;
 		}
 
@@ -127,6 +136,8 @@ namespace Inventor.Core.Questions
 			String titleConceptCaption,
 			Func<ILanguage, String> answerFormat)
 		{
+			ProcessChildrenIfNeed();
+
 			if (Statements.Any())
 			{
 				var resultConcepts = Statements.Select(resultConceptSelector).ToList();
@@ -139,6 +150,8 @@ namespace Inventor.Core.Questions
 					resultConcepts,
 					new FormattedText(() => answerFormat(Context.Language) + format + ".", parameters),
 					new Explanation(Statements.OfType<IStatement>()));
+
+				AppendAdditionalTransitives();
 			}
 
 			return this;
@@ -149,6 +162,8 @@ namespace Inventor.Core.Questions
 			Func<ILanguage, String> answerFormat,
 			Func<StatementT, IDictionary<String, INamed>> getParameters)
 		{
+			ProcessChildrenIfNeed();
+
 			var statement = Statements.FirstOrDefault();
 			if (statement != null)
 			{
@@ -158,6 +173,8 @@ namespace Inventor.Core.Questions
 						() => answerFormat(Context.Language),
 						getParameters(statement)),
 					new Explanation(Statements.OfType<IStatement>()));
+
+				AppendAdditionalTransitives();
 			}
 
 			return this;
@@ -169,6 +186,8 @@ namespace Inventor.Core.Questions
 			Func<ILanguage, String> falseFormat,
 			IDictionary<String, INamed> parameters)
 		{
+			ProcessChildrenIfNeed();
+
 			Boolean value = valueGetter(Statements);
 
 			Answer = new BooleanAnswer(
@@ -177,6 +196,8 @@ namespace Inventor.Core.Questions
 					value ? new Func<String>(() => trueFormat(Context.Language)) : () => falseFormat(Context.Language),
 					parameters),
 				new Explanation(Statements.OfType<IStatement>()));
+
+			AppendAdditionalTransitives();
 
 			return this;
 		}
@@ -187,6 +208,8 @@ namespace Inventor.Core.Questions
 			Func<ILanguage, String> falseFormat,
 			IDictionary<String, INamed> parameters)
 		{
+			ProcessChildrenIfNeed();
+
 			Boolean result = false;
 			var explanation = new List<IStatement>(Statements.OfType<IStatement>());
 
@@ -212,6 +235,8 @@ namespace Inventor.Core.Questions
 					parameters),
 				new Explanation(explanation));
 
+			AppendAdditionalTransitives();
+
 			return this;
 		}
 
@@ -231,6 +256,12 @@ namespace Inventor.Core.Questions
 		}
 
 		public StatementQuestionProcessor<QuestionT, StatementT> AggregateTransitivesToStatements()
+		{
+			_needToAggregateTransitivesToStatements = true;
+			return this;
+		}
+
+		protected virtual void DoAggregateTransitivesToStatements()
 		{
 			var additionalTransitives = new List<IStatement>();
 			foreach (var answer in ChildAnswers)
@@ -257,15 +288,11 @@ namespace Inventor.Core.Questions
 			{
 				AdditionalTransitives = additionalTransitives;
 			}
-
-			return this;
 		}
 
-		public StatementQuestionProcessor<QuestionT, StatementT> AppendAdditionalTransitives()
+		protected virtual void AppendAdditionalTransitives()
 		{
 			Answer.Explanation.Expand(AdditionalTransitives);
-
-			return this;
 		}
 	}
 }
