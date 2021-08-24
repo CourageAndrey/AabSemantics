@@ -28,8 +28,8 @@ namespace Inventor.Core.Questions
 		public IAnswer Answer
 		{ get; private set; }
 
-		private Func<ICollection<StatementT>, Boolean> _needToProcess = statements => false;
-		private Func<IQuestionProcessingContext<QuestionT>, IEnumerable<NestedQuestion>> _getNestedQuestions = context => Array.Empty<NestedQuestion>();
+		private Func<ICollection<StatementT>, Boolean> _needToProcessTransitives = statements => false;
+		private Func<IQuestionProcessingContext<QuestionT>, IEnumerable<NestedQuestion>> _getTransitives = context => Array.Empty<NestedQuestion>();
 		private Boolean _needToAggregateTransitivesToStatements;
 
 		#endregion
@@ -55,10 +55,10 @@ namespace Inventor.Core.Questions
 
 		protected virtual void ProcessChildrenIfNeed()
 		{
-			if (_needToProcess(Statements))
+			if (_needToProcessTransitives(Statements))
 			{
 				ChildAnswers = new List<ChildAnswer>();
-				foreach (var nested in _getNestedQuestions(Context))
+				foreach (var nested in _getTransitives(Context))
 				{
 					var answer = nested.Question.Ask(Context);
 					if (!answer.IsEmpty)
@@ -82,8 +82,8 @@ namespace Inventor.Core.Questions
 			Func<ICollection<StatementT>, Boolean> needToProcess,
 			Func<IQuestionProcessingContext<QuestionT>, IEnumerable<NestedQuestion>> getNestedQuestions)
 		{
-			_needToProcess = needToProcess;
-			_getNestedQuestions = getNestedQuestions;
+			_needToProcessTransitives = needToProcess;
+			_getTransitives = getNestedQuestions;
 			return this;
 		}
 
