@@ -13,16 +13,16 @@ namespace Inventor.Core.Questions
 	{
 		#region Properties
 
-		public IQuestionProcessingContext<QuestionT> Context
+		protected IQuestionProcessingContext<QuestionT> Context
 		{ get; }
 
-		public ICollection<StatementT> Statements
+		protected ICollection<StatementT> Statements
 		{ get; private set; }
 
-		public ICollection<ChildAnswer> ChildAnswers
+		protected ICollection<ChildAnswer> ChildAnswers
 		{ get; private set; }
 
-		public ICollection<IStatement> AdditionalTransitives
+		protected ICollection<IStatement> AdditionalTransitives
 		{ get; private set; }
 
 		private Func<ICollection<StatementT>, Boolean> _needToProcessTransitives = statements => false;
@@ -49,31 +49,6 @@ namespace Inventor.Core.Questions
 			return this;
 		}
 
-		protected virtual void ProcessChildrenIfNeed()
-		{
-			if (_needToProcessTransitives(Statements))
-			{
-				ChildAnswers = new List<ChildAnswer>();
-				foreach (var nested in _getTransitives(Context))
-				{
-					var answer = nested.Question.Ask(Context);
-					if (!answer.IsEmpty)
-					{
-						ChildAnswers.Add(new ChildAnswer(nested.Question, answer, nested.TransitiveStatements));
-					}
-				}
-
-				if (_needToAggregateTransitivesToStatements)
-				{
-					DoAggregateTransitivesToStatements();
-				}
-			}
-			else
-			{
-				ChildAnswers = Array.Empty<ChildAnswer>();
-			}
-		}
-
 		public StatementQuestionProcessor<QuestionT, StatementT> WithTransitives(
 			Func<ICollection<StatementT>, Boolean> needToProcess,
 			Func<IQuestionProcessingContext<QuestionT>, IEnumerable<NestedQuestion>> getNestedQuestions,
@@ -92,30 +67,6 @@ namespace Inventor.Core.Questions
 			Boolean needToAggregateTransitivesToStatements = false)
 		{
 			return WithTransitives(needToProcess, context => GetNestedQuestions(getQuestionSubject, createQuestionForSubject), needToAggregateTransitivesToStatements);
-		}
-
-		private IEnumerable<NestedQuestion> GetNestedQuestions(
-			Func<QuestionT, IConcept> getQuestionSubject,
-			Func<IConcept, QuestionT> createQuestionForSubject)
-		{
-			var alreadyViewedConcepts = new HashSet<IConcept>(Context.ActiveContexts
-				.OfType<IQuestionProcessingContext<QuestionT>>()
-				.Select(questionContext => getQuestionSubject(questionContext.Question)));
-
-			var question = Context.Question;
-			var subject = getQuestionSubject(question);
-			var transitiveStatements = Context.SemanticNetwork.Statements
-				.Enumerate<Statements.IsStatement>(Context.ActiveContexts)
-				.Where(isStatement => isStatement.Child == subject);
-
-			foreach (var transitiveStatement in transitiveStatements)
-			{
-				var parent = transitiveStatement.Parent;
-				if (!alreadyViewedConcepts.Contains(parent))
-				{
-					yield return new NestedQuestion(createQuestionForSubject(parent), new IStatement[] { transitiveStatement });
-				}
-			}
 		}
 
 		public IAnswer SelectCustom(Func<IQuestionProcessingContext<QuestionT>, ICollection<StatementT>, ICollection<ChildAnswer>, IAnswer> formatter)
@@ -258,6 +209,55 @@ namespace Inventor.Core.Questions
 			answer.Explanation.Expand(AdditionalTransitives);
 
 			return answer;
+		}
+
+		protected virtual void ProcessChildrenIfNeed()
+		{
+			if (_needToProcessTransitives(Statements))
+			{
+				ChildAnswers = new List<ChildAnswer>();
+				foreach (var nested in _getTransitives(Context))
+				{
+					var answer = nested.Question.Ask(Context);
+					if (!answer.IsEmpty)
+					{
+						ChildAnswers.Add(new ChildAnswer(nested.Question, answer, nested.TransitiveStatements));
+					}
+				}
+
+				if (_needToAggregateTransitivesToStatements)
+				{
+					DoAggregateTransitivesToStatements();
+				}
+			}
+			else
+			{
+				ChildAnswers = Array.Empty<ChildAnswer>();
+			}
+		}
+
+		protected virtual IEnumerable<NestedQuestion> GetNestedQuestions(
+			Func<QuestionT, IConcept> getQuestionSubject,
+			Func<IConcept, QuestionT> createQuestionForSubject)
+		{
+			var alreadyViewedConcepts = new HashSet<IConcept>(Context.ActiveContexts
+				.OfType<IQuestionProcessingContext<QuestionT>>()
+				.Select(questionContext => getQuestionSubject(questionContext.Question)));
+
+			var question = Context.Question;
+			var subject = getQuestionSubject(question);
+			var transitiveStatements = Context.SemanticNetwork.Statements
+				.Enumerate<Statements.IsStatement>(Context.ActiveContexts)
+				.Where(isStatement => isStatement.Child == subject);
+
+			foreach (var transitiveStatement in transitiveStatements)
+			{
+				var parent = transitiveStatement.Parent;
+				if (!alreadyViewedConcepts.Contains(parent))
+				{
+					yield return new NestedQuestion(createQuestionForSubject(parent), new IStatement[] { transitiveStatement });
+				}
+			}
 		}
 
 		protected virtual void DoAggregateTransitivesToStatements()
