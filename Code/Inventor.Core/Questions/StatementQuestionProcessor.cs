@@ -49,6 +49,13 @@ namespace Inventor.Core.Questions
 				.Where(match)
 				.ToList();
 
+			ProcessChildrenIfNeed();
+
+			return this;
+		}
+
+		protected virtual void ProcessChildrenIfNeed()
+		{
 			if (_needToProcess(Statements))
 			{
 				ChildAnswers = new List<ChildAnswer>();
@@ -65,8 +72,6 @@ namespace Inventor.Core.Questions
 			{
 				ChildAnswers = Array.Empty<ChildAnswer>();
 			}
-
-			return this;
 		}
 
 		public StatementQuestionProcessor<QuestionT, StatementT> WithTransitives(
