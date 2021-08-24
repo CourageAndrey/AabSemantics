@@ -31,11 +31,11 @@ namespace Inventor.Core.Questions
 		{
 			return context
 				.From<EnumerateSignsQuestion, HasSignStatement>()
-				.Where(s => s.Concept == Concept)
 				.WithTransitives(
 					statements => Recursive,
 					question => question.Concept,
 					newSubject => new EnumerateSignsQuestion(newSubject, true))
+				.Where(s => s.Concept == Concept)
 				.AggregateTransitivesToStatements()
 				.SelectAllConcepts(
 					statement => statement.Sign,

@@ -32,11 +32,11 @@ namespace Inventor.Core.Questions
 		{
 			return context
 				.From<SignValueQuestion, SignValueStatement>()
-				.Where(s => s.Concept == Concept && s.Sign == Sign)
 				.WithTransitives(
 					statements => statements.Count == 0,
 					question => question.Concept,
 					newSubject => new SignValueQuestion(newSubject, Sign))
+				.Where(s => s.Concept == Concept && s.Sign == Sign)
 				.SelectFirstConcept(
 					statement => statement.Value,
 					language => language.Answers.SignValue,

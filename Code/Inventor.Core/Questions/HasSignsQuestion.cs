@@ -31,11 +31,11 @@ namespace Inventor.Core.Questions
 		{
 			return context
 				.From<HasSignsQuestion, HasSignStatement>()
-				.Where(s => s.Concept == Concept)
 				.WithTransitives(
 					statements => Recursive,
 					question => question.Concept,
 					newSubject => new HasSignsQuestion(newSubject, true))
+				.Where(s => s.Concept == Concept)
 				.SelectBooleanIncludingChildren(
 					statements => statements.Count > 0,
 					language => language.Answers.HasSignsTrue + (Recursive ? language.Answers.RecursiveTrue : language.Answers.RecursiveFalse) + ".",

@@ -34,8 +34,8 @@ namespace Inventor.Core.Questions
 		{
 			return context
 				.From<ComparisonQuestion, ComparisonStatement>()
-				.Where(s => (s.LeftValue == LeftValue && s.RightValue == RightValue) || (s.RightValue == LeftValue && s.LeftValue == RightValue))
 				.WithTransitives(s => s.Count == 0, GetNestedQuestions)
+				.Where(s => (s.LeftValue == LeftValue && s.RightValue == RightValue) || (s.RightValue == LeftValue && s.LeftValue == RightValue))
 				.Select(CreateAnswer)
 				.Answer;
 		}
