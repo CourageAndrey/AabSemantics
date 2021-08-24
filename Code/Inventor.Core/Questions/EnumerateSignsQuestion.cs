@@ -34,9 +34,9 @@ namespace Inventor.Core.Questions
 				.WithTransitives(
 					statements => Recursive,
 					question => question.Concept,
-					newSubject => new EnumerateSignsQuestion(newSubject, true))
+					newSubject => new EnumerateSignsQuestion(newSubject, true),
+					needToAggregateTransitivesToStatements: true)
 				.Where(s => s.Concept == Concept)
-				.AggregateTransitivesToStatements()
 				.SelectAllConcepts(
 					statement => statement.Sign,
 					question => question.Concept,
