@@ -19,7 +19,7 @@ namespace Inventor.Core.Base
 		{ get; }
 
 		public ICollection<IContext> ActiveContexts
-		{ get { return _activeContexts ?? (_activeContexts = getHierarchy()); } }
+		{ get { return _activeContexts ?? (_activeContexts = GetHierarchy()); } }
 
 		private ICollection<IContext> _activeContexts;
 
@@ -44,7 +44,7 @@ namespace Inventor.Core.Base
 			}
 		}
 
-		public ICollection<IContext> getHierarchy()
+		public ICollection<IContext> GetHierarchy()
 		{
 			IContext context = this;
 			var hierarchy = new HashSet<IContext>();
