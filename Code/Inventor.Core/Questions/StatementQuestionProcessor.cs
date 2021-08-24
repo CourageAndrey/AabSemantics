@@ -76,19 +76,22 @@ namespace Inventor.Core.Questions
 
 		public StatementQuestionProcessor<QuestionT, StatementT> WithTransitives(
 			Func<ICollection<StatementT>, Boolean> needToProcess,
-			Func<IQuestionProcessingContext<QuestionT>, IEnumerable<NestedQuestion>> getNestedQuestions)
+			Func<IQuestionProcessingContext<QuestionT>, IEnumerable<NestedQuestion>> getNestedQuestions,
+			Boolean needToAggregateTransitivesToStatements = false)
 		{
 			_needToProcessTransitives = needToProcess;
 			_getTransitives = getNestedQuestions;
+			_needToAggregateTransitivesToStatements = needToAggregateTransitivesToStatements;
 			return this;
 		}
 
 		public StatementQuestionProcessor<QuestionT, StatementT> WithTransitives(
 			Func<ICollection<StatementT>, Boolean> needToProcess,
 			Func<QuestionT, IConcept> getQuestionSubject,
-			Func<IConcept, QuestionT> createQuestionForSubject)
+			Func<IConcept, QuestionT> createQuestionForSubject,
+			Boolean needToAggregateTransitivesToStatements = false)
 		{
-			return WithTransitives(needToProcess, context => GetNestedQuestions(getQuestionSubject, createQuestionForSubject));
+			return WithTransitives(needToProcess, context => GetNestedQuestions(getQuestionSubject, createQuestionForSubject), needToAggregateTransitivesToStatements);
 		}
 
 		private IEnumerable<NestedQuestion> GetNestedQuestions(
@@ -255,12 +258,6 @@ namespace Inventor.Core.Questions
 			answer.Explanation.Expand(AdditionalTransitives);
 
 			return answer;
-		}
-
-		public StatementQuestionProcessor<QuestionT, StatementT> AggregateTransitivesToStatements()
-		{
-			_needToAggregateTransitivesToStatements = true;
-			return this;
 		}
 
 		protected virtual void DoAggregateTransitivesToStatements()
