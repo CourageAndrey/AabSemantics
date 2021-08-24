@@ -32,7 +32,8 @@ namespace Inventor.Core.Questions
 		public override IAnswer Process(IQuestionProcessingContext context)
 		{
 			return context
-				.From<IsQuestion, IsStatement>(s => s.Parent == Parent && s.Child == Child)
+				.From<IsQuestion, IsStatement>()
+				.Where(s => s.Parent == Parent && s.Child == Child)
 				.WithTransitives(
 					statements => statements.Count == 0,
 					question => question.Child,

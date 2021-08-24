@@ -27,7 +27,8 @@ namespace Inventor.Core.Questions
 		public override IAnswer Process(IQuestionProcessingContext context)
 		{
 			return context
-				.From<IsSignQuestion, HasSignStatement>(s => s.Sign == Concept)
+				.From<IsSignQuestion, HasSignStatement>()
+				.Where(s => s.Sign == Concept)
 				.SelectBoolean(
 					statement => Concept.HasAttribute<IsSignAttribute>(),
 					language => language.Answers.SignTrue,

@@ -33,7 +33,8 @@ namespace Inventor.Core.Questions
 		public override IAnswer Process(IQuestionProcessingContext context)
 		{
 			return context
-				.From<IsPartOfQuestion, HasPartStatement>(s => s.Whole == Parent && s.Part == Child)
+				.From<IsPartOfQuestion, HasPartStatement>()
+				.Where(s => s.Whole == Parent && s.Part == Child)
 				.SelectBoolean(
 					statements => statements.Any(),
 					language => language.Answers.IsPartOfTrue,
