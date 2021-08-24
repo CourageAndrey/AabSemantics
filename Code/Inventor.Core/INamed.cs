@@ -12,7 +12,7 @@ namespace Inventor.Core
 
 	public static class NamedHelper
 	{
-		public static Dictionary<String , INamed> Enumerate(this IEnumerable<IKnowledge> knowledgeItems, out String format)
+		public static Dictionary<String, INamed> Enumerate(this IEnumerable<IKnowledge> knowledgeItems, out String format)
 		{
 			var parameters = knowledgeItems.ToDictionary(
 				k => $"#{k.ID}#",
@@ -21,7 +21,7 @@ namespace Inventor.Core
 			return parameters;
 		}
 
-		public static Dictionary<String , INamed> Enumerate<T>(this IEnumerable<T> knowledgeItems, out String format)
+		public static Dictionary<String, INamed> Enumerate<T>(this IEnumerable<T> knowledgeItems, out String format)
 			where T : IKnowledge
 		{
 			return knowledgeItems.OfType<IKnowledge>().Enumerate(out format);
