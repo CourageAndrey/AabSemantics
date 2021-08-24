@@ -26,7 +26,8 @@ namespace Inventor.Core.Questions
 		public override IAnswer Process(IQuestionProcessingContext context)
 		{
 			return context
-				.From<FindSubjectAreaQuestion, GroupStatement>(s => s.Concept == Concept)
+				.From<FindSubjectAreaQuestion, GroupStatement>()
+				.Where(s => s.Concept == Concept)
 				.SelectAllConcepts(
 					statement => statement.Area,
 					question => question.Concept,

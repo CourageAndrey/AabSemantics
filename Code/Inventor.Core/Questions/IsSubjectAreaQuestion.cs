@@ -33,7 +33,8 @@ namespace Inventor.Core.Questions
 		public override IAnswer Process(IQuestionProcessingContext context)
 		{
 			return context
-				.From<IsSubjectAreaQuestion, GroupStatement>(s => s.Area == Area && s.Concept == Concept)
+				.From<IsSubjectAreaQuestion, GroupStatement>()
+				.Where(s => s.Area == Area && s.Concept == Concept)
 				.SelectBoolean(
 					statements => statements.Any(),
 					language => language.Answers.IsSubjectAreaTrue,

@@ -27,7 +27,8 @@ namespace Inventor.Core.Questions
 		public override IAnswer Process(IQuestionProcessingContext context)
 		{
 			return context
-				.From<IsValueQuestion, SignValueStatement>(s => s.Value == Concept)
+				.From<IsValueQuestion, SignValueStatement>()
+				.Where(s => s.Value == Concept)
 				.SelectBoolean(
 					statements => Concept.HasAttribute<IsValueAttribute>(),
 					language => language.Answers.ValueTrue,

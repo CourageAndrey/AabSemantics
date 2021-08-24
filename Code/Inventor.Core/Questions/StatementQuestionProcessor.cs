@@ -17,7 +17,7 @@ namespace Inventor.Core.Questions
 		{ get; }
 
 		public ICollection<StatementT> Statements
-		{ get; }
+		{ get; private set; }
 
 		public ICollection<ChildAnswer> ChildAnswers
 		{ get; private set; }
@@ -30,20 +30,22 @@ namespace Inventor.Core.Questions
 
 		#endregion
 
-		public StatementQuestionProcessor(IQuestionProcessingContext context, Func<StatementT, Boolean> match)
+		public StatementQuestionProcessor(IQuestionProcessingContext context)
 		{
 			Context = (IQuestionProcessingContext<QuestionT>) context;
+			Statements = Array.Empty<StatementT>();
+			ChildAnswers = Array.Empty<ChildAnswer>();
+			AdditionalTransitives = Array.Empty<IStatement>();
+			Answer = Answers.Answer.CreateUnknown(Context.Language);
+		}
 
-			Statements = context.SemanticNetwork.Statements
-				.Enumerate<StatementT>(context.ActiveContexts)
+		public StatementQuestionProcessor<QuestionT, StatementT> Where(Func<StatementT, Boolean> match)
+		{
+			Statements = Context.SemanticNetwork.Statements
+				.Enumerate<StatementT>(Context.ActiveContexts)
 				.Where(match)
 				.ToList();
-
-			ChildAnswers = Array.Empty<ChildAnswer>();
-
-			AdditionalTransitives = Array.Empty<IStatement>();
-
-			Answer = Answers.Answer.CreateUnknown(Context.Language);
+			return this;
 		}
 
 		public StatementQuestionProcessor<QuestionT, StatementT> WithTransitives(

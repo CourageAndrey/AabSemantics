@@ -31,7 +31,8 @@ namespace Inventor.Core.Questions
 		public override IAnswer Process(IQuestionProcessingContext context)
 		{
 			return context
-				.From<SignValueQuestion, SignValueStatement>(s => s.Concept == Concept && s.Sign == Sign)
+				.From<SignValueQuestion, SignValueStatement>()
+				.Where(s => s.Concept == Concept && s.Sign == Sign)
 				.WithTransitives(
 					statements => statements.Count == 0,
 					question => question.Concept,

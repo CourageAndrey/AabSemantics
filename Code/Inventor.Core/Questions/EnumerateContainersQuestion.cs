@@ -26,7 +26,8 @@ namespace Inventor.Core.Questions
 		public override IAnswer Process(IQuestionProcessingContext context)
 		{
 			return context
-				.From<EnumerateContainersQuestion, HasPartStatement>(s => s.Part == Concept)
+				.From<EnumerateContainersQuestion, HasPartStatement>()
+				.Where(s => s.Part == Concept)
 				.SelectAllConcepts(
 					statement => statement.Whole,
 					question => question.Concept,

@@ -33,7 +33,8 @@ namespace Inventor.Core.Questions
 		public override IAnswer Process(IQuestionProcessingContext context)
 		{
 			return context
-				.From<ComparisonQuestion, ComparisonStatement>(s => (s.LeftValue == LeftValue && s.RightValue == RightValue) || (s.RightValue == LeftValue && s.LeftValue == RightValue))
+				.From<ComparisonQuestion, ComparisonStatement>()
+				.Where(s => (s.LeftValue == LeftValue && s.RightValue == RightValue) || (s.RightValue == LeftValue && s.LeftValue == RightValue))
 				.WithTransitives(s => s.Count == 0, GetNestedQuestions)
 				.Select(CreateAnswer)
 				.Answer;
