@@ -104,7 +104,7 @@ namespace Inventor.Core
 
 	public interface ILanguageQuestionNames
 	{
-		String EnumerateChildrenQuestion
+		String EnumerateDescendantsQuestion
 		{ get; }
 
 		String IsQuestion

@@ -59,7 +59,7 @@ namespace Inventor.Core
 
 		public static IAnswer WhichDescendantsHas(this QuestionBuilder builder, IConcept concept)
 		{
-			var question = new EnumerateChildrenQuestion(concept, builder.Preconditions);
+			var question = new EnumerateDescendantsQuestion(concept, builder.Preconditions);
 			return question.Ask(builder.SemanticNetwork.Context);
 		}
 

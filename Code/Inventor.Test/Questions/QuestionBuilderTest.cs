@@ -79,7 +79,7 @@ namespace Inventor.Test.Questions
 			var semanticNetwork = new TestSemanticNetwork(language);
 
 			// act
-			var questionRegular = new EnumerateChildrenQuestion(semanticNetwork.Base_Vehicle);
+			var questionRegular = new EnumerateDescendantsQuestion(semanticNetwork.Base_Vehicle);
 			var answerRegular = (ConceptsAnswer) questionRegular.Ask(semanticNetwork.SemanticNetwork.Context);
 
 			var answerBuilder = (ConceptsAnswer) semanticNetwork.SemanticNetwork.Ask().WhichDescendantsHas(semanticNetwork.Base_Vehicle);

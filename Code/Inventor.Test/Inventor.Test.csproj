@@ -69,7 +69,7 @@
     <Compile Include="ConsistencyTest.cs" />
     <Compile Include="Localization\LocalizedStringsTest.cs" />
     <Compile Include="Questions\CheckStatementQuestionTest.cs" />
-    <Compile Include="Questions\EnumerateChildrenQuestionTest.cs" />
+    <Compile Include="Questions\EnumerateDescendantsQuestionTest.cs" />
     <Compile Include="Questions\EnumerateContainersQuestionTest.cs" />
     <Compile Include="Questions\EnumeratePartsQuestionTest.cs" />
     <Compile Include="Questions\EnumerateSignsQuestionTest.cs" />
