@@ -10,7 +10,7 @@ using Inventor.Core.Localization;
 namespace Inventor.Test.Questions
 {
 	[TestFixture]
-	public class EnumerateChildrenQuestionTest
+	public class EnumerateDescendantsQuestionTest
 	{
 		[Test]
 		public void WhenNoRelationshipsReturnEmptyAnswer()

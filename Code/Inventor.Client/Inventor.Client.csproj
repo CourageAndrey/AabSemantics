@@ -145,7 +145,7 @@
     <Compile Include="ViewModels\Questions\ProcessesQuestion.cs" />
     <Compile Include="ViewModels\Questions\ComparisonQuestion.cs" />
     <Compile Include="ViewModels\Questions\DescribeSubjectAreaQuestion.cs" />
-    <Compile Include="ViewModels\Questions\EnumerateChildrenQuestion.cs" />
+    <Compile Include="ViewModels\Questions\EnumerateDescendantsQuestion.cs" />
     <Compile Include="ViewModels\Questions\EnumerateContainersQuestion.cs" />
     <Compile Include="ViewModels\Questions\EnumeratePartsQuestion.cs" />
     <Compile Include="ViewModels\Questions\EnumerateSignsQuestion.cs" />
