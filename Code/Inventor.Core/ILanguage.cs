@@ -266,7 +266,7 @@ namespace Inventor.Core
 		String EnumerateAncestors
 		{ get; }
 
-		String Enumerate
+		String EnumerateDescendants
 		{ get; }
 
 		String SubjectArea
