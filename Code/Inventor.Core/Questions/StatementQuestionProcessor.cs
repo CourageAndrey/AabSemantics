@@ -28,7 +28,7 @@ namespace Inventor.Core.Questions
 		protected Func<ICollection<StatementT>, Boolean> NeedToProcessTransitives
 		{ get; private set; }
 
-		protected Func<IQuestionProcessingContext<QuestionT>, IEnumerable<NestedQuestion>> GetTransitives
+		protected Func<IQuestionProcessingContext<QuestionT>, IEnumerable<NestedQuestion>> GetTransitiveQuestions
 		{ get; private set; }
 
 		protected Boolean NeedToAggregateTransitivesToStatements
@@ -43,7 +43,7 @@ namespace Inventor.Core.Questions
 			ChildAnswers = Array.Empty<ChildAnswer>();
 			AdditionalTransitives = Array.Empty<IStatement>();
 			NeedToProcessTransitives = statements => false;
-			GetTransitives = c => Array.Empty<NestedQuestion>();
+			GetTransitiveQuestions = c => Array.Empty<NestedQuestion>();
 			NeedToAggregateTransitivesToStatements = false;
 		}
 
@@ -58,23 +58,27 @@ namespace Inventor.Core.Questions
 		}
 
 		public StatementQuestionProcessor<QuestionT, StatementT> WithTransitives(
-			Func<ICollection<StatementT>, Boolean> needToProcess,
-			Func<IQuestionProcessingContext<QuestionT>, IEnumerable<NestedQuestion>> getNestedQuestions,
+			Func<ICollection<StatementT>, Boolean> needToProcessTransitives,
+			Func<IQuestionProcessingContext<QuestionT>, IEnumerable<NestedQuestion>> getTransitiveQuestions,
 			Boolean needToAggregateTransitivesToStatements = false)
 		{
-			NeedToProcessTransitives = needToProcess;
-			GetTransitives = getNestedQuestions;
+			NeedToProcessTransitives = needToProcessTransitives;
+			GetTransitiveQuestions = getTransitiveQuestions;
 			NeedToAggregateTransitivesToStatements = needToAggregateTransitivesToStatements;
+
 			return this;
 		}
 
 		public StatementQuestionProcessor<QuestionT, StatementT> WithTransitives(
-			Func<ICollection<StatementT>, Boolean> needToProcess,
+			Func<ICollection<StatementT>, Boolean> needToProcessTransitives,
 			Func<QuestionT, IConcept> getQuestionSubject,
 			Func<IConcept, QuestionT> createQuestionForSubject,
 			Boolean needToAggregateTransitivesToStatements = false)
 		{
-			return WithTransitives(needToProcess, context => GetNestedQuestions(getQuestionSubject, createQuestionForSubject), needToAggregateTransitivesToStatements);
+			return WithTransitives(
+				needToProcessTransitives,
+				context => GetNestedQuestions(getQuestionSubject, createQuestionForSubject),
+				needToAggregateTransitivesToStatements);
 		}
 
 		public IAnswer SelectCustom(Func<IQuestionProcessingContext<QuestionT>, ICollection<StatementT>, ICollection<ChildAnswer>, IAnswer> formatter)
@@ -151,12 +155,7 @@ namespace Inventor.Core.Questions
 				}
 			}
 
-			if (answer == null)
-			{
-				return Answer.CreateUnknown(Context.Language);
-			}
-
-			return answer;
+			return answer ?? Answer.CreateUnknown(Context.Language);
 		}
 
 		public BooleanAnswer SelectBoolean(
@@ -224,7 +223,7 @@ namespace Inventor.Core.Questions
 			if (NeedToProcessTransitives(Statements))
 			{
 				ChildAnswers = new List<ChildAnswer>();
-				foreach (var nested in GetTransitives(Context))
+				foreach (var nested in GetTransitiveQuestions(Context))
 				{
 					var answer = nested.Question.Ask(Context);
 					if (!answer.IsEmpty)
