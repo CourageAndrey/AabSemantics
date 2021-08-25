@@ -25,9 +25,14 @@ namespace Inventor.Core.Questions
 		protected ICollection<IStatement> AdditionalTransitives
 		{ get; private set; }
 
-		private Func<ICollection<StatementT>, Boolean> _needToProcessTransitives = statements => false;
-		private Func<IQuestionProcessingContext<QuestionT>, IEnumerable<NestedQuestion>> _getTransitives = context => Array.Empty<NestedQuestion>();
-		private Boolean _needToAggregateTransitivesToStatements;
+		protected Func<ICollection<StatementT>, Boolean> NeedToProcessTransitives
+		{ get; private set; }
+
+		protected Func<IQuestionProcessingContext<QuestionT>, IEnumerable<NestedQuestion>> GetTransitives
+		{ get; private set; }
+
+		protected Boolean NeedToAggregateTransitivesToStatements
+		{ get; private set; }
 
 		#endregion
 
@@ -37,6 +42,9 @@ namespace Inventor.Core.Questions
 			Statements = Array.Empty<StatementT>();
 			ChildAnswers = Array.Empty<ChildAnswer>();
 			AdditionalTransitives = Array.Empty<IStatement>();
+			NeedToProcessTransitives = statements => false;
+			GetTransitives = c => Array.Empty<NestedQuestion>();
+			NeedToAggregateTransitivesToStatements = false;
 		}
 
 		public StatementQuestionProcessor<QuestionT, StatementT> Where(Func<StatementT, Boolean> match)
@@ -54,9 +62,9 @@ namespace Inventor.Core.Questions
 			Func<IQuestionProcessingContext<QuestionT>, IEnumerable<NestedQuestion>> getNestedQuestions,
 			Boolean needToAggregateTransitivesToStatements = false)
 		{
-			_needToProcessTransitives = needToProcess;
-			_getTransitives = getNestedQuestions;
-			_needToAggregateTransitivesToStatements = needToAggregateTransitivesToStatements;
+			NeedToProcessTransitives = needToProcess;
+			GetTransitives = getNestedQuestions;
+			NeedToAggregateTransitivesToStatements = needToAggregateTransitivesToStatements;
 			return this;
 		}
 
@@ -213,10 +221,10 @@ namespace Inventor.Core.Questions
 
 		protected virtual void ProcessChildrenIfNeed()
 		{
-			if (_needToProcessTransitives(Statements))
+			if (NeedToProcessTransitives(Statements))
 			{
 				ChildAnswers = new List<ChildAnswer>();
-				foreach (var nested in _getTransitives(Context))
+				foreach (var nested in GetTransitives(Context))
 				{
 					var answer = nested.Question.Ask(Context);
 					if (!answer.IsEmpty)
@@ -225,7 +233,7 @@ namespace Inventor.Core.Questions
 					}
 				}
 
-				if (_needToAggregateTransitivesToStatements)
+				if (NeedToAggregateTransitivesToStatements)
 				{
 					DoAggregateTransitivesToStatements();
 				}
