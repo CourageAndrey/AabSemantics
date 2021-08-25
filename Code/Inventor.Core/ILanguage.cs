@@ -104,6 +104,9 @@ namespace Inventor.Core
 
 	public interface ILanguageQuestionNames
 	{
+		String EnumerateAncestorsQuestion
+		{ get; }
+
 		String EnumerateDescendantsQuestion
 		{ get; }
 
@@ -258,6 +261,9 @@ namespace Inventor.Core
 		{ get; }
 
 		String IsDescriptionWithSignValue
+		{ get; }
+
+		String EnumerateAncestors
 		{ get; }
 
 		String Enumerate

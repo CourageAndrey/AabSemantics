@@ -8,6 +8,10 @@ namespace Inventor.Core.Localization
 		#region Properties
 
 		[XmlElement]
+		public String EnumerateAncestorsQuestion
+		{ get; set; }
+
+		[XmlElement]
 		public String EnumerateDescendantsQuestion
 		{ get; set; }
 
@@ -153,9 +157,10 @@ namespace Inventor.Core.Localization
 		{
 			return new LanguageQuestionNames
 			{
+				EnumerateAncestorsQuestion = "What CONCEPT is?",
 				EnumerateDescendantsQuestion = "What are CONCEPTs?",
 				IsQuestion = "Is DESCENDANT the child of ANCESTOR parent?",
-				WhatQuestion = "What CONCEPT is?",
+				WhatQuestion = "What CONCEPT is (details)?",
 				FindSubjectAreaQuestion = "What subject area does CONCEPT belong to?",
 				DescribeSubjectAreaQuestion = "What concepts are included in the subject area CONCEPT?",
 				SignValueQuestion = "What is the SIGN value of the CONCEPT?",

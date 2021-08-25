@@ -72,6 +72,10 @@ namespace Inventor.Core.Localization
 		{ get; set; }
 
 		[XmlElement]
+		public String EnumerateAncestors
+		{ get; set; }
+
+		[XmlElement]
 		public String Enumerate
 		{ get; set; }
 
@@ -181,6 +185,7 @@ namespace Inventor.Core.Localization
 				HasSignFalse = $"No, {Strings.ParamConcept} has not got {Strings.ParamSign} sign ",
 				HasSignsTrue = $"Yes, {Strings.ParamConcept} has signs ",
 				HasSignsFalse = $"No, {Strings.ParamConcept} has not signs ",
+				EnumerateAncestors = $"{Strings.ParamChild} is: ",
 				Enumerate = $"{Strings.ParamParent} can be following: ",
 				SubjectArea = $"{Strings.ParamConcept} belongs to following subject areas: ",
 				SubjectAreaConcepts = $"{Strings.ParamConcept} subject area contains following concepts: ",
