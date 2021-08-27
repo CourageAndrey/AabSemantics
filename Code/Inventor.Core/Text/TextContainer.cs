@@ -1,4 +1,4 @@
-﻿﻿﻿using System;
+﻿﻿using System;
 using System.Collections.Generic;
 using System.Text;
 
@@ -6,14 +6,15 @@ using Inventor.Core.Localization;
 
 namespace Inventor.Core.Text
 {
-	public class TextContainer : IText
+	public class TextContainer : ITextContainer
 	{
 		#region Properties
 
-		private readonly List<IText> _lines = new List<IText>();
+		public IList<IText> Children
+		{ get { return _lines; } }
 
-		public Int32 LinesCount
-		{ get { return _lines.Count; } }
+#warning Merge into property above
+		private readonly List<IText> _lines = new List<IText>();
 
 		#endregion
 
