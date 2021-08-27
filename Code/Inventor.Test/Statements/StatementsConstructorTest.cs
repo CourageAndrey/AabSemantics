@@ -417,7 +417,7 @@ namespace Inventor.Test.Statements
 				throw new NotImplementedException();
 			}
 
-			protected override Func<string> GetDescriptionText(ILanguageStatements language)
+			protected override string GetDescriptionText(ILanguageStatements language)
 			{
 				throw new NotImplementedException();
 			}

@@ -42,9 +42,9 @@ namespace Inventor.Core.Questions
 			}
 
 			var result = new FormattedText(
-				() => Strings.ParamAnswer,
+				language => Strings.ParamAnswer,
 				new Dictionary<String, INamed> { { Strings.ParamAnswer, statements.Any().ToLogicalValue() } });
-			result.Add(statements.Any() ? Statement.DescribeTrue(context.Language) : Statement.DescribeFalse(context.Language));
+			result.Add(statements.Any() ? Statement.DescribeTrue() : Statement.DescribeFalse());
 			return new BooleanAnswer(
 				statements.Any(),
 				result,

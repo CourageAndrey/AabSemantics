@@ -8,18 +8,18 @@ namespace Inventor.Core
 	{
 		#region Properties
 
-		public Func<String> Formatter
+		public Func<ILanguage, String> Formatter
 		{ get { return _formatter; } }
 
 		public IDictionary<String, INamed> Parameters
 		{ get { return _parameters; } }
 
-		private readonly Func<String> _formatter;
+		private readonly Func<ILanguage, String> _formatter;
 		private readonly IDictionary<String, INamed> _parameters;
 
 		#endregion
 
-		public FormattedLine(Func<String> formatter, IDictionary<String, INamed> parameters)
+		public FormattedLine(Func<ILanguage, String> formatter, IDictionary<String, INamed> parameters)
 		{
 			_formatter = formatter;
 			_parameters = new Dictionary<String, INamed>(parameters);
@@ -27,7 +27,7 @@ namespace Inventor.Core
 
 		public String GetPlainText(ILanguage language)
 		{
-			String result = _formatter();
+			String result = _formatter(language);
 			foreach (var parameter in _parameters)
 			{
 				result = result.Replace(parameter.Key, String.Format("\"{0}\"", parameter.Value.Name.GetValue(language)));
@@ -37,7 +37,7 @@ namespace Inventor.Core
 
 		public String GetHtml(ILanguage language, Int32 lineNumber)
 		{
-			String result = _formatter();
+			String result = _formatter(language);
 			foreach (var parameter in _parameters)
 			{
 				result = result.Replace(

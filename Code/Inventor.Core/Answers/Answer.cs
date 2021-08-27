@@ -27,10 +27,10 @@ namespace Inventor.Core.Answers
 			IsEmpty = isEmpty;
 		}
 
-		public static IAnswer CreateUnknown(ILanguage language)
+		public static IAnswer CreateUnknown()
 		{
 			return new Answer(
-				new FormattedText(() => language.Answers.Unknown, new Dictionary<String, INamed>()),
+				new FormattedText(language => language.Answers.Unknown, new Dictionary<String, INamed>()),
 				new Explanation(Array.Empty<IStatement>()),
 				true);
 		}

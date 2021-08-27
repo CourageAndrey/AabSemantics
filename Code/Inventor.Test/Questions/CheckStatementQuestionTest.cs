@@ -116,9 +116,9 @@ namespace Inventor.Test.Questions
 				yield break;
 			}
 
-			protected override Func<string> GetDescriptionText(ILanguageStatements language)
+			protected override string GetDescriptionText(ILanguageStatements language)
 			{
-				return () => string.Empty;
+				return string.Empty;
 			}
 
 			protected override IDictionary<string, INamed> GetDescriptionParameters()
@@ -159,9 +159,9 @@ namespace Inventor.Test.Questions
 				yield return Child;
 			}
 
-			protected override Func<string> GetDescriptionText(ILanguageStatements language)
+			protected override string GetDescriptionText(ILanguageStatements language)
 			{
-				return () => string.Empty;
+				return string.Empty;
 			}
 
 			protected override IDictionary<string, INamed> GetDescriptionParameters()

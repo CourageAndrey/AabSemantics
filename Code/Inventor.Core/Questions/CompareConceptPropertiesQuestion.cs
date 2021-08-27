@@ -48,7 +48,7 @@ namespace Inventor.Core.Questions
 			{
 				return new Answers.Answer(
 					new FormattedText(
-						() => context.Language.Answers.CanNotCompareConcepts,
+						language => language.Answers.CanNotCompareConcepts,
 						new Dictionary<String, INamed>
 						{
 							{ Strings.ParamConcept1, Concept1 },
@@ -95,23 +95,22 @@ namespace Inventor.Core.Questions
 
 			return new Answers.ConceptsAnswer(
 				resultSignValues.Keys,
-				formatAnswer(context.Language, parents, resultSignValues),
+				formatAnswer(parents, resultSignValues),
 				new Explanation(explanation));
 		}
 
 		protected abstract Boolean NeedToTakeIntoAccount(IConcept value1, IConcept value2);
 
-		protected abstract void WriteNotEmptyResultWithoutData(FormattedText text, ILanguage language);
+		protected abstract void WriteNotEmptyResultWithoutData(FormattedText text);
 
-		protected abstract void WriteOneLine(FormattedText text, IConcept sign, IConcept value1, IConcept value2, ILanguage language);
+		protected abstract void WriteOneLine(FormattedText text, IConcept sign, IConcept value1, IConcept value2);
 
 		private FormattedText formatAnswer(
-			ILanguage language,
 			ICollection<IConcept> parents,
 			IDictionary<IConcept, Tuple<IConcept, IConcept>> signValueStatements)
 		{
 			var result = new FormattedText(
-				() => language.Answers.CompareConceptsResult,
+				language => language.Answers.CompareConceptsResult,
 				new Dictionary<String, INamed>
 				{
 					{ Strings.ParamConcept1, Concept1 },
@@ -120,18 +119,18 @@ namespace Inventor.Core.Questions
 
 			String parentsFormat;
 			var parentParameters = parents.Enumerate(out parentsFormat);
-			result.Add(() => language.Answers.CompareConceptsParents + parentsFormat, parentParameters);
+			result.Add(language => language.Answers.CompareConceptsParents + parentsFormat, parentParameters);
 
 			if (signValueStatements.Count > 0)
 			{
 				foreach (var sign in signValueStatements)
 				{
-					WriteOneLine(result, sign.Key, sign.Value.Item1, sign.Value.Item2, language);
+					WriteOneLine(result, sign.Key, sign.Value.Item1, sign.Value.Item2);
 				}
 			}
 			else
 			{
-				WriteNotEmptyResultWithoutData(result, language);
+				WriteNotEmptyResultWithoutData(result);
 			}
 
 			return result;

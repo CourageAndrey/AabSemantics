@@ -52,9 +52,9 @@ namespace Inventor.Core.Statements
 
 		#region Description
 
-		protected override Func<String> GetDescriptionText(ILanguageStatements language)
+		protected override String GetDescriptionText(ILanguageStatements language)
 		{
-			return () => language.SignValue;
+			return language.SignValue;
 		}
 
 		protected override IDictionary<String, INamed> GetDescriptionParameters()

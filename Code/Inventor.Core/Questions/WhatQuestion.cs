@@ -42,11 +42,11 @@ namespace Inventor.Core.Questions
 
 					if (difference.Count > 0)
 					{
-						writeClassificationWithDifference(context.Language, result, statement, difference);
+						writeClassificationWithDifference(result, statement, difference);
 					}
 					else
 					{
-						writeJustClassification(context.Language, result, statement);
+						writeJustClassification(result, statement);
 					}
 
 					result.AddEmptyLine();
@@ -55,7 +55,7 @@ namespace Inventor.Core.Questions
 			}
 			else
 			{
-				return Answer.CreateUnknown(context.Language);
+				return Answer.CreateUnknown();
 			}
 		}
 
@@ -73,9 +73,9 @@ namespace Inventor.Core.Questions
 			return difference;
 		}
 
-		private void writeClassificationWithDifference(ILanguage language, FormattedText result, IsStatement statement, List<SignValueStatement> difference)
+		private void writeClassificationWithDifference(FormattedText result, IsStatement statement, List<SignValueStatement> difference)
 		{
-			result.Add(() => language.Answers.IsDescriptionWithSign, new Dictionary<String, INamed>
+			result.Add(language => language.Answers.IsDescriptionWithSign, new Dictionary<String, INamed>
 			{
 				{ Strings.ParamChild, Concept },
 				{ Strings.ParamParent, statement.Ancestor },
@@ -83,22 +83,22 @@ namespace Inventor.Core.Questions
 
 			foreach (var diff in difference)
 			{
-				writeSignDifference(language, result, diff);
+				writeSignDifference(result, diff);
 			}
 		}
 
-		private static void writeSignDifference(ILanguage language, FormattedText result, SignValueStatement diff)
+		private static void writeSignDifference(FormattedText result, SignValueStatement diff)
 		{
-			result.Add(() => language.Answers.IsDescriptionWithSignValue, new Dictionary<String, INamed>
+			result.Add(language => language.Answers.IsDescriptionWithSignValue, new Dictionary<String, INamed>
 			{
 				{ Strings.ParamSign, diff.Sign },
 				{ Strings.ParamValue, diff.Value },
 			});
 		}
 
-		private void writeJustClassification(ILanguage language, FormattedText result, IsStatement statement)
+		private void writeJustClassification(FormattedText result, IsStatement statement)
 		{
-			result.Add(() => language.Answers.IsDescription, new Dictionary<String, INamed>
+			result.Add(language => language.Answers.IsDescription, new Dictionary<String, INamed>
 			{
 				{ Strings.ParamChild, Concept },
 				{ Strings.ParamParent, statement.Ancestor },
