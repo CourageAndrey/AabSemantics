@@ -132,7 +132,7 @@ namespace Inventor.Core
 					concepts);
 			}
 
-			if (result.LinesCount == 0)
+			if (result.Children.Count == 0)
 			{
 				result.Add(language => language.Consistency.CheckOk, new Dictionary<String, INamed>());
 			}
