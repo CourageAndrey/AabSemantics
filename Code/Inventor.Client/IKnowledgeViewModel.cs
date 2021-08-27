@@ -65,7 +65,7 @@ namespace Inventor.Client
 		{
 			var statement = BoundObject ?? CreateStatementImplementation();
 			var text = statement.DescribeTrue();
-			return TextRepresenters.PlainString.Represent(text, _language).ToString();
+			return TextRepresenters.PlainString.RepresentText(text, _language).ToString();
 		}
 	}
 }

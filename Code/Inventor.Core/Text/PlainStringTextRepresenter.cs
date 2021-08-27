@@ -3,40 +3,29 @@ using System.Text;
 
 namespace Inventor.Core.Text
 {
-	public class PlainStringTextRepresenter : ITextRepresenter<StringBuilder>
+	public class PlainStringTextRepresenter : IStructuredTextRepresenter
 	{
-		public StringBuilder Represent(IText text, ILanguage language)
+		public StringBuilder RepresentText(IText text, ILanguage language)
 		{
-			if (text is TextBlock)
-			{
-				return representTextBlock(text as TextBlock, language);
-			}
-			else if (text is TextContainer)
-			{
-				return representTextContainer(text as TextContainer, language);
-			}
-			else
-			{
-				throw new NotSupportedException(nameof(text));
-			}
+			return this.Represent(text, language);
 		}
 
-		public StringBuilder representTextBlock(TextBlock text, ILanguage language)
+		public StringBuilder Represent(TextBlock textBlock, ILanguage language)
 		{
-			String result = text.Formatter(language);
-			foreach (var parameter in text.Parameters)
+			String result = textBlock.Formatter(language);
+			foreach (var parameter in textBlock.Parameters)
 			{
 				result = result.Replace(parameter.Key, String.Format("\"{0}\"", parameter.Value.Name.GetValue(language)));
 			}
 			return new StringBuilder(result);
 		}
 
-		public StringBuilder representTextContainer(TextContainer text, ILanguage language)
+		public StringBuilder Represent(TextContainer textContainer, ILanguage language)
 		{
 			var result = new StringBuilder();
-			foreach (var line in text.Children)
+			foreach (var line in textContainer.Children)
 			{
-				result.Append(Represent(line, language));
+				result.Append(RepresentText(line, language));
 				result.AppendLine();
 			}
 			return result;

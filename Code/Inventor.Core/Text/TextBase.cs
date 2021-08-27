@@ -9,7 +9,7 @@ namespace Inventor.Core.Text
 	{
 		public sealed override String ToString()
 		{
-			return TextRepresenters.PlainString.Represent(this, Language.Default).ToString();
+			return TextRepresenters.PlainString.RepresentText(this, Language.Default).ToString();
 		}
 
 		public abstract IDictionary<String, IKnowledge> GetParameters();
