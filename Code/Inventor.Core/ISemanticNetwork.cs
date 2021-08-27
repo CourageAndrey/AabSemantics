@@ -27,9 +27,9 @@ namespace Inventor.Core
 
 	public static class SemanticNetworkHelper
 	{
-		public static Text.FormattedText DescribeRules(this ISemanticNetwork semanticNetwork)
+		public static Text.TextContainer DescribeRules(this ISemanticNetwork semanticNetwork)
 		{
-			var result = new Text.FormattedText();
+			var result = new Text.TextContainer();
 			foreach (var statement in semanticNetwork.Statements)
 			{
 				result.Add(statement.DescribeTrue());
@@ -37,9 +37,9 @@ namespace Inventor.Core
 			return result;
 		}
 
-		public static Text.FormattedText CheckConsistensy(this ISemanticNetwork semanticNetwork)
+		public static Text.TextContainer CheckConsistensy(this ISemanticNetwork semanticNetwork)
 		{
-			var result = new Text.FormattedText();
+			var result = new Text.TextContainer();
 
 			// 1. check all duplicates
 			foreach (var statement in semanticNetwork.Statements)

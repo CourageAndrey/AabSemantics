@@ -49,7 +49,7 @@ namespace Inventor.Core.Questions
 		private static StatementsAnswer<ProcessesStatement> createAnswer(ICollection<ProcessesStatement> statements, IQuestionProcessingContext<ProcessesQuestion> context, ICollection<IStatement> transitiveStatements = null)
 		{
 			var resultStatements = new List<ProcessesStatement>();
-			var text = new Text.FormattedText();
+			var text = new Text.TextContainer();
 
 			foreach (var statement in statements)
 			{

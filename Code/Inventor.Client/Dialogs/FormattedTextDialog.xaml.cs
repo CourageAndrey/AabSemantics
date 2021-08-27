@@ -9,7 +9,7 @@ namespace Inventor.Client.Dialogs
 {
 	public partial class FormattedTextDialog
 	{
-		public FormattedTextDialog(ILanguage language, Core.Text.FormattedText text, Action<INamed> linkClicked)
+		public FormattedTextDialog(ILanguage language, Core.Text.TextContainer text, Action<INamed> linkClicked)
 		{
 			InitializeComponent();
 

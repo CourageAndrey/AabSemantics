@@ -16,7 +16,7 @@ namespace Inventor.Core.Questions
 			return value1 != value2;
 		}
 
-		protected override void WriteOneLine(Text.FormattedText text, IConcept sign, IConcept value1, IConcept value2)
+		protected override void WriteOneLine(Text.TextContainer text, IConcept sign, IConcept value1, IConcept value2)
 		{
 			var formatString = value1 != null && value2 != null
 				? new Func<ILanguage, String>(language => language.Answers.CompareConceptsDifference)
@@ -40,7 +40,7 @@ namespace Inventor.Core.Questions
 			text.Add(formatString, parameters);
 		}
 
-		protected override void WriteNotEmptyResultWithoutData(Text.FormattedText text)
+		protected override void WriteNotEmptyResultWithoutData(Text.TextContainer text)
 		{
 			text.Add(language => language.Answers.CompareConceptsNoDifference, new Dictionary<string, INamed>());
 		}

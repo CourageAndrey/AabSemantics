@@ -1,4 +1,4 @@
-﻿﻿using System;
+﻿﻿﻿using System;
 using System.Collections.Generic;
 using System.Text;
 
@@ -6,7 +6,7 @@ using Inventor.Core.Localization;
 
 namespace Inventor.Core.Text
 {
-	public class FormattedText : IText
+	public class TextContainer : IText
 	{
 		#region Properties
 
@@ -19,10 +19,10 @@ namespace Inventor.Core.Text
 
 		#region Constructors
 
-		public FormattedText()
+		public TextContainer()
 		{ }
 
-		public FormattedText(Func<ILanguage, String> formatter, IDictionary<String, INamed> parameters)
+		public TextContainer(Func<ILanguage, String> formatter, IDictionary<String, INamed> parameters)
 		{
 			Add(formatter, parameters);
 		}
@@ -43,7 +43,7 @@ namespace Inventor.Core.Text
 
 		public void Add(Func<ILanguage, String> formatter, IDictionary<String, INamed> parameters)
 		{
-			_lines.Add(new FormattedLine(formatter, parameters));
+			_lines.Add(new TextBlock(formatter, parameters));
 		}
 
 		public void AddEmptyLine()
@@ -54,7 +54,7 @@ namespace Inventor.Core.Text
 		public StringBuilder GetPlainText(ILanguage language)
 		{
 			var result = new StringBuilder();
-			foreach (FormattedLine line in _lines)
+			foreach (TextBlock line in _lines)
 			{
 				result.AppendLine(line.GetPlainText(language));
 				result.AppendLine();
@@ -68,7 +68,7 @@ namespace Inventor.Core.Text
 			result.AppendLine();
 			for (Int32 l = 0; l < _lines.Count; l++)
 			{
-				result.AppendLine(((FormattedLine) _lines[l]).GetHtml(language, l));
+				result.AppendLine(((TextBlock) _lines[l]).GetHtml(language, l));
 			}
 			result.Append(@"</body></html>");
 			return result;
@@ -79,10 +79,10 @@ namespace Inventor.Core.Text
 			var result = new SortedDictionary<String, INamed>();
 			for (Int32 l = 0; l < _lines.Count; l++)
 			{
-				var line = (FormattedLine) _lines[l];
+				var line = (TextBlock) _lines[l];
 				foreach (var parameter in line.Parameters)
 				{
-					result[FormattedLine.GetParam(l, parameter.Key)] = parameter.Value;
+					result[TextBlock.GetParam(l, parameter.Key)] = parameter.Value;
 				}
 			}
 			return result;

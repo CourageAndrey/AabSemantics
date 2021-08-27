@@ -4,7 +4,7 @@ using System.Web;
 
 namespace Inventor.Core.Text
 {
-	public class FormattedLine : IText
+	public class TextBlock : IText
 	{
 		#region Properties
 
@@ -19,7 +19,7 @@ namespace Inventor.Core.Text
 
 		#endregion
 
-		public FormattedLine(Func<ILanguage, String> formatter, IDictionary<String, INamed> parameters)
+		public TextBlock(Func<ILanguage, String> formatter, IDictionary<String, INamed> parameters)
 		{
 			_formatter = formatter;
 			_parameters = new Dictionary<String, INamed>(parameters);
