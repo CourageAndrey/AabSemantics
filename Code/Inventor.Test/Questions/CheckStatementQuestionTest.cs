@@ -121,9 +121,9 @@ namespace Inventor.Test.Questions
 				return string.Empty;
 			}
 
-			protected override IDictionary<string, INamed> GetDescriptionParameters()
+			protected override IDictionary<string, IKnowledge> GetDescriptionParameters()
 			{
-				return new Dictionary<string, INamed>();
+				return new Dictionary<string, IKnowledge>();
 			}
 
 			public override bool Equals(TestStatement other)
@@ -164,9 +164,9 @@ namespace Inventor.Test.Questions
 				return string.Empty;
 			}
 
-			protected override IDictionary<string, INamed> GetDescriptionParameters()
+			protected override IDictionary<string, IKnowledge> GetDescriptionParameters()
 			{
-				return new Dictionary<string, INamed>();
+				return new Dictionary<string, IKnowledge>();
 			}
 		}
 	}

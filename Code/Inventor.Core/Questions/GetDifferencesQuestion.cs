@@ -24,7 +24,7 @@ namespace Inventor.Core.Questions
 					? new Func<ILanguage, String>(language => language.Answers.CompareConceptsFirstNotSet)
 					: language => language.Answers.CompareConceptsSecondNotSet);
 
-			var parameters = new Dictionary<String, INamed>
+			var parameters = new Dictionary<String, IKnowledge>
 			{
 				{ Strings.ParamSign, sign },
 			};
@@ -42,7 +42,7 @@ namespace Inventor.Core.Questions
 
 		protected override void WriteNotEmptyResultWithoutData(Text.TextContainer text)
 		{
-			text.Add(language => language.Answers.CompareConceptsNoDifference, new Dictionary<string, INamed>());
+			text.Add(language => language.Answers.CompareConceptsNoDifference, new Dictionary<string, IKnowledge>());
 		}
 	}
 }

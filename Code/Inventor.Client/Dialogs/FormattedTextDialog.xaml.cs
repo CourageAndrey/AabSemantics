@@ -9,7 +9,7 @@ namespace Inventor.Client.Dialogs
 {
 	public partial class FormattedTextDialog
 	{
-		public FormattedTextDialog(ILanguage language, Core.Text.TextContainer text, Action<INamed> linkClicked)
+		public FormattedTextDialog(ILanguage language, Core.Text.TextContainer text, Action<IKnowledge> linkClicked)
 		{
 			InitializeComponent();
 
@@ -25,13 +25,14 @@ namespace Inventor.Client.Dialogs
 		{
 			if (_linkClicked != null)
 			{
-				_linkClicked(_parameters[webBrowserNavigatingEventArgs.Url.Fragment]);
+				string key = webBrowserNavigatingEventArgs.Url.LocalPath;
+				_linkClicked(_parameters[key]);
 			}
 			webBrowserNavigatingEventArgs.Cancel = true;
 		}
 
-		private readonly IDictionary<string, INamed> _parameters;
-		private readonly Action<INamed> _linkClicked;
+		private readonly IDictionary<string, IKnowledge> _parameters;
+		private readonly Action<IKnowledge> _linkClicked;
 
 		private void dialogLoaded(object sender, RoutedEventArgs e)
 		{

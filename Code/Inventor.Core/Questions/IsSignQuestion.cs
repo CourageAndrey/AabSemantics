@@ -33,7 +33,7 @@ namespace Inventor.Core.Questions
 					statement => Concept.HasAttribute<IsSignAttribute>(),
 					language => language.Answers.SignTrue,
 					language => language.Answers.SignFalse,
-					new Dictionary<String, INamed>
+					new Dictionary<String, IKnowledge>
 					{
 						{ Strings.ParamConcept, Concept },
 					});

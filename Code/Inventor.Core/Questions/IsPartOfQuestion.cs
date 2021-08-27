@@ -39,7 +39,7 @@ namespace Inventor.Core.Questions
 					statements => statements.Any(),
 					language => language.Answers.IsPartOfTrue,
 					language => language.Answers.IsPartOfFalse,
-					new Dictionary<String, INamed>
+					new Dictionary<String, IKnowledge>
 					{
 						{ Strings.ParamParent, Parent },
 						{ Strings.ParamChild, Child },

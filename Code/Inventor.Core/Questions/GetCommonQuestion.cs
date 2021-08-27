@@ -22,7 +22,7 @@ namespace Inventor.Core.Questions
 				? new Func<ILanguage, String>(language => language.Answers.CompareConceptsCommon)
 				: language => language.Answers.CompareConceptsCommonNotSet;
 
-			var parameters = new Dictionary<String, INamed>
+			var parameters = new Dictionary<String, IKnowledge>
 			{
 				{ Strings.ParamSign, sign },
 			};
@@ -36,7 +36,7 @@ namespace Inventor.Core.Questions
 
 		protected override void WriteNotEmptyResultWithoutData(Text.TextContainer text)
 		{
-			text.Add(language => language.Answers.CompareConceptsNoCommon, new Dictionary<string, INamed>());
+			text.Add(language => language.Answers.CompareConceptsNoCommon, new Dictionary<string, IKnowledge>());
 		}
 	}
 }

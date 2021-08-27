@@ -50,9 +50,9 @@ namespace Inventor.Core.Statements
 			return language.HasSign;
 		}
 
-		protected override IDictionary<String, INamed> GetDescriptionParameters()
+		protected override IDictionary<String, IKnowledge> GetDescriptionParameters()
 		{
-			return new Dictionary<String, INamed>
+			return new Dictionary<String, IKnowledge>
 			{
 				{ Strings.ParamConcept, Concept },
 				{ Strings.ParamSign, Sign },

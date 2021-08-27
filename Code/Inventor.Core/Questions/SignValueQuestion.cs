@@ -40,7 +40,7 @@ namespace Inventor.Core.Questions
 				.SelectFirstConcept(
 					statement => statement.Value,
 					language => language.Answers.SignValue,
-					statement => new Dictionary<String, INamed>
+					statement => new Dictionary<String, IKnowledge>
 					{
 						{ Strings.ParamConcept, Concept },
 						{ Strings.ParamSign, statement.Sign },

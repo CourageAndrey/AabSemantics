@@ -126,7 +126,7 @@ namespace Inventor.Core.Questions
 		public IAnswer SelectFirstConcept(
 			Func<StatementT, IConcept> resultConceptSelector,
 			Func<ILanguage, String> answerFormat,
-			Func<StatementT, IDictionary<String, INamed>> getParameters)
+			Func<StatementT, IDictionary<String, IKnowledge>> getParameters)
 		{
 			ProcessChildrenIfNeed();
 
@@ -162,7 +162,7 @@ namespace Inventor.Core.Questions
 			Func<ICollection<StatementT>, Boolean> valueGetter,
 			Func<ILanguage, String> trueFormat,
 			Func<ILanguage, String> falseFormat,
-			IDictionary<String, INamed> parameters)
+			IDictionary<String, IKnowledge> parameters)
 		{
 			ProcessChildrenIfNeed();
 
@@ -184,7 +184,7 @@ namespace Inventor.Core.Questions
 			Func<ICollection<StatementT>, Boolean> valueGetter,
 			Func<ILanguage, String> trueFormat,
 			Func<ILanguage, String> falseFormat,
-			IDictionary<String, INamed> parameters)
+			IDictionary<String, IKnowledge> parameters)
 		{
 			ProcessChildrenIfNeed();
 

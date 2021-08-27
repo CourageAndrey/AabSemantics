@@ -49,7 +49,7 @@ namespace Inventor.Core.Questions
 				return new Answers.Answer(
 					new Text.TextContainer(
 						language => language.Answers.CanNotCompareConcepts,
-						new Dictionary<String, INamed>
+						new Dictionary<String, IKnowledge>
 						{
 							{ Strings.ParamConcept1, Concept1 },
 							{ Strings.ParamConcept2, Concept2 },
@@ -111,7 +111,7 @@ namespace Inventor.Core.Questions
 		{
 			var result = new Text.TextContainer(
 				language => language.Answers.CompareConceptsResult,
-				new Dictionary<String, INamed>
+				new Dictionary<String, IKnowledge>
 				{
 					{ Strings.ParamConcept1, Concept1 },
 					{ Strings.ParamConcept2, Concept2 },

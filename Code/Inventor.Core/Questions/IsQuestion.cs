@@ -42,7 +42,7 @@ namespace Inventor.Core.Questions
 					statements => statements.Count > 0,
 					language => language.Answers.IsTrue,
 					language => language.Answers.IsFalse,
-					new Dictionary<String, INamed>
+					new Dictionary<String, IKnowledge>
 					{
 						{ Strings.ParamParent, Child },
 						{ Strings.ParamChild, Parent },

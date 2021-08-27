@@ -71,7 +71,7 @@ namespace Inventor.Core.Base
 
 		protected abstract String GetDescriptionText(ILanguageStatements language);
 
-		protected abstract IDictionary<String, INamed> GetDescriptionParameters();
+		protected abstract IDictionary<String, IKnowledge> GetDescriptionParameters();
 
 		#endregion
 

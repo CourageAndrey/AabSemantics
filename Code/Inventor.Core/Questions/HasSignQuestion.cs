@@ -45,7 +45,7 @@ namespace Inventor.Core.Questions
 					statements => statements.Count > 0,
 					language => language.Answers.HasSignTrue + (Recursive ? language.Answers.RecursiveTrue : language.Answers.RecursiveFalse) + ".",
 					language => language.Answers.HasSignFalse + (Recursive ? language.Answers.RecursiveTrue : language.Answers.RecursiveFalse) + ".",
-					new Dictionary<String, INamed>
+					new Dictionary<String, IKnowledge>
 					{
 						{ Strings.ParamConcept, Concept },
 						{ Strings.ParamSign, Sign },

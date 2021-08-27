@@ -75,7 +75,7 @@ namespace Inventor.Core.Questions
 
 		private void writeClassificationWithDifference(Text.TextContainer result, IsStatement statement, List<SignValueStatement> difference)
 		{
-			result.Add(language => language.Answers.IsDescriptionWithSign, new Dictionary<String, INamed>
+			result.Add(language => language.Answers.IsDescriptionWithSign, new Dictionary<String, IKnowledge>
 			{
 				{ Strings.ParamChild, Concept },
 				{ Strings.ParamParent, statement.Ancestor },
@@ -89,7 +89,7 @@ namespace Inventor.Core.Questions
 
 		private static void writeSignDifference(Text.TextContainer result, SignValueStatement diff)
 		{
-			result.Add(language => language.Answers.IsDescriptionWithSignValue, new Dictionary<String, INamed>
+			result.Add(language => language.Answers.IsDescriptionWithSignValue, new Dictionary<String, IKnowledge>
 			{
 				{ Strings.ParamSign, diff.Sign },
 				{ Strings.ParamValue, diff.Value },
@@ -98,7 +98,7 @@ namespace Inventor.Core.Questions
 
 		private void writeJustClassification(Text.TextContainer result, IsStatement statement)
 		{
-			result.Add(language => language.Answers.IsDescription, new Dictionary<String, INamed>
+			result.Add(language => language.Answers.IsDescription, new Dictionary<String, IKnowledge>
 			{
 				{ Strings.ParamChild, Concept },
 				{ Strings.ParamParent, statement.Ancestor },

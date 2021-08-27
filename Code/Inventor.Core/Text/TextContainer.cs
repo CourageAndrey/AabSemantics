@@ -23,7 +23,7 @@ namespace Inventor.Core.Text
 		public TextContainer()
 		{ }
 
-		public TextContainer(Func<ILanguage, String> formatter, IDictionary<String, INamed> parameters)
+		public TextContainer(Func<ILanguage, String> formatter, IDictionary<String, IKnowledge> parameters)
 		{
 			Add(formatter, parameters);
 		}
@@ -42,14 +42,14 @@ namespace Inventor.Core.Text
 			_lines.Add(line);
 		}
 
-		public void Add(Func<ILanguage, String> formatter, IDictionary<String, INamed> parameters)
+		public void Add(Func<ILanguage, String> formatter, IDictionary<String, IKnowledge> parameters)
 		{
 			_lines.Add(new TextBlock(formatter, parameters));
 		}
 
 		public void AddEmptyLine()
 		{
-			Add(language => String.Empty, new Dictionary<String, INamed>());
+			Add(language => String.Empty, new Dictionary<String, IKnowledge>());
 		}
 
 		public StringBuilder GetPlainText(ILanguage language)
@@ -67,23 +67,23 @@ namespace Inventor.Core.Text
 		{
 			var result = new StringBuilder(@"<html><head><title>Inventor</title></head><body>");
 			result.AppendLine();
-			for (Int32 l = 0; l < _lines.Count; l++)
+			foreach (var line in _lines)
 			{
-				result.AppendLine(((TextBlock) _lines[l]).GetHtml(language, l));
+				result.AppendLine(((TextBlock) line).GetHtml(language));
 			}
 			result.Append(@"</body></html>");
 			return result;
 		}
 
-		public IDictionary<String, INamed> GetAllParameters()
+		public IDictionary<String, IKnowledge> GetAllParameters()
 		{
-			var result = new SortedDictionary<String, INamed>();
+			var result = new SortedDictionary<String, IKnowledge>();
 			for (Int32 l = 0; l < _lines.Count; l++)
 			{
 				var line = (TextBlock) _lines[l];
 				foreach (var parameter in line.Parameters)
 				{
-					result[TextBlock.GetParam(l, parameter.Key)] = parameter.Value;
+					result[parameter.Value.ID] = parameter.Value;
 				}
 			}
 			return result;

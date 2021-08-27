@@ -11,18 +11,18 @@ namespace Inventor.Core.Text
 		public Func<ILanguage, String> Formatter
 		{ get { return _formatter; } }
 
-		public IDictionary<String, INamed> Parameters
+		public IDictionary<String, IKnowledge> Parameters
 		{ get { return _parameters; } }
 
 		private readonly Func<ILanguage, String> _formatter;
-		private readonly IDictionary<String, INamed> _parameters;
+		private readonly IDictionary<String, IKnowledge> _parameters;
 
 		#endregion
 
-		public TextBlock(Func<ILanguage, String> formatter, IDictionary<String, INamed> parameters)
+		public TextBlock(Func<ILanguage, String> formatter, IDictionary<String, IKnowledge> parameters)
 		{
 			_formatter = formatter;
-			_parameters = new Dictionary<String, INamed>(parameters);
+			_parameters = new Dictionary<String, IKnowledge>(parameters);
 		}
 
 		public String GetPlainText(ILanguage language)
@@ -35,21 +35,16 @@ namespace Inventor.Core.Text
 			return result;
 		}
 
-		public String GetHtml(ILanguage language, Int32 lineNumber)
+		public String GetHtml(ILanguage language)
 		{
 			String result = _formatter(language);
 			foreach (var parameter in _parameters)
 			{
 				result = result.Replace(
 					parameter.Key,
-					String.Format("<a href=\"{0}\">{1}</a>", GetParam(lineNumber, parameter.Key), HttpUtility.HtmlEncode(parameter.Value.Name.GetValue(language))));
+					String.Format("<a href=\"{0}\">{1}</a>", parameter.Value.ID, HttpUtility.HtmlEncode(parameter.Value.Name.GetValue(language))));
 			}
 			return result + @"<br/><br/>";
-		}
-
-		public static String GetParam(Int32 line, String param)
-		{
-			return String.Format("#{0:00000000}{1}", line, param.Remove(0, 1));
 		}
 	}
 }

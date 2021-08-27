@@ -48,7 +48,7 @@ namespace Inventor.Core
 				{
 					result.Add(
 						language => language.Consistency.ErrorDuplicate,
-						new Dictionary<String, INamed> { { Strings.ParamStatement, statement } });
+						new Dictionary<String, IKnowledge> { { Strings.ParamStatement, statement } });
 				}
 			}
 
@@ -60,7 +60,7 @@ namespace Inventor.Core
 				{
 					result.Add(
 						language => language.Consistency.ErrorCyclic,
-						new Dictionary<String, INamed> { { Strings.ParamStatement, clasification } });
+						new Dictionary<String, IKnowledge> { { Strings.ParamStatement, clasification } });
 				}
 			}
 
@@ -76,7 +76,7 @@ namespace Inventor.Core
 					{
 						result.Add(
 							language => language.Consistency.ErrorMultipleSignValue,
-							new Dictionary<String, INamed>
+							new Dictionary<String, IKnowledge>
 							{
 								{ Strings.ParamConcept, concept },
 								{ Strings.ParamSign, sign.Sign },
@@ -92,7 +92,7 @@ namespace Inventor.Core
 				{
 					result.Add(
 						language => language.Consistency.ErrorSignWithoutValue,
-						new Dictionary<String, INamed> { { Strings.ParamStatement, signValue } });
+						new Dictionary<String, IKnowledge> { { Strings.ParamStatement, signValue } });
 				}
 			}
 
@@ -104,7 +104,7 @@ namespace Inventor.Core
 				{
 					result.Add(
 						language => language.Consistency.ErrorMultipleSign,
-						new Dictionary<String, INamed> { { Strings.ParamStatement, hasSign } });
+						new Dictionary<String, IKnowledge> { { Strings.ParamStatement, hasSign } });
 				}
 			}
 
@@ -134,7 +134,7 @@ namespace Inventor.Core
 
 			if (result.Children.Count == 0)
 			{
-				result.Add(language => language.Consistency.CheckOk, new Dictionary<String, INamed>());
+				result.Add(language => language.Consistency.CheckOk, new Dictionary<String, IKnowledge>());
 			}
 			return result;
 		}

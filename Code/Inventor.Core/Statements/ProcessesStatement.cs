@@ -58,9 +58,9 @@ namespace Inventor.Core.Statements
 			return language.Processes;
 		}
 
-		protected override IDictionary<String, INamed> GetDescriptionParameters()
+		protected override IDictionary<String, IKnowledge> GetDescriptionParameters()
 		{
-			return new Dictionary<String, INamed>
+			return new Dictionary<String, IKnowledge>
 			{
 				{ Strings.ParamProcessA, ProcessA },
 				{ Strings.ParamProcessB, ProcessB },
