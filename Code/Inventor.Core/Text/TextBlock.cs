@@ -23,5 +23,10 @@ namespace Inventor.Core.Text
 			_formatter = formatter;
 			_parameters = new Dictionary<String, IKnowledge>(parameters);
 		}
+
+		public override IDictionary<String, IKnowledge> GetParameters()
+		{
+			return Parameters;
+		}
 	}
 }

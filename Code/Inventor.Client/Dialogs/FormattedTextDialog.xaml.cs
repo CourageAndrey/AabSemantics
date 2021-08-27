@@ -13,7 +13,7 @@ namespace Inventor.Client.Dialogs
 		{
 			InitializeComponent();
 
-			_parameters = text.GetAllParameters();
+			_parameters = text.GetParameters();
 			_linkClicked = linkClicked;
 
 			var browser = (WebBrowser) windowsFormsHost.Child;
