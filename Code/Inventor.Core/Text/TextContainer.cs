@@ -41,12 +41,12 @@ namespace Inventor.Core.Text
 			Add(language => String.Empty, new Dictionary<String, IKnowledge>());
 		}
 
-		public IDictionary<String, IKnowledge> GetAllParameters()
+		public override IDictionary<String, IKnowledge> GetParameters()
 		{
 			var result = new SortedDictionary<String, IKnowledge>();
-			foreach (TextBlock line in Children)
+			foreach (var line in Children)
 			{
-				foreach (var parameter in line.Parameters)
+				foreach (var parameter in line.GetParameters())
 				{
 					result[parameter.Value.ID] = parameter.Value;
 				}

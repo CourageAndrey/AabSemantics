@@ -1,9 +1,11 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 namespace Inventor.Core
 {
 	public interface IText
 	{
+		IDictionary<String, IKnowledge> GetParameters();
 	}
 
 	public interface ITextContainer : IText
