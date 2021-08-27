@@ -17,7 +17,7 @@ namespace Inventor.Client.Dialogs
 			_linkClicked = linkClicked;
 
 			var browser = (WebBrowser) windowsFormsHost.Child;
-			browser.DocumentText = text.GetHtml(language).ToString();
+			browser.DocumentText = TextRepresenters.Html.Represent(text, language).ToString();
 			browser.Navigating += browserNavigating;
 		}
 

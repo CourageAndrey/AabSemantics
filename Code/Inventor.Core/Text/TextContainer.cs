@@ -1,12 +1,9 @@
 ﻿﻿using System;
 using System.Collections.Generic;
-using System.Text;
-
-using Inventor.Core.Localization;
 
 namespace Inventor.Core.Text
 {
-	public class TextContainer : ITextContainer
+	public class TextContainer : TextBase, ITextContainer
 	{
 		#region Properties
 
@@ -30,11 +27,6 @@ namespace Inventor.Core.Text
 
 		#endregion
 
-		public override String ToString()
-		{
-			return Strings.TostringFormatted + " : " + GetPlainText(Language.Default);
-		}
-
 		#region Text
 
 		public void Add(IText line)
@@ -52,35 +44,11 @@ namespace Inventor.Core.Text
 			Add(language => String.Empty, new Dictionary<String, IKnowledge>());
 		}
 
-		public StringBuilder GetPlainText(ILanguage language)
-		{
-			var result = new StringBuilder();
-			foreach (TextBlock line in _lines)
-			{
-				result.AppendLine(line.GetPlainText(language));
-				result.AppendLine();
-			}
-			return result;
-		}
-
-		public StringBuilder GetHtml(ILanguage language)
-		{
-			var result = new StringBuilder(@"<html><head><title>Inventor</title></head><body>");
-			result.AppendLine();
-			foreach (var line in _lines)
-			{
-				result.AppendLine(((TextBlock) line).GetHtml(language));
-			}
-			result.Append(@"</body></html>");
-			return result;
-		}
-
 		public IDictionary<String, IKnowledge> GetAllParameters()
 		{
 			var result = new SortedDictionary<String, IKnowledge>();
-			for (Int32 l = 0; l < _lines.Count; l++)
+			foreach (TextBlock line in _lines)
 			{
-				var line = (TextBlock) _lines[l];
 				foreach (var parameter in line.Parameters)
 				{
 					result[parameter.Value.ID] = parameter.Value;
