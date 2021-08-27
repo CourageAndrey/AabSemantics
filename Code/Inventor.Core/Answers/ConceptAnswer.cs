@@ -9,7 +9,7 @@
 
 		#endregion
 
-		public ConceptAnswer(IConcept result, FormattedText description, IExplanation explanation)
+		public ConceptAnswer(IConcept result, IText description, IExplanation explanation)
 			: base(description, explanation, result == null)
 		{
 			Result = result;

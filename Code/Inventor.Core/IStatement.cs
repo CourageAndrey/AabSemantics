@@ -11,11 +11,11 @@ namespace Inventor.Core
 
 		IEnumerable<IConcept> GetChildConcepts();
 
-		FormattedLine DescribeTrue();
+		IText DescribeTrue();
 
-		FormattedLine DescribeFalse();
+		IText DescribeFalse();
 
-		FormattedLine DescribeQuestion();
+		IText DescribeQuestion();
 
 		Boolean CheckUnique(IEnumerable<IStatement> statements);
 	}
