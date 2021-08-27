@@ -56,17 +56,17 @@ namespace Inventor.Core.Base
 			var parameters = GetDescriptionParameters();
 			parameters[Strings.ParamStatement] = this;
 
-			return new FormattedLine(formatter, parameters);
+			return new Text.FormattedLine(formatter, parameters);
 		}
 
 		public IText DescribeFalse()
 		{
-			return new FormattedLine(language => GetDescriptionText(language.FalseStatementFormatStrings), GetDescriptionParameters());
+			return new Text.FormattedLine(language => GetDescriptionText(language.FalseStatementFormatStrings), GetDescriptionParameters());
 		}
 
 		public IText DescribeQuestion()
 		{
-			return new FormattedLine(language => GetDescriptionText(language.QuestionStatementFormatStrings), GetDescriptionParameters());
+			return new Text.FormattedLine(language => GetDescriptionText(language.QuestionStatementFormatStrings), GetDescriptionParameters());
 		}
 
 		protected abstract String GetDescriptionText(ILanguageStatements language);

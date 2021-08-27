@@ -1,10 +1,10 @@
-﻿using System;
+﻿﻿using System;
 using System.Collections.Generic;
 using System.Text;
 
 using Inventor.Core.Localization;
 
-namespace Inventor.Core
+namespace Inventor.Core.Text
 {
 	public class FormattedText : IText
 	{
