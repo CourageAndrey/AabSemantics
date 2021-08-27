@@ -62,8 +62,8 @@ namespace Inventor.Client
 				var processingResult = (Core.Text.TextContainer) answer.Description;
 				if (answer.Explanation.Statements.Count > 0)
 				{
-					processingResult.Add(new Core.Text.TextBlock(language => string.Empty, new Dictionary<string, INamed>()));
-					processingResult.Add(new Core.Text.TextBlock(language => language.Answers.Explanation, new Dictionary<string, INamed>()));
+					processingResult.Add(new Core.Text.TextBlock(language => string.Empty, new Dictionary<string, IKnowledge>()));
+					processingResult.Add(new Core.Text.TextBlock(language => language.Answers.Explanation, new Dictionary<string, IKnowledge>()));
 
 					foreach (var statement in answer.Explanation.Statements)
 					{
@@ -110,7 +110,7 @@ namespace Inventor.Client
 
 		#region Object picking
 
-		private void knowledgeObjectPicked(INamed entity)
+		private void knowledgeObjectPicked(IKnowledge entity)
 		{
 			var path = _semanticNetworkNode.Find(entity).OfType<object>().ToList();
 			if (path.Count > 0)

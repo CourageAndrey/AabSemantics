@@ -53,9 +53,9 @@ namespace Inventor.Core.Statements
 			return language.SubjectArea;
 		}
 
-		protected override IDictionary<String, INamed> GetDescriptionParameters()
+		protected override IDictionary<String, IKnowledge> GetDescriptionParameters()
 		{
-			return new Dictionary<String, INamed>
+			return new Dictionary<String, IKnowledge>
 			{
 				{ Strings.ParamArea, Area },
 				{ Strings.ParamConcept, Concept },

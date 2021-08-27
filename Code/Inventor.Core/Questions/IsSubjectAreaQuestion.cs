@@ -39,7 +39,7 @@ namespace Inventor.Core.Questions
 					statements => statements.Any(),
 					language => language.Answers.IsSubjectAreaTrue,
 					language => language.Answers.IsSubjectAreaFalse,
-					new Dictionary<String, INamed>
+					new Dictionary<String, IKnowledge>
 					{
 						{ Strings.ParamArea, Area },
 						{ Strings.ParamConcept, Concept },

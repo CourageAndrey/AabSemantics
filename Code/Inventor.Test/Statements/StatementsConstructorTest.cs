@@ -422,7 +422,7 @@ namespace Inventor.Test.Statements
 				throw new NotImplementedException();
 			}
 
-			protected override IDictionary<string, INamed> GetDescriptionParameters()
+			protected override IDictionary<string, IKnowledge> GetDescriptionParameters()
 			{
 				throw new NotImplementedException();
 			}

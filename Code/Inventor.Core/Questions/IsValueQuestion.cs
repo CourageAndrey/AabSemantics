@@ -33,7 +33,7 @@ namespace Inventor.Core.Questions
 					statements => Concept.HasAttribute<IsValueAttribute>(),
 					language => language.Answers.ValueTrue,
 					language => language.Answers.ValueFalse,
-					new Dictionary<String, INamed>
+					new Dictionary<String, IKnowledge>
 					{
 						{ Strings.ParamConcept, Concept },
 					});

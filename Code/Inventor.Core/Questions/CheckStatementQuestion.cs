@@ -43,7 +43,7 @@ namespace Inventor.Core.Questions
 
 			var result = new Text.TextContainer(
 				language => Strings.ParamAnswer,
-				new Dictionary<String, INamed> { { Strings.ParamAnswer, statements.Any().ToLogicalValue() } });
+				new Dictionary<String, IKnowledge> { { Strings.ParamAnswer, statements.Any().ToLogicalValue() } });
 			result.Add(statements.Any() ? Statement.DescribeTrue() : Statement.DescribeFalse());
 			return new BooleanAnswer(
 				statements.Any(),
