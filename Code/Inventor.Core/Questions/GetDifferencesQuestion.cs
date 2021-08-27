@@ -16,11 +16,13 @@ namespace Inventor.Core.Questions
 			return value1 != value2;
 		}
 
-		protected override void WriteOneLine(FormattedText text, IConcept sign, IConcept value1, IConcept value2, ILanguage language)
+		protected override void WriteOneLine(FormattedText text, IConcept sign, IConcept value1, IConcept value2)
 		{
-			String formatString = value1 != null && value2 != null
-				? language.Answers.CompareConceptsDifference
-				: (value1 != null ? language.Answers.CompareConceptsFirstNotSet : language.Answers.CompareConceptsSecondNotSet);
+			var formatString = value1 != null && value2 != null
+				? new Func<ILanguage, String>(language => language.Answers.CompareConceptsDifference)
+				: (value1 != null
+					? new Func<ILanguage, String>(language => language.Answers.CompareConceptsFirstNotSet)
+					: language => language.Answers.CompareConceptsSecondNotSet);
 
 			var parameters = new Dictionary<String, INamed>
 			{
@@ -35,12 +37,12 @@ namespace Inventor.Core.Questions
 				parameters[Strings.ParamConcept2] = value2;
 			}
 
-			text.Add(() => formatString, parameters);
+			text.Add(formatString, parameters);
 		}
 
-		protected override void WriteNotEmptyResultWithoutData(FormattedText text, ILanguage language)
+		protected override void WriteNotEmptyResultWithoutData(FormattedText text)
 		{
-			text.Add(() => language.Answers.CompareConceptsNoDifference, new Dictionary<string, INamed>());
+			text.Add(language => language.Answers.CompareConceptsNoDifference, new Dictionary<string, INamed>());
 		}
 	}
 }

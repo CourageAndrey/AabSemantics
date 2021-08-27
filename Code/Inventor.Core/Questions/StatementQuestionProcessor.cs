@@ -110,7 +110,7 @@ namespace Inventor.Core.Questions
 
 				var answer = new ConceptsAnswer(
 					resultConcepts,
-					new FormattedText(() => answerFormat(Context.Language) + format + ".", parameters),
+					new FormattedText(language => answerFormat(Context.Language) + format + ".", parameters),
 					new Explanation(Statements.OfType<IStatement>()));
 
 				answer.Explanation.Expand(AdditionalTransitives);
@@ -119,7 +119,7 @@ namespace Inventor.Core.Questions
 			}
 			else
 			{
-				return Answer.CreateUnknown(Context.Language);
+				return Answer.CreateUnknown();
 			}
 		}
 
@@ -138,7 +138,7 @@ namespace Inventor.Core.Questions
 				answer = new ConceptAnswer(
 					resultConceptSelector(statement),
 					new FormattedText(
-						() => answerFormat(Context.Language),
+						answerFormat,
 						getParameters(statement)),
 					new Explanation(Statements.OfType<IStatement>()));
 
@@ -155,7 +155,7 @@ namespace Inventor.Core.Questions
 				}
 			}
 
-			return answer ?? Answer.CreateUnknown(Context.Language);
+			return answer ?? Answer.CreateUnknown();
 		}
 
 		public BooleanAnswer SelectBoolean(
@@ -171,7 +171,7 @@ namespace Inventor.Core.Questions
 			var answer = new BooleanAnswer(
 				value,
 				new FormattedText(
-					value ? new Func<String>(() => trueFormat(Context.Language)) : () => falseFormat(Context.Language),
+					value ? trueFormat : falseFormat,
 					parameters),
 				new Explanation(Statements.OfType<IStatement>()));
 
@@ -209,7 +209,7 @@ namespace Inventor.Core.Questions
 			var answer = new BooleanAnswer(
 				result,
 				new FormattedText(
-					result ? new Func<String>(() => trueFormat(Context.Language)) : () => falseFormat(Context.Language),
+					result ? trueFormat : falseFormat,
 					parameters),
 				new Explanation(explanation));
 

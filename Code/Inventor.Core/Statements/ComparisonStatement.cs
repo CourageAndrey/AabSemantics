@@ -63,9 +63,9 @@ namespace Inventor.Core.Statements
 			};
 		}
 
-		protected override Func<String> GetDescriptionText(ILanguageStatements language)
+		protected override String GetDescriptionText(ILanguageStatements language)
 		{
-			return () => language.Comparison;
+			return language.Comparison;
 		}
 
 		#endregion

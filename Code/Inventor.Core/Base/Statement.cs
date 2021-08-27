@@ -49,27 +49,27 @@ namespace Inventor.Core.Base
 
 		#region Description
 
-		public FormattedLine DescribeTrue(ILanguage language)
+		public FormattedLine DescribeTrue()
 		{
-			var formatter = GetDescriptionText(language.TrueStatementFormatStrings);
+			var formatter = new Func<ILanguage, String>(language => GetDescriptionText(language.TrueStatementFormatStrings) + $" ({Strings.ParamStatement})");
 
 			var parameters = GetDescriptionParameters();
 			parameters[Strings.ParamStatement] = this;
 
-			return new FormattedLine(() => formatter() + $" ({Strings.ParamStatement})", parameters);
+			return new FormattedLine(formatter, parameters);
 		}
 
-		public FormattedLine DescribeFalse(ILanguage language)
+		public FormattedLine DescribeFalse()
 		{
-			return new FormattedLine(GetDescriptionText(language.FalseStatementFormatStrings), GetDescriptionParameters());
+			return new FormattedLine(language => GetDescriptionText(language.FalseStatementFormatStrings), GetDescriptionParameters());
 		}
 
-		public FormattedLine DescribeQuestion(ILanguage language)
+		public FormattedLine DescribeQuestion()
 		{
-			return new FormattedLine(GetDescriptionText(language.QuestionStatementFormatStrings), GetDescriptionParameters());
+			return new FormattedLine(language => GetDescriptionText(language.QuestionStatementFormatStrings), GetDescriptionParameters());
 		}
 
-		protected abstract Func<String> GetDescriptionText(ILanguageStatements language);
+		protected abstract String GetDescriptionText(ILanguageStatements language);
 
 		protected abstract IDictionary<String, INamed> GetDescriptionParameters();
 

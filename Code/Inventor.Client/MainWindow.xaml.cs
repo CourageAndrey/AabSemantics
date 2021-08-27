@@ -62,12 +62,12 @@ namespace Inventor.Client
 				var processingResult = answer.Description;
 				if (answer.Explanation.Statements.Count > 0)
 				{
-					processingResult.Add(new FormattedLine(() => string.Empty, new Dictionary<string, INamed>()));
-					processingResult.Add(new FormattedLine(() => _application.CurrentLanguage.Answers.Explanation, new Dictionary<string, INamed>()));
+					processingResult.Add(new FormattedLine(language => string.Empty, new Dictionary<string, INamed>()));
+					processingResult.Add(new FormattedLine(language => language.Answers.Explanation, new Dictionary<string, INamed>()));
 
 					foreach (var statement in answer.Explanation.Statements)
 					{
-						processingResult.Add(statement.DescribeTrue(_application.CurrentLanguage));
+						processingResult.Add(statement.DescribeTrue());
 					}
 				}
 
@@ -86,7 +86,7 @@ namespace Inventor.Client
 		{
 			new FormattedTextDialog(
 				_application.CurrentLanguage,
-				_application.SemanticNetwork.DescribeRules(_application.CurrentLanguage),
+				_application.SemanticNetwork.DescribeRules(),
 				knowledgeObjectPicked)
 			{
 				Owner = this,
@@ -98,7 +98,7 @@ namespace Inventor.Client
 		{
 			new FormattedTextDialog(
 				_application.CurrentLanguage,
-				_application.SemanticNetwork.CheckConsistensy(_application.CurrentLanguage),
+				_application.SemanticNetwork.CheckConsistensy(),
 				knowledgeObjectPicked)
 			{
 				Owner = this,

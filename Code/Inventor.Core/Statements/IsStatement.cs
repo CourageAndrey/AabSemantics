@@ -49,9 +49,9 @@ namespace Inventor.Core.Statements
 
 		#region Description
 
-		protected override Func<String> GetDescriptionText(ILanguageStatements language)
+		protected override String GetDescriptionText(ILanguageStatements language)
 		{
-			return () => language.Clasification;
+			return language.Clasification;
 		}
 
 		protected override IDictionary<String, INamed> GetDescriptionParameters()

@@ -22,7 +22,7 @@ namespace Inventor.Core
 		public FormattedText()
 		{ }
 
-		public FormattedText(Func<String> formatter, IDictionary<String, INamed> parameters)
+		public FormattedText(Func<ILanguage, String> formatter, IDictionary<String, INamed> parameters)
 		{
 			Add(formatter, parameters);
 		}
@@ -41,14 +41,14 @@ namespace Inventor.Core
 			_lines.Add(line);
 		}
 
-		public void Add(Func<String> formatter, IDictionary<String, INamed> parameters)
+		public void Add(Func<ILanguage, String> formatter, IDictionary<String, INamed> parameters)
 		{
 			_lines.Add(new FormattedLine(formatter, parameters));
 		}
 
 		public void AddEmptyLine()
 		{
-			Add(() => String.Empty, new Dictionary<String, INamed>());
+			Add(language => String.Empty, new Dictionary<String, INamed>());
 		}
 
 		public StringBuilder GetPlainText(ILanguage language)

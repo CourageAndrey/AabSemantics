@@ -16,11 +16,11 @@ namespace Inventor.Core.Questions
 			return value1 == value2;
 		}
 
-		protected override void WriteOneLine(FormattedText text, IConcept sign, IConcept value1, IConcept value2, ILanguage language)
+		protected override void WriteOneLine(FormattedText text, IConcept sign, IConcept value1, IConcept value2)
 		{
-			String formatString = value1 != null && value2 != null
-				? language.Answers.CompareConceptsCommon
-				: language.Answers.CompareConceptsCommonNotSet;
+			var formatString = value1 != null && value2 != null
+				? new Func<ILanguage, String>(language => language.Answers.CompareConceptsCommon)
+				: language => language.Answers.CompareConceptsCommonNotSet;
 
 			var parameters = new Dictionary<String, INamed>
 			{
@@ -31,12 +31,12 @@ namespace Inventor.Core.Questions
 				parameters[Strings.ParamConcept1] = value1;
 			}
 
-			text.Add(() => formatString, parameters);
+			text.Add(formatString, parameters);
 		}
 
-		protected override void WriteNotEmptyResultWithoutData(FormattedText text, ILanguage language)
+		protected override void WriteNotEmptyResultWithoutData(FormattedText text)
 		{
-			text.Add(() => language.Answers.CompareConceptsNoCommon, new Dictionary<string, INamed>());
+			text.Add(language => language.Answers.CompareConceptsNoCommon, new Dictionary<string, INamed>());
 		}
 	}
 }

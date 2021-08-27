@@ -214,17 +214,17 @@ namespace Inventor.Test.Base
 				return Array.Empty<IConcept>();
 			}
 
-			public FormattedLine DescribeTrue(ILanguage language)
+			public FormattedLine DescribeTrue()
 			{
 				throw new NotSupportedException();
 			}
 
-			public FormattedLine DescribeFalse(ILanguage language)
+			public FormattedLine DescribeFalse()
 			{
 				throw new NotSupportedException();
 			}
 
-			public FormattedLine DescribeQuestion(ILanguage language)
+			public FormattedLine DescribeQuestion()
 			{
 				throw new NotSupportedException();
 			}

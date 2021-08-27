@@ -55,7 +55,7 @@ namespace Inventor.Core.Questions
 			{
 				var resultStatement = statement.SwapOperandsToMatchOrder(context.Question);
 				resultStatements.Add(resultStatement);
-				text.Add(resultStatement.DescribeTrue(context.Language));
+				text.Add(resultStatement.DescribeTrue());
 			}
 
 			var explanation = transitiveStatements == null
@@ -144,7 +144,7 @@ namespace Inventor.Core.Questions
 				}
 			}
 
-			return Answer.CreateUnknown(context.Language);
+			return Answer.CreateUnknown();
 		}
 	}
 }

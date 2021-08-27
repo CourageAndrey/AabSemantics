@@ -64,7 +64,7 @@ namespace Inventor.Client
 		public override string ToString()
 		{
 			var statement = BoundObject ?? CreateStatementImplementation();
-			var text = statement.DescribeTrue(_language);
+			var text = statement.DescribeTrue();
 			return text.GetPlainText(_language);
 		}
 	}
