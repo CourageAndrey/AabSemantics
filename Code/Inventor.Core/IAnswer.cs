@@ -14,7 +14,7 @@ namespace Inventor.Core
 		{ get; }
 	}
 
-	public interface IAnswer<TResult> : IAnswer
+	public interface IAnswer<out TResult> : IAnswer
 	{
 		TResult Result
 		{ get; }
