@@ -1,8 +1,8 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Web;
 
-namespace Inventor.Core
+namespace Inventor.Core.Text
 {
 	public class FormattedLine : IText
 	{

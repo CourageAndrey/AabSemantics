@@ -110,7 +110,7 @@ namespace Inventor.Core.Questions
 
 				var answer = new ConceptsAnswer(
 					resultConcepts,
-					new FormattedText(language => answerFormat(Context.Language) + format + ".", parameters),
+					new Text.FormattedText(language => answerFormat(Context.Language) + format + ".", parameters),
 					new Explanation(Statements.OfType<IStatement>()));
 
 				answer.Explanation.Expand(AdditionalTransitives);
@@ -137,7 +137,7 @@ namespace Inventor.Core.Questions
 			{
 				answer = new ConceptAnswer(
 					resultConceptSelector(statement),
-					new FormattedText(
+					new Text.FormattedText(
 						answerFormat,
 						getParameters(statement)),
 					new Explanation(Statements.OfType<IStatement>()));
@@ -170,7 +170,7 @@ namespace Inventor.Core.Questions
 
 			var answer = new BooleanAnswer(
 				value,
-				new FormattedText(
+				new Text.FormattedText(
 					value ? trueFormat : falseFormat,
 					parameters),
 				new Explanation(Statements.OfType<IStatement>()));
@@ -208,7 +208,7 @@ namespace Inventor.Core.Questions
 
 			var answer = new BooleanAnswer(
 				result,
-				new FormattedText(
+				new Text.FormattedText(
 					result ? trueFormat : falseFormat,
 					parameters),
 				new Explanation(explanation));
