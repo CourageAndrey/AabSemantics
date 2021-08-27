@@ -8,10 +8,7 @@ namespace Inventor.Core.Text
 		#region Properties
 
 		public IList<IText> Children
-		{ get { return _lines; } }
-
-#warning Merge into property above
-		private readonly List<IText> _lines = new List<IText>();
+		{ get; } = new List<IText>();
 
 		#endregion
 
@@ -31,12 +28,12 @@ namespace Inventor.Core.Text
 
 		public void Add(IText line)
 		{
-			_lines.Add(line);
+			Children.Add(line);
 		}
 
 		public void Add(Func<ILanguage, String> formatter, IDictionary<String, IKnowledge> parameters)
 		{
-			_lines.Add(new TextBlock(formatter, parameters));
+			Children.Add(new TextBlock(formatter, parameters));
 		}
 
 		public void AddEmptyLine()
@@ -47,7 +44,7 @@ namespace Inventor.Core.Text
 		public IDictionary<String, IKnowledge> GetAllParameters()
 		{
 			var result = new SortedDictionary<String, IKnowledge>();
-			foreach (TextBlock line in _lines)
+			foreach (TextBlock line in Children)
 			{
 				foreach (var parameter in line.Parameters)
 				{
