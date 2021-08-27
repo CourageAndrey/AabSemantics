@@ -1,10 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Web;
 
 namespace Inventor.Core.Text
 {
-	public class TextBlock : IText
+	public class TextBlock : TextBase
 	{
 		#region Properties
 
@@ -23,28 +22,6 @@ namespace Inventor.Core.Text
 		{
 			_formatter = formatter;
 			_parameters = new Dictionary<String, IKnowledge>(parameters);
-		}
-
-		public String GetPlainText(ILanguage language)
-		{
-			String result = _formatter(language);
-			foreach (var parameter in _parameters)
-			{
-				result = result.Replace(parameter.Key, String.Format("\"{0}\"", parameter.Value.Name.GetValue(language)));
-			}
-			return result;
-		}
-
-		public String GetHtml(ILanguage language)
-		{
-			String result = _formatter(language);
-			foreach (var parameter in _parameters)
-			{
-				result = result.Replace(
-					parameter.Key,
-					String.Format("<a href=\"{0}\">{1}</a>", parameter.Value.ID, HttpUtility.HtmlEncode(parameter.Value.Name.GetValue(language))));
-			}
-			return result + @"<br/><br/>";
 		}
 	}
 }

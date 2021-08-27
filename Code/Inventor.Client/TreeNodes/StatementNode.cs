@@ -11,7 +11,7 @@ namespace Inventor.Client.TreeNodes
 		#region Properties
 
 		public override string Text
-		{ get { return ((Core.Text.TextBlock) _statement.DescribeTrue()).GetPlainText(_application.CurrentLanguage); } }
+		{ get { return TextRepresenters.PlainString.Represent(_statement.DescribeTrue(), _application.CurrentLanguage).ToString(); } }
 
 		public override string Tooltip
 		{ get { return _statement.Hint?.GetValue(_application.CurrentLanguage); } }
@@ -25,7 +25,6 @@ namespace Inventor.Client.TreeNodes
 		private static ImageSource _icon;
 		private readonly IStatement _statement;
 		private readonly InventorApplication _application;
-
 
 		#endregion
 
