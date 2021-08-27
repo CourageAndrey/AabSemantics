@@ -11,7 +11,7 @@ namespace Inventor.Core
 	{
 		public static StringBuilder GetPlainText(this IText text, ILanguage language)
 		{
-			return ((Text.FormattedText) text).GetPlainText(language);
+			return ((Text.TextContainer) text).GetPlainText(language);
 		}
 	}
 }
