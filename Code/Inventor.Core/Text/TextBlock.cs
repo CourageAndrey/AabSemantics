@@ -8,20 +8,17 @@ namespace Inventor.Core.Text
 		#region Properties
 
 		public Func<ILanguage, String> Formatter
-		{ get { return _formatter; } }
+		{ get; }
 
 		public IDictionary<String, IKnowledge> Parameters
-		{ get { return _parameters; } }
-
-		private readonly Func<ILanguage, String> _formatter;
-		private readonly IDictionary<String, IKnowledge> _parameters;
+		{ get; }
 
 		#endregion
 
 		public TextBlock(Func<ILanguage, String> formatter, IDictionary<String, IKnowledge> parameters)
 		{
-			_formatter = formatter;
-			_parameters = new Dictionary<String, IKnowledge>(parameters);
+			Formatter = formatter;
+			Parameters = new Dictionary<String, IKnowledge>(parameters);
 		}
 
 		public override IDictionary<String, IKnowledge> GetParameters()
