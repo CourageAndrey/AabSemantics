@@ -11,7 +11,7 @@ namespace Inventor.Client.TreeNodes
 		#region Properties
 
 		public override string Text
-		{ get { return TextRepresenters.PlainString.Represent(_statement.DescribeTrue(), _application.CurrentLanguage).ToString(); } }
+		{ get { return TextRepresenters.PlainString.RepresentText(_statement.DescribeTrue(), _application.CurrentLanguage).ToString(); } }
 
 		public override string Tooltip
 		{ get { return _statement.Hint?.GetValue(_application.CurrentLanguage); } }

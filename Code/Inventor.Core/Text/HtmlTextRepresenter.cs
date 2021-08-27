@@ -4,36 +4,20 @@ using System.Web;
 
 namespace Inventor.Core.Text
 {
-	public class HtmlTextRepresenter : ITextRepresenter<StringBuilder>
+	public class HtmlTextRepresenter : IStructuredTextRepresenter
 	{
-		public StringBuilder Represent(IText text, ILanguage language)
+		public StringBuilder RepresentText(IText text, ILanguage language)
 		{
 			var result = new StringBuilder(@"<html><head><title>Inventor</title></head><body>");
-			result.Append(RepresentWithoutWrapping(text, language));
+			result.Append(this.Represent(text, language));
 			result.Append(@"</body></html>");
 			return result;
 		}
 
-		private StringBuilder RepresentWithoutWrapping(IText text, ILanguage language)
+		public StringBuilder Represent(TextBlock textBlock, ILanguage language)
 		{
-			if (text is TextBlock)
-			{
-				return representTextBlock(text as TextBlock, language);
-			}
-			else if (text is TextContainer)
-			{
-				return representTextContainer(text as TextContainer, language);
-			}
-			else
-			{
-				throw new NotSupportedException(nameof(text));
-			}
-		}
-
-		public StringBuilder representTextBlock(TextBlock text, ILanguage language)
-		{
-			String result = text.Formatter(language);
-			foreach (var parameter in text.Parameters)
+			String result = textBlock.Formatter(language);
+			foreach (var parameter in textBlock.Parameters)
 			{
 				result = result.Replace(
 					parameter.Key,
@@ -42,12 +26,12 @@ namespace Inventor.Core.Text
 			return new StringBuilder(result + @"<br/><br/>");
 		}
 
-		public StringBuilder representTextContainer(TextContainer text, ILanguage language)
+		public StringBuilder Represent(TextContainer textContainer, ILanguage language)
 		{
 			var result = new StringBuilder();
-			foreach (var line in text.Children)
+			foreach (var line in textContainer.Children)
 			{
-				result.Append(RepresentWithoutWrapping(line, language));
+				result.Append(this.Represent(line, language));
 			}
 			return result;
 		}

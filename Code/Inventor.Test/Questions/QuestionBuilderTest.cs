@@ -346,7 +346,7 @@ namespace Inventor.Test.Questions
 			var answerBuilder = semanticNetwork.SemanticNetwork.Ask().WhatIs(semanticNetwork.Vehicle_Car);
 
 			// assert
-			Assert.AreEqual(representer.Represent(answerRegular.Description, language).ToString(), representer.Represent(answerBuilder.Description, language).ToString());
+			Assert.AreEqual(representer.RepresentText(answerRegular.Description, language).ToString(), representer.RepresentText(answerBuilder.Description, language).ToString());
 			Assert.IsTrue(answerRegular.Explanation.Statements.SequenceEqual(answerBuilder.Explanation.Statements));
 		}
 
