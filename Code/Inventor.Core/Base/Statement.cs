@@ -49,7 +49,7 @@ namespace Inventor.Core.Base
 
 		#region Description
 
-		public FormattedLine DescribeTrue()
+		public IText DescribeTrue()
 		{
 			var formatter = new Func<ILanguage, String>(language => GetDescriptionText(language.TrueStatementFormatStrings) + $" ({Strings.ParamStatement})");
 
@@ -59,12 +59,12 @@ namespace Inventor.Core.Base
 			return new FormattedLine(formatter, parameters);
 		}
 
-		public FormattedLine DescribeFalse()
+		public IText DescribeFalse()
 		{
 			return new FormattedLine(language => GetDescriptionText(language.FalseStatementFormatStrings), GetDescriptionParameters());
 		}
 
-		public FormattedLine DescribeQuestion()
+		public IText DescribeQuestion()
 		{
 			return new FormattedLine(language => GetDescriptionText(language.QuestionStatementFormatStrings), GetDescriptionParameters());
 		}

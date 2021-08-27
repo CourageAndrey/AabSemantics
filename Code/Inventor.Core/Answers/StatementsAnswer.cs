@@ -12,7 +12,7 @@ namespace Inventor.Core.Answers
 
 		#endregion
 
-		public StatementsAnswer(ICollection<IStatement> result, FormattedText description, IExplanation explanation)
+		public StatementsAnswer(ICollection<IStatement> result, IText description, IExplanation explanation)
 			: base(description, explanation, result.Count == 0)
 		{
 			Result = result;
@@ -38,7 +38,7 @@ namespace Inventor.Core.Answers
 
 		#endregion
 
-		public StatementsAnswer(ICollection<StatementT> result, FormattedText description, IExplanation explanation)
+		public StatementsAnswer(ICollection<StatementT> result, IText description, IExplanation explanation)
 			: base(description, explanation, result.Count == 0)
 		{
 			Result = result;

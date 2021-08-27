@@ -4,7 +4,7 @@ using System.Web;
 
 namespace Inventor.Core
 {
-	public class FormattedLine
+	public class FormattedLine : IText
 	{
 		#region Properties
 

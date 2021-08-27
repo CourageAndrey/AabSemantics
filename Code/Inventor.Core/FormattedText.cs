@@ -6,11 +6,11 @@ using Inventor.Core.Localization;
 
 namespace Inventor.Core
 {
-	public class FormattedText
+	public class FormattedText : IText
 	{
 		#region Properties
 
-		private readonly List<FormattedLine> _lines = new List<FormattedLine>();
+		private readonly List<IText> _lines = new List<IText>();
 
 		public Int32 LinesCount
 		{ get { return _lines.Count; } }
@@ -36,7 +36,7 @@ namespace Inventor.Core
 
 		#region Text
 
-		public void Add(FormattedLine line)
+		public void Add(IText line)
 		{
 			_lines.Add(line);
 		}
@@ -54,7 +54,7 @@ namespace Inventor.Core
 		public StringBuilder GetPlainText(ILanguage language)
 		{
 			var result = new StringBuilder();
-			foreach (var line in _lines)
+			foreach (FormattedLine line in _lines)
 			{
 				result.AppendLine(line.GetPlainText(language));
 				result.AppendLine();
@@ -68,7 +68,7 @@ namespace Inventor.Core
 			result.AppendLine();
 			for (Int32 l = 0; l < _lines.Count; l++)
 			{
-				result.AppendLine(_lines[l].GetHtml(language, l));
+				result.AppendLine(((FormattedLine) _lines[l]).GetHtml(language, l));
 			}
 			result.Append(@"</body></html>");
 			return result;
@@ -79,7 +79,7 @@ namespace Inventor.Core
 			var result = new SortedDictionary<String, INamed>();
 			for (Int32 l = 0; l < _lines.Count; l++)
 			{
-				var line = _lines[l];
+				var line = (FormattedLine) _lines[l];
 				foreach (var parameter in line.Parameters)
 				{
 					result[FormattedLine.GetParam(l, parameter.Key)] = parameter.Value;

@@ -9,7 +9,7 @@
 
 		#endregion
 
-		public StatementAnswer(IStatement result, FormattedText description, IExplanation explanation)
+		public StatementAnswer(IStatement result, IText description, IExplanation explanation)
 			: base(description, explanation, result == null)
 		{
 			Result = result;

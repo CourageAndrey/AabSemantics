@@ -4,7 +4,7 @@ namespace Inventor.Core
 {
 	public interface IAnswer
 	{
-		FormattedText Description
+		IText Description
 		{ get; }
 
 		IExplanation Explanation

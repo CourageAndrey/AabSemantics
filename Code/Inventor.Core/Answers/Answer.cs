@@ -9,7 +9,7 @@ namespace Inventor.Core.Answers
 	{
 		#region Properties
 
-		public FormattedText Description
+		public IText Description
 		{ get; }
 
 		public IExplanation Explanation
@@ -20,7 +20,7 @@ namespace Inventor.Core.Answers
 
 		#endregion
 
-		public Answer(FormattedText description, IExplanation explanation, Boolean isEmpty)
+		public Answer(IText description, IExplanation explanation, Boolean isEmpty)
 		{
 			Description = description;
 			Explanation = explanation;

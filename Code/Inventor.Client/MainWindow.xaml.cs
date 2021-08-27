@@ -59,7 +59,7 @@ namespace Inventor.Client
 				var question = dialog.Question.BuildQuestion();
 				var answer = question.Ask(_application.SemanticNetwork.Context, _application.CurrentLanguage);
 
-				var processingResult = answer.Description;
+				var processingResult = (FormattedText) answer.Description;
 				if (answer.Explanation.Statements.Count > 0)
 				{
 					processingResult.Add(new FormattedLine(language => string.Empty, new Dictionary<string, INamed>()));
