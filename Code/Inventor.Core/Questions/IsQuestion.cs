@@ -44,8 +44,8 @@ namespace Inventor.Core.Questions
 					language => language.Answers.IsFalse,
 					new Dictionary<String, IKnowledge>
 					{
-						{ Strings.ParamParent, Child },
-						{ Strings.ParamChild, Parent },
+						{ Strings.ParamParent, Parent },
+						{ Strings.ParamChild, Child },
 					});
 		}
 	}
