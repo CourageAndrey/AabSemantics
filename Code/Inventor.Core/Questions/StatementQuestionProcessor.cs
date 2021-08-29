@@ -4,6 +4,7 @@ using System.Linq;
 
 using Inventor.Core.Answers;
 using Inventor.Core.Base;
+using Inventor.Core.Text;
 
 namespace Inventor.Core.Questions
 {
@@ -104,13 +105,16 @@ namespace Inventor.Core.Questions
 			{
 				var resultConcepts = Statements.Select(resultConceptSelector).ToList();
 
-				String format;
-				var parameters = resultConcepts.Enumerate(out format);
-				parameters.Add(titleConceptCaption, titleConceptSelector(Context.Question));
+				var format = new UnstructuredContainer(new Text.FormattedText(
+					language => answerFormat(Context.Language),
+					new Dictionary<String, IKnowledge>
+					{
+						{ titleConceptCaption, titleConceptSelector(Context.Question) },
+					})).AppendBulletsList(resultConcepts.Enumerate());
 
 				var answer = new ConceptsAnswer(
 					resultConcepts,
-					new Text.FormattedText(language => answerFormat(Context.Language) + format + ".", parameters),
+					format,
 					new Explanation(Statements.OfType<IStatement>()));
 
 				answer.Explanation.Expand(AdditionalTransitives);

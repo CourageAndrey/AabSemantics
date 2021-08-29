@@ -109,18 +109,13 @@ namespace Inventor.Core.Questions
 			ICollection<IConcept> parents,
 			IDictionary<IConcept, Tuple<IConcept, IConcept>> signValueStatements)
 		{
-			var result = new Text.UnstructuredContainer();
-			result.Append(
+			var result = new Text.UnstructuredContainer(new Text.FormattedText(
 				language => language.Answers.CompareConceptsResult,
 				new Dictionary<String, IKnowledge>
 				{
 					{ Strings.ParamConcept1, Concept1 },
 					{ Strings.ParamConcept2, Concept2 },
-				});
-
-			String parentsFormat;
-			var parentParameters = parents.Enumerate(out parentsFormat);
-			result.Append(language => language.Answers.CompareConceptsParents + parentsFormat, parentParameters);
+				})).AppendBulletsList(parents.Enumerate());
 
 			if (signValueStatements.Count > 0)
 			{

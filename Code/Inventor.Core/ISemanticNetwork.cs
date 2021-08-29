@@ -111,25 +111,29 @@ namespace Inventor.Core
 			// 6. Check comparison value systems
 			foreach (var contradiction in semanticNetwork.Statements.OfType<ComparisonStatement>().CheckForContradictions())
 			{
-				String signsFormat;
-				var concepts = contradiction.Signs.Enumerate(out signsFormat);
-				concepts[Strings.ParamLeftValue] = contradiction.Value1;
-				concepts[Strings.ParamRightValue] = contradiction.Value2;
-				result.Append(
-					language => language.Consistency.ErrorComparisonContradiction + signsFormat,
-					concepts);
+				result
+					.Append(
+						language => language.Consistency.ErrorComparisonContradiction,
+						new Dictionary<String, IKnowledge>
+						{
+							{ Strings.ParamLeftValue, contradiction.Value1 },
+							{ Strings.ParamRightValue, contradiction.Value2 },
+						})
+					.Append(contradiction.Signs.EnumerateOneLine());
 			}
 
 			// 7. Check process sequence systems
 			foreach (var contradiction in semanticNetwork.Statements.OfType<ProcessesStatement>().CheckForContradictions())
 			{
-				String signsFormat;
-				var concepts = contradiction.Signs.Enumerate(out signsFormat);
-				concepts[Strings.ParamProcessA] = contradiction.Value1;
-				concepts[Strings.ParamProcessB] = contradiction.Value2;
-				result.Append(
-					language => language.Consistency.ErrorProcessesContradiction + signsFormat,
-					concepts);
+				result
+					.Append(
+						language => language.Consistency.ErrorProcessesContradiction,
+						new Dictionary<String, IKnowledge>
+						{
+							{ Strings.ParamProcessA, contradiction.Value1 },
+							{ Strings.ParamProcessB, contradiction.Value2 },
+						})
+					.Append(contradiction.Signs.EnumerateOneLine());
 			}
 
 			if (result.Items.Count == 0)
