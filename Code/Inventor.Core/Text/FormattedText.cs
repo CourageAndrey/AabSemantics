@@ -15,10 +15,14 @@ namespace Inventor.Core.Text
 
 		#endregion
 
-		public FormattedText(Func<ILanguage, String> formatter, IDictionary<String, IKnowledge> parameters)
+		public FormattedText(Func<ILanguage, String> formatter, IDictionary<String, IKnowledge> parameters = null)
 		{
+			if (formatter == null) throw new ArgumentNullException(nameof(formatter));
+
 			Formatter = formatter;
-			Parameters = new Dictionary<String, IKnowledge>(parameters);
+			Parameters = parameters != null
+				? new Dictionary<String, IKnowledge>(parameters)
+				: new Dictionary<string, IKnowledge>();
 		}
 
 		public override IDictionary<String, IKnowledge> GetParameters()

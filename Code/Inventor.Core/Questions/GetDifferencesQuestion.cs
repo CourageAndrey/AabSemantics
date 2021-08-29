@@ -42,7 +42,7 @@ namespace Inventor.Core.Questions
 
 		protected override void WriteNotEmptyResultWithoutData(ITextContainer text)
 		{
-			text.Append(language => language.Answers.CompareConceptsNoDifference, new Dictionary<string, IKnowledge>());
+			text.Append(language => language.Answers.CompareConceptsNoDifference);
 		}
 	}
 }
