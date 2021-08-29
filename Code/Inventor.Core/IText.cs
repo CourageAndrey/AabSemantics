@@ -24,19 +24,22 @@ namespace Inventor.Core
 
 	public static class TextExtensions
 	{
-		public static void Append(this ITextContainer textContainer, IText line)
+		public static ITextContainer Append(this ITextContainer textContainer, IText line)
 		{
 			textContainer.Items.Add(line);
+			return textContainer;
 		}
 
-		public static void Append(this ITextContainer textContainer, Func<ILanguage, String> formatter, IDictionary<String, IKnowledge> parameters)
+		public static ITextContainer Append(this ITextContainer textContainer, Func<ILanguage, String> formatter, IDictionary<String, IKnowledge> parameters)
 		{
 			textContainer.Items.Add(new FormattedText(formatter, parameters));
+			return textContainer;
 		}
 
-		public static void AppendLineBreak(this ITextContainer textContainer)
+		public static ITextContainer AppendLineBreak(this ITextContainer textContainer)
 		{
 			textContainer.Items.Add(new LineBreakText());
+			return textContainer;
 		}
 
 #warning Add other extensions.
