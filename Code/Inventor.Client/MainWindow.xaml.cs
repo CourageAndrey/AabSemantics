@@ -63,12 +63,12 @@ namespace Inventor.Client
 				if (answer.Explanation.Statements.Count > 0)
 				{
 					var explanedResult = new Core.Text.UnstructuredContainer(processingResult);
-					explanedResult.AddEmptyLine();
-					explanedResult.Add(new Core.Text.FormattedText(language => language.Answers.Explanation, new Dictionary<string, IKnowledge>()));
+					explanedResult.AppendLineBreak();
+					explanedResult.Append(new Core.Text.FormattedText(language => language.Answers.Explanation, new Dictionary<string, IKnowledge>()));
 
 					foreach (var statement in answer.Explanation.Statements)
 					{
-						explanedResult.Add(statement.DescribeTrue());
+						explanedResult.Append(statement.DescribeTrue());
 					}
 
 					processingResult = explanedResult;

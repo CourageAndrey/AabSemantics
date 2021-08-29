@@ -110,7 +110,7 @@ namespace Inventor.Core.Questions
 			IDictionary<IConcept, Tuple<IConcept, IConcept>> signValueStatements)
 		{
 			var result = new Text.UnstructuredContainer();
-			result.Add(
+			result.Append(
 				language => language.Answers.CompareConceptsResult,
 				new Dictionary<String, IKnowledge>
 				{
@@ -120,7 +120,7 @@ namespace Inventor.Core.Questions
 
 			String parentsFormat;
 			var parentParameters = parents.Enumerate(out parentsFormat);
-			result.Add(language => language.Answers.CompareConceptsParents + parentsFormat, parentParameters);
+			result.Append(language => language.Answers.CompareConceptsParents + parentsFormat, parentParameters);
 
 			if (signValueStatements.Count > 0)
 			{
