@@ -28,7 +28,7 @@ namespace Inventor.Core.Questions
 			};
 			if (value1 != null)
 			{
-				parameters[Strings.ParamConcept1] = value1;
+				parameters[Strings.ParamValue] = value1;
 			}
 
 			text.Append(formatString, parameters);
