@@ -32,7 +32,7 @@ namespace Inventor.Core
 			var result = new Text.UnstructuredContainer();
 			foreach (var statement in semanticNetwork.Statements)
 			{
-				result.Add(statement.DescribeTrue());
+				result.Append(statement.DescribeTrue());
 			}
 			return result;
 		}
@@ -46,7 +46,7 @@ namespace Inventor.Core
 			{
 				if (!statement.CheckUnique(semanticNetwork.Statements))
 				{
-					result.Add(
+					result.Append(
 						language => language.Consistency.ErrorDuplicate,
 						new Dictionary<String, IKnowledge> { { Strings.ParamStatement, statement } });
 				}
@@ -58,7 +58,7 @@ namespace Inventor.Core
 			{
 				if (!clasification.CheckCyclic(clasifications))
 				{
-					result.Add(
+					result.Append(
 						language => language.Consistency.ErrorCyclic,
 						new Dictionary<String, IKnowledge> { { Strings.ParamStatement, clasification } });
 				}
@@ -74,7 +74,7 @@ namespace Inventor.Core
 					if (signValues.FirstOrDefault(sv => sv.Concept == concept && sv.Sign == sign.Sign) == null &&
 						parents.Select(p => SignValueStatement.GetSignValue(semanticNetwork.Statements, p, sign.Sign)).Count(r => r != null) > 1)
 					{
-						result.Add(
+						result.Append(
 							language => language.Consistency.ErrorMultipleSignValue,
 							new Dictionary<String, IKnowledge>
 							{
@@ -90,7 +90,7 @@ namespace Inventor.Core
 			{
 				if (!signValue.CheckHasSign(semanticNetwork.Statements))
 				{
-					result.Add(
+					result.Append(
 						language => language.Consistency.ErrorSignWithoutValue,
 						new Dictionary<String, IKnowledge> { { Strings.ParamStatement, signValue } });
 				}
@@ -102,7 +102,7 @@ namespace Inventor.Core
 			{
 				if (!hasSign.CheckSignDuplication(hasSigns, clasifications))
 				{
-					result.Add(
+					result.Append(
 						language => language.Consistency.ErrorMultipleSign,
 						new Dictionary<String, IKnowledge> { { Strings.ParamStatement, hasSign } });
 				}
@@ -115,7 +115,7 @@ namespace Inventor.Core
 				var concepts = contradiction.Signs.Enumerate(out signsFormat);
 				concepts[Strings.ParamLeftValue] = contradiction.Value1;
 				concepts[Strings.ParamRightValue] = contradiction.Value2;
-				result.Add(
+				result.Append(
 					language => language.Consistency.ErrorComparisonContradiction + signsFormat,
 					concepts);
 			}
@@ -127,14 +127,14 @@ namespace Inventor.Core
 				var concepts = contradiction.Signs.Enumerate(out signsFormat);
 				concepts[Strings.ParamProcessA] = contradiction.Value1;
 				concepts[Strings.ParamProcessB] = contradiction.Value2;
-				result.Add(
+				result.Append(
 					language => language.Consistency.ErrorProcessesContradiction + signsFormat,
 					concepts);
 			}
 
 			if (result.Items.Count == 0)
 			{
-				result.Add(language => language.Consistency.CheckOk, new Dictionary<String, IKnowledge>());
+				result.Append(language => language.Consistency.CheckOk, new Dictionary<String, IKnowledge>());
 			}
 			return result;
 		}

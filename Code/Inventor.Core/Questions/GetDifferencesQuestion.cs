@@ -37,12 +37,12 @@ namespace Inventor.Core.Questions
 				parameters[Strings.ParamConcept2] = value2;
 			}
 
-			text.Add(formatString, parameters);
+			text.Append(formatString, parameters);
 		}
 
 		protected override void WriteNotEmptyResultWithoutData(ITextContainer text)
 		{
-			text.Add(language => language.Answers.CompareConceptsNoDifference, new Dictionary<string, IKnowledge>());
+			text.Append(language => language.Answers.CompareConceptsNoDifference, new Dictionary<string, IKnowledge>());
 		}
 	}
 }

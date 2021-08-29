@@ -55,7 +55,7 @@ namespace Inventor.Core.Questions
 			{
 				var resultStatement = statement.SwapOperandsToMatchOrder(context.Question);
 				resultStatements.Add(resultStatement);
-				text.Add(resultStatement.DescribeTrue());
+				text.Append(resultStatement.DescribeTrue());
 			}
 
 			var explanation = transitiveStatements == null

@@ -42,10 +42,10 @@ namespace Inventor.Core.Questions
 			}
 
 			var result = new Text.UnstructuredContainer();
-			result.Add(
+			result.Append(
 				language => Strings.ParamAnswer,
 				new Dictionary<String, IKnowledge> { { Strings.ParamAnswer, statements.Any().ToLogicalValue() } });
-			result.Add(statements.Any() ? Statement.DescribeTrue() : Statement.DescribeFalse());
+			result.Append(statements.Any() ? Statement.DescribeTrue() : Statement.DescribeFalse());
 			return new BooleanAnswer(
 				statements.Any(),
 				result,
