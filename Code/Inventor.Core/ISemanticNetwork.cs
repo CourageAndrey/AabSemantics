@@ -134,7 +134,7 @@ namespace Inventor.Core
 
 			if (result.Items.Count == 0)
 			{
-				result.Append(language => language.Consistency.CheckOk, new Dictionary<String, IKnowledge>());
+				result.Append(language => language.Consistency.CheckOk);
 			}
 			return result;
 		}

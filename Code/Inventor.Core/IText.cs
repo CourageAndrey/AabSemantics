@@ -30,7 +30,7 @@ namespace Inventor.Core
 			return textContainer;
 		}
 
-		public static ITextContainer Append(this ITextContainer textContainer, Func<ILanguage, String> formatter, IDictionary<String, IKnowledge> parameters)
+		public static ITextContainer Append(this ITextContainer textContainer, Func<ILanguage, String> formatter, IDictionary<String, IKnowledge> parameters = null)
 		{
 			textContainer.Items.Add(new FormattedText(formatter, parameters));
 			return textContainer;

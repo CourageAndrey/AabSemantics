@@ -30,7 +30,7 @@ namespace Inventor.Core.Answers
 		public static IAnswer CreateUnknown()
 		{
 			return new Answer(
-				new Text.FormattedText(language => language.Answers.Unknown, new Dictionary<String, IKnowledge>()),
+				new Text.FormattedText(language => language.Answers.Unknown),
 				new Explanation(Array.Empty<IStatement>()),
 				true);
 		}
