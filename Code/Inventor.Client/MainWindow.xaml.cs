@@ -59,16 +59,19 @@ namespace Inventor.Client
 				var question = dialog.Question.BuildQuestion();
 				var answer = question.Ask(_application.SemanticNetwork.Context, _application.CurrentLanguage);
 
-				var processingResult = (Core.Text.TextContainer) answer.Description;
+				var processingResult = answer.Description;
 				if (answer.Explanation.Statements.Count > 0)
 				{
-					processingResult.Add(new Core.Text.TextBlock(language => string.Empty, new Dictionary<string, IKnowledge>()));
-					processingResult.Add(new Core.Text.TextBlock(language => language.Answers.Explanation, new Dictionary<string, IKnowledge>()));
+					var explanedResult = new Core.Text.UnstructuredContainer(processingResult);
+					explanedResult.AddEmptyLine();
+					explanedResult.Add(new Core.Text.FormattedText(language => language.Answers.Explanation, new Dictionary<string, IKnowledge>()));
 
 					foreach (var statement in answer.Explanation.Statements)
 					{
-						processingResult.Add(statement.DescribeTrue());
+						explanedResult.Add(statement.DescribeTrue());
 					}
+
+					processingResult = explanedResult;
 				}
 
 				new FormattedTextDialog(

@@ -33,7 +33,7 @@ namespace Inventor.Core.Questions
 			var isStatements = allStatements.Enumerate<IsStatement>(context.ActiveContexts).Where(c => c.Descendant == Concept).ToList();
 			if (isStatements.Any())
 			{
-				var result = new Text.TextContainer();
+				var result = new Text.UnstructuredContainer();
 				var explanation = new List<SignValueStatement>();
 				foreach (var statement in isStatements)
 				{
@@ -73,7 +73,7 @@ namespace Inventor.Core.Questions
 			return difference;
 		}
 
-		private void writeClassificationWithDifference(Text.TextContainer result, IsStatement statement, List<SignValueStatement> difference)
+		private void writeClassificationWithDifference(Text.UnstructuredContainer result, IsStatement statement, List<SignValueStatement> difference)
 		{
 			result.Add(language => language.Answers.IsDescriptionWithSign, new Dictionary<String, IKnowledge>
 			{
@@ -87,7 +87,7 @@ namespace Inventor.Core.Questions
 			}
 		}
 
-		private static void writeSignDifference(Text.TextContainer result, SignValueStatement diff)
+		private static void writeSignDifference(Text.UnstructuredContainer result, SignValueStatement diff)
 		{
 			result.Add(language => language.Answers.IsDescriptionWithSignValue, new Dictionary<String, IKnowledge>
 			{
@@ -96,7 +96,7 @@ namespace Inventor.Core.Questions
 			});
 		}
 
-		private void writeJustClassification(Text.TextContainer result, IsStatement statement)
+		private void writeJustClassification(Text.UnstructuredContainer result, IsStatement statement)
 		{
 			result.Add(language => language.Answers.IsDescription, new Dictionary<String, IKnowledge>
 			{

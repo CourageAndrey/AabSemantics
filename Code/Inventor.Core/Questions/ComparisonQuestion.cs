@@ -50,7 +50,7 @@ namespace Inventor.Core.Questions
 		{
 			var resultStatement = statement.SwapOperandsToMatchOrder(context.Question);
 
-			var text = new Text.TextContainer();
+			var text = new Text.UnstructuredContainer();
 			text.Add(resultStatement.DescribeTrue());
 
 			var explanation = transitiveStatements == null

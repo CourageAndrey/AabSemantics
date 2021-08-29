@@ -41,7 +41,8 @@ namespace Inventor.Core.Questions
 				statements = statement != null ? new[] { statement } : Array.Empty<IStatement>();
 			}
 
-			var result = new Text.TextContainer(
+			var result = new Text.UnstructuredContainer();
+			result.Add(
 				language => Strings.ParamAnswer,
 				new Dictionary<String, IKnowledge> { { Strings.ParamAnswer, statements.Any().ToLogicalValue() } });
 			result.Add(statements.Any() ? Statement.DescribeTrue() : Statement.DescribeFalse());

@@ -27,9 +27,9 @@ namespace Inventor.Core
 
 	public static class SemanticNetworkHelper
 	{
-		public static Text.TextContainer DescribeRules(this ISemanticNetwork semanticNetwork)
+		public static IText DescribeRules(this ISemanticNetwork semanticNetwork)
 		{
-			var result = new Text.TextContainer();
+			var result = new Text.UnstructuredContainer();
 			foreach (var statement in semanticNetwork.Statements)
 			{
 				result.Add(statement.DescribeTrue());
@@ -37,9 +37,9 @@ namespace Inventor.Core
 			return result;
 		}
 
-		public static Text.TextContainer CheckConsistensy(this ISemanticNetwork semanticNetwork)
+		public static IText CheckConsistensy(this ISemanticNetwork semanticNetwork)
 		{
-			var result = new Text.TextContainer();
+			var result = new Text.UnstructuredContainer();
 
 			// 1. check all duplicates
 			foreach (var statement in semanticNetwork.Statements)
@@ -132,7 +132,7 @@ namespace Inventor.Core
 					concepts);
 			}
 
-			if (result.Children.Count == 0)
+			if (result.Items.Count == 0)
 			{
 				result.Add(language => language.Consistency.CheckOk, new Dictionary<String, IKnowledge>());
 			}

@@ -47,7 +47,7 @@ namespace Inventor.Core.Questions
 			if (parents.Count == 0)
 			{
 				return new Answers.Answer(
-					new Text.TextContainer(
+					new Text.FormattedText(
 						language => language.Answers.CanNotCompareConcepts,
 						new Dictionary<String, IKnowledge>
 						{
@@ -101,15 +101,16 @@ namespace Inventor.Core.Questions
 
 		protected abstract Boolean NeedToTakeIntoAccount(IConcept value1, IConcept value2);
 
-		protected abstract void WriteNotEmptyResultWithoutData(Text.TextContainer text);
+		protected abstract void WriteNotEmptyResultWithoutData(ITextContainer text);
 
-		protected abstract void WriteOneLine(Text.TextContainer text, IConcept sign, IConcept value1, IConcept value2);
+		protected abstract void WriteOneLine(ITextContainer text, IConcept sign, IConcept value1, IConcept value2);
 
-		private Text.TextContainer formatAnswer(
+		private IText formatAnswer(
 			ICollection<IConcept> parents,
 			IDictionary<IConcept, Tuple<IConcept, IConcept>> signValueStatements)
 		{
-			var result = new Text.TextContainer(
+			var result = new Text.UnstructuredContainer();
+			result.Add(
 				language => language.Answers.CompareConceptsResult,
 				new Dictionary<String, IKnowledge>
 				{
