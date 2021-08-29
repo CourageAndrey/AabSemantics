@@ -48,14 +48,18 @@ namespace Inventor.Core.Questions
 
 		private static StatementsAnswer<ProcessesStatement> createAnswer(ICollection<ProcessesStatement> statements, IQuestionProcessingContext<ProcessesQuestion> context, ICollection<IStatement> transitiveStatements = null)
 		{
-			var resultStatements = new List<ProcessesStatement>();
+			var resultStatements = new HashSet<ProcessesStatement>();
 			var text = new Text.UnstructuredContainer();
 
 			foreach (var statement in statements)
 			{
 				var resultStatement = statement.SwapOperandsToMatchOrder(context.Question);
-				resultStatements.Add(resultStatement);
-				text.Append(resultStatement.DescribeTrue());
+				if (resultStatements.All(s => s.SequenceSign != resultStatement.SequenceSign))
+				{
+					resultStatements.Add(resultStatement);
+					text.Append(resultStatement.DescribeTrue());
+				}
+				addStatementConsequences(resultStatements, resultStatement, context);
 			}
 
 			var explanation = transitiveStatements == null
@@ -63,6 +67,23 @@ namespace Inventor.Core.Questions
 				: new Explanation(transitiveStatements);
 
 			return new StatementsAnswer<ProcessesStatement>(resultStatements, text, explanation);
+		}
+
+		private static void addStatementConsequences(
+			HashSet<ProcessesStatement> statements,
+			ProcessesStatement newStatement,
+			IQuestionProcessingContext<ProcessesQuestion> context)
+		{
+			foreach (var consequentSign in newStatement.SequenceSign.Consequently())
+			{
+				if (statements.All(s => s.SequenceSign != consequentSign))
+				{
+					statements.Add(new ProcessesStatement(null, context.Question.ProcessA, context.Question.ProcessB, consequentSign)
+					{
+						Context = context
+					});
+				}
+			}
 		}
 
 		private IEnumerable<NestedQuestion> GetNestedQuestions(IQuestionProcessingContext<ProcessesQuestion> context)
@@ -98,7 +119,13 @@ namespace Inventor.Core.Questions
 
 			foreach (var transitiveProcess in transitiveProcesses)
 			{
-				yield return new NestedQuestion(new ProcessesQuestion(transitiveProcess.Key, ProcessB), transitiveProcess.Value);
+				var consequentStatements = new HashSet<ProcessesStatement>();
+				foreach (var transitive in transitiveProcess.Value.OfType<ProcessesStatement>())
+				{
+					addStatementConsequences(consequentStatements, transitive, context);
+				}
+
+				yield return new NestedQuestion(new ProcessesQuestion(transitiveProcess.Key, ProcessB, consequentStatements), transitiveProcess.Value);
 			}
 		}
 

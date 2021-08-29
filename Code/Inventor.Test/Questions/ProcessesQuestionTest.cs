@@ -54,10 +54,10 @@ namespace Inventor.Test.Questions
 					Assert.IsFalse(answer.IsEmpty);
 					var processesAnswer = (StatementsAnswer<ProcessesStatement>) answer;
 
-					var resultStatement = processesAnswer.Result.Single();
-					Assert.AreSame(processA, resultStatement.ProcessA);
-					Assert.AreSame(processB, resultStatement.ProcessB);
-					Assert.AreSame(resultSign, resultStatement.SequenceSign);
+					Assert.Greater(processesAnswer.Result.Count, 0);
+					Assert.IsTrue(processesAnswer.Result.All(s => s.ProcessA == processA));
+					Assert.IsTrue(processesAnswer.Result.All(s => s.ProcessB == processB));
+					Assert.IsTrue(processesAnswer.Result.Any(s => s.SequenceSign == resultSign));
 
 					Assert.IsTrue(answer.Explanation.Statements.Contains(statementCombination.Item1));
 					Assert.IsTrue(answer.Explanation.Statements.Contains(statementCombination.Item2));

@@ -28,6 +28,10 @@ namespace Inventor.Core.Statements
 		{
 			Boolean combinationsUpdated = SetCombination(valueRow, valueColumn, sign);
 			combinationsUpdated |= SetCombination(valueColumn, valueRow, SequenceSigns.Revert(sign));
+			foreach (var consequentSign in sign.Consequently())
+			{
+				combinationsUpdated |= SetCombination(valueRow, valueColumn, consequentSign);
+			}
 			return combinationsUpdated;
 		}
 
