@@ -67,7 +67,7 @@ namespace Inventor.Core.Questions
 
 			var signStatements = new List<HasSignStatement>();
 			signStatements.AddRange(signStatements1.Where(s => signs.Contains(s.Sign)));
-			signStatements.AddRange(signStatements2.Where(s => signs.Contains(s.Sign)));
+			signStatements.AddRange(signStatements2.Where(s => signs.Contains(s.Sign) && !signStatements.Contains(s)));
 
 			// compare sign values
 			var resultSignValues = new Dictionary<IConcept, Tuple<IConcept, IConcept>>();
@@ -142,7 +142,7 @@ namespace Inventor.Core.Questions
 			var parents = new HashSet<IConcept>(parents1.Intersect(parents2));
 
 			isStatements.AddRange(isStatements1.Where(i => parents.Contains(i.Ancestor)));
-			isStatements.AddRange(isStatements2.Where(i => parents.Contains(i.Ancestor)));
+			isStatements.AddRange(isStatements2.Where(i => parents.Contains(i.Ancestor) && !isStatements.Contains(i)));
 
 			return parents;
 		}
