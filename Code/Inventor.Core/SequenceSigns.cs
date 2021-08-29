@@ -150,6 +150,16 @@ namespace Inventor.Core
 			FinishesBeforeOtherFinished,
 		};
 
+		public static readonly ICollection<IConcept> SelfInvalidSigns = new HashSet<IConcept>
+		{
+			StartsAfterOtherStarted,
+			StartsBeforeOtherStarted,
+			FinishesAfterOtherFinished,
+			FinishesBeforeOtherFinished,
+			StartsAfterOtherFinished,
+			FinishesBeforeOtherStarted,
+		};
+
 		public static readonly IDictionary<IConcept, IDictionary<IConcept, IConcept>> ValidSequenceCombinations;
 
 		#endregion
@@ -239,19 +249,42 @@ namespace Inventor.Core
 				ensureSuits(sign);
 			}
 
-			if (signs.Contains(Causes) && signs.Contains(IsCausedBy))
-			{
-				return true;
-			}
+			var foundStartToStartSigns = signs.Where(s => StartSigns.Contains(s) &&  RelatedToStartSigns.Contains(s)).Distinct();
+			var foundStartToFinishSigns = signs.Where(s => StartSigns.Contains(s) && RelatedToFinishSigns.Contains(s)).Distinct();
+			var foundFinishToStartSigns = signs.Where(s => FinishSigns.Contains(s) && RelatedToStartSigns.Contains(s)).Distinct();
+			var foundFinishToFinishSigns = signs.Where(s => FinishSigns.Contains(s) && RelatedToFinishSigns.Contains(s)).Distinct();
+			return	(signs.Contains(StartsBeforeOtherStarted) && signs.Contains(StartsAfterOtherFinished)) ||
+					(signs.Contains(FinishesBeforeOtherStarted) && signs.Contains(FinishesAfterOtherFinished)) ||
+					foundStartToStartSigns.Count() > 1 ||
+					foundStartToFinishSigns.Count() > 1 ||
+					foundFinishToStartSigns.Count() > 1 ||
+					foundFinishToFinishSigns.Count() > 1;
+		}
 
-			if (signs.Contains(StartsBeforeOtherStarted) && signs.Contains(StartsAfterOtherFinished))
-			{
-				return true;
-			}
+		public static ICollection<IConcept> Consequently(this IConcept sign)
+		{
+			ensureSuits(sign);
 
-			var foundStartSigns = signs.Where(s => StartSigns.Contains(s)).Distinct().ToList();
-			var foundFinishSigns = signs.Where(s => FinishSigns.Contains(s)).Distinct().ToList();
-			return foundStartSigns.Count > 1 || foundFinishSigns.Count > 1;
+			if (sign == StartsBeforeOtherStarted)
+			{
+				return new[] { StartsBeforeOtherFinished };
+			}
+			else if (sign == FinishesBeforeOtherStarted)
+			{
+				return new[] { StartsBeforeOtherStarted, StartsBeforeOtherFinished, FinishesBeforeOtherFinished };
+			}
+			else if (sign == StartsAfterOtherFinished)
+			{
+				return new[] { FinishesAfterOtherFinished, FinishesAfterOtherStarted, StartsAfterOtherStarted };
+			}
+			else if (sign == FinishesAfterOtherFinished)
+			{
+				return new[] { FinishesAfterOtherStarted };
+			}
+			else
+			{
+				return Array.Empty<IConcept>();
+			}
 		}
 
 		static SequenceSigns()
@@ -346,6 +379,15 @@ namespace Inventor.Core
 				new Tuple<IConcept, IConcept, IConcept>(Causes, Causes, Causes),
 				new Tuple<IConcept, IConcept, IConcept>(IsCausedBy, IsCausedBy, IsCausedBy),
 				new Tuple<IConcept, IConcept, IConcept>(SimultaneousWith, SimultaneousWith, SimultaneousWith),
+
+				new Tuple<IConcept, IConcept, IConcept>(StartsWhenOtherStarted, FinishesBeforeOtherStarted, StartsBeforeOtherStarted),
+				new Tuple<IConcept, IConcept, IConcept>(StartsBeforeOtherStarted, FinishesBeforeOtherStarted, StartsBeforeOtherStarted),
+				new Tuple<IConcept, IConcept, IConcept>(FinishesWhenOtherStarted, FinishesBeforeOtherStarted, FinishesBeforeOtherStarted),
+				new Tuple<IConcept, IConcept, IConcept>(FinishesBeforeOtherStarted, FinishesBeforeOtherStarted, FinishesBeforeOtherStarted),
+				new Tuple<IConcept, IConcept, IConcept>(StartsAfterOtherFinished, StartsAfterOtherFinished, StartsAfterOtherFinished),
+				new Tuple<IConcept, IConcept, IConcept>(StartsWhenOtherFinished, StartsAfterOtherFinished, StartsAfterOtherFinished),
+				new Tuple<IConcept, IConcept, IConcept>(FinishesAfterOtherFinished, StartsAfterOtherFinished, FinishesAfterOtherFinished),
+				new Tuple<IConcept, IConcept, IConcept>(FinishesWhenOtherFinished, StartsAfterOtherFinished, FinishesAfterOtherFinished),
 			})
 			{
 				setValidCombination(combination.Item1, combination.Item2, combination.Item3);

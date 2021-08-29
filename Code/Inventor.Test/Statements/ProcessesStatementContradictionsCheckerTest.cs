@@ -177,6 +177,31 @@ namespace Inventor.Test.Statements
 			}
 		}
 
+		[Test]
+		public void ProcessCanNotChangeItsBounds()
+		{
+			// arrange
+			var process = createProcessConcept("process");
+
+			// act
+			foreach (var sign in SequenceSigns.All)
+			{
+				var statements = new[] { new ProcessesStatement(null, process, process, sign) };
+
+				var contradictions = statements.CheckForContradictions();
+
+				// assert
+				if (SequenceSigns.SelfInvalidSigns.Contains(sign))
+				{
+					Assert.IsTrue(contradictions.Single().Signs.Contains(sign));
+				}
+				else
+				{
+					Assert.AreEqual(0, contradictions.Count);
+				}
+			}
+		}
+
 		private static IConcept createProcessConcept(string name)
 		{
 			var concept = name.CreateConcept();
