@@ -5,6 +5,7 @@ using System.Linq;
 using NUnit.Framework;
 
 using Inventor.Core;
+using Inventor.Core.Base;
 using Inventor.Core.Statements;
 
 namespace Inventor.Test.Statements
@@ -303,20 +304,20 @@ namespace Inventor.Test.Statements
 		[Test]
 		public void CheckPathFinding()
 		{
-			var parent1 = TestHelper.CreateConcept();
-			var topMedium1 = TestHelper.CreateConcept();
-			var bottomMedium1 = TestHelper.CreateConcept();
-			var child1 = TestHelper.CreateConcept();
-			var parent2 = TestHelper.CreateConcept();
-			var topMedium2 = TestHelper.CreateConcept();
-			var bottomMedium2 = TestHelper.CreateConcept();
-			var child2 = TestHelper.CreateConcept();
-			var parentNoConnection = TestHelper.CreateConcept();
-			var childNoConnection = TestHelper.CreateConcept();
-			var parent2Path = TestHelper.CreateConcept();
-			var medium2Path1 = TestHelper.CreateConcept();
-			var medium2Path2 = TestHelper.CreateConcept();
-			var child2Path = TestHelper.CreateConcept();
+			var parent1 = ConceptCreationHelper.CreateConcept();
+			var topMedium1 = ConceptCreationHelper.CreateConcept();
+			var bottomMedium1 = ConceptCreationHelper.CreateConcept();
+			var child1 = ConceptCreationHelper.CreateConcept();
+			var parent2 = ConceptCreationHelper.CreateConcept();
+			var topMedium2 = ConceptCreationHelper.CreateConcept();
+			var bottomMedium2 = ConceptCreationHelper.CreateConcept();
+			var child2 = ConceptCreationHelper.CreateConcept();
+			var parentNoConnection = ConceptCreationHelper.CreateConcept();
+			var childNoConnection = ConceptCreationHelper.CreateConcept();
+			var parent2Path = ConceptCreationHelper.CreateConcept();
+			var medium2Path1 = ConceptCreationHelper.CreateConcept();
+			var medium2Path2 = ConceptCreationHelper.CreateConcept();
+			var child2Path = ConceptCreationHelper.CreateConcept();
 
 			var statements = new IStatement[]
 			{
@@ -355,9 +356,9 @@ namespace Inventor.Test.Statements
 		[Test]
 		public void CheckRecursivePaths()
 		{
-			var a = TestHelper.CreateConcept();
-			var b = TestHelper.CreateConcept();
-			var c = TestHelper.CreateConcept();
+			var a = ConceptCreationHelper.CreateConcept();
+			var b = ConceptCreationHelper.CreateConcept();
+			var c = ConceptCreationHelper.CreateConcept();
 
 			var statementsValid1 = new IStatement[]
 			{
