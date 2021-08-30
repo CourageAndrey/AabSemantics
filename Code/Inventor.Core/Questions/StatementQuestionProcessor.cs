@@ -97,13 +97,19 @@ namespace Inventor.Core.Questions
 			Func<StatementT, IConcept> resultConceptSelector,
 			Func<QuestionT, IConcept> titleConceptSelector,
 			String titleConceptCaption,
-			Func<ILanguage, String> answerFormat)
+			Func<ILanguage, String> answerFormat,
+			Func<IEnumerable<IConcept>, IEnumerable<IConcept>> conceptsFilter = null)
 		{
 			ProcessChildrenIfNeed();
 
 			if (Statements.Any())
 			{
-				var resultConcepts = Statements.Select(resultConceptSelector).ToList();
+				if (conceptsFilter == null)
+				{
+					conceptsFilter = concepts => concepts;
+				}
+
+				var resultConcepts = conceptsFilter(Statements.Select(resultConceptSelector)).ToList();
 
 				var format = new UnstructuredContainer(new Text.FormattedText(
 					language => answerFormat(Context.Language),
