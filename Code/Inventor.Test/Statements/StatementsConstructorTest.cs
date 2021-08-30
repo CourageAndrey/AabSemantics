@@ -22,7 +22,7 @@ namespace Inventor.Test.Statements
 		public void GivenNoWholeWhenTryToCreateHasPartStatementThenFail()
 		{
 			// arrange
-			var concept = TestHelper.CreateConcept();
+			var concept = ConceptCreationHelper.CreateConcept();
 
 			// act && assert
 			Assert.Throws<ArgumentNullException>(() => new HasPartStatement(TestStatementId, null, concept));
@@ -32,7 +32,7 @@ namespace Inventor.Test.Statements
 		public void GivenNoPartWhenTryToCreateHasPartStatementThenFail()
 		{
 			// arrange
-			var concept = TestHelper.CreateConcept();
+			var concept = ConceptCreationHelper.CreateConcept();
 
 			// act && assert
 			Assert.Throws<ArgumentNullException>(() => new HasPartStatement(TestStatementId, concept, null));
@@ -46,7 +46,7 @@ namespace Inventor.Test.Statements
 		public void GivenNoAreaWhenTryToCreateGroupStatementThenFail()
 		{
 			// arrange
-			var concept = TestHelper.CreateConcept();
+			var concept = ConceptCreationHelper.CreateConcept();
 
 			// act && assert
 			Assert.Throws<ArgumentNullException>(() => new GroupStatement(TestStatementId, null, concept));
@@ -56,7 +56,7 @@ namespace Inventor.Test.Statements
 		public void GivenNoConceptWhenTryToCreateGroupStatementThenFail()
 		{
 			// arrange
-			var concept = TestHelper.CreateConcept();
+			var concept = ConceptCreationHelper.CreateConcept();
 
 			// act && assert
 			Assert.Throws<ArgumentNullException>(() => new GroupStatement(TestStatementId, concept, null));
@@ -70,7 +70,7 @@ namespace Inventor.Test.Statements
 		public void GivenNoConceptWhenTryToCreateHasSignStatementThenFail()
 		{
 			// arrange
-			var sign = TestHelper.CreateConcept();
+			var sign = ConceptCreationHelper.CreateConcept();
 			sign.WithAttribute(IsSignAttribute.Value);
 
 			// act && assert
@@ -81,7 +81,7 @@ namespace Inventor.Test.Statements
 		public void GivenNoSignWhenTryToCreateHasSignStatementThenFail()
 		{
 			// arrange
-			var concept = TestHelper.CreateConcept();
+			var concept = ConceptCreationHelper.CreateConcept();
 
 			// act && assert
 			Assert.Throws<ArgumentNullException>(() => new HasSignStatement(TestStatementId, concept, null));
@@ -91,8 +91,8 @@ namespace Inventor.Test.Statements
 		public void GivenSignWithoutAttributeWhenTryToCreateHasSignStatementThenFail()
 		{
 			// arrange
-			var concept = TestHelper.CreateConcept();
-			var sign = TestHelper.CreateConcept();
+			var concept = ConceptCreationHelper.CreateConcept();
+			var sign = ConceptCreationHelper.CreateConcept();
 
 			// act && assert
 			Assert.Throws<ArgumentException>(() => new HasSignStatement(TestStatementId, concept, sign));
@@ -106,7 +106,7 @@ namespace Inventor.Test.Statements
 		public void GivenNoAncestorWhenTryToCreateIsStatementThenFail()
 		{
 			// arrange
-			var concept = TestHelper.CreateConcept();
+			var concept = ConceptCreationHelper.CreateConcept();
 
 			// act && assert
 			Assert.Throws<ArgumentNullException>(() => new IsStatement(TestStatementId, null, concept));
@@ -116,7 +116,7 @@ namespace Inventor.Test.Statements
 		public void GivenNoDescendantWhenTryToCreateIsStatementThenFail()
 		{
 			// arrange
-			var concept = TestHelper.CreateConcept();
+			var concept = ConceptCreationHelper.CreateConcept();
 
 			// act && assert
 			Assert.Throws<ArgumentNullException>(() => new IsStatement(TestStatementId, concept, null));
@@ -130,10 +130,10 @@ namespace Inventor.Test.Statements
 		public void GivenNoConceptWhenTryToCreateSignValueStatementThenFail()
 		{
 			// arrange
-			var concept = TestHelper.CreateConcept();
-			var sign = TestHelper.CreateConcept();
+			var concept = ConceptCreationHelper.CreateConcept();
+			var sign = ConceptCreationHelper.CreateConcept();
 			sign.WithAttribute(IsSignAttribute.Value);
-			var value = TestHelper.CreateConcept();
+			var value = ConceptCreationHelper.CreateConcept();
 			value.WithAttribute(IsValueAttribute.Value);
 
 			// act && assert
@@ -144,10 +144,10 @@ namespace Inventor.Test.Statements
 		public void GivenNoSignWhenTryToCreateSignValueStatementThenFail()
 		{
 			// arrange
-			var concept = TestHelper.CreateConcept();
-			var sign = TestHelper.CreateConcept();
+			var concept = ConceptCreationHelper.CreateConcept();
+			var sign = ConceptCreationHelper.CreateConcept();
 			sign.WithAttribute(IsSignAttribute.Value);
-			var value = TestHelper.CreateConcept();
+			var value = ConceptCreationHelper.CreateConcept();
 			value.WithAttribute(IsValueAttribute.Value);
 
 			// act && assert
@@ -158,10 +158,10 @@ namespace Inventor.Test.Statements
 		public void GivenNoValueWhenTryToCreateSignValueStatementThenFail()
 		{
 			// arrange
-			var concept = TestHelper.CreateConcept();
-			var sign = TestHelper.CreateConcept();
+			var concept = ConceptCreationHelper.CreateConcept();
+			var sign = ConceptCreationHelper.CreateConcept();
 			sign.WithAttribute(IsSignAttribute.Value);
-			var value = TestHelper.CreateConcept();
+			var value = ConceptCreationHelper.CreateConcept();
 			value.WithAttribute(IsValueAttribute.Value);
 
 			// act && assert
@@ -172,9 +172,9 @@ namespace Inventor.Test.Statements
 		public void GivenSignWithoutAttributeWhenTryToCreateSignValueStatementThenFail()
 		{
 			// arrange
-			var concept = TestHelper.CreateConcept();
-			var sign = TestHelper.CreateConcept();
-			var value = TestHelper.CreateConcept();
+			var concept = ConceptCreationHelper.CreateConcept();
+			var sign = ConceptCreationHelper.CreateConcept();
+			var value = ConceptCreationHelper.CreateConcept();
 			value.WithAttribute(IsValueAttribute.Value);
 
 			// act && assert
@@ -185,10 +185,10 @@ namespace Inventor.Test.Statements
 		public void GivenValueWithoutAttributeWhenTryToCreateSignValueStatementThenFail()
 		{
 			// arrange
-			var concept = TestHelper.CreateConcept();
-			var sign = TestHelper.CreateConcept();
+			var concept = ConceptCreationHelper.CreateConcept();
+			var sign = ConceptCreationHelper.CreateConcept();
 			sign.WithAttribute(IsSignAttribute.Value);
-			var value = TestHelper.CreateConcept();
+			var value = ConceptCreationHelper.CreateConcept();
 
 			// act && assert
 			Assert.Throws<ArgumentException>(() => new SignValueStatement(TestStatementId, concept, sign, value));
@@ -202,9 +202,9 @@ namespace Inventor.Test.Statements
 		public void GivenNoLeftValueWhenTryToCreateComparisonStatementThenFail()
 		{
 			// arrange
-			var right = TestHelper.CreateConcept();
+			var right = ConceptCreationHelper.CreateConcept();
 			right.WithAttribute(IsValueAttribute.Value);
-			var sign = TestHelper.CreateConcept();
+			var sign = ConceptCreationHelper.CreateConcept();
 			sign.WithAttribute(IsComparisonSignAttribute.Value);
 
 			// act && assert
@@ -215,9 +215,9 @@ namespace Inventor.Test.Statements
 		public void GivenNoRightValueWhenTryToCreateComparisonStatementThenFail()
 		{
 			// arrange
-			var left = TestHelper.CreateConcept();
+			var left = ConceptCreationHelper.CreateConcept();
 			left.WithAttribute(IsValueAttribute.Value);
-			var sign = TestHelper.CreateConcept();
+			var sign = ConceptCreationHelper.CreateConcept();
 			sign.WithAttribute(IsComparisonSignAttribute.Value);
 
 			// act && assert
@@ -228,9 +228,9 @@ namespace Inventor.Test.Statements
 		public void GivenNoSignWhenTryToCreateComparisonStatementThenFail()
 		{
 			// arrange
-			var left = TestHelper.CreateConcept();
+			var left = ConceptCreationHelper.CreateConcept();
 			left.WithAttribute(IsValueAttribute.Value);
-			var right = TestHelper.CreateConcept();
+			var right = ConceptCreationHelper.CreateConcept();
 			right.WithAttribute(IsValueAttribute.Value);
 
 			// act && assert
@@ -241,10 +241,10 @@ namespace Inventor.Test.Statements
 		public void GivenLeftWithoutAttributeWhenTryToCreateComparisonStatementThenFail()
 		{
 			// arrange
-			var left = TestHelper.CreateConcept();
-			var right = TestHelper.CreateConcept();
+			var left = ConceptCreationHelper.CreateConcept();
+			var right = ConceptCreationHelper.CreateConcept();
 			right.WithAttribute(IsValueAttribute.Value);
-			var sign = TestHelper.CreateConcept();
+			var sign = ConceptCreationHelper.CreateConcept();
 			sign.WithAttribute(IsComparisonSignAttribute.Value);
 
 			// act && assert
@@ -255,10 +255,10 @@ namespace Inventor.Test.Statements
 		public void GivenRightWithoutAttributeWhenTryToCreateComparisonStatementThenFail()
 		{
 			// arrange
-			var left = TestHelper.CreateConcept();
+			var left = ConceptCreationHelper.CreateConcept();
 			left.WithAttribute(IsValueAttribute.Value);
-			var right = TestHelper.CreateConcept();
-			var sign = TestHelper.CreateConcept();
+			var right = ConceptCreationHelper.CreateConcept();
+			var sign = ConceptCreationHelper.CreateConcept();
 			sign.WithAttribute(IsComparisonSignAttribute.Value);
 
 			// act && assert
@@ -269,11 +269,11 @@ namespace Inventor.Test.Statements
 		public void GivenSignWithoutAttributeWhenTryToCreateComparisonStatementThenFail()
 		{
 			// arrange
-			var left = TestHelper.CreateConcept();
+			var left = ConceptCreationHelper.CreateConcept();
 			left.WithAttribute(IsValueAttribute.Value);
-			var right = TestHelper.CreateConcept();
+			var right = ConceptCreationHelper.CreateConcept();
 			right.WithAttribute(IsValueAttribute.Value);
-			var sign = TestHelper.CreateConcept();
+			var sign = ConceptCreationHelper.CreateConcept();
 
 			// act && assert
 			Assert.Throws<ArgumentException>(() => new ComparisonStatement(TestStatementId, left, right, sign));
@@ -287,9 +287,9 @@ namespace Inventor.Test.Statements
 		public void GivenNoProcessAWhenTryToCreateProcessesStatementThenFail()
 		{
 			// arrange
-			var processB = TestHelper.CreateConcept();
+			var processB = ConceptCreationHelper.CreateConcept();
 			processB.WithAttribute(IsProcessAttribute.Value);
-			var sign = TestHelper.CreateConcept();
+			var sign = ConceptCreationHelper.CreateConcept();
 			sign.WithAttribute(IsSequenceSignAttribute.Value);
 
 			// act && assert
@@ -300,9 +300,9 @@ namespace Inventor.Test.Statements
 		public void GivenNoProcessBWhenTryToCreateProcessesStatementThenFail()
 		{
 			// arrange
-			var processA = TestHelper.CreateConcept();
+			var processA = ConceptCreationHelper.CreateConcept();
 			processA.WithAttribute(IsProcessAttribute.Value);
-			var sign = TestHelper.CreateConcept();
+			var sign = ConceptCreationHelper.CreateConcept();
 			sign.WithAttribute(IsSequenceSignAttribute.Value);
 
 			// act && assert
@@ -313,9 +313,9 @@ namespace Inventor.Test.Statements
 		public void GivenNoSignWhenTryToCreateProcessesStatementThenFail()
 		{
 			// arrange
-			var processA = TestHelper.CreateConcept();
+			var processA = ConceptCreationHelper.CreateConcept();
 			processA.WithAttribute(IsProcessAttribute.Value);
-			var processB = TestHelper.CreateConcept();
+			var processB = ConceptCreationHelper.CreateConcept();
 			processB.WithAttribute(IsProcessAttribute.Value);
 
 			// act && assert
@@ -326,10 +326,10 @@ namespace Inventor.Test.Statements
 		public void GivenProcessAWithoutAttributeWhenTryToCreateProcessesStatementThenFail()
 		{
 			// arrange
-			var processA = TestHelper.CreateConcept();
-			var processB = TestHelper.CreateConcept();
+			var processA = ConceptCreationHelper.CreateConcept();
+			var processB = ConceptCreationHelper.CreateConcept();
 			processB.WithAttribute(IsProcessAttribute.Value);
-			var sign = TestHelper.CreateConcept();
+			var sign = ConceptCreationHelper.CreateConcept();
 			sign.WithAttribute(IsSequenceSignAttribute.Value);
 
 			// act && assert
@@ -340,10 +340,10 @@ namespace Inventor.Test.Statements
 		public void GivenProcessBWithoutAttributeWhenTryToCreateProcessesStatementThenFail()
 		{
 			// arrange
-			var processA = TestHelper.CreateConcept();
+			var processA = ConceptCreationHelper.CreateConcept();
 			processA.WithAttribute(IsProcessAttribute.Value);
-			var processB = TestHelper.CreateConcept();
-			var sign = TestHelper.CreateConcept();
+			var processB = ConceptCreationHelper.CreateConcept();
+			var sign = ConceptCreationHelper.CreateConcept();
 			sign.WithAttribute(IsSequenceSignAttribute.Value);
 
 			// act && assert
@@ -354,11 +354,11 @@ namespace Inventor.Test.Statements
 		public void GivenSignWithoutAttributeWhenTryToCreateProcessesStatementThenFail()
 		{
 			// arrange
-			var processA = TestHelper.CreateConcept();
+			var processA = ConceptCreationHelper.CreateConcept();
 			processA.WithAttribute(IsProcessAttribute.Value);
-			var processB = TestHelper.CreateConcept();
+			var processB = ConceptCreationHelper.CreateConcept();
 			processB.WithAttribute(IsProcessAttribute.Value);
-			var sign = TestHelper.CreateConcept();
+			var sign = ConceptCreationHelper.CreateConcept();
 
 			// act && assert
 			Assert.Throws<ArgumentException>(() => new ProcessesStatement(TestStatementId, processA, processB, sign));

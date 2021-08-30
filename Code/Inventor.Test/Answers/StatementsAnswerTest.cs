@@ -17,8 +17,8 @@ namespace Inventor.Test.Answers
 		{
 			// arrange
 
-			var concept1 = TestHelper.CreateConcept();
-			var concept2 = TestHelper.CreateConcept();
+			var concept1 = ConceptCreationHelper.CreateConcept();
+			var concept2 = ConceptCreationHelper.CreateConcept();
 
 			var resultStatementsTyped = new IsStatement[]
 			{

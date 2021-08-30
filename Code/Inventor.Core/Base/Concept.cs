@@ -45,4 +45,22 @@ namespace Inventor.Core.Base
 			return this.GetTypeWithId();
 		}
 	}
+
+	public static class ConceptCreationHelper
+	{
+		public static IConcept CreateConcept()
+		{
+			return String.Empty.CreateConcept();
+		}
+
+		public static IConcept CreateConcept(this Object @object)
+		{
+			return @object.ToString().CreateConcept();
+		}
+
+		public static IConcept CreateConcept(this String name)
+		{
+			return new Concept(name, new LocalizedStringConstant(language => name));
+		}
+	}
 }

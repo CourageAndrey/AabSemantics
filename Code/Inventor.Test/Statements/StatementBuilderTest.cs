@@ -20,8 +20,8 @@ namespace Inventor.Test.Statements
 			var language = Language.Default;
 			var semanticNetwork = new SemanticNetwork(language);
 
-			var whole = TestHelper.CreateConcept();
-			var part = TestHelper.CreateConcept();
+			var whole = ConceptCreationHelper.CreateConcept();
+			var part = ConceptCreationHelper.CreateConcept();
 
 			// act
 			var statementByConstuctor = new HasPartStatement(null, whole, part);
@@ -40,8 +40,8 @@ namespace Inventor.Test.Statements
 			var language = Language.Default;
 			var semanticNetwork = new SemanticNetwork(language);
 
-			var area = TestHelper.CreateConcept();
-			var concept = TestHelper.CreateConcept();
+			var area = ConceptCreationHelper.CreateConcept();
+			var concept = ConceptCreationHelper.CreateConcept();
 
 			// act
 			var statementByConstuctor = new GroupStatement(null, area, concept);
@@ -60,8 +60,8 @@ namespace Inventor.Test.Statements
 			var language = Language.Default;
 			var semanticNetwork = new SemanticNetwork(language);
 
-			var concept = TestHelper.CreateConcept();
-			var sign = TestHelper.CreateConcept();
+			var concept = ConceptCreationHelper.CreateConcept();
+			var sign = ConceptCreationHelper.CreateConcept();
 			sign.WithAttribute(IsSignAttribute.Value);
 
 			// act
@@ -81,8 +81,8 @@ namespace Inventor.Test.Statements
 			var language = Language.Default;
 			var semanticNetwork = new SemanticNetwork(language);
 
-			var ancestor = TestHelper.CreateConcept();
-			var descendant = TestHelper.CreateConcept();
+			var ancestor = ConceptCreationHelper.CreateConcept();
+			var descendant = ConceptCreationHelper.CreateConcept();
 
 			// act
 			var statementByConstuctor = new IsStatement(null, ancestor, descendant);
@@ -101,10 +101,10 @@ namespace Inventor.Test.Statements
 			var language = Language.Default;
 			var semanticNetwork = new SemanticNetwork(language);
 
-			var concept = TestHelper.CreateConcept();
-			var sign = TestHelper.CreateConcept();
+			var concept = ConceptCreationHelper.CreateConcept();
+			var sign = ConceptCreationHelper.CreateConcept();
 			sign.WithAttribute(IsSignAttribute.Value);
-			var value = TestHelper.CreateConcept();
+			var value = ConceptCreationHelper.CreateConcept();
 			value.WithAttribute(IsValueAttribute.Value);
 
 			// act
@@ -124,9 +124,9 @@ namespace Inventor.Test.Statements
 			var language = Language.Default;
 			var semanticNetwork = new SemanticNetwork(language);
 
-			var leftValue = TestHelper.CreateConcept();
+			var leftValue = ConceptCreationHelper.CreateConcept();
 			leftValue.WithAttribute(IsValueAttribute.Value);
-			var rightValue = TestHelper.CreateConcept();
+			var rightValue = ConceptCreationHelper.CreateConcept();
 			rightValue.WithAttribute(IsValueAttribute.Value);
 
 			var statementsByConstuctor = new List<ComparisonStatement>();
@@ -165,9 +165,9 @@ namespace Inventor.Test.Statements
 			var language = Language.Default;
 			var semanticNetwork = new SemanticNetwork(language);
 
-			var processA = TestHelper.CreateConcept();
+			var processA = ConceptCreationHelper.CreateConcept();
 			processA.WithAttribute(IsProcessAttribute.Value);
-			var processB = TestHelper.CreateConcept();
+			var processB = ConceptCreationHelper.CreateConcept();
 			processB.WithAttribute(IsProcessAttribute.Value);
 
 			var statementsByConstuctor = new List<ProcessesStatement>();

@@ -60,7 +60,7 @@ namespace Inventor.Test.Questions
 			var language = Language.Default;
 			var semanticNetwork = new TestSemanticNetwork(language);
 
-			var ownSign = TestHelper.CreateConcept();
+			var ownSign = ConceptCreationHelper.CreateConcept();
 			ownSign.WithAttribute(IsSignAttribute.Value);
 			semanticNetwork.SemanticNetwork.Concepts.Add(ownSign);
 
@@ -103,7 +103,7 @@ namespace Inventor.Test.Questions
 			var language = Language.Default;
 			var semanticNetwork = new TestSemanticNetwork(language);
 
-			var ownSign = TestHelper.CreateConcept();
+			var ownSign = ConceptCreationHelper.CreateConcept();
 			ownSign.WithAttribute(IsSignAttribute.Value);
 			semanticNetwork.SemanticNetwork.Concepts.Add(ownSign);
 

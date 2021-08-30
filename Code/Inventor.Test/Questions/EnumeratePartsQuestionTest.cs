@@ -19,9 +19,9 @@ namespace Inventor.Test.Questions
 			var language = Language.Default;
 			var semanticNetwork = new SemanticNetwork(language);
 
-			var conceptToCheck = TestHelper.CreateConcept();
-			var wholeConcept = TestHelper.CreateConcept();
-			var partConcept = TestHelper.CreateConcept();
+			var conceptToCheck = ConceptCreationHelper.CreateConcept();
+			var wholeConcept = ConceptCreationHelper.CreateConcept();
+			var partConcept = ConceptCreationHelper.CreateConcept();
 			semanticNetwork.Concepts.Add(conceptToCheck);
 			semanticNetwork.Concepts.Add(wholeConcept);
 			semanticNetwork.Concepts.Add(partConcept);
@@ -47,7 +47,7 @@ namespace Inventor.Test.Questions
 			var language = Language.Default;
 			var semanticNetwork = new SemanticNetwork(language);
 
-			var wholeConcept = TestHelper.CreateConcept();
+			var wholeConcept = ConceptCreationHelper.CreateConcept();
 			semanticNetwork.Concepts.Add(wholeConcept);
 
 			const int partCount = 4;
@@ -55,7 +55,7 @@ namespace Inventor.Test.Questions
 			for (int i = 1; i <= partCount; i++)
 			{
 				// act
-				var partConcept = TestHelper.CreateConcept();
+				var partConcept = ConceptCreationHelper.CreateConcept();
 				semanticNetwork.Concepts.Add(partConcept);
 				semanticNetwork.DeclareThat(partConcept).IsPartOf(wholeConcept);
 

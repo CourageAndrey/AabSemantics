@@ -21,11 +21,11 @@ namespace Inventor.Test.Questions
 			var language = Language.Default;
 			var semanticNetwork = new SemanticNetwork(language);
 
-			var concept1 = TestHelper.CreateConcept();
+			var concept1 = ConceptCreationHelper.CreateConcept();
 			concept1.WithAttribute(IsValueAttribute.Value);
-			var concept2 = TestHelper.CreateConcept();
+			var concept2 = ConceptCreationHelper.CreateConcept();
 			concept2.WithAttribute(IsValueAttribute.Value);
-			var concept3 = TestHelper.CreateConcept();
+			var concept3 = ConceptCreationHelper.CreateConcept();
 			concept3.WithAttribute(IsValueAttribute.Value);
 			semanticNetwork.Concepts.Add(concept1);
 			semanticNetwork.Concepts.Add(concept2);

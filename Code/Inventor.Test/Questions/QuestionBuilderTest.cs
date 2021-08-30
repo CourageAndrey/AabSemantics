@@ -294,9 +294,9 @@ namespace Inventor.Test.Questions
 			var language = Language.Default;
 			var semanticNetwork = new TestSemanticNetwork(language);
 
-			var processA = TestHelper.CreateConcept();
+			var processA = ConceptCreationHelper.CreateConcept();
 			processA.WithAttribute(IsProcessAttribute.Value);
-			var processB = TestHelper.CreateConcept();
+			var processB = ConceptCreationHelper.CreateConcept();
 			processB.WithAttribute(IsProcessAttribute.Value);
 			semanticNetwork.SemanticNetwork.DeclareThat(processA).StartsBeforeOtherStarted(processB);
 			semanticNetwork.SemanticNetwork.DeclareThat(processA).FinishesAfterOtherFinished(processB);
@@ -357,7 +357,7 @@ namespace Inventor.Test.Questions
 			var language = Language.Default;
 			var semanticNetwork = new TestSemanticNetwork(language);
 
-			var numberMinus1 = TestHelper.CreateConcept();
+			var numberMinus1 = ConceptCreationHelper.CreateConcept();
 			numberMinus1.WithAttribute(IsValueAttribute.Value);
 
 			var precondition = new ComparisonStatement(null, numberMinus1, semanticNetwork.Number0, ComparisonSigns.IsLessThan);
