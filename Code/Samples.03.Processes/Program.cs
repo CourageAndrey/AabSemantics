@@ -25,18 +25,18 @@ namespace Samples._03.Processes
 
 			#region Define concepts
 
-			IConcept january = new Concept("January", new LocalizedStringConstant(l => "January"));
-			IConcept february = new Concept("February", new LocalizedStringConstant(l => "February"));
-			IConcept march = new Concept("March", new LocalizedStringConstant(l => "March"));
-			IConcept april = new Concept("April", new LocalizedStringConstant(l => "April"));
-			IConcept may = new Concept("May", new LocalizedStringConstant(l => "May"));
-			IConcept june = new Concept("June", new LocalizedStringConstant(l => "June"));
-			IConcept july = new Concept("July", new LocalizedStringConstant(l => "July"));
-			IConcept august = new Concept("August", new LocalizedStringConstant(l => "August"));
-			IConcept september = new Concept("September", new LocalizedStringConstant(l => "September"));
-			IConcept october = new Concept("October", new LocalizedStringConstant(l => "October"));
-			IConcept november = new Concept("November", new LocalizedStringConstant(l => "November"));
-			IConcept december = new Concept("December", new LocalizedStringConstant(l => "December"));
+			IConcept january = "January".CreateConcept();
+			IConcept february = "February".CreateConcept();
+			IConcept march = "March".CreateConcept();
+			IConcept april = "April".CreateConcept();
+			IConcept may = "May".CreateConcept();
+			IConcept june = "June".CreateConcept();
+			IConcept july = "July".CreateConcept();
+			IConcept august = "August".CreateConcept();
+			IConcept september = "September".CreateConcept();
+			IConcept october = "October".CreateConcept();
+			IConcept november = "November".CreateConcept();
+			IConcept december = "December".CreateConcept();
 
 			var months = new[]
 			{

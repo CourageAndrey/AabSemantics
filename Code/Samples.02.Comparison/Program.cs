@@ -30,7 +30,7 @@ namespace Samples._02.Comparison
 			for (int i = 0; i <= 10; i++)
 			{
 				string n = i.ToString();
-				IConcept number = new Concept(n, new LocalizedStringConstant(l => n)).WithAttribute(IsValueAttribute.Value);
+				IConcept number = n.CreateConcept().WithAttribute(IsValueAttribute.Value);
 				numbers.Add(number);
 				semanticNetwork.Concepts.Add(number);
 			}
