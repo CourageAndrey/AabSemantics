@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System.Globalization;
+using System.Linq;
 
 using NUnit.Framework;
 
@@ -19,7 +20,7 @@ namespace Inventor.Test
 			{
 				if (!languageNames.Remove(type.Name))
 				{
-					Assert.IsTrue(false, string.Format("questionType {0} hasn't localization name.", type.FullName));
+					Assert.IsTrue(false, string.Format(CultureInfo.InvariantCulture, "questionType {0} hasn't localization name.", type.FullName));
 				}
 			}
 			if (languageNames.Count > 0)

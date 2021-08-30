@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Globalization;
 using System.Xml.Serialization;
 
 namespace Inventor.Core.Localization
@@ -69,13 +70,13 @@ namespace Inventor.Core.Localization
 		{
 			return new LanguageStatements
 			{
-				SubjectArea = String.Format("Concept {0} belongs to {1} subject area.", Strings.ParamConcept, Strings.ParamArea),
-				Clasification = String.Format("{0} is {1}.", Strings.ParamChild, Strings.ParamParent),
-				HasSign = String.Format("{0} has {1} sign.", Strings.ParamConcept, Strings.ParamSign),
-				SignValue = String.Format("{1} sign value of {0} is equal to {2}.", Strings.ParamConcept, Strings.ParamSign, Strings.ParamValue),
-				Composition = String.Format("{0} is part of {1}.", Strings.ParamChild, Strings.ParamParent),
-				Comparison = String.Format("{0} {1} {2}.", Strings.ParamLeftValue, Strings.ParamComparisonSign, Strings.ParamRightValue),
-				Processes = String.Format("{0} {1} {2}.", Strings.ParamProcessA, Strings.ParamSequenceSign, Strings.ParamProcessB),
+				SubjectArea = String.Format(CultureInfo.InvariantCulture, "Concept {0} belongs to {1} subject area.", Strings.ParamConcept, Strings.ParamArea),
+				Clasification = String.Format(CultureInfo.InvariantCulture, "{0} is {1}.", Strings.ParamChild, Strings.ParamParent),
+				HasSign = String.Format(CultureInfo.InvariantCulture, "{0} has {1} sign.", Strings.ParamConcept, Strings.ParamSign),
+				SignValue = String.Format(CultureInfo.InvariantCulture, "{1} sign value of {0} is equal to {2}.", Strings.ParamConcept, Strings.ParamSign, Strings.ParamValue),
+				Composition = String.Format(CultureInfo.InvariantCulture, "{0} is part of {1}.", Strings.ParamChild, Strings.ParamParent),
+				Comparison = String.Format(CultureInfo.InvariantCulture, "{0} {1} {2}.", Strings.ParamLeftValue, Strings.ParamComparisonSign, Strings.ParamRightValue),
+				Processes = String.Format(CultureInfo.InvariantCulture, "{0} {1} {2}.", Strings.ParamProcessA, Strings.ParamSequenceSign, Strings.ParamProcessB),
 			};
 		}
 
@@ -83,13 +84,13 @@ namespace Inventor.Core.Localization
 		{
 			return new LanguageStatements
 			{
-				SubjectArea = String.Format("Concept {0} does not belong to {1} subject area.", Strings.ParamConcept, Strings.ParamArea),
-				Clasification = String.Format("{0} is not {1}.", Strings.ParamChild, Strings.ParamParent),
-				HasSign = String.Format("{0} has not {1} sign.", Strings.ParamConcept, Strings.ParamSign),
-				SignValue = String.Format("{1} sign value of {0} is not equal to {2}.", Strings.ParamConcept, Strings.ParamSign, Strings.ParamValue),
-				Composition = String.Format("{0} is not part of {1}.", Strings.ParamChild, Strings.ParamParent),
-				Comparison = String.Format("It's false, that {0} {1} {2}.", Strings.ParamLeftValue, Strings.ParamComparisonSign, Strings.ParamRightValue),
-				Processes = String.Format("It's false, that {0} {1} {2}.", Strings.ParamProcessA, Strings.ParamSequenceSign, Strings.ParamProcessB),
+				SubjectArea = String.Format(CultureInfo.InvariantCulture, "Concept {0} does not belong to {1} subject area.", Strings.ParamConcept, Strings.ParamArea),
+				Clasification = String.Format(CultureInfo.InvariantCulture, "{0} is not {1}.", Strings.ParamChild, Strings.ParamParent),
+				HasSign = String.Format(CultureInfo.InvariantCulture, "{0} has not {1} sign.", Strings.ParamConcept, Strings.ParamSign),
+				SignValue = String.Format(CultureInfo.InvariantCulture, "{1} sign value of {0} is not equal to {2}.", Strings.ParamConcept, Strings.ParamSign, Strings.ParamValue),
+				Composition = String.Format(CultureInfo.InvariantCulture, "{0} is not part of {1}.", Strings.ParamChild, Strings.ParamParent),
+				Comparison = String.Format(CultureInfo.InvariantCulture, "It's false, that {0} {1} {2}.", Strings.ParamLeftValue, Strings.ParamComparisonSign, Strings.ParamRightValue),
+				Processes = String.Format(CultureInfo.InvariantCulture, "It's false, that {0} {1} {2}.", Strings.ParamProcessA, Strings.ParamSequenceSign, Strings.ParamProcessB),
 			};
 		}
 
@@ -97,13 +98,13 @@ namespace Inventor.Core.Localization
 		{
 			return new LanguageStatements
 			{
-				SubjectArea = String.Format("Does {0} belong to {1} subject area?", Strings.ParamConcept, Strings.ParamArea),
-				Clasification = String.Format("Is {0} a {1}?", Strings.ParamChild, Strings.ParamParent),
-				HasSign = String.Format("Has {0} got {1} sign?", Strings.ParamConcept, Strings.ParamSign),
-				SignValue = String.Format("Is {2} the value of {0}s {1} sign?", Strings.ParamConcept, Strings.ParamSign, Strings.ParamValue),
-				Composition = String.Format("Is {0} part of {1}?", Strings.ParamChild, Strings.ParamParent),
-				Comparison = String.Format("Is it true, that {0} {1} {2}?", Strings.ParamLeftValue, Strings.ParamComparisonSign, Strings.ParamRightValue),
-				Processes = String.Format("Is it true, that {0} {1} {2}?", Strings.ParamProcessA, Strings.ParamSequenceSign, Strings.ParamProcessB),
+				SubjectArea = String.Format(CultureInfo.InvariantCulture, "Does {0} belong to {1} subject area?", Strings.ParamConcept, Strings.ParamArea),
+				Clasification = String.Format(CultureInfo.InvariantCulture, "Is {0} a {1}?", Strings.ParamChild, Strings.ParamParent),
+				HasSign = String.Format(CultureInfo.InvariantCulture, "Has {0} got {1} sign?", Strings.ParamConcept, Strings.ParamSign),
+				SignValue = String.Format(CultureInfo.InvariantCulture, "Is {2} the value of {0}s {1} sign?", Strings.ParamConcept, Strings.ParamSign, Strings.ParamValue),
+				Composition = String.Format(CultureInfo.InvariantCulture, "Is {0} part of {1}?", Strings.ParamChild, Strings.ParamParent),
+				Comparison = String.Format(CultureInfo.InvariantCulture, "Is it true, that {0} {1} {2}?", Strings.ParamLeftValue, Strings.ParamComparisonSign, Strings.ParamRightValue),
+				Processes = String.Format(CultureInfo.InvariantCulture, "Is it true, that {0} {1} {2}?", Strings.ParamProcessA, Strings.ParamSequenceSign, Strings.ParamProcessB),
 			};
 		}
 	}

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Threading;
 
@@ -121,7 +122,7 @@ namespace Inventor.Core.Base
 
 		public override String ToString()
 		{
-			return String.Format("{0} : {1}", Strings.TostringSemanticNetwork, Name);
+			return String.Format(CultureInfo.InvariantCulture, "{0} : {1}", Strings.TostringSemanticNetwork, Name);
 		}
 	}
 }
