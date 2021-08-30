@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Globalization;
 using System.Xml.Serialization;
 
 namespace Inventor.Client
@@ -65,7 +66,7 @@ namespace Inventor.Client
 
 		public override String ToString()
 		{
-			return String.Format("{0} : {1}", Class, Message);
+			return String.Format(CultureInfo.InvariantCulture, "{0} : {1}", Class, Message);
 		}
 
 		public Boolean Equals(ExceptionWrapper other)

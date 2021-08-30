@@ -432,8 +432,8 @@ namespace Inventor.Client.Dialogs
 
 			public Object Convert(Object value, Type targetType, Object parameter, CultureInfo culture)
 			{
-				return string.Format("{0}{1} :", (string) value, _required
-					? string.Format(" ({0})", _language.Misc.Required)
+				return string.Format(CultureInfo.InvariantCulture, "{0}{1} :", (string) value, _required
+					? string.Format(CultureInfo.InvariantCulture, " ({0})", _language.Misc.Required)
 					: string.Empty);
 			}
 

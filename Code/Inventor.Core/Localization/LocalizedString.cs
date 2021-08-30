@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 
 namespace Inventor.Core.Localization
@@ -72,10 +73,10 @@ namespace Inventor.Core.Localization
 
 		public override String ToString()
 		{
-			String result = String.Format("{0} ({1} values)", Strings.TostringLocalized, _values.Count);
+			String result = String.Format(CultureInfo.InvariantCulture, "{0} ({1} values)", Strings.TostringLocalized, _values.Count);
 			if (_values.Count > 0)
 			{
-				result += String.Format(" ([0] = \"{0}\")", _values.Values.First());
+				result += String.Format(CultureInfo.InvariantCulture, " ([0] = \"{0}\")", _values.Values.First());
 			}
 			return result;
 		}
@@ -120,7 +121,7 @@ namespace Inventor.Core.Localization
 
 		public override String ToString()
 		{
-			return String.Format("{0} \"{1}\"", Strings.TostringLocalized, _getter(Language.Default));
+			return String.Format(CultureInfo.InvariantCulture, "{0} \"{1}\"", Strings.TostringLocalized, _getter(Language.Default));
 		}
 	}
 }
