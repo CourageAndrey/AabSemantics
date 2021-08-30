@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Text;
 
 using Inventor.Core.Text;
@@ -60,6 +61,12 @@ namespace Inventor.Core
 		public static readonly PlainStringTextRepresenter PlainString = new PlainStringTextRepresenter();
 
 		public static readonly HtmlTextRepresenter Html = new HtmlTextRepresenter();
+
+		public static readonly ICollection<ITextRepresenter> All = new ITextRepresenter[]
+		{
+			PlainString,
+			Html,
+		};
 
 		#endregion
 
