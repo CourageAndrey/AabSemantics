@@ -62,5 +62,10 @@ namespace Inventor.Core.Base
 		{
 			return new Concept(name, new LocalizedStringConstant(language => name));
 		}
+
+		public static IConcept CreateConcept(this String id, String name)
+		{
+			return new Concept(id, new LocalizedStringConstant(language => name));
+		}
 	}
 }

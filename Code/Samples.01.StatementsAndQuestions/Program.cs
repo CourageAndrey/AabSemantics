@@ -35,22 +35,22 @@ namespace Samples._01.StatementsAndQuestions
 			#region Define concepts
 
 			// Need to define our own concepts to work with ...
-			IConcept animal = new Concept("Kingdom: Animalia", new LocalizedStringConstant(l => "Animal"));
-			IConcept chordate = new Concept("Phylum: Chordata", new LocalizedStringConstant(l => "Chordate"));
-			IConcept mammal = new Concept("Class: Mammalia", new LocalizedStringConstant(l => "Mammal"));
-			IConcept carnivor = new Concept("Order: Carnivora", new LocalizedStringConstant(l => "Carnivor"));
+			IConcept animal = "Kingdom: Animalia".CreateConcept("Animal");
+			IConcept chordate = "Phylum: Chordata".CreateConcept("Chordate");
+			IConcept mammal = "Class: Mammalia".CreateConcept("Mammal");
+			IConcept carnivor = "Order: Carnivora".CreateConcept("Carnivor");
 			// Just skip Ursidae, Ursinae and Ursini for short.
-			IConcept bear = new Concept("Genus: Ursus", new LocalizedStringConstant(l => "Bear"));
-			IConcept americanBlackBear = new Concept("Ursus americanus", new LocalizedStringConstant(l => "American black bear"));
-			IConcept brownBear = new Concept("Ursus arctos", new LocalizedStringConstant(l => "Brown bear"));
-			IConcept polarBear = new Concept("Ursus maritimus", new LocalizedStringConstant(l => "Polar bear"));
-			IConcept asianBlackBear = new Concept("Ursus thibetanuss", new LocalizedStringConstant(l => "Asian black bear"));
+			IConcept bear = "Genus: Ursus".CreateConcept("Bear");
+			IConcept americanBlackBear = "Ursus americanus".CreateConcept("American black bear");
+			IConcept brownBear = "Ursus arctos".CreateConcept("Brown bear");
+			IConcept polarBear = "Ursus maritimus".CreateConcept("Polar bear");
+			IConcept asianBlackBear = "Ursus thibetanuss".CreateConcept("Asian black bear");
 			
 			// Pay attention to attributes of concepts below.
-			IConcept hairColor = new Concept("Hair color", new LocalizedStringConstant(l => "Hair color")).WithAttribute(IsSignAttribute.Value);
-			IConcept black = new Concept("Color: Black", new LocalizedStringConstant(l => "Black")).WithAttribute(IsValueAttribute.Value);
-			IConcept brown = new Concept("Color: Brown", new LocalizedStringConstant(l => "Brown")).WithAttribute(IsValueAttribute.Value);
-			IConcept white = new Concept("Color: White", new LocalizedStringConstant(l => "White")).WithAttribute(IsValueAttribute.Value);
+			IConcept hairColor = "Hair color".CreateConcept("Hair color").WithAttribute(IsSignAttribute.Value);
+			IConcept black = "Color: Black".CreateConcept("Black").WithAttribute(IsValueAttribute.Value);
+			IConcept brown = "Color: Brown".CreateConcept("Brown").WithAttribute(IsValueAttribute.Value);
+			IConcept white = "Color: White".CreateConcept("White").WithAttribute(IsValueAttribute.Value);
 			
 			// ... and add them to our semantic network.
 			semanticNetwork.Concepts.Add(animal);
