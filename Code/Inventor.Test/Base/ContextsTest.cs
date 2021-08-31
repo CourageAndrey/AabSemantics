@@ -192,7 +192,10 @@ namespace Inventor.Test.Base
 		private class TestAttributeRepository : IAttributeRepository
 		{
 			public IDictionary<Type, AttributeDefinition> AttributeDefinitions
-			{ get; set; }
+			{ get; } = new Dictionary<Type, AttributeDefinition>();
+
+			public void DefineAttribute(AttributeDefinition attributeDefinition)
+			{ }
 		}
 
 		private class TestStatement : IStatement
