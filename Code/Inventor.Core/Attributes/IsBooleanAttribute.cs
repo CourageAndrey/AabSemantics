@@ -1,10 +1,10 @@
 ﻿namespace Inventor.Core.Attributes
 {
-	public class IsBooleanAttribute : IAttribute
+	public class IsBooleanAttribute : IsValueAttribute
 	{
 		private IsBooleanAttribute()
 		{ }
 
-		public static readonly IsBooleanAttribute Value = new IsBooleanAttribute();
+		public new static readonly IsBooleanAttribute Value = new IsBooleanAttribute();
 	}
 }

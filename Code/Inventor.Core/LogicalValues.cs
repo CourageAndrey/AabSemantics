@@ -80,7 +80,7 @@ namespace Inventor.Core
 		{
 			foreach (var concept in All)
 			{
-				concept.WithAttributes(new IAttribute[] { IsValueAttribute.Value, IsBooleanAttribute.Value });
+				concept.WithAttribute(IsBooleanAttribute.Value);
 			}
 		}
 	}
