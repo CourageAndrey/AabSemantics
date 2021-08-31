@@ -22,5 +22,10 @@ namespace Inventor.Core.Base
 				{ typeof(IsSequenceSignAttribute), new AttributeDefinition(typeof(IsSequenceSignAttribute), IsSequenceSignAttribute.Value, language => language.Attributes.IsSequenceSign) },
 			};
 		}
+
+		public void DefineAttribute(AttributeDefinition attributeDefinition)
+		{
+			AttributeDefinitions[attributeDefinition.AttributeType] = attributeDefinition;
+		}
 	}
 }

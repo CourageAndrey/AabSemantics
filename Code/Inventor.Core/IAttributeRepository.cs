@@ -7,5 +7,7 @@ namespace Inventor.Core
 	{
 		IDictionary<Type, AttributeDefinition> AttributeDefinitions
 		{ get; }
+
+		void DefineAttribute(AttributeDefinition attributeDefinition);
 	}
 }
