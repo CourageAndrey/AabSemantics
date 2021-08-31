@@ -3,11 +3,11 @@
   <PropertyGroup>
     <OutputType>Exe</OutputType>
     <TargetFramework>netcoreapp3.1</TargetFramework>
-    <RootNamespace>Samples._02.Comparison</RootNamespace>
+    <RootNamespace>Samples._05.CustomStatement</RootNamespace>
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Inventor.Core\Inventor.Core.csproj" />
+    <ProjectReference Include="..\..\Inventor.Core\Inventor.Core.csproj" />
   </ItemGroup>
 
 </Project>
