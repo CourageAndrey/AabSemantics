@@ -30,6 +30,13 @@ namespace Inventor.Core
 			_attributeNameGetter = attributeNameGetter;
 		}
 
+		private AttributeDefinition()
+		{
+			AttributeType = typeof(NoAttribute);
+			AttributeValue = new NoAttribute();
+			_attributeNameGetter = language => language.Attributes.None;
+		}
+
 		#endregion
 
 		public String GetName(ILanguage language)
@@ -37,7 +44,7 @@ namespace Inventor.Core
 			return _attributeNameGetter(language);
 		}
 
-		public static readonly AttributeDefinition None = new AttributeDefinition(typeof(NoAttribute), new NoAttribute(), language => language.Attributes.None);
+		public static readonly AttributeDefinition None = new AttributeDefinition();
 
 		private class NoAttribute : IAttribute
 		{ }
