@@ -10,9 +10,9 @@ namespace Inventor.Core.Xml
 		public String ID
 		{ get; set; }
 
-		public static Statement Load(IStatement statement, IStatementRepository repository)
+		public static Statement Load(IStatement statement)
 		{
-			var definition = repository.StatementDefinitions.GetSuitable(statement);
+			var definition = Repositories.Statements.StatementDefinitions.GetSuitable(statement);
 			return definition.GetXml(statement);
 		}
 

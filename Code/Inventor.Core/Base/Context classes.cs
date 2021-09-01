@@ -70,11 +70,11 @@ namespace Inventor.Core.Base
 			: base(language, null)
 		{ }
 
-		public ISemanticNetworkContext Instantiate(ISemanticNetwork semanticNetwork, IStatementRepository statementRepository, IQuestionRepository questionRepository, IAttributeRepository attributeRepository)
+		public ISemanticNetworkContext Instantiate(ISemanticNetwork semanticNetwork)
 		{
 			if (Children.Count > 0) throw new InvalidOperationException("Impossible to instantiate system context more than once.");
 
-			return new SemanticNetworkContext(Language, this, semanticNetwork, statementRepository, questionRepository, attributeRepository);
+			return new SemanticNetworkContext(Language, this, semanticNetwork);
 		}
 	}
 
@@ -85,27 +85,15 @@ namespace Inventor.Core.Base
 		public ISemanticNetwork SemanticNetwork
 		{ get; }
 
-		public IStatementRepository StatementRepository
-		{ get; }
-
-		public IQuestionRepository QuestionRepository
-		{ get; }
-
-		public IAttributeRepository AttributeRepository
-		{ get; }
-
 		public override Boolean IsSystem
 		{ get { return false; } }
 
 		#endregion
 
-		public SemanticNetworkContext(ILanguage language, IContext parent, ISemanticNetwork semanticNetwork, IStatementRepository statementRepository, IQuestionRepository questionRepository, IAttributeRepository attributeRepository)
+		public SemanticNetworkContext(ILanguage language, IContext parent, ISemanticNetwork semanticNetwork)
 			: base(language, parent)
 		{
 			SemanticNetwork = semanticNetwork;
-			StatementRepository = statementRepository;
-			QuestionRepository = questionRepository;
-			AttributeRepository = attributeRepository;
 		}
 
 		public IQuestionProcessingContext CreateQuestionContext(IQuestion question, ILanguage language = null)
@@ -125,7 +113,7 @@ namespace Inventor.Core.Base
 	public class DisposableProcessingContext : SemanticNetworkContext, IDisposable
 	{
 		internal DisposableProcessingContext(ISemanticNetworkContext parent)
-			: base(parent.Language, parent, parent.SemanticNetwork, parent.StatementRepository, parent.QuestionRepository, parent.AttributeRepository)
+			: base(parent.Language, parent, parent.SemanticNetwork)
 		{ }
 
 		private Boolean _disposed;

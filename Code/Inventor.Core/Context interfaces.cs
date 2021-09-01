@@ -26,21 +26,12 @@ namespace Inventor.Core
 
 	public interface ISystemContext : IContext
 	{
-		ISemanticNetworkContext Instantiate(ISemanticNetwork semanticNetwork, IStatementRepository statementRepository, IQuestionRepository questionRepository, IAttributeRepository attributeRepository);
+		ISemanticNetworkContext Instantiate(ISemanticNetwork semanticNetwork);
 	}
 
 	public interface ISemanticNetworkContext : IContext
 	{
 		ISemanticNetwork SemanticNetwork
-		{ get; }
-
-		IStatementRepository StatementRepository
-		{ get; }
-
-		IQuestionRepository QuestionRepository
-		{ get; }
-
-		IAttributeRepository AttributeRepository
 		{ get; }
 
 		IQuestionProcessingContext CreateQuestionContext(IQuestion question, ILanguage language = null);

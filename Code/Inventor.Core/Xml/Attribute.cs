@@ -7,9 +7,9 @@ namespace Inventor.Core.Xml
 	{
 		public abstract IAttribute Load();
 
-		public static Attribute Save(IAttribute attribute, IAttributeRepository repository)
+		public static Attribute Save(IAttribute attribute)
 		{
-			var definition = repository.AttributeDefinitions.GetSuitable(attribute);
+			var definition = Repositories.Attributes.AttributeDefinitions.GetSuitable(attribute);
 			return definition.Xml;
 		}
 	}
