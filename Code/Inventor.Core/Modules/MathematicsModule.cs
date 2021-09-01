@@ -23,7 +23,7 @@ namespace Inventor.Core.Modules
 				semanticNetwork.Concepts.Add(sign);
 			}
 
-			semanticNetwork.RegisterStatement<ComparisonStatement>(language => language.StatementNames.Comparison);
+			semanticNetwork.RegisterStatement<ComparisonStatement>(language => language.StatementNames.Comparison, statement => new Xml.ComparisonStatement(statement as ComparisonStatement));
 
 			semanticNetwork.RegisterQuestion<ComparisonQuestion>();
 		}

@@ -18,10 +18,10 @@ namespace Inventor.Core.Modules
 		{
 			semanticNetwork.RegisterAttribute(IsSignAttribute.Value, language => language.Attributes.IsSign, new Xml.IsSignAttribute());
 
-			semanticNetwork.RegisterStatement<HasPartStatement>(language => language.StatementNames.Composition);
-			semanticNetwork.RegisterStatement<GroupStatement>(language => language.StatementNames.SubjectArea);
-			semanticNetwork.RegisterStatement<HasSignStatement>(language => language.StatementNames.HasSign);
-			semanticNetwork.RegisterStatement<SignValueStatement>(language => language.StatementNames.SignValue);
+			semanticNetwork.RegisterStatement<HasPartStatement>(language => language.StatementNames.Composition, statement => new Xml.HasPartStatement(statement as HasPartStatement));
+			semanticNetwork.RegisterStatement<GroupStatement>(language => language.StatementNames.SubjectArea, statement => new Xml.GroupStatement(statement as GroupStatement));
+			semanticNetwork.RegisterStatement<HasSignStatement>(language => language.StatementNames.HasSign, statement => new Xml.HasSignStatement(statement as HasSignStatement));
+			semanticNetwork.RegisterStatement<SignValueStatement>(language => language.StatementNames.SignValue, statement => new Xml.SignValueStatement(statement as SignValueStatement));
 
 			semanticNetwork.RegisterQuestion<DescribeSubjectAreaQuestion>();
 			semanticNetwork.RegisterQuestion<FindSubjectAreaQuestion>();

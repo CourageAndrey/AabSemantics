@@ -103,10 +103,11 @@ namespace Inventor.Core
 
 		public static void RegisterStatement<StatementT>(
 			this ISemanticNetwork semanticNetwork,
-			Func<ILanguage, String> statementNameGetter)
+			Func<ILanguage, String> statementNameGetter,
+			Func<IStatement, Xml.Statement> statementXmlGetter)
 			where StatementT : IStatement
 		{
-			semanticNetwork.Context.StatementRepository.DefineStatement(new StatementDefinition(typeof(StatementT), statementNameGetter));
+			semanticNetwork.Context.StatementRepository.DefineStatement(new StatementDefinition(typeof(StatementT), statementNameGetter, statementXmlGetter));
 		}
 
 		public static void RegisterQuestion<QuestionT>(
