@@ -158,6 +158,9 @@ namespace Inventor.Test.Base
 			public ICollection<IStatement> Statements
 			{ get; set; }
 
+			public IDictionary<String, IExtensionModule> Modules
+			{ get; set; }
+
 			public event EventHandler<ItemEventArgs<IConcept>> ConceptAdded;
 
 			public event EventHandler<ItemEventArgs<IConcept>> ConceptRemoved;

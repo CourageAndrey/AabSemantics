@@ -25,6 +25,9 @@ namespace Inventor.Core.Base
 		public ICollection<IStatement> Statements
 		{ get; }
 
+		public IDictionary<String, IExtensionModule> Modules
+		{ get; }
+
 		public event EventHandler<ItemEventArgs<IConcept>> ConceptAdded;
 		public event EventHandler<ItemEventArgs<IConcept>> ConceptRemoved;
 		public event EventHandler<ItemEventArgs<IStatement>> StatementAdded;
@@ -34,6 +37,8 @@ namespace Inventor.Core.Base
 
 		public SemanticNetwork(ILanguage language)
 		{
+			Modules = new Dictionary<string, IExtensionModule>();
+
 			var name = new LocalizedStringVariable();
 			name.SetLocale(language.Culture, Strings.NewKbName);
 			Name = name;
@@ -102,12 +107,16 @@ namespace Inventor.Core.Base
 			};
 			Statements = statements;
 
-			foreach (var concept in SystemConcepts.GetAll())
-			{
-				Concepts.Add(concept);
-			}
-
 			Context = systemContext.Instantiate(this, new StatementRepository(), new QuestionRepository(), new AttributeRepository());
+
+			this.WithModule<Modules.BooleanModule>()
+				.WithModule<Modules.ClassificationModule>()
+				.WithModules(new IExtensionModule[]
+				{
+					new Modules.SetModule(),
+					new Modules.MathematicsModule(),
+					new Modules.ProcessesModule(),
+				});
 
 			EventHandler<CancelableItemEventArgs<IStatement>> systemStatementProtector = (sender, args) =>
 			{
