@@ -107,7 +107,7 @@ namespace Inventor.Core.Base
 			};
 			Statements = statements;
 
-			Context = systemContext.Instantiate(this, new StatementRepository(), new QuestionRepository(), new AttributeRepository());
+			Context = systemContext.Instantiate(this);
 
 			this.WithModule<Modules.BooleanModule>()
 				.WithModule<Modules.ClassificationModule>()

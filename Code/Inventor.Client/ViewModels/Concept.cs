@@ -54,7 +54,7 @@ namespace Inventor.Client.ViewModels
 
 		public Window CreateEditDialog(Window owner, Core.ISemanticNetwork semanticNetwork, ILanguage language)
 		{
-			updateAttributes(semanticNetwork.Context.AttributeRepository, language);
+			updateAttributes(Repositories.Attributes, language);
 			var control = new ConceptControl
 			{
 				EditValue = this,

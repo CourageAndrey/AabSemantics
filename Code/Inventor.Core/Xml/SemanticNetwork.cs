@@ -44,9 +44,9 @@ namespace Inventor.Core.Xml
 			Name = new LocalizedString(semanticNetwork.Name);
 
 			var systemConcepts = new HashSet<IConcept>(SystemConcepts.GetAll());
-			Concepts = semanticNetwork.Concepts.Except(systemConcepts).Select(concept => new Concept(concept, semanticNetwork.Context.AttributeRepository)).ToList();
+			Concepts = semanticNetwork.Concepts.Except(systemConcepts).Select(concept => new Concept(concept)).ToList();
 
-			Statements = semanticNetwork.Statements.Select(statement => Statement.Load(statement, semanticNetwork.Context.StatementRepository)).ToList();
+			Statements = semanticNetwork.Statements.Select(statement => Statement.Load(statement)).ToList();
 		}
 
 		#endregion

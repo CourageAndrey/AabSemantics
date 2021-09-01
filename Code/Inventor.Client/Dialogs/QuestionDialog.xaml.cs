@@ -44,7 +44,7 @@ namespace Inventor.Client.Dialogs
 			panelQuestionParams.Visibility = Visibility.Hidden;
 
 			_semanticNetwork = semanticNetwork;
-			foreach (var questionDefinition in semanticNetwork.Context.QuestionRepository.QuestionDefinitions.Values)
+			foreach (var questionDefinition in Repositories.Questions.QuestionDefinitions.Values)
 			{
 				var genericType = typeof(QuestionViewModel<>).MakeGenericType(questionDefinition.QuestionType);
 				var viewModelType = Assembly.GetExecutingAssembly().GetTypes().First(t => !t.IsAbstract && genericType.IsAssignableFrom(t));
@@ -379,7 +379,7 @@ namespace Inventor.Client.Dialogs
 				if (question != null)
 				{
 					editButton.Tag = question;
-					var questionDefinition = _semanticNetwork.Context.QuestionRepository.QuestionDefinitions[question.BuildQuestion().GetType()];
+					var questionDefinition = Repositories.Questions.QuestionDefinitions[question.BuildQuestion().GetType()];
 					editButton.Content = $"{_language.QuestionNames.ParamQuestion}: {questionDefinition.GetName(_language)}";
 				}
 			};

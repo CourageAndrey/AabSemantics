@@ -120,11 +120,7 @@ namespace Inventor.Test.Base
 			var systemContext = (SystemContext) semanticNetwork.Context.Parent;
 
 			// act & assert
-			Assert.Throws<InvalidOperationException>(() => systemContext.Instantiate(
-				new TestSemanticNetwork(),
-				new TestStatementRepository(),
-				new TestQuestionRepository(),
-				new TestAttributeRepository()));
+			Assert.Throws<InvalidOperationException>(() => systemContext.Instantiate(new TestSemanticNetwork()));
 		}
 
 		[Test]
@@ -168,37 +164,6 @@ namespace Inventor.Test.Base
 			public event EventHandler<ItemEventArgs<IStatement>> StatementAdded;
 
 			public event EventHandler<ItemEventArgs<IStatement>> StatementRemoved;
-		}
-
-		private class TestStatementRepository : IStatementRepository
-		{
-			public IDictionary<Type, StatementDefinition> StatementDefinitions
-			{ get; set; }
-
-			public void DefineStatement(StatementDefinition statementDefinition)
-			{
-				throw new NotSupportedException();
-			}
-		}
-
-		private class TestQuestionRepository : IQuestionRepository
-		{
-			public IDictionary<Type, QuestionDefinition> QuestionDefinitions
-			{ get; set; }
-
-			public void DefineQuestion(QuestionDefinition questionDefinition)
-			{
-				throw new NotSupportedException();
-			}
-		}
-
-		private class TestAttributeRepository : IAttributeRepository
-		{
-			public IDictionary<Type, AttributeDefinition> AttributeDefinitions
-			{ get; } = new Dictionary<Type, AttributeDefinition>();
-
-			public void DefineAttribute(AttributeDefinition attributeDefinition)
-			{ }
 		}
 
 		private class TestStatement : IStatement
