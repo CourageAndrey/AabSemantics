@@ -15,8 +15,8 @@ namespace Inventor.Core.Modules
 
 		protected override void Attach(ISemanticNetwork semanticNetwork)
 		{
-			semanticNetwork.RegisterAttribute(IsValueAttribute.Value, language => language.Attributes.IsValue);
-			semanticNetwork.RegisterAttribute(IsBooleanAttribute.Value, language => language.Attributes.IsBoolean);
+			semanticNetwork.RegisterAttribute(IsValueAttribute.Value, language => language.Attributes.IsValue, new Xml.IsValueAttribute());
+			semanticNetwork.RegisterAttribute(IsBooleanAttribute.Value, language => language.Attributes.IsBoolean, new Xml.IsBooleanAttribute());
 
 			foreach (var boolean in LogicalValues.All)
 			{

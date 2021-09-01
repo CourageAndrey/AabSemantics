@@ -94,10 +94,11 @@ namespace Inventor.Core
 		public static void RegisterAttribute<AttributeT>(
 			this ISemanticNetwork semanticNetwork,
 			AttributeT value,
-			Func<ILanguage, String> attributeNameGetter)
+			Func<ILanguage, String> attributeNameGetter,
+			Xml.Attribute xml)
 			where AttributeT : IAttribute
 		{
-			semanticNetwork.Context.AttributeRepository.DefineAttribute(new AttributeDefinition(typeof(AttributeT), value, attributeNameGetter));
+			semanticNetwork.Context.AttributeRepository.DefineAttribute(new AttributeDefinition(typeof(AttributeT), value, attributeNameGetter, xml));
 		}
 
 		public static void RegisterStatement<StatementT>(
