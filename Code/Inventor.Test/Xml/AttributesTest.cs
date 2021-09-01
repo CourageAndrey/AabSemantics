@@ -60,7 +60,7 @@ namespace Inventor.Test.Xml
 		private IEnumerable<IAttribute> getAllAttributes()
 		{
 			var repository = new AttributeRepository();
-			return repository.AttributeDefinitions.Values.Select(a => a.AttributeValue);
+			return repository.Definitions.Values.Select(a => a.AttributeValue);
 		}
 
 		private class WrongAttribute : IAttribute

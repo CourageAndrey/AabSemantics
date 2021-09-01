@@ -5,12 +5,12 @@ namespace Inventor.Core.Base
 {
 	public class AttributeRepository : IAttributeRepository
 	{
-		public IDictionary<Type, AttributeDefinition> AttributeDefinitions
+		public IDictionary<Type, AttributeDefinition> Definitions
 		{ get; } = new Dictionary<Type, AttributeDefinition>();
 
-		public void DefineAttribute(AttributeDefinition attributeDefinition)
+		public void Define(AttributeDefinition attributeDefinition)
 		{
-			AttributeDefinitions[attributeDefinition.AttributeType] = attributeDefinition;
+			Definitions[attributeDefinition.AttributeType] = attributeDefinition;
 		}
 	}
 }

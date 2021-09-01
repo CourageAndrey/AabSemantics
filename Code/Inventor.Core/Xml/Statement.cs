@@ -12,7 +12,7 @@ namespace Inventor.Core.Xml
 
 		public static Statement Load(IStatement statement)
 		{
-			var definition = Repositories.Statements.StatementDefinitions.GetSuitable(statement);
+			var definition = Repositories.Statements.Definitions.GetSuitable(statement);
 			return definition.GetXml(statement);
 		}
 

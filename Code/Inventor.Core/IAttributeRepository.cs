@@ -5,9 +5,9 @@ namespace Inventor.Core
 {
 	public interface IAttributeRepository
 	{
-		IDictionary<Type, AttributeDefinition> AttributeDefinitions
+		IDictionary<Type, AttributeDefinition> Definitions
 		{ get; }
 
-		void DefineAttribute(AttributeDefinition attributeDefinition);
+		void Define(AttributeDefinition attributeDefinition);
 	}
 }
