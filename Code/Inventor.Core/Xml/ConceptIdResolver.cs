@@ -14,11 +14,16 @@ namespace Inventor.Core.Xml
 		{
 			foreach (var type in new[] { typeof(LogicalValues), typeof(ComparisonSigns), typeof(SequenceSigns) })
 			{
-				foreach (var field in type.GetFields(BindingFlags.GetField | BindingFlags.Static | BindingFlags.Public).Where(f => f.FieldType == typeof(IConcept)))
-				{
-					IConcept concept = (IConcept) field.GetValue(null);
-					_systemConceptsById[concept.ID] = concept;
-				}
+				RegisterEnumType(type);
+			}
+		}
+
+		public static void RegisterEnumType(Type type)
+		{
+			foreach (var field in type.GetFields(BindingFlags.GetField | BindingFlags.Static | BindingFlags.Public).Where(f => f.FieldType == typeof(IConcept)))
+			{
+				IConcept concept = (IConcept) field.GetValue(null);
+				_systemConceptsById[concept.ID] = concept;
 			}
 		}
 
