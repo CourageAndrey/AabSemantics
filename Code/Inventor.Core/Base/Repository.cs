@@ -8,10 +8,5 @@ namespace Inventor.Core.Base
 	{
 		public IDictionary<Type, DefinitionT> Definitions
 		{ get; } = new Dictionary<Type, DefinitionT>();
-
-		public void Define(DefinitionT questionDefinition)
-		{
-			Definitions[questionDefinition.Type] = questionDefinition;
-		}
 	}
 }
