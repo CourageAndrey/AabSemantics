@@ -16,17 +16,17 @@ namespace Inventor.Core.Modules
 
 		protected override void Attach(ISemanticNetwork semanticNetwork)
 		{
-			semanticNetwork.RegisterAttribute(IsProcessAttribute.Value, language => language.Attributes.IsProcess, new Xml.IsProcessAttribute());
-			semanticNetwork.RegisterAttribute(IsSequenceSignAttribute.Value, language => language.Attributes.IsSequenceSign, new Xml.IsSequenceSignAttribute());
+			Repositories.RegisterAttribute(IsProcessAttribute.Value, language => language.Attributes.IsProcess, new Xml.IsProcessAttribute());
+			Repositories.RegisterAttribute(IsSequenceSignAttribute.Value, language => language.Attributes.IsSequenceSign, new Xml.IsSequenceSignAttribute());
 
 			foreach (var sign in SequenceSigns.All)
 			{
 				semanticNetwork.Concepts.Add(sign);
 			}
 
-			semanticNetwork.RegisterStatement<ProcessesStatement>(language => language.StatementNames.Processes, statement => new Xml.ProcessesStatement(statement as ProcessesStatement));
+			Repositories.RegisterStatement<ProcessesStatement>(language => language.StatementNames.Processes, statement => new Xml.ProcessesStatement(statement as ProcessesStatement));
 
-			semanticNetwork.RegisterQuestion<ProcessesQuestion>();
+			Repositories.RegisterQuestion<ProcessesQuestion>();
 		}
 	}
 }

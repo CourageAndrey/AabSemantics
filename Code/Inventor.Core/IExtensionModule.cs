@@ -90,32 +90,6 @@ namespace Inventor.Core
 
 			return semanticNetwork;
 		}
-
-		public static void RegisterAttribute<AttributeT>(
-			this ISemanticNetwork semanticNetwork,
-			AttributeT value,
-			Func<ILanguage, String> attributeNameGetter,
-			Xml.Attribute xml)
-			where AttributeT : IAttribute
-		{
-			Repositories.Attributes.Define(new AttributeDefinition(typeof(AttributeT), value, attributeNameGetter, xml));
-		}
-
-		public static void RegisterStatement<StatementT>(
-			this ISemanticNetwork semanticNetwork,
-			Func<ILanguage, String> statementNameGetter,
-			Func<IStatement, Xml.Statement> statementXmlGetter)
-			where StatementT : IStatement
-		{
-			Repositories.Statements.Define(new StatementDefinition(typeof(StatementT), statementNameGetter, statementXmlGetter));
-		}
-
-		public static void RegisterQuestion<QuestionT>(
-			this ISemanticNetwork semanticNetwork)
-			where QuestionT : IQuestion
-		{
-			Repositories.Questions.Define(new QuestionDefinition(typeof(QuestionT)));
-		}
 	}
 
 	public class ModuleException : Exception

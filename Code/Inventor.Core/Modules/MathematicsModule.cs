@@ -16,16 +16,16 @@ namespace Inventor.Core.Modules
 
 		protected override void Attach(ISemanticNetwork semanticNetwork)
 		{
-			semanticNetwork.RegisterAttribute(IsComparisonSignAttribute.Value, language => language.Attributes.IsComparisonSign, new Xml.IsComparisonSignAttribute());
+			Repositories.RegisterAttribute(IsComparisonSignAttribute.Value, language => language.Attributes.IsComparisonSign, new Xml.IsComparisonSignAttribute());
 
 			foreach (var sign in ComparisonSigns.All)
 			{
 				semanticNetwork.Concepts.Add(sign);
 			}
 
-			semanticNetwork.RegisterStatement<ComparisonStatement>(language => language.StatementNames.Comparison, statement => new Xml.ComparisonStatement(statement as ComparisonStatement));
+			Repositories.RegisterStatement<ComparisonStatement>(language => language.StatementNames.Comparison, statement => new Xml.ComparisonStatement(statement as ComparisonStatement));
 
-			semanticNetwork.RegisterQuestion<ComparisonQuestion>();
+			Repositories.RegisterQuestion<ComparisonQuestion>();
 		}
 	}
 }

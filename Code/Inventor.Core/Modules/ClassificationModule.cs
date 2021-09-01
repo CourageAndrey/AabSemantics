@@ -15,11 +15,11 @@ namespace Inventor.Core.Modules
 
 		protected override void Attach(ISemanticNetwork semanticNetwork)
 		{
-			semanticNetwork.RegisterStatement<IsStatement>(language => language.StatementNames.Clasification, statement => new Xml.IsStatement(statement as IsStatement));
+			Repositories.RegisterStatement<IsStatement>(language => language.StatementNames.Clasification, statement => new Xml.IsStatement(statement as IsStatement));
 
-			semanticNetwork.RegisterQuestion<EnumerateAncestorsQuestion>();
-			semanticNetwork.RegisterQuestion<EnumerateDescendantsQuestion>();
-			semanticNetwork.RegisterQuestion<IsQuestion>();
+			Repositories.RegisterQuestion<EnumerateAncestorsQuestion>();
+			Repositories.RegisterQuestion<EnumerateDescendantsQuestion>();
+			Repositories.RegisterQuestion<IsQuestion>();
 		}
 	}
 }
