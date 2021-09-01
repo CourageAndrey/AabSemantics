@@ -19,6 +19,9 @@ namespace Inventor.Core
 		ICollection<IStatement> Statements
 		{ get; }
 
+		IDictionary<String, IExtensionModule> Modules
+		{ get; }
+
 		event EventHandler<ItemEventArgs<IConcept>> ConceptAdded;
 		event EventHandler<ItemEventArgs<IConcept>> ConceptRemoved;
 		event EventHandler<ItemEventArgs<IStatement>> StatementAdded;
