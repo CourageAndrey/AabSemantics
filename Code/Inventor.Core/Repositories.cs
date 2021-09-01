@@ -4,7 +4,7 @@ namespace Inventor.Core
 {
 	public static class Repositories
 	{
-		public static IAttributeRepository Attributes
+		public static IRepository<AttributeDefinition> Attributes
 		{
 			get { return _attributes; }
 			set
@@ -20,7 +20,7 @@ namespace Inventor.Core
 			}
 		}
 
-		public static IStatementRepository Statements
+		public static IRepository<StatementDefinition> Statements
 		{
 			get { return _statements; }
 			set
@@ -36,7 +36,7 @@ namespace Inventor.Core
 			}
 		}
 
-		public static IQuestionRepository Questions
+		public static IRepository<QuestionDefinition> Questions
 		{
 			get { return _questions; }
 			set
@@ -52,8 +52,8 @@ namespace Inventor.Core
 			}
 		}
 
-		private static IAttributeRepository _attributes = new Base.AttributeRepository();
-		private static IStatementRepository _statements = new Base.StatementRepository();
-		private static IQuestionRepository _questions = new Base.QuestionRepository();
+		private static IRepository<AttributeDefinition> _attributes = new Base.Repository<AttributeDefinition>();
+		private static IRepository<StatementDefinition> _statements = new Base.Repository<StatementDefinition>();
+		private static IRepository<QuestionDefinition> _questions = new Base.Repository<QuestionDefinition>();
 	}
 }

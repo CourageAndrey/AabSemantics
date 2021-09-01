@@ -74,7 +74,7 @@ namespace Inventor.Client.ViewModels
 			return dialog;
 		}
 
-		private void updateAttributes(Core.IAttributeRepository attributeRepository, ILanguage language)
+		private void updateAttributes(Core.IRepository<AttributeDefinition> attributeRepository, ILanguage language)
 		{
 			Attributes.Clear();
 			Attributes.Add(new ConceptAttribute(Core.AttributeDefinition.None, language, BoundObject == null || BoundObject.Attributes.Count == 0));
