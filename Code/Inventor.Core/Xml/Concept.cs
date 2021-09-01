@@ -39,11 +39,11 @@ namespace Inventor.Core.Xml
 		public Concept()
 		{ }
 
-		public Concept(IConcept concept)
+		public Concept(IConcept concept, IAttributeRepository attributeRepository)
 		{
 			Name = new LocalizedString(concept.Name);
 			Hint = new LocalizedString(concept.Hint);
-			Attributes = concept.Attributes.Select(a => Attribute.Save(a)).ToList();
+			Attributes = concept.Attributes.Select(a => Attribute.Save(a, attributeRepository)).ToList();
 			ID = concept.ID;
 		}
 

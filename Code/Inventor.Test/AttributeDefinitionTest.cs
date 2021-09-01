@@ -15,9 +15,10 @@ namespace Inventor.Test
 			// arrange
 			var value = new TestAttributeChecked();
 			Func<ILanguage, string> nameGetter = language => _attributeName;
+			var xml = new Core.Xml.IsValueAttribute();
 
 			// act && assert
-			Assert.Throws<ArgumentNullException>(() => new AttributeDefinition(null, value, nameGetter));
+			Assert.Throws<ArgumentNullException>(() => new AttributeDefinition(null, value, nameGetter, xml));
 		}
 
 		[Test]
@@ -26,9 +27,10 @@ namespace Inventor.Test
 			// arrange
 			var type = typeof(TestAttributeChecked);
 			Func<ILanguage, string> nameGetter = language => _attributeName;
+			var xml = new TestAttributeXml();
 
 			// act && assert
-			Assert.Throws<ArgumentNullException>(() => new AttributeDefinition(type, null, nameGetter));
+			Assert.Throws<ArgumentNullException>(() => new AttributeDefinition(type, null, nameGetter, xml));
 		}
 
 		[Test]
@@ -37,9 +39,22 @@ namespace Inventor.Test
 			// arrange
 			var type = typeof(TestAttributeChecked);
 			var value = new TestAttributeChecked();
+			var xml = new TestAttributeXml();
 
 			// act && assert
-			Assert.Throws<ArgumentNullException>(() => new AttributeDefinition(type, value, null));
+			Assert.Throws<ArgumentNullException>(() => new AttributeDefinition(type, value, null, xml));
+		}
+
+		[Test]
+		public void GivenNullXmlWhenCreateAttributeDefinitionThenFail()
+		{
+			// arrange
+			var type = typeof(TestAttributeChecked);
+			var value = new TestAttributeChecked();
+			Func<ILanguage, string> nameGetter = language => _attributeName;
+
+			// act && assert
+			Assert.Throws<ArgumentNullException>(() => new AttributeDefinition(type, value, nameGetter, null));
 		}
 
 		[Test]
@@ -49,9 +64,10 @@ namespace Inventor.Test
 			var type = typeof(TestAttributeChecked);
 			var wrongValue = Core.Attributes.IsBooleanAttribute.Value;
 			Func<ILanguage, string> nameGetter = language => _attributeName;
+			var xml = new TestAttributeXml();
 
 			// act && assert
-			Assert.Throws<InvalidCastException>(() => new AttributeDefinition(type, wrongValue, nameGetter));
+			Assert.Throws<InvalidCastException>(() => new AttributeDefinition(type, wrongValue, nameGetter, xml));
 		}
 
 		[Test]
@@ -61,9 +77,10 @@ namespace Inventor.Test
 			var type = typeof(TestAttributeChecked);
 			var value = new TestAttributeChecked();
 			Func<ILanguage, string> nameGetter = language => _attributeName;
+			var xml = new TestAttributeXml();
 
 			// act
-			var attribute = new AttributeDefinition(type, value, nameGetter);
+			var attribute = new AttributeDefinition(type, value, nameGetter, xml);
 
 			// assert
 			Assert.AreSame(type, attribute.AttributeType);
@@ -78,9 +95,10 @@ namespace Inventor.Test
 			var type = typeof(TestAttributeChecked);
 			var value = new TestAttributeDerived();
 			Func<ILanguage, string> nameGetter = language => _attributeName;
+			var xml = new TestAttributeXml();
 
 			// act
-			var attribute = new AttributeDefinition(type, value, nameGetter);
+			var attribute = new AttributeDefinition(type, value, nameGetter, xml);
 
 			// assert
 			Assert.AreSame(type, attribute.AttributeType);
@@ -95,5 +113,13 @@ namespace Inventor.Test
 
 		private class TestAttributeDerived : TestAttributeChecked
 		{ }
+
+		private class TestAttributeXml : Core.Xml.Attribute
+		{
+			public override IAttribute Load()
+			{
+				throw new NotImplementedException();
+			}
+		}
 	}
 }

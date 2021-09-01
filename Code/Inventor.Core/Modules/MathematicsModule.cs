@@ -16,7 +16,7 @@ namespace Inventor.Core.Modules
 
 		protected override void Attach(ISemanticNetwork semanticNetwork)
 		{
-			semanticNetwork.RegisterAttribute(IsComparisonSignAttribute.Value, language => language.Attributes.IsComparisonSign);
+			semanticNetwork.RegisterAttribute(IsComparisonSignAttribute.Value, language => language.Attributes.IsComparisonSign, new Xml.IsComparisonSignAttribute());
 
 			foreach (var sign in ComparisonSigns.All)
 			{

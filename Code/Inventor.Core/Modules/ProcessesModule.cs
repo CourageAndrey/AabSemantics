@@ -16,8 +16,8 @@ namespace Inventor.Core.Modules
 
 		protected override void Attach(ISemanticNetwork semanticNetwork)
 		{
-			semanticNetwork.RegisterAttribute(IsProcessAttribute.Value, language => language.Attributes.IsProcess);
-			semanticNetwork.RegisterAttribute(IsSequenceSignAttribute.Value, language => language.Attributes.IsSequenceSign);
+			semanticNetwork.RegisterAttribute(IsProcessAttribute.Value, language => language.Attributes.IsProcess, new Xml.IsProcessAttribute());
+			semanticNetwork.RegisterAttribute(IsSequenceSignAttribute.Value, language => language.Attributes.IsSequenceSign, new Xml.IsSequenceSignAttribute());
 
 			foreach (var sign in SequenceSigns.All)
 			{

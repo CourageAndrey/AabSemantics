@@ -16,7 +16,7 @@ namespace Inventor.Core.Modules
 
 		protected override void Attach(ISemanticNetwork semanticNetwork)
 		{
-			semanticNetwork.RegisterAttribute(IsSignAttribute.Value, language => language.Attributes.IsSign);
+			semanticNetwork.RegisterAttribute(IsSignAttribute.Value, language => language.Attributes.IsSign, new Xml.IsSignAttribute());
 
 			semanticNetwork.RegisterStatement<HasPartStatement>(language => language.StatementNames.Composition);
 			semanticNetwork.RegisterStatement<GroupStatement>(language => language.StatementNames.SubjectArea);
