@@ -5,12 +5,12 @@ namespace Inventor.Core.Base
 {
 	public class StatementRepository : IStatementRepository
 	{
-		public IDictionary<Type, StatementDefinition> StatementDefinitions
+		public IDictionary<Type, StatementDefinition> Definitions
 		{ get; } = new Dictionary<Type, StatementDefinition>();
 
-		public void DefineStatement(StatementDefinition statementDefinition)
+		public void Define(StatementDefinition statementDefinition)
 		{
-			StatementDefinitions[statementDefinition.StatementType] = statementDefinition;
+			Definitions[statementDefinition.StatementType] = statementDefinition;
 		}
 	}
 }

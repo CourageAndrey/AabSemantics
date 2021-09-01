@@ -78,7 +78,7 @@ namespace Inventor.Client.ViewModels
 		{
 			Attributes.Clear();
 			Attributes.Add(new ConceptAttribute(Core.AttributeDefinition.None, language, BoundObject == null || BoundObject.Attributes.Count == 0));
-			foreach (var attributeDefinition in attributeRepository.AttributeDefinitions.Values)
+			foreach (var attributeDefinition in attributeRepository.Definitions.Values)
 			{
 				Attributes.Add(new ConceptAttribute(attributeDefinition, language, BoundObject != null && BoundObject.Attributes.Contains(attributeDefinition.AttributeValue)));
 			}

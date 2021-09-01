@@ -5,9 +5,9 @@ namespace Inventor.Core
 {
 	public interface IQuestionRepository
 	{
-		IDictionary<Type, QuestionDefinition> QuestionDefinitions
+		IDictionary<Type, QuestionDefinition> Definitions
 		{ get; }
 
-		void DefineQuestion(QuestionDefinition questionDefinition);
+		void Define(QuestionDefinition questionDefinition);
 	}
 }

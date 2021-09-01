@@ -18,7 +18,7 @@ namespace Inventor.Client.Dialogs
 		public void Initialize(ILanguage language, ISemanticNetwork semanticNetwork)
 		{
 			_radioGroup.Children.Clear();
-			foreach (var statementDefinition in Repositories.Statements.StatementDefinitions.Values)
+			foreach (var statementDefinition in Repositories.Statements.Definitions.Values)
 			{
 				var radioButton = new RadioButton
 				{

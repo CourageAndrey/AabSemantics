@@ -5,9 +5,9 @@ namespace Inventor.Core
 {
 	public interface IStatementRepository
 	{
-		IDictionary<Type, StatementDefinition> StatementDefinitions
+		IDictionary<Type, StatementDefinition> Definitions
 		{ get; }
 
-		void DefineStatement(StatementDefinition statementDefinition);
+		void Define(StatementDefinition statementDefinition);
 	}
 }

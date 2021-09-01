@@ -98,7 +98,7 @@ namespace Inventor.Core
 			Xml.Attribute xml)
 			where AttributeT : IAttribute
 		{
-			Repositories.Attributes.DefineAttribute(new AttributeDefinition(typeof(AttributeT), value, attributeNameGetter, xml));
+			Repositories.Attributes.Define(new AttributeDefinition(typeof(AttributeT), value, attributeNameGetter, xml));
 		}
 
 		public static void RegisterStatement<StatementT>(
@@ -107,14 +107,14 @@ namespace Inventor.Core
 			Func<IStatement, Xml.Statement> statementXmlGetter)
 			where StatementT : IStatement
 		{
-			Repositories.Statements.DefineStatement(new StatementDefinition(typeof(StatementT), statementNameGetter, statementXmlGetter));
+			Repositories.Statements.Define(new StatementDefinition(typeof(StatementT), statementNameGetter, statementXmlGetter));
 		}
 
 		public static void RegisterQuestion<QuestionT>(
 			this ISemanticNetwork semanticNetwork)
 			where QuestionT : IQuestion
 		{
-			Repositories.Questions.DefineQuestion(new QuestionDefinition(typeof(QuestionT)));
+			Repositories.Questions.Define(new QuestionDefinition(typeof(QuestionT)));
 		}
 	}
 
