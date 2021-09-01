@@ -46,7 +46,7 @@ namespace Inventor.Client.Dialogs
 			_semanticNetwork = semanticNetwork;
 			foreach (var questionDefinition in Repositories.Questions.Definitions.Values)
 			{
-				var genericType = typeof(QuestionViewModel<>).MakeGenericType(questionDefinition.QuestionType);
+				var genericType = typeof(QuestionViewModel<>).MakeGenericType(questionDefinition.Type);
 				var viewModelType = Assembly.GetExecutingAssembly().GetTypes().First(t => !t.IsAbstract && genericType.IsAssignableFrom(t));
 				_questions[questionDefinition.GetName(_language)] = () => Activator.CreateInstance(viewModelType) as IQuestionViewModel;
 			}

@@ -24,7 +24,7 @@ namespace Inventor.Client.Dialogs
 				{
 					Margin = new Thickness(5),
 					Content = statementDefinition.GetName(language),
-					Tag = statementDefinition.StatementType,
+					Tag = statementDefinition.Type,
 				};
 				_radioGroup.Children.Add(radioButton);
 			}

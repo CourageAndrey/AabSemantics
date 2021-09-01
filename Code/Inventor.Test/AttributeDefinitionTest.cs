@@ -83,7 +83,7 @@ namespace Inventor.Test
 			var attribute = new AttributeDefinition(type, value, nameGetter, xml);
 
 			// assert
-			Assert.AreSame(type, attribute.AttributeType);
+			Assert.AreSame(type, attribute.Type);
 			Assert.AreSame(value, attribute.AttributeValue);
 			Assert.AreEqual(_attributeName, attribute.GetName(null));
 		}
@@ -101,7 +101,7 @@ namespace Inventor.Test
 			var attribute = new AttributeDefinition(type, value, nameGetter, xml);
 
 			// assert
-			Assert.AreSame(type, attribute.AttributeType);
+			Assert.AreSame(type, attribute.Type);
 			Assert.AreSame(value, attribute.AttributeValue);
 			Assert.AreEqual(_attributeName, attribute.GetName(null));
 		}

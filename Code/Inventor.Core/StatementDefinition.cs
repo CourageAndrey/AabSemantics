@@ -2,11 +2,11 @@
 
 namespace Inventor.Core
 {
-	public class StatementDefinition
+	public class StatementDefinition : IMetadataDefinition
 	{
 		#region Properties
 
-		public Type StatementType
+		public Type Type
 		{ get; }
 
 		private readonly Func<ILanguage, String> _statementNameGetter;
@@ -16,9 +16,9 @@ namespace Inventor.Core
 
 		#region Constructors
 
-		public StatementDefinition(Type statementType, Func<ILanguage, String> statementNameGetter, Func<IStatement, Xml.Statement> statementXmlGetter)
+		public StatementDefinition(Type type, Func<ILanguage, String> statementNameGetter, Func<IStatement, Xml.Statement> statementXmlGetter)
 		{
-			StatementType = statementType;
+			Type = type;
 			_statementNameGetter = statementNameGetter;
 			_statementXmlGetter = statementXmlGetter;
 		}

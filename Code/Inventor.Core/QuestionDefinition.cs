@@ -2,11 +2,11 @@ using System;
 
 namespace Inventor.Core
 {
-	public class QuestionDefinition
+	public class QuestionDefinition : IMetadataDefinition
 	{
 		#region Properties
 
-		public Type QuestionType
+		public Type Type
 		{ get; }
 
 		private readonly Func<ILanguage, String> _questionNameGetter;
@@ -15,14 +15,14 @@ namespace Inventor.Core
 
 		#region Constructors
 
-		public QuestionDefinition(Type questionType, Func<ILanguage, String> questionNameGetter)
+		public QuestionDefinition(Type type, Func<ILanguage, String> questionNameGetter)
 		{
-			QuestionType = questionType;
+			Type = type;
 			_questionNameGetter = questionNameGetter;
 		}
 
-		public QuestionDefinition(Type questionType)
-			: this(questionType, language => (String) typeof(ILanguageQuestionNames).GetProperty(questionType.Name).GetValue(language.QuestionNames))
+		public QuestionDefinition(Type type)
+			: this(type, language => (String) typeof(ILanguageQuestionNames).GetProperty(type.Name).GetValue(language.QuestionNames))
 		{ }
 
 		#endregion
