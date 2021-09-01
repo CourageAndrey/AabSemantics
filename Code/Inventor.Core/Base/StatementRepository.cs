@@ -10,7 +10,7 @@ namespace Inventor.Core.Base
 
 		public void Define(StatementDefinition statementDefinition)
 		{
-			Definitions[statementDefinition.StatementType] = statementDefinition;
+			Definitions[statementDefinition.Type] = statementDefinition;
 		}
 	}
 }

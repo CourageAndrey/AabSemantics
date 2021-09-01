@@ -10,7 +10,7 @@ namespace Inventor.Core.Base
 
 		public void Define(AttributeDefinition attributeDefinition)
 		{
-			Definitions[attributeDefinition.AttributeType] = attributeDefinition;
+			Definitions[attributeDefinition.Type] = attributeDefinition;
 		}
 	}
 }

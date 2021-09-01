@@ -2,11 +2,11 @@ using System;
 
 namespace Inventor.Core
 {
-	public class AttributeDefinition
+	public class AttributeDefinition : IMetadataDefinition
 	{
 		#region Properties
 
-		public Type AttributeType
+		public Type Type
 		{ get; }
 
 		public IAttribute AttributeValue
@@ -21,15 +21,15 @@ namespace Inventor.Core
 
 		#region Constructors
 
-		public AttributeDefinition(Type attributeType, IAttribute attributeValue, Func<ILanguage, String> attributeNameGetter, Xml.Attribute xml)
+		public AttributeDefinition(Type type, IAttribute attributeValue, Func<ILanguage, String> attributeNameGetter, Xml.Attribute xml)
 		{
-			if (attributeType == null) throw new ArgumentNullException(nameof(attributeType));
+			if (type == null) throw new ArgumentNullException(nameof(type));
 			if (attributeValue == null) throw new ArgumentNullException(nameof(attributeValue));
-			if (!attributeType.IsInstanceOfType(attributeValue)) throw new InvalidCastException();
+			if (!type.IsInstanceOfType(attributeValue)) throw new InvalidCastException();
 			if (attributeNameGetter == null) throw new ArgumentNullException(nameof(attributeNameGetter));
 			if (xml == null) throw new ArgumentNullException(nameof(xml));
 
-			AttributeType = attributeType;
+			Type = type;
 			AttributeValue = attributeValue;
 			_attributeNameGetter = attributeNameGetter;
 			Xml = xml;
@@ -37,7 +37,7 @@ namespace Inventor.Core
 
 		private AttributeDefinition()
 		{
-			AttributeType = typeof(NoAttribute);
+			Type = typeof(NoAttribute);
 			AttributeValue = new NoAttribute();
 			_attributeNameGetter = language => language.Attributes.None;
 			Xml = null;

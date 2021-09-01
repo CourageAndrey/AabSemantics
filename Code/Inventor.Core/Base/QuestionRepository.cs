@@ -10,7 +10,7 @@ namespace Inventor.Core.Base
 
 		public void Define(QuestionDefinition questionDefinition)
 		{
-			Definitions[questionDefinition.QuestionType] = questionDefinition;
+			Definitions[questionDefinition.Type] = questionDefinition;
 		}
 	}
 }
