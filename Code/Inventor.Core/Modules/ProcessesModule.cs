@@ -24,7 +24,7 @@ namespace Inventor.Core.Modules
 				semanticNetwork.Concepts.Add(sign);
 			}
 
-			semanticNetwork.RegisterStatement<ProcessesStatement>(language => language.StatementNames.Processes);
+			semanticNetwork.RegisterStatement<ProcessesStatement>(language => language.StatementNames.Processes, statement => new Xml.ProcessesStatement(statement as ProcessesStatement));
 
 			semanticNetwork.RegisterQuestion<ProcessesQuestion>();
 		}
