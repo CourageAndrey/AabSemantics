@@ -67,10 +67,11 @@ namespace Inventor.Core
 
 		public static void RegisterStatement<StatementT>(
 			Func<ILanguage, String> statementNameGetter,
-			Func<IStatement, Xml.Statement> statementXmlGetter)
+			Func<IStatement, Xml.Statement> statementXmlGetter,
+			Type xmlType)
 			where StatementT : IStatement
 		{
-			Statements.Define(new StatementDefinition(typeof(StatementT), statementNameGetter, statementXmlGetter));
+			Statements.Define(new StatementDefinition(typeof(StatementT), statementNameGetter, statementXmlGetter, xmlType));
 		}
 
 		public static void RegisterQuestion<QuestionT>()

@@ -3,7 +3,7 @@ using System.Xml.Serialization;
 
 namespace Inventor.Core.Xml
 {
-	[XmlType]
+	[XmlType("Processes")]
 	public class ProcessesStatement : Statement
 	{
 		#region Properties

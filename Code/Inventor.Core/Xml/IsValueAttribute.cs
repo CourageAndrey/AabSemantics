@@ -2,7 +2,7 @@
 
 namespace Inventor.Core.Xml
 {
-	[XmlType]
+	[XmlType("IsValue")]
 	public class IsValueAttribute : Attribute
 	{
 		public override IAttribute Load()

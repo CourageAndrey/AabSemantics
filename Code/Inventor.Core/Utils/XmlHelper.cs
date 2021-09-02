@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Xml;
 using System.Xml.Serialization;
+using Inventor.Core.Xml;
 
 namespace Inventor.Core.Utils
 {
@@ -102,5 +103,30 @@ namespace Inventor.Core.Utils
 		}
 
 		#endregion
+
+		public static void InitializeSemanticNetworkSerializer()
+		{
+			lock (_serializersLock)
+			{
+				var rootType = typeof(SemanticNetwork);
+				var attributeOverrides = new XmlAttributeOverrides();
+
+				var attributeAttributes = new XmlAttributes();
+				foreach (var definition in Repositories.Attributes.Definitions.Values)
+				{
+					attributeAttributes.XmlElements.Add(new XmlElementAttribute(definition.XmlElementName, definition.XmlType));
+				}
+				attributeOverrides.Add(typeof(Concept), "Attributes", attributeAttributes);
+
+				var statementAttributes = new XmlAttributes();
+				foreach (var definition in Repositories.Statements.Definitions.Values)
+				{
+					statementAttributes.XmlElements.Add(new XmlElementAttribute(definition.XmlElementName, definition.XmlType));
+				}
+				attributeOverrides.Add(typeof(SemanticNetwork), "Statements", statementAttributes);
+
+				_serializers[rootType] = new XmlSerializer(rootType, attributeOverrides);
+			}
+		}
 	}
 }

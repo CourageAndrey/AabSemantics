@@ -23,12 +23,6 @@ namespace Inventor.Core.Xml
 		{ get; set; }
 
 		[XmlArray(nameof(Attributes))]
-		[XmlArrayItem("IsBoolean", typeof(IsBooleanAttribute))]
-		[XmlArrayItem("IsComparisonSign", typeof(IsComparisonSignAttribute))]
-		[XmlArrayItem("IsProcess", typeof(IsProcessAttribute))]
-		[XmlArrayItem("IsSequenceSign", typeof(IsSequenceSignAttribute))]
-		[XmlArrayItem("IsSign", typeof(IsSignAttribute))]
-		[XmlArrayItem("IsValue", typeof(IsValueAttribute))]
 		public List<Attribute> Attributes
 		{ get; set; } = new List<Attribute>();
 

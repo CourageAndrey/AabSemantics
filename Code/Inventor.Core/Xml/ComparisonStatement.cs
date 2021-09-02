@@ -3,7 +3,7 @@ using System.Xml.Serialization;
 
 namespace Inventor.Core.Xml
 {
-	[XmlType]
+	[XmlType("Comparison")]
 	public class ComparisonStatement : Statement
 	{
 		#region Properties

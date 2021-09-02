@@ -3,7 +3,7 @@ using System.Xml.Serialization;
 
 namespace Inventor.Core.Xml
 {
-	[XmlType]
+	[XmlType("Group")]
 	public class GroupStatement : Statement
 	{
 		#region Properties

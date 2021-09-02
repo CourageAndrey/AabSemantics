@@ -3,7 +3,7 @@ using System.Xml.Serialization;
 
 namespace Inventor.Core.Xml
 {
-	[XmlType]
+	[XmlType("Is")]
 	public class IsStatement : Statement
 	{
 		#region Properties

@@ -2,7 +2,7 @@
 
 namespace Inventor.Core.Xml
 {
-	[XmlType]
+	[XmlType("IsProcess")]
 	public class IsProcessAttribute : Attribute
 	{
 		public override IAttribute Load()

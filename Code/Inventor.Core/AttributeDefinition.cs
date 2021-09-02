@@ -15,13 +15,23 @@ namespace Inventor.Core
 		public Xml.Attribute Xml
 		{ get; }
 
+		public String XmlElementName
+		{ get; }
+
+		public Type XmlType
+		{ get; }
+
 		private readonly Func<ILanguage, String> _attributeNameGetter;
 
 		#endregion
 
 		#region Constructors
 
-		public AttributeDefinition(Type type, IAttribute attributeValue, Func<ILanguage, String> attributeNameGetter, Xml.Attribute xml)
+		public AttributeDefinition(
+			Type type,
+			IAttribute attributeValue,
+			Func<ILanguage, String> attributeNameGetter,
+			Xml.Attribute xml)
 		{
 			if (type == null) throw new ArgumentNullException(nameof(type));
 			if (attributeValue == null) throw new ArgumentNullException(nameof(attributeValue));
@@ -33,6 +43,8 @@ namespace Inventor.Core
 			AttributeValue = attributeValue;
 			_attributeNameGetter = attributeNameGetter;
 			Xml = xml;
+			XmlType = xml.GetType();
+			XmlElementName = XmlType.Name.Replace("Attribute", "");
 		}
 
 		private AttributeDefinition()

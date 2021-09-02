@@ -2,7 +2,7 @@
 
 namespace Inventor.Core.Xml
 {
-	[XmlType]
+	[XmlType("IsBoolean")]
 	public class IsBooleanAttribute : Attribute
 	{
 		public override IAttribute Load()

@@ -22,13 +22,6 @@ namespace Inventor.Core.Xml
 		{ get; set; } = new List<Concept>();
 
 		[XmlArray(nameof(Statements))]
-		[XmlArrayItem("Comparison", typeof(ComparisonStatement))]
-		[XmlArrayItem("Group", typeof(GroupStatement))]
-		[XmlArrayItem("HasPart", typeof(HasPartStatement))]
-		[XmlArrayItem("HasSign", typeof(HasSignStatement))]
-		[XmlArrayItem("Is", typeof(IsStatement))]
-		[XmlArrayItem("Processes", typeof(ProcessesStatement))]
-		[XmlArrayItem("SignValue", typeof(SignValueStatement))]
 		public List<Statement> Statements
 		{ get; set; } = new List<Statement>();
 
@@ -69,6 +62,11 @@ namespace Inventor.Core.Xml
 			}
 
 			return result;
+		}
+
+		static SemanticNetwork()
+		{
+			XmlHelper.InitializeSemanticNetworkSerializer();
 		}
 	}
 
