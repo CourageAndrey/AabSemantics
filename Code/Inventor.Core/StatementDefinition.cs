@@ -52,4 +52,15 @@ namespace Inventor.Core
 			return _statementXmlGetter(statement);
 		}
 	}
+
+	public class StatementDefinition<StatementT> : StatementDefinition
+		where StatementT: IStatement
+	{
+		public StatementDefinition(
+			Func<ILanguage, String> statementNameGetter,
+			Func<StatementT, Xml.Statement> statementXmlGetter,
+			Type xmlType)
+			: base(typeof(StatementT), statementNameGetter, statement => statementXmlGetter((StatementT) statement), xmlType)
+		{ }
+	}
 }

@@ -26,7 +26,7 @@ namespace Inventor.Core.Modules
 
 			Repositories.RegisterStatement<ProcessesStatement>(
 				language => language.StatementNames.Processes,
-				statement => new Xml.ProcessesStatement(statement as ProcessesStatement),
+				statement => new Xml.ProcessesStatement(statement),
 				typeof(Xml.ProcessesStatement));
 
 			Repositories.RegisterQuestion<ProcessesQuestion>();

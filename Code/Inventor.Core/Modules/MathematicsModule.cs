@@ -25,7 +25,7 @@ namespace Inventor.Core.Modules
 
 			Repositories.RegisterStatement<ComparisonStatement>(
 				language => language.StatementNames.Comparison,
-				statement => new Xml.ComparisonStatement(statement as ComparisonStatement),
+				statement => new Xml.ComparisonStatement(statement),
 				typeof(Xml.ComparisonStatement));
 
 			Repositories.RegisterQuestion<ComparisonQuestion>();
