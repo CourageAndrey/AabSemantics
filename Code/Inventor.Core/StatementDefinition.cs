@@ -1,7 +1,13 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace Inventor.Core
 {
+	public delegate void StatementConsistencyCheckerDelegate(ICollection<IStatement> statements, Text.UnstructuredContainer result);
+	public delegate void StatementConsistencyCheckerDelegate<StatementT>(ICollection<StatementT> statements, Text.UnstructuredContainer result, IEnumerable<IStatement> allStatements)
+		where StatementT : IStatement;
+
 	public class StatementDefinition : IMetadataDefinition
 	{
 		#region Properties
@@ -17,6 +23,7 @@ namespace Inventor.Core
 
 		private readonly Func<ILanguage, String> _statementNameGetter;
 		private readonly Func<IStatement, Xml.Statement> _statementXmlGetter;
+		private readonly StatementConsistencyCheckerDelegate _consistencyChecker;
 
 		#endregion
 
@@ -26,16 +33,19 @@ namespace Inventor.Core
 			Type type,
 			Func<ILanguage, String> statementNameGetter,
 			Func<IStatement, Xml.Statement> statementXmlGetter,
-			Type xmlType)
+			Type xmlType,
+			StatementConsistencyCheckerDelegate consistencyChecker)
 		{
 			if (type == null) throw new ArgumentNullException(nameof(type));
 			if (statementNameGetter == null) throw new ArgumentNullException(nameof(statementNameGetter));
 			if (statementXmlGetter == null) throw new ArgumentNullException(nameof(statementXmlGetter));
 			if (xmlType == null) throw new ArgumentNullException(nameof(xmlType));
+			if (consistencyChecker == null) throw new ArgumentNullException(nameof(consistencyChecker));
 
 			Type = type;
 			_statementNameGetter = statementNameGetter;
 			_statementXmlGetter = statementXmlGetter;
+			_consistencyChecker = consistencyChecker;
 			XmlType = xmlType;
 			XmlElementName = XmlType.Name.Replace("Statement", "");
 		}
@@ -51,6 +61,13 @@ namespace Inventor.Core
 		{
 			return _statementXmlGetter(statement);
 		}
+
+		public void CheckConsistency(ICollection<IStatement> statements, Text.UnstructuredContainer result)
+		{
+			_consistencyChecker(statements, result);
+		}
+
+		public static readonly StatementConsistencyCheckerDelegate NoConsistencyCheck = (statements, result) => { };
 	}
 
 	public class StatementDefinition<StatementT> : StatementDefinition
@@ -59,8 +76,18 @@ namespace Inventor.Core
 		public StatementDefinition(
 			Func<ILanguage, String> statementNameGetter,
 			Func<StatementT, Xml.Statement> statementXmlGetter,
-			Type xmlType)
-			: base(typeof(StatementT), statementNameGetter, statement => statementXmlGetter((StatementT) statement), xmlType)
-		{ }
+			Type xmlType,
+			StatementConsistencyCheckerDelegate<StatementT> consistencyChecker)
+			: base(
+				typeof(StatementT),
+				statementNameGetter,
+				statement => statementXmlGetter((StatementT) statement),
+				xmlType,
+				(statements, result) => consistencyChecker(statements.OfType<StatementT>().ToList(), result, statements))
+		{
+			if (consistencyChecker == null) throw new ArgumentNullException(nameof(consistencyChecker));
+		}
+
+		public new static readonly StatementConsistencyCheckerDelegate<StatementT> NoConsistencyCheck = (statements, result, allStatements) => { };
 	}
 }

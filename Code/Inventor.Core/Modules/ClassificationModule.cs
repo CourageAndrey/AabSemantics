@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Collections.Generic;
 
+using Inventor.Core.Localization;
 using Inventor.Core.Statements;
 using Inventor.Core.Questions;
 
@@ -18,7 +20,19 @@ namespace Inventor.Core.Modules
 			Repositories.RegisterStatement<IsStatement>(
 				language => language.StatementNames.Clasification,
 				statement => new Xml.IsStatement(statement),
-				typeof(Xml.IsStatement));
+				typeof(Xml.IsStatement),
+				(statements, result, allStatements) =>
+				{
+					foreach (var clasification in statements)
+					{
+						if (!clasification.CheckCyclic(statements))
+						{
+							result.Append(
+								language => language.Consistency.ErrorCyclic,
+								new Dictionary<String, IKnowledge> { { Strings.ParamStatement, clasification } });
+						}
+					}
+				});
 
 			Repositories.RegisterQuestion<EnumerateAncestorsQuestion>();
 			Repositories.RegisterQuestion<EnumerateDescendantsQuestion>();
