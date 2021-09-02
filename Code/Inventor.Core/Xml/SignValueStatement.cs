@@ -3,7 +3,7 @@ using System.Xml.Serialization;
 
 namespace Inventor.Core.Xml
 {
-	[XmlType]
+	[XmlType("SignValue")]
 	public class SignValueStatement : Statement
 	{
 		#region Properties

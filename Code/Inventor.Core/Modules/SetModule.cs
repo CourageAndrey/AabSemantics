@@ -18,10 +18,22 @@ namespace Inventor.Core.Modules
 		{
 			Repositories.RegisterAttribute(IsSignAttribute.Value, language => language.Attributes.IsSign, new Xml.IsSignAttribute());
 
-			Repositories.RegisterStatement<HasPartStatement>(language => language.StatementNames.Composition, statement => new Xml.HasPartStatement(statement as HasPartStatement));
-			Repositories.RegisterStatement<GroupStatement>(language => language.StatementNames.SubjectArea, statement => new Xml.GroupStatement(statement as GroupStatement));
-			Repositories.RegisterStatement<HasSignStatement>(language => language.StatementNames.HasSign, statement => new Xml.HasSignStatement(statement as HasSignStatement));
-			Repositories.RegisterStatement<SignValueStatement>(language => language.StatementNames.SignValue, statement => new Xml.SignValueStatement(statement as SignValueStatement));
+			Repositories.RegisterStatement<HasPartStatement>(
+				language => language.StatementNames.Composition,
+				statement => new Xml.HasPartStatement(statement as HasPartStatement),
+				typeof(Xml.HasPartStatement));
+			Repositories.RegisterStatement<GroupStatement>(
+				language => language.StatementNames.SubjectArea,
+				statement => new Xml.GroupStatement(statement as GroupStatement),
+				typeof(Xml.GroupStatement));
+			Repositories.RegisterStatement<HasSignStatement>(
+				language => language.StatementNames.HasSign,
+				statement => new Xml.HasSignStatement(statement as HasSignStatement),
+				typeof(Xml.HasSignStatement));
+			Repositories.RegisterStatement<SignValueStatement>(
+				language => language.StatementNames.SignValue,
+				statement => new Xml.SignValueStatement(statement as SignValueStatement),
+				typeof(Xml.SignValueStatement));
 
 			Repositories.RegisterQuestion<DescribeSubjectAreaQuestion>();
 			Repositories.RegisterQuestion<FindSubjectAreaQuestion>();

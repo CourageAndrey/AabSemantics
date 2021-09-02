@@ -3,7 +3,7 @@ using System.Xml.Serialization;
 
 namespace Inventor.Core.Xml
 {
-	[XmlType]
+	[XmlType("HasPart")]
 	public class HasPartStatement : Statement
 	{
 		#region Properties

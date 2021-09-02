@@ -2,7 +2,7 @@
 
 namespace Inventor.Core.Xml
 {
-	[XmlType]
+	[XmlType("IsSequenceSign")]
 	public class IsSequenceSignAttribute : Attribute
 	{
 		public override IAttribute Load()
