@@ -20,19 +20,19 @@ namespace Inventor.Core.Modules
 
 			Repositories.RegisterStatement<HasPartStatement>(
 				language => language.StatementNames.Composition,
-				statement => new Xml.HasPartStatement(statement as HasPartStatement),
+				statement => new Xml.HasPartStatement(statement),
 				typeof(Xml.HasPartStatement));
 			Repositories.RegisterStatement<GroupStatement>(
 				language => language.StatementNames.SubjectArea,
-				statement => new Xml.GroupStatement(statement as GroupStatement),
+				statement => new Xml.GroupStatement(statement),
 				typeof(Xml.GroupStatement));
 			Repositories.RegisterStatement<HasSignStatement>(
 				language => language.StatementNames.HasSign,
-				statement => new Xml.HasSignStatement(statement as HasSignStatement),
+				statement => new Xml.HasSignStatement(statement),
 				typeof(Xml.HasSignStatement));
 			Repositories.RegisterStatement<SignValueStatement>(
 				language => language.StatementNames.SignValue,
-				statement => new Xml.SignValueStatement(statement as SignValueStatement),
+				statement => new Xml.SignValueStatement(statement),
 				typeof(Xml.SignValueStatement));
 
 			Repositories.RegisterQuestion<DescribeSubjectAreaQuestion>();

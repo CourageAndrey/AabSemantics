@@ -17,7 +17,7 @@ namespace Inventor.Core.Modules
 		{
 			Repositories.RegisterStatement<IsStatement>(
 				language => language.StatementNames.Clasification,
-				statement => new Xml.IsStatement(statement as IsStatement),
+				statement => new Xml.IsStatement(statement),
 				typeof(Xml.IsStatement));
 
 			Repositories.RegisterQuestion<EnumerateAncestorsQuestion>();
