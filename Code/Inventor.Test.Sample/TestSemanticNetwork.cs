@@ -1,10 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 
+using Inventor.Core;
 using Inventor.Core.Attributes;
+using Inventor.Core.Base;
 using Inventor.Core.Localization;
 
-namespace Inventor.Core.Base
+namespace Inventor.Test.Sample
 {
 	public class TestSemanticNetwork
 	{

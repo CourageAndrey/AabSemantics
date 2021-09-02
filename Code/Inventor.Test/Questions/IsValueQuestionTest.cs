@@ -8,6 +8,7 @@ using Inventor.Core.Attributes;
 using Inventor.Core.Base;
 using Inventor.Core.Localization;
 using Inventor.Core.Statements;
+using Inventor.Test.Sample;
 
 namespace Inventor.Test.Questions
 {

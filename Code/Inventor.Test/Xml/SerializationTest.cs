@@ -5,9 +5,9 @@ using System.Linq;
 using NUnit.Framework;
 
 using Inventor.Core;
-using Inventor.Core.Base;
 using Inventor.Core.Localization;
 using Inventor.Core.Xml;
+using Inventor.Test.Sample;
 
 namespace Inventor.Test.Xml
 {
@@ -20,7 +20,7 @@ namespace Inventor.Test.Xml
 			// arrange
 			var language = Language.Default;
 			var semanticNetwork = new TestSemanticNetwork(language).SemanticNetwork;
-			var name = (LocalizedStringVariable)semanticNetwork.Name;
+			var name = (LocalizedStringVariable) semanticNetwork.Name;
 			var locales = name.Locales;
 			string testFileName = Path.GetTempFileName();
 
