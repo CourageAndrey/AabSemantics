@@ -36,7 +36,7 @@ namespace Inventor.Client.Controls
 			set
 			{
 				_contextControl.DataContext = value;
-				_idControl.IsReadOnly = value.BoundStatement?.Context is Core.Base.SystemContext;
+				_idControl.IsReadOnly = value.BoundStatement?.Context is Core.Contexts.SystemContext;
 			}
 		}
 	}
