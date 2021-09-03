@@ -5,6 +5,7 @@ using Inventor.Core;
 using Inventor.Core.Attributes;
 using Inventor.Core.Base;
 using Inventor.Core.Localization;
+using Inventor.Core.Modules;
 
 namespace Inventor.Test.Sample
 {
@@ -156,6 +157,12 @@ namespace Inventor.Test.Sample
 			#region Semantic network
 
 			SemanticNetwork = new SemanticNetwork(language);
+			SemanticNetwork
+				.WithModule<BooleanModule>()
+				.WithModule<ClassificationModule>()
+				.WithModule<SetModule>()
+				.WithModule<MathematicsModule>()
+				.WithModule<ProcessesModule>();
 			((LocalizedStringVariable) SemanticNetwork.Name).SetLocale("ru-RU", "Тестовая база знаний");
 			((LocalizedStringVariable) SemanticNetwork.Name).SetLocale("en-US", "Test knowledgebase");
 
