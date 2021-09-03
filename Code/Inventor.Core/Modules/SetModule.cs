@@ -6,6 +6,7 @@ using Inventor.Core.Attributes;
 using Inventor.Core.Localization;
 using Inventor.Core.Statements;
 using Inventor.Core.Questions;
+using Inventor.Core.Text;
 
 namespace Inventor.Core.Modules
 {
@@ -43,60 +44,13 @@ namespace Inventor.Core.Modules
 				language => language.StatementNames.HasSign,
 				statement => new Xml.HasSignStatement(statement),
 				typeof(Xml.HasSignStatement),
-				(statements, result, semanticNetwork) =>
-				{
-					var clasifications = semanticNetwork.Statements.OfType<IsStatement>().ToList();
-
-					foreach (var hasSign in statements)
-					{
-						if (!hasSign.CheckSignDuplication(statements, clasifications))
-						{
-							result.Append(
-								language => language.Consistency.ErrorMultipleSign,
-								new Dictionary<String, IKnowledge> { { Strings.ParamStatement, hasSign } });
-						}
-					}
-				});
+				checkSignDuplications);
 
 			Repositories.RegisterStatement<SignValueStatement>(
 				language => language.StatementNames.SignValue,
 				statement => new Xml.SignValueStatement(statement),
 				typeof(Xml.SignValueStatement),
-				(statements, result, semanticNetwork) =>
-				{
-					var clasifications = semanticNetwork.Statements.OfType<IsStatement>().ToList();
-
-					// 3. check multi values
-					foreach (var concept in semanticNetwork.Concepts)
-					{
-						var parents = clasifications.GetParentsOneLevel(concept);
-						foreach (var sign in HasSignStatement.GetSigns(semanticNetwork.Statements, concept, true))
-						{
-							if (statements.FirstOrDefault(sv => sv.Concept == concept && sv.Sign == sign.Sign) == null &&
-								parents.Select(p => SignValueStatement.GetSignValue(semanticNetwork.Statements, p, sign.Sign)).Count(r => r != null) > 1)
-							{
-								result.Append(
-									language => language.Consistency.ErrorMultipleSignValue,
-									new Dictionary<String, IKnowledge>
-									{
-										{ Strings.ParamConcept, concept },
-										{ Strings.ParamSign, sign.Sign },
-									});
-							}
-						}
-					}
-
-					// 4. check values without sign
-					foreach (var signValue in statements)
-					{
-						if (!signValue.CheckHasSign(semanticNetwork.Statements))
-						{
-							result.Append(
-								language => language.Consistency.ErrorSignWithoutValue,
-								new Dictionary<String, IKnowledge> { { Strings.ParamStatement, signValue } });
-						}
-					}
-				});
+				checkSignValues);
 		}
 
 		protected override void RegisterQuestions()
@@ -119,6 +73,76 @@ namespace Inventor.Core.Modules
 			Repositories.RegisterQuestion<GetCommonQuestion>();
 			Repositories.RegisterQuestion<GetDifferencesQuestion>();
 			Repositories.RegisterQuestion<WhatQuestion>();
+		}
+
+		private static void checkSignDuplications(
+			ICollection<HasSignStatement> statements,
+			UnstructuredContainer result,
+			ISemanticNetwork semanticNetwork)
+		{
+			var clasifications = semanticNetwork.Statements.OfType<IsStatement>().ToList();
+
+			foreach (var hasSign in statements)
+			{
+				if (!hasSign.CheckSignDuplication(statements, clasifications))
+				{
+					result.Append(
+						language => language.Consistency.ErrorMultipleSign,
+						new Dictionary<String, IKnowledge> { { Strings.ParamStatement, hasSign } });
+				}
+			}
+		}
+
+		private static void checkSignValues(
+			ICollection<SignValueStatement> statements,
+			UnstructuredContainer result,
+			ISemanticNetwork semanticNetwork)
+		{
+			checkMultiValues(statements, result, semanticNetwork);
+			checkValuesWithoutSign(statements, result, semanticNetwork);
+		}
+
+		private static void checkMultiValues(
+			ICollection<SignValueStatement> statements,
+			UnstructuredContainer result,
+			ISemanticNetwork semanticNetwork)
+		{
+			var clasifications = semanticNetwork.Statements.OfType<IsStatement>().ToList();
+
+			foreach (var concept in semanticNetwork.Concepts)
+			{
+				var parents = clasifications.GetParentsOneLevel(concept);
+				foreach (var sign in HasSignStatement.GetSigns(semanticNetwork.Statements, concept, true))
+				{
+					if (statements.FirstOrDefault(sv => sv.Concept == concept && sv.Sign == sign.Sign) == null &&
+						parents.Select(p => SignValueStatement.GetSignValue(semanticNetwork.Statements, p, sign.Sign)).Count(r => r != null) > 1)
+					{
+						result.Append(
+							language => language.Consistency.ErrorMultipleSignValue,
+							new Dictionary<String, IKnowledge>
+							{
+								{ Strings.ParamConcept, concept },
+								{ Strings.ParamSign, sign.Sign },
+							});
+					}
+				}
+			}
+		}
+
+		private static void checkValuesWithoutSign(
+			ICollection<SignValueStatement> statements,
+			UnstructuredContainer result,
+			ISemanticNetwork semanticNetwork)
+		{
+			foreach (var signValue in statements)
+			{
+				if (!signValue.CheckHasSign(semanticNetwork.Statements))
+				{
+					result.Append(
+						language => language.Consistency.ErrorSignWithoutValue,
+						new Dictionary<String, IKnowledge> { { Strings.ParamStatement, signValue } });
+				}
+			}
 		}
 	}
 }

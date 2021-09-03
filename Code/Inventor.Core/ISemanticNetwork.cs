@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 
 using Inventor.Core.Localization;
+using Inventor.Core.Text;
 using Inventor.Core.Utils;
 
 namespace Inventor.Core
@@ -43,15 +44,7 @@ namespace Inventor.Core
 			var result = new Text.UnstructuredContainer();
 
 			// 1. check all duplicates
-			foreach (var statement in semanticNetwork.Statements)
-			{
-				if (!statement.CheckUnique(semanticNetwork.Statements))
-				{
-					result.Append(
-						language => language.Consistency.ErrorDuplicate,
-						new Dictionary<String, IKnowledge> { { Strings.ParamStatement, statement } });
-				}
-			}
+			checkStatementDuplicates(semanticNetwork, result);
 
 			// 2. check specific statements
 			foreach (var statementDefinition in Repositories.Statements.Definitions.Values)
@@ -64,6 +57,19 @@ namespace Inventor.Core
 				result.Append(language => language.Consistency.CheckOk);
 			}
 			return result;
+		}
+
+		private static void checkStatementDuplicates(ISemanticNetwork semanticNetwork, UnstructuredContainer result)
+		{
+			foreach (var statement in semanticNetwork.Statements)
+			{
+				if (!statement.CheckUnique(semanticNetwork.Statements))
+				{
+					result.Append(
+						language => language.Consistency.ErrorDuplicate,
+						new Dictionary<String, IKnowledge> { { Strings.ParamStatement, statement } });
+				}
+			}
 		}
 	}
 }
