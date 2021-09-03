@@ -35,9 +35,9 @@ namespace Inventor.Core.Modules
 				language => language.StatementNames.HasSign,
 				statement => new Xml.HasSignStatement(statement),
 				typeof(Xml.HasSignStatement),
-				(statements, result, allStatements) =>
+				(statements, result, sn) =>
 				{
-					var clasifications = allStatements.OfType<IsStatement>().ToList();
+					var clasifications = sn.Statements.OfType<IsStatement>().ToList();
 
 					foreach (var hasSign in statements)
 					{
@@ -53,9 +53,9 @@ namespace Inventor.Core.Modules
 				language => language.StatementNames.SignValue,
 				statement => new Xml.SignValueStatement(statement),
 				typeof(Xml.SignValueStatement),
-				(statements, result, allStatements) =>
+				(statements, result, sn) =>
 				{
-					var clasifications = allStatements.OfType<IsStatement>().ToList();
+					var clasifications = sn.Statements.OfType<IsStatement>().ToList();
 
 					// 3. check multi values
 					foreach (var concept in semanticNetwork.Concepts)

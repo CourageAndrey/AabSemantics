@@ -21,7 +21,7 @@ namespace Inventor.Core.Modules
 				language => language.StatementNames.Clasification,
 				statement => new Xml.IsStatement(statement),
 				typeof(Xml.IsStatement),
-				(statements, result, allStatements) =>
+				(statements, result, sn) =>
 				{
 					foreach (var clasification in statements)
 					{

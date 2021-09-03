@@ -30,7 +30,7 @@ namespace Inventor.Core.Modules
 				language => language.StatementNames.Processes,
 				statement => new Xml.ProcessesStatement(statement),
 				typeof(Xml.ProcessesStatement),
-				(statements, result, allStatements) =>
+				(statements, result, sn) =>
 				{
 					foreach (var contradiction in statements.CheckForContradictions())
 					{

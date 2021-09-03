@@ -29,7 +29,7 @@ namespace Inventor.Core.Modules
 				language => language.StatementNames.Comparison,
 				statement => new Xml.ComparisonStatement(statement),
 				typeof(Xml.ComparisonStatement),
-				(statements, result, allStatements) =>
+				(statements, result, sn) =>
 				{
 					foreach (var contradiction in statements.CheckForContradictions())
 					{
