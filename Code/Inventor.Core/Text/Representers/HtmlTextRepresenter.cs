@@ -1,9 +1,12 @@
 ﻿using System;
 using System.Text;
-
 using System.Web;
 
-namespace Inventor.Core.Text
+using Inventor.Core.Text.Containers;
+using Inventor.Core.Text.Decorators;
+using Inventor.Core.Text.Primitives;
+
+namespace Inventor.Core.Text.Representers
 {
 	public class HtmlTextRepresenter : IStructuredTextRepresenter
 	{

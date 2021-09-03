@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 
 using Inventor.Core.Localization;
+using Inventor.Core.Text.Primitives;
 
 namespace Inventor.Core.Statements
 {
@@ -56,17 +57,17 @@ namespace Inventor.Core.Statements
 			var parameters = GetDescriptionParameters();
 			parameters[Strings.ParamStatement] = this;
 
-			return new Text.FormattedText(formatter, parameters);
+			return new FormattedText(formatter, parameters);
 		}
 
 		public IText DescribeFalse()
 		{
-			return new Text.FormattedText(language => GetDescriptionText(language.FalseStatementFormatStrings), GetDescriptionParameters());
+			return new FormattedText(language => GetDescriptionText(language.FalseStatementFormatStrings), GetDescriptionParameters());
 		}
 
 		public IText DescribeQuestion()
 		{
-			return new Text.FormattedText(language => GetDescriptionText(language.QuestionStatementFormatStrings), GetDescriptionParameters());
+			return new FormattedText(language => GetDescriptionText(language.QuestionStatementFormatStrings), GetDescriptionParameters());
 		}
 
 		protected abstract String GetDescriptionText(ILanguageStatements language);

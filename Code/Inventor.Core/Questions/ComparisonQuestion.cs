@@ -5,6 +5,7 @@ using System.Linq;
 using Inventor.Core.Answers;
 using Inventor.Core.Base;
 using Inventor.Core.Statements;
+using Inventor.Core.Text.Containers;
 
 namespace Inventor.Core.Questions
 {
@@ -50,7 +51,7 @@ namespace Inventor.Core.Questions
 		{
 			var resultStatement = statement.SwapOperandsToMatchOrder(context.Question);
 
-			var text = new Text.UnstructuredContainer();
+			var text = new UnstructuredContainer();
 			text.Append(resultStatement.DescribeTrue());
 
 			var explanation = transitiveStatements == null

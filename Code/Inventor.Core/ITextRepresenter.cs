@@ -2,7 +2,10 @@
 using System.Collections.Generic;
 using System.Text;
 
-using Inventor.Core.Text;
+using Inventor.Core.Text.Containers;
+using Inventor.Core.Text.Decorators;
+using Inventor.Core.Text.Primitives;
+using Inventor.Core.Text.Representers;
 
 namespace Inventor.Core
 {

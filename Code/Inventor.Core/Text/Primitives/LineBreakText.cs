@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace Inventor.Core.Text
+namespace Inventor.Core.Text.Primitives
 {
 	public class LineBreakText : TextBase
 	{

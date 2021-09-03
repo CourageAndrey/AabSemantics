@@ -4,7 +4,8 @@ using System.Linq;
 
 using Inventor.Core.Answers;
 using Inventor.Core.Base;
-using Inventor.Core.Text;
+using Inventor.Core.Text.Containers;
+using Inventor.Core.Text.Primitives;
 
 namespace Inventor.Core.Questions
 {
@@ -111,7 +112,7 @@ namespace Inventor.Core.Questions
 
 				var resultConcepts = conceptsFilter(Statements.Select(resultConceptSelector)).ToList();
 
-				var format = new UnstructuredContainer(new Text.FormattedText(
+				var format = new UnstructuredContainer(new FormattedText(
 					language => answerFormat(Context.Language),
 					new Dictionary<String, IKnowledge>
 					{
@@ -147,7 +148,7 @@ namespace Inventor.Core.Questions
 			{
 				answer = new ConceptAnswer(
 					resultConceptSelector(statement),
-					new Text.FormattedText(
+					new FormattedText(
 						answerFormat,
 						getParameters(statement)),
 					new Explanation(Statements.OfType<IStatement>()));
@@ -180,7 +181,7 @@ namespace Inventor.Core.Questions
 
 			var answer = new BooleanAnswer(
 				value,
-				new Text.FormattedText(
+				new FormattedText(
 					value ? trueFormat : falseFormat,
 					parameters),
 				new Explanation(Statements.OfType<IStatement>()));
@@ -218,7 +219,7 @@ namespace Inventor.Core.Questions
 
 			var answer = new BooleanAnswer(
 				result,
-				new Text.FormattedText(
+				new FormattedText(
 					result ? trueFormat : falseFormat,
 					parameters),
 				new Explanation(explanation));
