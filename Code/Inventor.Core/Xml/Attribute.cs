@@ -1,5 +1,7 @@
 ﻿using System.Xml.Serialization;
 
+using Inventor.Core.Metadata;
+
 namespace Inventor.Core.Xml
 {
 	[XmlType]

@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 
+using Inventor.Core.Metadata;
+
 namespace Inventor.Core
 {
 	public interface IExtensionModule

@@ -2,6 +2,7 @@
 using System.Threading;
 
 using Inventor.Core;
+using Inventor.Core.Metadata;
 
 namespace Inventor.Client.ViewModels
 {

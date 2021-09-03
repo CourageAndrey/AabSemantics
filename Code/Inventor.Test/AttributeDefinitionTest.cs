@@ -3,6 +3,7 @@
 using NUnit.Framework;
 
 using Inventor.Core;
+using Inventor.Core.Metadata;
 
 namespace Inventor.Test
 {

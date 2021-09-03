@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace Inventor.Core
+namespace Inventor.Core.Metadata
 {
 	public static class Repositories
 	{

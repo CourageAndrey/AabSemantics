@@ -7,6 +7,7 @@ using NUnit.Framework;
 using Inventor.Core;
 using Inventor.Core.Base;
 using Inventor.Core.Concepts;
+using Inventor.Core.Metadata;
 
 namespace Inventor.Test.Xml
 {
