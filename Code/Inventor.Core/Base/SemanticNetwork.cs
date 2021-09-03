@@ -126,14 +126,5 @@ namespace Inventor.Core.Base
 		{
 			return String.Format(CultureInfo.InvariantCulture, "{0} : {1}", Strings.TostringSemanticNetwork, Name);
 		}
-
-		static SemanticNetwork()
-		{
-			new Modules.BooleanModule().RegisterMetadata();
-			new Modules.ClassificationModule().RegisterMetadata();
-			new Modules.SetModule().RegisterMetadata();
-			new Modules.MathematicsModule().RegisterMetadata();
-			new Modules.ProcessesModule().RegisterMetadata();
-		}
 	}
 }

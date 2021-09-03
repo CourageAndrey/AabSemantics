@@ -7,6 +7,7 @@ using System.Windows.Threading;
 
 using Inventor.Client.Localization;
 using Inventor.Core;
+using Inventor.Core.Modules;
 using Inventor.Core.Utils;
 
 namespace Inventor.Client
@@ -99,6 +100,12 @@ namespace Inventor.Client
 		private static void Main()
 		{
 			var application = new InventorApplication();
+
+			new BooleanModule().RegisterMetadata();
+			new ClassificationModule().RegisterMetadata();
+			new SetModule().RegisterMetadata();
+			new MathematicsModule().RegisterMetadata();
+			new ProcessesModule().RegisterMetadata();
 
 #if DEBUG
 			application.SemanticNetwork = new Inventor.Test.Sample.TestSemanticNetwork(application.CurrentLanguage).SemanticNetwork;
