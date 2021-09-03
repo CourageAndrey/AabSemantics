@@ -4,6 +4,7 @@ using Inventor.Core;
 using Inventor.Core.Base;
 using Inventor.Core.Concepts;
 using Inventor.Core.Localization;
+using Inventor.Core.Questions;
 
 namespace Samples._04.CustomQuestion
 {

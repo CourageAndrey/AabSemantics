@@ -5,6 +5,7 @@ using Inventor.Core.Attributes;
 using Inventor.Core.Base;
 using Inventor.Core.Concepts;
 using Inventor.Core.Localization;
+using Inventor.Core.Questions;
 using Inventor.Core.Statements;
 
 namespace Samples._01.StatementsAndQuestions
