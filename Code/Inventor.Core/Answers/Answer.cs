@@ -1,6 +1,7 @@
 ﻿using System;
 
 using Inventor.Core.Base;
+using Inventor.Core.Text.Primitives;
 
 namespace Inventor.Core.Answers
 {
@@ -29,7 +30,7 @@ namespace Inventor.Core.Answers
 		public static IAnswer CreateUnknown()
 		{
 			return new Answer(
-				new Text.FormattedText(language => language.Answers.Unknown),
+				new FormattedText(language => language.Answers.Unknown),
 				new Explanation(Array.Empty<IStatement>()),
 				true);
 		}

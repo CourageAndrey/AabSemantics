@@ -5,6 +5,7 @@ using System.Linq;
 using Inventor.Core.Answers;
 using Inventor.Core.Base;
 using Inventor.Core.Localization;
+using Inventor.Core.Text.Containers;
 
 namespace Inventor.Core.Questions
 {
@@ -41,7 +42,7 @@ namespace Inventor.Core.Questions
 				statements = statement != null ? new[] { statement } : Array.Empty<IStatement>();
 			}
 
-			var result = new Text.UnstructuredContainer();
+			var result = new UnstructuredContainer();
 			Boolean isTrue = statements.Any();
 			result.Append(
 				language => Strings.ParamAnswer,

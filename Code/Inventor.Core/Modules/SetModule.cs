@@ -6,7 +6,7 @@ using Inventor.Core.Attributes;
 using Inventor.Core.Localization;
 using Inventor.Core.Statements;
 using Inventor.Core.Questions;
-using Inventor.Core.Text;
+using Inventor.Core.Text.Containers;
 
 namespace Inventor.Core.Modules
 {

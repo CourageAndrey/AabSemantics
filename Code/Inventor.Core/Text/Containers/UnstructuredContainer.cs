@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace Inventor.Core.Text
+namespace Inventor.Core.Text.Containers
 {
 	public class UnstructuredContainer : TextContainerBase
 	{

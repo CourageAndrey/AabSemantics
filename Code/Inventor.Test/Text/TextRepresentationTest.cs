@@ -5,7 +5,8 @@ using NUnit.Framework;
 using Inventor.Core;
 using Inventor.Core.Base;
 using Inventor.Core.Localization;
-using Inventor.Core.Text;
+using Inventor.Core.Text.Containers;
+using Inventor.Core.Text.Primitives;
 
 namespace Inventor.Test.Text
 {

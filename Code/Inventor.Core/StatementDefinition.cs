@@ -4,8 +4,8 @@ using System.Linq;
 
 namespace Inventor.Core
 {
-	public delegate void StatementConsistencyCheckerDelegate(ISemanticNetwork semanticNetwork, Text.UnstructuredContainer result);
-	public delegate void StatementConsistencyCheckerDelegate<StatementT>(ICollection<StatementT> statements, Text.UnstructuredContainer result, ISemanticNetwork semanticNetwork)
+	public delegate void StatementConsistencyCheckerDelegate(ISemanticNetwork semanticNetwork, Text.Containers.UnstructuredContainer result);
+	public delegate void StatementConsistencyCheckerDelegate<StatementT>(ICollection<StatementT> statements, Text.Containers.UnstructuredContainer result, ISemanticNetwork semanticNetwork)
 		where StatementT : IStatement;
 
 	public class StatementDefinition : IMetadataDefinition
@@ -62,7 +62,7 @@ namespace Inventor.Core
 			return _statementXmlGetter(statement);
 		}
 
-		public void CheckConsistency(ISemanticNetwork semanticNetwork, Text.UnstructuredContainer result)
+		public void CheckConsistency(ISemanticNetwork semanticNetwork, Text.Containers.UnstructuredContainer result)
 		{
 			_consistencyChecker(semanticNetwork, result);
 		}

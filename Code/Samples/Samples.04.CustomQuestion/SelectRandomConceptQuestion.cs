@@ -5,7 +5,7 @@ using Inventor.Core;
 using Inventor.Core.Answers;
 using Inventor.Core.Base;
 using Inventor.Core.Questions;
-using Inventor.Core.Text;
+using Inventor.Core.Text.Primitives;
 
 namespace Samples._04.CustomQuestion
 {

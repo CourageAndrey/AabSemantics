@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 
 using Inventor.Core.Localization;
-using Inventor.Core.Text;
 using Inventor.Core.Utils;
 
 namespace Inventor.Core
@@ -31,7 +30,7 @@ namespace Inventor.Core
 	{
 		public static IText DescribeRules(this ISemanticNetwork semanticNetwork)
 		{
-			var result = new Text.UnstructuredContainer();
+			var result = new Text.Containers.UnstructuredContainer();
 			foreach (var statement in semanticNetwork.Statements)
 			{
 				result.Append(statement.DescribeTrue());
@@ -41,7 +40,7 @@ namespace Inventor.Core
 
 		public static IText CheckConsistensy(this ISemanticNetwork semanticNetwork)
 		{
-			var result = new Text.UnstructuredContainer();
+			var result = new Text.Containers.UnstructuredContainer();
 
 			// 1. check all duplicates
 			checkStatementDuplicates(semanticNetwork, result);
@@ -59,7 +58,7 @@ namespace Inventor.Core
 			return result;
 		}
 
-		private static void checkStatementDuplicates(ISemanticNetwork semanticNetwork, UnstructuredContainer result)
+		private static void checkStatementDuplicates(ISemanticNetwork semanticNetwork, Text.Containers.UnstructuredContainer result)
 		{
 			foreach (var statement in semanticNetwork.Statements)
 			{

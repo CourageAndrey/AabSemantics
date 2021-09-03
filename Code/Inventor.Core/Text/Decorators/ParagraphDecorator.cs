@@ -1,4 +1,4 @@
-﻿namespace Inventor.Core.Text
+﻿namespace Inventor.Core.Text.Decorators
 {
 	public class ParagraphDecorator : TextDecoratorBase
 	{

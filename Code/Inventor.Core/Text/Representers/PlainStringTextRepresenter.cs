@@ -1,7 +1,11 @@
 ﻿using System;
 using System.Text;
 
-namespace Inventor.Core.Text
+using Inventor.Core.Text.Containers;
+using Inventor.Core.Text.Decorators;
+using Inventor.Core.Text.Primitives;
+
+namespace Inventor.Core.Text.Representers
 {
 	public class PlainStringTextRepresenter : IStructuredTextRepresenter
 	{

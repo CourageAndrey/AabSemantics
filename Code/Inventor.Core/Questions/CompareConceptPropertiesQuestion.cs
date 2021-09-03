@@ -5,6 +5,8 @@ using System.Linq;
 using Inventor.Core.Base;
 using Inventor.Core.Localization;
 using Inventor.Core.Statements;
+using Inventor.Core.Text.Containers;
+using Inventor.Core.Text.Primitives;
 
 namespace Inventor.Core.Questions
 {
@@ -47,7 +49,7 @@ namespace Inventor.Core.Questions
 			if (parents.Count == 0)
 			{
 				return new Answers.Answer(
-					new Text.FormattedText(
+					new FormattedText(
 						language => language.Answers.CanNotCompareConcepts,
 						new Dictionary<String, IKnowledge>
 						{
@@ -109,7 +111,7 @@ namespace Inventor.Core.Questions
 			ICollection<IConcept> parents,
 			IDictionary<IConcept, Tuple<IConcept, IConcept>> signValueStatements)
 		{
-			var result = new Text.UnstructuredContainer(new Text.FormattedText(
+			var result = new UnstructuredContainer(new FormattedText(
 				language => language.Answers.CompareConceptsResult,
 				new Dictionary<String, IKnowledge>
 				{

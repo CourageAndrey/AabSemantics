@@ -6,7 +6,7 @@ using System.IO;
 using Inventor.Core;
 using Inventor.Core.Base;
 using Inventor.Core.Localization;
-using Inventor.Core.Text;
+using Inventor.Core.Text.Primitives;
 
 namespace Samples._06.StructuredText
 {

@@ -28,7 +28,7 @@ namespace Inventor.Test.Answers
 
 			var resultStatementsUntyped = resultStatementsTyped.OfType<IStatement>().ToArray();
 
-			var text = new Core.Text.UnstructuredContainer();
+			var text = new Core.Text.Containers.UnstructuredContainer();
 
 			var explanationStatements = new IStatement[]
 			{
