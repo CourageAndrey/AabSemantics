@@ -4,6 +4,7 @@ using System.Linq;
 using System.Xml.Serialization;
 
 using Inventor.Core.Concepts;
+using Inventor.Core.Metadata;
 using Inventor.Core.Utils;
 
 namespace Inventor.Core.Xml

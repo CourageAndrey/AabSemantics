@@ -5,6 +5,7 @@ using System.Windows;
 using System.Windows.Controls;
 
 using Inventor.Core;
+using Inventor.Core.Metadata;
 
 namespace Inventor.Client.Dialogs
 {

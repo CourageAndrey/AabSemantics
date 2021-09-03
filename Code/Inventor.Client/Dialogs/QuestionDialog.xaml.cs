@@ -13,6 +13,7 @@ using Inventor.Client.Converters;
 using Inventor.Client.ViewModels;
 using Inventor.Client.ViewModels.Questions;
 using Inventor.Core;
+using Inventor.Core.Metadata;
 
 namespace Inventor.Client.Dialogs
 {

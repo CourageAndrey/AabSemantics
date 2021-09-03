@@ -12,6 +12,7 @@ using Inventor.Client.Dialogs;
 using Inventor.Client.Localization;
 using Inventor.Client.TreeNodes;
 using Inventor.Core;
+using Inventor.Core.Metadata;
 using Inventor.Core.Text.Containers;
 using Inventor.Core.Xml;
 

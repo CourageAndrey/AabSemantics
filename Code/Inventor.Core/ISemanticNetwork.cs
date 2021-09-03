@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 
 using Inventor.Core.Localization;
+using Inventor.Core.Metadata;
 using Inventor.Core.Text.Containers;
 using Inventor.Core.Utils;
 

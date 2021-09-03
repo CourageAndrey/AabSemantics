@@ -4,6 +4,7 @@ using System.Windows;
 using Inventor.Client.Controls;
 using Inventor.Client.Dialogs;
 using Inventor.Core;
+using Inventor.Core.Metadata;
 
 namespace Inventor.Client.ViewModels
 {
@@ -77,7 +78,7 @@ namespace Inventor.Client.ViewModels
 		private void updateAttributes(Core.IRepository<AttributeDefinition> attributeRepository, ILanguage language)
 		{
 			Attributes.Clear();
-			Attributes.Add(new ConceptAttribute(Core.AttributeDefinition.None, language, BoundObject == null || BoundObject.Attributes.Count == 0));
+			Attributes.Add(new ConceptAttribute(AttributeDefinition.None, language, BoundObject == null || BoundObject.Attributes.Count == 0));
 			foreach (var attributeDefinition in attributeRepository.Definitions.Values)
 			{
 				Attributes.Add(new ConceptAttribute(attributeDefinition, language, BoundObject != null && BoundObject.Attributes.Contains(attributeDefinition.AttributeValue)));
