@@ -1,9 +1,8 @@
 ﻿using System;
 
 using Inventor.Core.Concepts;
-using Inventor.Core.Statements;
 
-namespace Inventor.Core
+namespace Inventor.Core.Statements
 {
 	public class StatementBuilder
 	{
