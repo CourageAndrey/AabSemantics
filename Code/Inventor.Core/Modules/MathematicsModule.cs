@@ -18,18 +18,24 @@ namespace Inventor.Core.Modules
 
 		protected override void Attach(ISemanticNetwork semanticNetwork)
 		{
-			Repositories.RegisterAttribute(IsComparisonSignAttribute.Value, language => language.Attributes.IsComparisonSign, new Xml.IsComparisonSignAttribute());
-
 			foreach (var sign in ComparisonSigns.All)
 			{
 				semanticNetwork.Concepts.Add(sign);
 			}
+		}
 
+		protected override void RegisterAttributes()
+		{
+			Repositories.RegisterAttribute(IsComparisonSignAttribute.Value, language => language.Attributes.IsComparisonSign, new Xml.IsComparisonSignAttribute());
+		}
+
+		protected override void RegisterStatements()
+		{
 			Repositories.RegisterStatement<ComparisonStatement>(
 				language => language.StatementNames.Comparison,
 				statement => new Xml.ComparisonStatement(statement),
 				typeof(Xml.ComparisonStatement),
-				(statements, result, sn) =>
+				(statements, result, semanticNetwork) =>
 				{
 					foreach (var contradiction in statements.CheckForContradictions())
 					{
@@ -44,7 +50,10 @@ namespace Inventor.Core.Modules
 							.Append(contradiction.Signs.EnumerateOneLine());
 					}
 				});
+		}
 
+		protected override void RegisterQuestions()
+		{
 			Repositories.RegisterQuestion<ComparisonQuestion>();
 		}
 	}
