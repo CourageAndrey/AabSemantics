@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 
+using Inventor.Core.Concepts;
+
 namespace Inventor.Core.Xml
 {
 	public class ConceptIdResolver

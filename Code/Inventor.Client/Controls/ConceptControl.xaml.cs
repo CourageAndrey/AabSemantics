@@ -31,7 +31,7 @@ namespace Inventor.Client.Controls
 			{
 				_contextControl.DataContext = _concept = value;
 
-				_idControl.IsReadOnly = value.BoundObject is Core.Base.SystemConcept;
+				_idControl.IsReadOnly = value.BoundObject is Core.Concepts.SystemConcept;
 				_nameControl.IsEnabled = value.Name != null;
 				_hintControl.IsEnabled = value.Hint != null;
 				_groupAttributes.IsEnabled = value.Attributes != null;

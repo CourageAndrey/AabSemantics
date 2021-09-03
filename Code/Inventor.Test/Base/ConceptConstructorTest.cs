@@ -1,6 +1,6 @@
 ﻿using NUnit.Framework;
 
-using Inventor.Core.Base;
+using Inventor.Core.Concepts;
 using Inventor.Core.Localization;
 
 namespace Inventor.Test.Base

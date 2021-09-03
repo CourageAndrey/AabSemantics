@@ -2,10 +2,9 @@
 using System.Collections.Generic;
 
 using Inventor.Core.Attributes;
-using Inventor.Core.Base;
 using Inventor.Core.Localization;
 
-namespace Inventor.Core
+namespace Inventor.Core.Concepts
 {
 	public static class LogicalValues
 	{

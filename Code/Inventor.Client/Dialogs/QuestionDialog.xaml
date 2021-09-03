@@ -3,12 +3,12 @@
 		xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
 		xmlns:localization="clr-namespace:Inventor.Client.Localization"
 		xmlns:converters="clr-namespace:Inventor.Client.Converters"
-		xmlns:base="clr-namespace:Inventor.Core.Base;assembly=Inventor.Core"
+		xmlns:concepts="clr-namespace:Inventor.Core.Concepts;assembly=Inventor.Core"
 		SizeToContent="WidthAndHeight" MinWidth="350" MaxWidth="1200" MaxHeight="600" WindowStartupLocation="CenterOwner" Icon="/Inventor.Client;component/Inventor.ico">
 	<Window.Resources>
 		<ObjectDataProvider x:Key="language" ObjectType="{x:Type localization:Localizator}" />
 		<converters:NamedConverter x:Key="namedConverter" />
-		<DataTemplate DataType="{x:Type base:Concept}">
+		<DataTemplate DataType="{x:Type concepts:Concept}">
 			<TextBlock Text="{Binding Converter={StaticResource namedConverter}, Mode=OneTime}"/>
 		</DataTemplate>
 	</Window.Resources>

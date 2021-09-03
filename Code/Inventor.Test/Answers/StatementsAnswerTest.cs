@@ -5,6 +5,7 @@ using NUnit.Framework;
 using Inventor.Core;
 using Inventor.Core.Answers;
 using Inventor.Core.Base;
+using Inventor.Core.Concepts;
 using Inventor.Core.Statements;
 using Inventor.Core.Text.Containers;
 

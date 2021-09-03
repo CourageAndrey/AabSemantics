@@ -4,6 +4,7 @@ using NUnit.Framework;
 
 using Inventor.Core;
 using Inventor.Core.Answers;
+using Inventor.Core.Concepts;
 using Inventor.Core.Localization;
 using Inventor.Core.Statements;
 using Inventor.Test.Sample;
@@ -19,7 +20,7 @@ namespace Inventor.Test.Questions
 			// arrange
 			var language = Language.Default;
 			var semanticNetwork = new TestSemanticNetwork(language);
-			var noSubjectAreaConcept = Core.SystemConcepts.GetAll().First();
+			var noSubjectAreaConcept = Core.Concepts.SystemConcepts.GetAll().First();
 
 			// act
 			var answer = semanticNetwork.SemanticNetwork.Ask().WhichConceptsBelongToSubjectArea(noSubjectAreaConcept);

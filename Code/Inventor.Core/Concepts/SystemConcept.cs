@@ -2,7 +2,7 @@
 
 using Inventor.Core.Localization;
 
-namespace Inventor.Core.Base
+namespace Inventor.Core.Concepts
 {
 	public class SystemConcept : Concept
 	{

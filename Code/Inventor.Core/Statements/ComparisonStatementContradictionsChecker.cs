@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 
+using Inventor.Core.Concepts;
+
 namespace Inventor.Core.Statements
 {
 	public class ComparisonStatementContradictionsChecker : ContradictionsChecker<ComparisonStatement>

@@ -1,8 +1,8 @@
 ﻿using System;
 
 using Inventor.Core;
-using Inventor.Core.Attributes;
 using Inventor.Core.Base;
+using Inventor.Core.Concepts;
 using Inventor.Core.Localization;
 
 namespace Samples._04.CustomQuestion

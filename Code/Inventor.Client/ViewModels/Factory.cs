@@ -9,7 +9,7 @@ namespace Inventor.Client.ViewModels
 	{
 		public static IKnowledgeViewModel CreateByCoreType(Type type, ILanguage language)
 		{
-			if (type == typeof(Core.Base.Concept))
+			if (type == typeof(Core.Concepts.Concept))
 			{
 				return new Concept(language);
 			}
@@ -90,7 +90,7 @@ namespace Inventor.Client.ViewModels
 
 			if (conceptNode != null)
 			{
-				return new Concept(conceptNode.Concept as Core.Base.Concept);
+				return new Concept(conceptNode.Concept as Core.Concepts.Concept);
 			}
 			else if (statementNode != null)
 			{

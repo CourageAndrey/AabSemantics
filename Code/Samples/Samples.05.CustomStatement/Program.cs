@@ -2,6 +2,7 @@
 
 using Inventor.Core;
 using Inventor.Core.Base;
+using Inventor.Core.Concepts;
 using Inventor.Core.Localization;
 
 namespace Samples._05.CustomStatement

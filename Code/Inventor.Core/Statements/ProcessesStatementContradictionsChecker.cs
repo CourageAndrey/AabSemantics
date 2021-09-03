@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 
+using Inventor.Core.Concepts;
+
 namespace Inventor.Core.Statements
 {
 	public class ProcessesStatementContradictionsChecker : ContradictionsChecker<ProcessesStatement>

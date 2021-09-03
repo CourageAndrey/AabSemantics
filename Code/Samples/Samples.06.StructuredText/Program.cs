@@ -4,7 +4,7 @@ using System.Diagnostics;
 using System.IO;
 
 using Inventor.Core;
-using Inventor.Core.Base;
+using Inventor.Core.Concepts;
 using Inventor.Core.Localization;
 using Inventor.Core.Text.Primitives;
 
