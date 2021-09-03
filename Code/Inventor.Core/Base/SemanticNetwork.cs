@@ -109,8 +109,6 @@ namespace Inventor.Core.Base
 
 			Context = systemContext.Instantiate(this);
 
-			this.WithModules(Repositories.Modules.Values);
-
 			EventHandler<CancelableItemEventArgs<IStatement>> systemStatementProtector = (sender, args) =>
 			{
 				if (args.Item.Context != null && args.Item.Context.IsSystem)

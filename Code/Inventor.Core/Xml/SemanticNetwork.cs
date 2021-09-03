@@ -25,6 +25,10 @@ namespace Inventor.Core.Xml
 		public List<Statement> Statements
 		{ get; set; } = new List<Statement>();
 
+		[XmlArray(nameof(Modules))]
+		public List<String> Modules
+		{ get; set; } = new List<String>();
+
 		#endregion
 
 		#region Constructors
@@ -35,6 +39,8 @@ namespace Inventor.Core.Xml
 		public SemanticNetwork(ISemanticNetwork semanticNetwork)
 		{
 			Name = new LocalizedString(semanticNetwork.Name);
+
+			Modules = semanticNetwork.Modules.Keys.ToList();
 
 			var systemConcepts = new HashSet<IConcept>(SystemConcepts.GetAll());
 			Concepts = semanticNetwork.Concepts.Except(systemConcepts).Select(concept => new Concept(concept)).ToList();
@@ -48,6 +54,8 @@ namespace Inventor.Core.Xml
 		{
 			var result = new Base.SemanticNetwork(language);
 			Name.LoadTo(result.Name);
+
+			result.WithModules(Repositories.Modules.Values.Where(module => Modules.Contains(module.Name)).ToList());
 
 			var conceptsCache = new Dictionary<Concept, IConcept>();
 			foreach (var concept in Concepts)

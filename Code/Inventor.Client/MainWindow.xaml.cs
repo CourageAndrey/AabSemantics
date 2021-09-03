@@ -300,7 +300,7 @@ namespace Inventor.Client
 		{
 			if (canProceedAfterSave())
 			{
-				setModel(new Core.Base.SemanticNetwork(_application.CurrentLanguage), string.Empty);
+				setModel(new Core.Base.SemanticNetwork(_application.CurrentLanguage).WithModules(Repositories.Modules.Values), string.Empty);
 			}
 		}
 
