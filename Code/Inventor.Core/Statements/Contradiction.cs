@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace Inventor.Core
+namespace Inventor.Core.Statements
 {
 	public class Contradiction
 	{
