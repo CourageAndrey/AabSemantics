@@ -109,14 +109,7 @@ namespace Inventor.Core.Base
 
 			Context = systemContext.Instantiate(this);
 
-			this.WithModule<Modules.BooleanModule>()
-				.WithModule<Modules.ClassificationModule>()
-				.WithModules(new IExtensionModule[]
-				{
-					new Modules.SetModule(),
-					new Modules.MathematicsModule(),
-					new Modules.ProcessesModule(),
-				});
+			this.WithModules(Repositories.Modules.Values);
 
 			EventHandler<CancelableItemEventArgs<IStatement>> systemStatementProtector = (sender, args) =>
 			{
@@ -132,6 +125,15 @@ namespace Inventor.Core.Base
 		public override String ToString()
 		{
 			return String.Format(CultureInfo.InvariantCulture, "{0} : {1}", Strings.TostringSemanticNetwork, Name);
+		}
+
+		static SemanticNetwork()
+		{
+			new Modules.BooleanModule().RegisterMetadata();
+			new Modules.ClassificationModule().RegisterMetadata();
+			new Modules.SetModule().RegisterMetadata();
+			new Modules.MathematicsModule().RegisterMetadata();
+			new Modules.ProcessesModule().RegisterMetadata();
 		}
 	}
 }
