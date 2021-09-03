@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 
 using Inventor.Core;
-using Inventor.Core.Base;
+using Inventor.Core.Statements;
 using Inventor.Core.Localization;
 
 namespace Samples._05.CustomStatement
