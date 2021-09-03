@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 
 using NUnit.Framework;
@@ -8,6 +7,7 @@ using Inventor.Core;
 using Inventor.Core.Answers;
 using Inventor.Core.Base;
 using Inventor.Core.Localization;
+using Inventor.Core.Statements;
 
 namespace Inventor.Test.Questions
 {
