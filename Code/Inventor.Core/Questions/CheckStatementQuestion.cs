@@ -42,12 +42,13 @@ namespace Inventor.Core.Questions
 			}
 
 			var result = new Text.UnstructuredContainer();
+			Boolean isTrue = statements.Any();
 			result.Append(
 				language => Strings.ParamAnswer,
-				new Dictionary<String, IKnowledge> { { Strings.ParamAnswer, statements.Any().ToLogicalValue() } });
-			result.Append(statements.Any() ? Statement.DescribeTrue() : Statement.DescribeFalse());
+				new Dictionary<String, IKnowledge> { { Strings.ParamAnswer, isTrue.ToLogicalValue() } });
+			result.Append(isTrue ? Statement.DescribeTrue() : Statement.DescribeFalse());
 			return new BooleanAnswer(
-				statements.Any(),
+				isTrue,
 				result,
 				new Explanation(statements));
 		}
