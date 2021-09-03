@@ -67,6 +67,9 @@ namespace Inventor.Core
 				RegisterAttributes();
 				RegisterStatements();
 				RegisterQuestions();
+
+				Repositories.Modules[Name] = this;
+
 				IsMetadataRegistered = true;
 			}
 		}

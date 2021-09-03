@@ -1,9 +1,26 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace Inventor.Core
 {
 	public static class Repositories
 	{
+		public static IDictionary<String, IExtensionModule> Modules
+		{
+			get { return _modules; }
+			set
+			{
+				if (value != null)
+				{
+					_modules = value;
+				}
+				else
+				{
+					throw new ArgumentNullException(nameof(value));
+				}
+			}
+		}
+
 		public static IRepository<AttributeDefinition> Attributes
 		{
 			get { return _attributes; }
@@ -52,6 +69,7 @@ namespace Inventor.Core
 			}
 		}
 
+		private static IDictionary<String, IExtensionModule> _modules = new Dictionary<String, IExtensionModule>();
 		private static IRepository<AttributeDefinition> _attributes = new Base.Repository<AttributeDefinition>();
 		private static IRepository<StatementDefinition> _statements = new Base.Repository<StatementDefinition>();
 		private static IRepository<QuestionDefinition> _questions = new Base.Repository<QuestionDefinition>();
