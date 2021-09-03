@@ -2,7 +2,7 @@
 
 using NUnit.Framework;
 
-using Inventor.Core;
+using Inventor.Core.Concepts;
 
 namespace Inventor.Test.SystemConcepts
 {
@@ -12,7 +12,7 @@ namespace Inventor.Test.SystemConcepts
 		[Test]
 		public void OnlySequenceSignsSuit()
 		{
-			foreach (var concept in Core.SystemConcepts.GetAll())
+			foreach (var concept in Core.Concepts.SystemConcepts.GetAll())
 			{
 				if (!SequenceSigns.All.Contains(concept))
 				{

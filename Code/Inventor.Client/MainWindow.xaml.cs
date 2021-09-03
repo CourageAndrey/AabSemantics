@@ -167,7 +167,7 @@ namespace Inventor.Client
 			var selectedItem = treeViewSemanticNetwork.SelectedItem;
 			if (selectedItem is ConceptNode || selectedItem is SemanticNetworkConceptsNode)
 			{
-				type = typeof(Core.Base.Concept);
+				type = typeof(Core.Concepts.Concept);
 			}
 			else if (selectedItem is StatementNode || selectedItem is SemanticNetworkStatementsNode)
 			{

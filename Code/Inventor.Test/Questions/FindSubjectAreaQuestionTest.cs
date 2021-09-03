@@ -20,7 +20,7 @@ namespace Inventor.Test.Questions
 			// arrange
 			var language = Language.Default;
 			var semanticNetwork = new TestSemanticNetwork(language);
-			var conceptsWithoutSubjectArea = new List<IConcept>(Core.SystemConcepts.GetAll()) { semanticNetwork.SubjectArea_Transport };
+			var conceptsWithoutSubjectArea = new List<IConcept>(Core.Concepts.SystemConcepts.GetAll()) { semanticNetwork.SubjectArea_Transport };
 
 			foreach (var concept in conceptsWithoutSubjectArea)
 			{
@@ -46,7 +46,7 @@ namespace Inventor.Test.Questions
 				semanticNetwork.SubjectArea_Numbers,
 			};
 
-			var conceptsWithoutSubjectArea = new List<IConcept>(Core.SystemConcepts.GetAll());
+			var conceptsWithoutSubjectArea = new List<IConcept>(Core.Concepts.SystemConcepts.GetAll());
 			conceptsWithoutSubjectArea.AddRange(subjectAreas);
 
 			foreach (var concept in semanticNetwork.SemanticNetwork.Concepts.Except(conceptsWithoutSubjectArea))
@@ -74,7 +74,7 @@ namespace Inventor.Test.Questions
 			var semanticNetwork = new TestSemanticNetwork(language);
 			var concept = semanticNetwork.Base_Vehicle;
 
-			var secondSubjectArea = LogicalValues.True;
+			var secondSubjectArea = Core.Concepts.LogicalValues.True;
 			semanticNetwork.SemanticNetwork.DeclareThat(concept).BelongsToSubjectArea(secondSubjectArea);
 
 			// act

@@ -32,7 +32,7 @@ namespace Inventor.Client.ViewModels
 				new LocalizedStringVariable(new Dictionary<string, string> { { language.Culture, string.Empty }, }), new LocalizedStringVariable())
 		{ }
 
-		public Concept(Core.Base.Concept concept)
+		public Concept(Core.Concepts.Concept concept)
 			: this(concept.ID, LocalizedString.From(concept.Name), LocalizedString.From(concept.Hint))
 		{
 			BoundObject = concept;
@@ -49,7 +49,7 @@ namespace Inventor.Client.ViewModels
 
 		#region Implementation of IViewModel
 
-		public Core.Base.Concept BoundObject
+		public Core.Concepts.Concept BoundObject
 		{ get; private set; }
 
 		public Window CreateEditDialog(Window owner, Core.ISemanticNetwork semanticNetwork, ILanguage language)
@@ -86,7 +86,7 @@ namespace Inventor.Client.ViewModels
 
 		public object ApplyCreate(Core.ISemanticNetwork semanticNetwork)
 		{
-			semanticNetwork.Concepts.Add(BoundObject = new Core.Base.Concept(ID, Name.Create(), Hint.Create()));
+			semanticNetwork.Concepts.Add(BoundObject = new Core.Concepts.Concept(ID, Name.Create(), Hint.Create()));
 
 			foreach (var attribute in Attributes)
 			{

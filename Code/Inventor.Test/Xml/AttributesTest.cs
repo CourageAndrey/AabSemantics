@@ -6,6 +6,7 @@ using NUnit.Framework;
 
 using Inventor.Core;
 using Inventor.Core.Base;
+using Inventor.Core.Concepts;
 
 namespace Inventor.Test.Xml
 {

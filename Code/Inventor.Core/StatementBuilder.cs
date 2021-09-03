@@ -1,5 +1,6 @@
 ﻿using System;
 
+using Inventor.Core.Concepts;
 using Inventor.Core.Statements;
 
 namespace Inventor.Core

@@ -51,7 +51,7 @@ namespace Inventor.Core.Xml
 			var hint = new Localization.LocalizedStringVariable();
 			Hint.LoadTo(hint);
 
-			return new Base.Concept(ID, name, hint).WithAttributes(Attributes.Select(a => a.Load()));
+			return new Concepts.Concept(ID, name, hint).WithAttributes(Attributes.Select(a => a.Load()));
 		}
 	}
 }
