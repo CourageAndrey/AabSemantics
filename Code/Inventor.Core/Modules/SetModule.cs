@@ -6,7 +6,6 @@ using Inventor.Core.Attributes;
 using Inventor.Core.Localization;
 using Inventor.Core.Statements;
 using Inventor.Core.Questions;
-using Inventor.Core.Text.Containers;
 
 namespace Inventor.Core.Modules
 {
@@ -77,7 +76,7 @@ namespace Inventor.Core.Modules
 
 		private static void checkSignDuplications(
 			ICollection<HasSignStatement> statements,
-			UnstructuredContainer result,
+			ITextContainer result,
 			ISemanticNetwork semanticNetwork)
 		{
 			var clasifications = semanticNetwork.Statements.OfType<IsStatement>().ToList();
@@ -95,7 +94,7 @@ namespace Inventor.Core.Modules
 
 		private static void checkSignValues(
 			ICollection<SignValueStatement> statements,
-			UnstructuredContainer result,
+			ITextContainer result,
 			ISemanticNetwork semanticNetwork)
 		{
 			checkMultiValues(statements, result, semanticNetwork);
@@ -104,7 +103,7 @@ namespace Inventor.Core.Modules
 
 		private static void checkMultiValues(
 			ICollection<SignValueStatement> statements,
-			UnstructuredContainer result,
+			ITextContainer result,
 			ISemanticNetwork semanticNetwork)
 		{
 			var clasifications = semanticNetwork.Statements.OfType<IsStatement>().ToList();
@@ -131,7 +130,7 @@ namespace Inventor.Core.Modules
 
 		private static void checkValuesWithoutSign(
 			ICollection<SignValueStatement> statements,
-			UnstructuredContainer result,
+			ITextContainer result,
 			ISemanticNetwork semanticNetwork)
 		{
 			foreach (var signValue in statements)

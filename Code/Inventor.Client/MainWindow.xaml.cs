@@ -12,6 +12,7 @@ using Inventor.Client.Dialogs;
 using Inventor.Client.Localization;
 using Inventor.Client.TreeNodes;
 using Inventor.Core;
+using Inventor.Core.Text.Containers;
 using Inventor.Core.Xml;
 
 namespace Inventor.Client
@@ -61,7 +62,7 @@ namespace Inventor.Client
 				var processingResult = answer.Description;
 				if (answer.Explanation.Statements.Count > 0)
 				{
-					var explanedResult = new Core.Text.Containers.UnstructuredContainer(processingResult);
+					var explanedResult = new UnstructuredContainer(processingResult);
 					explanedResult.AppendLineBreak();
 					explanedResult.Append(new Core.Text.Primitives.FormattedText(language => language.Answers.Explanation));
 
