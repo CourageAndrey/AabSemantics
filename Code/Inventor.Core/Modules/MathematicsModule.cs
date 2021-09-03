@@ -5,6 +5,7 @@ using Inventor.Core.Attributes;
 using Inventor.Core.Localization;
 using Inventor.Core.Statements;
 using Inventor.Core.Questions;
+using Inventor.Core.Text;
 
 namespace Inventor.Core.Modules
 {
@@ -35,26 +36,31 @@ namespace Inventor.Core.Modules
 				language => language.StatementNames.Comparison,
 				statement => new Xml.ComparisonStatement(statement),
 				typeof(Xml.ComparisonStatement),
-				(statements, result, semanticNetwork) =>
-				{
-					foreach (var contradiction in statements.CheckForContradictions())
-					{
-						result
-							.Append(
-								language => language.Consistency.ErrorComparisonContradiction,
-								new Dictionary<String, IKnowledge>
-								{
-									{ Strings.ParamLeftValue, contradiction.Value1 },
-									{ Strings.ParamRightValue, contradiction.Value2 },
-								})
-							.Append(contradiction.Signs.EnumerateOneLine());
-					}
-				});
+				checkComparisonValueSystems);
 		}
 
 		protected override void RegisterQuestions()
 		{
 			Repositories.RegisterQuestion<ComparisonQuestion>();
+		}
+
+		private static void checkComparisonValueSystems(
+			ICollection<ComparisonStatement> statements,
+			UnstructuredContainer result,
+			ISemanticNetwork semanticNetwork)
+		{
+			foreach (var contradiction in statements.CheckForContradictions())
+			{
+				result
+					.Append(
+						language => language.Consistency.ErrorComparisonContradiction,
+						new Dictionary<String, IKnowledge>
+						{
+							{ Strings.ParamLeftValue, contradiction.Value1 },
+							{ Strings.ParamRightValue, contradiction.Value2 },
+						})
+					.Append(contradiction.Signs.EnumerateOneLine());
+			}
 		}
 	}
 }

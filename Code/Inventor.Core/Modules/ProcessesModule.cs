@@ -5,6 +5,7 @@ using Inventor.Core.Attributes;
 using Inventor.Core.Localization;
 using Inventor.Core.Statements;
 using Inventor.Core.Questions;
+using Inventor.Core.Text;
 
 namespace Inventor.Core.Modules
 {
@@ -36,26 +37,31 @@ namespace Inventor.Core.Modules
 				language => language.StatementNames.Processes,
 				statement => new Xml.ProcessesStatement(statement),
 				typeof(Xml.ProcessesStatement),
-				(statements, result, semanticNetwork) =>
-				{
-					foreach (var contradiction in statements.CheckForContradictions())
-					{
-						result
-							.Append(
-								language => language.Consistency.ErrorProcessesContradiction,
-								new Dictionary<String, IKnowledge>
-								{
-									{ Strings.ParamProcessA, contradiction.Value1 },
-									{ Strings.ParamProcessB, contradiction.Value2 },
-								})
-							.Append(contradiction.Signs.EnumerateOneLine());
-					}
-				});
+				checkProcessSequenceSystems);
 		}
 
 		protected override void RegisterQuestions()
 		{
 			Repositories.RegisterQuestion<ProcessesQuestion>();
+		}
+
+		private static void checkProcessSequenceSystems(
+			ICollection<ProcessesStatement> statements,
+			UnstructuredContainer result,
+			ISemanticNetwork semanticNetwork)
+		{
+			foreach (var contradiction in statements.CheckForContradictions())
+			{
+				result
+					.Append(
+						language => language.Consistency.ErrorProcessesContradiction,
+						new Dictionary<String, IKnowledge>
+						{
+							{ Strings.ParamProcessA, contradiction.Value1 },
+							{ Strings.ParamProcessB, contradiction.Value2 },
+						})
+					.Append(contradiction.Signs.EnumerateOneLine());
+			}
 		}
 	}
 }

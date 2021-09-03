@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using Inventor.Core.Localization;
 using Inventor.Core.Statements;
 using Inventor.Core.Questions;
+using Inventor.Core.Text;
 
 namespace Inventor.Core.Modules
 {
@@ -21,18 +22,7 @@ namespace Inventor.Core.Modules
 				language => language.StatementNames.Clasification,
 				statement => new Xml.IsStatement(statement),
 				typeof(Xml.IsStatement),
-				(statements, result, semanticNetwork) =>
-				{
-					foreach (var clasification in statements)
-					{
-						if (!clasification.CheckCyclic(statements))
-						{
-							result.Append(
-								language => language.Consistency.ErrorCyclic,
-								new Dictionary<String, IKnowledge> { { Strings.ParamStatement, clasification } });
-						}
-					}
-				});
+				checkCyclicParents);
 		}
 
 		protected override void RegisterQuestions()
@@ -40,6 +30,22 @@ namespace Inventor.Core.Modules
 			Repositories.RegisterQuestion<EnumerateAncestorsQuestion>();
 			Repositories.RegisterQuestion<EnumerateDescendantsQuestion>();
 			Repositories.RegisterQuestion<IsQuestion>();
+		}
+
+		private static void checkCyclicParents(
+			ICollection<IsStatement> statements,
+			UnstructuredContainer result,
+			ISemanticNetwork semanticNetwork)
+		{
+			foreach (var clasification in statements)
+			{
+				if (!clasification.CheckCyclic(statements))
+				{
+					result.Append(
+						language => language.Consistency.ErrorCyclic,
+						new Dictionary<String, IKnowledge> { { Strings.ParamStatement, clasification } });
+				}
+			}
 		}
 	}
 }
