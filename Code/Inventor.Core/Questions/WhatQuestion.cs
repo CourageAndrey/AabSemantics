@@ -73,7 +73,7 @@ namespace Inventor.Core.Questions
 			return difference;
 		}
 
-		private void writeClassificationWithDifference(Text.Containers.UnstructuredContainer result, IsStatement statement, List<SignValueStatement> difference)
+		private void writeClassificationWithDifference(ITextContainer result, IsStatement statement, List<SignValueStatement> difference)
 		{
 			result.Append(language => language.Answers.IsDescriptionWithSign, new Dictionary<String, IKnowledge>
 			{
@@ -87,7 +87,7 @@ namespace Inventor.Core.Questions
 			}
 		}
 
-		private static void writeSignDifference(Text.Containers.UnstructuredContainer result, SignValueStatement diff)
+		private static void writeSignDifference(ITextContainer result, SignValueStatement diff)
 		{
 			result.Append(language => language.Answers.IsDescriptionWithSignValue, new Dictionary<String, IKnowledge>
 			{
@@ -96,7 +96,7 @@ namespace Inventor.Core.Questions
 			});
 		}
 
-		private void writeJustClassification(Text.Containers.UnstructuredContainer result, IsStatement statement)
+		private void writeJustClassification(ITextContainer result, IsStatement statement)
 		{
 			result.Append(language => language.Answers.IsDescription, new Dictionary<String, IKnowledge>
 			{

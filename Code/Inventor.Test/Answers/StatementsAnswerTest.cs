@@ -6,6 +6,7 @@ using Inventor.Core;
 using Inventor.Core.Answers;
 using Inventor.Core.Base;
 using Inventor.Core.Statements;
+using Inventor.Core.Text.Containers;
 
 namespace Inventor.Test.Answers
 {
@@ -28,7 +29,7 @@ namespace Inventor.Test.Answers
 
 			var resultStatementsUntyped = resultStatementsTyped.OfType<IStatement>().ToArray();
 
-			var text = new Core.Text.Containers.UnstructuredContainer();
+			var text = new UnstructuredContainer();
 
 			var explanationStatements = new IStatement[]
 			{

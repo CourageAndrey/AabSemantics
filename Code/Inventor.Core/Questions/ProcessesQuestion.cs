@@ -5,6 +5,7 @@ using System.Linq;
 using Inventor.Core.Answers;
 using Inventor.Core.Base;
 using Inventor.Core.Statements;
+using Inventor.Core.Text.Containers;
 
 namespace Inventor.Core.Questions
 {
@@ -49,7 +50,7 @@ namespace Inventor.Core.Questions
 		private static StatementsAnswer<ProcessesStatement> createAnswer(ICollection<ProcessesStatement> statements, IQuestionProcessingContext<ProcessesQuestion> context, ICollection<IStatement> transitiveStatements = null)
 		{
 			var resultStatements = new HashSet<ProcessesStatement>();
-			var text = new Text.Containers.UnstructuredContainer();
+			var text = new UnstructuredContainer();
 
 			foreach (var statement in statements)
 			{
