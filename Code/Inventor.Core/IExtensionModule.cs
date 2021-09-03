@@ -13,6 +13,11 @@ namespace Inventor.Core
 		{ get; }
 
 		void AttachTo(ISemanticNetwork semanticNetwork);
+		
+		Boolean IsMetadataRegistered
+		{ get; }
+
+		void RegisterMetadata();
 	}
 
 	public abstract class ExtensionModule : IExtensionModule
@@ -22,6 +27,9 @@ namespace Inventor.Core
 
 		public ICollection<String> Dependencies
 		{ get; }
+
+		public Boolean IsMetadataRegistered
+		{ get; private set; }
 
 		protected ExtensionModule(String name, ICollection<String> dependencies = null)
 		{
@@ -39,12 +47,38 @@ namespace Inventor.Core
 				throw new ModuleException(Name, $"Impossible to apply \"{Name}\" module. Required modules \"{String.Join("\", \"", missingDependencies)}\" are not loaded.");
 			}
 
+			if (!IsMetadataRegistered)
+			{
+				RegisterMetadata();
+			}
+
 			Attach(semanticNetwork);
 
 			semanticNetwork.Modules[Name] = this;
 		}
 
-		protected abstract void Attach(ISemanticNetwork semanticNetwork);
+		protected virtual void Attach(ISemanticNetwork semanticNetwork)
+		{ }
+
+		public virtual void RegisterMetadata()
+		{
+			if (!IsMetadataRegistered)
+			{
+				RegisterAttributes();
+				RegisterStatements();
+				RegisterQuestions();
+				IsMetadataRegistered = true;
+			}
+		}
+
+		protected virtual void RegisterAttributes()
+		{ }
+
+		protected virtual void RegisterStatements()
+		{ }
+
+		protected virtual void RegisterQuestions()
+		{ }
 	}
 
 	public static class ExtensionModuleRegistrationHelper

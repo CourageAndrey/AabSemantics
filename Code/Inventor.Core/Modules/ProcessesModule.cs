@@ -18,19 +18,25 @@ namespace Inventor.Core.Modules
 
 		protected override void Attach(ISemanticNetwork semanticNetwork)
 		{
-			Repositories.RegisterAttribute(IsProcessAttribute.Value, language => language.Attributes.IsProcess, new Xml.IsProcessAttribute());
-			Repositories.RegisterAttribute(IsSequenceSignAttribute.Value, language => language.Attributes.IsSequenceSign, new Xml.IsSequenceSignAttribute());
-
 			foreach (var sign in SequenceSigns.All)
 			{
 				semanticNetwork.Concepts.Add(sign);
 			}
+		}
 
+		protected override void RegisterAttributes()
+		{
+			Repositories.RegisterAttribute(IsProcessAttribute.Value, language => language.Attributes.IsProcess, new Xml.IsProcessAttribute());
+			Repositories.RegisterAttribute(IsSequenceSignAttribute.Value, language => language.Attributes.IsSequenceSign, new Xml.IsSequenceSignAttribute());
+		}
+
+		protected override void RegisterStatements()
+		{
 			Repositories.RegisterStatement<ProcessesStatement>(
 				language => language.StatementNames.Processes,
 				statement => new Xml.ProcessesStatement(statement),
 				typeof(Xml.ProcessesStatement),
-				(statements, result, sn) =>
+				(statements, result, semanticNetwork) =>
 				{
 					foreach (var contradiction in statements.CheckForContradictions())
 					{
@@ -45,7 +51,10 @@ namespace Inventor.Core.Modules
 							.Append(contradiction.Signs.EnumerateOneLine());
 					}
 				});
+		}
 
+		protected override void RegisterQuestions()
+		{
 			Repositories.RegisterQuestion<ProcessesQuestion>();
 		}
 	}

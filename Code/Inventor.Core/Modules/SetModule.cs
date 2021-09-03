@@ -18,26 +18,34 @@ namespace Inventor.Core.Modules
 		{ }
 
 		protected override void Attach(ISemanticNetwork semanticNetwork)
+		{ }
+
+		protected override void RegisterAttributes()
 		{
 			Repositories.RegisterAttribute(IsSignAttribute.Value, language => language.Attributes.IsSign, new Xml.IsSignAttribute());
+		}
 
+		protected override void RegisterStatements()
+		{
 			Repositories.RegisterStatement<HasPartStatement>(
 				language => language.StatementNames.Composition,
 				statement => new Xml.HasPartStatement(statement),
 				typeof(Xml.HasPartStatement),
 				StatementDefinition<HasPartStatement>.NoConsistencyCheck);
+
 			Repositories.RegisterStatement<GroupStatement>(
 				language => language.StatementNames.SubjectArea,
 				statement => new Xml.GroupStatement(statement),
 				typeof(Xml.GroupStatement),
 				StatementDefinition<GroupStatement>.NoConsistencyCheck);
+
 			Repositories.RegisterStatement<HasSignStatement>(
 				language => language.StatementNames.HasSign,
 				statement => new Xml.HasSignStatement(statement),
 				typeof(Xml.HasSignStatement),
-				(statements, result, sn) =>
+				(statements, result, semanticNetwork) =>
 				{
-					var clasifications = sn.Statements.OfType<IsStatement>().ToList();
+					var clasifications = semanticNetwork.Statements.OfType<IsStatement>().ToList();
 
 					foreach (var hasSign in statements)
 					{
@@ -49,13 +57,14 @@ namespace Inventor.Core.Modules
 						}
 					}
 				});
+
 			Repositories.RegisterStatement<SignValueStatement>(
 				language => language.StatementNames.SignValue,
 				statement => new Xml.SignValueStatement(statement),
 				typeof(Xml.SignValueStatement),
-				(statements, result, sn) =>
+				(statements, result, semanticNetwork) =>
 				{
-					var clasifications = sn.Statements.OfType<IsStatement>().ToList();
+					var clasifications = semanticNetwork.Statements.OfType<IsStatement>().ToList();
 
 					// 3. check multi values
 					foreach (var concept in semanticNetwork.Concepts)
@@ -88,7 +97,10 @@ namespace Inventor.Core.Modules
 						}
 					}
 				});
+		}
 
+		protected override void RegisterQuestions()
+		{
 			Repositories.RegisterQuestion<DescribeSubjectAreaQuestion>();
 			Repositories.RegisterQuestion<FindSubjectAreaQuestion>();
 			Repositories.RegisterQuestion<IsSubjectAreaQuestion>();

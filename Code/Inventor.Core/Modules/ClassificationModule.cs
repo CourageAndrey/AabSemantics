@@ -15,13 +15,13 @@ namespace Inventor.Core.Modules
 			: base(ModuleName, new[] { BooleanModule.ModuleName })
 		{ }
 
-		protected override void Attach(ISemanticNetwork semanticNetwork)
+		protected override void RegisterStatements()
 		{
 			Repositories.RegisterStatement<IsStatement>(
 				language => language.StatementNames.Clasification,
 				statement => new Xml.IsStatement(statement),
 				typeof(Xml.IsStatement),
-				(statements, result, sn) =>
+				(statements, result, semanticNetwork) =>
 				{
 					foreach (var clasification in statements)
 					{
@@ -33,7 +33,10 @@ namespace Inventor.Core.Modules
 						}
 					}
 				});
+		}
 
+		protected override void RegisterQuestions()
+		{
 			Repositories.RegisterQuestion<EnumerateAncestorsQuestion>();
 			Repositories.RegisterQuestion<EnumerateDescendantsQuestion>();
 			Repositories.RegisterQuestion<IsQuestion>();
