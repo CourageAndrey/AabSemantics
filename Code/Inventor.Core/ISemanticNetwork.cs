@@ -56,7 +56,7 @@ namespace Inventor.Core
 			// 2. check specific statements
 			foreach (var statementDefinition in Repositories.Statements.Definitions.Values)
 			{
-				statementDefinition.CheckConsistency(semanticNetwork.Statements, result);
+				statementDefinition.CheckConsistency(semanticNetwork, result);
 			}
 
 			if (result.Items.Count == 0)

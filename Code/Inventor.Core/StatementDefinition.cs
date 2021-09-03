@@ -4,8 +4,8 @@ using System.Linq;
 
 namespace Inventor.Core
 {
-	public delegate void StatementConsistencyCheckerDelegate(ICollection<IStatement> statements, Text.UnstructuredContainer result);
-	public delegate void StatementConsistencyCheckerDelegate<StatementT>(ICollection<StatementT> statements, Text.UnstructuredContainer result, IEnumerable<IStatement> allStatements)
+	public delegate void StatementConsistencyCheckerDelegate(ISemanticNetwork semanticNetwork, Text.UnstructuredContainer result);
+	public delegate void StatementConsistencyCheckerDelegate<StatementT>(ICollection<StatementT> statements, Text.UnstructuredContainer result, ISemanticNetwork semanticNetwork)
 		where StatementT : IStatement;
 
 	public class StatementDefinition : IMetadataDefinition
@@ -62,9 +62,9 @@ namespace Inventor.Core
 			return _statementXmlGetter(statement);
 		}
 
-		public void CheckConsistency(ICollection<IStatement> statements, Text.UnstructuredContainer result)
+		public void CheckConsistency(ISemanticNetwork semanticNetwork, Text.UnstructuredContainer result)
 		{
-			_consistencyChecker(statements, result);
+			_consistencyChecker(semanticNetwork, result);
 		}
 
 		public static readonly StatementConsistencyCheckerDelegate NoConsistencyCheck = (statements, result) => { };
@@ -83,7 +83,7 @@ namespace Inventor.Core
 				statementNameGetter,
 				statement => statementXmlGetter((StatementT) statement),
 				xmlType,
-				(statements, result) => consistencyChecker(statements.OfType<StatementT>().ToList(), result, statements))
+				(semanticNetwork, result) => consistencyChecker(semanticNetwork.Statements.OfType<StatementT>().ToList(), result, semanticNetwork))
 		{
 			if (consistencyChecker == null) throw new ArgumentNullException(nameof(consistencyChecker));
 		}
