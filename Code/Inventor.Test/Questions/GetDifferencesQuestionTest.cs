@@ -7,6 +7,7 @@ using Inventor.Core.Answers;
 using Inventor.Core.Attributes;
 using Inventor.Core.Base;
 using Inventor.Core.Localization;
+using Inventor.Core.Questions;
 using Inventor.Test.Sample;
 
 namespace Inventor.Test.Questions

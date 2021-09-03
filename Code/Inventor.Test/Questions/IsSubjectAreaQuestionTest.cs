@@ -2,9 +2,9 @@
 
 using NUnit.Framework;
 
-using Inventor.Core;
 using Inventor.Core.Answers;
 using Inventor.Core.Localization;
+using Inventor.Core.Questions;
 using Inventor.Core.Statements;
 using Inventor.Test.Sample;
 

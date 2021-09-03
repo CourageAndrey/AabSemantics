@@ -1,9 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-using Inventor.Core.Questions;
-
-namespace Inventor.Core
+namespace Inventor.Core.Questions
 {
 	public class QuestionBuilder
 	{
