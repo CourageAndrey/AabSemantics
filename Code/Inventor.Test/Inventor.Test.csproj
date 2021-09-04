@@ -68,7 +68,7 @@
     <Compile Include="Metadata\AttributeDefinitionTest.cs" />
     <Compile Include="Contexts\ContextsTest.cs" />
     <Compile Include="ConsistencyTest.cs" />
-    <Compile Include="Base\ConceptConstructorTest.cs" />
+    <Compile Include="Concepts\ConceptConstructorTest.cs" />
     <Compile Include="Localization\LocalizedStringsTest.cs" />
     <Compile Include="Questions\CheckStatementQuestionTest.cs" />
     <Compile Include="Questions\EnumerateAncestorsQuestionTest.cs" />
