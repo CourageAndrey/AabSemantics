@@ -3,7 +3,7 @@
 using Inventor.Core.Concepts;
 using Inventor.Core.Localization;
 
-namespace Inventor.Test.Base
+namespace Inventor.Test.Concepts
 {
 	[TestFixture]
 	public class ConceptConstructorTest
