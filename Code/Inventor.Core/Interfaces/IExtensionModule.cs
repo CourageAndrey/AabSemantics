@@ -15,9 +15,6 @@ namespace Inventor.Core
 		{ get; }
 
 		void AttachTo(ISemanticNetwork semanticNetwork);
-		
-		Boolean IsMetadataRegistered
-		{ get; }
 
 		void RegisterMetadata();
 	}
