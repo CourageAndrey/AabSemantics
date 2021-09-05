@@ -25,6 +25,9 @@ namespace Inventor.Test.Sample
 		public Concept SubjectArea_Numbers
 		{ get; }
 
+		public Concept SubjectArea_Processes
+		{ get; }
+
 		#endregion
 
 		#region Base Concepts
@@ -151,6 +154,16 @@ namespace Inventor.Test.Sample
 
 		#endregion
 
+		#region Processes
+
+		public Concept ProcessA
+		{ get; }
+
+		public Concept ProcessB
+		{ get; }
+
+		#endregion
+
 		#endregion
 
 		public TestSemanticNetwork(ILanguage language)
@@ -189,6 +202,16 @@ namespace Inventor.Test.Sample
 			{
 				{ "ru-RU", "Числа." },
 				{ "en-US", "Numbers." },
+			})));
+
+			SemanticNetwork.Concepts.Add(SubjectArea_Processes = new Concept(nameof(SubjectArea_Processes), new LocalizedStringVariable(new Dictionary<String, String>
+			{
+				{ "ru-RU", "Процессы" },
+				{ "en-US", "Processes" },
+			}), new LocalizedStringVariable(new Dictionary<String, String>
+			{
+				{ "ru-RU", "Процессы." },
+				{ "en-US", "Processes." },
 			})));
 
 			#endregion
@@ -469,6 +492,13 @@ namespace Inventor.Test.Sample
 
 			#endregion
 
+			#region Processes
+
+			SemanticNetwork.Concepts.Add(ProcessA = new Concept(nameof(ProcessA), getString("Process A")));
+			SemanticNetwork.Concepts.Add(ProcessB = new Concept(nameof(ProcessB), getString("Process B")));
+
+			#endregion
+
 			#region Concept Attributes
 
 			Sign_MotorType.WithAttribute(IsSignAttribute.Value);
@@ -492,6 +522,9 @@ namespace Inventor.Test.Sample
 			Number3.WithAttribute(IsValueAttribute.Value);
 			Number3or4.WithAttribute(IsValueAttribute.Value);
 			Number4.WithAttribute(IsValueAttribute.Value);
+
+			ProcessA.WithAttribute(IsProcessAttribute.Value);
+			ProcessB.WithAttribute(IsProcessAttribute.Value);
 
 			#endregion
 
@@ -530,6 +563,9 @@ namespace Inventor.Test.Sample
 			SemanticNetwork.DeclareThat(SubjectArea_Numbers).IsSubjectAreaOf(Number3);
 			SemanticNetwork.DeclareThat(SubjectArea_Numbers).IsSubjectAreaOf(Number3or4);
 			SemanticNetwork.DeclareThat(SubjectArea_Numbers).IsSubjectAreaOf(Number4);
+
+			SemanticNetwork.DeclareThat(SubjectArea_Processes).IsSubjectAreaOf(ProcessA);
+			SemanticNetwork.DeclareThat(SubjectArea_Processes).IsSubjectAreaOf(ProcessB);
 
 			SemanticNetwork.DeclareThat(Base_Vehicle).HasSign(Sign_MotorType);
 			SemanticNetwork.DeclareThat(Base_Vehicle).HasSign(Sign_AreaType);
@@ -586,6 +622,9 @@ namespace Inventor.Test.Sample
 			SemanticNetwork.DeclareThat(Number3).IsGreaterThanOrEqualTo(Number2or3);
 			SemanticNetwork.DeclareThat(Number4).IsGreaterThanOrEqualTo(Number3or4);
 			SemanticNetwork.DeclareThat(Number3or4).IsGreaterThanOrEqualTo(Number3);
+
+			SemanticNetwork.DeclareThat(ProcessA).StartsBeforeOtherStarted(ProcessB);
+			SemanticNetwork.DeclareThat(ProcessA).FinishesAfterOtherFinished(ProcessB);
 
 			#endregion
 		}

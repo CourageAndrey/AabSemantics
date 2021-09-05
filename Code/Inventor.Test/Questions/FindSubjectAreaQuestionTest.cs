@@ -45,6 +45,7 @@ namespace Inventor.Test.Questions
 			{
 				semanticNetwork.SubjectArea_Transport,
 				semanticNetwork.SubjectArea_Numbers,
+				semanticNetwork.SubjectArea_Processes,
 			};
 
 			var conceptsWithoutSubjectArea = new List<IConcept>(Core.Concepts.SystemConcepts.GetAll());
