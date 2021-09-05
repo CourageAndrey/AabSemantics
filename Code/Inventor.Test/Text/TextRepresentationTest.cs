@@ -95,7 +95,7 @@ namespace Inventor.Test.Text
 					{ getID(number), getText(number).CreateConcept() },
 				});
 		}
-		
+
 		private static string getID(int number)
 		{
 			return $"ID_{number:N3}";
