@@ -73,10 +73,10 @@ namespace Inventor.Core.Text.Representers
 			return representContainer(
 				text,
 				language,
-				string.Empty,
-				string.Empty,
-				string.Empty,
-				string.Empty);
+				String.Empty,
+				String.Empty,
+				String.Empty,
+				String.Empty);
 		}
 
 		private StringBuilder representContainer(

@@ -7,7 +7,7 @@ namespace Inventor.Core.Text.Primitives
 	{
 		public override IDictionary<String, IKnowledge> GetParameters()
 		{
-			return new Dictionary<string, IKnowledge>();
+			return new Dictionary<String, IKnowledge>();
 		}
 	}
 }

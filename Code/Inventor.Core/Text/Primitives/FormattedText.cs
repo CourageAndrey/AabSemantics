@@ -22,7 +22,7 @@ namespace Inventor.Core.Text.Primitives
 			Formatter = formatter;
 			Parameters = parameters != null
 				? new Dictionary<String, IKnowledge>(parameters)
-				: new Dictionary<string, IKnowledge>();
+				: new Dictionary<String, IKnowledge>();
 		}
 
 		public override IDictionary<String, IKnowledge> GetParameters()

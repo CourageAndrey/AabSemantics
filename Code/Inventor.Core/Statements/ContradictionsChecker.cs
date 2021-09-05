@@ -148,11 +148,11 @@ namespace Inventor.Core.Statements
 			return updated;
 		}
 
-		/*protected string Display()
+		/*protected String Display()
 		{
-			var align = new Func<string, int, string>((text, lenght) => text.PadLeft(lenght, ' '));
+			var align = new Func<String, int, String>((text, lenght) => text.PadLeft(lenght, ' '));
 
-			var signSymbols = new Dictionary<IConcept, string>
+			var signSymbols = new Dictionary<IConcept, String>
 			{
 				{ ComparisonSigns.IsEqualTo, "=" },
 				{ ComparisonSigns.IsNotEqualTo, "≠" },
@@ -189,11 +189,11 @@ namespace Inventor.Core.Statements
 			}
 
 			int columnWidth = Math.Max(headersMaxLength, signsMaxCount * signSymbols.Values.Max(v => v.Length));
-			string columnsHeader = string.Join("|", headers.Values.Select(h => align(h, columnWidth)));
-			string tableHeader = new string(' ', headersMaxLength) + "|" + columnsHeader;
-			string afterHeaderLine = new string(tableHeader.Select(c => c == '|' ? '+' : '-').ToArray());
-			string emptyLine = new string(columnsHeader.Select(c => c == '|' ? '|' : ' ').ToArray());
-			string emptyCell = new string(' ', columnWidth);
+			String columnsHeader = String.Join("|", headers.Values.Select(h => align(h, columnWidth)));
+			String tableHeader = new String(' ', headersMaxLength) + "|" + columnsHeader;
+			String afterHeaderLine = new String(tableHeader.Select(c => c == '|' ? '+' : '-').ToArray());
+			String emptyLine = new String(columnsHeader.Select(c => c == '|' ? '|' : ' ').ToArray());
+			String emptyCell = new String(' ', columnWidth);
 
 			var matrix = new System.Text.StringBuilder();
 			matrix.AppendLine(tableHeader);
@@ -212,7 +212,7 @@ namespace Inventor.Core.Statements
 						HashSet<IConcept> cellValue;
 						if (row.TryGetValue(value2, out cellValue))
 						{
-							matrix.Append(align(string.Join(string.Empty, cellValue.Select(s => signSymbols[s])), columnWidth));
+							matrix.Append(align(String.Join(String.Empty, cellValue.Select(s => signSymbols[s])), columnWidth));
 						}
 						else
 						{
