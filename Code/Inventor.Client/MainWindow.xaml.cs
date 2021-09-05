@@ -102,7 +102,7 @@ namespace Inventor.Client
 		{
 			new FormattedTextDialog(
 				_application.CurrentLanguage,
-				_application.SemanticNetwork.CheckConsistensy(),
+				_application.SemanticNetwork.CheckConsistency(),
 				knowledgeObjectPicked)
 			{
 				Owner = this,
