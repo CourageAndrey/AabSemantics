@@ -103,6 +103,7 @@
     <Compile Include="SystemConcepts\LogicalValuesTest.cs" />
     <Compile Include="SystemConcepts\SequenceSignsTest.cs" />
     <Compile Include="Text\TextRepresentationTest.cs" />
+    <Compile Include="Text\TextTest.cs" />
     <Compile Include="Utils\EventCollectionTest.cs" />
     <Compile Include="Utils\XmlHelperTest.cs" />
     <Compile Include="Xml\AttributesTest.cs" />
