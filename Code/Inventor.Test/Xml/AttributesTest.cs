@@ -60,8 +60,12 @@ namespace Inventor.Test.Xml
 
 		private IEnumerable<IAttribute> getAllAttributes()
 		{
-			var repository = new Repository<AttributeDefinition>();
-			return repository.Definitions.Values.Select(a => a.AttributeValue);
+			yield return Core.Attributes.IsComparisonSignAttribute.Value;
+			yield return Core.Attributes.IsBooleanAttribute.Value;
+			yield return Core.Attributes.IsProcessAttribute.Value;
+			yield return Core.Attributes.IsSequenceSignAttribute.Value;
+			yield return Core.Attributes.IsSignAttribute.Value;
+			yield return Core.Attributes.IsValueAttribute.Value;
 		}
 
 		private class WrongAttribute : IAttribute
