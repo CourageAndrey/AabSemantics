@@ -70,6 +70,7 @@
     <Compile Include="ConsistencyTest.cs" />
     <Compile Include="Concepts\ConceptConstructorTest.cs" />
     <Compile Include="Localization\LocalizedStringsTest.cs" />
+    <Compile Include="Metadata\RepositoriesTest.cs" />
     <Compile Include="Questions\CheckStatementQuestionTest.cs" />
     <Compile Include="Questions\EnumerateAncestorsQuestionTest.cs" />
     <Compile Include="Questions\EnumerateDescendantsQuestionTest.cs" />
