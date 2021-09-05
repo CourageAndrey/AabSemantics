@@ -137,8 +137,8 @@ namespace Inventor.Core
 
 		#region Constructors
 
-		public ModuleException(String moduleName, String maessage)
-			: base(maessage)
+		public ModuleException(String moduleName, String message)
+			: base(message)
 		{
 			ModuleName = moduleName;
 		}
