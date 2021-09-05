@@ -38,7 +38,7 @@ namespace Inventor.Core
 
 		public SemanticNetwork(ILanguage language)
 		{
-			Modules = new Dictionary<string, IExtensionModule>();
+			Modules = new Dictionary<String, IExtensionModule>();
 
 			var name = new LocalizedStringVariable();
 			name.SetLocale(language.Culture, Strings.NewKbName);
