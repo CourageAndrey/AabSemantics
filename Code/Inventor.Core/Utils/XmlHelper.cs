@@ -110,7 +110,7 @@ namespace Inventor.Core.Utils
 		{
 			lock (_serializersLock)
 			{
-				var rootType = typeof(SemanticNetwork);
+				var rootType = typeof(Xml.SemanticNetwork);
 				var attributeOverrides = new XmlAttributeOverrides();
 
 				var attributeAttributes = new XmlAttributes();
@@ -125,7 +125,7 @@ namespace Inventor.Core.Utils
 				{
 					statementAttributes.XmlElements.Add(new XmlElementAttribute(definition.XmlElementName, definition.XmlType));
 				}
-				attributeOverrides.Add(typeof(SemanticNetwork), "Statements", statementAttributes);
+				attributeOverrides.Add(typeof(Xml.SemanticNetwork), "Statements", statementAttributes);
 
 				_serializers[rootType] = new XmlSerializer(rootType, attributeOverrides);
 			}

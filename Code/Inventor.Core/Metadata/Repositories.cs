@@ -70,9 +70,9 @@ namespace Inventor.Core.Metadata
 		}
 
 		private static IDictionary<String, IExtensionModule> _modules = new Dictionary<String, IExtensionModule>();
-		private static IRepository<AttributeDefinition> _attributes = new Base.Repository<AttributeDefinition>();
-		private static IRepository<StatementDefinition> _statements = new Base.Repository<StatementDefinition>();
-		private static IRepository<QuestionDefinition> _questions = new Base.Repository<QuestionDefinition>();
+		private static IRepository<AttributeDefinition> _attributes = new Repository<AttributeDefinition>();
+		private static IRepository<StatementDefinition> _statements = new Repository<StatementDefinition>();
+		private static IRepository<QuestionDefinition> _questions = new Repository<QuestionDefinition>();
 
 		public static void RegisterAttribute<AttributeT>(
 			AttributeT value,

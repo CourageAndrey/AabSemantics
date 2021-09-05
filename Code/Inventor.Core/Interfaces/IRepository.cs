@@ -10,6 +10,13 @@ namespace Inventor.Core
 		{ get; }
 	}
 
+	public class Repository<DefinitionT> : IRepository<DefinitionT>
+		where DefinitionT : IMetadataDefinition
+	{
+		public IDictionary<Type, DefinitionT> Definitions
+		{ get; } = new Dictionary<Type, DefinitionT>();
+	}
+
 	public static class RepositoryExtensions
 	{
 		public static void Define<DefinitionT>(this IRepository<DefinitionT> repository, DefinitionT questionDefinition)

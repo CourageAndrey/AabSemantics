@@ -8,7 +8,7 @@ using Inventor.Core.Contexts;
 using Inventor.Core.Localization;
 using Inventor.Core.Utils;
 
-namespace Inventor.Core.Base
+namespace Inventor.Core
 {
 	public class SemanticNetwork : ISemanticNetwork
 	{

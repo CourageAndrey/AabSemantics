@@ -52,9 +52,9 @@ namespace Inventor.Core.Xml
 
 		#endregion
 
-		public Base.SemanticNetwork Load(ILanguage language)
+		public Core.SemanticNetwork Load(ILanguage language)
 		{
-			var result = new Base.SemanticNetwork(language);
+			var result = new Core.SemanticNetwork(language);
 			Name.LoadTo(result.Name);
 
 			result.WithModules(Repositories.Modules.Values.Where(module => Modules.Contains(module.Name)).ToList());
@@ -82,7 +82,7 @@ namespace Inventor.Core.Xml
 
 	public static class SemanticNetworkXmlExtensions
 	{
-		public static Base.SemanticNetwork LoadSemanticNetworkFromXml(this String fileName, ILanguage language)
+		public static Core.SemanticNetwork LoadSemanticNetworkFromXml(this String fileName, ILanguage language)
 		{
 			var xmlSnapshot = fileName.DeserializeFromFile<SemanticNetwork>();
 			return xmlSnapshot.Load(language);

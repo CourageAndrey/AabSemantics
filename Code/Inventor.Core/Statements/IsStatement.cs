@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 
-using Inventor.Core.Base;
 using Inventor.Core.Localization;
 
 namespace Inventor.Core.Statements

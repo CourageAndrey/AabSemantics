@@ -2,7 +2,6 @@
 
 using Inventor.Core;
 using Inventor.Core.Attributes;
-using Inventor.Core.Base;
 using Inventor.Core.Concepts;
 using Inventor.Core.Localization;
 using Inventor.Core.Questions;

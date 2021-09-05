@@ -5,7 +5,6 @@ using System.Linq;
 using NUnit.Framework;
 
 using Inventor.Core;
-using Inventor.Core.Base;
 using Inventor.Core.Concepts;
 using Inventor.Core.Metadata;
 
