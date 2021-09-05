@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 
-using Inventor.Core.Base;
 using Inventor.Core.Localization;
 
 namespace Inventor.Core.Statements

@@ -108,9 +108,9 @@ namespace Inventor.Client
 			new ProcessesModule().RegisterMetadata();
 
 #if DEBUG
-			application.SemanticNetwork = new Inventor.Test.Sample.TestSemanticNetwork(application.CurrentLanguage).SemanticNetwork;
+			application.SemanticNetwork = new Test.Sample.TestSemanticNetwork(application.CurrentLanguage).SemanticNetwork;
 #else
-			application.SemanticNetwork = new Core.Base.SemanticNetwork(application.CurrentLanguage);
+			application.SemanticNetwork = new Core.SemanticNetwork(application.CurrentLanguage);
 #endif
 			application.MainForm.Initialize(application);
 			application.MainWindow.Show();

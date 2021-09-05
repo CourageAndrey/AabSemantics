@@ -1,6 +1,5 @@
 ﻿using System;
 
-using Inventor.Core.Base;
 using Inventor.Core.Text.Primitives;
 
 namespace Inventor.Core.Answers

@@ -25,7 +25,7 @@ namespace Inventor.Test.Xml
 			string testFileName = Path.GetTempFileName();
 
 			// act
-			Core.Base.SemanticNetwork restored;
+			Core.SemanticNetwork restored;
 			try
 			{
 				semanticNetwork.Save(testFileName);

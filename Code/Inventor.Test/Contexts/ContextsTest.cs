@@ -5,7 +5,6 @@ using System.Linq;
 using NUnit.Framework;
 
 using Inventor.Core;
-using Inventor.Core.Base;
 using Inventor.Core.Contexts;
 using Inventor.Core.Localization;
 using Inventor.Core.Utils;
