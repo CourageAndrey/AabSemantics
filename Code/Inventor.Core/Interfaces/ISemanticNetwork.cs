@@ -40,7 +40,7 @@ namespace Inventor.Core
 			return result;
 		}
 
-		public static IText CheckConsistensy(this ISemanticNetwork semanticNetwork)
+		public static IText CheckConsistency(this ISemanticNetwork semanticNetwork)
 		{
 			var result = new UnstructuredContainer();
 
