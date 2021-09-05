@@ -28,7 +28,7 @@ namespace Inventor.Core
 		{ get; }
 
 		public Boolean IsMetadataRegistered
-		{ get; private set; }
+		{ get { return Repositories.Modules.ContainsKey(Name); } }
 
 		protected ExtensionModule(String name, ICollection<String> dependencies = null)
 		{
@@ -68,8 +68,6 @@ namespace Inventor.Core
 				RegisterQuestions();
 
 				Repositories.Modules[Name] = this;
-
-				IsMetadataRegistered = true;
 			}
 		}
 
