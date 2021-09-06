@@ -65,6 +65,7 @@
   </Choose>
   <ItemGroup>
     <Compile Include="Answers\StatementsAnswerTest.cs" />
+    <Compile Include="Concepts\SystemConceptTest.cs" />
     <Compile Include="SemanticNetworkTest.cs" />
     <Compile Include="Metadata\AttributeDefinitionTest.cs" />
     <Compile Include="Contexts\ContextsTest.cs" />
