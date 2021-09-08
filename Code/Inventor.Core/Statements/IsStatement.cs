@@ -25,7 +25,7 @@ namespace Inventor.Core.Statements
 		#endregion
 
 		public IsStatement(String id, IConcept ancestor, IConcept descendant)
-			: base(id, new Func<ILanguage, String>(language => language.Statements.StatementNames.Clasification), new Func<ILanguage, String>(language => language.Statements.StatementHints.Clasification))
+			: base(id, new Func<ILanguage, String>(language => language.Statements.Names.Clasification), new Func<ILanguage, String>(language => language.Statements.Hints.Clasification))
 		{
 			Update(id, ancestor, descendant);
 		}

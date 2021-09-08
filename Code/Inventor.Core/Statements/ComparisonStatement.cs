@@ -24,7 +24,7 @@ namespace Inventor.Core.Statements
 		#endregion
 
 		public ComparisonStatement(String id, IConcept leftValue, IConcept rightValue, IConcept comparisonSign)
-			: base(id, new Func<ILanguage, String>(language => language.Statements.StatementNames.Comparison), new Func<ILanguage, String>(language => language.Statements.StatementHints.Comparison))
+			: base(id, new Func<ILanguage, String>(language => language.Statements.Names.Comparison), new Func<ILanguage, String>(language => language.Statements.Hints.Comparison))
 		{
 			Update(id, leftValue, rightValue, comparisonSign);
 		}

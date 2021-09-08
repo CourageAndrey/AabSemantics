@@ -25,25 +25,25 @@ namespace Inventor.Core
 
 	public interface ILanguageStatements
 	{
-		ILanguageStatementsPart StatementNames
+		ILanguageStatementsPart Names
 		{ get; }
 
-		ILanguageStatementsPart StatementHints
+		ILanguageStatementsPart Hints
 		{ get; }
 
-		ILanguageStatementsPart TrueStatementFormatStrings
+		ILanguageStatementsPart TrueFormatStrings
 		{ get; }
 
-		ILanguageStatementsPart FalseStatementFormatStrings
+		ILanguageStatementsPart FalseFormatStrings
 		{ get; }
 
-		ILanguageStatementsPart QuestionStatementFormatStrings
+		ILanguageStatementsPart QuestionFormatStrings
 		{ get; }
 	}
 
 	public interface ILanguageQuestions
 	{
-		ILanguageQuestionNames QuestionNames
+		ILanguageQuestionNames Names
 		{ get; }
 
 		ILanguageAnswers Answers

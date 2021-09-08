@@ -3,11 +3,11 @@
 	[QuestionDescriptor]
 	public class IsQuestion : QuestionViewModel<Core.Questions.IsQuestion>
 	{
-		[PropertyDescriptor(true, "QuestionNames.ParamChild")]
+		[PropertyDescriptor(true, "Names.ParamChild")]
 		public Core.IConcept Child
 		{ get; set; }
 
-		[PropertyDescriptor(true, "QuestionNames.ParamParent")]
+		[PropertyDescriptor(true, "Names.ParamParent")]
 		public Core.IConcept Parent
 		{ get; set; }
 

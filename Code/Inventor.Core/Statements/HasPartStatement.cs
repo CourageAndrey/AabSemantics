@@ -24,7 +24,7 @@ namespace Inventor.Core.Statements
 		#endregion
 
 		public HasPartStatement(String id, IConcept whole, IConcept part)
-			: base(id, new Func<ILanguage, String>(language => language.Statements.StatementNames.Composition), new Func<ILanguage, String>(language => language.Statements.StatementHints.Composition))
+			: base(id, new Func<ILanguage, String>(language => language.Statements.Names.Composition), new Func<ILanguage, String>(language => language.Statements.Hints.Composition))
 		{
 			Update(id, whole, part);
 		}

@@ -47,16 +47,16 @@ namespace Samples._05.CustomStatement
 			// IMPORTANT: It is dirty 'hack' to perform such comparisons.
 			// Please, do not repeat it within your projects.
 			// It is connected with the way, how Language questions are organized:
-			// TrueStatementFormatStrings, FalseStatementFormatStrings and QuestionStatementFormatStrings are ILanguageStatementsPart.
-			if (language == Language.Default.Statements.TrueStatementFormatStrings)
+			// TrueFormatStrings, FalseFormatStrings and QuestionFormatStrings are ILanguageStatementsPart.
+			if (language == Language.Default.Statements.TrueFormatStrings)
 			{
 				return "#TALLER# is taller than #SHORTER#.";
 			}
-			else if (language == Language.Default.Statements.FalseStatementFormatStrings)
+			else if (language == Language.Default.Statements.FalseFormatStrings)
 			{
 				return "It's false, that #TALLER# is taller than #SHORTER#.";
 			}
-			else if (language == Language.Default.Statements.QuestionStatementFormatStrings)
+			else if (language == Language.Default.Statements.QuestionFormatStrings)
 			{
 				return "Is #TALLER# taller than #SHORTER#?";
 			}

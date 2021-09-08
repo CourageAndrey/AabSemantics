@@ -35,7 +35,7 @@ namespace Inventor.Core.Modules
 		protected override void RegisterStatements()
 		{
 			Repositories.RegisterStatement<ProcessesStatement>(
-				language => language.Statements.StatementNames.Processes,
+				language => language.Statements.Names.Processes,
 				statement => new Xml.ProcessesStatement(statement),
 				typeof(Xml.ProcessesStatement),
 				checkProcessSequenceSystems);

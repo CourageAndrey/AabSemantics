@@ -8,7 +8,7 @@ namespace Inventor.Core.Localization
 		#region Constants
 
 		[XmlIgnore]
-		private const String ElementQuestionNames = "QuestionNames";
+		private const String ElementQuestionNames = "Names";
 		[XmlIgnore]
 		private const String ElementAnswers = "Answers";
 
@@ -17,7 +17,7 @@ namespace Inventor.Core.Localization
 		#region Xml Properties
 
 		[XmlElement(ElementQuestionNames)]
-		public LanguageQuestionNames QuestionNamesXml
+		public LanguageQuestionNames NamesXml
 		{ get; set; }
 
 		[XmlElement(ElementAnswers)]
@@ -29,8 +29,8 @@ namespace Inventor.Core.Localization
 		#region Interface Properties
 
 		[XmlIgnore]
-		public ILanguageQuestionNames QuestionNames
-		{ get { return QuestionNamesXml; } }
+		public ILanguageQuestionNames Names
+		{ get { return NamesXml; } }
 
 		[XmlIgnore]
 		public ILanguageAnswers Answers
@@ -42,7 +42,7 @@ namespace Inventor.Core.Localization
 		{
 			return new LanguageQuestions
 			{
-				QuestionNamesXml = LanguageQuestionNames.CreateDefault(),
+				NamesXml = LanguageQuestionNames.CreateDefault(),
 				AnswersXml = LanguageAnswers.CreateDefault(),
 			};
 		}

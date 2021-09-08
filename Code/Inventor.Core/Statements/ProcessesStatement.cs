@@ -24,7 +24,7 @@ namespace Inventor.Core.Statements
 		#endregion
 
 		public ProcessesStatement(String id, IConcept processA, IConcept processB, IConcept sequenceSign)
-			: base(id, new Func<ILanguage, String>(language => language.Statements.StatementNames.Processes), new Func<ILanguage, String>(language => language.Statements.StatementHints.Processes))
+			: base(id, new Func<ILanguage, String>(language => language.Statements.Names.Processes), new Func<ILanguage, String>(language => language.Statements.Hints.Processes))
 		{
 			Update(id, processA, processB, sequenceSign);
 		}

@@ -3,7 +3,7 @@
 	[QuestionDescriptor]
 	public class FindSubjectAreaQuestion : QuestionViewModel<Core.Questions.FindSubjectAreaQuestion>
 	{
-		[PropertyDescriptor(true, "QuestionNames.ParamConcept")]
+		[PropertyDescriptor(true, "Names.ParamConcept")]
 		public Core.IConcept Concept
 		{ get; set; }
 

@@ -22,7 +22,7 @@ namespace Inventor.Core.Metadata
 		}
 
 		public QuestionDefinition(Type type)
-			: this(type, language => (String) typeof(ILanguageQuestionNames).GetProperty(type.Name).GetValue(language.Questions.QuestionNames))
+			: this(type, language => (String) typeof(ILanguageQuestionNames).GetProperty(type.Name).GetValue(language.Questions.Names))
 		{ }
 
 		#endregion

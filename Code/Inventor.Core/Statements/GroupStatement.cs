@@ -24,7 +24,7 @@ namespace Inventor.Core.Statements
 		#endregion
 
 		public GroupStatement(String id, IConcept area, IConcept concept)
-			: base(id, new Func<ILanguage, String>(language => language.Statements.StatementNames.SubjectArea), new Func<ILanguage, String>(language => language.Statements.StatementHints.SubjectArea))
+			: base(id, new Func<ILanguage, String>(language => language.Statements.Names.SubjectArea), new Func<ILanguage, String>(language => language.Statements.Hints.SubjectArea))
 		{
 			Update(id, area, concept);
 		}

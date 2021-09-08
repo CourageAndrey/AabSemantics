@@ -19,7 +19,7 @@ namespace Inventor.Core.Modules
 		protected override void RegisterStatements()
 		{
 			Repositories.RegisterStatement<IsStatement>(
-				language => language.Statements.StatementNames.Clasification,
+				language => language.Statements.Names.Clasification,
 				statement => new Xml.IsStatement(statement),
 				typeof(Xml.IsStatement),
 				checkCyclicParents);
