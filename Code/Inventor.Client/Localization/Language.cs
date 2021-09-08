@@ -15,6 +15,8 @@ namespace Inventor.Client.Localization
 		#region Constants
 
 		[XmlIgnore]
+		private const String ElementCommon = "Common";
+		[XmlIgnore]
 		private const String ElementErrors = "Errors";
 		[XmlIgnore]
 		private const String FileFormat = "*.xml";
@@ -28,6 +30,10 @@ namespace Inventor.Client.Localization
 		#endregion
 
 		#region Xml Properties
+
+		[XmlElement(ElementCommon)]
+		public LanguageCommon CommonXml
+		{ get; set; }
 
 		[XmlElement(ElementErrors)]
 		public LanguageErrors ErrorsXml
@@ -44,6 +50,10 @@ namespace Inventor.Client.Localization
 		#endregion
 
 		#region Interface Properties
+
+		[XmlIgnore]
+		public ILanguageCommon Common
+		{ get { return CommonXml; } }
 
 		[XmlIgnore]
 		public ILanguageErrors Errors
@@ -68,7 +78,7 @@ namespace Inventor.Client.Localization
 				Name = @default.Name,
 				Culture = @default.Culture,
 
-				CommonXml = @default.CommonXml,
+				CommonXml = LanguageCommon.CreateDefault(),
 				ErrorsXml = LanguageErrors.CreateDefault(),
 
 				StatementNamesXml = @default.StatementNamesXml,

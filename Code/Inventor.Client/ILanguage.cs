@@ -4,6 +4,9 @@ namespace Inventor.Client
 {
 	public interface ILanguage : Core.ILanguage
 	{
+		ILanguageCommon Common
+		{ get; }
+
 		ILanguageErrors Errors
 		{ get; }
 
@@ -11,6 +14,37 @@ namespace Inventor.Client
 		{ get; }
 
 		ILanguageMisc Misc
+		{ get; }
+	}
+
+	public interface ILanguageCommon
+	{
+		#region Buttons
+
+		String Close
+		{ get; }
+
+		String Ok
+		{ get; }
+
+		String Cancel
+		{ get; }
+
+		String Abort
+		{ get; }
+
+		String Ignore
+		{ get; }
+
+		String Save
+		{ get; }
+
+		String SaveFile
+		{ get; }
+
+		#endregion
+
+		String Question
 		{ get; }
 	}
 

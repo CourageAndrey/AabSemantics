@@ -15,8 +15,6 @@ namespace Inventor.Core.Localization
 		[XmlIgnore]
 		private const String AttributeCulture = "Culture";
 		[XmlIgnore]
-		private const String ElementCommon = "Common";
-		[XmlIgnore]
 		private const String DefaultCulture = "en-US";
 		[XmlIgnore]
 		private const String DefaultName = "English";
@@ -47,10 +45,6 @@ namespace Inventor.Core.Localization
 		#endregion
 
 		#region Xml Properties
-
-		[XmlElement(ElementCommon)]
-		public LanguageCommon CommonXml
-		{ get; set; }
 
 		[XmlElement(ElementStatementNames)]
 		public LanguageStatements StatementNamesXml
@@ -113,10 +107,6 @@ namespace Inventor.Core.Localization
 		{ get; set; }
 
 		[XmlIgnore]
-		public ILanguageCommon Common
-		{ get { return CommonXml; } }
-
-		[XmlIgnore]
 		public ILanguageStatements StatementNames
 		{ get { return StatementNamesXml; } }
 
@@ -173,8 +163,6 @@ namespace Inventor.Core.Localization
 				FileName = String.Empty,
 				Name = DefaultName,
 				Culture = DefaultCulture,
-
-				CommonXml = LanguageCommon.CreateDefault(),
 
 				StatementNamesXml = LanguageStatements.CreateDefaultNames(),
 				StatementHintsXml = LanguageStatements.CreateDefaultHints(),
