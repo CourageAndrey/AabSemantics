@@ -18,9 +18,6 @@ namespace Inventor.Core
 
 		ILanguageConcepts Concepts
 		{ get; }
-
-		ILanguageConsistency Consistency
-		{ get; }
 	}
 
 	public interface ILanguageStatements
@@ -38,6 +35,9 @@ namespace Inventor.Core
 		{ get; }
 
 		ILanguageStatementsPart QuestionFormatStrings
+		{ get; }
+
+		ILanguageConsistency Consistency
 		{ get; }
 	}
 

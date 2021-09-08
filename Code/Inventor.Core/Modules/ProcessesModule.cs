@@ -55,7 +55,7 @@ namespace Inventor.Core.Modules
 			{
 				result
 					.Append(
-						language => language.Consistency.ErrorProcessesContradiction,
+						language => language.Statements.Consistency.ErrorProcessesContradiction,
 						new Dictionary<String, IKnowledge>
 						{
 							{ Strings.ParamProcessA, contradiction.Value1 },

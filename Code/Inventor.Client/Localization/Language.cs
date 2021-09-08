@@ -70,14 +70,12 @@ namespace Inventor.Client.Localization
 				Name = @default.Name,
 				Culture = @default.Culture,
 
-				CommonXml = LanguageCommon.CreateDefault(),
-				ErrorsXml = LanguageErrors.CreateDefault(),
-
 				StatementsXml = @default.StatementsXml,
 				QuestionsXml = @default.QuestionsXml,
 				ConceptsXml = @default.ConceptsXml,
-				ConsistencyXml = @default.ConsistencyXml,
 
+				CommonXml = LanguageCommon.CreateDefault(),
+				ErrorsXml = LanguageErrors.CreateDefault(),
 				UiXml = LanguageUi.CreateDefault(),
 				MiscXml = LanguageMisc.CreateDefault(),
 			};

@@ -55,7 +55,7 @@ namespace Inventor.Core
 
 			if (result.Items.Count == 0)
 			{
-				result.Append(language => language.Consistency.CheckOk);
+				result.Append(language => language.Statements.Consistency.CheckOk);
 			}
 			return result;
 		}
@@ -67,7 +67,7 @@ namespace Inventor.Core
 				if (!statement.CheckUnique(semanticNetwork.Statements))
 				{
 					result.Append(
-						language => language.Consistency.ErrorDuplicate,
+						language => language.Statements.Consistency.ErrorDuplicate,
 						new Dictionary<String, IKnowledge> { { Strings.ParamStatement, statement } });
 				}
 			}

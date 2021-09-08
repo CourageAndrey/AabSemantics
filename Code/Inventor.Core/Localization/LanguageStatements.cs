@@ -26,6 +26,10 @@ namespace Inventor.Core.Localization
 		public LanguageStatementsPart QuestionFormatStringsXml
 		{ get; set; }
 
+		[XmlElement(nameof(Consistency))]
+		public LanguageConsistency ConsistencyXml
+		{ get; set; }
+
 		#endregion
 
 		#region Interface Properties
@@ -50,6 +54,10 @@ namespace Inventor.Core.Localization
 		public ILanguageStatementsPart QuestionFormatStrings
 		{ get { return QuestionFormatStringsXml; } }
 
+		[XmlIgnore]
+		public ILanguageConsistency Consistency
+		{ get { return ConsistencyXml; } }
+
 		#endregion
 
 		internal static LanguageStatements CreateDefault()
@@ -61,6 +69,7 @@ namespace Inventor.Core.Localization
 				TrueFormatStringsXml = LanguageStatementsPart.CreateDefaultTrue(),
 				FalseFormatStringsXml = LanguageStatementsPart.CreateDefaultFalse(),
 				QuestionFormatStringsXml = LanguageStatementsPart.CreateDefaultQuestion(),
+				ConsistencyXml = LanguageConsistency.CreateDefault(),
 			};
 		}
 	}
