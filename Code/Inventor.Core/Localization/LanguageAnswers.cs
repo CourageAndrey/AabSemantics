@@ -128,10 +128,6 @@ namespace Inventor.Core.Localization
 		{ get; set; }
 
 		[XmlElement]
-		public String CompareConceptsParents
-		{ get; set; }
-
-		[XmlElement]
 		public String CompareConceptsCommon
 		{ get; set; }
 
@@ -199,7 +195,6 @@ namespace Inventor.Core.Localization
 				EnumerateContainers = $"{Strings.ParamChild} is part of:",
 				CanNotCompareConcepts = $"Concepts {Strings.ParamConcept1} and {Strings.ParamConcept2} have no common ancestors and can not be compared.",
 				CompareConceptsResult = $"Result of {Strings.ParamConcept1} and {Strings.ParamConcept2} comparison:",
-				CompareConceptsParents = "Common ancestors:",
 				CompareConceptsCommon = $"Both have {Strings.ParamSign} sign value equal to {Strings.ParamValue}.",
 				CompareConceptsNoCommon = "No common found according to existing information.",
 				CompareConceptsCommonNotSet = "{Strings.ParamSign} sign value is not set for both concepts.",
