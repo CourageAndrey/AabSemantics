@@ -29,19 +29,19 @@ namespace Inventor.Client.Localization
 		public ILanguageErrors Errors
 		{ get { return _language?.Errors; } }
 
-		public Core.ILanguageStatements StatementNames
+		public Core.ILanguageStatementsPart StatementNames
 		{ get { return _language?.StatementNames; } }
 
-		public Core.ILanguageStatements StatementHints
+		public Core.ILanguageStatementsPart StatementHints
 		{ get { return _language?.StatementHints; } }
 
-		public Core.ILanguageStatements TrueStatementFormatStrings
+		public Core.ILanguageStatementsPart TrueStatementFormatStrings
 		{ get { return _language?.TrueStatementFormatStrings; } }
 
-		public Core.ILanguageStatements FalseStatementFormatStrings
+		public Core.ILanguageStatementsPart FalseStatementFormatStrings
 		{ get { return _language?.FalseStatementFormatStrings; } }
 
-		public Core.ILanguageStatements QuestionStatementFormatStrings
+		public Core.ILanguageStatementsPart QuestionStatementFormatStrings
 		{ get { return _language?.QuestionStatementFormatStrings; } }
 
 		public Core.ILanguageQuestionNames QuestionNames

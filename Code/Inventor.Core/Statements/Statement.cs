@@ -70,7 +70,7 @@ namespace Inventor.Core.Statements
 			return new FormattedText(language => GetDescriptionText(language.QuestionStatementFormatStrings), GetDescriptionParameters());
 		}
 
-		protected abstract String GetDescriptionText(ILanguageStatements language);
+		protected abstract String GetDescriptionText(ILanguageStatementsPart language);
 
 		protected abstract IDictionary<String, IKnowledge> GetDescriptionParameters();
 
