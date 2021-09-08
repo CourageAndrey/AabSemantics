@@ -38,9 +38,6 @@ namespace Inventor.Client.Localization
 		public Core.ILanguageConcepts Concepts
 		{ get { return _language?.Concepts; } }
 
-		public Core.ILanguageConsistency Consistency
-		{ get { return _language?.Consistency; } }
-
 		public ILanguageUi Ui
 		{ get { return _language?.Ui; } }
 

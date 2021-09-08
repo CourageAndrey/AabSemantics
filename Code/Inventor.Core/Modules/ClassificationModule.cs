@@ -42,7 +42,7 @@ namespace Inventor.Core.Modules
 				if (!clasification.CheckCyclic(statements))
 				{
 					result.Append(
-						language => language.Consistency.ErrorCyclic,
+						language => language.Statements.Consistency.ErrorCyclic,
 						new Dictionary<String, IKnowledge> { { Strings.ParamStatement, clasification } });
 				}
 			}

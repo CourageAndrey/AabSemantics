@@ -54,7 +54,7 @@ namespace Inventor.Core.Modules
 			{
 				result
 					.Append(
-						language => language.Consistency.ErrorComparisonContradiction,
+						language => language.Statements.Consistency.ErrorComparisonContradiction,
 						new Dictionary<String, IKnowledge>
 						{
 							{ Strings.ParamLeftValue, contradiction.Value1 },

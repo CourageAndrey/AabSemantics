@@ -22,7 +22,7 @@ namespace Inventor.Test
 			var result = semanticNetwork.CheckConsistency();
 
 			// assert
-			Assert.IsTrue(result.ToString().Contains(language.Consistency.CheckOk));
+			Assert.IsTrue(result.ToString().Contains(language.Statements.Consistency.CheckOk));
 		}
 
 		[Test]
@@ -43,7 +43,7 @@ namespace Inventor.Test
 			var result = semanticNetwork.CheckConsistency().ToString();
 
 			// assert
-			Assert.Less(language.Consistency.ErrorDuplicate.Length, result.Length);
+			Assert.Less(language.Statements.Consistency.ErrorDuplicate.Length, result.Length);
 		}
 
 		[Test]

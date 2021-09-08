@@ -31,10 +31,6 @@ namespace Inventor.Core.Localization
 		public LanguageConcepts ConceptsXml
 		{ get; set; }
 
-		[XmlElement(nameof(Consistency))]
-		public LanguageConsistency ConsistencyXml
-		{ get; set; }
-
 		#endregion
 
 		#region Interface Properties
@@ -63,10 +59,6 @@ namespace Inventor.Core.Localization
 		public ILanguageConcepts Concepts
 		{ get { return ConceptsXml; } }
 
-		[XmlIgnore]
-		public ILanguageConsistency Consistency
-		{ get { return ConsistencyXml; } }
-
 		#endregion
 
 		[XmlIgnore]
@@ -84,7 +76,6 @@ namespace Inventor.Core.Localization
 				StatementsXml = LanguageStatements.CreateDefault(),
 				QuestionsXml = LanguageQuestions.CreateDefault(),
 				ConceptsXml = LanguageConcepts.CreateDefault(),
-				ConsistencyXml = LanguageConsistency.CreateDefault(),
 			};
 		}
 

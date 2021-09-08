@@ -87,7 +87,7 @@ namespace Inventor.Core.Modules
 				if (!hasSign.CheckSignDuplication(statements, clasifications))
 				{
 					result.Append(
-						language => language.Consistency.ErrorMultipleSign,
+						language => language.Statements.Consistency.ErrorMultipleSign,
 						new Dictionary<String, IKnowledge> { { Strings.ParamStatement, hasSign } });
 				}
 			}
@@ -118,7 +118,7 @@ namespace Inventor.Core.Modules
 						parents.Select(p => SignValueStatement.GetSignValue(semanticNetwork.Statements, p, sign.Sign)).Count(r => r != null) > 1)
 					{
 						result.Append(
-							language => language.Consistency.ErrorMultipleSignValue,
+							language => language.Statements.Consistency.ErrorMultipleSignValue,
 							new Dictionary<String, IKnowledge>
 							{
 								{ Strings.ParamConcept, concept },
@@ -139,7 +139,7 @@ namespace Inventor.Core.Modules
 				if (!signValue.CheckHasSign(semanticNetwork.Statements))
 				{
 					result.Append(
-						language => language.Consistency.ErrorSignWithoutValue,
+						language => language.Statements.Consistency.ErrorSignWithoutValue,
 						new Dictionary<String, IKnowledge> { { Strings.ParamStatement, signValue } });
 				}
 			}
