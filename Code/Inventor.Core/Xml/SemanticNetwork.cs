@@ -76,7 +76,25 @@ namespace Inventor.Core.Xml
 
 		static SemanticNetwork()
 		{
-			XmlHelper.InitializeSemanticNetworkSerializer();
+			var semanticNetworkType = typeof(SemanticNetwork);
+			var attributeOverrides = new XmlAttributeOverrides();
+
+			var attributeAttributes = new XmlAttributes();
+			foreach (var definition in Repositories.Attributes.Definitions.Values)
+			{
+				attributeAttributes.XmlElements.Add(new XmlElementAttribute(definition.XmlElementName, definition.XmlType));
+			}
+			attributeOverrides.Add(typeof(Concept), "Attributes", attributeAttributes);
+
+			var statementAttributes = new XmlAttributes();
+			foreach (var definition in Repositories.Statements.Definitions.Values)
+			{
+				statementAttributes.XmlElements.Add(new XmlElementAttribute(definition.XmlElementName, definition.XmlType));
+			}
+			attributeOverrides.Add(semanticNetworkType, "Statements", statementAttributes);
+
+			var serializer = new XmlSerializer(semanticNetworkType, attributeOverrides);
+			semanticNetworkType.DefineCustomSerializer(serializer);
 		}
 	}
 
