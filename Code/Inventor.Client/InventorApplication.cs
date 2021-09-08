@@ -123,13 +123,13 @@ namespace Inventor.Client
 		{
 			if (e.ExceptionObject is Exception)
 			{
-				new Dialogs.ExceptionDialog(new ExceptionWrapper(e.ExceptionObject as Exception), Dialogs.ExceptionDialogMode.ProcessFatalError, CurrentLanguage).ShowDialog();
+				new Dialogs.ExceptionDialog(new ExceptionWrapper(e.ExceptionObject as Exception), Dialogs.ExceptionDialogMode.ProcessFatalError, CurrentLanguage ?? Language.Default as ILanguage).ShowDialog();
 			}
 		}
 
 		private void dispatcherUnhandledException(object sender, DispatcherUnhandledExceptionEventArgs e)
 		{
-			if (new Dialogs.ExceptionDialog(e.Exception, false, CurrentLanguage).ShowDialog() == true)
+			if (new Dialogs.ExceptionDialog(e.Exception, false, CurrentLanguage ?? Language.Default as ILanguage).ShowDialog() == true)
 			{
 				Shutdown();
 			}
