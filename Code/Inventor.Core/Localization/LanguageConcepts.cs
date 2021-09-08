@@ -1,32 +1,20 @@
-﻿using System;
-using System.Xml.Serialization;
+﻿using System.Xml.Serialization;
 
 namespace Inventor.Core.Localization
 {
 	public class LanguageConcepts : ILanguageConcepts
 	{
-		#region Constants
-
-		[XmlIgnore]
-		private const String ElementAttributes = "Attributes";
-		[XmlIgnore]
-		private const String ElementSystemConceptNames = "SystemConceptNames";
-		[XmlIgnore]
-		private const String ElementSystemConceptHints = "SystemConceptHints";
-
-		#endregion
-
 		#region Xml Properties
 
-		[XmlElement(ElementAttributes)]
+		[XmlElement(nameof(Attributes))]
 		public LanguageAttributes AttributesXml
 		{ get; set; }
 
-		[XmlElement(ElementSystemConceptNames)]
+		[XmlElement(nameof(SystemConceptNames))]
 		public LanguageSystemConcepts SystemConceptNamesXml
 		{ get; set; }
 
-		[XmlElement(ElementSystemConceptHints)]
+		[XmlElement(nameof(SystemConceptHints))]
 		public LanguageSystemConcepts SystemConceptHintsXml
 		{ get; set; }
 

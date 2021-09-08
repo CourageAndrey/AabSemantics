@@ -1,26 +1,16 @@
-﻿using System;
-using System.Xml.Serialization;
+﻿using System.Xml.Serialization;
 
 namespace Inventor.Core.Localization
 {
 	public class LanguageQuestions : ILanguageQuestions
 	{
-		#region Constants
-
-		[XmlIgnore]
-		private const String ElementQuestionNames = "Names";
-		[XmlIgnore]
-		private const String ElementAnswers = "Answers";
-
-		#endregion
-
 		#region Xml Properties
 
-		[XmlElement(ElementQuestionNames)]
+		[XmlElement(nameof(Names))]
 		public LanguageQuestionNames NamesXml
 		{ get; set; }
 
-		[XmlElement(ElementAnswers)]
+		[XmlElement(nameof(Answers))]
 		public LanguageAnswers AnswersXml
 		{ get; set; }
 

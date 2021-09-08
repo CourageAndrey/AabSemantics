@@ -15,35 +15,27 @@ namespace Inventor.Client.Localization
 		#region Constants
 
 		[XmlIgnore]
-		private const String ElementCommon = "Common";
-		[XmlIgnore]
-		private const String ElementErrors = "Errors";
-		[XmlIgnore]
 		private const String FileFormat = "*.xml";
 		[XmlIgnore]
 		private const String FolderPath = "Localization";
-		[XmlIgnore]
-		private const String ElementUi = "Ui";
-		[XmlIgnore]
-		private const String ElementMisc = "Misc";
 
 		#endregion
 
 		#region Xml Properties
 
-		[XmlElement(ElementCommon)]
+		[XmlElement(nameof(Common))]
 		public LanguageCommon CommonXml
 		{ get; set; }
 
-		[XmlElement(ElementErrors)]
+		[XmlElement(nameof(Errors))]
 		public LanguageErrors ErrorsXml
 		{ get; set; }
 
-		[XmlElement(ElementUi)]
+		[XmlElement(nameof(Ui))]
 		public LanguageUi UiXml
 		{ get; set; }
 
-		[XmlElement(ElementMisc)]
+		[XmlElement(nameof(Misc))]
 		public LanguageMisc MiscXml
 		{ get; set; }
 

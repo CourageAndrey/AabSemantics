@@ -1,44 +1,28 @@
-﻿using System;
-using System.Xml.Serialization;
+﻿using System.Xml.Serialization;
 
 namespace Inventor.Core.Localization
 {
 	public class LanguageStatements : ILanguageStatements
 	{
-		#region Constants
-
-		[XmlIgnore]
-		private const String ElementStatementNames = "Names";
-		[XmlIgnore]
-		private const String ElementStatementHints = "Hints";
-		[XmlIgnore]
-		private const String ElementStatementTrueFormatStrings = "TrueFormatStrings";
-		[XmlIgnore]
-		private const String ElementStatementFalseFormatStrings = "FalseFormatStrings";
-		[XmlIgnore]
-		private const String ElementStatementQuestionFormatStrings = "QuestionFormatStrings";
-
-		#endregion
-
 		#region Xml Properties
 
-		[XmlElement(ElementStatementNames)]
+		[XmlElement(nameof(Names))]
 		public LanguageStatementsPart NamesXml
 		{ get; set; }
 
-		[XmlElement(ElementStatementHints)]
+		[XmlElement(nameof(Hints))]
 		public LanguageStatementsPart HintsXml
 		{ get; set; }
 
-		[XmlElement(ElementStatementTrueFormatStrings)]
+		[XmlElement(nameof(TrueFormatStrings))]
 		public LanguageStatementsPart TrueFormatStringsXml
 		{ get; set; }
 
-		[XmlElement(ElementStatementFalseFormatStrings)]
+		[XmlElement(nameof(FalseFormatStrings))]
 		public LanguageStatementsPart FalseFormatStringsXml
 		{ get; set; }
 
-		[XmlElement(ElementStatementQuestionFormatStrings)]
+		[XmlElement(nameof(QuestionFormatStrings))]
 		public LanguageStatementsPart QuestionFormatStringsXml
 		{ get; set; }
 
