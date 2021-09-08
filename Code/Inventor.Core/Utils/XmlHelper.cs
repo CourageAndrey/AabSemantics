@@ -4,9 +4,6 @@ using System.IO;
 using System.Xml;
 using System.Xml.Serialization;
 
-using Inventor.Core.Metadata;
-using Inventor.Core.Xml;
-
 namespace Inventor.Core.Utils
 {
 	public static class XmlHelper
@@ -32,6 +29,19 @@ namespace Inventor.Core.Utils
 				}
 				return serializer;
 			}
+		}
+
+		public static void DefineCustomSerializer(this Type type, XmlSerializer serializer)
+		{
+			lock (_serializersLock)
+			{
+				_serializers[type] = serializer;
+			}
+		}
+
+		public static void DefineCustomSerializer<T>(XmlSerializer serializer)
+		{
+			typeof(T).DefineCustomSerializer(serializer);
 		}
 
 		#endregion
@@ -105,30 +115,5 @@ namespace Inventor.Core.Utils
 		}
 
 		#endregion
-
-		public static void InitializeSemanticNetworkSerializer()
-		{
-			lock (_serializersLock)
-			{
-				var rootType = typeof(Xml.SemanticNetwork);
-				var attributeOverrides = new XmlAttributeOverrides();
-
-				var attributeAttributes = new XmlAttributes();
-				foreach (var definition in Repositories.Attributes.Definitions.Values)
-				{
-					attributeAttributes.XmlElements.Add(new XmlElementAttribute(definition.XmlElementName, definition.XmlType));
-				}
-				attributeOverrides.Add(typeof(Concept), "Attributes", attributeAttributes);
-
-				var statementAttributes = new XmlAttributes();
-				foreach (var definition in Repositories.Statements.Definitions.Values)
-				{
-					statementAttributes.XmlElements.Add(new XmlElementAttribute(definition.XmlElementName, definition.XmlType));
-				}
-				attributeOverrides.Add(typeof(Xml.SemanticNetwork), "Statements", statementAttributes);
-
-				_serializers[rootType] = new XmlSerializer(rootType, attributeOverrides);
-			}
-		}
 	}
 }
