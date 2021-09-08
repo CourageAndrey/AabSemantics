@@ -12,22 +12,22 @@ namespace Inventor.Core.Concepts
 		#region Properties
 
 		public static readonly IConcept IsEqualTo = new SystemConcept($"{{{nameof(ComparisonSigns)}.{nameof(IsEqualTo)}}}",
-			new LocalizedStringConstant(lang => lang.SystemConceptNames.IsEqualTo), new LocalizedStringConstant(lang => lang.SystemConceptHints.IsEqualTo));
+			new LocalizedStringConstant(lang => lang.Concepts.SystemConceptNames.IsEqualTo), new LocalizedStringConstant(lang => lang.Concepts.SystemConceptHints.IsEqualTo));
 
 		public static readonly IConcept IsNotEqualTo = new SystemConcept($"{{{nameof(ComparisonSigns)}.{nameof(IsNotEqualTo)}}}",
-			new LocalizedStringConstant(lang => lang.SystemConceptNames.IsNotEqualTo), new LocalizedStringConstant(lang => lang.SystemConceptHints.IsNotEqualTo));
+			new LocalizedStringConstant(lang => lang.Concepts.SystemConceptNames.IsNotEqualTo), new LocalizedStringConstant(lang => lang.Concepts.SystemConceptHints.IsNotEqualTo));
 
 		public static readonly IConcept IsGreaterThanOrEqualTo = new SystemConcept($"{{{nameof(ComparisonSigns)}.{nameof(IsGreaterThanOrEqualTo)}}}",
-			new LocalizedStringConstant(lang => lang.SystemConceptNames.IsGreaterThanOrEqualTo), new LocalizedStringConstant(lang => lang.SystemConceptHints.IsGreaterThanOrEqualTo));
+			new LocalizedStringConstant(lang => lang.Concepts.SystemConceptNames.IsGreaterThanOrEqualTo), new LocalizedStringConstant(lang => lang.Concepts.SystemConceptHints.IsGreaterThanOrEqualTo));
 
 		public static readonly IConcept IsGreaterThan = new SystemConcept($"{{{nameof(ComparisonSigns)}.{nameof(IsGreaterThan)}}}",
-			new LocalizedStringConstant(lang => lang.SystemConceptNames.IsGreaterThan), new LocalizedStringConstant(lang => lang.SystemConceptHints.IsGreaterThan));
+			new LocalizedStringConstant(lang => lang.Concepts.SystemConceptNames.IsGreaterThan), new LocalizedStringConstant(lang => lang.Concepts.SystemConceptHints.IsGreaterThan));
 
 		public static readonly IConcept IsLessThanOrEqualTo = new SystemConcept($"{{{nameof(ComparisonSigns)}.{nameof(IsLessThanOrEqualTo)}}}",
-			new LocalizedStringConstant(lang => lang.SystemConceptNames.IsLessThanOrEqualTo), new LocalizedStringConstant(lang => lang.SystemConceptHints.IsLessThanOrEqualTo));
+			new LocalizedStringConstant(lang => lang.Concepts.SystemConceptNames.IsLessThanOrEqualTo), new LocalizedStringConstant(lang => lang.Concepts.SystemConceptHints.IsLessThanOrEqualTo));
 
 		public static readonly IConcept IsLessThan = new SystemConcept($"{{{nameof(ComparisonSigns)}.{nameof(IsLessThan)}}}",
-			new LocalizedStringConstant(lang => lang.SystemConceptNames.IsLessThan), new LocalizedStringConstant(lang => lang.SystemConceptHints.IsLessThan));
+			new LocalizedStringConstant(lang => lang.Concepts.SystemConceptNames.IsLessThan), new LocalizedStringConstant(lang => lang.Concepts.SystemConceptHints.IsLessThan));
 
 		public static readonly ICollection<IConcept> All = new HashSet<IConcept>
 		{

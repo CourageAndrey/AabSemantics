@@ -43,8 +43,8 @@ namespace Inventor.Core.Questions
 				.Where(s => s.Concept == Concept && s.Sign == Sign)
 				.SelectBooleanIncludingChildren(
 					statements => statements.Count > 0,
-					language => language.Answers.HasSignTrue + (Recursive ? language.Answers.RecursiveTrue : language.Answers.RecursiveFalse) + ".",
-					language => language.Answers.HasSignFalse + (Recursive ? language.Answers.RecursiveTrue : language.Answers.RecursiveFalse) + ".",
+					language => language.Questions.Answers.HasSignTrue + (Recursive ? language.Questions.Answers.RecursiveTrue : language.Questions.Answers.RecursiveFalse) + ".",
+					language => language.Questions.Answers.HasSignFalse + (Recursive ? language.Questions.Answers.RecursiveTrue : language.Questions.Answers.RecursiveFalse) + ".",
 					new Dictionary<String, IKnowledge>
 					{
 						{ Strings.ParamConcept, Concept },

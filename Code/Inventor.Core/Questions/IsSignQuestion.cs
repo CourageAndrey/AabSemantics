@@ -31,8 +31,8 @@ namespace Inventor.Core.Questions
 				.Where(s => s.Sign == Concept)
 				.SelectBoolean(
 					statement => Concept.HasAttribute<IsSignAttribute>(),
-					language => language.Answers.SignTrue,
-					language => language.Answers.SignFalse,
+					language => language.Questions.Answers.SignTrue,
+					language => language.Questions.Answers.SignFalse,
 					new Dictionary<String, IKnowledge>
 					{
 						{ Strings.ParamConcept, Concept },

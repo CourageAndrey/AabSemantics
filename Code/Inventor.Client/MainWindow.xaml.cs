@@ -65,7 +65,7 @@ namespace Inventor.Client
 				{
 					var explanedResult = new UnstructuredContainer(processingResult);
 					explanedResult.AppendLineBreak();
-					explanedResult.Append(new Core.Text.Primitives.FormattedText(language => language.Answers.Explanation));
+					explanedResult.Append(new Core.Text.Primitives.FormattedText(language => language.Questions.Answers.Explanation));
 
 					foreach (var statement in answer.Explanation.Statements)
 					{

@@ -81,18 +81,12 @@ namespace Inventor.Client.Localization
 				CommonXml = LanguageCommon.CreateDefault(),
 				ErrorsXml = LanguageErrors.CreateDefault(),
 
-				StatementNamesXml = @default.StatementNamesXml,
-				StatementHintsXml = @default.StatementHintsXml,
-				TrueStatementFormatStringsXml = @default.TrueStatementFormatStringsXml,
-				FalseStatementFormatStringsXml = @default.FalseStatementFormatStringsXml,
-				QuestionStatementFormatStringsXml = @default.QuestionStatementFormatStringsXml,
-				QuestionNamesXml = @default.QuestionNamesXml,
-				AnswersXml = @default.AnswersXml,
-				AttributesXml = @default.AttributesXml,
-				UiXml = LanguageUi.CreateDefault(),
-				SystemConceptNamesXml = @default.SystemConceptNamesXml,
-				SystemConceptHintsXml = @default.SystemConceptHintsXml,
+				StatementsXml = @default.StatementsXml,
+				QuestionsXml = @default.QuestionsXml,
+				ConceptsXml = @default.ConceptsXml,
 				ConsistencyXml = @default.ConsistencyXml,
+
+				UiXml = LanguageUi.CreateDefault(),
 				MiscXml = LanguageMisc.CreateDefault(),
 			};
 		}

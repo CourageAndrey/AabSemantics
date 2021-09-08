@@ -48,15 +48,15 @@ namespace Samples._05.CustomStatement
 			// Please, do not repeat it within your projects.
 			// It is connected with the way, how Language questions are organized:
 			// TrueStatementFormatStrings, FalseStatementFormatStrings and QuestionStatementFormatStrings are ILanguageStatementsPart.
-			if (language == Language.Default.TrueStatementFormatStrings)
+			if (language == Language.Default.Statements.TrueStatementFormatStrings)
 			{
 				return "#TALLER# is taller than #SHORTER#.";
 			}
-			else if (language == Language.Default.FalseStatementFormatStrings)
+			else if (language == Language.Default.Statements.FalseStatementFormatStrings)
 			{
 				return "It's false, that #TALLER# is taller than #SHORTER#.";
 			}
-			else if (language == Language.Default.QuestionStatementFormatStrings)
+			else if (language == Language.Default.Statements.QuestionStatementFormatStrings)
 			{
 				return "Is #TALLER# taller than #SHORTER#?";
 			}

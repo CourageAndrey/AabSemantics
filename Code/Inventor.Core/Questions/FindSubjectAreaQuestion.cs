@@ -32,7 +32,7 @@ namespace Inventor.Core.Questions
 					statement => statement.Area,
 					question => question.Concept,
 					Strings.ParamConcept,
-					language => language.Answers.SubjectArea);
+					language => language.Questions.Answers.SubjectArea);
 		}
 	}
 }

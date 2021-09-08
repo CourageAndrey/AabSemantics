@@ -23,7 +23,7 @@ namespace Inventor.Core.Statements
 		#endregion
 
 		public SignValueStatement(String id, IConcept concept, IConcept sign, IConcept value)
-			: base(id, new Func<ILanguage, String>(language => language.StatementNames.SignValue), new Func<ILanguage, String>(language => language.StatementHints.SignValue))
+			: base(id, new Func<ILanguage, String>(language => language.Statements.StatementNames.SignValue), new Func<ILanguage, String>(language => language.Statements.StatementHints.SignValue))
 		{
 			Update(id, concept, sign, value);
 		}

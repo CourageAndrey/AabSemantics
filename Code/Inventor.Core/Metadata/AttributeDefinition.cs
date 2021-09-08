@@ -51,7 +51,7 @@ namespace Inventor.Core.Metadata
 		{
 			Type = typeof(NoAttribute);
 			AttributeValue = new NoAttribute();
-			_attributeNameGetter = language => language.Attributes.None;
+			_attributeNameGetter = language => language.Concepts.Attributes.None;
 			Xml = null;
 		}
 

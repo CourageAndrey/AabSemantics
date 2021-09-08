@@ -32,7 +32,7 @@ namespace Inventor.Core.Questions
 					statement => statement.Whole,
 					question => question.Concept,
 					Strings.ParamChild,
-					language => language.Answers.EnumerateContainers);
+					language => language.Questions.Answers.EnumerateContainers);
 		}
 	}
 }

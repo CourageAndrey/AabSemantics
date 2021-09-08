@@ -11,10 +11,10 @@ namespace Inventor.Core.Concepts
 		#region Properties
 
 		public static readonly IConcept True = new SystemConcept($"{{{nameof(LogicalValues)}.{nameof(True)}}}",
-			new LocalizedStringConstant(lang => lang.SystemConceptNames.True), new LocalizedStringConstant(lang => lang.SystemConceptHints.True));
+			new LocalizedStringConstant(lang => lang.Concepts.SystemConceptNames.True), new LocalizedStringConstant(lang => lang.Concepts.SystemConceptHints.True));
 
 		public static readonly IConcept False = new SystemConcept($"{{{nameof(LogicalValues)}.{nameof(False)}}}",
-			new LocalizedStringConstant(lang => lang.SystemConceptNames.False), new LocalizedStringConstant(lang => lang.SystemConceptHints.False));
+			new LocalizedStringConstant(lang => lang.Concepts.SystemConceptNames.False), new LocalizedStringConstant(lang => lang.Concepts.SystemConceptHints.False));
 
 		public static readonly ICollection<IConcept> All = new HashSet<IConcept>
 		{

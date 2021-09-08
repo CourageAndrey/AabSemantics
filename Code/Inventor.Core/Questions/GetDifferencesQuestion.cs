@@ -19,10 +19,10 @@ namespace Inventor.Core.Questions
 		protected override void WriteOneLine(ITextContainer text, IConcept sign, IConcept value1, IConcept value2)
 		{
 			var formatString = value1 != null && value2 != null
-				? new Func<ILanguage, String>(language => language.Answers.CompareConceptsDifference)
+				? new Func<ILanguage, String>(language => language.Questions.Answers.CompareConceptsDifference)
 				: (value1 != null
-					? new Func<ILanguage, String>(language => language.Answers.CompareConceptsFirstNotSet)
-					: language => language.Answers.CompareConceptsSecondNotSet);
+					? new Func<ILanguage, String>(language => language.Questions.Answers.CompareConceptsFirstNotSet)
+					: language => language.Questions.Answers.CompareConceptsSecondNotSet);
 
 			var parameters = new Dictionary<String, IKnowledge>
 			{
@@ -42,7 +42,7 @@ namespace Inventor.Core.Questions
 
 		protected override void WriteNotEmptyResultWithoutData(ITextContainer text)
 		{
-			text.Append(language => language.Answers.CompareConceptsNoDifference);
+			text.Append(language => language.Questions.Answers.CompareConceptsNoDifference);
 		}
 	}
 }

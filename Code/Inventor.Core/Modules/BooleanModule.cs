@@ -25,8 +25,8 @@ namespace Inventor.Core.Modules
 
 		protected override void RegisterAttributes()
 		{
-			Repositories.RegisterAttribute(IsValueAttribute.Value, language => language.Attributes.IsValue, new Xml.IsValueAttribute());
-			Repositories.RegisterAttribute(IsBooleanAttribute.Value, language => language.Attributes.IsBoolean, new Xml.IsBooleanAttribute());
+			Repositories.RegisterAttribute(IsValueAttribute.Value, language => language.Concepts.Attributes.IsValue, new Xml.IsValueAttribute());
+			Repositories.RegisterAttribute(IsBooleanAttribute.Value, language => language.Concepts.Attributes.IsBoolean, new Xml.IsBooleanAttribute());
 		}
 
 		protected override void RegisterQuestions()
