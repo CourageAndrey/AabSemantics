@@ -63,7 +63,7 @@ namespace Inventor.Core.Statements
 			};
 		}
 
-		protected override String GetDescriptionText(ILanguageStatements language)
+		protected override String GetDescriptionText(ILanguageStatementsPart language)
 		{
 			return language.Comparison;
 		}

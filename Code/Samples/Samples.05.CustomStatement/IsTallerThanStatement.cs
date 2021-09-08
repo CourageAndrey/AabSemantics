@@ -42,12 +42,12 @@ namespace Samples._05.CustomStatement
 			yield return ShorterPerson;
 		}
 
-		protected override string GetDescriptionText(ILanguageStatements language)
+		protected override string GetDescriptionText(ILanguageStatementsPart language)
 		{
 			// IMPORTANT: It is dirty 'hack' to perform such comparisons.
 			// Please, do not repeat it within your projects.
 			// It is connected with the way, how Language questions are organized:
-			// TrueStatementFormatStrings, FalseStatementFormatStrings and QuestionStatementFormatStrings are ILanguageStatements.
+			// TrueStatementFormatStrings, FalseStatementFormatStrings and QuestionStatementFormatStrings are ILanguageStatementsPart.
 			if (language == Language.Default.TrueStatementFormatStrings)
 			{
 				return "#TALLER# is taller than #SHORTER#.";

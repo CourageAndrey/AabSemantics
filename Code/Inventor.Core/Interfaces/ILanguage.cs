@@ -10,19 +10,19 @@ namespace Inventor.Core
 		String Culture
 		{ get; }
 
-		ILanguageStatements StatementNames
+		ILanguageStatementsPart StatementNames
 		{ get; }
 
-		ILanguageStatements StatementHints
+		ILanguageStatementsPart StatementHints
 		{ get; }
 
-		ILanguageStatements TrueStatementFormatStrings
+		ILanguageStatementsPart TrueStatementFormatStrings
 		{ get; }
 
-		ILanguageStatements FalseStatementFormatStrings
+		ILanguageStatementsPart FalseStatementFormatStrings
 		{ get; }
 
-		ILanguageStatements QuestionStatementFormatStrings
+		ILanguageStatementsPart QuestionStatementFormatStrings
 		{ get; }
 
 		ILanguageQuestionNames QuestionNames
@@ -44,7 +44,7 @@ namespace Inventor.Core
 		{ get; }
 	}
 
-	public interface ILanguageStatements
+	public interface ILanguageStatementsPart
 	{
 		String SubjectArea
 		{ get; }

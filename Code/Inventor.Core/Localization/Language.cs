@@ -47,23 +47,23 @@ namespace Inventor.Core.Localization
 		#region Xml Properties
 
 		[XmlElement(ElementStatementNames)]
-		public LanguageStatements StatementNamesXml
+		public LanguageStatementsPart StatementNamesXml
 		{ get; set; }
 
 		[XmlElement(ElementStatementHints)]
-		public LanguageStatements StatementHintsXml
+		public LanguageStatementsPart StatementHintsXml
 		{ get; set; }
 
 		[XmlElement(ElementStatementTrueFormatStrings)]
-		public LanguageStatements TrueStatementFormatStringsXml
+		public LanguageStatementsPart TrueStatementFormatStringsXml
 		{ get; set; }
 
 		[XmlElement(ElementStatementFalseFormatStrings)]
-		public LanguageStatements FalseStatementFormatStringsXml
+		public LanguageStatementsPart FalseStatementFormatStringsXml
 		{ get; set; }
 
 		[XmlElement(ElementStatementQuestionFormatStrings)]
-		public LanguageStatements QuestionStatementFormatStringsXml
+		public LanguageStatementsPart QuestionStatementFormatStringsXml
 		{ get; set; }
 
 		[XmlElement(ElementQuestionNames)]
@@ -107,23 +107,23 @@ namespace Inventor.Core.Localization
 		{ get; set; }
 
 		[XmlIgnore]
-		public ILanguageStatements StatementNames
+		public ILanguageStatementsPart StatementNames
 		{ get { return StatementNamesXml; } }
 
 		[XmlIgnore]
-		public ILanguageStatements StatementHints
+		public ILanguageStatementsPart StatementHints
 		{ get { return StatementHintsXml; } }
 
 		[XmlIgnore]
-		public ILanguageStatements TrueStatementFormatStrings
+		public ILanguageStatementsPart TrueStatementFormatStrings
 		{ get { return TrueStatementFormatStringsXml; } }
 
 		[XmlIgnore]
-		public ILanguageStatements FalseStatementFormatStrings
+		public ILanguageStatementsPart FalseStatementFormatStrings
 		{ get { return FalseStatementFormatStringsXml; } }
 
 		[XmlIgnore]
-		public ILanguageStatements QuestionStatementFormatStrings
+		public ILanguageStatementsPart QuestionStatementFormatStrings
 		{ get { return QuestionStatementFormatStringsXml; } }
 
 		[XmlIgnore]
@@ -164,11 +164,11 @@ namespace Inventor.Core.Localization
 				Name = DefaultName,
 				Culture = DefaultCulture,
 
-				StatementNamesXml = LanguageStatements.CreateDefaultNames(),
-				StatementHintsXml = LanguageStatements.CreateDefaultHints(),
-				TrueStatementFormatStringsXml = LanguageStatements.CreateDefaultTrue(),
-				FalseStatementFormatStringsXml = LanguageStatements.CreateDefaultFalse(),
-				QuestionStatementFormatStringsXml = LanguageStatements.CreateDefaultQuestion(),
+				StatementNamesXml = LanguageStatementsPart.CreateDefaultNames(),
+				StatementHintsXml = LanguageStatementsPart.CreateDefaultHints(),
+				TrueStatementFormatStringsXml = LanguageStatementsPart.CreateDefaultTrue(),
+				FalseStatementFormatStringsXml = LanguageStatementsPart.CreateDefaultFalse(),
+				QuestionStatementFormatStringsXml = LanguageStatementsPart.CreateDefaultQuestion(),
 				QuestionNamesXml = LanguageQuestionNames.CreateDefault(),
 				AnswersXml = LanguageAnswers.CreateDefault(),
 				AttributesXml = LanguageAttributes.CreateDefault(),
