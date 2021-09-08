@@ -23,7 +23,7 @@ namespace Inventor.Client.Localization
 		public String Culture
 		{ get { return _language?.Culture; } }
 
-		public Core.ILanguageCommon Common
+		public ILanguageCommon Common
 		{ get { return _language?.Common; } }
 
 		public ILanguageErrors Errors

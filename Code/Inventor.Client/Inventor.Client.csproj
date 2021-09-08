@@ -89,6 +89,7 @@
     <Compile Include="ILanguage.cs" />
     <Compile Include="IQuestionViewModel.cs" />
     <Compile Include="Localization\Language.cs" />
+    <Compile Include="Localization\LanguageCommon.cs" />
     <Compile Include="Localization\LanguageEditing.cs" />
     <Compile Include="Localization\LanguageErrors.cs" />
     <Compile Include="Localization\LanguageMainForm.cs" />
