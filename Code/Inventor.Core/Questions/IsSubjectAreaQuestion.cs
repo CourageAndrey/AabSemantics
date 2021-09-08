@@ -37,8 +37,8 @@ namespace Inventor.Core.Questions
 				.Where(s => s.Area == Area && s.Concept == Concept)
 				.SelectBoolean(
 					statements => statements.Any(),
-					language => language.Answers.IsSubjectAreaTrue,
-					language => language.Answers.IsSubjectAreaFalse,
+					language => language.Questions.Answers.IsSubjectAreaTrue,
+					language => language.Questions.Answers.IsSubjectAreaFalse,
 					new Dictionary<String, IKnowledge>
 					{
 						{ Strings.ParamArea, Area },

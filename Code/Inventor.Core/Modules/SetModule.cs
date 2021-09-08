@@ -23,31 +23,31 @@ namespace Inventor.Core.Modules
 
 		protected override void RegisterAttributes()
 		{
-			Repositories.RegisterAttribute(IsSignAttribute.Value, language => language.Attributes.IsSign, new Xml.IsSignAttribute());
+			Repositories.RegisterAttribute(IsSignAttribute.Value, language => language.Concepts.Attributes.IsSign, new Xml.IsSignAttribute());
 		}
 
 		protected override void RegisterStatements()
 		{
 			Repositories.RegisterStatement<HasPartStatement>(
-				language => language.StatementNames.Composition,
+				language => language.Statements.StatementNames.Composition,
 				statement => new Xml.HasPartStatement(statement),
 				typeof(Xml.HasPartStatement),
 				StatementDefinition<HasPartStatement>.NoConsistencyCheck);
 
 			Repositories.RegisterStatement<GroupStatement>(
-				language => language.StatementNames.SubjectArea,
+				language => language.Statements.StatementNames.SubjectArea,
 				statement => new Xml.GroupStatement(statement),
 				typeof(Xml.GroupStatement),
 				StatementDefinition<GroupStatement>.NoConsistencyCheck);
 
 			Repositories.RegisterStatement<HasSignStatement>(
-				language => language.StatementNames.HasSign,
+				language => language.Statements.StatementNames.HasSign,
 				statement => new Xml.HasSignStatement(statement),
 				typeof(Xml.HasSignStatement),
 				checkSignDuplications);
 
 			Repositories.RegisterStatement<SignValueStatement>(
-				language => language.StatementNames.SignValue,
+				language => language.Statements.StatementNames.SignValue,
 				statement => new Xml.SignValueStatement(statement),
 				typeof(Xml.SignValueStatement),
 				checkSignValues);

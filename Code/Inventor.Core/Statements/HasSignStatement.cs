@@ -20,7 +20,7 @@ namespace Inventor.Core.Statements
 		#endregion
 
 		public HasSignStatement(String id, IConcept concept, IConcept sign)
-			: base(id, new Func<ILanguage, String>(language => language.StatementNames.HasSign), new Func<ILanguage, String>(language => language.StatementHints.HasSign))
+			: base(id, new Func<ILanguage, String>(language => language.Statements.StatementNames.HasSign), new Func<ILanguage, String>(language => language.Statements.StatementHints.HasSign))
 		{
 			Update(id, concept, sign);
 		}

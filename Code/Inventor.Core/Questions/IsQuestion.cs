@@ -40,8 +40,8 @@ namespace Inventor.Core.Questions
 				.Where(s => s.Parent == Parent && s.Child == Child)
 				.SelectBooleanIncludingChildren(
 					statements => statements.Count > 0,
-					language => language.Answers.IsTrue,
-					language => language.Answers.IsFalse,
+					language => language.Questions.Answers.IsTrue,
+					language => language.Questions.Answers.IsFalse,
 					new Dictionary<String, IKnowledge>
 					{
 						{ Strings.ParamParent, Parent },

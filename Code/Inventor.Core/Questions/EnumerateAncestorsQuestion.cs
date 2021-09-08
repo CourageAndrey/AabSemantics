@@ -32,7 +32,7 @@ namespace Inventor.Core.Questions
 					statement => statement.Ancestor,
 					question => question.Concept,
 					Strings.ParamChild,
-					language => language.Answers.EnumerateAncestors);
+					language => language.Questions.Answers.EnumerateAncestors);
 		}
 	}
 }

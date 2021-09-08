@@ -49,7 +49,7 @@ namespace Inventor.Core.Questions
 			{
 				return new Answers.Answer(
 					new FormattedText(
-						language => language.Answers.CanNotCompareConcepts,
+						language => language.Questions.Answers.CanNotCompareConcepts,
 						new Dictionary<String, IKnowledge>
 						{
 							{ Strings.ParamConcept1, Concept1 },
@@ -111,7 +111,7 @@ namespace Inventor.Core.Questions
 			IDictionary<IConcept, Tuple<IConcept, IConcept>> signValueStatements)
 		{
 			var result = new UnstructuredContainer(new FormattedText(
-				language => language.Answers.CompareConceptsResult,
+				language => language.Questions.Answers.CompareConceptsResult,
 				new Dictionary<String, IKnowledge>
 				{
 					{ Strings.ParamConcept1, Concept1 },

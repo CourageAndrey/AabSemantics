@@ -29,41 +29,20 @@ namespace Inventor.Client.Localization
 		public ILanguageErrors Errors
 		{ get { return _language?.Errors; } }
 
-		public Core.ILanguageStatementsPart StatementNames
-		{ get { return _language?.StatementNames; } }
+		public Core.ILanguageStatements Statements
+		{ get { return _language?.Statements; } }
 
-		public Core.ILanguageStatementsPart StatementHints
-		{ get { return _language?.StatementHints; } }
+		public Core.ILanguageQuestions Questions
+		{ get { return _language?.Questions; } }
 
-		public Core.ILanguageStatementsPart TrueStatementFormatStrings
-		{ get { return _language?.TrueStatementFormatStrings; } }
-
-		public Core.ILanguageStatementsPart FalseStatementFormatStrings
-		{ get { return _language?.FalseStatementFormatStrings; } }
-
-		public Core.ILanguageStatementsPart QuestionStatementFormatStrings
-		{ get { return _language?.QuestionStatementFormatStrings; } }
-
-		public Core.ILanguageQuestionNames QuestionNames
-		{ get { return _language?.QuestionNames; } }
-
-		public Core.ILanguageAnswers Answers
-		{ get { return _language?.Answers; } }
-
-		public Core.ILanguageAttributes Attributes
-		{ get { return _language?.Attributes; } }
-
-		public ILanguageUi Ui
-		{ get { return _language?.Ui; } }
-
-		public Core.ILanguageSystemConcepts SystemConceptNames
-		{ get { return _language?.SystemConceptNames; } }
-
-		public Core.ILanguageSystemConcepts SystemConceptHints
-		{ get { return _language?.SystemConceptHints; } }
+		public Core.ILanguageConcepts Concepts
+		{ get { return _language?.Concepts; } }
 
 		public Core.ILanguageConsistency Consistency
 		{ get { return _language?.Consistency; } }
+
+		public ILanguageUi Ui
+		{ get { return _language?.Ui; } }
 
 		public ILanguageMisc Misc
 		{ get { return _language?.Misc; } }

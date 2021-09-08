@@ -39,7 +39,7 @@ namespace Inventor.Core.Questions
 				.Where(s => s.Concept == Concept && s.Sign == Sign)
 				.SelectFirstConcept(
 					statement => statement.Value,
-					language => language.Answers.SignValue,
+					language => language.Questions.Answers.SignValue,
 					statement => new Dictionary<String, IKnowledge>
 					{
 						{ Strings.ParamConcept, Concept },

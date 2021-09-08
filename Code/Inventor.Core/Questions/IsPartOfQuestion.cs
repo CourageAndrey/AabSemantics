@@ -37,8 +37,8 @@ namespace Inventor.Core.Questions
 				.Where(s => s.Whole == Parent && s.Part == Child)
 				.SelectBoolean(
 					statements => statements.Any(),
-					language => language.Answers.IsPartOfTrue,
-					language => language.Answers.IsPartOfFalse,
+					language => language.Questions.Answers.IsPartOfTrue,
+					language => language.Questions.Answers.IsPartOfFalse,
 					new Dictionary<String, IKnowledge>
 					{
 						{ Strings.ParamParent, Parent },

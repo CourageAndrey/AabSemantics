@@ -10,6 +10,21 @@ namespace Inventor.Core
 		String Culture
 		{ get; }
 
+		ILanguageStatements Statements
+		{ get; }
+
+		ILanguageQuestions Questions
+		{ get; }
+
+		ILanguageConcepts Concepts
+		{ get; }
+
+		ILanguageConsistency Consistency
+		{ get; }
+	}
+
+	public interface ILanguageStatements
+	{
 		ILanguageStatementsPart StatementNames
 		{ get; }
 
@@ -24,13 +39,19 @@ namespace Inventor.Core
 
 		ILanguageStatementsPart QuestionStatementFormatStrings
 		{ get; }
+	}
 
+	public interface ILanguageQuestions
+	{
 		ILanguageQuestionNames QuestionNames
 		{ get; }
 
 		ILanguageAnswers Answers
 		{ get; }
+	}
 
+	public interface ILanguageConcepts
+	{
 		ILanguageAttributes Attributes
 		{ get; }
 
@@ -38,9 +59,6 @@ namespace Inventor.Core
 		{ get; }
 
 		ILanguageSystemConcepts SystemConceptHints
-		{ get; }
-
-		ILanguageConsistency Consistency
 		{ get; }
 	}
 
