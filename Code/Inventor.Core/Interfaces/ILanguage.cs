@@ -271,9 +271,6 @@ namespace Inventor.Core
 		String CompareConceptsResult
 		{ get; }
 
-		String CompareConceptsParents
-		{ get; }
-
 		String CompareConceptsCommon
 		{ get; }
 
