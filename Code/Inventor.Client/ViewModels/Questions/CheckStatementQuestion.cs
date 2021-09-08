@@ -3,7 +3,7 @@
 	[QuestionDescriptor]
 	public class CheckStatementQuestion : QuestionViewModel<Core.Questions.CheckStatementQuestion>
 	{
-		[PropertyDescriptor(true, "QuestionNames.ParamStatement")]
+		[PropertyDescriptor(true, "Names.ParamStatement")]
 		public StatementViewModel Statement
 		{ get; set; }
 

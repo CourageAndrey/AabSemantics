@@ -3,7 +3,7 @@
 	[QuestionDescriptor]
 	public class EnumerateDescendantsQuestion : QuestionViewModel<Core.Questions.EnumerateDescendantsQuestion>
 	{
-		[PropertyDescriptor(true, "QuestionNames.ParamConcept")]
+		[PropertyDescriptor(true, "Names.ParamConcept")]
 		public Core.IConcept Concept
 		{ get; set; }
 

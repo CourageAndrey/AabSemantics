@@ -52,7 +52,7 @@ namespace Inventor.Client.ViewModels.Statements
 			{
 				Owner = owner,
 				Editor = control,
-				Title = language.Statements.StatementNames.Composition,
+				Title = language.Statements.Names.Composition,
 				SizeToContent = SizeToContent.WidthAndHeight,
 				MinWidth = 200,
 				MinHeight = 100,

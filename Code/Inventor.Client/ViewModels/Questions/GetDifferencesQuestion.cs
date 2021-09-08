@@ -3,11 +3,11 @@
 	[QuestionDescriptor]
 	public class GetDifferencesQuestion : QuestionViewModel<Core.Questions.GetDifferencesQuestion>
 	{
-		[PropertyDescriptor(true, "QuestionNames.ParamConcept1")]
+		[PropertyDescriptor(true, "Names.ParamConcept1")]
 		public Core.IConcept Concept1
 		{ get; set; }
 
-		[PropertyDescriptor(true, "QuestionNames.ParamConcept2")]
+		[PropertyDescriptor(true, "Names.ParamConcept2")]
 		public Core.IConcept Concept2
 		{ get; set; }
 

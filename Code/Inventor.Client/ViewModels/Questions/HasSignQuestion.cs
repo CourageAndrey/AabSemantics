@@ -3,15 +3,15 @@
 	[QuestionDescriptor]
 	public class HasSignQuestion : QuestionViewModel<Core.Questions.HasSignQuestion>
 	{
-		[PropertyDescriptor(true, "QuestionNames.ParamConcept")]
+		[PropertyDescriptor(true, "Names.ParamConcept")]
 		public Core.IConcept Concept
 		{ get; set; }
 
-		[PropertyDescriptor(true, "QuestionNames.ParamSign")]
+		[PropertyDescriptor(true, "Names.ParamSign")]
 		public Core.IConcept Sign
 		{ get; set; }
 
-		[PropertyDescriptor(false, "QuestionNames.ParamRecursive")]
+		[PropertyDescriptor(false, "Names.ParamRecursive")]
 		public bool Recursive
 		{ get; set; }
 

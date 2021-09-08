@@ -34,7 +34,7 @@ namespace Inventor.Core.Modules
 		protected override void RegisterStatements()
 		{
 			Repositories.RegisterStatement<ComparisonStatement>(
-				language => language.Statements.StatementNames.Comparison,
+				language => language.Statements.Names.Comparison,
 				statement => new Xml.ComparisonStatement(statement),
 				typeof(Xml.ComparisonStatement),
 				checkComparisonValueSystems);

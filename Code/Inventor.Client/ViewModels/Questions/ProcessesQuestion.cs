@@ -3,11 +3,11 @@
 	[QuestionDescriptor]
 	public class ProcessesQuestion : QuestionViewModel<Core.Questions.ProcessesQuestion>
 	{
-		[PropertyDescriptor(true, "QuestionNames.ParamProcessA")]
+		[PropertyDescriptor(true, "Names.ParamProcessA")]
 		public Core.IConcept ProcessA
 		{ get; set; }
 
-		[PropertyDescriptor(true, "QuestionNames.ParamProcessB")]
+		[PropertyDescriptor(true, "Names.ParamProcessB")]
 		public Core.IConcept ProcessB
 		{ get; set; }
 

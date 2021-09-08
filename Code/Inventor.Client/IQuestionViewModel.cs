@@ -26,7 +26,7 @@ namespace Inventor.Client
 	public abstract class QuestionViewModel<QuestionT> : IQuestionViewModel<QuestionT>
 		where QuestionT : Core.IQuestion
 	{
-		[PropertyDescriptor(true, "QuestionNames.ParamConditions")]
+		[PropertyDescriptor(true, "Names.ParamConditions")]
 		public ICollection<StatementViewModel> Preconditions
 		{ get; } = new ObservableCollection<StatementViewModel>();
 

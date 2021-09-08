@@ -3,11 +3,11 @@
 	[QuestionDescriptor]
 	public class EnumerateSignsQuestion : QuestionViewModel<Core.Questions.EnumerateSignsQuestion>
 	{
-		[PropertyDescriptor(true, "QuestionNames.ParamConcept")]
+		[PropertyDescriptor(true, "Names.ParamConcept")]
 		public Core.IConcept Concept
 		{ get; set; }
 
-		[PropertyDescriptor(false, "QuestionNames.ParamRecursive")]
+		[PropertyDescriptor(false, "Names.ParamRecursive")]
 		public bool Recursive
 		{ get; set; }
 

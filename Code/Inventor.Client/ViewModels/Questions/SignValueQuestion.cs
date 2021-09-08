@@ -3,11 +3,11 @@
 	[QuestionDescriptor]
 	public class SignValueQuestion : QuestionViewModel<Core.Questions.SignValueQuestion>
 	{
-		[PropertyDescriptor(true, "QuestionNames.ParamConcept")]
+		[PropertyDescriptor(true, "Names.ParamConcept")]
 		public Core.IConcept Concept
 		{ get; set; }
 
-		[PropertyDescriptor(true, "QuestionNames.ParamSign")]
+		[PropertyDescriptor(true, "Names.ParamSign")]
 		public Core.IConcept Sign
 		{ get; set; }
 

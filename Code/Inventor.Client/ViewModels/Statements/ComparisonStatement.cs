@@ -56,7 +56,7 @@ namespace Inventor.Client.ViewModels.Statements
 			{
 				Owner = owner,
 				Editor = control,
-				Title = language.Statements.StatementNames.Comparison,
+				Title = language.Statements.Names.Comparison,
 				SizeToContent = SizeToContent.WidthAndHeight,
 				MinWidth = 200,
 				MinHeight = 100,

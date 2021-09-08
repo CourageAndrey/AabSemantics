@@ -8,38 +8,38 @@ namespace Inventor.Core.Localization
 		#region Constants
 
 		[XmlIgnore]
-		private const String ElementStatementNames = "StatementNames";
+		private const String ElementStatementNames = "Names";
 		[XmlIgnore]
-		private const String ElementStatementHints = "StatementHints";
+		private const String ElementStatementHints = "Hints";
 		[XmlIgnore]
-		private const String ElementStatementTrueFormatStrings = "StatementTrueFormatStrings";
+		private const String ElementStatementTrueFormatStrings = "TrueFormatStrings";
 		[XmlIgnore]
-		private const String ElementStatementFalseFormatStrings = "StatementFalseFormatStrings";
+		private const String ElementStatementFalseFormatStrings = "FalseFormatStrings";
 		[XmlIgnore]
-		private const String ElementStatementQuestionFormatStrings = "StatementQuestionFormatStrings";
+		private const String ElementStatementQuestionFormatStrings = "QuestionFormatStrings";
 
 		#endregion
 
 		#region Xml Properties
 
 		[XmlElement(ElementStatementNames)]
-		public LanguageStatementsPart StatementNamesXml
+		public LanguageStatementsPart NamesXml
 		{ get; set; }
 
 		[XmlElement(ElementStatementHints)]
-		public LanguageStatementsPart StatementHintsXml
+		public LanguageStatementsPart HintsXml
 		{ get; set; }
 
 		[XmlElement(ElementStatementTrueFormatStrings)]
-		public LanguageStatementsPart TrueStatementFormatStringsXml
+		public LanguageStatementsPart TrueFormatStringsXml
 		{ get; set; }
 
 		[XmlElement(ElementStatementFalseFormatStrings)]
-		public LanguageStatementsPart FalseStatementFormatStringsXml
+		public LanguageStatementsPart FalseFormatStringsXml
 		{ get; set; }
 
 		[XmlElement(ElementStatementQuestionFormatStrings)]
-		public LanguageStatementsPart QuestionStatementFormatStringsXml
+		public LanguageStatementsPart QuestionFormatStringsXml
 		{ get; set; }
 
 		#endregion
@@ -47,24 +47,24 @@ namespace Inventor.Core.Localization
 		#region Interface Properties
 
 		[XmlIgnore]
-		public ILanguageStatementsPart StatementNames
-		{ get { return StatementNamesXml; } }
+		public ILanguageStatementsPart Names
+		{ get { return NamesXml; } }
 
 		[XmlIgnore]
-		public ILanguageStatementsPart StatementHints
-		{ get { return StatementHintsXml; } }
+		public ILanguageStatementsPart Hints
+		{ get { return HintsXml; } }
 
 		[XmlIgnore]
-		public ILanguageStatementsPart TrueStatementFormatStrings
-		{ get { return TrueStatementFormatStringsXml; } }
+		public ILanguageStatementsPart TrueFormatStrings
+		{ get { return TrueFormatStringsXml; } }
 
 		[XmlIgnore]
-		public ILanguageStatementsPart FalseStatementFormatStrings
-		{ get { return FalseStatementFormatStringsXml; } }
+		public ILanguageStatementsPart FalseFormatStrings
+		{ get { return FalseFormatStringsXml; } }
 
 		[XmlIgnore]
-		public ILanguageStatementsPart QuestionStatementFormatStrings
-		{ get { return QuestionStatementFormatStringsXml; } }
+		public ILanguageStatementsPart QuestionFormatStrings
+		{ get { return QuestionFormatStringsXml; } }
 
 		#endregion
 
@@ -72,11 +72,11 @@ namespace Inventor.Core.Localization
 		{
 			return new LanguageStatements
 			{
-				StatementNamesXml = LanguageStatementsPart.CreateDefaultNames(),
-				StatementHintsXml = LanguageStatementsPart.CreateDefaultHints(),
-				TrueStatementFormatStringsXml = LanguageStatementsPart.CreateDefaultTrue(),
-				FalseStatementFormatStringsXml = LanguageStatementsPart.CreateDefaultFalse(),
-				QuestionStatementFormatStringsXml = LanguageStatementsPart.CreateDefaultQuestion(),
+				NamesXml = LanguageStatementsPart.CreateDefaultNames(),
+				HintsXml = LanguageStatementsPart.CreateDefaultHints(),
+				TrueFormatStringsXml = LanguageStatementsPart.CreateDefaultTrue(),
+				FalseFormatStringsXml = LanguageStatementsPart.CreateDefaultFalse(),
+				QuestionFormatStringsXml = LanguageStatementsPart.CreateDefaultQuestion(),
 			};
 		}
 	}
