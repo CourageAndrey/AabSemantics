@@ -11,39 +11,27 @@ namespace Inventor.Core.Localization
 		[XmlIgnore]
 		internal const String RootName = "Language";
 		[XmlIgnore]
-		private const String AttributeName = "Name";
-		[XmlIgnore]
-		private const String AttributeCulture = "Culture";
-		[XmlIgnore]
 		private const String DefaultCulture = "en-US";
 		[XmlIgnore]
 		private const String DefaultName = "English";
-		[XmlIgnore]
-		private const String ElementStatements = "Statements";
-		[XmlIgnore]
-		private const String ElementQuestions = "Questions";
-		[XmlIgnore]
-		private const String ElementConcepts = "Concepts";
-		[XmlIgnore]
-		private const String ElementConsistency = "Consistency";
 
 		#endregion
 
 		#region Xml Properties
 
-		[XmlElement(ElementStatements)]
+		[XmlElement(nameof(Statements))]
 		public LanguageStatements StatementsXml
 		{ get; set; }
 
-		[XmlElement(ElementQuestions)]
+		[XmlElement(nameof(Questions))]
 		public LanguageQuestions QuestionsXml
 		{ get; set; }
 
-		[XmlElement(ElementConcepts)]
+		[XmlElement(nameof(Concepts))]
 		public LanguageConcepts ConceptsXml
 		{ get; set; }
 
-		[XmlElement(ElementConsistency)]
+		[XmlElement(nameof(Consistency))]
 		public LanguageConsistency ConsistencyXml
 		{ get; set; }
 
@@ -55,11 +43,11 @@ namespace Inventor.Core.Localization
 		public String FileName
 		{ get; protected set; }
 
-		[XmlAttribute(AttributeName)]
+		[XmlAttribute]
 		public String Name
 		{ get; set; }
 
-		[XmlAttribute(AttributeCulture)]
+		[XmlAttribute]
 		public String Culture
 		{ get; set; }
 
