@@ -70,6 +70,7 @@ namespace Inventor.Client.Localization
 				Name = @default.Name,
 				Culture = @default.Culture,
 
+				AttributesXml = @default.AttributesXml,
 				StatementsXml = @default.StatementsXml,
 				QuestionsXml = @default.QuestionsXml,
 				ConceptsXml = @default.ConceptsXml,

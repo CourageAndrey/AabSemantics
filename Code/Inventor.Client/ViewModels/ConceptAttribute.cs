@@ -30,7 +30,7 @@ namespace Inventor.Client.ViewModels
 			}
 			else
 			{
-				Name = language.Concepts.Attributes.None;
+				Name = language.Attributes.None;
 				Value = null;
 			}
 

@@ -19,6 +19,10 @@ namespace Inventor.Core.Localization
 
 		#region Xml Properties
 
+		[XmlElement(nameof(Attributes))]
+		public LanguageAttributes AttributesXml
+		{ get; set; }
+
 		[XmlElement(nameof(Statements))]
 		public LanguageStatements StatementsXml
 		{ get; set; }
@@ -48,6 +52,10 @@ namespace Inventor.Core.Localization
 		{ get; set; }
 
 		[XmlIgnore]
+		public ILanguageAttributes Attributes
+		{ get { return AttributesXml; } }
+
+		[XmlIgnore]
 		public ILanguageStatements Statements
 		{ get { return StatementsXml; } }
 
@@ -73,6 +81,7 @@ namespace Inventor.Core.Localization
 				Name = DefaultName,
 				Culture = DefaultCulture,
 
+				AttributesXml = LanguageAttributes.CreateDefault(),
 				StatementsXml = LanguageStatements.CreateDefault(),
 				QuestionsXml = LanguageQuestions.CreateDefault(),
 				ConceptsXml = LanguageConcepts.CreateDefault(),

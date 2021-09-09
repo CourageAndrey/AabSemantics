@@ -28,7 +28,7 @@ namespace Inventor.Core.Modules
 
 		protected override void RegisterAttributes()
 		{
-			Repositories.RegisterAttribute(IsComparisonSignAttribute.Value, language => language.Concepts.Attributes.IsComparisonSign, new Xml.IsComparisonSignAttribute());
+			Repositories.RegisterAttribute(IsComparisonSignAttribute.Value, language => language.Attributes.IsComparisonSign, new Xml.IsComparisonSignAttribute());
 		}
 
 		protected override void RegisterStatements()

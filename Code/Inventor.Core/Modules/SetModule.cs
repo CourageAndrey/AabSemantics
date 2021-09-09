@@ -23,7 +23,7 @@ namespace Inventor.Core.Modules
 
 		protected override void RegisterAttributes()
 		{
-			Repositories.RegisterAttribute(IsSignAttribute.Value, language => language.Concepts.Attributes.IsSign, new Xml.IsSignAttribute());
+			Repositories.RegisterAttribute(IsSignAttribute.Value, language => language.Attributes.IsSign, new Xml.IsSignAttribute());
 		}
 
 		protected override void RegisterStatements()

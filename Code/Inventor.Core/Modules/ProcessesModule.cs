@@ -28,8 +28,8 @@ namespace Inventor.Core.Modules
 
 		protected override void RegisterAttributes()
 		{
-			Repositories.RegisterAttribute(IsProcessAttribute.Value, language => language.Concepts.Attributes.IsProcess, new Xml.IsProcessAttribute());
-			Repositories.RegisterAttribute(IsSequenceSignAttribute.Value, language => language.Concepts.Attributes.IsSequenceSign, new Xml.IsSequenceSignAttribute());
+			Repositories.RegisterAttribute(IsProcessAttribute.Value, language => language.Attributes.IsProcess, new Xml.IsProcessAttribute());
+			Repositories.RegisterAttribute(IsSequenceSignAttribute.Value, language => language.Attributes.IsSequenceSign, new Xml.IsSequenceSignAttribute());
 		}
 
 		protected override void RegisterStatements()

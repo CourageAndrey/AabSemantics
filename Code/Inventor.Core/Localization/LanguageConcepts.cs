@@ -6,10 +6,6 @@ namespace Inventor.Core.Localization
 	{
 		#region Xml Properties
 
-		[XmlElement(nameof(Attributes))]
-		public LanguageAttributes AttributesXml
-		{ get; set; }
-
 		[XmlElement(nameof(SystemConceptNames))]
 		public LanguageSystemConcepts SystemConceptNamesXml
 		{ get; set; }
@@ -21,10 +17,6 @@ namespace Inventor.Core.Localization
 		#endregion
 
 		#region Interface Properties
-
-		[XmlIgnore]
-		public ILanguageAttributes Attributes
-		{ get { return AttributesXml; } }
 
 		[XmlIgnore]
 		public ILanguageSystemConcepts SystemConceptNames
@@ -40,7 +32,6 @@ namespace Inventor.Core.Localization
 		{
 			return new LanguageConcepts
 			{
-				AttributesXml = LanguageAttributes.CreateDefault(),
 				SystemConceptNamesXml = LanguageSystemConcepts.CreateDefaultNames(),
 				SystemConceptHintsXml = LanguageSystemConcepts.CreateDefaultHints(),
 			};
