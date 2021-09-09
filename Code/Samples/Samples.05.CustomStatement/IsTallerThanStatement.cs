@@ -42,28 +42,19 @@ namespace Samples._05.CustomStatement
 			yield return ShorterPerson;
 		}
 
-		protected override string GetDescriptionText(ILanguageStatementsPart language)
+		protected override string GetDescriptionTrueText(ILanguage language)
 		{
-			// IMPORTANT: It is dirty 'hack' to perform such comparisons.
-			// Please, do not repeat it within your projects.
-			// It is connected with the way, how Language questions are organized:
-			// TrueFormatStrings, FalseFormatStrings and QuestionFormatStrings are ILanguageStatementsPart.
-			if (language == Language.Default.Statements.TrueFormatStrings)
-			{
-				return "#TALLER# is taller than #SHORTER#.";
-			}
-			else if (language == Language.Default.Statements.FalseFormatStrings)
-			{
-				return "It's false, that #TALLER# is taller than #SHORTER#.";
-			}
-			else if (language == Language.Default.Statements.QuestionFormatStrings)
-			{
-				return "Is #TALLER# taller than #SHORTER#?";
-			}
-			else
-			{
-				throw new NotSupportedException();
-			}
+			return "#TALLER# is taller than #SHORTER#.";
+		}
+
+		protected override string GetDescriptionFalseText(ILanguage language)
+		{
+			return "It's false, that #TALLER# is taller than #SHORTER#.";
+		}
+
+		protected override string GetDescriptionQuestionText(ILanguage language)
+		{
+			return "Is #TALLER# taller than #SHORTER#?";
 		}
 
 		protected override IDictionary<string, IKnowledge> GetDescriptionParameters()
