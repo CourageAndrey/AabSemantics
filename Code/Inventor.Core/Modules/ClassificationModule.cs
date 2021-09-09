@@ -27,9 +27,9 @@ namespace Inventor.Core.Modules
 
 		protected override void RegisterQuestions()
 		{
-			Repositories.RegisterQuestion<EnumerateAncestorsQuestion>();
-			Repositories.RegisterQuestion<EnumerateDescendantsQuestion>();
-			Repositories.RegisterQuestion<IsQuestion>();
+			Repositories.RegisterQuestion<EnumerateAncestorsQuestion>(language => language.Questions.Names.EnumerateAncestorsQuestion);
+			Repositories.RegisterQuestion<EnumerateDescendantsQuestion>(language => language.Questions.Names.EnumerateDescendantsQuestion);
+			Repositories.RegisterQuestion<IsQuestion>(language => language.Questions.Names.IsQuestion);
 		}
 
 		private static void checkCyclicParents(

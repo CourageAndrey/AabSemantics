@@ -93,10 +93,10 @@ namespace Inventor.Core.Metadata
 			Statements.Define(new StatementDefinition<StatementT>(statementNameGetter, statementXmlGetter, xmlType, consistencyChecker));
 		}
 
-		public static void RegisterQuestion<QuestionT>()
+		public static void RegisterQuestion<QuestionT>(Func<ILanguage, String> questionNameGetter)
 			where QuestionT : IQuestion
 		{
-			Questions.Define(new QuestionDefinition(typeof(QuestionT)));
+			Questions.Define(new QuestionDefinition(typeof(QuestionT), questionNameGetter));
 		}
 	}
 }

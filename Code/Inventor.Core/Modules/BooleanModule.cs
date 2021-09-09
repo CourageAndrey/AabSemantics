@@ -31,7 +31,7 @@ namespace Inventor.Core.Modules
 
 		protected override void RegisterQuestions()
 		{
-			Repositories.RegisterQuestion<CheckStatementQuestion>();
+			Repositories.RegisterQuestion<CheckStatementQuestion>(language => language.Questions.Names.CheckStatementQuestion);
 		}
 	}
 }
