@@ -117,7 +117,17 @@ namespace Inventor.Test.Questions
 				yield break;
 			}
 
-			protected override string GetDescriptionText(ILanguageStatementsPart language)
+			protected override string GetDescriptionTrueText(ILanguage language)
+			{
+				return string.Empty;
+			}
+
+			protected override string GetDescriptionFalseText(ILanguage language)
+			{
+				return string.Empty;
+			}
+
+			protected override string GetDescriptionQuestionText(ILanguage language)
 			{
 				return string.Empty;
 			}
@@ -160,7 +170,17 @@ namespace Inventor.Test.Questions
 				yield return Child;
 			}
 
-			protected override string GetDescriptionText(ILanguageStatementsPart language)
+			protected override string GetDescriptionTrueText(ILanguage language)
+			{
+				return string.Empty;
+			}
+
+			protected override string GetDescriptionFalseText(ILanguage language)
+			{
+				return string.Empty;
+			}
+
+			protected override string GetDescriptionQuestionText(ILanguage language)
 			{
 				return string.Empty;
 			}

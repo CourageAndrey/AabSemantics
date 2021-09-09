@@ -44,9 +44,19 @@ namespace Inventor.Core.Statements
 
 		#region Description
 
-		protected override String GetDescriptionText(ILanguageStatementsPart language)
+		protected override String GetDescriptionTrueText(ILanguage language)
 		{
-			return language.HasSign;
+			return language.Statements.TrueFormatStrings.HasSign;
+		}
+
+		protected override String GetDescriptionFalseText(ILanguage language)
+		{
+			return language.Statements.TrueFormatStrings.HasSign;
+		}
+
+		protected override String GetDescriptionQuestionText(ILanguage language)
+		{
+			return language.Statements.TrueFormatStrings.HasSign;
 		}
 
 		protected override IDictionary<String, IKnowledge> GetDescriptionParameters()

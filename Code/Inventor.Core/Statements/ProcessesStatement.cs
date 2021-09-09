@@ -53,9 +53,19 @@ namespace Inventor.Core.Statements
 
 		#region Description
 
-		protected override String GetDescriptionText(ILanguageStatementsPart language)
+		protected override String GetDescriptionTrueText(ILanguage language)
 		{
-			return language.Processes;
+			return language.Statements.TrueFormatStrings.Processes;
+		}
+
+		protected override String GetDescriptionFalseText(ILanguage language)
+		{
+			return language.Statements.TrueFormatStrings.Processes;
+		}
+
+		protected override String GetDescriptionQuestionText(ILanguage language)
+		{
+			return language.Statements.TrueFormatStrings.Processes;
 		}
 
 		protected override IDictionary<String, IKnowledge> GetDescriptionParameters()

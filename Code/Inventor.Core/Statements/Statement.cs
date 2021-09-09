@@ -52,7 +52,7 @@ namespace Inventor.Core.Statements
 
 		public IText DescribeTrue()
 		{
-			var formatter = new Func<ILanguage, String>(language => GetDescriptionText(language.Statements.TrueFormatStrings) + $" ({Strings.ParamStatement})");
+			var formatter = new Func<ILanguage, String>(language => GetDescriptionTrueText(language) + $" ({Strings.ParamStatement})");
 
 			var parameters = GetDescriptionParameters();
 			parameters[Strings.ParamStatement] = this;
@@ -62,15 +62,19 @@ namespace Inventor.Core.Statements
 
 		public IText DescribeFalse()
 		{
-			return new FormattedText(language => GetDescriptionText(language.Statements.FalseFormatStrings), GetDescriptionParameters());
+			return new FormattedText(language => GetDescriptionFalseText(language), GetDescriptionParameters());
 		}
 
 		public IText DescribeQuestion()
 		{
-			return new FormattedText(language => GetDescriptionText(language.Statements.QuestionFormatStrings), GetDescriptionParameters());
+			return new FormattedText(language => GetDescriptionQuestionText(language), GetDescriptionParameters());
 		}
 
-		protected abstract String GetDescriptionText(ILanguageStatementsPart language);
+		protected abstract String GetDescriptionTrueText(ILanguage language);
+
+		protected abstract String GetDescriptionFalseText(ILanguage language);
+
+		protected abstract String GetDescriptionQuestionText(ILanguage language);
 
 		protected abstract IDictionary<String, IKnowledge> GetDescriptionParameters();
 

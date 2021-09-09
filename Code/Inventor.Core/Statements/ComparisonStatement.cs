@@ -63,9 +63,19 @@ namespace Inventor.Core.Statements
 			};
 		}
 
-		protected override String GetDescriptionText(ILanguageStatementsPart language)
+		protected override String GetDescriptionTrueText(ILanguage language)
 		{
-			return language.Comparison;
+			return language.Statements.TrueFormatStrings.Comparison;
+		}
+
+		protected override String GetDescriptionFalseText(ILanguage language)
+		{
+			return language.Statements.TrueFormatStrings.Comparison;
+		}
+
+		protected override String GetDescriptionQuestionText(ILanguage language)
+		{
+			return language.Statements.TrueFormatStrings.Comparison;
 		}
 
 		#endregion

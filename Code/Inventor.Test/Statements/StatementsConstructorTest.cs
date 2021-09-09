@@ -417,7 +417,17 @@ namespace Inventor.Test.Statements
 				throw new NotImplementedException();
 			}
 
-			protected override string GetDescriptionText(ILanguageStatementsPart language)
+			protected override String GetDescriptionTrueText(ILanguage language)
+			{
+				throw new NotImplementedException();
+			}
+
+			protected override String GetDescriptionFalseText(ILanguage language)
+			{
+				throw new NotImplementedException();
+			}
+
+			protected override String GetDescriptionQuestionText(ILanguage language)
 			{
 				throw new NotImplementedException();
 			}
