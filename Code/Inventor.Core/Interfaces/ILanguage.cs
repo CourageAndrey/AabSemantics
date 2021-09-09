@@ -46,6 +46,9 @@ namespace Inventor.Core
 		ILanguageQuestionNames Names
 		{ get; }
 
+		ILanguageQuestionParameters Parameters
+		{ get; }
+
 		ILanguageAnswers Answers
 		{ get; }
 	}
@@ -150,7 +153,10 @@ namespace Inventor.Core
 
 		String GetDifferencesQuestion
 		{ get; }
+	}
 
+	public interface ILanguageQuestionParameters
+	{
 		String ParamParent
 		{ get; }
 

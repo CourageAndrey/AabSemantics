@@ -175,7 +175,7 @@ namespace Inventor.Client.Dialogs
 			panelQuestionParams.Children.Add(editButton = new Button
 			{
 				Margin = new Thickness(2),
-				Content = $"{_language.Questions.Names.ParamStatement}: ...",
+				Content = $"{_language.Questions.Parameters.ParamStatement}: ...",
 				DataContext = Question,
 			});
 			editButton.SetBinding(FrameworkElement.TagProperty, new Binding
@@ -227,7 +227,7 @@ namespace Inventor.Client.Dialogs
 			GroupBox groupBox;
 			panelQuestionParams.Children.Add(groupBox = new GroupBox
 			{
-				Header = _language.Questions.Names.ParamConditions + ":",
+				Header = _language.Questions.Parameters.ParamConditions + ":",
 				Margin = new Thickness(2),
 			});
 			groupBox.SetValue(Grid.RowProperty, gridRow);
@@ -339,7 +339,7 @@ namespace Inventor.Client.Dialogs
 			panelQuestionParams.Children.Add(editButton = new Button
 			{
 				Margin = new Thickness(2),
-				Content = $"{_language.Questions.Names.ParamQuestion}: ...",
+				Content = $"{_language.Questions.Parameters.ParamQuestion}: ...",
 				DataContext = Question,
 			});
 			editButton.SetBinding(FrameworkElement.TagProperty, new Binding
@@ -381,7 +381,7 @@ namespace Inventor.Client.Dialogs
 				{
 					editButton.Tag = question;
 					var questionDefinition = Repositories.Questions.Definitions[question.BuildQuestion().GetType()];
-					editButton.Content = $"{_language.Questions.Names.ParamQuestion}: {questionDefinition.GetName(_language)}";
+					editButton.Content = $"{_language.Questions.Parameters.ParamQuestion}: {questionDefinition.GetName(_language)}";
 				}
 			};
 		}
