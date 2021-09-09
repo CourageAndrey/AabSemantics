@@ -29,6 +29,9 @@ namespace Inventor.Client.Localization
 		public ILanguageErrors Errors
 		{ get { return _language?.Errors; } }
 
+		public Core.ILanguageAttributes Attributes
+		{ get { return _language?.Attributes; } }
+
 		public Core.ILanguageStatements Statements
 		{ get { return _language?.Statements; } }
 

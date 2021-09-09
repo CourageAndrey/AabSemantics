@@ -10,6 +10,9 @@ namespace Inventor.Core
 		String Culture
 		{ get; }
 
+		ILanguageAttributes Attributes
+		{ get; }
+
 		ILanguageStatements Statements
 		{ get; }
 
@@ -55,9 +58,6 @@ namespace Inventor.Core
 
 	public interface ILanguageConcepts
 	{
-		ILanguageAttributes Attributes
-		{ get; }
-
 		ILanguageSystemConcepts SystemConceptNames
 		{ get; }
 
