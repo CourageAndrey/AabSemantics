@@ -43,7 +43,7 @@ namespace Inventor.Core.Modules
 
 		protected override void RegisterQuestions()
 		{
-			Repositories.RegisterQuestion<ProcessesQuestion>();
+			Repositories.RegisterQuestion<ProcessesQuestion>(language => language.Questions.Names.ProcessesQuestion);
 		}
 
 		private static void checkProcessSequenceSystems(

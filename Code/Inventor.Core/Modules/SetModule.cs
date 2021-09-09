@@ -55,24 +55,24 @@ namespace Inventor.Core.Modules
 
 		protected override void RegisterQuestions()
 		{
-			Repositories.RegisterQuestion<DescribeSubjectAreaQuestion>();
-			Repositories.RegisterQuestion<FindSubjectAreaQuestion>();
-			Repositories.RegisterQuestion<IsSubjectAreaQuestion>();
+			Repositories.RegisterQuestion<DescribeSubjectAreaQuestion>(language => language.Questions.Names.DescribeSubjectAreaQuestion);
+			Repositories.RegisterQuestion<FindSubjectAreaQuestion>(language => language.Questions.Names.FindSubjectAreaQuestion);
+			Repositories.RegisterQuestion<IsSubjectAreaQuestion>(language => language.Questions.Names.IsSubjectAreaQuestion);
 
-			Repositories.RegisterQuestion<EnumerateContainersQuestion>();
-			Repositories.RegisterQuestion<EnumeratePartsQuestion>();
-			Repositories.RegisterQuestion<IsPartOfQuestion>();
+			Repositories.RegisterQuestion<EnumerateContainersQuestion>(language => language.Questions.Names.EnumerateContainersQuestion);
+			Repositories.RegisterQuestion<EnumeratePartsQuestion>(language => language.Questions.Names.EnumeratePartsQuestion);
+			Repositories.RegisterQuestion<IsPartOfQuestion>(language => language.Questions.Names.IsPartOfQuestion);
 
-			Repositories.RegisterQuestion<EnumerateSignsQuestion>();
-			Repositories.RegisterQuestion<HasSignQuestion>();
-			Repositories.RegisterQuestion<HasSignsQuestion>();
-			Repositories.RegisterQuestion<IsSignQuestion>();
-			Repositories.RegisterQuestion<IsValueQuestion>();
-			Repositories.RegisterQuestion<SignValueQuestion>();
+			Repositories.RegisterQuestion<EnumerateSignsQuestion>(language => language.Questions.Names.EnumerateSignsQuestion);
+			Repositories.RegisterQuestion<HasSignQuestion>(language => language.Questions.Names.HasSignQuestion);
+			Repositories.RegisterQuestion<HasSignsQuestion>(language => language.Questions.Names.HasSignsQuestion);
+			Repositories.RegisterQuestion<IsSignQuestion>(language => language.Questions.Names.IsSignQuestion);
+			Repositories.RegisterQuestion<IsValueQuestion>(language => language.Questions.Names.IsValueQuestion);
+			Repositories.RegisterQuestion<SignValueQuestion>(language => language.Questions.Names.SignValueQuestion);
 
-			Repositories.RegisterQuestion<GetCommonQuestion>();
-			Repositories.RegisterQuestion<GetDifferencesQuestion>();
-			Repositories.RegisterQuestion<WhatQuestion>();
+			Repositories.RegisterQuestion<GetCommonQuestion>(language => language.Questions.Names.GetCommonQuestion);
+			Repositories.RegisterQuestion<GetDifferencesQuestion>(language => language.Questions.Names.GetDifferencesQuestion);
+			Repositories.RegisterQuestion<WhatQuestion>(language => language.Questions.Names.WhatQuestion);
 		}
 
 		private static void checkSignDuplications(

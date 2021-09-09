@@ -42,7 +42,7 @@ namespace Inventor.Core.Modules
 
 		protected override void RegisterQuestions()
 		{
-			Repositories.RegisterQuestion<ComparisonQuestion>();
+			Repositories.RegisterQuestion<ComparisonQuestion>(language => language.Questions.Names.ComparisonQuestion);
 		}
 
 		private static void checkComparisonValueSystems(
