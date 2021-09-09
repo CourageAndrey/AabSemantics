@@ -10,6 +10,10 @@ namespace Inventor.Core.Localization
 		public LanguageQuestionNames NamesXml
 		{ get; set; }
 
+		[XmlElement(nameof(Parameters))]
+		public LanguageQuestionParameters ParametersXml
+		{ get; set; }
+
 		[XmlElement(nameof(Answers))]
 		public LanguageAnswers AnswersXml
 		{ get; set; }
@@ -23,6 +27,10 @@ namespace Inventor.Core.Localization
 		{ get { return NamesXml; } }
 
 		[XmlIgnore]
+		public ILanguageQuestionParameters Parameters
+		{ get { return ParametersXml; } }
+
+		[XmlIgnore]
 		public ILanguageAnswers Answers
 		{ get { return AnswersXml; } }
 
@@ -33,6 +41,7 @@ namespace Inventor.Core.Localization
 			return new LanguageQuestions
 			{
 				NamesXml = LanguageQuestionNames.CreateDefault(),
+				ParametersXml = LanguageQuestionParameters.CreateDefault(),
 				AnswersXml = LanguageAnswers.CreateDefault(),
 			};
 		}
