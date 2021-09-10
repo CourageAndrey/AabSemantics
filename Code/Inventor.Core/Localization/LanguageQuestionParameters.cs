@@ -40,10 +40,6 @@ namespace Inventor.Core.Localization
 		{ get; set; }
 
 		[XmlElement]
-		public String ParamQuestion
-		{ get; set; }
-
-		[XmlElement]
 		public String ParamLeftValue
 		{ get; set; }
 
@@ -81,7 +77,6 @@ namespace Inventor.Core.Localization
 				ParamArea = "SUBJECT_AREA",
 				ParamStatement = "Statement",
 				ParamConditions = "Preconditions",
-				ParamQuestion = "Question",
 				ParamLeftValue = "Left value",
 				ParamRightValue = "Right value",
 				ParamProcessA = "Process A",
