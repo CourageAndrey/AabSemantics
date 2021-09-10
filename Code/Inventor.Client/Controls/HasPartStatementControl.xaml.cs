@@ -21,9 +21,10 @@ namespace Inventor.Client.Controls
 			_comboBoxWhole.ItemsSource = wrappedConcepts;
 			_comboBoxPart.ItemsSource = wrappedConcepts;
 
-			_groupID.Header = language.Ui.Editing.PropertyID;
-			_groupWhole.Header = language.Ui.Editing.PropertyAncestor;
-			_groupPart.Header = language.Ui.Editing.PropertyDescendant;
+			var languageEditing = language.Ui.Editing;
+			_groupID.Header = languageEditing.PropertyID;
+			_groupWhole.Header = languageEditing.PropertyAncestor;
+			_groupPart.Header = languageEditing.PropertyDescendant;
 		}
 
 		public StatementViewModel Statement
