@@ -51,27 +51,44 @@ namespace Inventor.Client
 
 		public InventorApplication()
 		{
-			// exception handling
-			DispatcherUnhandledException += dispatcherUnhandledException;
-			AppDomain.CurrentDomain.UnhandledException += dispatcherAppDomainException;
+			initializeExceptionHandling();
 
-			// addition languages
+			Languages = initializeLanguages();
+
+			Configuration = initializeConfiguration();
+
+			selectLanguage();
+
+			MainWindow = MainForm = new MainWindow();
+
+			ShutdownMode = ShutdownMode.OnMainWindowClose;
+		}
+
+		#region Constructor routines
+
+		private ICollection<ILanguage> initializeLanguages()
+		{
 			var languages = Localization.WpfUiModule.LoadAdditional(StartupPath);
 			languages.Add(Language.Default);
-			Languages = languages.ToArray();
+			return languages.ToArray();
+		}
 
-			// configuration
+		private InventorConfiguration initializeConfiguration()
+		{
 			try
 			{
-				Configuration = ConfigurationFile.DeserializeFromFile<InventorConfiguration>();
+				return ConfigurationFile.DeserializeFromFile<InventorConfiguration>();
 			}
 			catch
 			{
-				Configuration = new InventorConfiguration();
+				var configuration = new InventorConfiguration();
 				SaveConfiguration();
+				return configuration;
 			}
+		}
 
-			// select language
+		private void selectLanguage()
+		{
 			if (!String.IsNullOrEmpty(Configuration.SelectedLanguage))
 			{
 				var storedLanguage = Languages.FirstOrDefault(l => l.Culture == Configuration.SelectedLanguage);
@@ -87,40 +104,18 @@ namespace Inventor.Client
 			else
 			{
 				CurrentLanguage = Languages.FindAppropriate(Language.Default);
-				Configuration.SelectedLanguage = CurrentLanguage.Culture;
 			}
-
-			// form
-			MainForm = new MainWindow();
-
-			MainWindow = MainForm;
-			ShutdownMode = ShutdownMode.OnMainWindowClose;
 		}
 
-		[STAThread]
-		private static void Main()
-		{
-			new BooleanModule().RegisterMetadata();
-			new ClassificationModule().RegisterMetadata();
-			new SetModule().RegisterMetadata();
-			new MathematicsModule().RegisterMetadata();
-			new ProcessesModule().RegisterMetadata();
-			new WpfUiModule().RegisterMetadata();
-			Language.PrepareModulesToSerialization<Language>();
-
-			var application = new InventorApplication();
-
-#if DEBUG
-			application.SemanticNetwork = new Test.Sample.TestSemanticNetwork(application.CurrentLanguage).SemanticNetwork;
-#else
-			application.SemanticNetwork = new Core.SemanticNetwork(application.CurrentLanguage);
-#endif
-			application.MainForm.Initialize(application);
-			application.MainWindow.Show();
-			application.Run();
-		}
+		#endregion
 
 		#region Exception handling
+
+		private void initializeExceptionHandling()
+		{
+			DispatcherUnhandledException += dispatcherUnhandledException;
+			AppDomain.CurrentDomain.UnhandledException += dispatcherAppDomainException;
+		}
 
 		private void dispatcherAppDomainException(object sender, UnhandledExceptionEventArgs e)
 		{
@@ -145,5 +140,43 @@ namespace Inventor.Client
 		{
 			Configuration.SerializeToFile(ConfigurationFile);
 		}
+
+		[STAThread]
+		private static void Main()
+		{
+			registerModules();
+
+			var application = new InventorApplication();
+			application.initializeSemanticNetwork();
+
+			application.MainForm.Initialize(application);
+			application.MainWindow.Show();
+			application.Run();
+		}
+
+		#region Main routines
+
+		private static void registerModules()
+		{
+			new BooleanModule().RegisterMetadata();
+			new ClassificationModule().RegisterMetadata();
+			new SetModule().RegisterMetadata();
+			new MathematicsModule().RegisterMetadata();
+			new ProcessesModule().RegisterMetadata();
+			new WpfUiModule().RegisterMetadata();
+
+			Language.PrepareModulesToSerialization<Language>();
+		}
+
+		private void initializeSemanticNetwork()
+		{
+#if DEBUG
+			SemanticNetwork = new Test.Sample.TestSemanticNetwork(CurrentLanguage).SemanticNetwork;
+#else
+			SemanticNetwork = new Core.SemanticNetwork(CurrentLanguage);
+#endif
+		}
+
+		#endregion
 	}
 }
