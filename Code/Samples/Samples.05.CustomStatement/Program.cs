@@ -3,6 +3,7 @@
 using Inventor.Core;
 using Inventor.Core.Concepts;
 using Inventor.Core.Localization;
+using Inventor.Core.Modules;
 using Inventor.Core.Questions;
 using Inventor.Core.Statements;
 
@@ -17,7 +18,8 @@ namespace Samples._05.CustomStatement
 			Console.WriteLine("This sample demonstrates work of custom user-defined Statement with corresponding Question.");
 			Console.WriteLine();
 
-			ISemanticNetwork semanticNetwork = new SemanticNetwork(Language.Default);
+			ISemanticNetwork semanticNetwork = new SemanticNetwork(Language.Default)
+				.WithModule<BooleanModule>();
 
 			Console.WriteLine();
 
