@@ -86,9 +86,8 @@
       <DependentUpon>ProcessesStatementControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="IEditCommand.cs" />
-    <Compile Include="ILanguage.cs" />
     <Compile Include="IQuestionViewModel.cs" />
-    <Compile Include="Localization\Language.cs" />
+    <Compile Include="IWpfUiModule.cs" />
     <Compile Include="Localization\LanguageCommon.cs" />
     <Compile Include="Localization\LanguageEditing.cs" />
     <Compile Include="Localization\LanguageErrors.cs" />
@@ -97,6 +96,7 @@
     <Compile Include="Localization\LanguageQuestionDialog.cs" />
     <Compile Include="Localization\LanguageUi.cs" />
     <Compile Include="Localization\Localizator.cs" />
+    <Compile Include="Localization\WpfUiModule.cs" />
     <Compile Include="ViewModels\ConceptAttribute.cs" />
     <Compile Include="ViewModels\ConceptDecorator.cs" />
     <Compile Include="ViewModels\ConceptItem.cs" />
@@ -173,6 +173,7 @@
     <Compile Include="ViewModels\LocalizedString.cs" />
     <Compile Include="ViewModels\Statements\ProcessesStatement.cs" />
     <Compile Include="ViewModels\Statements\SignValueStatement.cs" />
+    <Compile Include="WpfUiModule.cs" />
     <Page Include="Controls\ComparisonStatementControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

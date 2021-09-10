@@ -42,8 +42,8 @@ namespace Inventor.Client.Dialogs
 
 		public void Localize(ILanguage language)
 		{
-			_buttonOk.Content = language.Common.Ok;
-			_buttonCancel.Content = language.Common.Cancel;
+			_buttonOk.Content = language.GetExtension<IWpfUiModule>().Common.Ok;
+			_buttonCancel.Content = language.GetExtension<IWpfUiModule>().Common.Cancel;
 		}
 	}
 }

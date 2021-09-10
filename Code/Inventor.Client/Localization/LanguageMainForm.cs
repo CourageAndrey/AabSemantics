@@ -3,6 +3,58 @@ using System.Xml.Serialization;
 
 namespace Inventor.Client.Localization
 {
+	public interface ILanguageMainForm
+	{
+		String Title
+		{ get; }
+
+		String CreateNew
+		{ get; }
+
+		String Load
+		{ get; }
+
+		String Save
+		{ get; }
+
+		String SaveAs
+		{ get; }
+
+		String CreateTest
+		{ get; }
+
+		String DescribeKnowledge
+		{ get; }
+
+		String CheckKnowledge
+		{ get; }
+
+		String AskQuestion
+		{ get; }
+
+		String SelectLanguage
+		{ get; }
+
+		String ContextMenuRename
+		{ get; }
+
+		String ContextMenuKnowledgeAdd
+		{ get; }
+
+		String ContextMenuKnowledgeEdit
+		{ get; }
+
+		String ContextMenuKnowledgeDelete
+		{ get; }
+
+		String SavePromt
+		{ get; }
+
+		String SaveTitle
+		{ get; }
+	}
+
+	[XmlType]
 	public class LanguageMainForm : ILanguageMainForm
 	{
 		#region Properties

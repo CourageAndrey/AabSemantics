@@ -21,7 +21,7 @@ namespace Inventor.Client.Controls
 			_comboBoxAncestor.ItemsSource = wrappedConcepts;
 			_comboBoxDescendant.ItemsSource = wrappedConcepts;
 
-			var languageEditing = language.Ui.Editing;
+			var languageEditing = language.GetExtension<IWpfUiModule>().Ui.Editing;
 			_groupID.Header = languageEditing.PropertyID;
 			_groupAncestor.Header = languageEditing.PropertyAncestor;
 			_groupDescendant.Header = languageEditing.PropertyDescendant;

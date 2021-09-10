@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
@@ -30,9 +29,9 @@ namespace Inventor.Client.Dialogs
 				_radioGroup.Children.Add(radioButton);
 			}
 
-			Title = language.Ui.StatementTypeDialogHeader;
-			_buttonOk.Content = language.Common.Ok;
-			_buttonCancel.Content = language.Common.Cancel;
+			Title = language.GetExtension<IWpfUiModule>().Ui.StatementTypeDialogHeader;
+			_buttonOk.Content = language.GetExtension<IWpfUiModule>().Common.Ok;
+			_buttonCancel.Content = language.GetExtension<IWpfUiModule>().Common.Cancel;
 		}
 
 		public Type SelectedType

@@ -4,6 +4,7 @@ using System.Windows.Data;
 
 using Microsoft.Win32;
 
+using Inventor.Core;
 using Inventor.Core.Utils;
 
 namespace Inventor.Client.Dialogs
@@ -75,7 +76,8 @@ namespace Inventor.Client.Dialogs
 			var localizationProvider = (ObjectDataProvider) Resources["language"];
 			localizationProvider.ConstructorParameters.Add(_language);
 
-			var languageErrors = _language.Errors;
+			var uiModule = _language.GetExtension<IWpfUiModule>();
+			var languageErrors = uiModule.Errors;
 			switch (_mode)
 			{
 				case ExceptionDialogMode.ViewOnly:
@@ -94,7 +96,7 @@ namespace Inventor.Client.Dialogs
 					throw new NotSupportedException();
 			}
 
-			saveDialog.Title = _language.Common.SaveFile;
+			saveDialog.Title = uiModule.Common.SaveFile;
 			saveDialog.Filter = languageErrors.SaveFilter;
 		}
 

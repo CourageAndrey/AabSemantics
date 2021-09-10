@@ -14,10 +14,10 @@ namespace Inventor.Client.TreeNodes
 		#region Properties
 
 		public override string Text
-		{ get { return _application.CurrentLanguage.Misc.NameCategoryConcepts; } }
+		{ get { return _application.CurrentLanguage.GetExtension<IWpfUiModule>().Misc.NameCategoryConcepts; } }
 
 		public override string Tooltip
-		{ get { return _application.CurrentLanguage.Misc.NameCategoryConcepts; } }
+		{ get { return _application.CurrentLanguage.GetExtension<IWpfUiModule>().Misc.NameCategoryConcepts; } }
 
 		public override ImageSource Icon
 		{ get { return _icon ?? (_icon = Resources.Folder.ToSource()); } }

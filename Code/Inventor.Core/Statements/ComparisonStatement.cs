@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using Inventor.Core.Attributes;
 using Inventor.Core.Concepts;
 using Inventor.Core.Localization;
+using Inventor.Core.Localization.Modules;
 using Inventor.Core.Questions;
 
 namespace Inventor.Core.Statements
@@ -24,7 +25,10 @@ namespace Inventor.Core.Statements
 		#endregion
 
 		public ComparisonStatement(String id, IConcept leftValue, IConcept rightValue, IConcept comparisonSign)
-			: base(id, new Func<ILanguage, String>(language => language.Statements.Names.Comparison), new Func<ILanguage, String>(language => language.Statements.Hints.Comparison))
+			: base(
+				id,
+				new Func<ILanguage, String>(language => language.GetExtension<ILanguageMathematicsModule>().Statements.Names.Comparison),
+				new Func<ILanguage, String>(language => language.GetExtension<ILanguageMathematicsModule>().Statements.Hints.Comparison))
 		{
 			Update(id, leftValue, rightValue, comparisonSign);
 		}
@@ -65,17 +69,17 @@ namespace Inventor.Core.Statements
 
 		protected override String GetDescriptionTrueText(ILanguage language)
 		{
-			return language.Statements.TrueFormatStrings.Comparison;
+			return language.GetExtension<ILanguageMathematicsModule>().Statements.TrueFormatStrings.Comparison;
 		}
 
 		protected override String GetDescriptionFalseText(ILanguage language)
 		{
-			return language.Statements.TrueFormatStrings.Comparison;
+			return language.GetExtension<ILanguageMathematicsModule>().Statements.TrueFormatStrings.Comparison;
 		}
 
 		protected override String GetDescriptionQuestionText(ILanguage language)
 		{
-			return language.Statements.TrueFormatStrings.Comparison;
+			return language.GetExtension<ILanguageMathematicsModule>().Statements.TrueFormatStrings.Comparison;
 		}
 
 		#endregion

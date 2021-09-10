@@ -3,6 +3,25 @@ using System.Xml.Serialization;
 
 namespace Inventor.Core.Localization
 {
+	public interface ILanguageQuestionParameters
+	{
+		String ParamParent
+		{ get; }
+
+		String ParamChild
+		{ get; }
+
+		String ParamConcept
+		{ get; }
+
+		String ParamRecursive
+		{ get; }
+
+		String ParamConditions
+		{ get; }
+	}
+
+	[XmlType("CommonQuestionParameters")]
 	public class LanguageQuestionParameters : ILanguageQuestionParameters
 	{
 		#region Properties
@@ -20,15 +39,7 @@ namespace Inventor.Core.Localization
 		{ get; set; }
 
 		[XmlElement]
-		public String ParamSign
-		{ get; set; }
-
-		[XmlElement]
 		public String ParamRecursive
-		{ get; set; }
-
-		[XmlElement]
-		public String ParamArea
 		{ get; set; }
 
 		[XmlElement]
@@ -37,30 +48,6 @@ namespace Inventor.Core.Localization
 
 		[XmlElement]
 		public String ParamConditions
-		{ get; set; }
-
-		[XmlElement]
-		public String ParamLeftValue
-		{ get; set; }
-
-		[XmlElement]
-		public String ParamRightValue
-		{ get; set; }
-
-		[XmlElement]
-		public String ParamProcessA
-		{ get; set; }
-
-		[XmlElement]
-		public String ParamProcessB
-		{ get; set; }
-
-		[XmlElement]
-		public String ParamConcept1
-		{ get; set; }
-
-		[XmlElement]
-		public String ParamConcept2
 		{ get; set; }
 
 		#endregion
@@ -72,17 +59,9 @@ namespace Inventor.Core.Localization
 				ParamParent = "PARENT",
 				ParamChild = "CHILD",
 				ParamConcept = "CONCEPT",
-				ParamSign = "SIGN",
 				ParamRecursive = "Check \"parents\" recursively",
-				ParamArea = "SUBJECT_AREA",
 				ParamStatement = "Statement",
 				ParamConditions = "Preconditions",
-				ParamLeftValue = "Left value",
-				ParamRightValue = "Right value",
-				ParamProcessA = "Process A",
-				ParamProcessB = "Process B",
-				ParamConcept1 = "Concept 1",
-				ParamConcept2 = "Concept 2",
 			};
 		}
 	}

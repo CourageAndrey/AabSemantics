@@ -11,6 +11,16 @@ namespace Inventor.Test
 	[TestFixture]
 	public class SemanticNetworkTest
 	{
+		[TestFixtureSetUp]
+		public void InitializeModules()
+		{
+			new Core.Modules.BooleanModule().RegisterMetadata();
+			new Core.Modules.ClassificationModule().RegisterMetadata();
+			new Core.Modules.MathematicsModule().RegisterMetadata();
+			new Core.Modules.ProcessesModule().RegisterMetadata();
+			new Core.Modules.SetModule().RegisterMetadata();
+		}
+
 		[Test]
 		public void GivenConsistentSemanticNetworkWhenCheckConsistensyThenReturnEmptyText()
 		{

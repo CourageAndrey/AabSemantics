@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 
 using Inventor.Core.Localization;
+using Inventor.Core.Localization.Modules;
 using Inventor.Core.Statements;
 
 namespace Inventor.Core.Questions
@@ -37,8 +38,8 @@ namespace Inventor.Core.Questions
 				.Where(s => s.Whole == Parent && s.Part == Child)
 				.SelectBoolean(
 					statements => statements.Any(),
-					language => language.Questions.Answers.IsPartOfTrue,
-					language => language.Questions.Answers.IsPartOfFalse,
+					language => language.GetExtension<ILanguageSetModule>().Questions.Answers.IsPartOfTrue,
+					language => language.GetExtension<ILanguageSetModule>().Questions.Answers.IsPartOfFalse,
 					new Dictionary<String, IKnowledge>
 					{
 						{ Strings.ParamParent, Parent },

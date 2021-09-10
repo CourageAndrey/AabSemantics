@@ -2,6 +2,7 @@
 
 using Inventor.Client.TreeNodes;
 using Inventor.Client.ViewModels.Statements;
+using Inventor.Core;
 
 namespace Inventor.Client.ViewModels
 {

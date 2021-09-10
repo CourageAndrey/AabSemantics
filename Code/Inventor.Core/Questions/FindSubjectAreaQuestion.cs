@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 
 using Inventor.Core.Localization;
+using Inventor.Core.Localization.Modules;
 using Inventor.Core.Statements;
 
 namespace Inventor.Core.Questions
@@ -32,7 +33,7 @@ namespace Inventor.Core.Questions
 					statement => statement.Area,
 					question => question.Concept,
 					Strings.ParamConcept,
-					language => language.Questions.Answers.SubjectArea);
+					language => language.GetExtension<ILanguageSetModule>().Questions.Answers.SubjectArea);
 		}
 	}
 }

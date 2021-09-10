@@ -13,6 +13,7 @@ using Inventor.Client.Converters;
 using Inventor.Client.ViewModels;
 using Inventor.Client.ViewModels.Questions;
 using Inventor.Core;
+using Inventor.Core.Localization.Modules;
 using Inventor.Core.Metadata;
 
 namespace Inventor.Client.Dialogs
@@ -38,7 +39,7 @@ namespace Inventor.Client.Dialogs
 			localizationProvider.ConstructorParameters.Add(_language);
 			((NamedConverter) Resources["namedConverter"]).Language = _language;
 
-			Title = _language.Ui.QuestionDialog.Title;
+			Title = _language.GetExtension<IWpfUiModule>().Ui.QuestionDialog.Title;
 
 			panelSelectQuestion.DataContext = Question = null;
 			panelSelectQuestion.Visibility = Visibility.Visible;
@@ -174,7 +175,7 @@ namespace Inventor.Client.Dialogs
 			panelQuestionParams.Children.Add(editButton = new Button
 			{
 				Margin = new Thickness(2),
-				Content = $"{_language.Questions.Parameters.ParamStatement}: ...",
+				Content = $"{_language.GetExtension<ILanguageBooleanModule>().Questions.Parameters.ParamStatement}: ...",
 				DataContext = Question,
 			});
 			editButton.SetBinding(FrameworkElement.TagProperty, new Binding
@@ -188,7 +189,7 @@ namespace Inventor.Client.Dialogs
 			editButton.Click += (sender, args) =>
 			{
 				var viewModel = editButton.Tag as StatementViewModel;
-				if (viewModel == null || MessageBox.Show(_language.Ui.CreateNewStatement, _language.Common.Question, MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
+				if (viewModel == null || MessageBox.Show(_language.GetExtension<IWpfUiModule>().Ui.CreateNewStatement, _language.GetExtension<IWpfUiModule>().Common.Question, MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
 				{
 					Type statementType = null;
 					var statementTypesDialog = new SelectStatementTypeDialog
@@ -380,7 +381,7 @@ namespace Inventor.Client.Dialogs
 			public Object Convert(Object value, Type targetType, Object parameter, CultureInfo culture)
 			{
 				return string.Format(CultureInfo.InvariantCulture, "{0}{1} :", (string) value, _required
-					? string.Format(CultureInfo.InvariantCulture, " ({0})", _language.Misc.Required)
+					? string.Format(CultureInfo.InvariantCulture, " ({0})", _language.GetExtension<IWpfUiModule>().Misc.Required)
 					: string.Empty);
 			}
 

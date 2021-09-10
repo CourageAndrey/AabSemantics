@@ -1,7 +1,17 @@
 ﻿using System.Xml.Serialization;
 
-namespace Inventor.Core.Localization
+namespace Inventor.Core.Localization.Modules.Mathematics
 {
+	public interface ILanguageConcepts
+	{
+		ILanguageSystemConcepts SystemConceptNames
+		{ get; }
+
+		ILanguageSystemConcepts SystemConceptHints
+		{ get; }
+	}
+
+	[XmlType("MathematicsConcepts")]
 	public class LanguageConcepts : ILanguageConcepts
 	{
 		#region Xml Properties

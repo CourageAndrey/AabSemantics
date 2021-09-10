@@ -24,7 +24,7 @@ namespace Inventor.Client.Controls
 			_comboBoxProcessB.ItemsSource = wrappedConcepts;
 			_comboBoxSequenceSign.ItemsSource = semanticNetwork.Concepts.Where(c => c.HasAttribute<IsSequenceSignAttribute>()).Select(c => new ConceptItem(c, language)).ToList();
 
-			var languageEditing = language.Ui.Editing;
+			var languageEditing = language.GetExtension<IWpfUiModule>().Ui.Editing;
 			_groupID.Header = languageEditing.PropertyID;
 			_groupProcessA.Header = languageEditing.PropertyProcessA;
 			_groupProcessB.Header = languageEditing.PropertyProcessB;

@@ -3,7 +3,38 @@ using System.Xml.Serialization;
 
 namespace Inventor.Client.Localization
 {
-	[Serializable]
+	public interface ILanguageCommon
+	{
+		#region Buttons
+
+		String Close
+		{ get; }
+
+		String Ok
+		{ get; }
+
+		String Cancel
+		{ get; }
+
+		String Abort
+		{ get; }
+
+		String Ignore
+		{ get; }
+
+		String Save
+		{ get; }
+
+		String SaveFile
+		{ get; }
+
+		#endregion
+
+		String Question
+		{ get; }
+	}
+
+	[XmlType]
 	public class LanguageCommon : ILanguageCommon
 	{
 		#region Properties

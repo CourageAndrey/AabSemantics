@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using Inventor.Core.Attributes;
 using Inventor.Core.Concepts;
 using Inventor.Core.Localization;
+using Inventor.Core.Localization.Modules;
 using Inventor.Core.Metadata;
 using Inventor.Core.Statements;
 using Inventor.Core.Questions;
@@ -26,16 +27,21 @@ namespace Inventor.Core.Modules
 			}
 		}
 
+		protected override void RegisterLanguage()
+		{
+			Language.Default.Extensions.Add(LanguageProcessesModule.CreateDefault());
+		}
+
 		protected override void RegisterAttributes()
 		{
-			Repositories.RegisterAttribute(IsProcessAttribute.Value, language => language.Attributes.IsProcess, new Xml.IsProcessAttribute());
-			Repositories.RegisterAttribute(IsSequenceSignAttribute.Value, language => language.Attributes.IsSequenceSign, new Xml.IsSequenceSignAttribute());
+			Repositories.RegisterAttribute(IsProcessAttribute.Value, language => language.GetExtension<ILanguageProcessesModule>().Attributes.IsProcess, new Xml.IsProcessAttribute());
+			Repositories.RegisterAttribute(IsSequenceSignAttribute.Value, language => language.GetExtension<ILanguageProcessesModule>().Attributes.IsSequenceSign, new Xml.IsSequenceSignAttribute());
 		}
 
 		protected override void RegisterStatements()
 		{
 			Repositories.RegisterStatement<ProcessesStatement>(
-				language => language.Statements.Names.Processes,
+				language => language.GetExtension<ILanguageProcessesModule>().Statements.Names.Processes,
 				statement => new Xml.ProcessesStatement(statement),
 				typeof(Xml.ProcessesStatement),
 				checkProcessSequenceSystems);
@@ -43,7 +49,15 @@ namespace Inventor.Core.Modules
 
 		protected override void RegisterQuestions()
 		{
-			Repositories.RegisterQuestion<ProcessesQuestion>(language => language.Questions.Names.ProcessesQuestion);
+			Repositories.RegisterQuestion<ProcessesQuestion>(language => language.GetExtension<ILanguageProcessesModule>().Questions.Names.ProcessesQuestion);
+		}
+
+		public override IDictionary<String, Type> GetLanguageExtensions()
+		{
+			return new Dictionary<String, Type>
+			{
+				{ nameof(ProcessesModule), typeof(LanguageProcessesModule) }
+			};
 		}
 
 		private static void checkProcessSequenceSystems(
@@ -55,7 +69,7 @@ namespace Inventor.Core.Modules
 			{
 				result
 					.Append(
-						language => language.Statements.Consistency.ErrorProcessesContradiction,
+						language => language.GetExtension<ILanguageProcessesModule>().Statements.Consistency.ErrorProcessesContradiction,
 						new Dictionary<String, IKnowledge>
 						{
 							{ Strings.ParamProcessA, contradiction.Value1 },

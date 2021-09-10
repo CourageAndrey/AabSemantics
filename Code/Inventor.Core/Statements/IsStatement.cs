@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 
 using Inventor.Core.Localization;
+using Inventor.Core.Localization.Modules;
 
 namespace Inventor.Core.Statements
 {
@@ -25,7 +26,10 @@ namespace Inventor.Core.Statements
 		#endregion
 
 		public IsStatement(String id, IConcept ancestor, IConcept descendant)
-			: base(id, new Func<ILanguage, String>(language => language.Statements.Names.Clasification), new Func<ILanguage, String>(language => language.Statements.Hints.Clasification))
+			: base(
+				id,
+				new Func<ILanguage, String>(language => language.GetExtension<ILanguageClassificationModule>().Statements.Names.Clasification),
+				new Func<ILanguage, String>(language => language.GetExtension<ILanguageClassificationModule>().Statements.Hints.Clasification))
 		{
 			Update(id, ancestor, descendant);
 		}
@@ -50,17 +54,17 @@ namespace Inventor.Core.Statements
 
 		protected override String GetDescriptionTrueText(ILanguage language)
 		{
-			return language.Statements.TrueFormatStrings.Clasification;
+			return language.GetExtension<ILanguageClassificationModule>().Statements.TrueFormatStrings.Clasification;
 		}
 
 		protected override String GetDescriptionFalseText(ILanguage language)
 		{
-			return language.Statements.TrueFormatStrings.Clasification;
+			return language.GetExtension<ILanguageClassificationModule>().Statements.TrueFormatStrings.Clasification;
 		}
 
 		protected override String GetDescriptionQuestionText(ILanguage language)
 		{
-			return language.Statements.TrueFormatStrings.Clasification;
+			return language.GetExtension<ILanguageClassificationModule>().Statements.TrueFormatStrings.Clasification;
 		}
 
 		protected override IDictionary<String, IKnowledge> GetDescriptionParameters()

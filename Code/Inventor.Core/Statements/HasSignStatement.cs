@@ -4,6 +4,7 @@ using System.Linq;
 
 using Inventor.Core.Attributes;
 using Inventor.Core.Localization;
+using Inventor.Core.Localization.Modules;
 
 namespace Inventor.Core.Statements
 {
@@ -20,7 +21,10 @@ namespace Inventor.Core.Statements
 		#endregion
 
 		public HasSignStatement(String id, IConcept concept, IConcept sign)
-			: base(id, new Func<ILanguage, String>(language => language.Statements.Names.HasSign), new Func<ILanguage, String>(language => language.Statements.Hints.HasSign))
+			: base(
+				id,
+				new Func<ILanguage, String>(language => language.GetExtension<ILanguageSetModule>().Statements.Names.HasSign),
+				new Func<ILanguage, String>(language => language.GetExtension<ILanguageSetModule>().Statements.Hints.HasSign))
 		{
 			Update(id, concept, sign);
 		}
@@ -46,17 +50,17 @@ namespace Inventor.Core.Statements
 
 		protected override String GetDescriptionTrueText(ILanguage language)
 		{
-			return language.Statements.TrueFormatStrings.HasSign;
+			return language.GetExtension<ILanguageSetModule>().Statements.TrueFormatStrings.HasSign;
 		}
 
 		protected override String GetDescriptionFalseText(ILanguage language)
 		{
-			return language.Statements.TrueFormatStrings.HasSign;
+			return language.GetExtension<ILanguageSetModule>().Statements.TrueFormatStrings.HasSign;
 		}
 
 		protected override String GetDescriptionQuestionText(ILanguage language)
 		{
-			return language.Statements.TrueFormatStrings.HasSign;
+			return language.GetExtension<ILanguageSetModule>().Statements.TrueFormatStrings.HasSign;
 		}
 
 		protected override IDictionary<String, IKnowledge> GetDescriptionParameters()

@@ -81,7 +81,7 @@ namespace Inventor.Client
 					knowledgeObjectPicked)
 				{
 					Owner = this,
-					Title = _application.CurrentLanguage.Misc.Answer,
+					Title = _application.CurrentLanguage.GetExtension<IWpfUiModule>().Misc.Answer,
 				}.Show();
 			}
 		}
@@ -94,7 +94,7 @@ namespace Inventor.Client
 				knowledgeObjectPicked)
 			{
 				Owner = this,
-				Title = _application.CurrentLanguage.Misc.Rules,
+				Title = _application.CurrentLanguage.GetExtension<IWpfUiModule>().Misc.Rules,
 			}.Show();
 		}
 
@@ -267,9 +267,9 @@ namespace Inventor.Client
 			return new OpenFileDialog
 			{
 				DefaultExt = ".xml",
-				Filter = language.Misc.DialogKbFileFilter,
+				Filter = language.GetExtension<IWpfUiModule>().Misc.DialogKbFileFilter,
 				RestoreDirectory = true,
-				Title = language.Misc.DialogKbOpenTitle,
+				Title = language.GetExtension<IWpfUiModule>().Misc.DialogKbOpenTitle,
 			};
 		}
 
@@ -279,9 +279,9 @@ namespace Inventor.Client
 			return new SaveFileDialog
 			{
 				DefaultExt = ".xml",
-				Filter = language.Misc.DialogKbFileFilter,
+				Filter = language.GetExtension<IWpfUiModule>().Misc.DialogKbFileFilter,
 				RestoreDirectory = true,
-				Title = language.Misc.DialogKbSaveTitle,
+				Title = language.GetExtension<IWpfUiModule>().Misc.DialogKbSaveTitle,
 			};
 		}
 
@@ -294,7 +294,7 @@ namespace Inventor.Client
 			_buttonRedo.IsEnabled = _editHistory.Count > 0 && _currentEditPointer < _editHistory.Count - 1;
 
 			string changesSign = isChanged() ? "*" : string.Empty;
-			Title = $"{_fileName}{changesSign} - {_application.CurrentLanguage.Ui.MainForm.Title}";
+			Title = $"{_fileName}{changesSign} - {_application.CurrentLanguage.GetExtension<IWpfUiModule>().Ui.MainForm.Title}";
 		}
 
 		private void buttonNew_Click(object sender, RoutedEventArgs e)
@@ -349,7 +349,7 @@ namespace Inventor.Client
 		{
 			if (!isChanged()) return true;
 
-			var language = _application.CurrentLanguage.Ui.MainForm;
+			var language = _application.CurrentLanguage.GetExtension<IWpfUiModule>().Ui.MainForm;
 			var promptResult = MessageBox.Show(
 				language.SavePromt,
 				language.SaveTitle,

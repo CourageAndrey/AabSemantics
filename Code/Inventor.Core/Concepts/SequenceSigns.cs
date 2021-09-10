@@ -4,6 +4,7 @@ using System.Linq;
 
 using Inventor.Core.Attributes;
 using Inventor.Core.Localization;
+using Inventor.Core.Localization.Modules;
 
 namespace Inventor.Core.Concepts
 {
@@ -12,49 +13,49 @@ namespace Inventor.Core.Concepts
 		#region Properties
 
 		public static readonly IConcept StartsAfterOtherStarted = new SystemConcept($"{{{nameof(SequenceSigns)}.{nameof(StartsAfterOtherStarted)}}}",
-			new LocalizedStringConstant(lang => lang.Concepts.SystemConceptNames.StartsAfterOtherStarted), new LocalizedStringConstant(lang => lang.Concepts.SystemConceptHints.StartsAfterOtherStarted));
+			new LocalizedStringConstant(lang => lang.GetExtension<ILanguageProcessesModule>().Concepts.SystemConceptNames.StartsAfterOtherStarted), new LocalizedStringConstant(lang => lang.GetExtension<ILanguageProcessesModule>().Concepts.SystemConceptHints.StartsAfterOtherStarted));
 
 		public static readonly IConcept StartsWhenOtherStarted = new SystemConcept($"{{{nameof(SequenceSigns)}.{nameof(StartsWhenOtherStarted)}}}",
-			new LocalizedStringConstant(lang => lang.Concepts.SystemConceptNames.StartsWhenOtherStarted), new LocalizedStringConstant(lang => lang.Concepts.SystemConceptHints.StartsWhenOtherStarted));
+			new LocalizedStringConstant(lang => lang.GetExtension<ILanguageProcessesModule>().Concepts.SystemConceptNames.StartsWhenOtherStarted), new LocalizedStringConstant(lang => lang.GetExtension<ILanguageProcessesModule>().Concepts.SystemConceptHints.StartsWhenOtherStarted));
 
 		public static readonly IConcept StartsBeforeOtherStarted = new SystemConcept($"{{{nameof(SequenceSigns)}.{nameof(StartsBeforeOtherStarted)}}}",
-			new LocalizedStringConstant(lang => lang.Concepts.SystemConceptNames.StartsBeforeOtherStarted), new LocalizedStringConstant(lang => lang.Concepts.SystemConceptHints.StartsBeforeOtherStarted));
+			new LocalizedStringConstant(lang => lang.GetExtension<ILanguageProcessesModule>().Concepts.SystemConceptNames.StartsBeforeOtherStarted), new LocalizedStringConstant(lang => lang.GetExtension<ILanguageProcessesModule>().Concepts.SystemConceptHints.StartsBeforeOtherStarted));
 
 		public static readonly IConcept FinishesAfterOtherStarted = new SystemConcept($"{{{nameof(SequenceSigns)}.{nameof(FinishesAfterOtherStarted)}}}",
-			new LocalizedStringConstant(lang => lang.Concepts.SystemConceptNames.FinishesAfterOtherStarted), new LocalizedStringConstant(lang => lang.Concepts.SystemConceptHints.FinishesAfterOtherStarted));
+			new LocalizedStringConstant(lang => lang.GetExtension<ILanguageProcessesModule>().Concepts.SystemConceptNames.FinishesAfterOtherStarted), new LocalizedStringConstant(lang => lang.GetExtension<ILanguageProcessesModule>().Concepts.SystemConceptHints.FinishesAfterOtherStarted));
 
 		public static readonly IConcept FinishesWhenOtherStarted = new SystemConcept($"{{{nameof(SequenceSigns)}.{nameof(FinishesWhenOtherStarted)}}}",
-			new LocalizedStringConstant(lang => lang.Concepts.SystemConceptNames.FinishesWhenOtherStarted), new LocalizedStringConstant(lang => lang.Concepts.SystemConceptHints.FinishesWhenOtherStarted));
+			new LocalizedStringConstant(lang => lang.GetExtension<ILanguageProcessesModule>().Concepts.SystemConceptNames.FinishesWhenOtherStarted), new LocalizedStringConstant(lang => lang.GetExtension<ILanguageProcessesModule>().Concepts.SystemConceptHints.FinishesWhenOtherStarted));
 
 		public static readonly IConcept FinishesBeforeOtherStarted = new SystemConcept($"{{{nameof(SequenceSigns)}.{nameof(FinishesBeforeOtherStarted)}}}",
-			new LocalizedStringConstant(lang => lang.Concepts.SystemConceptNames.FinishesBeforeOtherStarted), new LocalizedStringConstant(lang => lang.Concepts.SystemConceptHints.FinishesBeforeOtherStarted));
+			new LocalizedStringConstant(lang => lang.GetExtension<ILanguageProcessesModule>().Concepts.SystemConceptNames.FinishesBeforeOtherStarted), new LocalizedStringConstant(lang => lang.GetExtension<ILanguageProcessesModule>().Concepts.SystemConceptHints.FinishesBeforeOtherStarted));
 
 		public static readonly IConcept StartsAfterOtherFinished = new SystemConcept($"{{{nameof(SequenceSigns)}.{nameof(StartsAfterOtherFinished)}}}",
-			new LocalizedStringConstant(lang => lang.Concepts.SystemConceptNames.StartsAfterOtherFinished), new LocalizedStringConstant(lang => lang.Concepts.SystemConceptHints.StartsAfterOtherFinished));
+			new LocalizedStringConstant(lang => lang.GetExtension<ILanguageProcessesModule>().Concepts.SystemConceptNames.StartsAfterOtherFinished), new LocalizedStringConstant(lang => lang.GetExtension<ILanguageProcessesModule>().Concepts.SystemConceptHints.StartsAfterOtherFinished));
 
 		public static readonly IConcept StartsWhenOtherFinished = new SystemConcept($"{{{nameof(SequenceSigns)}.{nameof(StartsWhenOtherFinished)}}}",
-			new LocalizedStringConstant(lang => lang.Concepts.SystemConceptNames.StartsWhenOtherFinished), new LocalizedStringConstant(lang => lang.Concepts.SystemConceptHints.StartsWhenOtherFinished));
+			new LocalizedStringConstant(lang => lang.GetExtension<ILanguageProcessesModule>().Concepts.SystemConceptNames.StartsWhenOtherFinished), new LocalizedStringConstant(lang => lang.GetExtension<ILanguageProcessesModule>().Concepts.SystemConceptHints.StartsWhenOtherFinished));
 
 		public static readonly IConcept StartsBeforeOtherFinished = new SystemConcept($"{{{nameof(SequenceSigns)}.{nameof(StartsBeforeOtherFinished)}}}",
-			new LocalizedStringConstant(lang => lang.Concepts.SystemConceptNames.StartsBeforeOtherFinished), new LocalizedStringConstant(lang => lang.Concepts.SystemConceptHints.StartsBeforeOtherFinished));
+			new LocalizedStringConstant(lang => lang.GetExtension<ILanguageProcessesModule>().Concepts.SystemConceptNames.StartsBeforeOtherFinished), new LocalizedStringConstant(lang => lang.GetExtension<ILanguageProcessesModule>().Concepts.SystemConceptHints.StartsBeforeOtherFinished));
 
 		public static readonly IConcept FinishesAfterOtherFinished = new SystemConcept($"{{{nameof(SequenceSigns)}.{nameof(FinishesAfterOtherFinished)}}}",
-			new LocalizedStringConstant(lang => lang.Concepts.SystemConceptNames.FinishesAfterOtherFinished), new LocalizedStringConstant(lang => lang.Concepts.SystemConceptHints.FinishesAfterOtherFinished));
+			new LocalizedStringConstant(lang => lang.GetExtension<ILanguageProcessesModule>().Concepts.SystemConceptNames.FinishesAfterOtherFinished), new LocalizedStringConstant(lang => lang.GetExtension<ILanguageProcessesModule>().Concepts.SystemConceptHints.FinishesAfterOtherFinished));
 
 		public static readonly IConcept FinishesWhenOtherFinished = new SystemConcept($"{{{nameof(SequenceSigns)}.{nameof(FinishesWhenOtherFinished)}}}",
-			new LocalizedStringConstant(lang => lang.Concepts.SystemConceptNames.FinishesWhenOtherFinished), new LocalizedStringConstant(lang => lang.Concepts.SystemConceptHints.FinishesWhenOtherFinished));
+			new LocalizedStringConstant(lang => lang.GetExtension<ILanguageProcessesModule>().Concepts.SystemConceptNames.FinishesWhenOtherFinished), new LocalizedStringConstant(lang => lang.GetExtension<ILanguageProcessesModule>().Concepts.SystemConceptHints.FinishesWhenOtherFinished));
 
 		public static readonly IConcept FinishesBeforeOtherFinished = new SystemConcept($"{{{nameof(SequenceSigns)}.{nameof(FinishesBeforeOtherFinished)}}}",
-			new LocalizedStringConstant(lang => lang.Concepts.SystemConceptNames.FinishesBeforeOtherFinished), new LocalizedStringConstant(lang => lang.Concepts.SystemConceptHints.FinishesBeforeOtherFinished));
+			new LocalizedStringConstant(lang => lang.GetExtension<ILanguageProcessesModule>().Concepts.SystemConceptNames.FinishesBeforeOtherFinished), new LocalizedStringConstant(lang => lang.GetExtension<ILanguageProcessesModule>().Concepts.SystemConceptHints.FinishesBeforeOtherFinished));
 
 		public static readonly IConcept Causes = new SystemConcept($"{{{nameof(SequenceSigns)}.{nameof(Causes)}}}",
-			new LocalizedStringConstant(lang => lang.Concepts.SystemConceptNames.Causes), new LocalizedStringConstant(lang => lang.Concepts.SystemConceptHints.Causes));
+			new LocalizedStringConstant(lang => lang.GetExtension<ILanguageProcessesModule>().Concepts.SystemConceptNames.Causes), new LocalizedStringConstant(lang => lang.GetExtension<ILanguageProcessesModule>().Concepts.SystemConceptHints.Causes));
 
 		public static readonly IConcept IsCausedBy = new SystemConcept($"{{{nameof(SequenceSigns)}.{nameof(IsCausedBy)}}}",
-			new LocalizedStringConstant(lang => lang.Concepts.SystemConceptNames.IsCausedBy), new LocalizedStringConstant(lang => lang.Concepts.SystemConceptHints.IsCausedBy));
+			new LocalizedStringConstant(lang => lang.GetExtension<ILanguageProcessesModule>().Concepts.SystemConceptNames.IsCausedBy), new LocalizedStringConstant(lang => lang.GetExtension<ILanguageProcessesModule>().Concepts.SystemConceptHints.IsCausedBy));
 
 		public static readonly IConcept SimultaneousWith = new SystemConcept($"{{{nameof(SequenceSigns)}.{nameof(SimultaneousWith)}}}",
-			new LocalizedStringConstant(lang => lang.Concepts.SystemConceptNames.SimultaneousWith), new LocalizedStringConstant(lang => lang.Concepts.SystemConceptHints.SimultaneousWith));
+			new LocalizedStringConstant(lang => lang.GetExtension<ILanguageProcessesModule>().Concepts.SystemConceptNames.SimultaneousWith), new LocalizedStringConstant(lang => lang.GetExtension<ILanguageProcessesModule>().Concepts.SystemConceptHints.SimultaneousWith));
 
 		public static readonly ICollection<IConcept> All = new HashSet<IConcept>
 		{

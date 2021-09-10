@@ -69,7 +69,6 @@
     <Compile Include="SemanticNetworkTest.cs" />
     <Compile Include="Metadata\AttributeDefinitionTest.cs" />
     <Compile Include="Contexts\ContextsTest.cs" />
-    <Compile Include="ConsistencyTest.cs" />
     <Compile Include="Concepts\ConceptConstructorTest.cs" />
     <Compile Include="Localization\LocalizedStringsTest.cs" />
     <Compile Include="Metadata\ExtensionModuleTest.cs" />

@@ -3,6 +3,40 @@ using System.Xml.Serialization;
 
 namespace Inventor.Client.Localization
 {
+	public interface ILanguageMisc
+	{
+		String NameSemanticNetwork
+		{ get; }
+
+		String NameCategoryConcepts
+		{ get; }
+
+		String NameCategoryStatements
+		{ get; }
+
+		String Rules
+		{ get; }
+
+		String Answer
+		{ get; }
+
+		String Required
+		{ get; }
+
+		String DialogKbOpenTitle
+		{ get; }
+
+		String DialogKbSaveTitle
+		{ get; }
+
+		String DialogKbFileFilter
+		{ get; }
+
+		String Concept
+		{ get; }
+	}
+
+	[XmlType]
 	public class LanguageMisc : ILanguageMisc
 	{
 		#region Properties

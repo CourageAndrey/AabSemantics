@@ -1,6 +1,8 @@
 ﻿using System.Windows;
 using System.Windows.Controls;
 
+using Inventor.Core;
+
 namespace Inventor.Client.Controls
 {
 	public partial class LocalizedStringVariableControl
@@ -28,7 +30,7 @@ namespace Inventor.Client.Controls
 		public void Localize(ILanguage language)
 		{
 			_language = language;
-			var languageEditing = language.Ui.Editing;
+			var languageEditing = language.GetExtension<IWpfUiModule>().Ui.Editing;
 			_columnLanguage.Header = languageEditing.ColumnHeaderLanguage;
 			_columnValue.Header = languageEditing.ColumnHeaderValue;
 		}

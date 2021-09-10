@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using Inventor.Core.Attributes;
 using Inventor.Core.Concepts;
 using Inventor.Core.Localization;
+using Inventor.Core.Localization.Modules;
 using Inventor.Core.Metadata;
 using Inventor.Core.Statements;
 using Inventor.Core.Questions;
@@ -26,15 +27,20 @@ namespace Inventor.Core.Modules
 			}
 		}
 
+		protected override void RegisterLanguage()
+		{
+			Language.Default.Extensions.Add(LanguageMathematicsModule.CreateDefault());
+		}
+
 		protected override void RegisterAttributes()
 		{
-			Repositories.RegisterAttribute(IsComparisonSignAttribute.Value, language => language.Attributes.IsComparisonSign, new Xml.IsComparisonSignAttribute());
+			Repositories.RegisterAttribute(IsComparisonSignAttribute.Value, language => language.GetExtension<ILanguageMathematicsModule>().Attributes.IsComparisonSign, new Xml.IsComparisonSignAttribute());
 		}
 
 		protected override void RegisterStatements()
 		{
 			Repositories.RegisterStatement<ComparisonStatement>(
-				language => language.Statements.Names.Comparison,
+				language => language.GetExtension<ILanguageMathematicsModule>().Statements.Names.Comparison,
 				statement => new Xml.ComparisonStatement(statement),
 				typeof(Xml.ComparisonStatement),
 				checkComparisonValueSystems);
@@ -42,7 +48,15 @@ namespace Inventor.Core.Modules
 
 		protected override void RegisterQuestions()
 		{
-			Repositories.RegisterQuestion<ComparisonQuestion>(language => language.Questions.Names.ComparisonQuestion);
+			Repositories.RegisterQuestion<ComparisonQuestion>(language => language.GetExtension<ILanguageMathematicsModule>().Questions.Names.ComparisonQuestion);
+		}
+
+		public override IDictionary<String, Type> GetLanguageExtensions()
+		{
+			return new Dictionary<String, Type>
+			{
+				{ nameof(MathematicsModule), typeof(LanguageMathematicsModule) }
+			};
 		}
 
 		private static void checkComparisonValueSystems(
@@ -54,7 +68,7 @@ namespace Inventor.Core.Modules
 			{
 				result
 					.Append(
-						language => language.Statements.Consistency.ErrorComparisonContradiction,
+						language => language.GetExtension<ILanguageMathematicsModule>().Statements.Consistency.ErrorComparisonContradiction,
 						new Dictionary<String, IKnowledge>
 						{
 							{ Strings.ParamLeftValue, contradiction.Value1 },

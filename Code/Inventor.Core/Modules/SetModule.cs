@@ -4,6 +4,7 @@ using System.Linq;
 
 using Inventor.Core.Attributes;
 using Inventor.Core.Localization;
+using Inventor.Core.Localization.Modules;
 using Inventor.Core.Metadata;
 using Inventor.Core.Statements;
 using Inventor.Core.Questions;
@@ -21,33 +22,38 @@ namespace Inventor.Core.Modules
 		protected override void Attach(ISemanticNetwork semanticNetwork)
 		{ }
 
+		protected override void RegisterLanguage()
+		{
+			Language.Default.Extensions.Add(LanguageSetModule.CreateDefault());
+		}
+
 		protected override void RegisterAttributes()
 		{
-			Repositories.RegisterAttribute(IsSignAttribute.Value, language => language.Attributes.IsSign, new Xml.IsSignAttribute());
+			Repositories.RegisterAttribute(IsSignAttribute.Value, language => language.GetExtension<ILanguageSetModule>().Attributes.IsSign, new Xml.IsSignAttribute());
 		}
 
 		protected override void RegisterStatements()
 		{
 			Repositories.RegisterStatement<HasPartStatement>(
-				language => language.Statements.Names.Composition,
+				language => language.GetExtension<ILanguageSetModule>().Statements.Names.Composition,
 				statement => new Xml.HasPartStatement(statement),
 				typeof(Xml.HasPartStatement),
 				StatementDefinition<HasPartStatement>.NoConsistencyCheck);
 
 			Repositories.RegisterStatement<GroupStatement>(
-				language => language.Statements.Names.SubjectArea,
+				language => language.GetExtension<ILanguageSetModule>().Statements.Names.SubjectArea,
 				statement => new Xml.GroupStatement(statement),
 				typeof(Xml.GroupStatement),
 				StatementDefinition<GroupStatement>.NoConsistencyCheck);
 
 			Repositories.RegisterStatement<HasSignStatement>(
-				language => language.Statements.Names.HasSign,
+				language => language.GetExtension<ILanguageSetModule>().Statements.Names.HasSign,
 				statement => new Xml.HasSignStatement(statement),
 				typeof(Xml.HasSignStatement),
 				checkSignDuplications);
 
 			Repositories.RegisterStatement<SignValueStatement>(
-				language => language.Statements.Names.SignValue,
+				language => language.GetExtension<ILanguageSetModule>().Statements.Names.SignValue,
 				statement => new Xml.SignValueStatement(statement),
 				typeof(Xml.SignValueStatement),
 				checkSignValues);
@@ -55,24 +61,32 @@ namespace Inventor.Core.Modules
 
 		protected override void RegisterQuestions()
 		{
-			Repositories.RegisterQuestion<DescribeSubjectAreaQuestion>(language => language.Questions.Names.DescribeSubjectAreaQuestion);
-			Repositories.RegisterQuestion<FindSubjectAreaQuestion>(language => language.Questions.Names.FindSubjectAreaQuestion);
-			Repositories.RegisterQuestion<IsSubjectAreaQuestion>(language => language.Questions.Names.IsSubjectAreaQuestion);
+			Repositories.RegisterQuestion<DescribeSubjectAreaQuestion>(language => language.GetExtension<ILanguageSetModule>().Questions.Names.DescribeSubjectAreaQuestion);
+			Repositories.RegisterQuestion<FindSubjectAreaQuestion>(language => language.GetExtension<ILanguageSetModule>().Questions.Names.FindSubjectAreaQuestion);
+			Repositories.RegisterQuestion<IsSubjectAreaQuestion>(language => language.GetExtension<ILanguageSetModule>().Questions.Names.IsSubjectAreaQuestion);
 
-			Repositories.RegisterQuestion<EnumerateContainersQuestion>(language => language.Questions.Names.EnumerateContainersQuestion);
-			Repositories.RegisterQuestion<EnumeratePartsQuestion>(language => language.Questions.Names.EnumeratePartsQuestion);
-			Repositories.RegisterQuestion<IsPartOfQuestion>(language => language.Questions.Names.IsPartOfQuestion);
+			Repositories.RegisterQuestion<EnumerateContainersQuestion>(language => language.GetExtension<ILanguageSetModule>().Questions.Names.EnumerateContainersQuestion);
+			Repositories.RegisterQuestion<EnumeratePartsQuestion>(language => language.GetExtension<ILanguageSetModule>().Questions.Names.EnumeratePartsQuestion);
+			Repositories.RegisterQuestion<IsPartOfQuestion>(language => language.GetExtension<ILanguageSetModule>().Questions.Names.IsPartOfQuestion);
 
-			Repositories.RegisterQuestion<EnumerateSignsQuestion>(language => language.Questions.Names.EnumerateSignsQuestion);
-			Repositories.RegisterQuestion<HasSignQuestion>(language => language.Questions.Names.HasSignQuestion);
-			Repositories.RegisterQuestion<HasSignsQuestion>(language => language.Questions.Names.HasSignsQuestion);
-			Repositories.RegisterQuestion<IsSignQuestion>(language => language.Questions.Names.IsSignQuestion);
-			Repositories.RegisterQuestion<IsValueQuestion>(language => language.Questions.Names.IsValueQuestion);
-			Repositories.RegisterQuestion<SignValueQuestion>(language => language.Questions.Names.SignValueQuestion);
+			Repositories.RegisterQuestion<EnumerateSignsQuestion>(language => language.GetExtension<ILanguageSetModule>().Questions.Names.EnumerateSignsQuestion);
+			Repositories.RegisterQuestion<HasSignQuestion>(language => language.GetExtension<ILanguageSetModule>().Questions.Names.HasSignQuestion);
+			Repositories.RegisterQuestion<HasSignsQuestion>(language => language.GetExtension<ILanguageSetModule>().Questions.Names.HasSignsQuestion);
+			Repositories.RegisterQuestion<IsSignQuestion>(language => language.GetExtension<ILanguageSetModule>().Questions.Names.IsSignQuestion);
+			Repositories.RegisterQuestion<IsValueQuestion>(language => language.GetExtension<ILanguageSetModule>().Questions.Names.IsValueQuestion);
+			Repositories.RegisterQuestion<SignValueQuestion>(language => language.GetExtension<ILanguageSetModule>().Questions.Names.SignValueQuestion);
 
-			Repositories.RegisterQuestion<GetCommonQuestion>(language => language.Questions.Names.GetCommonQuestion);
-			Repositories.RegisterQuestion<GetDifferencesQuestion>(language => language.Questions.Names.GetDifferencesQuestion);
-			Repositories.RegisterQuestion<WhatQuestion>(language => language.Questions.Names.WhatQuestion);
+			Repositories.RegisterQuestion<GetCommonQuestion>(language => language.GetExtension<ILanguageSetModule>().Questions.Names.GetCommonQuestion);
+			Repositories.RegisterQuestion<GetDifferencesQuestion>(language => language.GetExtension<ILanguageSetModule>().Questions.Names.GetDifferencesQuestion);
+			Repositories.RegisterQuestion<WhatQuestion>(language => language.GetExtension<ILanguageSetModule>().Questions.Names.WhatQuestion);
+		}
+
+		public override IDictionary<String, Type> GetLanguageExtensions()
+		{
+			return new Dictionary<String, Type>
+			{
+				{ nameof(SetModule), typeof(LanguageSetModule) }
+			};
 		}
 
 		private static void checkSignDuplications(
@@ -87,7 +101,7 @@ namespace Inventor.Core.Modules
 				if (!hasSign.CheckSignDuplication(statements, clasifications))
 				{
 					result.Append(
-						language => language.Statements.Consistency.ErrorMultipleSign,
+						language => language.GetExtension<ILanguageSetModule>().Statements.Consistency.ErrorMultipleSign,
 						new Dictionary<String, IKnowledge> { { Strings.ParamStatement, hasSign } });
 				}
 			}
@@ -118,7 +132,7 @@ namespace Inventor.Core.Modules
 						parents.Select(p => SignValueStatement.GetSignValue(semanticNetwork.Statements, p, sign.Sign)).Count(r => r != null) > 1)
 					{
 						result.Append(
-							language => language.Statements.Consistency.ErrorMultipleSignValue,
+							language => language.GetExtension<ILanguageSetModule>().Statements.Consistency.ErrorMultipleSignValue,
 							new Dictionary<String, IKnowledge>
 							{
 								{ Strings.ParamConcept, concept },
@@ -139,7 +153,7 @@ namespace Inventor.Core.Modules
 				if (!signValue.CheckHasSign(semanticNetwork.Statements))
 				{
 					result.Append(
-						language => language.Statements.Consistency.ErrorSignWithoutValue,
+						language => language.GetExtension<ILanguageSetModule>().Statements.Consistency.ErrorSignWithoutValue,
 						new Dictionary<String, IKnowledge> { { Strings.ParamStatement, signValue } });
 				}
 			}

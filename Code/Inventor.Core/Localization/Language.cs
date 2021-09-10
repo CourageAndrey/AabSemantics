@@ -1,5 +1,9 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Xml.Serialization;
+
+using Inventor.Core.Metadata;
+using Inventor.Core.Utils;
 
 namespace Inventor.Core.Localization
 {
@@ -31,9 +35,9 @@ namespace Inventor.Core.Localization
 		public LanguageQuestions QuestionsXml
 		{ get; set; }
 
-		[XmlElement(nameof(Concepts))]
-		public LanguageConcepts ConceptsXml
-		{ get; set; }
+		[XmlArray(nameof(Extensions))]
+		public List<LanguageExtension> ExtensionsXml
+		{ get; set; } = new List<LanguageExtension>();
 
 		#endregion
 
@@ -64,8 +68,8 @@ namespace Inventor.Core.Localization
 		{ get { return QuestionsXml; } }
 
 		[XmlIgnore]
-		public ILanguageConcepts Concepts
-		{ get { return ConceptsXml; } }
+		public ICollection<LanguageExtension> Extensions
+		{ get { return ExtensionsXml; } }
 
 		#endregion
 
@@ -84,7 +88,6 @@ namespace Inventor.Core.Localization
 				AttributesXml = LanguageAttributes.CreateDefault(),
 				StatementsXml = LanguageStatements.CreateDefault(),
 				QuestionsXml = LanguageQuestions.CreateDefault(),
-				ConceptsXml = LanguageConcepts.CreateDefault(),
 			};
 		}
 
@@ -92,5 +95,33 @@ namespace Inventor.Core.Localization
 		{
 			return Name;
 		}
+
+		public static void PrepareModulesToSerialization<LanguageT>()
+			where LanguageT : class, ILanguage
+		{
+			var languageType = typeof(LanguageT);
+			if (!_preparedToSerialization.Contains(languageType))
+			{
+				var attributeOverrides = new XmlAttributeOverrides();
+
+				var moduleAttributes = new XmlAttributes();
+				foreach (var module in Repositories.Modules.Values)
+				{
+					foreach (var extension in module.GetLanguageExtensions())
+					{
+						moduleAttributes.XmlElements.Add(new XmlElementAttribute(extension.Key, extension.Value));
+					}
+				}
+				attributeOverrides.Add(languageType, nameof(Extensions), moduleAttributes);
+				attributeOverrides.Add(languageType, nameof(ExtensionsXml), moduleAttributes);
+
+				var serializer = new XmlSerializer(languageType, attributeOverrides);
+				languageType.DefineCustomSerializer(serializer);
+
+				_preparedToSerialization.Add(languageType);
+			}
+		}
+
+		private static ICollection<Type> _preparedToSerialization = new HashSet<Type>();
 	}
 }

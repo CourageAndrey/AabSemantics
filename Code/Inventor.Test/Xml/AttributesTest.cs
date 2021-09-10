@@ -6,13 +6,22 @@ using NUnit.Framework;
 
 using Inventor.Core;
 using Inventor.Core.Concepts;
-using Inventor.Core.Metadata;
 
 namespace Inventor.Test.Xml
 {
 	[TestFixture]
 	public class AttributesTest
 	{
+		[TestFixtureSetUp]
+		public void InitializeModules()
+		{
+			new Core.Modules.BooleanModule().RegisterMetadata();
+			new Core.Modules.ClassificationModule().RegisterMetadata();
+			new Core.Modules.MathematicsModule().RegisterMetadata();
+			new Core.Modules.ProcessesModule().RegisterMetadata();
+			new Core.Modules.SetModule().RegisterMetadata();
+		}
+
 		[Test]
 		[TestCaseSource(nameof(getAllAttributes))]
 		public void OneAttribute(IAttribute attribute)
