@@ -15,7 +15,7 @@ namespace Inventor.Client.Controls
 
 		public void Initialize(ISemanticNetwork semanticNetwork, ILanguage language)
 		{
-			var languageEditing = language.Ui.Editing;
+			var languageEditing = language.GetExtension<IWpfUiModule>().Ui.Editing;
 			_groupID.Header = languageEditing.PropertyID;
 			_groupName.Header = languageEditing.PropertyName;
 			_groupHint.Header = languageEditing.PropertyHint;

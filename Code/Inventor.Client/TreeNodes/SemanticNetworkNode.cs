@@ -16,7 +16,7 @@ namespace Inventor.Client.TreeNodes
 		{ get { return _semanticNetwork.Name.GetValue(_application.CurrentLanguage); } }
 
 		public override string Tooltip
-		{ get { return _application.CurrentLanguage.Misc.NameSemanticNetwork; } }
+		{ get { return _application.CurrentLanguage.GetExtension<IWpfUiModule>().Misc.NameSemanticNetwork; } }
 
 		public override ImageSource Icon
 		{ get { return _icon ?? (_icon = Resources.SemanticNetwork.ToSource()); } }

@@ -22,7 +22,7 @@ namespace Inventor.Client.Controls
 			_comboBoxConcept.ItemsSource = wrappedConcepts;
 			_comboBoxSign.ItemsSource = wrappedConcepts.Where(c => c.Concept.HasAttribute<IsSignAttribute>()).ToList();
 
-			var languageEditing = language.Ui.Editing;
+			var languageEditing = language.GetExtension<IWpfUiModule>().Ui.Editing;
 			_groupID.Header = languageEditing.PropertyID;
 			_groupConcept.Header = languageEditing.PropertyConcept;
 			_groupSign.Header = languageEditing.PropertySign;

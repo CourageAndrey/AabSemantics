@@ -1,4 +1,8 @@
 ﻿using System;
+using System.Collections.Generic;
+
+using Inventor.Core;
+using Inventor.Core.Localization;
 
 namespace Inventor.Client.Localization
 {
@@ -24,28 +28,28 @@ namespace Inventor.Client.Localization
 		{ get { return _language?.Culture; } }
 
 		public ILanguageCommon Common
-		{ get { return _language?.Common; } }
+		{ get { return _language?.GetExtension<IWpfUiModule>().Common; } }
 
 		public ILanguageErrors Errors
-		{ get { return _language?.Errors; } }
+		{ get { return _language?.GetExtension<IWpfUiModule>().Errors; } }
 
-		public Core.ILanguageAttributes Attributes
+		public Core.Localization.ILanguageAttributes Attributes
 		{ get { return _language?.Attributes; } }
 
-		public Core.ILanguageStatements Statements
+		public Core.Localization.ILanguageStatements Statements
 		{ get { return _language?.Statements; } }
 
-		public Core.ILanguageQuestions Questions
+		public Core.Localization.ILanguageQuestions Questions
 		{ get { return _language?.Questions; } }
 
-		public Core.ILanguageConcepts Concepts
-		{ get { return _language?.Concepts; } }
+		public ICollection<LanguageExtension> Extensions
+		{ get { return _language?.Extensions; } }
 
 		public ILanguageUi Ui
-		{ get { return _language?.Ui; } }
+		{ get { return _language?.GetExtension<IWpfUiModule>().Ui; } }
 
 		public ILanguageMisc Misc
-		{ get { return _language?.Misc; } }
+		{ get { return _language?.GetExtension<IWpfUiModule>().Misc; } }
 
 		#endregion
 

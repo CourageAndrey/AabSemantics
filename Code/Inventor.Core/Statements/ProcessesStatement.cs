@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using Inventor.Core.Attributes;
 using Inventor.Core.Concepts;
 using Inventor.Core.Localization;
+using Inventor.Core.Localization.Modules;
 using Inventor.Core.Questions;
 
 namespace Inventor.Core.Statements
@@ -24,7 +25,10 @@ namespace Inventor.Core.Statements
 		#endregion
 
 		public ProcessesStatement(String id, IConcept processA, IConcept processB, IConcept sequenceSign)
-			: base(id, new Func<ILanguage, String>(language => language.Statements.Names.Processes), new Func<ILanguage, String>(language => language.Statements.Hints.Processes))
+			: base(
+				id,
+				new Func<ILanguage, String>(language => language.GetExtension<ILanguageProcessesModule>().Statements.Names.Processes),
+				new Func<ILanguage, String>(language => language.GetExtension<ILanguageProcessesModule>().Statements.Hints.Processes))
 		{
 			Update(id, processA, processB, sequenceSign);
 		}
@@ -55,17 +59,17 @@ namespace Inventor.Core.Statements
 
 		protected override String GetDescriptionTrueText(ILanguage language)
 		{
-			return language.Statements.TrueFormatStrings.Processes;
+			return language.GetExtension<ILanguageProcessesModule>().Statements.TrueFormatStrings.Processes;
 		}
 
 		protected override String GetDescriptionFalseText(ILanguage language)
 		{
-			return language.Statements.TrueFormatStrings.Processes;
+			return language.GetExtension<ILanguageProcessesModule>().Statements.TrueFormatStrings.Processes;
 		}
 
 		protected override String GetDescriptionQuestionText(ILanguage language)
 		{
-			return language.Statements.TrueFormatStrings.Processes;
+			return language.GetExtension<ILanguageProcessesModule>().Statements.TrueFormatStrings.Processes;
 		}
 
 		protected override IDictionary<String, IKnowledge> GetDescriptionParameters()

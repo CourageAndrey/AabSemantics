@@ -3,6 +3,7 @@
 using Inventor.Client.Controls;
 using Inventor.Client.Dialogs;
 using Inventor.Core;
+using Inventor.Core.Localization.Modules;
 
 namespace Inventor.Client.ViewModels.Statements
 {
@@ -52,7 +53,7 @@ namespace Inventor.Client.ViewModels.Statements
 			{
 				Owner = owner,
 				Editor = control,
-				Title = language.Statements.Names.Clasification,
+				Title = language.GetExtension<ILanguageClassificationModule>().Statements.Names.Clasification,
 				SizeToContent = SizeToContent.WidthAndHeight,
 				MinWidth = 200,
 				MinHeight = 100,

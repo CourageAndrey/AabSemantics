@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 
 using Inventor.Core.Localization;
+using Inventor.Core.Localization.Modules;
 
 namespace Inventor.Core.Questions
 {
@@ -19,8 +20,8 @@ namespace Inventor.Core.Questions
 		protected override void WriteOneLine(ITextContainer text, IConcept sign, IConcept value1, IConcept value2)
 		{
 			var formatString = value1 != null && value2 != null
-				? new Func<ILanguage, String>(language => language.Questions.Answers.CompareConceptsCommon)
-				: language => language.Questions.Answers.CompareConceptsCommonNotSet;
+				? new Func<ILanguage, String>(language => language.GetExtension<ILanguageSetModule>().Questions.Answers.CompareConceptsCommon)
+				: language => language.GetExtension<ILanguageSetModule>().Questions.Answers.CompareConceptsCommonNotSet;
 
 			var parameters = new Dictionary<String, IKnowledge>
 			{
@@ -36,7 +37,7 @@ namespace Inventor.Core.Questions
 
 		protected override void WriteNotEmptyResultWithoutData(ITextContainer text)
 		{
-			text.Append(language => language.Questions.Answers.CompareConceptsNoCommon);
+			text.Append(language => language.GetExtension<ILanguageSetModule>().Questions.Answers.CompareConceptsNoCommon);
 		}
 	}
 }

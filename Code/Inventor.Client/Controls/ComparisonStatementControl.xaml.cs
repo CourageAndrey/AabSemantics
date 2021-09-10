@@ -24,7 +24,7 @@ namespace Inventor.Client.Controls
 			_comboBoxRightValue.ItemsSource = wrappedConcepts;
 			_comboBoxComparisonSign.ItemsSource = semanticNetwork.Concepts.Where(c => c.HasAttribute<IsComparisonSignAttribute>()).Select(c => new ConceptItem(c, language)).ToList();
 
-			var languageEditing = language.Ui.Editing;
+			var languageEditing = language.GetExtension<IWpfUiModule>().Ui.Editing;
 			_groupID.Header = languageEditing.PropertyID;
 			_groupLeftValue.Header = languageEditing.PropertyLeftValue;
 			_groupRightValue.Header = languageEditing.PropertyRightValue;

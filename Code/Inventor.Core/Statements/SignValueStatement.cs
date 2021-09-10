@@ -4,6 +4,7 @@ using System.Linq;
 
 using Inventor.Core.Attributes;
 using Inventor.Core.Localization;
+using Inventor.Core.Localization.Modules;
 
 namespace Inventor.Core.Statements
 {
@@ -23,7 +24,10 @@ namespace Inventor.Core.Statements
 		#endregion
 
 		public SignValueStatement(String id, IConcept concept, IConcept sign, IConcept value)
-			: base(id, new Func<ILanguage, String>(language => language.Statements.Names.SignValue), new Func<ILanguage, String>(language => language.Statements.Hints.SignValue))
+			: base(
+				id,
+				new Func<ILanguage, String>(language => language.GetExtension<ILanguageSetModule>().Statements.Names.SignValue),
+				new Func<ILanguage, String>(language => language.GetExtension<ILanguageSetModule>().Statements.Hints.SignValue))
 		{
 			Update(id, concept, sign, value);
 		}
@@ -53,17 +57,17 @@ namespace Inventor.Core.Statements
 
 		protected override String GetDescriptionTrueText(ILanguage language)
 		{
-			return language.Statements.TrueFormatStrings.SignValue;
+			return language.GetExtension<ILanguageSetModule>().Statements.TrueFormatStrings.SignValue;
 		}
 
 		protected override String GetDescriptionFalseText(ILanguage language)
 		{
-			return language.Statements.TrueFormatStrings.SignValue;
+			return language.GetExtension<ILanguageSetModule>().Statements.TrueFormatStrings.SignValue;
 		}
 
 		protected override String GetDescriptionQuestionText(ILanguage language)
 		{
-			return language.Statements.TrueFormatStrings.SignValue;
+			return language.GetExtension<ILanguageSetModule>().Statements.TrueFormatStrings.SignValue;
 		}
 
 		protected override IDictionary<String, IKnowledge> GetDescriptionParameters()

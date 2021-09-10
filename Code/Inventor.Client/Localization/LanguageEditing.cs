@@ -3,6 +3,70 @@ using System.Xml.Serialization;
 
 namespace Inventor.Client.Localization
 {
+	public interface ILanguageEditing
+	{
+		String PropertyConcept
+		{ get; }
+
+		String PropertySign
+		{ get; }
+
+		String PropertyValue
+		{ get; }
+
+		String PropertyWhole
+		{ get; }
+
+		String PropertyPart
+		{ get; }
+
+		String PropertyAncestor
+		{ get; }
+
+		String PropertyDescendant
+		{ get; }
+
+		String PropertyArea
+		{ get; }
+
+		String PropertyID
+		{ get; }
+
+		String PropertyName
+		{ get; }
+
+		String PropertyHint
+		{ get; }
+
+		String PropertyLeftValue
+		{ get; }
+
+		String PropertyRightValue
+		{ get; }
+
+		String PropertyComparisonSign
+		{ get; }
+
+		String PropertyProcessA
+		{ get; }
+
+		String PropertyProcessB
+		{ get; }
+
+		String PropertySequenceSign
+		{ get; }
+
+		String PropertyAttributes
+		{ get; }
+
+		String ColumnHeaderLanguage
+		{ get; }
+
+		String ColumnHeaderValue
+		{ get; }
+	}
+
+	[XmlType]
 	public class LanguageEditing : ILanguageEditing
 	{
 		#region Properties

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 
 using Inventor.Core.Localization;
+using Inventor.Core.Localization.Modules;
 using Inventor.Core.Statements;
 using Inventor.Core.Text.Containers;
 using Inventor.Core.Text.Primitives;
@@ -49,7 +50,7 @@ namespace Inventor.Core.Questions
 			{
 				return new Answers.Answer(
 					new FormattedText(
-						language => language.Questions.Answers.CanNotCompareConcepts,
+						language => language.GetExtension<ILanguageSetModule>().Questions.Answers.CanNotCompareConcepts,
 						new Dictionary<String, IKnowledge>
 						{
 							{ Strings.ParamConcept1, Concept1 },
@@ -111,7 +112,7 @@ namespace Inventor.Core.Questions
 			IDictionary<IConcept, Tuple<IConcept, IConcept>> signValueStatements)
 		{
 			var result = new UnstructuredContainer(new FormattedText(
-				language => language.Questions.Answers.CompareConceptsResult,
+				language => language.GetExtension<ILanguageSetModule>().Questions.Answers.CompareConceptsResult,
 				new Dictionary<String, IKnowledge>
 				{
 					{ Strings.ParamConcept1, Concept1 },

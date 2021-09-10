@@ -3,6 +3,7 @@
 using Inventor.Client.Controls;
 using Inventor.Client.Dialogs;
 using Inventor.Core;
+using Inventor.Core.Localization.Modules;
 
 namespace Inventor.Client.ViewModels.Statements
 {
@@ -56,7 +57,7 @@ namespace Inventor.Client.ViewModels.Statements
 			{
 				Owner = owner,
 				Editor = control,
-				Title = language.Statements.Names.Comparison,
+				Title = language.GetExtension<ILanguageMathematicsModule>().Statements.Names.Comparison,
 				SizeToContent = SizeToContent.WidthAndHeight,
 				MinWidth = 200,
 				MinHeight = 100,

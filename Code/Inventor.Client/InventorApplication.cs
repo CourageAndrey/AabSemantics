@@ -7,6 +7,7 @@ using System.Windows.Threading;
 
 using Inventor.Client.Localization;
 using Inventor.Core;
+using Inventor.Core.Localization;
 using Inventor.Core.Modules;
 using Inventor.Core.Utils;
 
@@ -55,8 +56,8 @@ namespace Inventor.Client
 			AppDomain.CurrentDomain.UnhandledException += dispatcherAppDomainException;
 
 			// addition languages
-			var languages = Language.LoadAdditional(StartupPath);
-			languages.Add((ILanguage) Core.Localization.Language.Default);
+			var languages = Localization.WpfUiModule.LoadAdditional(StartupPath);
+			languages.Add(Language.Default);
 			Languages = languages.ToArray();
 
 			// configuration
@@ -85,7 +86,7 @@ namespace Inventor.Client
 			}
 			else
 			{
-				CurrentLanguage = Languages.FindAppropriate((Language) Core.Localization.Language.Default);
+				CurrentLanguage = Languages.FindAppropriate(Language.Default);
 				Configuration.SelectedLanguage = CurrentLanguage.Culture;
 			}
 
@@ -99,13 +100,15 @@ namespace Inventor.Client
 		[STAThread]
 		private static void Main()
 		{
-			var application = new InventorApplication();
-
 			new BooleanModule().RegisterMetadata();
 			new ClassificationModule().RegisterMetadata();
 			new SetModule().RegisterMetadata();
 			new MathematicsModule().RegisterMetadata();
 			new ProcessesModule().RegisterMetadata();
+			new WpfUiModule().RegisterMetadata();
+			Language.PrepareModulesToSerialization<Language>();
+
+			var application = new InventorApplication();
 
 #if DEBUG
 			application.SemanticNetwork = new Test.Sample.TestSemanticNetwork(application.CurrentLanguage).SemanticNetwork;
@@ -123,13 +126,13 @@ namespace Inventor.Client
 		{
 			if (e.ExceptionObject is Exception)
 			{
-				new Dialogs.ExceptionDialog(new ExceptionWrapper(e.ExceptionObject as Exception), Dialogs.ExceptionDialogMode.ProcessFatalError, CurrentLanguage ?? Language.Default as ILanguage).ShowDialog();
+				new Dialogs.ExceptionDialog(new ExceptionWrapper(e.ExceptionObject as Exception), Dialogs.ExceptionDialogMode.ProcessFatalError, CurrentLanguage ?? Language.Default).ShowDialog();
 			}
 		}
 
 		private void dispatcherUnhandledException(object sender, DispatcherUnhandledExceptionEventArgs e)
 		{
-			if (new Dialogs.ExceptionDialog(e.Exception, false, CurrentLanguage ?? Language.Default as ILanguage).ShowDialog() == true)
+			if (new Dialogs.ExceptionDialog(e.Exception, false, CurrentLanguage ?? Language.Default).ShowDialog() == true)
 			{
 				Shutdown();
 			}

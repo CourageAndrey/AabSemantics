@@ -5,12 +5,14 @@ using System.Linq;
 using System.Threading;
 using System.Xml.Serialization;
 
+using Inventor.Core;
+using Inventor.Core.Localization;
 using Inventor.Core.Utils;
 
 namespace Inventor.Client.Localization
 {
-	[Serializable, XmlType("WpfClient" + RootName), XmlRoot("WpfClient" + RootName)]
-	public class Language : Core.Localization.Language, ILanguage
+	[XmlType]
+	public class WpfUiModule : LanguageExtension, IWpfUiModule
 	{
 		#region Constants
 
@@ -61,20 +63,10 @@ namespace Inventor.Client.Localization
 
 		#endregion
 
-		static Language()
+		public static WpfUiModule CreateDefault()
 		{
-			var @default = Default;
-			Default = new Language
+			return new WpfUiModule()
 			{
-				FileName = @default.FileName,
-				Name = @default.Name,
-				Culture = @default.Culture,
-
-				AttributesXml = @default.AttributesXml,
-				StatementsXml = @default.StatementsXml,
-				QuestionsXml = @default.QuestionsXml,
-				ConceptsXml = @default.ConceptsXml,
-
 				CommonXml = LanguageCommon.CreateDefault(),
 				ErrorsXml = LanguageErrors.CreateDefault(),
 				UiXml = LanguageUi.CreateDefault(),

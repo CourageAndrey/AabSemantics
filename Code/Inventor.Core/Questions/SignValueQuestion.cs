@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 
 using Inventor.Core.Localization;
+using Inventor.Core.Localization.Modules;
 using Inventor.Core.Statements;
 
 namespace Inventor.Core.Questions
@@ -39,7 +40,7 @@ namespace Inventor.Core.Questions
 				.Where(s => s.Concept == Concept && s.Sign == Sign)
 				.SelectFirstConcept(
 					statement => statement.Value,
-					language => language.Questions.Answers.SignValue,
+					language => language.GetExtension<ILanguageSetModule>().Questions.Answers.SignValue,
 					statement => new Dictionary<String, IKnowledge>
 					{
 						{ Strings.ParamConcept, Concept },

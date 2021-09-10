@@ -17,6 +17,8 @@ namespace Inventor.Core
 		void AttachTo(ISemanticNetwork semanticNetwork);
 
 		void RegisterMetadata();
+
+		IDictionary<String, Type> GetLanguageExtensions();
 	}
 
 	public abstract class ExtensionModule : IExtensionModule
@@ -63,6 +65,7 @@ namespace Inventor.Core
 		{
 			if (!IsMetadataRegistered)
 			{
+				RegisterLanguage();
 				RegisterAttributes();
 				RegisterStatements();
 				RegisterQuestions();
@@ -70,6 +73,14 @@ namespace Inventor.Core
 				Repositories.Modules[Name] = this;
 			}
 		}
+
+		public virtual IDictionary<String, Type> GetLanguageExtensions()
+		{
+			return new Dictionary<String, Type>();
+		}
+
+		protected virtual void RegisterLanguage()
+		{ }
 
 		protected virtual void RegisterAttributes()
 		{ }

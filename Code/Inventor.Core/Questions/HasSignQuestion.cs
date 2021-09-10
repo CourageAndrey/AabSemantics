@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 
 using Inventor.Core.Localization;
+using Inventor.Core.Localization.Modules;
 using Inventor.Core.Statements;
 
 namespace Inventor.Core.Questions
@@ -43,8 +44,8 @@ namespace Inventor.Core.Questions
 				.Where(s => s.Concept == Concept && s.Sign == Sign)
 				.SelectBooleanIncludingChildren(
 					statements => statements.Count > 0,
-					language => language.Questions.Answers.HasSignTrue + (Recursive ? language.Questions.Answers.RecursiveTrue : language.Questions.Answers.RecursiveFalse) + ".",
-					language => language.Questions.Answers.HasSignFalse + (Recursive ? language.Questions.Answers.RecursiveTrue : language.Questions.Answers.RecursiveFalse) + ".",
+					language => language.GetExtension<ILanguageSetModule>().Questions.Answers.HasSignTrue + (Recursive ? language.Questions.Answers.RecursiveTrue : language.Questions.Answers.RecursiveFalse) + ".",
+					language => language.GetExtension<ILanguageSetModule>().Questions.Answers.HasSignFalse + (Recursive ? language.Questions.Answers.RecursiveTrue : language.Questions.Answers.RecursiveFalse) + ".",
 					new Dictionary<String, IKnowledge>
 					{
 						{ Strings.ParamConcept, Concept },

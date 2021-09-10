@@ -65,7 +65,7 @@ namespace Inventor.Client.ViewModels
 			{
 				Owner = owner,
 				Editor = control,
-				Title = language.Misc.Concept,
+				Title = language.GetExtension<IWpfUiModule>().Misc.Concept,
 				SizeToContent = SizeToContent.WidthAndHeight,
 				MinWidth = 200,
 				MinHeight = 100,

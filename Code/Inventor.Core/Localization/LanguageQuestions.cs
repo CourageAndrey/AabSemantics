@@ -2,13 +2,19 @@
 
 namespace Inventor.Core.Localization
 {
+	public interface ILanguageQuestions
+	{
+		ILanguageQuestionParameters Parameters
+		{ get; }
+
+		ILanguageAnswers Answers
+		{ get; }
+	}
+
+	[XmlType("CommonQuestions")]
 	public class LanguageQuestions : ILanguageQuestions
 	{
 		#region Xml Properties
-
-		[XmlElement(nameof(Names))]
-		public LanguageQuestionNames NamesXml
-		{ get; set; }
 
 		[XmlElement(nameof(Parameters))]
 		public LanguageQuestionParameters ParametersXml
@@ -21,10 +27,6 @@ namespace Inventor.Core.Localization
 		#endregion
 
 		#region Interface Properties
-
-		[XmlIgnore]
-		public ILanguageQuestionNames Names
-		{ get { return NamesXml; } }
 
 		[XmlIgnore]
 		public ILanguageQuestionParameters Parameters
@@ -40,7 +42,6 @@ namespace Inventor.Core.Localization
 		{
 			return new LanguageQuestions
 			{
-				NamesXml = LanguageQuestionNames.CreateDefault(),
 				ParametersXml = LanguageQuestionParameters.CreateDefault(),
 				AnswersXml = LanguageAnswers.CreateDefault(),
 			};

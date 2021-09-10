@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 
 using Inventor.Core.Localization;
+using Inventor.Core.Localization.Modules;
 
 namespace Inventor.Core.Statements
 {
@@ -24,7 +25,10 @@ namespace Inventor.Core.Statements
 		#endregion
 
 		public HasPartStatement(String id, IConcept whole, IConcept part)
-			: base(id, new Func<ILanguage, String>(language => language.Statements.Names.Composition), new Func<ILanguage, String>(language => language.Statements.Hints.Composition))
+			: base(
+				id,
+				new Func<ILanguage, String>(language => language.GetExtension<ILanguageSetModule>().Statements.Names.Composition),
+				new Func<ILanguage, String>(language => language.GetExtension<ILanguageSetModule>().Statements.Hints.Composition))
 		{
 			Update(id, whole, part);
 		}
@@ -49,17 +53,17 @@ namespace Inventor.Core.Statements
 
 		protected override String GetDescriptionTrueText(ILanguage language)
 		{
-			return language.Statements.TrueFormatStrings.Composition;
+			return language.GetExtension<ILanguageSetModule>().Statements.TrueFormatStrings.Composition;
 		}
 
 		protected override String GetDescriptionFalseText(ILanguage language)
 		{
-			return language.Statements.TrueFormatStrings.Composition;
+			return language.GetExtension<ILanguageSetModule>().Statements.TrueFormatStrings.Composition;
 		}
 
 		protected override String GetDescriptionQuestionText(ILanguage language)
 		{
-			return language.Statements.TrueFormatStrings.Composition;
+			return language.GetExtension<ILanguageSetModule>().Statements.TrueFormatStrings.Composition;
 		}
 
 		protected override IDictionary<String, IKnowledge> GetDescriptionParameters()

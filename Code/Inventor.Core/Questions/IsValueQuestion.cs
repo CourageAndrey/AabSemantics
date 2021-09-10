@@ -3,6 +3,7 @@ using System.Collections.Generic;
 
 using Inventor.Core.Attributes;
 using Inventor.Core.Localization;
+using Inventor.Core.Localization.Modules;
 using Inventor.Core.Statements;
 
 namespace Inventor.Core.Questions
@@ -31,8 +32,8 @@ namespace Inventor.Core.Questions
 				.Where(s => s.Value == Concept)
 				.SelectBoolean(
 					statements => Concept.HasAttribute<IsValueAttribute>(),
-					language => language.Questions.Answers.ValueTrue,
-					language => language.Questions.Answers.ValueFalse,
+					language => language.GetExtension<ILanguageSetModule>().Questions.Answers.ValueTrue,
+					language => language.GetExtension<ILanguageSetModule>().Questions.Answers.ValueFalse,
 					new Dictionary<String, IKnowledge>
 					{
 						{ Strings.ParamConcept, Concept },

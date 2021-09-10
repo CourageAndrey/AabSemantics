@@ -3,6 +3,7 @@ using System.Collections.Generic;
 
 using Inventor.Core.Attributes;
 using Inventor.Core.Localization;
+using Inventor.Core.Localization.Modules;
 using Inventor.Core.Statements;
 
 namespace Inventor.Core.Questions
@@ -31,8 +32,8 @@ namespace Inventor.Core.Questions
 				.Where(s => s.Sign == Concept)
 				.SelectBoolean(
 					statement => Concept.HasAttribute<IsSignAttribute>(),
-					language => language.Questions.Answers.SignTrue,
-					language => language.Questions.Answers.SignFalse,
+					language => language.GetExtension<ILanguageSetModule>().Questions.Answers.SignTrue,
+					language => language.GetExtension<ILanguageSetModule>().Questions.Answers.SignFalse,
 					new Dictionary<String, IKnowledge>
 					{
 						{ Strings.ParamConcept, Concept },

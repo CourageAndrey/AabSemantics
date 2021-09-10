@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 
 using Inventor.Core.Localization;
+using Inventor.Core.Localization.Modules;
 
 namespace Inventor.Core.Statements
 {
@@ -24,7 +25,10 @@ namespace Inventor.Core.Statements
 		#endregion
 
 		public GroupStatement(String id, IConcept area, IConcept concept)
-			: base(id, new Func<ILanguage, String>(language => language.Statements.Names.SubjectArea), new Func<ILanguage, String>(language => language.Statements.Hints.SubjectArea))
+			: base(
+				id,
+				new Func<ILanguage, String>(language => language.GetExtension<ILanguageSetModule>().Statements.Names.SubjectArea),
+				new Func<ILanguage, String>(language => language.GetExtension<ILanguageSetModule>().Statements.Hints.SubjectArea))
 		{
 			Update(id, area, concept);
 		}
@@ -49,17 +53,17 @@ namespace Inventor.Core.Statements
 
 		protected override String GetDescriptionTrueText(ILanguage language)
 		{
-			return language.Statements.TrueFormatStrings.SubjectArea;
+			return language.GetExtension<ILanguageSetModule>().Statements.TrueFormatStrings.SubjectArea;
 		}
 
 		protected override String GetDescriptionFalseText(ILanguage language)
 		{
-			return language.Statements.TrueFormatStrings.SubjectArea;
+			return language.GetExtension<ILanguageSetModule>().Statements.TrueFormatStrings.SubjectArea;
 		}
 
 		protected override String GetDescriptionQuestionText(ILanguage language)
 		{
-			return language.Statements.TrueFormatStrings.SubjectArea;
+			return language.GetExtension<ILanguageSetModule>().Statements.TrueFormatStrings.SubjectArea;
 		}
 
 		protected override IDictionary<String, IKnowledge> GetDescriptionParameters()

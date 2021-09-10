@@ -3,7 +3,40 @@ using System.Xml.Serialization;
 
 namespace Inventor.Client.Localization
 {
-	[Serializable]
+	public interface ILanguageErrors
+	{
+		String InnerException
+		{ get; }
+
+		String DialogHeader
+		{ get; }
+
+		String DialogMessageCommon
+		{ get; }
+
+		String DialogMessageFatal
+		{ get; }
+
+		String DialogMessageInner
+		{ get; }
+
+		String DialogMessageView
+		{ get; }
+
+		String Class
+		{ get; }
+
+		String Message
+		{ get; }
+
+		String Stack
+		{ get; }
+
+		String SaveFilter
+		{ get; }
+	}
+
+	[XmlType]
 	public class LanguageErrors : ILanguageErrors
 	{
 		#region Properties
