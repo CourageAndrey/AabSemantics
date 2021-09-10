@@ -4,6 +4,7 @@ using Inventor.Core;
 using Inventor.Core.Attributes;
 using Inventor.Core.Concepts;
 using Inventor.Core.Localization;
+using Inventor.Core.Modules;
 using Inventor.Core.Questions;
 using Inventor.Core.Statements;
 
@@ -19,7 +20,8 @@ namespace Samples._03.Processes
 			Console.WriteLine("It works with months and some events happening during the year.");
 			Console.WriteLine();
 
-			ISemanticNetwork semanticNetwork = new SemanticNetwork(Language.Default);
+			ISemanticNetwork semanticNetwork = new SemanticNetwork(Language.Default)
+				.WithModule<ProcessesModule>();
 
 			Console.WriteLine();
 

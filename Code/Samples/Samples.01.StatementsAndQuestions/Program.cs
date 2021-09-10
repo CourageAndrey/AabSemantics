@@ -4,6 +4,7 @@ using Inventor.Core;
 using Inventor.Core.Attributes;
 using Inventor.Core.Concepts;
 using Inventor.Core.Localization;
+using Inventor.Core.Modules;
 using Inventor.Core.Questions;
 using Inventor.Core.Statements;
 
@@ -24,8 +25,24 @@ namespace Samples._01.StatementsAndQuestions
 			ILanguage language = Language.Default;
 			Console.WriteLine($"Selected language: ({language.Culture}) {language.Name}");
 
+			// Initialize modules metadata
+			var modules = new IExtensionModule[]
+			{
+				new BooleanModule(),
+				new ClassificationModule(),
+				new SetModule(),
+				new MathematicsModule(),
+				new ProcessesModule(),
+			};
+			foreach (var module in modules)
+			{
+				module.RegisterMetadata();
+			}
+			Console.WriteLine("Modules are initialized...");
+
 			// Semantic Network is our starting point.
-			ISemanticNetwork semanticNetwork = new SemanticNetwork(language);
+			ISemanticNetwork semanticNetwork = new SemanticNetwork(language)
+				.WithModules(modules);
 			Console.WriteLine("Semantic network is created...");
 
 			// Some concepts are predefined. All of them can be found using Inventor.Core.SystemConcepts.GetAll() method.

@@ -5,6 +5,7 @@ using Inventor.Core;
 using Inventor.Core.Attributes;
 using Inventor.Core.Concepts;
 using Inventor.Core.Localization;
+using Inventor.Core.Modules;
 using Inventor.Core.Questions;
 using Inventor.Core.Statements;
 
@@ -20,7 +21,8 @@ namespace Samples._02.Comparison
 			Console.WriteLine("It works with usual numbers.");
 			Console.WriteLine();
 
-			ISemanticNetwork semanticNetwork = new SemanticNetwork(Language.Default);
+			ISemanticNetwork semanticNetwork = new SemanticNetwork(Language.Default)
+				.WithModule<MathematicsModule>();
 
 			Console.WriteLine();
 
