@@ -181,9 +181,6 @@ namespace Inventor.Core
 		String ParamConditions
 		{ get; }
 
-		String ParamQuestion
-		{ get; }
-
 		String ParamLeftValue
 		{ get; }
 
