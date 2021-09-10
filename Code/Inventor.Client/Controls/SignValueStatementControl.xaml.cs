@@ -24,10 +24,11 @@ namespace Inventor.Client.Controls
 			_comboBoxSign.ItemsSource = wrappedConcepts.Where(c => c.Concept.HasAttribute<IsSignAttribute>()).ToList();
 			_comboBoxValue.ItemsSource = wrappedConcepts.Where(c => c.Concept.HasAttribute<IsValueAttribute>()).ToList();
 
-			_groupID.Header = language.Ui.Editing.PropertyID;
-			_groupConcept.Header = language.Ui.Editing.PropertyConcept;
-			_groupSign.Header = language.Ui.Editing.PropertySign;
-			_groupValue.Header = language.Ui.Editing.PropertyValue;
+			var languageEditing = language.Ui.Editing;
+			_groupID.Header = languageEditing.PropertyID;
+			_groupConcept.Header = languageEditing.PropertyConcept;
+			_groupSign.Header = languageEditing.PropertySign;
+			_groupValue.Header = languageEditing.PropertyValue;
 		}
 
 		public StatementViewModel Statement

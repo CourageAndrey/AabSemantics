@@ -22,9 +22,10 @@ namespace Inventor.Client.Controls
 			_comboBoxConcept.ItemsSource = wrappedConcepts;
 			_comboBoxSign.ItemsSource = wrappedConcepts.Where(c => c.Concept.HasAttribute<IsSignAttribute>()).ToList();
 
-			_groupID.Header = language.Ui.Editing.PropertyID;
-			_groupConcept.Header = language.Ui.Editing.PropertyConcept;
-			_groupSign.Header = language.Ui.Editing.PropertySign;
+			var languageEditing = language.Ui.Editing;
+			_groupID.Header = languageEditing.PropertyID;
+			_groupConcept.Header = languageEditing.PropertyConcept;
+			_groupSign.Header = languageEditing.PropertySign;
 		}
 
 		public StatementViewModel Statement

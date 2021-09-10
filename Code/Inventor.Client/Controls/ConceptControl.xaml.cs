@@ -15,10 +15,11 @@ namespace Inventor.Client.Controls
 
 		public void Initialize(ISemanticNetwork semanticNetwork, ILanguage language)
 		{
-			_groupID.Header = language.Ui.Editing.PropertyID;
-			_groupName.Header = language.Ui.Editing.PropertyName;
-			_groupHint.Header = language.Ui.Editing.PropertyHint;
-			_groupAttributes.Header = language.Ui.Editing.PropertyAttributes;
+			var languageEditing = language.Ui.Editing;
+			_groupID.Header = languageEditing.PropertyID;
+			_groupName.Header = languageEditing.PropertyName;
+			_groupHint.Header = languageEditing.PropertyHint;
+			_groupAttributes.Header = languageEditing.PropertyAttributes;
 
 			_nameControl.Localize(language);
 			_hintControl.Localize(language);

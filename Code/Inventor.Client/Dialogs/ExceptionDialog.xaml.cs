@@ -4,7 +4,6 @@ using System.Windows.Data;
 
 using Microsoft.Win32;
 
-using Inventor.Core;
 using Inventor.Core.Utils;
 
 namespace Inventor.Client.Dialogs
@@ -76,25 +75,27 @@ namespace Inventor.Client.Dialogs
 			var localizationProvider = (ObjectDataProvider) Resources["language"];
 			localizationProvider.ConstructorParameters.Add(_language);
 
+			var languageErrors = _language.Errors;
 			switch (_mode)
 			{
 				case ExceptionDialogMode.ViewOnly:
-					labelCommonMessage.Text = _language.Errors.DialogMessageView;
+					labelCommonMessage.Text = languageErrors.DialogMessageView;
 					break;
 				case ExceptionDialogMode.ShowInnerExeption:
-					labelCommonMessage.Text = _language.Errors.DialogMessageInner;
+					labelCommonMessage.Text = languageErrors.DialogMessageInner;
 					break;
 				case ExceptionDialogMode.ProcessError:
-					labelCommonMessage.Text = _language.Errors.DialogMessageCommon;
+					labelCommonMessage.Text = languageErrors.DialogMessageCommon;
 					break;
 				case ExceptionDialogMode.ProcessFatalError:
-					labelCommonMessage.Text = _language.Errors.DialogMessageFatal;
+					labelCommonMessage.Text = languageErrors.DialogMessageFatal;
 					break;
 				default:
 					throw new NotSupportedException();
 			}
+
 			saveDialog.Title = _language.Common.SaveFile;
-			saveDialog.Filter = _language.Errors.SaveFilter;
+			saveDialog.Filter = languageErrors.SaveFilter;
 		}
 
 		#endregion

@@ -28,8 +28,9 @@ namespace Inventor.Client.Controls
 		public void Localize(ILanguage language)
 		{
 			_language = language;
-			_columnLanguage.Header = language.Ui.Editing.ColumnHeaderLanguage;
-			_columnValue.Header = language.Ui.Editing.ColumnHeaderValue;
+			var languageEditing = language.Ui.Editing;
+			_columnLanguage.Header = languageEditing.ColumnHeaderLanguage;
+			_columnValue.Header = languageEditing.ColumnHeaderValue;
 		}
 
 		private ILanguage _language;
