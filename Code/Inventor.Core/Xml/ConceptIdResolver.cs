@@ -7,7 +7,8 @@ namespace Inventor.Core.Xml
 {
 	public class ConceptIdResolver
 	{
-		private static readonly IDictionary<String, IConcept> _systemConceptsById = new Dictionary<String, IConcept>();
+		public static readonly IDictionary<String, IConcept> SystemConceptsById = new Dictionary<String, IConcept>();
+
 		private readonly IDictionary<String, IConcept> _conceptsById = new Dictionary<String, IConcept>();
 
 		public static void RegisterEnumType(Type type)
@@ -15,7 +16,7 @@ namespace Inventor.Core.Xml
 			foreach (var field in type.GetFields(BindingFlags.GetField | BindingFlags.Static | BindingFlags.Public).Where(f => f.FieldType == typeof(IConcept)))
 			{
 				IConcept concept = (IConcept) field.GetValue(null);
-				_systemConceptsById[concept.ID] = concept;
+				SystemConceptsById[concept.ID] = concept;
 			}
 		}
 
@@ -30,7 +31,7 @@ namespace Inventor.Core.Xml
 		public IConcept GetConceptById(String id)
 		{
 			IConcept systemConcept;
-			return _systemConceptsById.TryGetValue(id, out systemConcept)
+			return SystemConceptsById.TryGetValue(id, out systemConcept)
 				? systemConcept
 				: _conceptsById[id];
 		}
