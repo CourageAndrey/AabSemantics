@@ -37,6 +37,11 @@ namespace Inventor.Core.Modules
 			Repositories.RegisterAttribute(IsBooleanAttribute.Value, language => language.GetExtension<ILanguageBooleanModule>().Attributes.IsBoolean, new Xml.IsBooleanAttribute());
 		}
 
+		protected override void RegisterConcepts()
+		{
+			Xml.ConceptIdResolver.RegisterEnumType(typeof(LogicalValues));
+		}
+
 		protected override void RegisterQuestions()
 		{
 			Repositories.RegisterQuestion<CheckStatementQuestion>(language => language.GetExtension<ILanguageBooleanModule>().Questions.Names.CheckStatementQuestion);
