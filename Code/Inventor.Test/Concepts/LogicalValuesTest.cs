@@ -4,7 +4,7 @@ using NUnit.Framework;
 
 using Inventor.Core.Concepts;
 
-namespace Inventor.Test.SystemConcepts
+namespace Inventor.Test.Concepts
 {
 	[TestFixture]
 	public class LogicalValuesTest
