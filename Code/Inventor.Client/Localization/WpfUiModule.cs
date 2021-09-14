@@ -1,28 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Threading;
-using System.Xml.Serialization;
+﻿using System.Xml.Serialization;
 
-using Inventor.Core;
 using Inventor.Core.Localization;
-using Inventor.Core.Utils;
 
 namespace Inventor.Client.Localization
 {
 	[XmlType]
 	public class WpfUiModule : LanguageExtension, IWpfUiModule
 	{
-		#region Constants
-
-		[XmlIgnore]
-		private const String FileFormat = "*.xml";
-		[XmlIgnore]
-		private const String FolderPath = "Localization";
-
-		#endregion
-
 		#region Xml Properties
 
 		[XmlElement(nameof(Common))]
@@ -72,24 +56,6 @@ namespace Inventor.Client.Localization
 				UiXml = LanguageUi.CreateDefault(),
 				MiscXml = LanguageMisc.CreateDefault(),
 			};
-		}
-
-		public static ICollection<ILanguage> LoadAdditional(string applicationPath)
-		{
-			var languagesFolder = new DirectoryInfo(Path.Combine(applicationPath, FolderPath));
-			if (!languagesFolder.Exists)
-			{
-				languagesFolder.Create();
-			}
-			return languagesFolder.GetFiles(FileFormat).Select(f => f.FullName.DeserializeFromFile<Language>() as ILanguage).ToList();
-		}
-	}
-
-	public static class LanguageExtensions
-	{
-		public static ILanguage FindAppropriate(this IEnumerable<ILanguage> languages, Language @default)
-		{
-			return languages.FirstOrDefault(l => l.Culture == Thread.CurrentThread.CurrentUICulture.Name) ?? @default;
 		}
 	}
 }
