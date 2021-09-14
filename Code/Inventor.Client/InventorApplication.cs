@@ -5,7 +5,6 @@ using System.Linq;
 using System.Windows;
 using System.Windows.Threading;
 
-using Inventor.Client.Localization;
 using Inventor.Core;
 using Inventor.Core.Localization;
 using Inventor.Core.Modules;
@@ -68,7 +67,7 @@ namespace Inventor.Client
 
 		private ICollection<ILanguage> initializeLanguages()
 		{
-			var languages = Localization.WpfUiModule.LoadAdditional(StartupPath);
+			var languages = StartupPath.LoadAdditionalLanguages();
 			languages.Add(Language.Default);
 			return languages.ToArray();
 		}
