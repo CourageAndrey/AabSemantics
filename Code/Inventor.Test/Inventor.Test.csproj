@@ -104,6 +104,7 @@
     <Compile Include="Concepts\ComparisonSignsTest.cs" />
     <Compile Include="Concepts\LogicalValuesTest.cs" />
     <Compile Include="Concepts\SequenceSignsTest.cs" />
+    <Compile Include="SystemConcepts.cs" />
     <Compile Include="Text\ContainersTest.cs" />
     <Compile Include="Text\TextRepresentationTest.cs" />
     <Compile Include="Text\TextTest.cs" />

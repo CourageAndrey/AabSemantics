@@ -12,7 +12,7 @@ namespace Inventor.Test.Concepts
 		[Test]
 		public void OnlyComparisonSignsSuit()
 		{
-			foreach (var concept in Core.Concepts.SystemConcepts.GetAll())
+			foreach (var concept in SystemConcepts.GetAll())
 			{
 				if (!ComparisonSigns.All.Contains(concept))
 				{

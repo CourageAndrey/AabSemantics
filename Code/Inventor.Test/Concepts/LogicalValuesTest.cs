@@ -12,7 +12,7 @@ namespace Inventor.Test.Concepts
 		[Test]
 		public void OnlyLogicalValuesSuit()
 		{
-			foreach (var concept in Core.Concepts.SystemConcepts.GetAll())
+			foreach (var concept in SystemConcepts.GetAll())
 			{
 				if (!LogicalValues.All.Contains(concept))
 				{

@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Xml.Serialization;
 
-using Inventor.Core.Concepts;
 using Inventor.Core.Metadata;
 using Inventor.Core.Utils;
 
@@ -44,8 +43,10 @@ namespace Inventor.Core.Xml
 
 			Modules = semanticNetwork.Modules.Keys.ToList();
 
-			var systemConcepts = new HashSet<IConcept>(SystemConcepts.GetAll());
-			Concepts = semanticNetwork.Concepts.Except(systemConcepts).Select(concept => new Concept(concept)).ToList();
+			Concepts = semanticNetwork.Concepts
+				.Where(concept => !ConceptIdResolver.SystemConceptsById.ContainsKey(concept.ID))
+				.Select(concept => new Concept(concept))
+				.ToList();
 
 			Statements = semanticNetwork.Statements.Select(statement => Statement.Load(statement)).ToList();
 		}
