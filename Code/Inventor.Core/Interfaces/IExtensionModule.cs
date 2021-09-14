@@ -67,6 +67,7 @@ namespace Inventor.Core
 			{
 				RegisterLanguage();
 				RegisterAttributes();
+				RegisterConcepts();
 				RegisterStatements();
 				RegisterQuestions();
 
@@ -83,6 +84,9 @@ namespace Inventor.Core
 		{ }
 
 		protected virtual void RegisterAttributes()
+		{ }
+
+		protected virtual void RegisterConcepts()
 		{ }
 
 		protected virtual void RegisterStatements()

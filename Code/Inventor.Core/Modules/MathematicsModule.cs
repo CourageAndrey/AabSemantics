@@ -37,6 +37,11 @@ namespace Inventor.Core.Modules
 			Repositories.RegisterAttribute(IsComparisonSignAttribute.Value, language => language.GetExtension<ILanguageMathematicsModule>().Attributes.IsComparisonSign, new Xml.IsComparisonSignAttribute());
 		}
 
+		protected override void RegisterConcepts()
+		{
+			Xml.ConceptIdResolver.RegisterEnumType(typeof(ComparisonSigns));
+		}
+
 		protected override void RegisterStatements()
 		{
 			Repositories.RegisterStatement<ComparisonStatement>(

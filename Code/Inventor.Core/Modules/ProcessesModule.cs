@@ -38,6 +38,11 @@ namespace Inventor.Core.Modules
 			Repositories.RegisterAttribute(IsSequenceSignAttribute.Value, language => language.GetExtension<ILanguageProcessesModule>().Attributes.IsSequenceSign, new Xml.IsSequenceSignAttribute());
 		}
 
+		protected override void RegisterConcepts()
+		{
+			Xml.ConceptIdResolver.RegisterEnumType(typeof(SequenceSigns));
+		}
+
 		protected override void RegisterStatements()
 		{
 			Repositories.RegisterStatement<ProcessesStatement>(

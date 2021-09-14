@@ -3,22 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 
-using Inventor.Core.Concepts;
-
 namespace Inventor.Core.Xml
 {
 	public class ConceptIdResolver
 	{
 		private static readonly IDictionary<String, IConcept> _systemConceptsById = new Dictionary<String, IConcept>();
 		private readonly IDictionary<String, IConcept> _conceptsById = new Dictionary<String, IConcept>();
-
-		static ConceptIdResolver()
-		{
-			foreach (var type in new[] { typeof(LogicalValues), typeof(ComparisonSigns), typeof(SequenceSigns) })
-			{
-				RegisterEnumType(type);
-			}
-		}
 
 		public static void RegisterEnumType(Type type)
 		{
