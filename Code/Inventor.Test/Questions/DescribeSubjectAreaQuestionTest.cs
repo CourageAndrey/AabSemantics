@@ -20,7 +20,7 @@ namespace Inventor.Test.Questions
 			// arrange
 			var language = Language.Default;
 			var semanticNetwork = new TestSemanticNetwork(language);
-			var noSubjectAreaConcept = Core.Concepts.SystemConcepts.GetAll().First();
+			var noSubjectAreaConcept = SystemConcepts.GetAll().First();
 
 			// act
 			var answer = semanticNetwork.SemanticNetwork.Ask().WhichConceptsBelongToSubjectArea(noSubjectAreaConcept);

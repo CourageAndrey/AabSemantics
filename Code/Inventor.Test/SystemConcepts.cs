@@ -1,6 +1,9 @@
 ﻿using System.Collections.Generic;
 
-namespace Inventor.Core.Concepts
+using Inventor.Core;
+using Inventor.Core.Concepts;
+
+namespace Inventor.Test
 {
 	public static class SystemConcepts
 	{

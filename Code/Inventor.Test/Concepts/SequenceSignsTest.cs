@@ -12,7 +12,7 @@ namespace Inventor.Test.Concepts
 		[Test]
 		public void OnlySequenceSignsSuit()
 		{
-			foreach (var concept in Core.Concepts.SystemConcepts.GetAll())
+			foreach (var concept in SystemConcepts.GetAll())
 			{
 				if (!SequenceSigns.All.Contains(concept))
 				{
