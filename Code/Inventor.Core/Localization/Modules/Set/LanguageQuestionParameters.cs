@@ -5,16 +5,16 @@ namespace Inventor.Core.Localization.Modules.Set
 {
 	public interface ILanguageQuestionParameters
 	{
-		String ParamSign
+		String Sign
 		{ get; }
 
-		String ParamArea
+		String Area
 		{ get; }
 
-		String ParamConcept1
+		String Concept1
 		{ get; }
 
-		String ParamConcept2
+		String Concept2
 		{ get; }
 	}
 
@@ -24,19 +24,19 @@ namespace Inventor.Core.Localization.Modules.Set
 		#region Properties
 
 		[XmlElement]
-		public String ParamSign
+		public String Sign
 		{ get; set; }
 
 		[XmlElement]
-		public String ParamArea
+		public String Area
 		{ get; set; }
 
 		[XmlElement]
-		public String ParamConcept1
+		public String Concept1
 		{ get; set; }
 
 		[XmlElement]
-		public String ParamConcept2
+		public String Concept2
 		{ get; set; }
 
 		#endregion
@@ -45,10 +45,10 @@ namespace Inventor.Core.Localization.Modules.Set
 		{
 			return new LanguageQuestionParameters
 			{
-				ParamSign = "SIGN",
-				ParamArea = "SUBJECT_AREA",
-				ParamConcept1 = "Concept 1",
-				ParamConcept2 = "Concept 2",
+				Sign = "SIGN",
+				Area = "SUBJECT_AREA",
+				Concept1 = "Concept 1",
+				Concept2 = "Concept 2",
 			};
 		}
 	}

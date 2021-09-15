@@ -5,10 +5,10 @@ namespace Inventor.Core.Localization.Modules.Processes
 {
 	public interface ILanguageQuestionParameters
 	{
-		String ParamProcessA
+		String ProcessA
 		{ get; }
 
-		String ParamProcessB
+		String ProcessB
 		{ get; }
 	}
 
@@ -18,11 +18,11 @@ namespace Inventor.Core.Localization.Modules.Processes
 		#region Properties
 
 		[XmlElement]
-		public String ParamProcessA
+		public String ProcessA
 		{ get; set; }
 
 		[XmlElement]
-		public String ParamProcessB
+		public String ProcessB
 		{ get; set; }
 
 		#endregion
@@ -31,8 +31,8 @@ namespace Inventor.Core.Localization.Modules.Processes
 		{
 			return new LanguageQuestionParameters
 			{
-				ParamProcessA = "Process A",
-				ParamProcessB = "Process B",
+				ProcessA = "Process A",
+				ProcessB = "Process B",
 			};
 		}
 	}

@@ -5,10 +5,10 @@ namespace Inventor.Core.Localization.Modules.Mathematics
 {
 	public interface ILanguageQuestionParameters
 	{
-		String ParamLeftValue
+		String LeftValue
 		{ get; }
 
-		String ParamRightValue
+		String RightValue
 		{ get; }
 	}
 
@@ -18,11 +18,11 @@ namespace Inventor.Core.Localization.Modules.Mathematics
 		#region Properties
 
 		[XmlElement]
-		public String ParamLeftValue
+		public String LeftValue
 		{ get; set; }
 
 		[XmlElement]
-		public String ParamRightValue
+		public String RightValue
 		{ get; set; }
 
 		#endregion
@@ -31,8 +31,8 @@ namespace Inventor.Core.Localization.Modules.Mathematics
 		{
 			return new LanguageQuestionParameters
 			{
-				ParamLeftValue = "Left value",
-				ParamRightValue = "Right value",
+				LeftValue = "Left value",
+				RightValue = "Right value",
 			};
 		}
 	}

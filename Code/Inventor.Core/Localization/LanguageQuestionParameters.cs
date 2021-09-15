@@ -5,19 +5,19 @@ namespace Inventor.Core.Localization
 {
 	public interface ILanguageQuestionParameters
 	{
-		String ParamParent
+		String Parent
 		{ get; }
 
-		String ParamChild
+		String Child
 		{ get; }
 
-		String ParamConcept
+		String Concept
 		{ get; }
 
-		String ParamRecursive
+		String Recursive
 		{ get; }
 
-		String ParamConditions
+		String Conditions
 		{ get; }
 	}
 
@@ -27,27 +27,27 @@ namespace Inventor.Core.Localization
 		#region Properties
 
 		[XmlElement]
-		public String ParamParent
+		public String Parent
 		{ get; set; }
 
 		[XmlElement]
-		public String ParamChild
+		public String Child
 		{ get; set; }
 
 		[XmlElement]
-		public String ParamConcept
+		public String Concept
 		{ get; set; }
 
 		[XmlElement]
-		public String ParamRecursive
+		public String Recursive
 		{ get; set; }
 
 		[XmlElement]
-		public String ParamStatement
+		public String Statement
 		{ get; set; }
 
 		[XmlElement]
-		public String ParamConditions
+		public String Conditions
 		{ get; set; }
 
 		#endregion
@@ -56,12 +56,12 @@ namespace Inventor.Core.Localization
 		{
 			return new LanguageQuestionParameters
 			{
-				ParamParent = "PARENT",
-				ParamChild = "CHILD",
-				ParamConcept = "CONCEPT",
-				ParamRecursive = "Check \"parents\" recursively",
-				ParamStatement = "Statement",
-				ParamConditions = "Preconditions",
+				Parent = "PARENT",
+				Child = "CHILD",
+				Concept = "CONCEPT",
+				Recursive = "Check \"parents\" recursively",
+				Statement = "Statement",
+				Conditions = "Preconditions",
 			};
 		}
 	}
