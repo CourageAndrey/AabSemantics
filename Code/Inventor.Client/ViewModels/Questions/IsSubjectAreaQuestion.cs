@@ -3,11 +3,11 @@
 	[QuestionDescriptor]
 	public class IsSubjectAreaQuestion : QuestionViewModel<Core.Questions.IsSubjectAreaQuestion>
 	{
-		[PropertyDescriptor(true, "Names.ParamConcept")]
+		[PropertyDescriptor(true, "Questions.Parameters.Concept")]
 		public Core.IConcept Concept
 		{ get; set; }
 
-		[PropertyDescriptor(true, "Names.ParamArea")]
+		[PropertyDescriptor(true, "Set\\Questions.Parameters.Area")]
 		public Core.IConcept Area
 		{ get; set; }
 

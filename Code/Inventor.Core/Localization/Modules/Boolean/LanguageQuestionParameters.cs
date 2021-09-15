@@ -5,7 +5,7 @@ namespace Inventor.Core.Localization.Modules.Boolean
 {
 	public interface ILanguageQuestionParameters
 	{
-		String ParamStatement
+		String Statement
 		{ get; }
 	}
 
@@ -15,7 +15,7 @@ namespace Inventor.Core.Localization.Modules.Boolean
 		#region Properties
 
 		[XmlElement]
-		public String ParamStatement
+		public String Statement
 		{ get; set; }
 
 		#endregion
@@ -24,7 +24,7 @@ namespace Inventor.Core.Localization.Modules.Boolean
 		{
 			return new LanguageQuestionParameters
 			{
-				ParamStatement = "Statement",
+				Statement = "Statement",
 			};
 		}
 	}

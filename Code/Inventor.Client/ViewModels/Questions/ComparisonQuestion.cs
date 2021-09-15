@@ -3,11 +3,11 @@
 	[QuestionDescriptor]
 	public class ComparisonQuestion : QuestionViewModel<Core.Questions.ComparisonQuestion>
 	{
-		[PropertyDescriptor(true, "Names.ParamLeftValue")]
+		[PropertyDescriptor(true, "Mathematics\\Questions.Parameters.LeftValue")]
 		public Core.IConcept LeftValue
 		{ get; set; }
 
-		[PropertyDescriptor(true, "Names.ParamRightValue")]
+		[PropertyDescriptor(true, "Mathematics\\Questions.Parameters.RightValue")]
 		public Core.IConcept RightValue
 		{ get; set; }
 
