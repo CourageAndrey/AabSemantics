@@ -2,7 +2,9 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Threading;
+
 using Inventor.Core.Localization;
 using Inventor.Core.Utils;
 
@@ -59,6 +61,41 @@ namespace Inventor.Core
 		public static ILanguage FindAppropriate(this IEnumerable<ILanguage> languages, Language @default)
 		{
 			return languages.FirstOrDefault(l => l.Culture == Thread.CurrentThread.CurrentUICulture.Name) ?? @default;
+		}
+
+		public static String GetBoundText(this ILanguage language, String path)
+		{
+			Object languageObject = null;
+			String[] propertyPath = Array.Empty<String>();
+
+			var pathParts = path.Split('\\');
+			if (pathParts.Length == 1)
+			{
+				languageObject = language;
+
+				propertyPath = pathParts[0].Split('.');
+			}
+			else if (pathParts.Length >= 2)
+			{
+				String moduleName = pathParts[0];
+				languageObject = language.Extensions.FirstOrDefault(e => e.GetType().Name == $"Language{moduleName}Module");
+
+				propertyPath = pathParts[1].Split('.');
+			}
+
+			foreach (String member in propertyPath)
+			{
+				if (languageObject == null)
+				{
+					break;
+				}
+
+				var property = languageObject.GetType().GetProperty(member, BindingFlags.Instance | BindingFlags.Public | BindingFlags.GetProperty);
+
+				languageObject = property.GetValue(languageObject);
+			}
+
+			return languageObject as String;
 		}
 	}
 }

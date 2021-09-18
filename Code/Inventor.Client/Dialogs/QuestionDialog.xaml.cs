@@ -13,7 +13,6 @@ using Inventor.Client.Converters;
 using Inventor.Client.ViewModels;
 using Inventor.Client.ViewModels.Questions;
 using Inventor.Core;
-using Inventor.Core.Localization;
 using Inventor.Core.Localization.Modules;
 using Inventor.Core.Metadata;
 
@@ -105,7 +104,7 @@ namespace Inventor.Client.Dialogs
 			panelQuestionParams.Children.Add(textLabel = new TextBlock
 			{
 				Margin = new Thickness(2),
-				Text = getBoundText(propertyDescriptor.NamePath),
+				Text = _language.GetBoundText(propertyDescriptor.NamePath),
 			});
 			textLabel.SetValue(Grid.RowProperty, gridRow);
 			textLabel.SetValue(Grid.ColumnProperty, 0);
@@ -153,7 +152,7 @@ namespace Inventor.Client.Dialogs
 			var textLabel = new TextBlock
 			{
 				Margin = new Thickness(0, 0, 0, 2),
-				Text = getBoundText(propertyDescriptor.NamePath),
+				Text = _language.GetBoundText(propertyDescriptor.NamePath),
 			};
 			checkBox.Content = textLabel;
 		}
@@ -320,41 +319,6 @@ namespace Inventor.Client.Dialogs
 			dockPanel.Children.Add(listBox);
 
 			groupBox.Content = dockPanel;
-		}
-
-		private string getBoundText(string path)
-		{
-			object languageObject = null;
-			string[] propertyPath = Array.Empty<string>();
-
-			var pathParts = path.Split('\\');
-			if (pathParts.Length == 1)
-			{
-				languageObject = _language;
-
-				propertyPath = pathParts[0].Split('.');
-			}
-			else if (pathParts.Length >= 2)
-			{
-				string moduleName = pathParts[0];
-				languageObject = _language.Extensions.FirstOrDefault(e => e.GetType().Name == $"Language{moduleName}Module");
-
-				propertyPath = pathParts[1].Split('.');
-			}
-
-			foreach (string member in propertyPath)
-			{
-				if (languageObject == null)
-				{
-					break;
-				}
-
-				var property = languageObject.GetType().GetProperty(member, BindingFlags.Instance | BindingFlags.Public | BindingFlags.GetProperty);
-
-				languageObject = property.GetValue(languageObject);
-			}
-
-			return languageObject as string;
 		}
 
 		#endregion
