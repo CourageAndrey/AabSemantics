@@ -1,15 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Runtime.Serialization;
 using System.Threading;
 
 namespace Inventor.Core.Utils
 {
-	public class EventCollection<T> : IEventCollection<T>
+	public abstract class EventCollectionBase<T> : IEventCollection<T>
 	{
 		#region Properties
-
-		private readonly ICollection<T> _collection;
 
 		public event EventHandler<ItemEventArgs<T>> ItemAdded;
 
@@ -28,14 +27,6 @@ namespace Inventor.Core.Utils
 			return GetEnumerator();
 		}
 
-		public IEnumerator<T> GetEnumerator()
-		{
-			return _collection.GetEnumerator();
-		}
-
-		public Int32 Count
-		{ get { return _collection.Count; } }
-
 		public Boolean IsReadOnly
 		{ get { return false; } }
 
@@ -51,7 +42,7 @@ namespace Inventor.Core.Utils
 					return;
 				}
 			}
-			_collection.Add(item);
+			AddImplementation(item);
 			Volatile.Read(ref ItemAdded)?.Invoke(this, new ItemEventArgs<T>(item));
 		}
 
@@ -73,8 +64,8 @@ namespace Inventor.Core.Utils
 			}
 			if (itemsWhichCanNotBeRemoved.Count == 0)
 			{
-				var copy = new List<T>(_collection);
-				_collection.Clear();
+				var copy = new List<T>(this);
+				ClearImplementation();
 				var afterHandler = Volatile.Read(ref ItemRemoved);
 				foreach (var item in copy)
 				{
@@ -85,16 +76,6 @@ namespace Inventor.Core.Utils
 			{
 				throw new ItemsCantBeRemovedException<T>(itemsWhichCanNotBeRemoved);
 			}
-		}
-
-		public Boolean Contains(T item)
-		{
-			return _collection.Contains(item);
-		}
-
-		public void CopyTo(T[] array, Int32 arrayIndex)
-		{
-			_collection.CopyTo(array, arrayIndex);
 		}
 
 		public Boolean Remove(T item)
@@ -109,9 +90,90 @@ namespace Inventor.Core.Utils
 					return false;
 				}
 			}
-			Boolean result = _collection.Remove(item);
+			Boolean result = RemoveImplementation(item);
 			Volatile.Read(ref ItemRemoved)?.Invoke(this, new ItemEventArgs<T>(item));
 			return result;
+		}
+
+		#endregion
+
+		#region Methods to override
+
+		public abstract IEnumerator<T> GetEnumerator();
+
+		public abstract Int32 Count
+		{ get; }
+
+		protected abstract void AddImplementation(T item);
+
+		protected abstract void ClearImplementation();
+
+		public abstract Boolean Contains(T item);
+
+		public abstract void CopyTo(T[] array, Int32 arrayIndex);
+
+		protected abstract Boolean RemoveImplementation(T item);
+
+		#endregion
+	}
+
+	public class EventCollection<T> : EventCollectionBase<T>, IKeyedCollection<T>
+		where T : IIdentifiable
+	{
+		#region Properties
+
+		public T this[String id]
+		{ get { return _collection[id]; } }
+
+		public ICollection<String> Keys
+		{ get { return _collection.Keys; } }
+
+		private readonly IDictionary<String, T> _collection;
+
+		#endregion
+
+		#region Implementation of EventCollectionBase<T>
+
+		public override IEnumerator<T> GetEnumerator()
+		{
+			return _collection.Values.GetEnumerator();
+		}
+
+		public override Int32 Count
+		{ get { return _collection.Count; } }
+
+		protected override void AddImplementation(T item)
+		{
+			_collection.Add(item.ID, item);
+		}
+
+		protected override void ClearImplementation()
+		{
+			_collection.Clear();
+		}
+
+		public override Boolean Contains(T item)
+		{
+			return _collection.Values.Contains(item);
+		}
+
+		public override void CopyTo(T[] array, Int32 arrayIndex)
+		{
+			_collection.Values.CopyTo(array, arrayIndex);
+		}
+
+		protected override Boolean RemoveImplementation(T item)
+		{
+			return _collection.Remove(item.ID);
+		}
+
+		#endregion
+
+		#region Implementation of IKeyedCollection<T>
+
+		public Boolean TryGetValue(String key, out T value)
+		{
+			return _collection.TryGetValue(key, out value);
 		}
 
 		#endregion
@@ -119,14 +181,14 @@ namespace Inventor.Core.Utils
 		#region Constructors
 
 		public EventCollection()
-			: this(new List<T>())
+			: this(Array.Empty<T>())
 		{ }
 
 		public EventCollection(IEnumerable<T> items)
-			: this(new List<T>(items))
+			: this(items.ToDictionary(i => i.ID, i => i))
 		{ }
 
-		private EventCollection(List<T> items)
+		public EventCollection(IDictionary<String, T> items)
 		{
 			_collection = items;
 		}

@@ -1,4 +1,6 @@
-﻿using System.Linq;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 
 using NUnit.Framework;
 
@@ -12,7 +14,7 @@ namespace Inventor.Test.Utils
 		[Test]
 		public void AddAddsItem()
 		{
-			var collection = new EventCollection<string>();
+			var collection = new SimpleEventCollection();
 
 			collection.Add("A");
 			collection.Add("B");
@@ -28,7 +30,7 @@ namespace Inventor.Test.Utils
 		[Test]
 		public void RemoveRemovesItem()
 		{
-			var collection = new EventCollection<string> { "A", "B", "C" };
+			var collection = new SimpleEventCollection { "A", "B", "C" };
 
 			Assert.IsTrue(collection.Remove("B"));
 			Assert.IsFalse(collection.Remove("D"));
@@ -42,7 +44,7 @@ namespace Inventor.Test.Utils
 		[Test]
 		public void ClearRemoveAllItems()
 		{
-			var collection = new EventCollection<string> { "A", "B", "C" };
+			var collection = new SimpleEventCollection { "A", "B", "C" };
 
 			collection.Clear();
 
@@ -56,7 +58,7 @@ namespace Inventor.Test.Utils
 		[Test]
 		public void AddWorksOnlyIfAllowed()
 		{
-			var collection = new EventCollection<string>();
+			var collection = new SimpleEventCollection();
 			string result = string.Empty;
 			collection.ItemAdding += (sender, args) => { args.IsCanceled = args.Item == "B"; };
 			collection.ItemAdded += (sender, args) => { result += args.Item; };
@@ -75,7 +77,7 @@ namespace Inventor.Test.Utils
 		[Test]
 		public void RemoveWorksOnlyIfAllowed()
 		{
-			var collection = new EventCollection<string> { "A", "B", "C" };
+			var collection = new SimpleEventCollection { "A", "B", "C" };
 			string result = string.Empty;
 			collection.ItemRemoving += (sender, args) => { args.IsCanceled = args.Item == "B"; };
 			collection.ItemRemoved += (sender, args) => { result += args.Item; };
@@ -93,7 +95,7 @@ namespace Inventor.Test.Utils
 		[Test]
 		public void SuccessfulClearWorks()
 		{
-			var collection = new EventCollection<string> { "A", "B", "C" };
+			var collection = new SimpleEventCollection { "A", "B", "C" };
 			string result = string.Empty;
 			collection.ItemRemoving += (sender, args) => { };
 			collection.ItemRemoved += (sender, args) => { result += args.Item; };
@@ -107,7 +109,7 @@ namespace Inventor.Test.Utils
 		[Test]
 		public void ForbiddenClearFails()
 		{
-			var collection = new EventCollection<string> { "A", "B", "C" };
+			var collection = new SimpleEventCollection { "A", "B", "C" };
 			string result = string.Empty;
 			collection.ItemRemoving += (sender, args) => { args.IsCanceled = args.Item == "B"; };
 			collection.ItemRemoved += (sender, args) => { result += args.Item; };
@@ -122,18 +124,18 @@ namespace Inventor.Test.Utils
 		[Test]
 		public void EventCollectionIsAlwaysEditable()
 		{
-			Assert.IsFalse(new EventCollection<string>().IsReadOnly);
+			Assert.IsFalse(new SimpleEventCollection().IsReadOnly);
 
-			Assert.IsFalse(new EventCollection<string> { "A", "B", "C" }.IsReadOnly);
+			Assert.IsFalse(new SimpleEventCollection { "A", "B", "C" }.IsReadOnly);
 
-			Assert.IsFalse(new EventCollection<string>(new[] { "A", "B", "C" }).IsReadOnly);
+			Assert.IsFalse(new SimpleEventCollection(new[] { "A", "B", "C" }).IsReadOnly);
 		}
 
 		[Test]
 		public void CopyToCopiesItems()
 		{
 			// arrange
-			var collection = new EventCollection<string> {"A", "B", "C"};
+			var collection = new SimpleEventCollection { "A", "B", "C" };
 			var array = new string[3];
 
 			// act & assert
@@ -141,6 +143,69 @@ namespace Inventor.Test.Utils
 
 			collection.CopyTo(array, 0);
 			Assert.IsTrue(collection.SequenceEqual(array));
+		}
+
+		private class SimpleEventCollection : EventCollectionBase<string>
+		{
+			#region Properties
+
+			private readonly ICollection<string> _collection;
+
+			#endregion
+
+			#region Constructors
+
+			public SimpleEventCollection()
+				: this(new List<string>())
+			{ }
+
+			public SimpleEventCollection(IEnumerable<string> items)
+				: this(items.ToList())
+			{ }
+
+			public SimpleEventCollection(List<string> items)
+			{
+				_collection = items;
+			}
+
+			#endregion
+
+			#region Overrides
+
+			public override IEnumerator<string> GetEnumerator()
+			{
+				return _collection.GetEnumerator();
+			}
+
+			public override int Count
+			{ get { return _collection.Count; } }
+
+			protected override void AddImplementation(string item)
+			{
+				_collection.Add(item);
+			}
+
+			protected override void ClearImplementation()
+			{
+				_collection.Clear();
+			}
+
+			public override bool Contains(string item)
+			{
+				return _collection.Contains(item);
+			}
+
+			public override void CopyTo(string[] array, int arrayIndex)
+			{
+				_collection.CopyTo(array, arrayIndex);
+			}
+
+			protected override bool RemoveImplementation(string item)
+			{
+				return _collection.Remove(item);
+			}
+
+			#endregion
 		}
 	}
 }

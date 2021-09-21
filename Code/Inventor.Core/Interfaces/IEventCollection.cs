@@ -15,4 +15,16 @@ namespace Inventor.Core
 
 		event EventHandler<CancelableItemEventArgs<T>> ItemRemoving;
 	}
+
+	public interface IKeyedCollection<T> : ICollection<T>
+		where T : IIdentifiable
+	{
+		T this[String key]
+		{ get; }
+
+		ICollection<String> Keys
+		{ get; }
+
+		Boolean TryGetValue(String key, out T value);
+	}
 }
