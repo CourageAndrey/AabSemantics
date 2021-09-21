@@ -172,7 +172,7 @@ namespace Inventor.Test.Contexts
 			{ get; } = null;
 
 			public string ID
-			{ get; } = null;
+			{ get; } = string.Empty;
 
 			public IContext Context
 			{ get; set; }
