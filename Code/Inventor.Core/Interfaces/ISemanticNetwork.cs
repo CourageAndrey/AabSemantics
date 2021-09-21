@@ -13,10 +13,10 @@ namespace Inventor.Core
 		ISemanticNetworkContext Context
 		{ get; }
 
-		ICollection<IConcept> Concepts
+		IKeyedCollection<IConcept> Concepts
 		{ get; }
 
-		ICollection<IStatement> Statements
+		IKeyedCollection<IStatement> Statements
 		{ get; }
 
 		IDictionary<String, IExtensionModule> Modules

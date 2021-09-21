@@ -148,10 +148,10 @@ namespace Inventor.Test.Contexts
 			public ISemanticNetworkContext Context
 			{ get; set; }
 
-			public ICollection<IConcept> Concepts
+			public IKeyedCollection<IConcept> Concepts
 			{ get; set; }
 
-			public ICollection<IStatement> Statements
+			public IKeyedCollection<IStatement> Statements
 			{ get; set; }
 
 			public IDictionary<String, IExtensionModule> Modules
