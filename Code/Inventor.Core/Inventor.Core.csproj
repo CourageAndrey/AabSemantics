@@ -7,4 +7,11 @@
     <Company>Andrei Bychko</Company>
   </PropertyGroup>
 
+  <ItemGroup>
+    <Folder Include="Modules\Boolean\Statements\" />
+    <Folder Include="Modules\Classification\Attributes\" />
+    <Folder Include="Modules\Classification\Concepts\" />
+    <Folder Include="Modules\Set\Concepts\" />
+  </ItemGroup>
+
 </Project>
