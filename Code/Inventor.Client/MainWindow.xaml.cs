@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using System.Windows;
@@ -26,6 +25,9 @@ namespace Inventor.Client
 
 			_localizationProvider = (ObjectDataProvider) Resources["language"];
 			_localizator = (Localizator) _localizationProvider.Data;
+
+			_changeController = new ChangeController();
+			_changeController.Refreshed += (sender, args) => refreshFileButtonsAndTitle();
 		}
 
 		internal void Initialize(InventorApplication application)
@@ -38,6 +40,8 @@ namespace Inventor.Client
 		private readonly Localizator _localizator;
 		private InventorApplication _application;
 		private SemanticNetworkNode _semanticNetworkNode;
+		private String _fileName;
+		private readonly ChangeController _changeController;
 
 		private void selectedLanguageChanged(object sender, SelectionChangedEventArgs e)
 		{
@@ -157,7 +161,7 @@ namespace Inventor.Client
 			if (dialog.ShowDialog() == true)
 			{
 				var command = control.EditValue.CreateRenameCommand(_application.SemanticNetwork);
-				PerformCommand(command);
+				_changeController.Perform(command);
 				semanticNetworkNode.RefreshView();
 			}
 		}
@@ -192,7 +196,7 @@ namespace Inventor.Client
 				var command = viewModel.CreateAddCommand(_application.SemanticNetwork);
 				if (command != null)
 				{
-					PerformCommand(command);
+					_changeController.Perform(command);
 				}
 			}
 		}
@@ -211,7 +215,7 @@ namespace Inventor.Client
 				var command = viewModel.CreateEditCommand(_application.SemanticNetwork, _application.CurrentLanguage);
 				if (command != null)
 				{
-					PerformCommand(command);
+					_changeController.Perform(command);
 				}
 				selectedNode.RefreshView();
 			}
@@ -223,7 +227,7 @@ namespace Inventor.Client
 			var command = extendedNode.CreateDeleteCommand(_application.SemanticNetwork);
 			if (command != null)
 			{
-				PerformCommand(command);
+				_changeController.Perform(command);
 			}
 		}
 
@@ -242,8 +246,8 @@ namespace Inventor.Client
 				? Visibility.Visible
 				: Visibility.Collapsed;
 			_editKnowledgeItem.Visibility = _deleteKnowledgeItem.Visibility = isConceptNode || statementNode?.Statement.Context.IsSystem == false
-					? Visibility.Visible
-					: Visibility.Collapsed;
+				? Visibility.Visible
+				: Visibility.Collapsed;
 		}
 
 		#endregion
@@ -288,12 +292,12 @@ namespace Inventor.Client
 		private void refreshFileButtonsAndTitle()
 		{
 			buttonNew.IsEnabled = buttonLoad.IsEnabled = buttonSaveAs.IsEnabled = true;
-			buttonSave.IsEnabled = isChanged();
+			buttonSave.IsEnabled = _changeController.HasChanges;
 
-			_buttonUndo.IsEnabled = _editHistory.Count > 0 && _currentEditPointer >= 0;
-			_buttonRedo.IsEnabled = _editHistory.Count > 0 && _currentEditPointer < _editHistory.Count - 1;
+			_buttonUndo.IsEnabled = _changeController.CanUndo;
+			_buttonRedo.IsEnabled = _changeController.CanRedo;
 
-			string changesSign = isChanged() ? "*" : string.Empty;
+			string changesSign = _changeController.HasChanges ? "*" : string.Empty;
 			Title = $"{_fileName}{changesSign} - {_application.CurrentLanguage.GetExtension<IWpfUiModule>().Ui.MainForm.Title}";
 		}
 
@@ -327,8 +331,7 @@ namespace Inventor.Client
 			else
 			{
 				_semanticNetworkNode.SemanticNetwork.Save(_fileName);
-				_savedPointer = _currentEditPointer;
-				refreshFileButtonsAndTitle();
+				_changeController.SaveHistory();
 			}
 		}
 
@@ -341,13 +344,13 @@ namespace Inventor.Client
 		{
 			if (canProceedAfterSave())
 			{
-				setModel(new Inventor.Test.Sample.TestSemanticNetwork(_application.CurrentLanguage).SemanticNetwork, string.Empty);
+				setModel(new Test.Sample.TestSemanticNetwork(_application.CurrentLanguage).SemanticNetwork, string.Empty);
 			}
 		}
 
 		private bool canProceedAfterSave()
 		{
-			if (!isChanged()) return true;
+			if (!_changeController.HasChanges) return true;
 
 			var language = _application.CurrentLanguage.GetExtension<IWpfUiModule>().Ui.MainForm;
 			var promptResult = MessageBox.Show(
@@ -367,10 +370,7 @@ namespace Inventor.Client
 
 			_fileName = fileName;
 
-			_editHistory.Clear();
-			_savedPointer = _currentEditPointer = -1;
-
-			refreshFileButtonsAndTitle();
+			_changeController.ClearHistory();
 		}
 
 		private bool saveAs()
@@ -380,35 +380,13 @@ namespace Inventor.Client
 			if (dialog.ShowDialog() == true)
 			{
 				_semanticNetworkNode.SemanticNetwork.Save(_fileName = dialog.FileName);
-				_savedPointer = _currentEditPointer;
-				refreshFileButtonsAndTitle();
+				_changeController.SaveHistory();
 				return true;
 			}
 			else
 			{
 				return false;
 			}
-		}
-
-		private String _fileName;
-		private readonly List<IEditCommand> _editHistory = new List<IEditCommand>();
-		private int _currentEditPointer = -1;
-		private int _savedPointer = -1;
-
-		private bool isChanged()
-		{
-			return _editHistory.Count > 0 && _currentEditPointer != _savedPointer;
-		}
-
-		public void PerformCommand(IEditCommand command)
-		{
-			command.Apply();
-
-			_editHistory.RemoveRange(_currentEditPointer + 1, _editHistory.Count - _currentEditPointer - 1);
-
-			_currentEditPointer = _editHistory.Count;
-			_editHistory.Add(command);
-			refreshFileButtonsAndTitle();
 		}
 
 		private void onWindowClosing(object sender, CancelEventArgs e)
@@ -421,16 +399,12 @@ namespace Inventor.Client
 
 		private void undoMenuClick(object sender, RoutedEventArgs e)
 		{
-			_editHistory[_currentEditPointer].Rollback();
-			_currentEditPointer--;
-			refreshFileButtonsAndTitle();
+			_changeController.Undo();
 		}
 
 		private void redoMenuClick(object sender, RoutedEventArgs e)
 		{
-			_currentEditPointer++;
-			_editHistory[_currentEditPointer].Apply();
-			refreshFileButtonsAndTitle();
+			_changeController.Redo();
 		}
 
 		#endregion
