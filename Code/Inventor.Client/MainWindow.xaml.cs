@@ -288,8 +288,7 @@ namespace Inventor.Client
 			}
 			else
 			{
-				_semanticNetworkNode.SemanticNetwork.Save(_fileName);
-				_changeController.SaveHistory();
+				save();
 			}
 		}
 
@@ -337,14 +336,20 @@ namespace Inventor.Client
 			dialog.FileName = _fileName;
 			if (dialog.ShowDialog() == true)
 			{
-				_semanticNetworkNode.SemanticNetwork.Save(_fileName = dialog.FileName);
-				_changeController.SaveHistory();
+				_fileName = dialog.FileName;
+				save();
 				return true;
 			}
 			else
 			{
 				return false;
 			}
+		}
+
+		private void save()
+		{
+			_semanticNetworkNode.SemanticNetwork.Save(_fileName);
+			_changeController.SaveHistory();
 		}
 
 		private void onWindowClosing(object sender, CancelEventArgs e)
