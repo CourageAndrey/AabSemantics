@@ -12,7 +12,6 @@ using Inventor.Client.Localization;
 using Inventor.Client.TreeNodes;
 using Inventor.Core;
 using Inventor.Core.Metadata;
-using Inventor.Core.Text.Containers;
 using Inventor.Core.Xml;
 
 namespace Inventor.Client
@@ -63,60 +62,19 @@ namespace Inventor.Client
 			{
 				var question = dialog.Question.BuildQuestion();
 				var answer = question.Ask(_application.SemanticNetwork.Context, _application.CurrentLanguage);
-
-				var processingResult = answer.Description;
-				if (answer.Explanation.Statements.Count > 0)
-				{
-					var explanedResult = new UnstructuredContainer(processingResult);
-					explanedResult.AppendLineBreak();
-					explanedResult.Append(new Core.Text.Primitives.FormattedText(language => language.Questions.Answers.Explanation));
-
-					foreach (var statement in answer.Explanation.Statements)
-					{
-						explanedResult.Append(statement.DescribeTrue());
-					}
-
-					processingResult = explanedResult;
-				}
-
-				new FormattedTextDialog(
-					_application.CurrentLanguage,
-					processingResult,
-					knowledgeObjectPicked)
-				{
-					Owner = this,
-					Title = _application.CurrentLanguage.GetExtension<IWpfUiModule>().Misc.Answer,
-				}.Show();
+				answer.Display(this, _application.CurrentLanguage, knowledgeObjectPicked);
 			}
 		}
 
 		private void showAllKnowledgeClick(object sender, RoutedEventArgs e)
 		{
-			new FormattedTextDialog(
-				_application.CurrentLanguage,
-				_application.SemanticNetwork.DescribeRules(),
-				knowledgeObjectPicked)
-			{
-				Owner = this,
-				Title = _application.CurrentLanguage.GetExtension<IWpfUiModule>().Misc.Rules,
-			}.Show();
+			_application.SemanticNetwork.DisplayRulesDescription(this, _application.CurrentLanguage, knowledgeObjectPicked);
 		}
 
 		private void checkKnowledgeClick(object sender, RoutedEventArgs e)
 		{
-			new FormattedTextDialog(
-				_application.CurrentLanguage,
-				_application.SemanticNetwork.CheckConsistency(),
-				knowledgeObjectPicked)
-			{
-				Owner = this,
-				Title = _application.CurrentLanguage.Statements.Consistency.CheckResult,
-			}.Show();
+			_application.SemanticNetwork.DisplayConsistencyCheckResult(this, _application.CurrentLanguage, knowledgeObjectPicked);
 		}
-
-		#endregion
-
-		#region Object picking
 
 		private void knowledgeObjectPicked(IKnowledge entity)
 		{
