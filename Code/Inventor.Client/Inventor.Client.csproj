@@ -85,6 +85,7 @@
     <Compile Include="Controls\ProcessesStatementControl.xaml.cs">
       <DependentUpon>ProcessesStatementControl.xaml</DependentUpon>
     </Compile>
+    <Compile Include="ChangeController.cs" />
     <Compile Include="IEditCommand.cs" />
     <Compile Include="IQuestionViewModel.cs" />
     <Compile Include="IWpfUiModule.cs" />
