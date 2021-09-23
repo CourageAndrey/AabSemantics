@@ -2,6 +2,8 @@
 
 using Inventor.Core;
 using Inventor.Core.Concepts;
+using Inventor.Mathematics.Concepts;
+using Inventor.Processes.Concepts;
 
 namespace Inventor.Test
 {

@@ -5,8 +5,14 @@ using Inventor.Core.Attributes;
 using Inventor.Core.Concepts;
 using Inventor.Core.Localization;
 using Inventor.Core.Modules;
+using Inventor.Core.Modules.Classification.Questions;
+using Inventor.Core.Modules.Classification.Statements;
 using Inventor.Core.Questions;
 using Inventor.Core.Statements;
+using Inventor.Set;
+using Inventor.Set.Attributes;
+using Inventor.Set.Questions;
+using Inventor.Set.Statements;
 
 namespace Samples._01.StatementsAndQuestions
 {
@@ -31,8 +37,8 @@ namespace Samples._01.StatementsAndQuestions
 				new BooleanModule(),
 				new ClassificationModule(),
 				new SetModule(),
-				new MathematicsModule(),
-				new ProcessesModule(),
+				//new MathematicsModule(),
+				//new ProcessesModule(),
 			};
 			foreach (var module in modules)
 			{

@@ -1,7 +1,7 @@
 ﻿namespace Inventor.Client.ViewModels.Questions
 {
 	[QuestionDescriptor]
-	public class SignValueQuestion : QuestionViewModel<Core.Questions.SignValueQuestion>
+	public class SignValueQuestion : QuestionViewModel<Set.Questions.SignValueQuestion>
 	{
 		[PropertyDescriptor(true, "Questions.Parameters.Concept")]
 		public Core.IConcept Concept
@@ -11,9 +11,9 @@
 		public Core.IConcept Sign
 		{ get; set; }
 
-		public override Core.Questions.SignValueQuestion BuildQuestionImplementation()
+		public override Set.Questions.SignValueQuestion BuildQuestionImplementation()
 		{
-			return new Core.Questions.SignValueQuestion(Concept, Sign);
+			return new Set.Questions.SignValueQuestion(Concept, Sign);
 		}
 	}
 }

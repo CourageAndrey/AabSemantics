@@ -1,15 +1,15 @@
 ﻿namespace Inventor.Client.ViewModels.Questions
 {
 	[QuestionDescriptor]
-	public class EnumeratePartsQuestion : QuestionViewModel<Core.Questions.EnumeratePartsQuestion>
+	public class EnumeratePartsQuestion : QuestionViewModel<Set.Questions.EnumeratePartsQuestion>
 	{
 		[PropertyDescriptor(true, "Questions.Parameters.Concept")]
 		public Core.IConcept Concept
 		{ get; set; }
 
-		public override Core.Questions.EnumeratePartsQuestion BuildQuestionImplementation()
+		public override Set.Questions.EnumeratePartsQuestion BuildQuestionImplementation()
 		{
-			return new Core.Questions.EnumeratePartsQuestion(Concept);
+			return new Set.Questions.EnumeratePartsQuestion(Concept);
 		}
 	}
 }

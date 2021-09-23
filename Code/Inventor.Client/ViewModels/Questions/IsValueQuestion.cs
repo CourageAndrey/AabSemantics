@@ -1,15 +1,15 @@
 ﻿namespace Inventor.Client.ViewModels.Questions
 {
 	[QuestionDescriptor]
-	public class IsValueQuestion : QuestionViewModel<Core.Questions.IsValueQuestion>
+	public class IsValueQuestion : QuestionViewModel<Set.Questions.IsValueQuestion>
 	{
 		[PropertyDescriptor(true, "Questions.Parameters.Concept")]
 		public Core.IConcept Concept
 		{ get; set; }
 
-		public override Core.Questions.IsValueQuestion BuildQuestionImplementation()
+		public override Set.Questions.IsValueQuestion BuildQuestionImplementation()
 		{
-			return new Core.Questions.IsValueQuestion(Concept);
+			return new Set.Questions.IsValueQuestion(Concept);
 		}
 	}
 }

@@ -4,10 +4,11 @@ using Inventor.Client.Controls;
 using Inventor.Client.Dialogs;
 using Inventor.Core;
 using Inventor.Core.Localization.Modules;
+using Inventor.Set.Localization;
 
 namespace Inventor.Client.ViewModels.Statements
 {
-	public class SignValueStatement : StatementViewModel<Core.Statements.SignValueStatement>
+	public class SignValueStatement : StatementViewModel<Set.Statements.SignValueStatement>
 	{
 		#region Properties
 
@@ -28,7 +29,7 @@ namespace Inventor.Client.ViewModels.Statements
 			: this(string.Empty, null, null, null, language)
 		{ }
 
-		public SignValueStatement(Core.Statements.SignValueStatement statement, ILanguage language)
+		public SignValueStatement(Set.Statements.SignValueStatement statement, ILanguage language)
 			: this(statement.ID, new ConceptItem(statement.Concept, language), new ConceptItem(statement.Sign, language), new ConceptItem(statement.Value, language), language)
 		{
 			BoundObject = statement;
@@ -67,9 +68,9 @@ namespace Inventor.Client.ViewModels.Statements
 			return dialog;
 		}
 
-		protected override Core.Statements.SignValueStatement CreateStatementImplementation()
+		protected override Set.Statements.SignValueStatement CreateStatementImplementation()
 		{
-			return new Core.Statements.SignValueStatement(ID, Concept.Concept, Sign.Concept, Value.Concept);
+			return new Set.Statements.SignValueStatement(ID, Concept.Concept, Sign.Concept, Value.Concept);
 		}
 
 		public override void ApplyUpdate()

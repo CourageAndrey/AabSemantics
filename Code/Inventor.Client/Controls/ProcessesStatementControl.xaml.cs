@@ -3,6 +3,7 @@
 using Inventor.Client.ViewModels;
 using Inventor.Core;
 using Inventor.Core.Attributes;
+using Inventor.Processes.Attributes;
 
 namespace Inventor.Client.Controls
 {

@@ -4,6 +4,7 @@ using Inventor.Core;
 using Inventor.Core.Concepts;
 using Inventor.Core.Localization;
 using Inventor.Core.Modules;
+using Inventor.Core.Modules.Boolean.Questions;
 using Inventor.Core.Questions;
 using Inventor.Core.Statements;
 

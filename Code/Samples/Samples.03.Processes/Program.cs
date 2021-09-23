@@ -1,12 +1,14 @@
 ﻿using System;
 
 using Inventor.Core;
-using Inventor.Core.Attributes;
 using Inventor.Core.Concepts;
 using Inventor.Core.Localization;
-using Inventor.Core.Modules;
 using Inventor.Core.Questions;
 using Inventor.Core.Statements;
+using Inventor.Processes;
+using Inventor.Processes.Attributes;
+using Inventor.Processes.Questions;
+using Inventor.Processes.Statements;
 
 namespace Samples._03.Processes
 {

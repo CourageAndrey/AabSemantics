@@ -5,8 +5,11 @@ using NUnit.Framework;
 using Inventor.Core.Answers;
 using Inventor.Core.Concepts;
 using Inventor.Core.Localization;
+using Inventor.Core.Modules.Classification.Statements;
 using Inventor.Core.Questions;
 using Inventor.Core.Statements;
+using Inventor.Set.Questions;
+using Inventor.Set.Statements;
 using Inventor.Test.Sample;
 
 namespace Inventor.Test.Questions

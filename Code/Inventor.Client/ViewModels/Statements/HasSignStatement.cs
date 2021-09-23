@@ -4,10 +4,11 @@ using Inventor.Client.Controls;
 using Inventor.Client.Dialogs;
 using Inventor.Core;
 using Inventor.Core.Localization.Modules;
+using Inventor.Set.Localization;
 
 namespace Inventor.Client.ViewModels.Statements
 {
-	public class HasSignStatement : StatementViewModel<Core.Statements.HasSignStatement>
+	public class HasSignStatement : StatementViewModel<Set.Statements.HasSignStatement>
 	{
 		#region Properties
 
@@ -25,7 +26,7 @@ namespace Inventor.Client.ViewModels.Statements
 			: this(string.Empty, null, null, language)
 		{ }
 
-		public HasSignStatement(Core.Statements.HasSignStatement statement, ILanguage language)
+		public HasSignStatement(Set.Statements.HasSignStatement statement, ILanguage language)
 			: this(statement.ID, new ConceptItem(statement.Concept, language), new ConceptItem(statement.Sign, language), language)
 		{
 			BoundObject = statement;
@@ -63,9 +64,9 @@ namespace Inventor.Client.ViewModels.Statements
 			return dialog;
 		}
 
-		protected override Core.Statements.HasSignStatement CreateStatementImplementation()
+		protected override Set.Statements.HasSignStatement CreateStatementImplementation()
 		{
-			return new Core.Statements.HasSignStatement(ID, Concept.Concept, Sign.Concept);
+			return new Set.Statements.HasSignStatement(ID, Concept.Concept, Sign.Concept);
 		}
 
 		public override void ApplyUpdate()

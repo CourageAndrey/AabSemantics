@@ -6,4 +6,7 @@ Code/*/obj
 Code/Samples/*/*.csproj.user
 Code/Samples/*/bin
 Code/Samples/*/obj
+Code/Modules/*/*.csproj.user
+Code/Modules/*/bin
+Code/Modules/*/obj
 Code/packages

@@ -126,6 +126,18 @@
       <Project>{5E023B0F-1C9F-449E-AAB8-4F7EB1AB1960}</Project>
       <Name>Inventor.Test.Sample</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Modules\Inventor.Mathematics\Inventor.Mathematics.csproj">
+      <Project>{edd2a80f-14db-4a28-8113-ef78115afa63}</Project>
+      <Name>Inventor.Mathematics</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Modules\Inventor.Processes\Inventor.Processes.csproj">
+      <Project>{efc2327c-f586-477e-8699-114fc31940ac}</Project>
+      <Name>Inventor.Processes</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Modules\Inventor.Set\Inventor.Set.csproj">
+      <Project>{f6c2b97b-68c8-415c-98de-663ba4c45eca}</Project>
+      <Name>Inventor.Set</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config">

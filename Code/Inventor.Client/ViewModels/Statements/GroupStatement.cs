@@ -4,10 +4,11 @@ using Inventor.Client.Controls;
 using Inventor.Client.Dialogs;
 using Inventor.Core;
 using Inventor.Core.Localization.Modules;
+using Inventor.Set.Localization;
 
 namespace Inventor.Client.ViewModels.Statements
 {
-	public class GroupStatement : StatementViewModel<Core.Statements.GroupStatement>
+	public class GroupStatement : StatementViewModel<Set.Statements.GroupStatement>
 	{
 		#region Properties
 
@@ -25,7 +26,7 @@ namespace Inventor.Client.ViewModels.Statements
 			: this(string.Empty, null, null, language)
 		{ }
 
-		public GroupStatement(Core.Statements.GroupStatement statement, ILanguage language)
+		public GroupStatement(Set.Statements.GroupStatement statement, ILanguage language)
 			: this(statement.ID, new ConceptItem(statement.Area, language), new ConceptItem(statement.Concept, language), language)
 		{
 			BoundObject = statement;
@@ -63,9 +64,9 @@ namespace Inventor.Client.ViewModels.Statements
 			return dialog;
 		}
 
-		protected override Core.Statements.GroupStatement CreateStatementImplementation()
+		protected override Set.Statements.GroupStatement CreateStatementImplementation()
 		{
-			return new Core.Statements.GroupStatement(ID, Area.Concept, Concept.Concept);
+			return new Set.Statements.GroupStatement(ID, Area.Concept, Concept.Concept);
 		}
 
 		public override void ApplyUpdate()

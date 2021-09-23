@@ -1,7 +1,7 @@
 ﻿namespace Inventor.Client.ViewModels.Questions
 {
 	[QuestionDescriptor]
-	public class ComparisonQuestion : QuestionViewModel<Core.Questions.ComparisonQuestion>
+	public class ComparisonQuestion : QuestionViewModel<Mathematics.Questions.ComparisonQuestion>
 	{
 		[PropertyDescriptor(true, "Mathematics\\Questions.Parameters.LeftValue")]
 		public Core.IConcept LeftValue
@@ -11,9 +11,9 @@
 		public Core.IConcept RightValue
 		{ get; set; }
 
-		public override Core.Questions.ComparisonQuestion BuildQuestionImplementation()
+		public override Mathematics.Questions.ComparisonQuestion BuildQuestionImplementation()
 		{
-			return new Core.Questions.ComparisonQuestion(LeftValue, RightValue);
+			return new Mathematics.Questions.ComparisonQuestion(LeftValue, RightValue);
 		}
 	}
 }

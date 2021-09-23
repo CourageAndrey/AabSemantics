@@ -6,6 +6,8 @@ using Inventor.Core;
 using Inventor.Core.Answers;
 using Inventor.Core.Concepts;
 using Inventor.Core.Localization;
+using Inventor.Core.Modules.Classification.Questions;
+using Inventor.Core.Modules.Classification.Statements;
 using Inventor.Core.Questions;
 using Inventor.Core.Statements;
 

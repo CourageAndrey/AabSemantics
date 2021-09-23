@@ -7,6 +7,7 @@ using Inventor.Core.Answers;
 using Inventor.Core.Concepts;
 using Inventor.Core.Statements;
 using Inventor.Core.Text.Containers;
+using Inventor.Set.Statements;
 
 namespace Inventor.Test.Answers
 {
