@@ -3,6 +3,8 @@
 using NUnit.Framework;
 
 using Inventor.Core.Concepts;
+using Inventor.Mathematics.Concepts;
+using Inventor.Processes.Concepts;
 
 namespace Inventor.Test.Concepts
 {

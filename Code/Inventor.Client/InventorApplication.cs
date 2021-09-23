@@ -9,6 +9,9 @@ using Inventor.Core;
 using Inventor.Core.Localization;
 using Inventor.Core.Modules;
 using Inventor.Core.Utils;
+using Inventor.Mathematics;
+using Inventor.Processes;
+using Inventor.Set;
 
 namespace Inventor.Client
 {

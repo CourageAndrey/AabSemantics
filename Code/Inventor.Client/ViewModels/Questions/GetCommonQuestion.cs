@@ -1,7 +1,7 @@
 ﻿namespace Inventor.Client.ViewModels.Questions
 {
 	[QuestionDescriptor]
-	public class GetCommonQuestion : QuestionViewModel<Core.Questions.GetCommonQuestion>
+	public class GetCommonQuestion : QuestionViewModel<Set.Questions.GetCommonQuestion>
 	{
 		[PropertyDescriptor(true, "Set\\Questions.Parameters.Concept1")]
 		public Core.IConcept Concept1
@@ -11,9 +11,9 @@
 		public Core.IConcept Concept2
 		{ get; set; }
 
-		public override Core.Questions.GetCommonQuestion BuildQuestionImplementation()
+		public override Set.Questions.GetCommonQuestion BuildQuestionImplementation()
 		{
-			return new Core.Questions.GetCommonQuestion(Concept1, Concept2);
+			return new Set.Questions.GetCommonQuestion(Concept1, Concept2);
 		}
 	}
 }

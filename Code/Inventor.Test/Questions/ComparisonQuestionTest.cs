@@ -6,10 +6,12 @@ using NUnit.Framework;
 
 using Inventor.Core;
 using Inventor.Core.Answers;
-using Inventor.Core.Concepts;
 using Inventor.Core.Localization;
 using Inventor.Core.Questions;
-using Inventor.Core.Statements;
+using Inventor.Mathematics.Concepts;
+using Inventor.Mathematics.Questions;
+using Inventor.Mathematics.Statements;
+using Inventor.Processes.Concepts;
 using Inventor.Test.Sample;
 
 namespace Inventor.Test.Questions

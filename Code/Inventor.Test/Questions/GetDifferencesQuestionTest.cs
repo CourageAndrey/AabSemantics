@@ -4,9 +4,10 @@ using NUnit.Framework;
 
 using Inventor.Core;
 using Inventor.Core.Answers;
-using Inventor.Core.Attributes;
 using Inventor.Core.Localization;
 using Inventor.Core.Questions;
+using Inventor.Processes.Attributes;
+using Inventor.Set.Questions;
 using Inventor.Test.Sample;
 
 namespace Inventor.Test.Questions

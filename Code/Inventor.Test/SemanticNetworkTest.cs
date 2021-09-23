@@ -3,7 +3,11 @@
 using Inventor.Core;
 using Inventor.Core.Concepts;
 using Inventor.Core.Localization;
+using Inventor.Core.Modules.Classification.Statements;
 using Inventor.Core.Statements;
+using Inventor.Mathematics;
+using Inventor.Processes;
+using Inventor.Set;
 using Inventor.Test.Sample;
 
 namespace Inventor.Test
@@ -16,9 +20,9 @@ namespace Inventor.Test
 		{
 			new Core.Modules.BooleanModule().RegisterMetadata();
 			new Core.Modules.ClassificationModule().RegisterMetadata();
-			new Core.Modules.MathematicsModule().RegisterMetadata();
-			new Core.Modules.ProcessesModule().RegisterMetadata();
-			new Core.Modules.SetModule().RegisterMetadata();
+			new MathematicsModule().RegisterMetadata();
+			new ProcessesModule().RegisterMetadata();
+			new SetModule().RegisterMetadata();
 		}
 
 		[Test]

@@ -5,9 +5,11 @@ using Inventor.Core;
 using Inventor.Core.Attributes;
 using Inventor.Core.Concepts;
 using Inventor.Core.Localization;
-using Inventor.Core.Modules;
 using Inventor.Core.Questions;
 using Inventor.Core.Statements;
+using Inventor.Mathematics;
+using Inventor.Mathematics.Questions;
+using Inventor.Mathematics.Statements;
 
 namespace Samples._02.Comparison
 {

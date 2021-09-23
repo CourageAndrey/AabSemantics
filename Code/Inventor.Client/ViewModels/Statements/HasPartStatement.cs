@@ -4,10 +4,11 @@ using Inventor.Client.Controls;
 using Inventor.Client.Dialogs;
 using Inventor.Core;
 using Inventor.Core.Localization.Modules;
+using Inventor.Set.Localization;
 
 namespace Inventor.Client.ViewModels.Statements
 {
-	public class HasPartStatement : StatementViewModel<Core.Statements.HasPartStatement>
+	public class HasPartStatement : StatementViewModel<Set.Statements.HasPartStatement>
 	{
 		#region Properties
 
@@ -25,7 +26,7 @@ namespace Inventor.Client.ViewModels.Statements
 			: this(string.Empty, null, null, language)
 		{ }
 
-		public HasPartStatement(Core.Statements.HasPartStatement statement, ILanguage language)
+		public HasPartStatement(Set.Statements.HasPartStatement statement, ILanguage language)
 			: this(statement.ID, new ConceptItem(statement.Whole, language), new ConceptItem(statement.Part, language), language)
 		{
 			BoundObject = statement;
@@ -63,9 +64,9 @@ namespace Inventor.Client.ViewModels.Statements
 			return dialog;
 		}
 
-		protected override Core.Statements.HasPartStatement CreateStatementImplementation()
+		protected override Set.Statements.HasPartStatement CreateStatementImplementation()
 		{
-			return new Core.Statements.HasPartStatement(ID, Whole.Concept, Part.Concept);
+			return new Set.Statements.HasPartStatement(ID, Whole.Concept, Part.Concept);
 		}
 
 		public override void ApplyUpdate()

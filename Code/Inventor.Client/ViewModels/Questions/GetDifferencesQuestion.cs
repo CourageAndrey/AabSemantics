@@ -1,7 +1,7 @@
 ﻿namespace Inventor.Client.ViewModels.Questions
 {
 	[QuestionDescriptor]
-	public class GetDifferencesQuestion : QuestionViewModel<Core.Questions.GetDifferencesQuestion>
+	public class GetDifferencesQuestion : QuestionViewModel<Set.Questions.GetDifferencesQuestion>
 	{
 		[PropertyDescriptor(true, "Set\\Questions.Parameters.Concept1")]
 		public Core.IConcept Concept1
@@ -11,9 +11,9 @@
 		public Core.IConcept Concept2
 		{ get; set; }
 
-		public override Core.Questions.GetDifferencesQuestion BuildQuestionImplementation()
+		public override Set.Questions.GetDifferencesQuestion BuildQuestionImplementation()
 		{
-			return new Core.Questions.GetDifferencesQuestion(Concept1, Concept2);
+			return new Set.Questions.GetDifferencesQuestion(Concept1, Concept2);
 		}
 	}
 }

@@ -1,7 +1,7 @@
 ﻿namespace Inventor.Client.ViewModels.Questions
 {
 	[QuestionDescriptor]
-	public class EnumerateSignsQuestion : QuestionViewModel<Core.Questions.EnumerateSignsQuestion>
+	public class EnumerateSignsQuestion : QuestionViewModel<Set.Questions.EnumerateSignsQuestion>
 	{
 		[PropertyDescriptor(true, "Questions.Parameters.Concept")]
 		public Core.IConcept Concept
@@ -11,9 +11,9 @@
 		public bool Recursive
 		{ get; set; }
 
-		public override Core.Questions.EnumerateSignsQuestion BuildQuestionImplementation()
+		public override Set.Questions.EnumerateSignsQuestion BuildQuestionImplementation()
 		{
-			return new Core.Questions.EnumerateSignsQuestion(Concept, Recursive);
+			return new Set.Questions.EnumerateSignsQuestion(Concept, Recursive);
 		}
 	}
 }

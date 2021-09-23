@@ -6,11 +6,13 @@ using NUnit.Framework;
 
 using Inventor.Core;
 using Inventor.Core.Answers;
-using Inventor.Core.Attributes;
 using Inventor.Core.Concepts;
 using Inventor.Core.Localization;
 using Inventor.Core.Questions;
-using Inventor.Core.Statements;
+using Inventor.Processes.Attributes;
+using Inventor.Processes.Concepts;
+using Inventor.Processes.Questions;
+using Inventor.Processes.Statements;
 
 namespace Inventor.Test.Questions
 {

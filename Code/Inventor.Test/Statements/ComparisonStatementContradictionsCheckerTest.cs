@@ -7,7 +7,8 @@ using NUnit.Framework;
 using Inventor.Core;
 using Inventor.Core.Attributes;
 using Inventor.Core.Concepts;
-using Inventor.Core.Statements;
+using Inventor.Mathematics.Concepts;
+using Inventor.Mathematics.Statements;
 
 namespace Inventor.Test.Statements
 {

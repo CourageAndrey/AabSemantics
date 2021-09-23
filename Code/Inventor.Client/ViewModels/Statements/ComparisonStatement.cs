@@ -4,10 +4,11 @@ using Inventor.Client.Controls;
 using Inventor.Client.Dialogs;
 using Inventor.Core;
 using Inventor.Core.Localization.Modules;
+using Inventor.Mathematics.Localization;
 
 namespace Inventor.Client.ViewModels.Statements
 {
-	public class ComparisonStatement : StatementViewModel<Core.Statements.ComparisonStatement>
+	public class ComparisonStatement : StatementViewModel<Mathematics.Statements.ComparisonStatement>
 	{
 		#region Properties
 
@@ -28,7 +29,7 @@ namespace Inventor.Client.ViewModels.Statements
 			: this(string.Empty, null, null, null, language)
 		{ }
 
-		public ComparisonStatement(Core.Statements.ComparisonStatement statement, ILanguage language)
+		public ComparisonStatement(Mathematics.Statements.ComparisonStatement statement, ILanguage language)
 			: this(statement.ID, new ConceptItem(statement.LeftValue, language), new ConceptItem(statement.RightValue, language), new ConceptItem(statement.ComparisonSign, language), language)
 		{
 			BoundObject = statement;
@@ -67,9 +68,9 @@ namespace Inventor.Client.ViewModels.Statements
 			return dialog;
 		}
 
-		protected override Core.Statements.ComparisonStatement CreateStatementImplementation()
+		protected override Mathematics.Statements.ComparisonStatement CreateStatementImplementation()
 		{
-			return new Core.Statements.ComparisonStatement(ID, LeftValue.Concept, RightValue.Concept, ComparisonSign.Concept);
+			return new Mathematics.Statements.ComparisonStatement(ID, LeftValue.Concept, RightValue.Concept, ComparisonSign.Concept);
 		}
 
 		public override void ApplyUpdate()

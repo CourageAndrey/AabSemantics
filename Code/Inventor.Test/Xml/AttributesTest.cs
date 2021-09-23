@@ -6,6 +6,12 @@ using NUnit.Framework;
 
 using Inventor.Core;
 using Inventor.Core.Concepts;
+using Inventor.Mathematics;
+using Inventor.Mathematics.Attributes;
+using Inventor.Processes;
+using Inventor.Processes.Attributes;
+using Inventor.Set;
+using Inventor.Set.Attributes;
 
 namespace Inventor.Test.Xml
 {
@@ -17,9 +23,9 @@ namespace Inventor.Test.Xml
 		{
 			new Core.Modules.BooleanModule().RegisterMetadata();
 			new Core.Modules.ClassificationModule().RegisterMetadata();
-			new Core.Modules.MathematicsModule().RegisterMetadata();
-			new Core.Modules.ProcessesModule().RegisterMetadata();
-			new Core.Modules.SetModule().RegisterMetadata();
+			new MathematicsModule().RegisterMetadata();
+			new ProcessesModule().RegisterMetadata();
+			new SetModule().RegisterMetadata();
 		}
 
 		[Test]
@@ -69,11 +75,11 @@ namespace Inventor.Test.Xml
 
 		private IEnumerable<IAttribute> getAllAttributes()
 		{
-			yield return Core.Attributes.IsComparisonSignAttribute.Value;
+			yield return IsComparisonSignAttribute.Value;
 			yield return Core.Attributes.IsBooleanAttribute.Value;
-			yield return Core.Attributes.IsProcessAttribute.Value;
-			yield return Core.Attributes.IsSequenceSignAttribute.Value;
-			yield return Core.Attributes.IsSignAttribute.Value;
+			yield return IsProcessAttribute.Value;
+			yield return IsSequenceSignAttribute.Value;
+			yield return IsSignAttribute.Value;
 			yield return Core.Attributes.IsValueAttribute.Value;
 		}
 

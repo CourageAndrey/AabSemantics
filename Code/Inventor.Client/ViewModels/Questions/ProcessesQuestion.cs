@@ -1,7 +1,7 @@
 ﻿namespace Inventor.Client.ViewModels.Questions
 {
 	[QuestionDescriptor]
-	public class ProcessesQuestion : QuestionViewModel<Core.Questions.ProcessesQuestion>
+	public class ProcessesQuestion : QuestionViewModel<Processes.Questions.ProcessesQuestion>
 	{
 		[PropertyDescriptor(true, "Processes\\Questions.Parameters.ProcessA")]
 		public Core.IConcept ProcessA
@@ -11,9 +11,9 @@
 		public Core.IConcept ProcessB
 		{ get; set; }
 
-		public override Core.Questions.ProcessesQuestion BuildQuestionImplementation()
+		public override Processes.Questions.ProcessesQuestion BuildQuestionImplementation()
 		{
-			return new Core.Questions.ProcessesQuestion(ProcessA, ProcessB);
+			return new Processes.Questions.ProcessesQuestion(ProcessA, ProcessB);
 		}
 	}
 }

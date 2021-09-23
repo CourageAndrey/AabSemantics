@@ -5,9 +5,10 @@ using System.Linq;
 using NUnit.Framework;
 
 using Inventor.Core;
-using Inventor.Core.Attributes;
 using Inventor.Core.Concepts;
-using Inventor.Core.Statements;
+using Inventor.Processes.Attributes;
+using Inventor.Processes.Concepts;
+using Inventor.Processes.Statements;
 
 namespace Inventor.Test.Statements
 {

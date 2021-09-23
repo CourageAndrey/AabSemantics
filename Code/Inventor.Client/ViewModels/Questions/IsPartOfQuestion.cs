@@ -1,7 +1,7 @@
 ﻿namespace Inventor.Client.ViewModels.Questions
 {
 	[QuestionDescriptor]
-	public class IsPartOfQuestion : QuestionViewModel<Core.Questions.IsPartOfQuestion>
+	public class IsPartOfQuestion : QuestionViewModel<Set.Questions.IsPartOfQuestion>
 	{
 		[PropertyDescriptor(true, "Questions.Parameters.Parent")]
 		public Core.IConcept Parent
@@ -11,9 +11,9 @@
 		public Core.IConcept Child
 		{ get; set; }
 
-		public override Core.Questions.IsPartOfQuestion BuildQuestionImplementation()
+		public override Set.Questions.IsPartOfQuestion BuildQuestionImplementation()
 		{
-			return new Core.Questions.IsPartOfQuestion(Child, Parent);
+			return new Set.Questions.IsPartOfQuestion(Child, Parent);
 		}
 	}
 }

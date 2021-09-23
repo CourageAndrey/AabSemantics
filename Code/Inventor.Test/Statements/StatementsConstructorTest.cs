@@ -8,6 +8,12 @@ using Inventor.Core.Attributes;
 using Inventor.Core.Concepts;
 using Inventor.Core.Localization;
 using Inventor.Core.Statements;
+using Inventor.Mathematics.Attributes;
+using Inventor.Mathematics.Statements;
+using Inventor.Processes.Attributes;
+using Inventor.Processes.Statements;
+using Inventor.Set.Attributes;
+using Inventor.Set.Statements;
 
 namespace Inventor.Test.Statements
 {

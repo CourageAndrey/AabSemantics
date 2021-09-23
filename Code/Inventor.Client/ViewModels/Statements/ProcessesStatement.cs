@@ -4,10 +4,11 @@ using Inventor.Client.Controls;
 using Inventor.Client.Dialogs;
 using Inventor.Core;
 using Inventor.Core.Localization.Modules;
+using Inventor.Processes.Localization;
 
 namespace Inventor.Client.ViewModels.Statements
 {
-	public class ProcessesStatement : StatementViewModel<Core.Statements.ProcessesStatement>
+	public class ProcessesStatement : StatementViewModel<Processes.Statements.ProcessesStatement>
 	{
 		#region Properties
 
@@ -28,7 +29,7 @@ namespace Inventor.Client.ViewModels.Statements
 			: this(string.Empty, null, null, null, language)
 		{ }
 
-		public ProcessesStatement(Core.Statements.ProcessesStatement statement, ILanguage language)
+		public ProcessesStatement(Processes.Statements.ProcessesStatement statement, ILanguage language)
 			: this(statement.ID, new ConceptItem(statement.ProcessA, language), new ConceptItem(statement.ProcessB, language), new ConceptItem(statement.SequenceSign, language), language)
 		{
 			BoundObject = statement;
@@ -67,9 +68,9 @@ namespace Inventor.Client.ViewModels.Statements
 			return dialog;
 		}
 
-		protected override Core.Statements.ProcessesStatement CreateStatementImplementation()
+		protected override Processes.Statements.ProcessesStatement CreateStatementImplementation()
 		{
-			return new Core.Statements.ProcessesStatement(ID, ProcessA.Concept, ProcessB.Concept, SequenceSign.Concept);
+			return new Processes.Statements.ProcessesStatement(ID, ProcessA.Concept, ProcessB.Concept, SequenceSign.Concept);
 		}
 
 		public override void ApplyUpdate()

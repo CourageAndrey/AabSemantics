@@ -8,6 +8,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\Inventor.Core\Inventor.Core.csproj" />
+    <ProjectReference Include="..\..\Modules\Inventor.Set\Inventor.Set.csproj" />
   </ItemGroup>
 
   <ItemGroup>

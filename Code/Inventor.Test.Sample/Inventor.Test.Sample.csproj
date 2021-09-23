@@ -6,6 +6,9 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Inventor.Core\Inventor.Core.csproj" />
+    <ProjectReference Include="..\Modules\Inventor.Mathematics\Inventor.Mathematics.csproj" />
+    <ProjectReference Include="..\Modules\Inventor.Processes\Inventor.Processes.csproj" />
+    <ProjectReference Include="..\Modules\Inventor.Set\Inventor.Set.csproj" />
   </ItemGroup>
 
 </Project>

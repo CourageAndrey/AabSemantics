@@ -6,7 +6,15 @@ using Inventor.Core;
 using Inventor.Core.Attributes;
 using Inventor.Core.Concepts;
 using Inventor.Core.Localization;
+using Inventor.Core.Modules.Classification.Statements;
 using Inventor.Core.Statements;
+using Inventor.Mathematics.Concepts;
+using Inventor.Mathematics.Statements;
+using Inventor.Processes.Attributes;
+using Inventor.Processes.Concepts;
+using Inventor.Processes.Statements;
+using Inventor.Set.Attributes;
+using Inventor.Set.Statements;
 
 namespace Inventor.Test.Statements
 {
