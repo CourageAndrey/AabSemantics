@@ -43,4 +43,43 @@ namespace Inventor.Client.Dialogs
 			}
 		}
 	}
+
+	public static class FormattedTextDialogUseCases
+	{
+		public static void Display(this IAnswer answer, Window ownerWindow, ILanguage language, Action<IKnowledge> knowledgeObjectPicked)
+		{
+			new FormattedTextDialog(
+				language,
+				answer.GetDescriptionWithExplanation(),
+				knowledgeObjectPicked)
+			{
+				Owner = ownerWindow,
+				Title = language.GetExtension<IWpfUiModule>().Misc.Answer,
+			}.Show();
+		}
+
+		public static void DisplayRulesDescription(this ISemanticNetwork semanticNetwork, Window ownerWindow, ILanguage language, Action<IKnowledge> knowledgeObjectPicked)
+		{
+			new FormattedTextDialog(
+				language,
+				semanticNetwork.DescribeRules(),
+				knowledgeObjectPicked)
+			{
+				Owner = ownerWindow,
+				Title = language.GetExtension<IWpfUiModule>().Misc.Rules,
+			}.Show();
+		}
+
+		public static void DisplayConsistencyCheckResult(this ISemanticNetwork semanticNetwork, Window ownerWindow, ILanguage language, Action<IKnowledge> knowledgeObjectPicked)
+		{
+			new FormattedTextDialog(
+				language,
+				semanticNetwork.CheckConsistency(),
+				knowledgeObjectPicked)
+			{
+				Owner = ownerWindow,
+				Title = language.Statements.Consistency.CheckResult,
+			}.Show();
+		}
+	}
 }
