@@ -1,4 +1,4 @@
-﻿using Inventor.Core;
+﻿using Inventor.Client.TreeNodes;
 
 namespace Inventor.Client.Commands
 {
@@ -14,8 +14,8 @@ namespace Inventor.Client.Commands
 
 		#endregion
 
-		public EditConceptCommand(ViewModels.Concept viewModel, ISemanticNetwork semanticNetwork)
-			: base(semanticNetwork)
+		public EditConceptCommand(ViewModels.Concept viewModel, SemanticNetworkNode semanticNetworkNode)
+			: base(semanticNetworkNode)
 		{
 			ViewModel = viewModel;
 			PreviousVersion = new ViewModels.Concept(ViewModel.BoundObject);

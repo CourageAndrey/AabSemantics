@@ -1,5 +1,5 @@
-﻿using Inventor.Client.ViewModels;
-using Inventor.Core;
+﻿using Inventor.Client.TreeNodes;
+using Inventor.Client.ViewModels;
 
 namespace Inventor.Client.Commands
 {
@@ -15,10 +15,10 @@ namespace Inventor.Client.Commands
 
 		#endregion
 
-		public RenameSemanticNetworkCommand(ISemanticNetwork semanticNetwork, LocalizedString newName)
-			: base(semanticNetwork)
+		public RenameSemanticNetworkCommand(SemanticNetworkNode semanticNetworkNode, LocalizedString newName)
+			: base(semanticNetworkNode)
 		{
-			PreviousName = LocalizedString.From(semanticNetwork.Name);
+			PreviousName = LocalizedString.From(SemanticNetwork.Name);
 			NewName = newName;
 		}
 
