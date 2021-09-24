@@ -15,8 +15,8 @@ namespace Inventor.Client.Commands
 
 		#endregion
 
-		public AddStatementCommand(StatementViewModel viewModel, SemanticNetworkNode semanticNetworkNode)
-			: base(semanticNetworkNode)
+		public AddStatementCommand(StatementViewModel viewModel, SemanticNetworkNode semanticNetworkNode, InventorApplication application)
+			: base(semanticNetworkNode, application)
 		{
 			ViewModel = viewModel;
 		}

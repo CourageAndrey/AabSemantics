@@ -1,5 +1,4 @@
 ﻿using Inventor.Client.TreeNodes;
-using Inventor.Core;
 
 namespace Inventor.Client.Commands
 {
@@ -15,11 +14,11 @@ namespace Inventor.Client.Commands
 
 		#endregion
 
-		public EditStatementCommand(ILanguage language, StatementViewModel viewModel, SemanticNetworkNode semanticNetworkNode)
-			: base(semanticNetworkNode)
+		public EditStatementCommand(StatementViewModel viewModel, SemanticNetworkNode semanticNetworkNode, InventorApplication application)
+			: base(semanticNetworkNode, application)
 		{
 			ViewModel = viewModel;
-			PreviousVersion = ViewModels.Factory.CreateStatementByInstance(viewModel.BoundStatement, language);
+			PreviousVersion = ViewModels.Factory.CreateStatementByInstance(viewModel.BoundStatement, application.CurrentLanguage);
 		}
 
 		public override void Apply()

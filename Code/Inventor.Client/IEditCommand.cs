@@ -20,9 +20,12 @@ namespace Inventor.Client
 		protected ISemanticNetwork SemanticNetwork
 		{ get { return SemanticNetworkNode.SemanticNetwork; } }
 
-		protected BaseEditCommand(SemanticNetworkNode semanticNetworkNode)
+		protected readonly InventorApplication Application;
+
+		protected BaseEditCommand(SemanticNetworkNode semanticNetworkNode, InventorApplication application)
 		{
 			SemanticNetworkNode = semanticNetworkNode;
+			Application = application;
 		}
 
 		public abstract void Apply();
@@ -32,60 +35,60 @@ namespace Inventor.Client
 
 	public static class CommandsHelper
 	{
-		public static IEditCommand CreateAddCommand(this IKnowledgeViewModel viewModel, SemanticNetworkNode semanticNetworkNode)
+		public static IEditCommand CreateAddCommand(this IKnowledgeViewModel viewModel, SemanticNetworkNode semanticNetworkNode, InventorApplication application)
 		{
 			var conceptViewModel = viewModel as ViewModels.Concept;
 			if (conceptViewModel != null)
 			{
-				return new AddConceptCommand(conceptViewModel, semanticNetworkNode);
+				return new AddConceptCommand(conceptViewModel, semanticNetworkNode, application);
 			}
 
 			var statementViewModel = viewModel as StatementViewModel;
 			if (statementViewModel != null)
 			{
-				return new AddStatementCommand(statementViewModel, semanticNetworkNode);
+				return new AddStatementCommand(statementViewModel, semanticNetworkNode, application);
 			}
 
 			return null;
 		}
 
-		public static IEditCommand CreateEditCommand(this IKnowledgeViewModel viewModel, SemanticNetworkNode semanticNetworkNode, ILanguage language)
+		public static IEditCommand CreateEditCommand(this IKnowledgeViewModel viewModel, SemanticNetworkNode semanticNetworkNode, InventorApplication application)
 		{
 			var conceptViewModel = viewModel as ViewModels.Concept;
 			if (conceptViewModel != null)
 			{
-				return new EditConceptCommand(conceptViewModel, semanticNetworkNode);
+				return new EditConceptCommand(conceptViewModel, semanticNetworkNode, application);
 			}
 
 			var statementViewModel = viewModel as StatementViewModel;
 			if (statementViewModel != null)
 			{
-				return new EditStatementCommand(language, statementViewModel, semanticNetworkNode);
+				return new EditStatementCommand(statementViewModel, semanticNetworkNode, application);
 			}
 
 			return null;
 		}
 
-		public static IEditCommand CreateDeleteCommand(this ExtendedTreeNode node, SemanticNetworkNode semanticNetworkNode)
+		public static IEditCommand CreateDeleteCommand(this ExtendedTreeNode node, SemanticNetworkNode semanticNetworkNode, InventorApplication application)
 		{
 			var conceptNode = node as ConceptNode;
 			if (conceptNode != null)
 			{
-				return new DeleteConceptCommand(conceptNode.Concept, semanticNetworkNode);
+				return new DeleteConceptCommand(conceptNode.Concept, semanticNetworkNode, application);
 			}
 
 			var statementNode = node as StatementNode;
 			if (statementNode != null)
 			{
-				return new DeleteStatementCommand(statementNode.Statement, semanticNetworkNode);
+				return new DeleteStatementCommand(statementNode.Statement, semanticNetworkNode, application);
 			}
 
 			return null;
 		}
 
-		public static IEditCommand CreateRenameCommand(this LocalizedString name, SemanticNetworkNode semanticNetworkNode)
+		public static IEditCommand CreateRenameCommand(this LocalizedString name, SemanticNetworkNode semanticNetworkNode, InventorApplication application)
 		{
-			return new RenameSemanticNetworkCommand(semanticNetworkNode, name);
+			return new RenameSemanticNetworkCommand(semanticNetworkNode, name, application);
 		}
 	}
 }
