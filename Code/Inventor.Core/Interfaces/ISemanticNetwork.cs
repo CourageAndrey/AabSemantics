@@ -4,7 +4,6 @@ using System.Collections.Generic;
 using Inventor.Core.Localization;
 using Inventor.Core.Metadata;
 using Inventor.Core.Text.Containers;
-using Inventor.Core.Utils;
 
 namespace Inventor.Core
 {
@@ -21,11 +20,6 @@ namespace Inventor.Core
 
 		IDictionary<String, IExtensionModule> Modules
 		{ get; }
-
-		event EventHandler<ItemEventArgs<IConcept>> ConceptAdded;
-		event EventHandler<ItemEventArgs<IConcept>> ConceptRemoved;
-		event EventHandler<ItemEventArgs<IStatement>> StatementAdded;
-		event EventHandler<ItemEventArgs<IStatement>> StatementRemoved;
 	}
 
 	public static class SemanticNetworkHelper

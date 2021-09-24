@@ -156,14 +156,6 @@ namespace Inventor.Test.Contexts
 
 			public IDictionary<String, IExtensionModule> Modules
 			{ get; set; }
-
-			public event EventHandler<ItemEventArgs<IConcept>> ConceptAdded;
-
-			public event EventHandler<ItemEventArgs<IConcept>> ConceptRemoved;
-
-			public event EventHandler<ItemEventArgs<IStatement>> StatementAdded;
-
-			public event EventHandler<ItemEventArgs<IStatement>> StatementRemoved;
 		}
 
 		private class TestStatement : IStatement

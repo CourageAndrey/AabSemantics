@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
-using System.Threading;
 
 using Inventor.Core.Contexts;
 using Inventor.Core.Localization;
@@ -29,11 +28,6 @@ namespace Inventor.Core
 		public IDictionary<String, IExtensionModule> Modules
 		{ get; }
 
-		public event EventHandler<ItemEventArgs<IConcept>> ConceptAdded;
-		public event EventHandler<ItemEventArgs<IConcept>> ConceptRemoved;
-		public event EventHandler<ItemEventArgs<IStatement>> StatementAdded;
-		public event EventHandler<ItemEventArgs<IStatement>> StatementRemoved;
-
 		#endregion
 
 		public SemanticNetwork(ILanguage language)
@@ -47,21 +41,8 @@ namespace Inventor.Core
 			var systemContext = new SystemContext(language);
 
 			var concepts = new EventCollection<IConcept>();
-			concepts.ItemAdded += (sender, args) =>
-			{
-				var handler = Volatile.Read(ref ConceptAdded);
-				if (handler != null)
-				{
-					handler(sender, args);
-				}
-			};
 			concepts.ItemRemoved += (sender, args) =>
 			{
-				var handler = Volatile.Read(ref ConceptRemoved);
-				if (handler != null)
-				{
-					handler(sender, args);
-				}
 				foreach (var statement in Statements.Where(r => r.GetChildConcepts().Contains(args.Item)).ToList())
 				{
 					Statements.Remove(statement);
@@ -79,11 +60,6 @@ namespace Inventor.Core
 				}
 				args.Item.Context.Scope.Add(args.Item);
 
-				var handler = Volatile.Read(ref StatementAdded);
-				if (handler != null)
-				{
-					handler(sender, args);
-				}
 				foreach (var concept in args.Item.GetChildConcepts())
 				{
 					if (!Concepts.Contains(concept))
@@ -98,12 +74,6 @@ namespace Inventor.Core
 				{
 					args.Item.Context.Scope.Remove(args.Item);
 					args.Item.Context = null;
-				}
-
-				var handler = Volatile.Read(ref StatementRemoved);
-				if (handler != null)
-				{
-					handler(sender, args);
 				}
 			};
 			Statements = statements;
