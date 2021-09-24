@@ -1,7 +1,8 @@
-﻿using System.Linq;
+using System.Linq;
 
 using Inventor.Client.TreeNodes;
 using Inventor.Core;
+using Inventor.Core.Utils;
 
 namespace Inventor.Client.Commands
 {
@@ -11,6 +12,9 @@ namespace Inventor.Client.Commands
 
 		public IStatement Statement
 		{ get; }
+
+		public int Index
+		{ get; private set; }
 
 		#endregion
 
@@ -22,6 +26,7 @@ namespace Inventor.Client.Commands
 
 		public override void Apply()
 		{
+			Index = SemanticNetwork.Statements.IndexOf(Statement);
 			SemanticNetwork.Statements.Remove(Statement);
 			var statements = SemanticNetworkNode.Statements.Children;
 			statements.Remove(statements.OfType<StatementNode>().First(r => r.Statement == Statement));
@@ -30,7 +35,7 @@ namespace Inventor.Client.Commands
 		public override void Rollback()
 		{
 			SemanticNetwork.Statements.Add(Statement);
-			SemanticNetworkNode.Statements.Children.Add(new StatementNode(Statement, Application));
+			SemanticNetworkNode.Statements.Children.Insert(Index, new StatementNode(Statement, Application));
 		}
 	}
 }
