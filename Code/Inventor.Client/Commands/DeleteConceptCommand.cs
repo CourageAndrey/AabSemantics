@@ -12,8 +12,8 @@ namespace Inventor.Client.Commands
 
 		#endregion
 
-		public DeleteConceptCommand(IConcept concept, SemanticNetworkNode semanticNetworkNode)
-			: base(semanticNetworkNode)
+		public DeleteConceptCommand(IConcept concept, SemanticNetworkNode semanticNetworkNode, InventorApplication application)
+			: base(semanticNetworkNode, application)
 		{
 			Concept = concept;
 		}

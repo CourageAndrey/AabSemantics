@@ -15,8 +15,8 @@ namespace Inventor.Client.Commands
 
 		#endregion
 
-		public RenameSemanticNetworkCommand(SemanticNetworkNode semanticNetworkNode, LocalizedString newName)
-			: base(semanticNetworkNode)
+		public RenameSemanticNetworkCommand(SemanticNetworkNode semanticNetworkNode, LocalizedString newName, InventorApplication application)
+			: base(semanticNetworkNode, application)
 		{
 			PreviousName = LocalizedString.From(SemanticNetwork.Name);
 			NewName = newName;
