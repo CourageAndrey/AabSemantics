@@ -20,7 +20,7 @@ namespace Inventor.Client.TreeNodes
 		public abstract ImageSource Icon
 		{ get; }
 
-		public ICollection<ExtendedTreeNode> Children
+		public ObservableCollection<ExtendedTreeNode> Children
 		{ get; } = new ObservableCollection<ExtendedTreeNode>();
 
 		public Boolean IsSelected
