@@ -59,11 +59,5 @@ namespace Inventor.Client.TreeNodes
 				throw new NotSupportedException();
 			}
 		}
-
-		public void Clear()
-		{
-			Concepts.Clear();
-			Statements.Clear();
-		}
 	}
 }

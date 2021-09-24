@@ -1,4 +1,6 @@
-﻿using Inventor.Client.TreeNodes;
+﻿using System.Linq;
+
+using Inventor.Client.TreeNodes;
 using Inventor.Core;
 
 namespace Inventor.Client.Commands
@@ -31,11 +33,14 @@ namespace Inventor.Client.Commands
 			{
 				SemanticNetwork.Statements.Add(NewItem);
 			}
+			SemanticNetworkNode.Statements.Children.Add(new StatementNode(NewItem, Application));
 		}
 
 		public override void Rollback()
 		{
 			SemanticNetwork.Statements.Remove(NewItem);
+			var statements = SemanticNetworkNode.Statements.Children;
+			statements.Remove(statements.OfType<StatementNode>().First(r => r.Statement == NewItem));
 		}
 	}
 }

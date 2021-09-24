@@ -1,4 +1,6 @@
-﻿using Inventor.Client.TreeNodes;
+﻿using System.Linq;
+
+using Inventor.Client.TreeNodes;
 using Inventor.Core;
 
 namespace Inventor.Client.Commands
@@ -31,11 +33,14 @@ namespace Inventor.Client.Commands
 			{
 				SemanticNetwork.Concepts.Add(NewItem);
 			}
+			SemanticNetworkNode.Concepts.Children.Add(new ConceptNode(NewItem, Application));
 		}
 
 		public override void Rollback()
 		{
 			SemanticNetwork.Concepts.Remove(NewItem);
+			var concepts = SemanticNetworkNode.Concepts.Children;
+			concepts.Remove(concepts.OfType<ConceptNode>().First(c => c.Concept == NewItem));
 		}
 	}
 }
