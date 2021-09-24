@@ -24,10 +24,14 @@ namespace Inventor.Client.TreeNodes
 		public ISemanticNetwork SemanticNetwork
 		{ get { return _semanticNetwork; } }
 
+		public SemanticNetworkConceptsNode Concepts
+		{ get; }
+
+		public SemanticNetworkStatementsNode Statements
+		{ get; }
+
 		private static ImageSource _icon;
 		private readonly ISemanticNetwork _semanticNetwork;
-		private readonly SemanticNetworkConceptsNode _concepts;
-		private readonly SemanticNetworkStatementsNode _statements;
 		private readonly InventorApplication _application;
 
 		#endregion
@@ -36,19 +40,19 @@ namespace Inventor.Client.TreeNodes
 		{
 			_semanticNetwork = semanticNetwork;
 			_application = application;
-			Children.Add(_concepts = new SemanticNetworkConceptsNode(semanticNetwork, application));
-			Children.Add(_statements = new SemanticNetworkStatementsNode(semanticNetwork, application));
+			Children.Add(Concepts = new SemanticNetworkConceptsNode(semanticNetwork, application));
+			Children.Add(Statements = new SemanticNetworkStatementsNode(semanticNetwork, application));
 		}
 
 		public List<ExtendedTreeNode> Find(object obj)
 		{
 			if (obj is IConcept)
 			{
-				return _concepts.Find(obj as IConcept, this);
+				return Concepts.Find(obj as IConcept, this);
 			}
 			else if (obj is IStatement)
 			{
-				return _statements.Find(obj as IStatement, this);
+				return Statements.Find(obj as IStatement, this);
 			}
 			else
 			{
@@ -58,8 +62,8 @@ namespace Inventor.Client.TreeNodes
 
 		public void Clear()
 		{
-			_concepts.Clear();
-			_statements.Clear();
+			Concepts.Clear();
+			Statements.Clear();
 		}
 	}
 }
