@@ -7,9 +7,6 @@ namespace Inventor.Client
 {
 	public interface IEditCommand
 	{
-		SemanticNetworkNode SemanticNetworkNode
-		{ get; }
-
 		void Apply();
 
 		void Rollback();
