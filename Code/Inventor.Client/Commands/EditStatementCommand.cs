@@ -19,7 +19,7 @@ namespace Inventor.Client.Commands
 			: base(semanticNetworkNode)
 		{
 			ViewModel = viewModel;
-			PreviousVersion = (StatementViewModel) ViewModels.Factory.CreateStatementByInstance(viewModel.BoundStatement, language);
+			PreviousVersion = ViewModels.Factory.CreateStatementByInstance(viewModel.BoundStatement, language);
 		}
 
 		public override void Apply()
