@@ -5,7 +5,6 @@ using System.Windows.Media;
 using Inventor.Client.Properties;
 using Inventor.Client.Converters;
 using Inventor.Core;
-using Inventor.Core.Utils;
 
 namespace Inventor.Client.TreeNodes
 {
@@ -39,24 +38,6 @@ namespace Inventor.Client.TreeNodes
 			{
 				Children.Add(new StatementNode(statement, application));
 			}
-			semanticNetwork.StatementAdded += StatementAdded;
-			semanticNetwork.StatementRemoved += StatementRemoved;
-		}
-
-		private void StatementAdded(object sender, ItemEventArgs<IStatement> args)
-		{
-			Children.Add(new StatementNode(args.Item, _application));
-		}
-
-		private void StatementRemoved(object sender, ItemEventArgs<IStatement> args)
-		{
-			Children.Remove(Children.OfType<StatementNode>().First(r => r.Statement == args.Item));
-		}
-
-		public void Clear()
-		{
-			_semanticNetwork.StatementAdded -= StatementAdded;
-			_semanticNetwork.StatementRemoved -= StatementRemoved;
 		}
 
 		public List<ExtendedTreeNode> Find(IStatement statement, ExtendedTreeNode parent)

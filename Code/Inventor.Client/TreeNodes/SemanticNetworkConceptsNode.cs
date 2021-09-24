@@ -5,7 +5,6 @@ using System.Windows.Media;
 using Inventor.Client.Properties;
 using Inventor.Client.Converters;
 using Inventor.Core;
-using Inventor.Core.Utils;
 
 namespace Inventor.Client.TreeNodes
 {
@@ -39,24 +38,6 @@ namespace Inventor.Client.TreeNodes
 			{
 				Children.Add(new ConceptNode(concept, application));
 			}
-			semanticNetwork.ConceptAdded += conceptAdded;
-			semanticNetwork.ConceptRemoved += conceptRemoved;
-		}
-
-		private void conceptAdded(object sender, ItemEventArgs<IConcept> args)
-		{
-			Children.Add(new ConceptNode(args.Item, _application));
-		}
-
-		private void conceptRemoved(object sender, ItemEventArgs<IConcept> args)
-		{
-			Children.Remove(Children.OfType<ConceptNode>().First(c => c.Concept == args.Item));
-		}
-
-		public void Clear()
-		{
-			_semanticNetwork.ConceptAdded -= conceptAdded;
-			_semanticNetwork.ConceptRemoved -= conceptRemoved;
 		}
 
 		public List<ExtendedTreeNode> Find(IConcept concept, ExtendedTreeNode parent)
