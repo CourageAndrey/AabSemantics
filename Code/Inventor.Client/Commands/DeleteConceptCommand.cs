@@ -1,4 +1,5 @@
-﻿using Inventor.Core;
+﻿using Inventor.Client.TreeNodes;
+using Inventor.Core;
 
 namespace Inventor.Client.Commands
 {
@@ -11,8 +12,8 @@ namespace Inventor.Client.Commands
 
 		#endregion
 
-		public DeleteConceptCommand(IConcept concept, ISemanticNetwork semanticNetwork)
-			: base(semanticNetwork)
+		public DeleteConceptCommand(IConcept concept, SemanticNetworkNode semanticNetworkNode)
+			: base(semanticNetworkNode)
 		{
 			Concept = concept;
 		}

@@ -118,7 +118,7 @@ namespace Inventor.Client
 
 			if (dialog.ShowDialog() == true)
 			{
-				var command = control.EditValue.CreateRenameCommand(_application.SemanticNetwork);
+				var command = control.EditValue.CreateRenameCommand(_semanticNetworkNode);
 				_changeController.Perform(command);
 				semanticNetworkNode.RefreshView();
 			}
@@ -151,7 +151,7 @@ namespace Inventor.Client
 
 			if (editDialog.ShowDialog() == true)
 			{
-				var command = viewModel.CreateAddCommand(_application.SemanticNetwork);
+				var command = viewModel.CreateAddCommand(_semanticNetworkNode);
 				if (command != null)
 				{
 					_changeController.Perform(command);
@@ -170,7 +170,7 @@ namespace Inventor.Client
 
 			if (editDialog.ShowDialog() == true)
 			{
-				var command = viewModel.CreateEditCommand(_application.SemanticNetwork, _application.CurrentLanguage);
+				var command = viewModel.CreateEditCommand(_semanticNetworkNode, _application.CurrentLanguage);
 				if (command != null)
 				{
 					_changeController.Perform(command);
@@ -182,7 +182,7 @@ namespace Inventor.Client
 		private void deleteKnowledgeClick(object sender, RoutedEventArgs e)
 		{
 			var extendedNode = treeViewSemanticNetwork.SelectedItem as ExtendedTreeNode;
-			var command = extendedNode.CreateDeleteCommand(_application.SemanticNetwork);
+			var command = extendedNode.CreateDeleteCommand(_semanticNetworkNode);
 			if (command != null)
 			{
 				_changeController.Perform(command);

@@ -1,4 +1,5 @@
-﻿using Inventor.Core;
+﻿using Inventor.Client.TreeNodes;
+using Inventor.Core;
 
 namespace Inventor.Client.Commands
 {
@@ -11,8 +12,8 @@ namespace Inventor.Client.Commands
 
 		#endregion
 
-		public DeleteStatementCommand(IStatement statement, ISemanticNetwork semanticNetwork)
-			: base(semanticNetwork)
+		public DeleteStatementCommand(IStatement statement, SemanticNetworkNode semanticNetworkNode)
+			: base(semanticNetworkNode)
 		{
 			Statement = statement;
 		}

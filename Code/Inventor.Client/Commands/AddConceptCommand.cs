@@ -1,4 +1,5 @@
-﻿using Inventor.Core;
+﻿using Inventor.Client.TreeNodes;
+using Inventor.Core;
 
 namespace Inventor.Client.Commands
 {
@@ -14,8 +15,8 @@ namespace Inventor.Client.Commands
 
 		#endregion
 
-		public AddConceptCommand(ViewModels.Concept viewModel, ISemanticNetwork semanticNetwork)
-			: base(semanticNetwork)
+		public AddConceptCommand(ViewModels.Concept viewModel, SemanticNetworkNode semanticNetworkNode)
+			: base(semanticNetworkNode)
 		{
 			ViewModel = viewModel;
 		}
@@ -24,7 +25,7 @@ namespace Inventor.Client.Commands
 		{
 			if (NewItem == null)
 			{
-				NewItem = (IConcept) ViewModel.ApplyCreate(SemanticNetwork);
+				NewItem = (IConcept) ViewModel.ApplyCreate(SemanticNetworkNode.SemanticNetwork);
 			}
 			else
 			{
