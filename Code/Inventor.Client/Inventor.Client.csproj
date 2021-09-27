@@ -86,6 +86,9 @@
       <DependentUpon>ProcessesStatementControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="ChangeController.cs" />
+    <Compile Include="Dialogs\SelectModulesDialog.xaml.cs">
+      <DependentUpon>SelectModulesDialog.xaml</DependentUpon>
+    </Compile>
     <Compile Include="IEditCommand.cs" />
     <Compile Include="IQuestionViewModel.cs" />
     <Compile Include="IWpfUiModule.cs" />
@@ -206,6 +209,10 @@
     <Page Include="Controls\SignValueStatementControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Dialogs\SelectModulesDialog.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="Dialogs\SelectStatementTypeDialog.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -361,6 +368,9 @@
   <ItemGroup>
     <Resource Include="Resources\Redo.png" />
     <Resource Include="Resources\Undo.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Modules.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

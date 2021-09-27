@@ -11,7 +11,6 @@ using Inventor.Client.Dialogs;
 using Inventor.Client.Localization;
 using Inventor.Client.TreeNodes;
 using Inventor.Core;
-using Inventor.Core.Metadata;
 using Inventor.Core.Xml;
 
 namespace Inventor.Client
@@ -74,6 +73,18 @@ namespace Inventor.Client
 		private void checkKnowledgeClick(object sender, RoutedEventArgs e)
 		{
 			_application.SemanticNetwork.DisplayConsistencyCheckResult(this, _application.CurrentLanguage, knowledgeObjectPicked);
+		}
+
+		private void modulesClick(object sender, RoutedEventArgs e)
+		{
+			var selectModulesDialog = new SelectModulesDialog
+			{
+				Owner = this,
+				IsReadOnly = true,
+			};
+			selectModulesDialog.Initialize(_application.CurrentLanguage);
+			selectModulesDialog.SelectedModules = _application.SemanticNetwork.Modules.Values;
+			selectModulesDialog.ShowDialog();
 		}
 
 		private void knowledgeObjectPicked(IKnowledge entity)
@@ -259,7 +270,17 @@ namespace Inventor.Client
 		{
 			if (canProceedAfterSave())
 			{
-				setModel(new Core.SemanticNetwork(_application.CurrentLanguage).WithModules(Repositories.Modules.Values), string.Empty);
+				var selectModulesDialog = new SelectModulesDialog
+				{
+					Owner = this,
+				};
+				selectModulesDialog.Initialize(_application.CurrentLanguage);
+				if (selectModulesDialog.ShowDialog() == true)
+				{
+					var semanticNetwork = new Core.SemanticNetwork(_application.CurrentLanguage)
+						.WithModules(selectModulesDialog.SelectedModules);
+					setModel(semanticNetwork, string.Empty);
+				}
 			}
 		}
 

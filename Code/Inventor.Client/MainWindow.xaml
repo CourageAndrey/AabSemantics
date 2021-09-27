@@ -61,6 +61,9 @@
 				<Button ToolTip="{Binding Source={StaticResource language}, Path=Ui.MainForm.CheckKnowledge, Mode=OneTime}" Click="checkKnowledgeClick" Margin="2">
 					<Image Source="Resources/KbCheck.png" Width="24" Height="24" />
 				</Button>
+				<Button ToolTip="{Binding Source={StaticResource language}, Path=Ui.SelectModulesDialogHeader, Mode=OneTime}" Click="modulesClick" Margin="2">
+					<Image Source="Resources/Modules.png" Width="24" Height="24" />
+				</Button>
 			</ToolBar>
 			<ToolBar>
 				<StackPanel Orientation="Vertical" Margin="10,0,5,0">

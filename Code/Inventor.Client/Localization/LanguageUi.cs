@@ -20,6 +20,9 @@ namespace Inventor.Client.Localization
 		String StatementTypeDialogHeader
 		{ get; }
 
+		String SelectModulesDialogHeader
+		{ get; }
+
 		String CreateNewStatement
 		{ get; }
 
@@ -73,6 +76,10 @@ namespace Inventor.Client.Localization
 		{ get; set; }
 
 		[XmlElement]
+		public String SelectModulesDialogHeader
+		{ get; set; }
+
+		[XmlElement]
 		public String CreateNewStatement
 		{ get; set; }
 
@@ -115,6 +122,7 @@ namespace Inventor.Client.Localization
 				Next = "Next >",
 				Back = "< Prev",
 				StatementTypeDialogHeader = "Chose statement type",
+				SelectModulesDialogHeader = "Modules",
 				CreateNewStatement = "Create new statement? (No - edit existing)",
 				CreateNewQuestion = "Create new question? (No - edit existing)",
 				QuestionDialogXml = LanguageQuestionDialog.CreateDefault(),
