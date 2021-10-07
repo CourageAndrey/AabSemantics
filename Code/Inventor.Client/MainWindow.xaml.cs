@@ -157,7 +157,7 @@ namespace Inventor.Client
 			}
 			if (type == null) return;
 
-			IKnowledgeViewModel viewModel = ViewModels.Factory.CreateByCoreType(type, _application.CurrentLanguage);
+			IKnowledgeViewModel viewModel = ViewModels.ViewModelFactory.CreateByCoreType(type, _application.CurrentLanguage);
 			var editDialog = viewModel.CreateEditDialog(this, _application.SemanticNetwork, _application.CurrentLanguage);
 
 			if (editDialog.ShowDialog() == true)
@@ -174,7 +174,7 @@ namespace Inventor.Client
 		{
 			var selectedNode = treeViewSemanticNetwork.SelectedItem as ExtendedTreeNode;
 			if (selectedNode == null) return;
-			var viewModel = ViewModels.Factory.CreateByTreeNode(selectedNode, _application.CurrentLanguage);
+			var viewModel = ViewModels.ViewModelFactory.CreateByTreeNode(selectedNode, _application.CurrentLanguage);
 			if (viewModel == null) return;
 
 			var editDialog = viewModel.CreateEditDialog(this, _application.SemanticNetwork, _application.CurrentLanguage);
