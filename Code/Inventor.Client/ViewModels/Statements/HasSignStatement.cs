@@ -3,7 +3,6 @@
 using Inventor.Client.Controls;
 using Inventor.Client.Dialogs;
 using Inventor.Core;
-using Inventor.Core.Localization.Modules;
 using Inventor.Set.Localization;
 
 namespace Inventor.Client.ViewModels.Statements
