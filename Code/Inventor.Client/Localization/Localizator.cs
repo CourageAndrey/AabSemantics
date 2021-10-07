@@ -33,13 +33,13 @@ namespace Inventor.Client.Localization
 		public ILanguageErrors Errors
 		{ get { return _language?.GetExtension<IWpfUiModule>().Errors; } }
 
-		public Core.Localization.ILanguageAttributes Attributes
+		public ILanguageAttributes Attributes
 		{ get { return _language?.Attributes; } }
 
-		public Core.Localization.ILanguageStatements Statements
+		public ILanguageStatements Statements
 		{ get { return _language?.Statements; } }
 
-		public Core.Localization.ILanguageQuestions Questions
+		public ILanguageQuestions Questions
 		{ get { return _language?.Questions; } }
 
 		public ICollection<LanguageExtension> Extensions
