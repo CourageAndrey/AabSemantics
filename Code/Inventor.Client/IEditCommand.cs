@@ -52,7 +52,7 @@ namespace Inventor.Client
 			return null;
 		}
 
-		public static IEditCommand CreateEditCommand(this IKnowledgeViewModel viewModel, SemanticNetworkNode semanticNetworkNode, InventorApplication application)
+		public static IEditCommand CreateEditCommand(this IKnowledgeViewModel viewModel, SemanticNetworkNode semanticNetworkNode, InventorApplication application, ViewModelFactory viewModelFactory)
 		{
 			var conceptViewModel = viewModel as Concept;
 			if (conceptViewModel != null)
@@ -64,7 +64,7 @@ namespace Inventor.Client
 			var statementViewModel = viewModel as StatementViewModel;
 			if (statementViewModel != null)
 			{
-				var previousVersion = ViewModelFactory.CreateStatementByInstance(statementViewModel.BoundStatement, application.CurrentLanguage);
+				var previousVersion = viewModelFactory.CreateStatementByInstance(statementViewModel.BoundStatement, application.CurrentLanguage);
 				return new EditStatementCommand(statementViewModel, previousVersion, semanticNetworkNode, application);
 			}
 

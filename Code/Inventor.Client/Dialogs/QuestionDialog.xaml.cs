@@ -27,11 +27,14 @@ namespace Inventor.Client.Dialogs
 
 		private readonly ILanguage _language;
 
+		private readonly ViewModelFactory _viewModelFactory;
+
 		#endregion
 
-		public QuestionDialog(ISemanticNetwork semanticNetwork, ILanguage language)
+		public QuestionDialog(ISemanticNetwork semanticNetwork, ILanguage language, ViewModelFactory viewModelFactory)
 		{
 			_language = language;
+			_viewModelFactory = viewModelFactory;
 
 			InitializeComponent();
 
@@ -191,7 +194,7 @@ namespace Inventor.Client.Dialogs
 					}
 					if (statementType == null) return;
 
-					viewModel = (StatementViewModel) ViewModels.ViewModelFactory.CreateByCoreType(statementType, _language);
+					viewModel = (StatementViewModel) _viewModelFactory.CreateByCoreType(statementType, _language);
 				}
 				else
 				{
@@ -254,7 +257,7 @@ namespace Inventor.Client.Dialogs
 				}
 				if (statementType == null) return;
 
-				viewModel = (StatementViewModel) ViewModels.ViewModelFactory.CreateByCoreType(statementType, _language);
+				viewModel = (StatementViewModel) _viewModelFactory.CreateByCoreType(statementType, _language);
 
 				var editDialog = viewModel.CreateEditDialog(this, _semanticNetwork, _language);
 

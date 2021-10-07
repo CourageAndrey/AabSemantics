@@ -6,9 +6,9 @@ using Inventor.Core;
 
 namespace Inventor.Client.ViewModels
 {
-	public static class ViewModelFactory
+	public class ViewModelFactory
 	{
-		public static IKnowledgeViewModel CreateByCoreType(Type type, ILanguage language)
+		public IKnowledgeViewModel CreateByCoreType(Type type, ILanguage language)
 		{
 			if (type == typeof(Core.Concepts.Concept))
 			{
@@ -48,7 +48,7 @@ namespace Inventor.Client.ViewModels
 			}
 		}
 
-		public static StatementViewModel CreateStatementByInstance(Core.IStatement statement, ILanguage language)
+		public StatementViewModel CreateStatementByInstance(Core.IStatement statement, ILanguage language)
 		{
 			if (statement is Set.Statements.HasPartStatement)
 			{
@@ -84,7 +84,7 @@ namespace Inventor.Client.ViewModels
 			}
 		}
 
-		public static IKnowledgeViewModel CreateByTreeNode(ExtendedTreeNode treeNode, ILanguage language)
+		public IKnowledgeViewModel CreateByTreeNode(ExtendedTreeNode treeNode, ILanguage language)
 		{
 			var conceptNode = treeNode as ConceptNode;
 			var statementNode = treeNode as StatementNode;

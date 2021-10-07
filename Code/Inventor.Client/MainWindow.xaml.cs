@@ -26,6 +26,8 @@ namespace Inventor.Client
 
 			_changeController = new ChangeController();
 			_changeController.Refreshed += (sender, args) => refreshFileButtonsAndTitle();
+
+			_viewModelFactory = new ViewModels.ViewModelFactory();
 		}
 
 		internal void Initialize(InventorApplication application)
@@ -40,6 +42,7 @@ namespace Inventor.Client
 		private SemanticNetworkNode _semanticNetworkNode;
 		private String _fileName;
 		private readonly ChangeController _changeController;
+		private readonly ViewModels.ViewModelFactory _viewModelFactory;
 
 		private void selectedLanguageChanged(object sender, SelectionChangedEventArgs e)
 		{
@@ -53,7 +56,7 @@ namespace Inventor.Client
 
 		private void askQuestionClick(object sender, RoutedEventArgs e)
 		{
-			var dialog = new QuestionDialog(_application.SemanticNetwork, _application.CurrentLanguage)
+			var dialog = new QuestionDialog(_application.SemanticNetwork, _application.CurrentLanguage, _viewModelFactory)
 			{
 				Owner = this,
 			};
@@ -157,7 +160,7 @@ namespace Inventor.Client
 			}
 			if (type == null) return;
 
-			IKnowledgeViewModel viewModel = ViewModels.ViewModelFactory.CreateByCoreType(type, _application.CurrentLanguage);
+			IKnowledgeViewModel viewModel = _viewModelFactory.CreateByCoreType(type, _application.CurrentLanguage);
 			var editDialog = viewModel.CreateEditDialog(this, _application.SemanticNetwork, _application.CurrentLanguage);
 
 			if (editDialog.ShowDialog() == true)
@@ -174,14 +177,14 @@ namespace Inventor.Client
 		{
 			var selectedNode = treeViewSemanticNetwork.SelectedItem as ExtendedTreeNode;
 			if (selectedNode == null) return;
-			var viewModel = ViewModels.ViewModelFactory.CreateByTreeNode(selectedNode, _application.CurrentLanguage);
+			var viewModel = _viewModelFactory.CreateByTreeNode(selectedNode, _application.CurrentLanguage);
 			if (viewModel == null) return;
 
 			var editDialog = viewModel.CreateEditDialog(this, _application.SemanticNetwork, _application.CurrentLanguage);
 
 			if (editDialog.ShowDialog() == true)
 			{
-				var command = viewModel.CreateEditCommand(_semanticNetworkNode, _application);
+				var command = viewModel.CreateEditCommand(_semanticNetworkNode, _application, _viewModelFactory);
 				if (command != null)
 				{
 					_changeController.Perform(command);
