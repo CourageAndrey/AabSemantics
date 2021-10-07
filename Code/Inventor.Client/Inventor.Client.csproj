@@ -87,6 +87,7 @@
       <DependentUpon>ProcessesStatementControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="ChangeController.cs" />
+    <Compile Include="Controls\SemanticNetworkTreeView.cs" />
     <Compile Include="Dialogs\SelectModulesDialog.xaml.cs">
       <DependentUpon>SelectModulesDialog.xaml</DependentUpon>
     </Compile>

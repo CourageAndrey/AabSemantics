@@ -1,6 +1,5 @@
 ﻿using System;
 using System.ComponentModel;
-using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
@@ -9,7 +8,6 @@ using Microsoft.Win32;
 
 using Inventor.Client.Dialogs;
 using Inventor.Client.Localization;
-using Inventor.Client.TreeNodes;
 using Inventor.Core;
 using Inventor.Core.Xml;
 
@@ -39,13 +37,13 @@ namespace Inventor.Client
 		public void Initialize(IInventorApplication application)
 		{
 			dockPanelMain.DataContext = _application = application;
+			treeViewSemanticNetwork.Initialize(application, _changeController, _viewModelFactory, _commandsFactory);
 			setModel(application.SemanticNetwork, string.Empty);
 		}
 
 		private readonly ObjectDataProvider _localizationProvider;
 		private readonly Localizator _localizator;
 		private IInventorApplication _application;
-		private SemanticNetworkNode _semanticNetworkNode;
 		private String _fileName;
 		private readonly ChangeController _changeController;
 		private readonly ViewModels.IViewModelFactory _viewModelFactory;
@@ -55,7 +53,7 @@ namespace Inventor.Client
 		{
 			_localizator.Change(_application.CurrentLanguage);
 			_localizationProvider.Refresh();
-			reloadSemanticNetworkTree();
+			treeViewSemanticNetwork.Reload();
 			refreshFileButtonsAndTitle();
 		}
 
@@ -99,146 +97,12 @@ namespace Inventor.Client
 
 		private void knowledgeObjectPicked(IKnowledge entity)
 		{
-			var path = _semanticNetworkNode.Find(entity).OfType<object>().ToList();
-			if (path.Count > 0)
-			{
-				treeViewSemanticNetwork.ExecuteWithItem(path, item =>
-				{
-					item.IsSelected = true;
-					item.BringIntoView();
-				});
-			}
-		}
-
-		#endregion
-
-		#region Knowledge Tree Menu
-
-		private void renameKnowledgeClick(object sender, RoutedEventArgs e)
-		{
-			var semanticNetworkNode = treeViewSemanticNetwork.SelectedItem as SemanticNetworkNode;
-			if (semanticNetworkNode == null) return;
-
-			var editingName = semanticNetworkNode.SemanticNetwork.Name;
-
-			var control = new Controls.LocalizedStringVariableControl();
-			control.Localize(_application.CurrentLanguage);
-			control.EditValue = ViewModels.LocalizedString.From(editingName);
-
-			var dialog = new EditDialog
-			{
-				Owner = this,
-				Editor = control,
-				Title = editingName.GetValue(_application.CurrentLanguage),
-				SizeToContent = SizeToContent.WidthAndHeight,
-				MinWidth = 200,
-				MinHeight = 100,
-				WindowStartupLocation = WindowStartupLocation.CenterOwner,
-			};
-			dialog.Localize(_application.CurrentLanguage);
-
-			if (dialog.ShowDialog() == true)
-			{
-				var command = _commandsFactory.CreateRenameCommand(control.EditValue, _semanticNetworkNode, _application);
-				_changeController.Perform(command);
-				semanticNetworkNode.RefreshView();
-			}
-		}
-
-		private void addKnowledgeClick(object sender, RoutedEventArgs e)
-		{
-			Type type = null;
-			var selectedItem = treeViewSemanticNetwork.SelectedItem;
-			if (selectedItem is ConceptNode || selectedItem is SemanticNetworkConceptsNode)
-			{
-				type = typeof(Core.Concepts.Concept);
-			}
-			else if (selectedItem is StatementNode || selectedItem is SemanticNetworkStatementsNode)
-			{
-				var statementTypesDialog = new SelectStatementTypeDialog
-				{
-					Owner = this,
-				};
-				statementTypesDialog.Initialize(_application.CurrentLanguage, _application.SemanticNetwork);
-				if (statementTypesDialog.ShowDialog() == true)
-				{
-					type = statementTypesDialog.SelectedType;
-				}
-			}
-			if (type == null) return;
-
-			IKnowledgeViewModel viewModel = _viewModelFactory.CreateByCoreType(type, _application.CurrentLanguage);
-			var editDialog = viewModel.CreateEditDialog(this, _application.SemanticNetwork, _application.CurrentLanguage);
-
-			if (editDialog.ShowDialog() == true)
-			{
-				var command = _commandsFactory.CreateAddCommand(viewModel, _semanticNetworkNode, _application);
-				if (command != null)
-				{
-					_changeController.Perform(command);
-				}
-			}
-		}
-
-		private void editKnowledgeClick(object sender, RoutedEventArgs e)
-		{
-			var selectedNode = treeViewSemanticNetwork.SelectedItem as ExtendedTreeNode;
-			if (selectedNode == null) return;
-			var viewModel = _viewModelFactory.CreateByTreeNode(selectedNode, _application.CurrentLanguage);
-			if (viewModel == null) return;
-
-			var editDialog = viewModel.CreateEditDialog(this, _application.SemanticNetwork, _application.CurrentLanguage);
-
-			if (editDialog.ShowDialog() == true)
-			{
-				var command = _commandsFactory.CreateEditCommand(viewModel, _semanticNetworkNode, _application, _viewModelFactory);
-				if (command != null)
-				{
-					_changeController.Perform(command);
-				}
-				selectedNode.RefreshView();
-			}
-		}
-
-		private void deleteKnowledgeClick(object sender, RoutedEventArgs e)
-		{
-			var extendedNode = treeViewSemanticNetwork.SelectedItem as ExtendedTreeNode;
-			var command = _commandsFactory.CreateDeleteCommand(extendedNode, _semanticNetworkNode, _application);
-			if (command != null)
-			{
-				_changeController.Perform(command);
-			}
-		}
-
-		private void knowledgeContextMenuOpening(object sender, ContextMenuEventArgs e)
-		{
-			var selectedItem = treeViewSemanticNetwork.SelectedItem;
-			bool isSemanticNetworkNode = selectedItem is SemanticNetworkNode;
-			//bool isConceptsNode = selectedItem is SemanticNetworkConceptsNode;
-			//bool isStatementsNode = selectedItem is SemanticNetworkStatementsNode;
-			bool isConceptNode = selectedItem is ConceptNode;
-			var statementNode = selectedItem as StatementNode;
-			_renameKnowledgeItem.Visibility = isSemanticNetworkNode
-				? Visibility.Visible
-				: Visibility.Collapsed;
-			_addKnowledgeItem.Visibility = !isSemanticNetworkNode
-				? Visibility.Visible
-				: Visibility.Collapsed;
-			_editKnowledgeItem.Visibility = _deleteKnowledgeItem.Visibility = isConceptNode || statementNode?.Statement.Context.IsSystem == false
-				? Visibility.Visible
-				: Visibility.Collapsed;
+			treeViewSemanticNetwork.Select(entity);
 		}
 
 		#endregion
 
 		#region Save/Load
-
-		private void reloadSemanticNetworkTree()
-		{
-			treeViewSemanticNetwork.Items.Clear();
-			treeViewSemanticNetwork.Items.Add(_semanticNetworkNode = new SemanticNetworkNode(_application));
-			_semanticNetworkNode.IsExpanded = true;
-		}
 
 		private OpenFileDialog createOpenFileDialog()
 		{
@@ -350,7 +214,7 @@ namespace Inventor.Client
 		private void setModel(ISemanticNetwork semanticNetwork, string fileName)
 		{
 			_application.SemanticNetwork = semanticNetwork;
-			reloadSemanticNetworkTree();
+			treeViewSemanticNetwork.Reload();
 
 			_fileName = fileName;
 
@@ -375,7 +239,7 @@ namespace Inventor.Client
 
 		private void save()
 		{
-			_semanticNetworkNode.SemanticNetwork.Save(_fileName);
+			_application.SemanticNetwork.Save(_fileName);
 			_changeController.SaveHistory();
 		}
 
