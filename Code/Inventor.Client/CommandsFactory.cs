@@ -4,7 +4,7 @@ using Inventor.Client.ViewModels;
 
 namespace Inventor.Client
 {
-	public static class CommandsHelper
+	public static class CommandsFactory
 	{
 		public static IEditCommand CreateAddCommand(this IKnowledgeViewModel viewModel, SemanticNetworkNode semanticNetworkNode, InventorApplication application)
 		{
