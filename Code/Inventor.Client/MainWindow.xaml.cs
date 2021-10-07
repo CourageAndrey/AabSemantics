@@ -7,7 +7,6 @@ using System.Windows.Data;
 
 using Microsoft.Win32;
 
-using Inventor.Client.Commands;
 using Inventor.Client.Dialogs;
 using Inventor.Client.Localization;
 using Inventor.Client.TreeNodes;
@@ -29,6 +28,7 @@ namespace Inventor.Client
 			_changeController.Refreshed += (sender, args) => refreshFileButtonsAndTitle();
 
 			_viewModelFactory = new ViewModels.ViewModelFactory();
+			_commandsFactory = new Commands.CommandsFactory();
 		}
 
 		internal void Initialize(InventorApplication application)
@@ -44,6 +44,7 @@ namespace Inventor.Client
 		private String _fileName;
 		private readonly ChangeController _changeController;
 		private readonly ViewModels.IViewModelFactory _viewModelFactory;
+		private readonly Commands.CommandsFactory _commandsFactory;
 
 		private void selectedLanguageChanged(object sender, SelectionChangedEventArgs e)
 		{
@@ -133,7 +134,7 @@ namespace Inventor.Client
 
 			if (dialog.ShowDialog() == true)
 			{
-				var command = control.EditValue.CreateRenameCommand(_semanticNetworkNode, _application);
+				var command = _commandsFactory.CreateRenameCommand(control.EditValue, _semanticNetworkNode, _application);
 				_changeController.Perform(command);
 				semanticNetworkNode.RefreshView();
 			}
@@ -166,7 +167,7 @@ namespace Inventor.Client
 
 			if (editDialog.ShowDialog() == true)
 			{
-				var command = viewModel.CreateAddCommand(_semanticNetworkNode, _application);
+				var command = _commandsFactory.CreateAddCommand(viewModel, _semanticNetworkNode, _application);
 				if (command != null)
 				{
 					_changeController.Perform(command);
@@ -185,7 +186,7 @@ namespace Inventor.Client
 
 			if (editDialog.ShowDialog() == true)
 			{
-				var command = viewModel.CreateEditCommand(_semanticNetworkNode, _application, _viewModelFactory);
+				var command = _commandsFactory.CreateEditCommand(viewModel, _semanticNetworkNode, _application, _viewModelFactory);
 				if (command != null)
 				{
 					_changeController.Perform(command);
@@ -197,7 +198,7 @@ namespace Inventor.Client
 		private void deleteKnowledgeClick(object sender, RoutedEventArgs e)
 		{
 			var extendedNode = treeViewSemanticNetwork.SelectedItem as ExtendedTreeNode;
-			var command = extendedNode.CreateDeleteCommand(_semanticNetworkNode, _application);
+			var command = _commandsFactory.CreateDeleteCommand(extendedNode, _semanticNetworkNode, _application);
 			if (command != null)
 			{
 				_changeController.Perform(command);
