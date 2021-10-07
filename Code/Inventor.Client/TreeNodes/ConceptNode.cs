@@ -24,11 +24,11 @@ namespace Inventor.Client.TreeNodes
 
 		private static ImageSource _icon;
 		private readonly IConcept _concept;
-		private readonly InventorApplication _application;
+		private readonly IInventorApplication _application;
 
 		#endregion
 
-		public ConceptNode(IConcept concept, InventorApplication application)
+		public ConceptNode(IConcept concept, IInventorApplication application)
 		{
 			_concept = concept;
 			_application = application;

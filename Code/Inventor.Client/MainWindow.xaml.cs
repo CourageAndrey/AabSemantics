@@ -15,7 +15,12 @@ using Inventor.Core.Xml;
 
 namespace Inventor.Client
 {
-	public partial class MainWindow
+	public interface IMainWindow
+	{
+		void Initialize(IInventorApplication application);
+	}
+
+	public partial class MainWindow : IMainWindow
 	{
 		public MainWindow()
 		{
@@ -31,7 +36,7 @@ namespace Inventor.Client
 			_commandsFactory = new Commands.CommandsFactory();
 		}
 
-		internal void Initialize(InventorApplication application)
+		public void Initialize(IInventorApplication application)
 		{
 			dockPanelMain.DataContext = _application = application;
 			setModel(application.SemanticNetwork, string.Empty);
@@ -39,7 +44,7 @@ namespace Inventor.Client
 
 		private readonly ObjectDataProvider _localizationProvider;
 		private readonly Localizator _localizator;
-		private InventorApplication _application;
+		private IInventorApplication _application;
 		private SemanticNetworkNode _semanticNetworkNode;
 		private String _fileName;
 		private readonly ChangeController _changeController;
