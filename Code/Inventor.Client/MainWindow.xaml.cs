@@ -44,7 +44,7 @@ namespace Inventor.Client
 		private String _fileName;
 		private readonly ChangeController _changeController;
 		private readonly ViewModels.IViewModelFactory _viewModelFactory;
-		private readonly Commands.CommandsFactory _commandsFactory;
+		private readonly Commands.ICommandsFactory _commandsFactory;
 
 		private void selectedLanguageChanged(object sender, SelectionChangedEventArgs e)
 		{
