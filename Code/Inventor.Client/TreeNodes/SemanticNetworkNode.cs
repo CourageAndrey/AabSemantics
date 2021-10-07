@@ -13,7 +13,7 @@ namespace Inventor.Client.TreeNodes
 		#region Properties
 
 		public override string Text
-		{ get { return _semanticNetwork.Name.GetValue(_application.CurrentLanguage); } }
+		{ get { return SemanticNetwork.Name.GetValue(_application.CurrentLanguage); } }
 
 		public override string Tooltip
 		{ get { return _application.CurrentLanguage.GetExtension<IWpfUiModule>().Misc.NameSemanticNetwork; } }
@@ -22,7 +22,7 @@ namespace Inventor.Client.TreeNodes
 		{ get { return _icon ?? (_icon = Resources.SemanticNetwork.ToSource()); } }
 		
 		public ISemanticNetwork SemanticNetwork
-		{ get { return _semanticNetwork; } }
+		{ get { return _application.SemanticNetwork; } }
 
 		public SemanticNetworkConceptsNode Concepts
 		{ get; }
@@ -31,17 +31,15 @@ namespace Inventor.Client.TreeNodes
 		{ get; }
 
 		private static ImageSource _icon;
-		private readonly ISemanticNetwork _semanticNetwork;
 		private readonly IInventorApplication _application;
 
 		#endregion
 
-		public SemanticNetworkNode(ISemanticNetwork semanticNetwork, IInventorApplication application)
+		public SemanticNetworkNode(IInventorApplication application)
 		{
-			_semanticNetwork = semanticNetwork;
 			_application = application;
-			Children.Add(Concepts = new SemanticNetworkConceptsNode(semanticNetwork, application));
-			Children.Add(Statements = new SemanticNetworkStatementsNode(semanticNetwork, application));
+			Children.Add(Concepts = new SemanticNetworkConceptsNode(application));
+			Children.Add(Statements = new SemanticNetworkStatementsNode(application));
 		}
 
 		public List<ExtendedTreeNode> Find(object obj)

@@ -236,7 +236,7 @@ namespace Inventor.Client
 		private void reloadSemanticNetworkTree()
 		{
 			treeViewSemanticNetwork.Items.Clear();
-			treeViewSemanticNetwork.Items.Add(_semanticNetworkNode = new SemanticNetworkNode(_application.SemanticNetwork, _application));
+			treeViewSemanticNetwork.Items.Add(_semanticNetworkNode = new SemanticNetworkNode(_application));
 			_semanticNetworkNode.IsExpanded = true;
 		}
 
