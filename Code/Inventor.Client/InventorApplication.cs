@@ -12,30 +12,10 @@ using Inventor.Core.Utils;
 using Inventor.Mathematics;
 using Inventor.Processes;
 using Inventor.Set;
+using Inventor.WPF;
 
 namespace Inventor.Client
 {
-	public interface IInventorApplication
-	{
-		String StartupPath
-		{ get; }
-
-		ILanguage CurrentLanguage
-		{ get; set; }
-
-		ICollection<ILanguage> Languages
-		{ get; }
-
-		InventorConfiguration Configuration
-		{ get; }
-
-		IMainWindow MainForm
-		{ get; }
-
-		ISemanticNetwork SemanticNetwork
-		{ get; set; }
-	}
-
 	public class InventorApplication : Application, IInventorApplication
 	{
 		#region Properties
@@ -146,13 +126,16 @@ namespace Inventor.Client
 		{
 			if (e.ExceptionObject is Exception)
 			{
-				new Dialogs.ExceptionDialog(new ExceptionWrapper(e.ExceptionObject as Exception), Dialogs.ExceptionDialogMode.ProcessFatalError, CurrentLanguage ?? Language.Default).ShowDialog();
+				new WPF.Dialogs.ExceptionDialog(
+					new ExceptionWrapper(e.ExceptionObject as Exception),
+					WPF.Dialogs.ExceptionDialogMode.ProcessFatalError,
+					CurrentLanguage ?? Language.Default).ShowDialog();
 			}
 		}
 
 		private void dispatcherUnhandledException(object sender, DispatcherUnhandledExceptionEventArgs e)
 		{
-			if (new Dialogs.ExceptionDialog(e.Exception, false, CurrentLanguage ?? Language.Default).ShowDialog() == true)
+			if (new WPF.Dialogs.ExceptionDialog(e.Exception, false, CurrentLanguage ?? Language.Default).ShowDialog() == true)
 			{
 				Shutdown();
 			}

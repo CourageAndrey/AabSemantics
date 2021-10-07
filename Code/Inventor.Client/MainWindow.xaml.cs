@@ -6,18 +6,16 @@ using System.Windows.Data;
 
 using Microsoft.Win32;
 
-using Inventor.Client.Dialogs;
-using Inventor.Client.Localization;
 using Inventor.Core;
 using Inventor.Core.Xml;
+using Inventor.WPF;
+using Inventor.WPF.Commands;
+using Inventor.WPF.Dialogs;
+using Inventor.WPF.Localization;
+using Inventor.WPF.ViewModels;
 
 namespace Inventor.Client
 {
-	public interface IMainWindow
-	{
-		void Initialize(IInventorApplication application);
-	}
-
 	public partial class MainWindow : IMainWindow
 	{
 		public MainWindow()
@@ -30,8 +28,8 @@ namespace Inventor.Client
 			_changeController = new ChangeController();
 			_changeController.Refreshed += (sender, args) => refreshFileButtonsAndTitle();
 
-			_viewModelFactory = new ViewModels.ViewModelFactory();
-			_commandsFactory = new Commands.CommandsFactory();
+			_viewModelFactory = new ViewModelFactory();
+			_commandsFactory = new CommandsFactory();
 		}
 
 		public void Initialize(IInventorApplication application)
@@ -46,8 +44,8 @@ namespace Inventor.Client
 		private IInventorApplication _application;
 		private String _fileName;
 		private readonly ChangeController _changeController;
-		private readonly ViewModels.IViewModelFactory _viewModelFactory;
-		private readonly Commands.ICommandsFactory _commandsFactory;
+		private readonly IViewModelFactory _viewModelFactory;
+		private readonly ICommandsFactory _commandsFactory;
 
 		private void selectedLanguageChanged(object sender, SelectionChangedEventArgs e)
 		{
