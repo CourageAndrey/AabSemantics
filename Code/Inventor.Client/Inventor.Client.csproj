@@ -56,7 +56,7 @@
     <Reference Include="WindowsFormsIntegration" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="CommandsFactory.cs" />
+    <Compile Include="Commands\CommandsFactory.cs" />
     <Compile Include="Commands\AddConceptCommand.cs" />
     <Compile Include="Commands\AddStatementCommand.cs" />
     <Compile Include="Commands\DeleteConceptCommand.cs" />

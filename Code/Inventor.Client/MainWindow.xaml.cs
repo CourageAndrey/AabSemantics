@@ -7,6 +7,7 @@ using System.Windows.Data;
 
 using Microsoft.Win32;
 
+using Inventor.Client.Commands;
 using Inventor.Client.Dialogs;
 using Inventor.Client.Localization;
 using Inventor.Client.TreeNodes;

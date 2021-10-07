@@ -1,8 +1,7 @@
-﻿using Inventor.Client.Commands;
-using Inventor.Client.TreeNodes;
+﻿using Inventor.Client.TreeNodes;
 using Inventor.Client.ViewModels;
 
-namespace Inventor.Client
+namespace Inventor.Client.Commands
 {
 	public static class CommandsFactory
 	{
