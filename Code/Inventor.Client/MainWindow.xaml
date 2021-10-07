@@ -3,6 +3,7 @@
 		xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
 		xmlns:localization="clr-namespace:Inventor.Client.Localization"
 		xmlns:treeNodes="clr-namespace:Inventor.Client.TreeNodes"
+		xmlns:controls="clr-namespace:Inventor.Client.Controls"
 		Width="800" Height="600" WindowStartupLocation="CenterScreen" Icon="Inventor.ico" Closing="onWindowClosing">
 	<Window.Resources>
 		<ObjectDataProvider x:Key="language" ObjectType="{x:Type localization:Localizator}" />
@@ -72,15 +73,6 @@
 				</StackPanel>
 			</ToolBar>
 		</ToolBarPanel>
-		<TreeView Name="treeViewSemanticNetwork" Margin="2">
-			<TreeView.ContextMenu>
-				<ContextMenu ContextMenuOpening="knowledgeContextMenuOpening">
-					<MenuItem Header="{Binding Source={StaticResource language}, Path=Ui.MainForm.ContextMenuRename, Mode=OneTime}" Name="_renameKnowledgeItem" Click="renameKnowledgeClick" />
-					<MenuItem Header="{Binding Source={StaticResource language}, Path=Ui.MainForm.ContextMenuKnowledgeAdd, Mode=OneTime}" Name="_addKnowledgeItem" Click="addKnowledgeClick" />
-					<MenuItem Header="{Binding Source={StaticResource language}, Path=Ui.MainForm.ContextMenuKnowledgeEdit, Mode=OneTime}" Name="_editKnowledgeItem" Click="editKnowledgeClick" />
-					<MenuItem Header="{Binding Source={StaticResource language}, Path=Ui.MainForm.ContextMenuKnowledgeDelete, Mode=OneTime}" Name="_deleteKnowledgeItem" Click="deleteKnowledgeClick" />
-				</ContextMenu>
-			</TreeView.ContextMenu>
-		</TreeView>
+		<controls:SemanticNetworkTreeView x:Name="treeViewSemanticNetwork" Margin="2" />
 	</DockPanel>
 </Window>
