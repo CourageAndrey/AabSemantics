@@ -4,7 +4,7 @@ using System.Threading;
 
 namespace Inventor.Client
 {
-	internal class ChangeController
+	public class ChangeController
 	{
 		#region Properties
 
