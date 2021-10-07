@@ -114,7 +114,7 @@ namespace Inventor.Client
 
 		#region Knowledge Tree Menu
 
-		private void renameClick(object sender, RoutedEventArgs e)
+		private void renameKnowledgeClick(object sender, RoutedEventArgs e)
 		{
 			var semanticNetworkNode = treeViewSemanticNetwork.SelectedItem as SemanticNetworkNode;
 			if (semanticNetworkNode == null) return;
@@ -218,7 +218,7 @@ namespace Inventor.Client
 			//bool isStatementsNode = selectedItem is SemanticNetworkStatementsNode;
 			bool isConceptNode = selectedItem is ConceptNode;
 			var statementNode = selectedItem as StatementNode;
-			_rename.Visibility = isSemanticNetworkNode
+			_renameKnowledgeItem.Visibility = isSemanticNetworkNode
 				? Visibility.Visible
 				: Visibility.Collapsed;
 			_addKnowledgeItem.Visibility = !isSemanticNetworkNode
