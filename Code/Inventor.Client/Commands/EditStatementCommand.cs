@@ -14,11 +14,11 @@ namespace Inventor.Client.Commands
 
 		#endregion
 
-		public EditStatementCommand(StatementViewModel viewModel, SemanticNetworkNode semanticNetworkNode, InventorApplication application)
+		public EditStatementCommand(StatementViewModel viewModel, StatementViewModel previousVersion, SemanticNetworkNode semanticNetworkNode, InventorApplication application)
 			: base(semanticNetworkNode, application)
 		{
 			ViewModel = viewModel;
-			PreviousVersion = ViewModels.ViewModelFactory.CreateStatementByInstance(viewModel.BoundStatement, application.CurrentLanguage);
+			PreviousVersion = previousVersion;
 		}
 
 		public override void Apply()
