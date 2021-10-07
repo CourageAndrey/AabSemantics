@@ -3,9 +3,9 @@ using Inventor.Client.ViewModels;
 
 namespace Inventor.Client.Commands
 {
-	public static class CommandsFactory
+	public class CommandsFactory
 	{
-		public static IEditCommand CreateAddCommand(this IKnowledgeViewModel viewModel, SemanticNetworkNode semanticNetworkNode, InventorApplication application)
+		public IEditCommand CreateAddCommand(IKnowledgeViewModel viewModel, SemanticNetworkNode semanticNetworkNode, InventorApplication application)
 		{
 			var conceptViewModel = viewModel as Concept;
 			if (conceptViewModel != null)
@@ -22,7 +22,7 @@ namespace Inventor.Client.Commands
 			return null;
 		}
 
-		public static IEditCommand CreateEditCommand(this IKnowledgeViewModel viewModel, SemanticNetworkNode semanticNetworkNode, InventorApplication application, IViewModelFactory viewModelFactory)
+		public IEditCommand CreateEditCommand(IKnowledgeViewModel viewModel, SemanticNetworkNode semanticNetworkNode, InventorApplication application, IViewModelFactory viewModelFactory)
 		{
 			var conceptViewModel = viewModel as Concept;
 			if (conceptViewModel != null)
@@ -41,7 +41,7 @@ namespace Inventor.Client.Commands
 			return null;
 		}
 
-		public static IEditCommand CreateDeleteCommand(this ExtendedTreeNode node, SemanticNetworkNode semanticNetworkNode, InventorApplication application)
+		public IEditCommand CreateDeleteCommand(ExtendedTreeNode node, SemanticNetworkNode semanticNetworkNode, InventorApplication application)
 		{
 			var conceptNode = node as ConceptNode;
 			if (conceptNode != null)
@@ -58,7 +58,7 @@ namespace Inventor.Client.Commands
 			return null;
 		}
 
-		public static IEditCommand CreateRenameCommand(this LocalizedString name, SemanticNetworkNode semanticNetworkNode, InventorApplication application)
+		public IEditCommand CreateRenameCommand(LocalizedString name, SemanticNetworkNode semanticNetworkNode, InventorApplication application)
 		{
 			return new RenameSemanticNetworkCommand(semanticNetworkNode, name, application);
 		}
