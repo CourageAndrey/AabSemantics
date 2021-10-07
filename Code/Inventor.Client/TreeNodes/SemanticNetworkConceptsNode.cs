@@ -22,19 +22,17 @@ namespace Inventor.Client.TreeNodes
 		{ get { return _icon ?? (_icon = Resources.Folder.ToSource()); } }
 
 		public ISemanticNetwork SemanticNetwork
-		{ get { return _semanticNetwork; } }
+		{ get { return _application.SemanticNetwork; } }
 
 		private static ImageSource _icon;
-		private readonly ISemanticNetwork _semanticNetwork;
 		private readonly IInventorApplication _application;
 
 		#endregion
 
-		public SemanticNetworkConceptsNode(ISemanticNetwork semanticNetwork, IInventorApplication application)
+		public SemanticNetworkConceptsNode(IInventorApplication application)
 		{
-			_semanticNetwork = semanticNetwork;
 			_application = application;
-			foreach (var concept in semanticNetwork.Concepts)
+			foreach (var concept in SemanticNetwork.Concepts)
 			{
 				Children.Add(new ConceptNode(concept, application));
 			}
