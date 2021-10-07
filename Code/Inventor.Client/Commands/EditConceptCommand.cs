@@ -14,11 +14,11 @@ namespace Inventor.Client.Commands
 
 		#endregion
 
-		public EditConceptCommand(ViewModels.Concept viewModel, SemanticNetworkNode semanticNetworkNode, InventorApplication application)
+		public EditConceptCommand(ViewModels.Concept viewModel, ViewModels.Concept previousVersion, SemanticNetworkNode semanticNetworkNode, InventorApplication application)
 			: base(semanticNetworkNode, application)
 		{
 			ViewModel = viewModel;
-			PreviousVersion = new ViewModels.Concept(ViewModel.BoundObject);
+			PreviousVersion = previousVersion;
 		}
 
 		public override void Apply()

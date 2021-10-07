@@ -37,7 +37,7 @@ namespace Inventor.Client
 	{
 		public static IEditCommand CreateAddCommand(this IKnowledgeViewModel viewModel, SemanticNetworkNode semanticNetworkNode, InventorApplication application)
 		{
-			var conceptViewModel = viewModel as ViewModels.Concept;
+			var conceptViewModel = viewModel as Concept;
 			if (conceptViewModel != null)
 			{
 				return new AddConceptCommand(conceptViewModel, semanticNetworkNode, application);
@@ -54,16 +54,18 @@ namespace Inventor.Client
 
 		public static IEditCommand CreateEditCommand(this IKnowledgeViewModel viewModel, SemanticNetworkNode semanticNetworkNode, InventorApplication application)
 		{
-			var conceptViewModel = viewModel as ViewModels.Concept;
+			var conceptViewModel = viewModel as Concept;
 			if (conceptViewModel != null)
 			{
-				return new EditConceptCommand(conceptViewModel, semanticNetworkNode, application);
+				var previousVersion = new Concept(conceptViewModel.BoundObject);
+				return new EditConceptCommand(conceptViewModel, previousVersion, semanticNetworkNode, application);
 			}
 
 			var statementViewModel = viewModel as StatementViewModel;
 			if (statementViewModel != null)
 			{
-				return new EditStatementCommand(statementViewModel, semanticNetworkNode, application);
+				var previousVersion = ViewModelFactory.CreateStatementByInstance(statementViewModel.BoundStatement, application.CurrentLanguage);
+				return new EditStatementCommand(statementViewModel, previousVersion, semanticNetworkNode, application);
 			}
 
 			return null;
