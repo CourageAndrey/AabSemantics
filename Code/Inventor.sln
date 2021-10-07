@@ -29,11 +29,13 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Inventor.Test.Sample", "Inv
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Modules", "Modules", "{3551B285-81AF-49B9-A479-F23F281B7483}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Inventor.Mathematics", "Modules\Inventor.Mathematics\Inventor.Mathematics.csproj", "{EDD2A80F-14DB-4A28-8113-EF78115AFA63}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Inventor.Mathematics", "Modules\Inventor.Mathematics\Inventor.Mathematics.csproj", "{EDD2A80F-14DB-4A28-8113-EF78115AFA63}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Inventor.Processes", "Modules\Inventor.Processes\Inventor.Processes.csproj", "{EFC2327C-F586-477E-8699-114FC31940AC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Inventor.Processes", "Modules\Inventor.Processes\Inventor.Processes.csproj", "{EFC2327C-F586-477E-8699-114FC31940AC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Inventor.Set", "Modules\Inventor.Set\Inventor.Set.csproj", "{F6C2B97B-68C8-415C-98DE-663BA4C45ECA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Inventor.Set", "Modules\Inventor.Set\Inventor.Set.csproj", "{F6C2B97B-68C8-415C-98DE-663BA4C45ECA}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Inventor.WPF", "Inventor.WPF\Inventor.WPF.csproj", "{3A307412-D53A-43B9-938F-DD1F5ACA6D60}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -97,6 +99,10 @@ Global
 		{F6C2B97B-68C8-415C-98DE-663BA4C45ECA}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F6C2B97B-68C8-415C-98DE-663BA4C45ECA}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F6C2B97B-68C8-415C-98DE-663BA4C45ECA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3A307412-D53A-43B9-938F-DD1F5ACA6D60}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3A307412-D53A-43B9-938F-DD1F5ACA6D60}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3A307412-D53A-43B9-938F-DD1F5ACA6D60}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3A307412-D53A-43B9-938F-DD1F5ACA6D60}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
