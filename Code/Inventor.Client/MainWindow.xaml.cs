@@ -42,7 +42,7 @@ namespace Inventor.Client
 		private SemanticNetworkNode _semanticNetworkNode;
 		private String _fileName;
 		private readonly ChangeController _changeController;
-		private readonly ViewModels.ViewModelFactory _viewModelFactory;
+		private readonly ViewModels.IViewModelFactory _viewModelFactory;
 
 		private void selectedLanguageChanged(object sender, SelectionChangedEventArgs e)
 		{

@@ -52,7 +52,7 @@ namespace Inventor.Client
 			return null;
 		}
 
-		public static IEditCommand CreateEditCommand(this IKnowledgeViewModel viewModel, SemanticNetworkNode semanticNetworkNode, InventorApplication application, ViewModelFactory viewModelFactory)
+		public static IEditCommand CreateEditCommand(this IKnowledgeViewModel viewModel, SemanticNetworkNode semanticNetworkNode, InventorApplication application, IViewModelFactory viewModelFactory)
 		{
 			var conceptViewModel = viewModel as Concept;
 			if (conceptViewModel != null)

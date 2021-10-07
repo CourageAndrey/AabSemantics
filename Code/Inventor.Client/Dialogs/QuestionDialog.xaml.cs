@@ -27,11 +27,11 @@ namespace Inventor.Client.Dialogs
 
 		private readonly ILanguage _language;
 
-		private readonly ViewModelFactory _viewModelFactory;
+		private readonly IViewModelFactory _viewModelFactory;
 
 		#endregion
 
-		public QuestionDialog(ISemanticNetwork semanticNetwork, ILanguage language, ViewModelFactory viewModelFactory)
+		public QuestionDialog(ISemanticNetwork semanticNetwork, ILanguage language, IViewModelFactory viewModelFactory)
 		{
 			_language = language;
 			_viewModelFactory = viewModelFactory;
