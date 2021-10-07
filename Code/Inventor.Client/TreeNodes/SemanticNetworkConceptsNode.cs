@@ -26,11 +26,11 @@ namespace Inventor.Client.TreeNodes
 
 		private static ImageSource _icon;
 		private readonly ISemanticNetwork _semanticNetwork;
-		private readonly InventorApplication _application;
+		private readonly IInventorApplication _application;
 
 		#endregion
 
-		public SemanticNetworkConceptsNode(ISemanticNetwork semanticNetwork, InventorApplication application)
+		public SemanticNetworkConceptsNode(ISemanticNetwork semanticNetwork, IInventorApplication application)
 		{
 			_semanticNetwork = semanticNetwork;
 			_application = application;

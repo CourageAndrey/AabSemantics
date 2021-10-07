@@ -24,11 +24,11 @@ namespace Inventor.Client.TreeNodes
 
 		private static ImageSource _icon;
 		private readonly IStatement _statement;
-		private readonly InventorApplication _application;
+		private readonly IInventorApplication _application;
 
 		#endregion
 
-		public StatementNode(IStatement statement, InventorApplication application)
+		public StatementNode(IStatement statement, IInventorApplication application)
 		{
 			_statement = statement;
 			_application = application;

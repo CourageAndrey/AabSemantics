@@ -15,7 +15,28 @@ using Inventor.Set;
 
 namespace Inventor.Client
 {
-	public class InventorApplication : Application
+	public interface IInventorApplication
+	{
+		String StartupPath
+		{ get; }
+
+		ILanguage CurrentLanguage
+		{ get; set; }
+
+		ICollection<ILanguage> Languages
+		{ get; }
+
+		InventorConfiguration Configuration
+		{ get; }
+
+		IMainWindow MainForm
+		{ get; }
+
+		ISemanticNetwork SemanticNetwork
+		{ get; set; }
+	}
+
+	public class InventorApplication : Application, IInventorApplication
 	{
 		#region Properties
 
@@ -40,14 +61,14 @@ namespace Inventor.Client
 		public InventorConfiguration Configuration
 		{ get; }
 
-		public MainWindow MainForm
+		public IMainWindow MainForm
 		{ get; }
 
 		private String ConfigurationFile
 		{ get { return Path.Combine(StartupPath, InventorConfiguration.FileName); } }
 
 		public ISemanticNetwork SemanticNetwork
-		{ get; internal set; }
+		{ get; set; }
 
 		#endregion
 
@@ -61,7 +82,9 @@ namespace Inventor.Client
 
 			selectLanguage();
 
-			MainWindow = MainForm = new MainWindow();
+			var mainForm = new MainWindow();
+			MainForm = mainForm;
+			MainWindow = mainForm;
 
 			ShutdownMode = ShutdownMode.OnMainWindowClose;
 		}

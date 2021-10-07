@@ -14,7 +14,7 @@ namespace Inventor.Client.Commands
 
 		#endregion
 
-		public EditConceptCommand(ViewModels.Concept viewModel, ViewModels.Concept previousVersion, SemanticNetworkNode semanticNetworkNode, InventorApplication application)
+		public EditConceptCommand(ViewModels.Concept viewModel, ViewModels.Concept previousVersion, SemanticNetworkNode semanticNetworkNode, IInventorApplication application)
 			: base(semanticNetworkNode, application)
 		{
 			ViewModel = viewModel;

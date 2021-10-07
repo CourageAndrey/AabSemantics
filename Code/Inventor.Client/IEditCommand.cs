@@ -18,9 +18,9 @@ namespace Inventor.Client
 		protected ISemanticNetwork SemanticNetwork
 		{ get { return SemanticNetworkNode.SemanticNetwork; } }
 
-		protected readonly InventorApplication Application;
+		protected readonly IInventorApplication Application;
 
-		protected BaseEditCommand(SemanticNetworkNode semanticNetworkNode, InventorApplication application)
+		protected BaseEditCommand(SemanticNetworkNode semanticNetworkNode, IInventorApplication application)
 		{
 			SemanticNetworkNode = semanticNetworkNode;
 			Application = application;

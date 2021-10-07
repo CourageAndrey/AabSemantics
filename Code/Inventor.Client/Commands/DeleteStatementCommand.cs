@@ -18,7 +18,7 @@ namespace Inventor.Client.Commands
 
 		#endregion
 
-		public DeleteStatementCommand(IStatement statement, SemanticNetworkNode semanticNetworkNode, InventorApplication application)
+		public DeleteStatementCommand(IStatement statement, SemanticNetworkNode semanticNetworkNode, IInventorApplication application)
 			: base(semanticNetworkNode, application)
 		{
 			Statement = statement;
