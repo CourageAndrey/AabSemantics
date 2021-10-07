@@ -6,7 +6,7 @@ using Inventor.Core;
 
 namespace Inventor.Client.ViewModels
 {
-	internal static class Factory
+	public static class Factory
 	{
 		public static IKnowledgeViewModel CreateByCoreType(Type type, ILanguage language)
 		{
