@@ -191,7 +191,7 @@ namespace Inventor.Client.Dialogs
 					}
 					if (statementType == null) return;
 
-					viewModel = (StatementViewModel) ViewModels.Factory.CreateByCoreType(statementType, _language);
+					viewModel = (StatementViewModel) ViewModels.ViewModelFactory.CreateByCoreType(statementType, _language);
 				}
 				else
 				{
@@ -254,7 +254,7 @@ namespace Inventor.Client.Dialogs
 				}
 				if (statementType == null) return;
 
-				viewModel = (StatementViewModel) ViewModels.Factory.CreateByCoreType(statementType, _language);
+				viewModel = (StatementViewModel) ViewModels.ViewModelFactory.CreateByCoreType(statementType, _language);
 
 				var editDialog = viewModel.CreateEditDialog(this, _semanticNetwork, _language);
 
