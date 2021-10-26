@@ -11,11 +11,11 @@ namespace Inventor.Algorithms
 
 	public static class Huffman
 	{
-		public static Dictionary<T, string> HuffmanEncode<T>(this IEnumerable<T> objects, char left, char right)
+		public static Dictionary<T, string> HuffmanEncode<T>(this ICollection<T> objects, char left, char right)
 			where T : class, IWithWeight
 		{
 			if (objects == null) throw new ArgumentNullException(nameof(objects));
-			if (!objects.Any()) return new Dictionary<T, string>();
+			if (objects.Count == 0) return new Dictionary<T, string>();
 
 			// составление первоначального списка узлов
 			var allNodes = objects.ToDictionary(
