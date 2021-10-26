@@ -18,11 +18,9 @@ namespace Inventor.Algorithms
 			if (!objects.Any()) return new Dictionary<T, string>();
 
 			// составление первоначального списка узлов
-			var allNodes = new Dictionary<T, TreeNode<T>>();
-			foreach (var instance in objects)
-			{
-				allNodes[instance] = new TreeNode<T>(instance);
-			}
+			var allNodes = objects.ToDictionary(
+				instance => instance,
+				instance => new TreeNode<T>(instance));
 
 			// построение дерева
 			var treeNodes = new List<TreeNode<T>>(allNodes.Values);
