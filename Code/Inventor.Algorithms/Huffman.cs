@@ -11,7 +11,7 @@ namespace Inventor.Algorithms
 
 	public static class Huffman
 	{
-		public static Dictionary<T, string> Encode<T>(IEnumerable<T> objects, char left, char right)
+		public static Dictionary<T, string> HuffmanEncode<T>(this IEnumerable<T> objects, char left, char right)
 			where T : class, IWithWeight
 		{
 			if (objects == null) throw new ArgumentNullException(nameof(objects));
