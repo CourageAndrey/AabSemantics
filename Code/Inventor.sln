@@ -37,6 +37,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Inventor.Set", "Modules\Inv
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Inventor.WPF", "Inventor.WPF\Inventor.WPF.csproj", "{3A307412-D53A-43B9-938F-DD1F5ACA6D60}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Inventor.Algorithms", "Inventor.Algorithms\Inventor.Algorithms.csproj", "{5F7277B8-E739-4205-AF98-CF032D3C563C}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -103,6 +105,10 @@ Global
 		{3A307412-D53A-43B9-938F-DD1F5ACA6D60}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3A307412-D53A-43B9-938F-DD1F5ACA6D60}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3A307412-D53A-43B9-938F-DD1F5ACA6D60}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5F7277B8-E739-4205-AF98-CF032D3C563C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5F7277B8-E739-4205-AF98-CF032D3C563C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5F7277B8-E739-4205-AF98-CF032D3C563C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5F7277B8-E739-4205-AF98-CF032D3C563C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
