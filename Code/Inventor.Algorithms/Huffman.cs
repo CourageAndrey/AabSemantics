@@ -11,21 +11,21 @@ namespace Inventor.Algorithms
 
 	public static class Huffman
 	{
-		public static Dictionary<T, string> HuffmanEncode<T>(this ICollection<T> objects, char left, char right)
-			where T : class, IWithWeight
+		public static Dictionary<ItemT, string> HuffmanEncode<ItemT>(this ICollection<ItemT> items, char left, char right)
+			where ItemT : class, IWithWeight
 		{
-			if (objects == null) throw new ArgumentNullException(nameof(objects));
-			if (objects.Count == 0) return new Dictionary<T, string>();
+			if (items == null) throw new ArgumentNullException(nameof(items));
+			if (items.Count == 0) return new Dictionary<ItemT, string>();
 
-			var allNodes = objects.ToDictionary(
+			var allNodes = items.ToDictionary(
 				instance => instance,
-				instance => new TreeNode<T>(instance));
+				instance => new TreeNode<ItemT>(instance));
 
-			var treeNodes = new List<TreeNode<T>>(allNodes.Values);
+			var treeNodes = new List<TreeNode<ItemT>>(allNodes.Values);
 			do
 			{
 				var hasNotParent = treeNodes.Where(n => n.Parent == null).OrderBy(n => n.Weight).ToList();
-				treeNodes.Add(new TreeNode<T>(hasNotParent[0], hasNotParent[1]));
+				treeNodes.Add(new TreeNode<ItemT>(hasNotParent[0], hasNotParent[1]));
 			} while (treeNodes.Count(n => n.Parent == null) > 1);
 
 			treeNodes.Single(n => n.Parent == null).Encode(string.Empty, left, right);
@@ -35,23 +35,23 @@ namespace Inventor.Algorithms
 				instance => instance.Value.Code);
 		}
 
-		private class TreeNode<T> : IWithWeight
-			where T : class, IWithWeight
+		private class TreeNode<ItemT> : IWithWeight
+			where ItemT : class, IWithWeight
 		{
-			private readonly T Value;
+			private readonly ItemT Item;
 			public ulong Weight { get; private set; }
-			public TreeNode<T> Parent { get; private set; }
-			private readonly TreeNode<T> Left;
-			private readonly TreeNode<T> Right;
+			public TreeNode<ItemT> Parent { get; private set; }
+			private readonly TreeNode<ItemT> Left;
+			private readonly TreeNode<ItemT> Right;
 			public string Code { get; private set; }
 
-			public TreeNode(T value)
+			public TreeNode(ItemT item)
 			{
-				Value = value;
-				Weight = Value.Weight;
+				Item = item;
+				Weight = Item.Weight;
 			}
 
-			public TreeNode(TreeNode<T> left, TreeNode<T> right)
+			public TreeNode(TreeNode<ItemT> left, TreeNode<ItemT> right)
 			{
 				Left = left;
 				Right = right;
