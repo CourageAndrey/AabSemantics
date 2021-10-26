@@ -40,7 +40,7 @@ namespace Inventor.Algorithms
 		private class TreeNode<ItemT, TCode>
 		{
 			private readonly ItemT Item;
-			public ulong Weight { get; private set; }
+			public ulong Weight { get; }
 			public TreeNode<ItemT, TCode> Parent { get; private set; }
 			private readonly TreeNode<ItemT, TCode> Left;
 			private readonly TreeNode<ItemT, TCode> Right;
