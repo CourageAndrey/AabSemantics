@@ -14,6 +14,9 @@ namespace Inventor.Algorithms
 		public static Dictionary<T, string> Encode<T>(IEnumerable<T> objects, char left, char right)
 			where T : class, IWithWeight
 		{
+			if (objects == null) throw new ArgumentNullException(nameof(objects));
+			if (!objects.Any()) return new Dictionary<T, string>();
+
 			// составление первоначального списка узлов
 			var allNodes = new Dictionary<T, TreeNode<T>>();
 			foreach (var instance in objects)
@@ -23,10 +26,6 @@ namespace Inventor.Algorithms
 
 			// построение дерева
 			var treeNodes = new List<TreeNode<T>>(allNodes.Values);
-			if (treeNodes.Count == 0)
-			{
-				throw new Exception("Список узлов пуст!");
-			}
 			do
 			{
 				var hasNotParent = treeNodes.Where(n => n.Parent == null).OrderBy(n => n.Weight).ToList();
