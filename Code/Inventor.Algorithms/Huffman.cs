@@ -11,7 +11,7 @@ namespace Inventor.Algorithms
 
 	public static class Huffman
 	{
-		public static Dictionary<ItemT, string> HuffmanEncode<ItemT>(this ICollection<ItemT> items, char left, char right)
+		public static Dictionary<ItemT, string> HuffmanEncode<ItemT>(this ICollection<ItemT> items, Func<string, string> appendLeft, Func<string, string> appendRight)
 			where ItemT : class, IWithWeight
 		{
 			if (items == null) throw new ArgumentNullException(nameof(items));
@@ -28,7 +28,7 @@ namespace Inventor.Algorithms
 				treeNodes.Add(new TreeNode<ItemT>(hasNotParent[0], hasNotParent[1]));
 			} while (treeNodes.Count(n => n.Parent == null) > 1);
 
-			treeNodes.Single(n => n.Parent == null).Encode(string.Empty, left, right);
+			treeNodes.Single(n => n.Parent == null).Encode(string.Empty, appendLeft, appendRight);
 
 			return allNodes.ToDictionary(
 				instance => instance.Key,
@@ -60,13 +60,13 @@ namespace Inventor.Algorithms
 				Right.Parent = this;
 			}
 
-			public void Encode(string code, char left, char right)
+			public void Encode(string code, Func<string, string> appendLeft, Func<string, string> appendRight)
 			{
 				Code = code;
 				if (Left != null && Right != null)
 				{
-					Left.Encode(code + left, left, right);
-					Right.Encode(code + right, left, right);
+					Left.Encode(appendLeft(code), appendLeft, appendRight);
+					Right.Encode(appendRight(code), appendLeft, appendRight);
 				}
 			}
 
