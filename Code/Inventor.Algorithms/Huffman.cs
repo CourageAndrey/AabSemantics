@@ -4,28 +4,24 @@ using System.Linq;
 
 namespace Inventor.Algorithms
 {
-	public interface IWithWeight
-	{
-		ulong Weight { get; }
-	}
-
 	public static class Huffman
 	{
 		public static Dictionary<ItemT, TCode> HuffmanEncode<ItemT, TCode>(
 			this ICollection<ItemT> items,
+			Func<ItemT, ulong> getWeight,
 			TCode emptyCode,
 			Func<TCode, TCode> appendLeft,
 			Func<TCode, TCode> appendRight)
-			where ItemT : class, IWithWeight
 		{
 			if (items == null) throw new ArgumentNullException(nameof(items));
 			if (items.Count == 0) return new Dictionary<ItemT, TCode>();
+			if (getWeight == null) throw new ArgumentNullException(nameof(getWeight));
 			if (appendLeft == null) throw new ArgumentNullException(nameof(appendLeft));
 			if (appendRight == null) throw new ArgumentNullException(nameof(appendRight));
 
 			var allNodes = items.ToDictionary(
 				instance => instance,
-				instance => new TreeNode<ItemT, TCode>(instance));
+				instance => new TreeNode<ItemT, TCode>(instance, getWeight));
 
 			var treeNodes = new List<TreeNode<ItemT, TCode>>(allNodes.Values);
 			do
@@ -41,8 +37,7 @@ namespace Inventor.Algorithms
 				instance => instance.Value.Code);
 		}
 
-		private class TreeNode<ItemT, TCode> : IWithWeight
-			where ItemT : class, IWithWeight
+		private class TreeNode<ItemT, TCode>
 		{
 			private readonly ItemT Item;
 			public ulong Weight { get; private set; }
@@ -51,10 +46,10 @@ namespace Inventor.Algorithms
 			private readonly TreeNode<ItemT, TCode> Right;
 			public TCode Code { get; private set; }
 
-			public TreeNode(ItemT item)
+			public TreeNode(ItemT item, Func<ItemT, ulong> getWeight)
 			{
 				Item = item;
-				Weight = Item.Weight;
+				Weight = getWeight(item);
 			}
 
 			public TreeNode(TreeNode<ItemT, TCode> left, TreeNode<ItemT, TCode> right)
