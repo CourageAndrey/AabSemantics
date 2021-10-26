@@ -11,39 +11,45 @@ namespace Inventor.Algorithms
 
 	public static class Huffman
 	{
-		public static Dictionary<ItemT, string> HuffmanEncode<ItemT>(this ICollection<ItemT> items, Func<string, string> appendLeft, Func<string, string> appendRight)
+		public static Dictionary<ItemT, TCode> HuffmanEncode<ItemT, TCode>(
+			this ICollection<ItemT> items,
+			TCode emptyCode,
+			Func<TCode, TCode> appendLeft,
+			Func<TCode, TCode> appendRight)
 			where ItemT : class, IWithWeight
 		{
 			if (items == null) throw new ArgumentNullException(nameof(items));
-			if (items.Count == 0) return new Dictionary<ItemT, string>();
+			if (items.Count == 0) return new Dictionary<ItemT, TCode>();
+			if (appendLeft == null) throw new ArgumentNullException(nameof(appendLeft));
+			if (appendRight == null) throw new ArgumentNullException(nameof(appendRight));
 
 			var allNodes = items.ToDictionary(
 				instance => instance,
-				instance => new TreeNode<ItemT>(instance));
+				instance => new TreeNode<ItemT, TCode>(instance));
 
-			var treeNodes = new List<TreeNode<ItemT>>(allNodes.Values);
+			var treeNodes = new List<TreeNode<ItemT, TCode>>(allNodes.Values);
 			do
 			{
 				var hasNotParent = treeNodes.Where(n => n.Parent == null).OrderBy(n => n.Weight).Take(2).ToList();
-				treeNodes.Add(new TreeNode<ItemT>(hasNotParent[0], hasNotParent[1]));
+				treeNodes.Add(new TreeNode<ItemT, TCode>(hasNotParent[0], hasNotParent[1]));
 			} while (treeNodes.Count(n => n.Parent == null) > 1);
 
-			treeNodes.Single(n => n.Parent == null).Encode(string.Empty, appendLeft, appendRight);
+			treeNodes.Single(n => n.Parent == null).Encode(emptyCode, appendLeft, appendRight);
 
 			return allNodes.ToDictionary(
 				instance => instance.Key,
 				instance => instance.Value.Code);
 		}
 
-		private class TreeNode<ItemT> : IWithWeight
+		private class TreeNode<ItemT, TCode> : IWithWeight
 			where ItemT : class, IWithWeight
 		{
 			private readonly ItemT Item;
 			public ulong Weight { get; private set; }
-			public TreeNode<ItemT> Parent { get; private set; }
-			private readonly TreeNode<ItemT> Left;
-			private readonly TreeNode<ItemT> Right;
-			public string Code { get; private set; }
+			public TreeNode<ItemT, TCode> Parent { get; private set; }
+			private readonly TreeNode<ItemT, TCode> Left;
+			private readonly TreeNode<ItemT, TCode> Right;
+			public TCode Code { get; private set; }
 
 			public TreeNode(ItemT item)
 			{
@@ -51,7 +57,7 @@ namespace Inventor.Algorithms
 				Weight = Item.Weight;
 			}
 
-			public TreeNode(TreeNode<ItemT> left, TreeNode<ItemT> right)
+			public TreeNode(TreeNode<ItemT, TCode> left, TreeNode<ItemT, TCode> right)
 			{
 				Left = left;
 				Right = right;
@@ -60,7 +66,7 @@ namespace Inventor.Algorithms
 				Right.Parent = this;
 			}
 
-			public void Encode(string code, Func<string, string> appendLeft, Func<string, string> appendRight)
+			public void Encode(TCode code, Func<TCode, TCode> appendLeft, Func<TCode, TCode> appendRight)
 			{
 				Code = code;
 				if (Left != null && Right != null)
