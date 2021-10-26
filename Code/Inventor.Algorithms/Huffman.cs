@@ -17,12 +17,10 @@ namespace Inventor.Algorithms
 			if (objects == null) throw new ArgumentNullException(nameof(objects));
 			if (objects.Count == 0) return new Dictionary<T, string>();
 
-			// составление первоначального списка узлов
 			var allNodes = objects.ToDictionary(
 				instance => instance,
 				instance => new TreeNode<T>(instance));
 
-			// построение дерева
 			var treeNodes = new List<TreeNode<T>>(allNodes.Values);
 			do
 			{
@@ -30,7 +28,6 @@ namespace Inventor.Algorithms
 				treeNodes.Add(new TreeNode<T>(hasNotParent[0], hasNotParent[1]));
 			} while (treeNodes.Count(n => n.Parent == null) > 1);
 
-			// кодирование
 			treeNodes.Single(n => n.Parent == null).Encode(string.Empty, left, right);
 			var result = new Dictionary<T, string>();
 			foreach (var instance in allNodes.Keys)
