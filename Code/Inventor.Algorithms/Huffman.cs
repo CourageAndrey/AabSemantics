@@ -29,12 +29,10 @@ namespace Inventor.Algorithms
 			} while (treeNodes.Count(n => n.Parent == null) > 1);
 
 			treeNodes.Single(n => n.Parent == null).Encode(string.Empty, left, right);
-			var result = new Dictionary<T, string>();
-			foreach (var instance in allNodes.Keys)
-			{
-				result[instance] = allNodes[instance].Code;
-			}
-			return result;
+
+			return allNodes.ToDictionary(
+				instance => instance.Key,
+				instance => instance.Value.Code);
 		}
 
 		private class TreeNode<T> : IWithWeight
