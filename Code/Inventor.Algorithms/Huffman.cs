@@ -6,26 +6,11 @@ namespace Inventor.Algorithms
 {
 	public interface IWithWeight
 	{
-		/// <summary>
-		/// Вес.
-		/// </summary>
 		ulong Weight { get; }
 	}
 
-	/// <summary>
-	/// Алгоритм построения дерева Хаффмана.
-	/// </summary>
 	public static class Huffman
 	{
-		/// <summary>
-		/// Кодирование списка с помощью дерева Хаффмана.
-		/// Узлам с наибольшим весом присваиваются наиболее короткие коды.
-		/// </summary>
-		/// <typeparam name="T">тип узлов</typeparam>
-		/// <param name="objects">список узлов</param>
-		/// <param name="left">символ для "левого" направления</param>
-		/// <param name="right">символ для "правого" направления</param>
-		/// <returns>сопоставление узлов списка с их кодами</returns>
 		public static Dictionary<T, string> Encode<T>(IEnumerable<T> objects, char left, char right)
 			where T : class, IWithWeight
 		{
