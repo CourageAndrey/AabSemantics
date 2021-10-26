@@ -24,7 +24,7 @@ namespace Inventor.Algorithms
 			var treeNodes = new List<TreeNode<ItemT>>(allNodes.Values);
 			do
 			{
-				var hasNotParent = treeNodes.Where(n => n.Parent == null).OrderBy(n => n.Weight).ToList();
+				var hasNotParent = treeNodes.Where(n => n.Parent == null).OrderBy(n => n.Weight).Take(2).ToList();
 				treeNodes.Add(new TreeNode<ItemT>(hasNotParent[0], hasNotParent[1]));
 			} while (treeNodes.Count(n => n.Parent == null) > 1);
 
