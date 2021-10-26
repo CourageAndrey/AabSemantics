@@ -17,12 +17,16 @@ namespace Inventor.Algorithms
 			// составление первоначального списка узлов
 			var allNodes = new Dictionary<T, TreeNode<T>>();
 			foreach (var instance in objects)
+			{
 				allNodes[instance] = new TreeNode<T>(instance);
+			}
 
 			// построение дерева
 			var treeNodes = new List<TreeNode<T>>(allNodes.Values);
 			if (treeNodes.Count == 0)
+			{
 				throw new Exception("Список узлов пуст!");
+			}
 			do
 			{
 				var hasNotParent = treeNodes.Where(n => n.Parent == null).OrderBy(n => n.Weight).ToList();
@@ -33,7 +37,9 @@ namespace Inventor.Algorithms
 			treeNodes.Single(n => n.Parent == null).Encode(string.Empty, left, right);
 			var result = new Dictionary<T, string>();
 			foreach (var instance in allNodes.Keys)
+			{
 				result[instance] = allNodes[instance].Code;
+			}
 			return result;
 		}
 
