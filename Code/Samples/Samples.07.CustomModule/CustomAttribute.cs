@@ -1,4 +1,4 @@
-﻿using Inventor.Core;
+﻿using Inventor.Semantics;
 
 namespace Samples._07.CustomModule
 {

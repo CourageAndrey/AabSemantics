@@ -3,9 +3,9 @@ using System.Linq;
 
 using NUnit.Framework;
 
-using Inventor.Core;
-using Inventor.Core.Text.Containers;
-using Inventor.Core.Text.Primitives;
+using Inventor.Semantics;
+using Inventor.Semantics.Text.Containers;
+using Inventor.Semantics.Text.Primitives;
 
 namespace Inventor.Test.Text
 {

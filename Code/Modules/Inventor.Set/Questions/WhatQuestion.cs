@@ -2,10 +2,10 @@
 using System.Collections.Generic;
 using System.Linq;
 
-using Inventor.Core;
-using Inventor.Core.Answers;
-using Inventor.Core.Questions;
-using Inventor.Core.Statements;
+using Inventor.Semantics;
+using Inventor.Semantics.Answers;
+using Inventor.Semantics.Questions;
+using Inventor.Semantics.Statements;
 using Inventor.Set.Localization;
 using Inventor.Set.Statements;
 
@@ -35,7 +35,7 @@ namespace Inventor.Set.Questions
 			var isStatements = allStatements.Enumerate<IsStatement>(context.ActiveContexts).Where(c => c.Descendant == Concept).ToList();
 			if (isStatements.Any())
 			{
-				var result = new Core.Text.Containers.UnstructuredContainer();
+				var result = new Semantics.Text.Containers.UnstructuredContainer();
 				var explanation = new List<SignValueStatement>();
 				foreach (var statement in isStatements)
 				{
@@ -79,8 +79,8 @@ namespace Inventor.Set.Questions
 		{
 			result.Append(language => language.GetExtension<ILanguageSetModule>().Questions.Answers.IsDescriptionWithSign, new Dictionary<String, IKnowledge>
 			{
-				{ Core.Localization.Strings.ParamChild, Concept },
-				{ Core.Localization.Strings.ParamParent, statement.Ancestor },
+				{ Semantics.Localization.Strings.ParamChild, Concept },
+				{ Semantics.Localization.Strings.ParamParent, statement.Ancestor },
 			});
 
 			foreach (var diff in difference)
@@ -102,8 +102,8 @@ namespace Inventor.Set.Questions
 		{
 			result.Append(language => language.GetExtension<ILanguageSetModule>().Questions.Answers.IsDescription, new Dictionary<String, IKnowledge>
 			{
-				{ Core.Localization.Strings.ParamChild, Concept },
-				{ Core.Localization.Strings.ParamParent, statement.Ancestor },
+				{ Semantics.Localization.Strings.ParamChild, Concept },
+				{ Semantics.Localization.Strings.ParamParent, statement.Ancestor },
 			});
 		}
 	}

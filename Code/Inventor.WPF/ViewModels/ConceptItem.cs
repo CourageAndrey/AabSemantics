@@ -1,6 +1,6 @@
 ﻿using System;
 
-using Inventor.Core;
+using Inventor.Semantics;
 
 namespace Inventor.WPF.ViewModels
 {

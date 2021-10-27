@@ -1,0 +1,15 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <Authors>Andrei Bychko</Authors>
+    <Product>Inventor</Product>
+    <Company>Andrei Bychko</Company>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Folder Include="Modules\Classification\Attributes\" />
+    <Folder Include="Modules\Classification\Concepts\" />
+  </ItemGroup>
+
+</Project>

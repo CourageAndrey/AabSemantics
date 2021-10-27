@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 
-using Inventor.Core;
-using Inventor.Core.Statements;
+using Inventor.Semantics;
+using Inventor.Semantics.Statements;
 using Inventor.Processes.Concepts;
 
 namespace Inventor.Processes.Statements

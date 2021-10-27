@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 
-using Inventor.Core;
+using Inventor.Semantics;
 
 namespace Inventor.WPF.ViewModels
 {
@@ -10,13 +10,13 @@ namespace Inventor.WPF.ViewModels
 	{
 		public abstract void Apply(ILocalizedString localizedString);
 
-		public abstract Core.Localization.LocalizedStringVariable Create();
+		public abstract Semantics.Localization.LocalizedStringVariable Create();
 
 		public static LocalizedString From(ILocalizedString value)
 		{
-			return value is Core.Localization.LocalizedStringVariable
-				? new LocalizedStringVariable(value as Core.Localization.LocalizedStringVariable) as LocalizedString
-				: new LocalizedStringConstant(value as Core.Localization.LocalizedStringConstant);
+			return value is Semantics.Localization.LocalizedStringVariable
+				? new LocalizedStringVariable(value as Semantics.Localization.LocalizedStringVariable) as LocalizedString
+				: new LocalizedStringConstant(value as Semantics.Localization.LocalizedStringConstant);
 		}
 	}
 
@@ -29,7 +29,7 @@ namespace Inventor.WPF.ViewModels
 			: this(new Dictionary<string, string>())
 		{ }
 
-		public LocalizedStringVariable(Core.Localization.LocalizedStringVariable localizedString)
+		public LocalizedStringVariable(Semantics.Localization.LocalizedStringVariable localizedString)
 			: this(localizedString.Locales.ToDictionary(locale => locale, localizedString.GetValue))
 		{ }
 
@@ -40,7 +40,7 @@ namespace Inventor.WPF.ViewModels
 
 		public override void Apply(ILocalizedString localizedString)
 		{
-			var variableString = localizedString as Core.Localization.LocalizedStringVariable;
+			var variableString = localizedString as Semantics.Localization.LocalizedStringVariable;
 			if (variableString != null)
 			{
 				variableString.Clear();
@@ -51,9 +51,9 @@ namespace Inventor.WPF.ViewModels
 			}
 		}
 
-		public override Core.Localization.LocalizedStringVariable Create()
+		public override Semantics.Localization.LocalizedStringVariable Create()
 		{
-			return new Core.Localization.LocalizedStringVariable(Values.ToDictionary(
+			return new Semantics.Localization.LocalizedStringVariable(Values.ToDictionary(
 				value => value.Locale,
 				value => value.Value));
 		}
@@ -61,10 +61,10 @@ namespace Inventor.WPF.ViewModels
 
 	public class LocalizedStringConstant : LocalizedString
 	{
-		public Core.Localization.LocalizedStringConstant Original
+		public Semantics.Localization.LocalizedStringConstant Original
 		{ get; }
 
-		public LocalizedStringConstant(Core.Localization.LocalizedStringConstant original)
+		public LocalizedStringConstant(Semantics.Localization.LocalizedStringConstant original)
 		{
 			Original = original;
 		}
@@ -72,7 +72,7 @@ namespace Inventor.WPF.ViewModels
 		public override void Apply(ILocalizedString localizedString)
 		{ }
 
-		public override Core.Localization.LocalizedStringVariable Create()
+		public override Semantics.Localization.LocalizedStringVariable Create()
 		{
 			throw new NotSupportedException();
 		}

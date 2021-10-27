@@ -3,11 +3,11 @@ using System.Linq;
 
 using NUnit.Framework;
 
-using Inventor.Core;
-using Inventor.Core.Answers;
-using Inventor.Core.Localization;
-using Inventor.Core.Questions;
-using Inventor.Core.Statements;
+using Inventor.Semantics;
+using Inventor.Semantics.Answers;
+using Inventor.Semantics.Localization;
+using Inventor.Semantics.Questions;
+using Inventor.Semantics.Statements;
 using Inventor.Set.Questions;
 using Inventor.Set.Statements;
 using Inventor.Test.Sample;
@@ -78,7 +78,7 @@ namespace Inventor.Test.Questions
 			var semanticNetwork = new TestSemanticNetwork(language);
 			var concept = semanticNetwork.Base_Vehicle;
 
-			var secondSubjectArea = Core.Concepts.LogicalValues.True;
+			var secondSubjectArea = Semantics.Concepts.LogicalValues.True;
 			semanticNetwork.SemanticNetwork.DeclareThat(concept).BelongsToSubjectArea(secondSubjectArea);
 
 			// act

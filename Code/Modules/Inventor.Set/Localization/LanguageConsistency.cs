@@ -38,9 +38,9 @@ namespace Inventor.Set.Localization
 		{
 			return new LanguageConsistency
 			{
-				ErrorMultipleSign = $"Statement {Core.Localization.Strings.ParamStatement} cause sign value overload.",
-				ErrorMultipleSignValue = $"Value of {Strings.ParamSign} sign of {Core.Localization.Strings.ParamConcept} concept is uncertain, because many ancestors define  their own values.",
-				ErrorSignWithoutValue = $"{Core.Localization.Strings.ParamStatement} defines value of sign, which does not belong to concept.",
+				ErrorMultipleSign = $"Statement {Semantics.Localization.Strings.ParamStatement} cause sign value overload.",
+				ErrorMultipleSignValue = $"Value of {Strings.ParamSign} sign of {Semantics.Localization.Strings.ParamConcept} concept is uncertain, because many ancestors define  their own values.",
+				ErrorSignWithoutValue = $"{Semantics.Localization.Strings.ParamStatement} defines value of sign, which does not belong to concept.",
 			};
 		}
 	}

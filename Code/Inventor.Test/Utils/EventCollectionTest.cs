@@ -4,7 +4,7 @@ using System.Linq;
 
 using NUnit.Framework;
 
-using Inventor.Core.Utils;
+using Inventor.Semantics.Utils;
 
 namespace Inventor.Test.Utils
 {

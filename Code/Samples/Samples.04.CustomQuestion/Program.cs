@@ -1,9 +1,9 @@
 ﻿using System;
 
-using Inventor.Core;
-using Inventor.Core.Concepts;
-using Inventor.Core.Localization;
-using Inventor.Core.Questions;
+using Inventor.Semantics;
+using Inventor.Semantics.Concepts;
+using Inventor.Semantics.Localization;
+using Inventor.Semantics.Questions;
 
 namespace Samples._04.CustomQuestion
 {

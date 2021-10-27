@@ -4,9 +4,9 @@ using System.Linq;
 
 using NUnit.Framework;
 
-using Inventor.Core;
-using Inventor.Core.Localization;
-using Inventor.Core.Xml;
+using Inventor.Semantics;
+using Inventor.Semantics.Localization;
+using Inventor.Semantics.Xml;
 using Inventor.Test.Sample;
 
 namespace Inventor.Test.Xml
@@ -25,7 +25,7 @@ namespace Inventor.Test.Xml
 			string testFileName = Path.GetTempFileName();
 
 			// act
-			Core.SemanticNetwork restored;
+			Semantics.SemanticNetwork restored;
 			try
 			{
 				semanticNetwork.Save(testFileName);

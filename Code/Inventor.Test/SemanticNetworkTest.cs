@@ -1,10 +1,10 @@
 ﻿using NUnit.Framework;
 
-using Inventor.Core;
-using Inventor.Core.Concepts;
-using Inventor.Core.Localization;
-using Inventor.Core.Modules.Classification.Statements;
-using Inventor.Core.Statements;
+using Inventor.Semantics;
+using Inventor.Semantics.Concepts;
+using Inventor.Semantics.Localization;
+using Inventor.Semantics.Modules.Classification.Statements;
+using Inventor.Semantics.Statements;
 using Inventor.Mathematics;
 using Inventor.Processes;
 using Inventor.Set;
@@ -18,8 +18,8 @@ namespace Inventor.Test
 		[TestFixtureSetUp]
 		public void InitializeModules()
 		{
-			new Core.Modules.BooleanModule().RegisterMetadata();
-			new Core.Modules.ClassificationModule().RegisterMetadata();
+			new Semantics.Modules.BooleanModule().RegisterMetadata();
+			new Semantics.Modules.ClassificationModule().RegisterMetadata();
 			new MathematicsModule().RegisterMetadata();
 			new ProcessesModule().RegisterMetadata();
 			new SetModule().RegisterMetadata();

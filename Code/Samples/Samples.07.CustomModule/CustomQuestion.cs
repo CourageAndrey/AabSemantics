@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 
-using Inventor.Core;
-using Inventor.Core.Questions;
+using Inventor.Semantics;
+using Inventor.Semantics.Questions;
 using Samples._07.CustomModule.Localization;
 
 namespace Samples._07.CustomModule

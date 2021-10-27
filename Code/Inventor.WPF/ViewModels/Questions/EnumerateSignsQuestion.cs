@@ -4,7 +4,7 @@
 	public class EnumerateSignsQuestion : QuestionViewModel<Set.Questions.EnumerateSignsQuestion>
 	{
 		[PropertyDescriptor(true, "Questions.Parameters.Concept")]
-		public Core.IConcept Concept
+		public Semantics.IConcept Concept
 		{ get; set; }
 
 		[PropertyDescriptor(false, "Questions.Parameters.Recursive")]

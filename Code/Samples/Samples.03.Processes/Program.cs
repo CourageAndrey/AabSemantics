@@ -1,10 +1,10 @@
 ﻿using System;
 
-using Inventor.Core;
-using Inventor.Core.Concepts;
-using Inventor.Core.Localization;
-using Inventor.Core.Questions;
-using Inventor.Core.Statements;
+using Inventor.Semantics;
+using Inventor.Semantics.Concepts;
+using Inventor.Semantics.Localization;
+using Inventor.Semantics.Questions;
+using Inventor.Semantics.Statements;
 using Inventor.Processes;
 using Inventor.Processes.Attributes;
 using Inventor.Processes.Questions;

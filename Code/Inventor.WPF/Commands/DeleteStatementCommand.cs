@@ -1,8 +1,8 @@
 using System.Linq;
 
 using Inventor.WPF.TreeNodes;
-using Inventor.Core;
-using Inventor.Core.Utils;
+using Inventor.Semantics;
+using Inventor.Semantics.Utils;
 
 namespace Inventor.WPF.Commands
 {

@@ -4,10 +4,10 @@ using System.Linq;
 
 using NUnit.Framework;
 
-using Inventor.Core;
-using Inventor.Core.Answers;
-using Inventor.Core.Localization;
-using Inventor.Core.Questions;
+using Inventor.Semantics;
+using Inventor.Semantics.Answers;
+using Inventor.Semantics.Localization;
+using Inventor.Semantics.Questions;
 using Inventor.Mathematics.Concepts;
 using Inventor.Mathematics.Questions;
 using Inventor.Mathematics.Statements;

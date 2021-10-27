@@ -2,7 +2,7 @@
 
 using Inventor.WPF.Controls;
 using Inventor.WPF.Dialogs;
-using Inventor.Core;
+using Inventor.Semantics;
 using Inventor.Set.Localization;
 
 namespace Inventor.WPF.ViewModels.Statements

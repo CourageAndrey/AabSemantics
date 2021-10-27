@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 
-using Inventor.Core;
-using Inventor.Core.Localization;
-using Inventor.Core.Metadata;
+using Inventor.Semantics;
+using Inventor.Semantics.Localization;
+using Inventor.Semantics.Metadata;
 using Inventor.Processes.Attributes;
 using Inventor.Processes.Concepts;
 using Inventor.Processes.Localization;
@@ -41,7 +41,7 @@ namespace Inventor.Processes
 
 		protected override void RegisterConcepts()
 		{
-			Core.Xml.ConceptIdResolver.RegisterEnumType(typeof(SequenceSigns));
+			Semantics.Xml.ConceptIdResolver.RegisterEnumType(typeof(SequenceSigns));
 		}
 
 		protected override void RegisterStatements()

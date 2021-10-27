@@ -2,8 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 
-using Inventor.Core;
-using Inventor.Core.Questions;
+using Inventor.Semantics;
+using Inventor.Semantics.Questions;
 using Inventor.Set.Localization;
 using Inventor.Set.Statements;
 
@@ -44,7 +44,7 @@ namespace Inventor.Set.Questions
 					new Dictionary<String, IKnowledge>
 					{
 						{ Strings.ParamArea, Area },
-						{ Core.Localization.Strings.ParamConcept, Concept },
+						{ Semantics.Localization.Strings.ParamConcept, Concept },
 					});
 		}
 	}

@@ -1,5 +1,5 @@
-﻿using Inventor.Core;
-using Inventor.Core.Questions;
+﻿using Inventor.Semantics;
+using Inventor.Semantics.Questions;
 
 namespace Inventor.Mathematics.Questions
 {

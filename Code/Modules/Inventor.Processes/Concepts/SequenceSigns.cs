@@ -2,10 +2,10 @@
 using System.Collections.Generic;
 using System.Linq;
 
-using Inventor.Core;
-using Inventor.Core.Attributes;
-using Inventor.Core.Concepts;
-using Inventor.Core.Localization;
+using Inventor.Semantics;
+using Inventor.Semantics.Attributes;
+using Inventor.Semantics.Concepts;
+using Inventor.Semantics.Localization;
 using Inventor.Processes.Attributes;
 using Inventor.Processes.Localization;
 

@@ -4,8 +4,8 @@ using System.Windows.Data;
 
 using Microsoft.Win32;
 
-using Inventor.Core;
-using Inventor.Core.Utils;
+using Inventor.Semantics;
+using Inventor.Semantics.Utils;
 
 namespace Inventor.WPF.Dialogs
 {

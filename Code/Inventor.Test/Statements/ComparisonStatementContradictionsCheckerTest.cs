@@ -4,9 +4,9 @@ using System.Linq;
 
 using NUnit.Framework;
 
-using Inventor.Core;
-using Inventor.Core.Attributes;
-using Inventor.Core.Concepts;
+using Inventor.Semantics;
+using Inventor.Semantics.Attributes;
+using Inventor.Semantics.Concepts;
 using Inventor.Mathematics.Concepts;
 using Inventor.Mathematics.Statements;
 

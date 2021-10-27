@@ -4,11 +4,11 @@ using System.Linq;
 
 using NUnit.Framework;
 
-using Inventor.Core;
-using Inventor.Core.Concepts;
-using Inventor.Core.Localization;
-using Inventor.Core.Text.Containers;
-using Inventor.Core.Text.Primitives;
+using Inventor.Semantics;
+using Inventor.Semantics.Concepts;
+using Inventor.Semantics.Localization;
+using Inventor.Semantics.Text.Containers;
+using Inventor.Semantics.Text.Primitives;
 
 namespace Inventor.Test.Text
 {

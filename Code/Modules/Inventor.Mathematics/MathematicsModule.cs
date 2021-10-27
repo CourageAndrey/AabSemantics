@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 
-using Inventor.Core;
-using Inventor.Core.Metadata;
+using Inventor.Semantics;
+using Inventor.Semantics.Metadata;
 using Inventor.Mathematics.Attributes;
 using Inventor.Mathematics.Concepts;
 using Inventor.Mathematics.Localization;
@@ -29,7 +29,7 @@ namespace Inventor.Mathematics
 
 		protected override void RegisterLanguage()
 		{
-			Core.Localization.Language.Default.Extensions.Add(LanguageMathematicsModule.CreateDefault());
+			Semantics.Localization.Language.Default.Extensions.Add(LanguageMathematicsModule.CreateDefault());
 		}
 
 		protected override void RegisterAttributes()
@@ -39,7 +39,7 @@ namespace Inventor.Mathematics
 
 		protected override void RegisterConcepts()
 		{
-			Core.Xml.ConceptIdResolver.RegisterEnumType(typeof(ComparisonSigns));
+			Semantics.Xml.ConceptIdResolver.RegisterEnumType(typeof(ComparisonSigns));
 		}
 
 		protected override void RegisterStatements()

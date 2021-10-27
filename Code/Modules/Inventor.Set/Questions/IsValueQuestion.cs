@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 
-using Inventor.Core;
-using Inventor.Core.Attributes;
-using Inventor.Core.Questions;
+using Inventor.Semantics;
+using Inventor.Semantics.Attributes;
+using Inventor.Semantics.Questions;
 using Inventor.Set.Localization;
 using Inventor.Set.Statements;
 
@@ -37,7 +37,7 @@ namespace Inventor.Set.Questions
 					language => language.GetExtension<ILanguageSetModule>().Questions.Answers.ValueFalse,
 					new Dictionary<String, IKnowledge>
 					{
-						{ Core.Localization.Strings.ParamConcept, Concept },
+						{ Semantics.Localization.Strings.ParamConcept, Concept },
 					});
 		}
 	}

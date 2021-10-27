@@ -12,9 +12,9 @@ using System.Windows.Data;
 using Inventor.WPF.Converters;
 using Inventor.WPF.ViewModels;
 using Inventor.WPF.ViewModels.Questions;
-using Inventor.Core;
-using Inventor.Core.Localization.Modules;
-using Inventor.Core.Metadata;
+using Inventor.Semantics;
+using Inventor.Semantics.Localization.Modules;
+using Inventor.Semantics.Metadata;
 
 namespace Inventor.WPF.Dialogs
 {

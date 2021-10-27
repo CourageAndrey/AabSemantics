@@ -2,10 +2,10 @@
 
 using NUnit.Framework;
 
-using Inventor.Core;
-using Inventor.Core.Answers;
-using Inventor.Core.Localization;
-using Inventor.Core.Questions;
+using Inventor.Semantics;
+using Inventor.Semantics.Answers;
+using Inventor.Semantics.Localization;
+using Inventor.Semantics.Questions;
 using Inventor.Processes.Attributes;
 using Inventor.Set.Questions;
 using Inventor.Test.Sample;

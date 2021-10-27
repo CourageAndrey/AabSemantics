@@ -1,7 +1,7 @@
 ﻿using System.Linq;
 
 using Inventor.WPF.TreeNodes;
-using Inventor.Core;
+using Inventor.Semantics;
 
 namespace Inventor.WPF.Commands
 {

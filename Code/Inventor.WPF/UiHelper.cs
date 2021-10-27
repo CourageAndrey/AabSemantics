@@ -7,7 +7,7 @@ using System.Windows.Controls.Primitives;
 using System.Windows.Input;
 using System.Windows.Media;
 
-using Inventor.Core;
+using Inventor.Semantics;
 
 namespace Inventor.WPF
 {

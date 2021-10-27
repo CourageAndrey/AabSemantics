@@ -1,8 +1,8 @@
 ﻿using System.ComponentModel;
 using System.Threading;
 
-using Inventor.Core;
-using Inventor.Core.Metadata;
+using Inventor.Semantics;
+using Inventor.Semantics.Metadata;
 
 namespace Inventor.WPF.ViewModels
 {

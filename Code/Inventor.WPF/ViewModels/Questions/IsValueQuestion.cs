@@ -4,7 +4,7 @@
 	public class IsValueQuestion : QuestionViewModel<Set.Questions.IsValueQuestion>
 	{
 		[PropertyDescriptor(true, "Questions.Parameters.Concept")]
-		public Core.IConcept Concept
+		public Semantics.IConcept Concept
 		{ get; set; }
 
 		public override Set.Questions.IsValueQuestion BuildQuestionImplementation()

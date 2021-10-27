@@ -2,10 +2,10 @@
 using System.Collections.Generic;
 using System.Linq;
 
-using Inventor.Core;
-using Inventor.Core.Answers;
-using Inventor.Core.Questions;
-using Inventor.Core.Text.Containers;
+using Inventor.Semantics;
+using Inventor.Semantics.Answers;
+using Inventor.Semantics.Questions;
+using Inventor.Semantics.Text.Containers;
 using Inventor.Mathematics.Concepts;
 using Inventor.Mathematics.Statements;
 

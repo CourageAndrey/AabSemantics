@@ -2,10 +2,10 @@
 using System.Collections.Generic;
 using System.Linq;
 
-using Inventor.Core;
-using Inventor.Core.Concepts;
-using Inventor.Core.Localization;
-using Inventor.Core.Modules;
+using Inventor.Semantics;
+using Inventor.Semantics.Concepts;
+using Inventor.Semantics.Localization;
+using Inventor.Semantics.Modules;
 
 namespace Samples._07.CustomModule
 {
@@ -84,8 +84,8 @@ namespace Samples._07.CustomModule
 
 			// check [de]serialization works
 			string saveFile = "test.xml";
-			Inventor.Core.Xml.SemanticNetworkXmlExtensions.Save(semanticNetwork, saveFile);
-			Inventor.Core.Xml.SemanticNetworkXmlExtensions.LoadSemanticNetworkFromXml(saveFile, language);
+			Inventor.Semantics.Xml.SemanticNetworkXmlExtensions.Save(semanticNetwork, saveFile);
+			Inventor.Semantics.Xml.SemanticNetworkXmlExtensions.LoadSemanticNetworkFromXml(saveFile, language);
 
 			Console.WriteLine();
 			Console.WriteLine("Press any key to exit...");

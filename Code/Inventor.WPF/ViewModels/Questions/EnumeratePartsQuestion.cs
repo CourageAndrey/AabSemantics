@@ -4,7 +4,7 @@
 	public class EnumeratePartsQuestion : QuestionViewModel<Set.Questions.EnumeratePartsQuestion>
 	{
 		[PropertyDescriptor(true, "Questions.Parameters.Concept")]
-		public Core.IConcept Concept
+		public Semantics.IConcept Concept
 		{ get; set; }
 
 		public override Set.Questions.EnumeratePartsQuestion BuildQuestionImplementation()

@@ -4,11 +4,11 @@
 	public class HasSignQuestion : QuestionViewModel<Set.Questions.HasSignQuestion>
 	{
 		[PropertyDescriptor(true, "Questions.Parameters.Concept")]
-		public Core.IConcept Concept
+		public Semantics.IConcept Concept
 		{ get; set; }
 
 		[PropertyDescriptor(true, "Set\\Questions.Parameters.Sign")]
-		public Core.IConcept Sign
+		public Semantics.IConcept Sign
 		{ get; set; }
 
 		[PropertyDescriptor(false, "Questions.Parameters.Recursive")]

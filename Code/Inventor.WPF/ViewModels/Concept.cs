@@ -3,8 +3,8 @@ using System.Windows;
 
 using Inventor.WPF.Controls;
 using Inventor.WPF.Dialogs;
-using Inventor.Core;
-using Inventor.Core.Metadata;
+using Inventor.Semantics;
+using Inventor.Semantics.Metadata;
 
 namespace Inventor.WPF.ViewModels
 {
@@ -33,7 +33,7 @@ namespace Inventor.WPF.ViewModels
 				new LocalizedStringVariable(new Dictionary<string, string> { { language.Culture, string.Empty }, }), new LocalizedStringVariable())
 		{ }
 
-		public Concept(Core.Concepts.Concept concept)
+		public Concept(Semantics.Concepts.Concept concept)
 			: this(concept.ID, LocalizedString.From(concept.Name), LocalizedString.From(concept.Hint))
 		{
 			BoundObject = concept;
@@ -50,10 +50,10 @@ namespace Inventor.WPF.ViewModels
 
 		#region Implementation of IViewModel
 
-		public Core.Concepts.Concept BoundObject
+		public Semantics.Concepts.Concept BoundObject
 		{ get; private set; }
 
-		public Window CreateEditDialog(Window owner, Core.ISemanticNetwork semanticNetwork, ILanguage language)
+		public Window CreateEditDialog(Window owner, Semantics.ISemanticNetwork semanticNetwork, ILanguage language)
 		{
 			updateAttributes(Repositories.Attributes, language);
 			var control = new ConceptControl
@@ -75,7 +75,7 @@ namespace Inventor.WPF.ViewModels
 			return dialog;
 		}
 
-		private void updateAttributes(Core.IRepository<AttributeDefinition> attributeRepository, ILanguage language)
+		private void updateAttributes(Semantics.IRepository<AttributeDefinition> attributeRepository, ILanguage language)
 		{
 			Attributes.Clear();
 			Attributes.Add(new ConceptAttribute(AttributeDefinition.None, language, BoundObject == null || BoundObject.Attributes.Count == 0));
@@ -85,9 +85,9 @@ namespace Inventor.WPF.ViewModels
 			}
 		}
 
-		public object ApplyCreate(Core.ISemanticNetwork semanticNetwork)
+		public object ApplyCreate(Semantics.ISemanticNetwork semanticNetwork)
 		{
-			semanticNetwork.Concepts.Add(BoundObject = new Core.Concepts.Concept(ID, Name.Create(), Hint.Create()));
+			semanticNetwork.Concepts.Add(BoundObject = new Semantics.Concepts.Concept(ID, Name.Create(), Hint.Create()));
 
 			foreach (var attribute in Attributes)
 			{

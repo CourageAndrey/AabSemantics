@@ -2,12 +2,12 @@
 
 using Inventor.WPF.Controls;
 using Inventor.WPF.Dialogs;
-using Inventor.Core;
-using Inventor.Core.Localization.Modules;
+using Inventor.Semantics;
+using Inventor.Semantics.Localization.Modules;
 
 namespace Inventor.WPF.ViewModels.Statements
 {
-	public class IsStatement : StatementViewModel<Core.Statements.IsStatement>
+	public class IsStatement : StatementViewModel<Semantics.Statements.IsStatement>
 	{
 		#region Properties
 
@@ -25,7 +25,7 @@ namespace Inventor.WPF.ViewModels.Statements
 			: this(string.Empty, null, null, language)
 		{ }
 
-		public IsStatement(Core.Statements.IsStatement statement, ILanguage language)
+		public IsStatement(Semantics.Statements.IsStatement statement, ILanguage language)
 			: this(statement.ID, new ConceptItem(statement.Ancestor, language), new ConceptItem(statement.Descendant, language), language)
 		{
 			BoundObject = statement;
@@ -63,9 +63,9 @@ namespace Inventor.WPF.ViewModels.Statements
 			return dialog;
 		}
 
-		protected override Core.Statements.IsStatement CreateStatementImplementation()
+		protected override Semantics.Statements.IsStatement CreateStatementImplementation()
 		{
-			return new Core.Statements.IsStatement(ID, Ancestor.Concept, Descendant.Concept);
+			return new Semantics.Statements.IsStatement(ID, Ancestor.Concept, Descendant.Concept);
 		}
 
 		public override void ApplyUpdate()

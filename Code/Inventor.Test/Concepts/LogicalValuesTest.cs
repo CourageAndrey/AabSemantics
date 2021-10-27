@@ -2,7 +2,7 @@
 
 using NUnit.Framework;
 
-using Inventor.Core.Concepts;
+using Inventor.Semantics.Concepts;
 
 namespace Inventor.Test.Concepts
 {

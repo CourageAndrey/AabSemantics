@@ -2,10 +2,10 @@
 using System.Collections.Generic;
 using System.Linq;
 
-using Inventor.Core;
-using Inventor.Core.Metadata;
-using Inventor.Core.Modules;
-using Inventor.Core.Statements;
+using Inventor.Semantics;
+using Inventor.Semantics.Metadata;
+using Inventor.Semantics.Modules;
+using Inventor.Semantics.Statements;
 using Inventor.Set.Attributes;
 using Inventor.Set.Localization;
 using Inventor.Set.Questions;
@@ -26,7 +26,7 @@ namespace Inventor.Set
 
 		protected override void RegisterLanguage()
 		{
-			Core.Localization.Language.Default.Extensions.Add(LanguageSetModule.CreateDefault());
+			Semantics.Localization.Language.Default.Extensions.Add(LanguageSetModule.CreateDefault());
 		}
 
 		protected override void RegisterAttributes()
@@ -104,7 +104,7 @@ namespace Inventor.Set
 				{
 					result.Append(
 						language => language.GetExtension<ILanguageSetModule>().Statements.Consistency.ErrorMultipleSign,
-						new Dictionary<String, IKnowledge> { { Core.Localization.Strings.ParamStatement, hasSign } });
+						new Dictionary<String, IKnowledge> { { Semantics.Localization.Strings.ParamStatement, hasSign } });
 				}
 			}
 		}
@@ -137,7 +137,7 @@ namespace Inventor.Set
 							language => language.GetExtension<ILanguageSetModule>().Statements.Consistency.ErrorMultipleSignValue,
 							new Dictionary<String, IKnowledge>
 							{
-								{ Core.Localization.Strings.ParamConcept, concept },
+								{ Semantics.Localization.Strings.ParamConcept, concept },
 								{ Strings.ParamSign, sign.Sign },
 							});
 					}
@@ -156,7 +156,7 @@ namespace Inventor.Set
 				{
 					result.Append(
 						language => language.GetExtension<ILanguageSetModule>().Statements.Consistency.ErrorSignWithoutValue,
-						new Dictionary<String, IKnowledge> { { Core.Localization.Strings.ParamStatement, signValue } });
+						new Dictionary<String, IKnowledge> { { Semantics.Localization.Strings.ParamStatement, signValue } });
 				}
 			}
 		}

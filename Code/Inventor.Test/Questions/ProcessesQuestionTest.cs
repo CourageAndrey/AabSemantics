@@ -4,11 +4,11 @@ using System.Linq;
 
 using NUnit.Framework;
 
-using Inventor.Core;
-using Inventor.Core.Answers;
-using Inventor.Core.Concepts;
-using Inventor.Core.Localization;
-using Inventor.Core.Questions;
+using Inventor.Semantics;
+using Inventor.Semantics.Answers;
+using Inventor.Semantics.Concepts;
+using Inventor.Semantics.Localization;
+using Inventor.Semantics.Questions;
 using Inventor.Processes.Attributes;
 using Inventor.Processes.Concepts;
 using Inventor.Processes.Questions;

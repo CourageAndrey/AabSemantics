@@ -2,8 +2,8 @@
 
 using NUnit.Framework;
 
-using Inventor.Core;
-using Inventor.Core.Localization;
+using Inventor.Semantics;
+using Inventor.Semantics.Localization;
 
 namespace Inventor.Test.Localization
 {

@@ -5,11 +5,11 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\Inventor.Core\Inventor.Core.csproj" />
+    <Folder Include="Concepts\" />
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Concepts\" />
+    <ProjectReference Include="..\..\Inventor.Semantics\Inventor.Semantics.csproj" />
   </ItemGroup>
 
 </Project>

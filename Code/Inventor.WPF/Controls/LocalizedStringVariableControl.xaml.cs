@@ -1,7 +1,7 @@
 ﻿using System.Windows;
 using System.Windows.Controls;
 
-using Inventor.Core;
+using Inventor.Semantics;
 
 namespace Inventor.WPF.Controls
 {
