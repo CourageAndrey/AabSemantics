@@ -1,14 +1,14 @@
 ﻿using System;
 
-using Inventor.Core;
-using Inventor.Core.Attributes;
-using Inventor.Core.Concepts;
-using Inventor.Core.Localization;
-using Inventor.Core.Modules;
-using Inventor.Core.Modules.Classification.Questions;
-using Inventor.Core.Modules.Classification.Statements;
-using Inventor.Core.Questions;
-using Inventor.Core.Statements;
+using Inventor.Semantics;
+using Inventor.Semantics.Attributes;
+using Inventor.Semantics.Concepts;
+using Inventor.Semantics.Localization;
+using Inventor.Semantics.Modules;
+using Inventor.Semantics.Modules.Classification.Questions;
+using Inventor.Semantics.Modules.Classification.Statements;
+using Inventor.Semantics.Questions;
+using Inventor.Semantics.Statements;
 using Inventor.Set;
 using Inventor.Set.Attributes;
 using Inventor.Set.Questions;
@@ -51,7 +51,7 @@ namespace Samples._01.StatementsAndQuestions
 				.WithModules(modules);
 			Console.WriteLine("Semantic network is created...");
 
-			// Some concepts are predefined. All of them can be found using Inventor.Core.SystemConcepts.GetAll() method.
+			// Some concepts are predefined. All of them can be found using Inventor.Semantics.SystemConcepts.GetAll() method.
 			Console.WriteLine($"Semantic network contains {semanticNetwork.Concepts.Count} concepts.");
 			Console.WriteLine();
 

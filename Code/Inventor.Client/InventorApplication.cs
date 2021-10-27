@@ -5,10 +5,10 @@ using System.Linq;
 using System.Windows;
 using System.Windows.Threading;
 
-using Inventor.Core;
-using Inventor.Core.Localization;
-using Inventor.Core.Modules;
-using Inventor.Core.Utils;
+using Inventor.Semantics;
+using Inventor.Semantics.Localization;
+using Inventor.Semantics.Modules;
+using Inventor.Semantics.Utils;
 using Inventor.Mathematics;
 using Inventor.Processes;
 using Inventor.Set;

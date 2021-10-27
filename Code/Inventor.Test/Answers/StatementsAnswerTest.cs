@@ -2,11 +2,11 @@
 
 using NUnit.Framework;
 
-using Inventor.Core;
-using Inventor.Core.Answers;
-using Inventor.Core.Concepts;
-using Inventor.Core.Statements;
-using Inventor.Core.Text.Containers;
+using Inventor.Semantics;
+using Inventor.Semantics.Answers;
+using Inventor.Semantics.Concepts;
+using Inventor.Semantics.Statements;
+using Inventor.Semantics.Text.Containers;
 using Inventor.Set.Statements;
 
 namespace Inventor.Test.Answers

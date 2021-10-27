@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Xml.Serialization;
 
-using Inventor.Core;
-using Inventor.Core.Xml;
+using Inventor.Semantics;
+using Inventor.Semantics.Xml;
 
 namespace Inventor.Processes.Xml
 {

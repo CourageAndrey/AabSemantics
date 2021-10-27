@@ -4,7 +4,7 @@
 	public class EnumerateContainersQuestion : QuestionViewModel<Set.Questions.EnumerateContainersQuestion>
 	{
 		[PropertyDescriptor(true, "Questions.Parameters.Concept")]
-		public Core.IConcept Concept
+		public Semantics.IConcept Concept
 		{ get; set; }
 
 		public override Set.Questions.EnumerateContainersQuestion BuildQuestionImplementation()

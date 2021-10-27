@@ -2,8 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 
-using Inventor.Core;
-using Inventor.Core.Questions;
+using Inventor.Semantics;
+using Inventor.Semantics.Questions;
 using Inventor.Set.Localization;
 using Inventor.Set.Statements;
 
@@ -43,8 +43,8 @@ namespace Inventor.Set.Questions
 					language => language.GetExtension<ILanguageSetModule>().Questions.Answers.IsPartOfFalse,
 					new Dictionary<String, IKnowledge>
 					{
-						{ Core.Localization.Strings.ParamParent, Parent },
-						{ Core.Localization.Strings.ParamChild, Child },
+						{ Semantics.Localization.Strings.ParamParent, Parent },
+						{ Semantics.Localization.Strings.ParamChild, Child },
 					});
 		}
 	}

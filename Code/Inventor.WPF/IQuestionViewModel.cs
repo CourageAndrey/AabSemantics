@@ -5,7 +5,7 @@ using System.Reflection;
 
 using Inventor.WPF.ViewModels;
 using Inventor.WPF.ViewModels.Questions;
-using Inventor.Core;
+using Inventor.Semantics;
 
 namespace Inventor.WPF
 {
@@ -14,17 +14,17 @@ namespace Inventor.WPF
 		ICollection<StatementViewModel> Preconditions
 		{ get; }
 
-		Core.IQuestion BuildQuestion();
+		Semantics.IQuestion BuildQuestion();
 	}
 
 	public interface IQuestionViewModel<out QuestionT> : IQuestionViewModel
-		where QuestionT : Core.IQuestion
+		where QuestionT : Semantics.IQuestion
 	{
 		new QuestionT BuildQuestion();
 	}
 
 	public abstract class QuestionViewModel<QuestionT> : IQuestionViewModel<QuestionT>
-		where QuestionT : Core.IQuestion
+		where QuestionT : Semantics.IQuestion
 	{
 		[PropertyDescriptor(true, "Names.Conditions")]
 		public ICollection<StatementViewModel> Preconditions
@@ -44,7 +44,7 @@ namespace Inventor.WPF
 
 		public abstract QuestionT BuildQuestionImplementation();
 
-		Core.IQuestion IQuestionViewModel.BuildQuestion()
+		Semantics.IQuestion IQuestionViewModel.BuildQuestion()
 		{
 			return BuildQuestion();
 		}

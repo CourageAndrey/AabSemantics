@@ -4,11 +4,11 @@
 	public class IsSubjectAreaQuestion : QuestionViewModel<Set.Questions.IsSubjectAreaQuestion>
 	{
 		[PropertyDescriptor(true, "Questions.Parameters.Concept")]
-		public Core.IConcept Concept
+		public Semantics.IConcept Concept
 		{ get; set; }
 
 		[PropertyDescriptor(true, "Set\\Questions.Parameters.Area")]
-		public Core.IConcept Area
+		public Semantics.IConcept Area
 		{ get; set; }
 
 		public override Set.Questions.IsSubjectAreaQuestion BuildQuestionImplementation()

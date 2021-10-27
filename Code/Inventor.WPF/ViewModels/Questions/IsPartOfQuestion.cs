@@ -4,11 +4,11 @@
 	public class IsPartOfQuestion : QuestionViewModel<Set.Questions.IsPartOfQuestion>
 	{
 		[PropertyDescriptor(true, "Questions.Parameters.Parent")]
-		public Core.IConcept Parent
+		public Semantics.IConcept Parent
 		{ get; set; }
 
 		[PropertyDescriptor(true, "Questions.Parameters.Child")]
-		public Core.IConcept Child
+		public Semantics.IConcept Child
 		{ get; set; }
 
 		public override Set.Questions.IsPartOfQuestion BuildQuestionImplementation()

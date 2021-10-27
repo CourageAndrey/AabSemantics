@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Forms;
 
-using Inventor.Core;
+using Inventor.Semantics;
 
 namespace Inventor.WPF.Dialogs
 {

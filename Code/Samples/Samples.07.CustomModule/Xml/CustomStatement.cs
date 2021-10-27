@@ -3,7 +3,7 @@
 namespace Samples._07.CustomModule.Xml
 {
 	[XmlType("Custom")]
-	public class CustomStatement : Inventor.Core.Xml.Statement
+	public class CustomStatement : Inventor.Semantics.Xml.Statement
 	{
 		#region Properties
 
@@ -31,7 +31,7 @@ namespace Samples._07.CustomModule.Xml
 
 		#endregion
 
-		public override Inventor.Core.IStatement Save(Inventor.Core.Xml.ConceptIdResolver conceptIdResolver)
+		public override Inventor.Semantics.IStatement Save(Inventor.Semantics.Xml.ConceptIdResolver conceptIdResolver)
 		{
 			return new _07.CustomModule.CustomStatement(ID, conceptIdResolver.GetConceptById(Concept1), conceptIdResolver.GetConceptById(Concept2));
 		}

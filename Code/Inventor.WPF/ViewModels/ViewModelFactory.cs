@@ -2,7 +2,7 @@
 
 using Inventor.WPF.TreeNodes;
 using Inventor.WPF.ViewModels.Statements;
-using Inventor.Core;
+using Inventor.Semantics;
 
 namespace Inventor.WPF.ViewModels
 {
@@ -19,7 +19,7 @@ namespace Inventor.WPF.ViewModels
 	{
 		public virtual IKnowledgeViewModel CreateByCoreType(Type type, ILanguage language)
 		{
-			if (type == typeof(Core.Concepts.Concept))
+			if (type == typeof(Semantics.Concepts.Concept))
 			{
 				return new Concept(language);
 			}
@@ -35,7 +35,7 @@ namespace Inventor.WPF.ViewModels
 			{
 				return new HasSignStatement(language);
 			}
-			else if (type == typeof(Core.Statements.IsStatement))
+			else if (type == typeof(Semantics.Statements.IsStatement))
 			{
 				return new IsStatement(language);
 			}
@@ -71,9 +71,9 @@ namespace Inventor.WPF.ViewModels
 			{
 				return new HasSignStatement(statement as Set.Statements.HasSignStatement, language);
 			}
-			else if (statement is Core.Statements.IsStatement)
+			else if (statement is Semantics.Statements.IsStatement)
 			{
-				return new IsStatement(statement as Core.Statements.IsStatement, language);
+				return new IsStatement(statement as Semantics.Statements.IsStatement, language);
 			}
 			else if (statement is Set.Statements.SignValueStatement)
 			{
@@ -100,7 +100,7 @@ namespace Inventor.WPF.ViewModels
 
 			if (conceptNode != null)
 			{
-				return new Concept(conceptNode.Concept as Core.Concepts.Concept);
+				return new Concept(conceptNode.Concept as Semantics.Concepts.Concept);
 			}
 			else if (statementNode != null)
 			{
@@ -116,9 +116,9 @@ namespace Inventor.WPF.ViewModels
 				{
 					return new HasSignStatement(statementNode.Statement as Set.Statements.HasSignStatement, language);
 				}
-				else if (statementNode.Statement is Core.Statements.IsStatement)
+				else if (statementNode.Statement is Semantics.Statements.IsStatement)
 				{
-					return new IsStatement(statementNode.Statement as Core.Statements.IsStatement, language);
+					return new IsStatement(statementNode.Statement as Semantics.Statements.IsStatement, language);
 				}
 				else if (statementNode.Statement is Set.Statements.SignValueStatement)
 				{

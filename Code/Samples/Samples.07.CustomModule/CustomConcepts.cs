@@ -1,6 +1,6 @@
-﻿using Inventor.Core;
-using Inventor.Core.Concepts;
-using Inventor.Core.Localization;
+﻿using Inventor.Semantics;
+using Inventor.Semantics.Concepts;
+using Inventor.Semantics.Localization;
 using Samples._07.CustomModule.Localization;
 
 namespace Samples._07.CustomModule

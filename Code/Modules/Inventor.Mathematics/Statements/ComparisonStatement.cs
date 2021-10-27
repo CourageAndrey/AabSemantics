@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 
-using Inventor.Core;
-using Inventor.Core.Attributes;
-using Inventor.Core.Statements;
+using Inventor.Semantics;
+using Inventor.Semantics.Attributes;
+using Inventor.Semantics.Statements;
 using Inventor.Mathematics.Attributes;
 using Inventor.Mathematics.Concepts;
 using Inventor.Mathematics.Localization;

@@ -2,11 +2,11 @@
 using System.Collections.Generic;
 using System.Linq;
 
-using Inventor.Core;
-using Inventor.Core.Questions;
-using Inventor.Core.Statements;
-using Inventor.Core.Text.Containers;
-using Inventor.Core.Text.Primitives;
+using Inventor.Semantics;
+using Inventor.Semantics.Questions;
+using Inventor.Semantics.Statements;
+using Inventor.Semantics.Text.Containers;
+using Inventor.Semantics.Text.Primitives;
 using Inventor.Set.Localization;
 using Inventor.Set.Statements;
 
@@ -50,7 +50,7 @@ namespace Inventor.Set.Questions
 			var parents = intersect(parents1, parents2, isStatements1, isStatements2, isStatements);
 			if (parents.Count == 0)
 			{
-				return new Core.Answers.Answer(
+				return new Semantics.Answers.Answer(
 					new FormattedText(
 						language => language.GetExtension<ILanguageSetModule>().Questions.Answers.CanNotCompareConcepts,
 						new Dictionary<String, IKnowledge>
@@ -97,7 +97,7 @@ namespace Inventor.Set.Questions
 			explanation.AddRange(signStatements);
 			explanation.AddRange(signValueStatements);
 
-			return new Core.Answers.ConceptsAnswer(
+			return new Semantics.Answers.ConceptsAnswer(
 				resultSignValues.Keys,
 				formatAnswer(parents, resultSignValues),
 				new Explanation(explanation));

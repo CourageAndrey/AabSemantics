@@ -2,8 +2,8 @@
 
 using NUnit.Framework;
 
-using Inventor.Core;
-using Inventor.Core.Metadata;
+using Inventor.Semantics;
+using Inventor.Semantics.Metadata;
 
 namespace Inventor.Test.Metadata
 {
@@ -16,7 +16,7 @@ namespace Inventor.Test.Metadata
 			// arrange
 			var value = new TestAttributeChecked();
 			Func<ILanguage, string> nameGetter = language => _attributeName;
-			var xml = new Core.Xml.IsValueAttribute();
+			var xml = new Semantics.Xml.IsValueAttribute();
 
 			// act && assert
 			Assert.Throws<ArgumentNullException>(() => new AttributeDefinition(null, value, nameGetter, xml));
@@ -63,7 +63,7 @@ namespace Inventor.Test.Metadata
 		{
 			// arrange
 			var type = typeof(TestAttributeChecked);
-			var wrongValue = Core.Attributes.IsBooleanAttribute.Value;
+			var wrongValue = Semantics.Attributes.IsBooleanAttribute.Value;
 			Func<ILanguage, string> nameGetter = language => _attributeName;
 			var xml = new TestAttributeXml();
 
@@ -115,7 +115,7 @@ namespace Inventor.Test.Metadata
 		private class TestAttributeDerived : TestAttributeChecked
 		{ }
 
-		private class TestAttributeXml : Core.Xml.Attribute
+		private class TestAttributeXml : Semantics.Xml.Attribute
 		{
 			public override IAttribute Load()
 			{

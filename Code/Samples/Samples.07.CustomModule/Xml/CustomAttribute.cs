@@ -1,11 +1,11 @@
 ﻿using System.Xml.Serialization;
 
-using Inventor.Core;
+using Inventor.Semantics;
 
 namespace Samples._07.CustomModule.Xml
 {
 	[XmlType("IsCustom")]
-	public class CustomAttribute : Inventor.Core.Xml.Attribute
+	public class CustomAttribute : Inventor.Semantics.Xml.Attribute
 	{
 		public override IAttribute Load()
 		{

@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 
-using Inventor.Core;
-using Inventor.Core.Statements;
+using Inventor.Semantics;
+using Inventor.Semantics.Statements;
 using Inventor.Set.Localization;
 
 namespace Inventor.Set.Statements
@@ -71,8 +71,8 @@ namespace Inventor.Set.Statements
 		{
 			return new Dictionary<String, IKnowledge>
 			{
-				{ Core.Localization.Strings.ParamParent, Whole },
-				{ Core.Localization.Strings.ParamChild, Part },
+				{ Semantics.Localization.Strings.ParamParent, Whole },
+				{ Semantics.Localization.Strings.ParamChild, Part },
 			};
 		}
 

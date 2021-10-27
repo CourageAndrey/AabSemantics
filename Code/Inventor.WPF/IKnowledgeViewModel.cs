@@ -1,6 +1,6 @@
 ﻿using System.Windows;
 
-using Inventor.Core;
+using Inventor.Semantics;
 
 namespace Inventor.WPF
 {

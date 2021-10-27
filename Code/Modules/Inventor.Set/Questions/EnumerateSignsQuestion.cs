@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 
-using Inventor.Core;
-using Inventor.Core.Questions;
+using Inventor.Semantics;
+using Inventor.Semantics.Questions;
 using Inventor.Set.Localization;
 using Inventor.Set.Statements;
 
@@ -42,7 +42,7 @@ namespace Inventor.Set.Questions
 				.SelectAllConcepts(
 					statement => statement.Sign,
 					question => question.Concept,
-					Core.Localization.Strings.ParamConcept,
+					Semantics.Localization.Strings.ParamConcept,
 					language => language.GetExtension<ILanguageSetModule>().Questions.Answers.ConceptSigns + (Recursive ? language.Questions.Answers.RecursiveTrue : language.Questions.Answers.RecursiveFalse) + ": ");
 		}
 	}

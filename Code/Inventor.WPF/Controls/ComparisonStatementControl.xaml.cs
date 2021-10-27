@@ -1,8 +1,8 @@
 ﻿using System.Linq;
 
 using Inventor.WPF.ViewModels;
-using Inventor.Core;
-using Inventor.Core.Attributes;
+using Inventor.Semantics;
+using Inventor.Semantics.Attributes;
 using Inventor.Mathematics.Attributes;
 
 namespace Inventor.WPF.Controls
@@ -38,7 +38,7 @@ namespace Inventor.WPF.Controls
 			set
 			{
 				_contextControl.DataContext = value;
-				_idControl.IsReadOnly = value.BoundStatement?.Context is Core.Contexts.SystemContext;
+				_idControl.IsReadOnly = value.BoundStatement?.Context is Semantics.Contexts.SystemContext;
 			}
 		}
 	}

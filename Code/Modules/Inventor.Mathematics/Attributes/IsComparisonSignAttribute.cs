@@ -1,4 +1,4 @@
-﻿using Inventor.Core;
+﻿using Inventor.Semantics;
 
 namespace Inventor.Mathematics.Attributes
 {

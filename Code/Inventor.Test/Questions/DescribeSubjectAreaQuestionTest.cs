@@ -2,11 +2,11 @@
 
 using NUnit.Framework;
 
-using Inventor.Core.Answers;
-using Inventor.Core.Concepts;
-using Inventor.Core.Localization;
-using Inventor.Core.Questions;
-using Inventor.Core.Statements;
+using Inventor.Semantics.Answers;
+using Inventor.Semantics.Concepts;
+using Inventor.Semantics.Localization;
+using Inventor.Semantics.Questions;
+using Inventor.Semantics.Statements;
 using Inventor.Set.Questions;
 using Inventor.Set.Statements;
 using Inventor.Test.Sample;

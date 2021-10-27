@@ -1,6 +1,6 @@
 ﻿using System.Xml.Serialization;
 
-using Inventor.Core.Localization;
+using Inventor.Semantics.Localization;
 
 namespace Samples._07.CustomModule.Localization
 {

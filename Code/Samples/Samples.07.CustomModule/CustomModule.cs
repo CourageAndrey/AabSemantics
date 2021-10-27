@@ -1,12 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 
-using Inventor.Core;
-using Inventor.Core.Concepts;
-using Inventor.Core.Localization;
-using Inventor.Core.Metadata;
-using Inventor.Core.Modules;
-using Inventor.Core.Xml;
+using Inventor.Semantics;
+using Inventor.Semantics.Concepts;
+using Inventor.Semantics.Localization;
+using Inventor.Semantics.Metadata;
+using Inventor.Semantics.Modules;
+using Inventor.Semantics.Xml;
 using Samples._07.CustomModule.Localization;
 
 namespace Samples._07.CustomModule

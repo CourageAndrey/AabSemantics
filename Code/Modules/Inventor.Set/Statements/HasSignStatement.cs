@@ -2,8 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 
-using Inventor.Core;
-using Inventor.Core.Statements;
+using Inventor.Semantics;
+using Inventor.Semantics.Statements;
 using Inventor.Set.Attributes;
 using Inventor.Set.Localization;
 
@@ -68,7 +68,7 @@ namespace Inventor.Set.Statements
 		{
 			return new Dictionary<String, IKnowledge>
 			{
-				{ Core.Localization.Strings.ParamConcept, Concept },
+				{ Semantics.Localization.Strings.ParamConcept, Concept },
 				{ Strings.ParamSign, Sign },
 			};
 		}

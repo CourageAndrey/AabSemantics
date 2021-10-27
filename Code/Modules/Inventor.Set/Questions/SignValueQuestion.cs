@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 
-using Inventor.Core;
-using Inventor.Core.Questions;
+using Inventor.Semantics;
+using Inventor.Semantics.Questions;
 using Inventor.Set.Localization;
 using Inventor.Set.Statements;
 
@@ -44,7 +44,7 @@ namespace Inventor.Set.Questions
 					language => language.GetExtension<ILanguageSetModule>().Questions.Answers.SignValue,
 					statement => new Dictionary<String, IKnowledge>
 					{
-						{ Core.Localization.Strings.ParamConcept, Concept },
+						{ Semantics.Localization.Strings.ParamConcept, Concept },
 						{ Strings.ParamSign, statement.Sign },
 						{ Strings.ParamValue, statement.Value },
 						{ Strings.ParamDefined, statement.Concept },

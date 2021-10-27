@@ -4,8 +4,8 @@ using System.Linq;
 
 using NUnit.Framework;
 
-using Inventor.Core;
-using Inventor.Core.Concepts;
+using Inventor.Semantics;
+using Inventor.Semantics.Concepts;
 using Inventor.Mathematics;
 using Inventor.Mathematics.Attributes;
 using Inventor.Processes;
@@ -21,8 +21,8 @@ namespace Inventor.Test.Xml
 		[TestFixtureSetUp]
 		public void InitializeModules()
 		{
-			new Core.Modules.BooleanModule().RegisterMetadata();
-			new Core.Modules.ClassificationModule().RegisterMetadata();
+			new Semantics.Modules.BooleanModule().RegisterMetadata();
+			new Semantics.Modules.ClassificationModule().RegisterMetadata();
 			new MathematicsModule().RegisterMetadata();
 			new ProcessesModule().RegisterMetadata();
 			new SetModule().RegisterMetadata();
@@ -37,7 +37,7 @@ namespace Inventor.Test.Xml
 			concept.WithAttribute(attribute);
 
 			// act
-			var xml = new Core.Xml.Concept(concept);
+			var xml = new Semantics.Xml.Concept(concept);
 			var restored = xml.Load();
 
 			// assert
@@ -55,7 +55,7 @@ namespace Inventor.Test.Xml
 			}
 
 			// act
-			var xml = new Core.Xml.Concept(concept);
+			var xml = new Semantics.Xml.Concept(concept);
 			var restored = xml.Load();
 
 			// assert
@@ -70,17 +70,17 @@ namespace Inventor.Test.Xml
 			concept.WithAttribute(new WrongAttribute());
 
 			// act & assert
-			Assert.Throws<NotSupportedException>(() => new Core.Xml.Concept(concept));
+			Assert.Throws<NotSupportedException>(() => new Semantics.Xml.Concept(concept));
 		}
 
 		private IEnumerable<IAttribute> getAllAttributes()
 		{
 			yield return IsComparisonSignAttribute.Value;
-			yield return Core.Attributes.IsBooleanAttribute.Value;
+			yield return Semantics.Attributes.IsBooleanAttribute.Value;
 			yield return IsProcessAttribute.Value;
 			yield return IsSequenceSignAttribute.Value;
 			yield return IsSignAttribute.Value;
-			yield return Core.Attributes.IsValueAttribute.Value;
+			yield return Semantics.Attributes.IsValueAttribute.Value;
 		}
 
 		private class WrongAttribute : IAttribute

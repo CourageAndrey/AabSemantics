@@ -5,7 +5,7 @@ VisualStudioVersion = 16.0.31424.327
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Inventor.Client", "Inventor.Client\Inventor.Client.csproj", "{53163CE5-5303-481B-8625-14B9D9C8A096}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Inventor.Core", "Inventor.Core\Inventor.Core.csproj", "{606F68D8-6ABC-445B-BF4C-A21A1BBC06F6}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Inventor.Semantics", "Inventor.Semantics\Inventor.Semantics.csproj", "{606F68D8-6ABC-445B-BF4C-A21A1BBC06F6}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Inventor.Test", "Inventor.Test\Inventor.Test.csproj", "{DF675F30-78E6-48B5-9AF1-714FBE99A334}"
 EndProject
@@ -37,7 +37,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Inventor.Set", "Modules\Inv
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Inventor.WPF", "Inventor.WPF\Inventor.WPF.csproj", "{3A307412-D53A-43B9-938F-DD1F5ACA6D60}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Inventor.Algorithms", "Inventor.Algorithms\Inventor.Algorithms.csproj", "{5F7277B8-E739-4205-AF98-CF032D3C563C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Inventor.Algorithms", "Inventor.Algorithms\Inventor.Algorithms.csproj", "{5F7277B8-E739-4205-AF98-CF032D3C563C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

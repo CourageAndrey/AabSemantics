@@ -139,9 +139,9 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Inventor.Core\Inventor.Core.csproj">
+    <ProjectReference Include="..\Inventor.Semantics\Inventor.Semantics.csproj">
       <Project>{606f68d8-6abc-445b-bf4c-a21a1bbc06f6}</Project>
-      <Name>Inventor.Core</Name>
+      <Name>Inventor.Semantics</Name>
     </ProjectReference>
     <ProjectReference Include="..\Inventor.Test.Sample\Inventor.Test.Sample.csproj">
       <Project>{5e023b0f-1c9f-449e-aab8-4f7eb1ab1960}</Project>

@@ -4,7 +4,7 @@ using System.Windows.Media;
 
 using Inventor.WPF.Properties;
 using Inventor.WPF.Converters;
-using Inventor.Core;
+using Inventor.Semantics;
 
 namespace Inventor.WPF.TreeNodes
 {

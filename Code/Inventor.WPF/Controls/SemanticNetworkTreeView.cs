@@ -6,7 +6,7 @@ using System.Windows.Data;
 
 using Inventor.WPF.Dialogs;
 using Inventor.WPF.TreeNodes;
-using Inventor.Core;
+using Inventor.Semantics;
 
 namespace Inventor.WPF.Controls
 {
@@ -14,7 +14,7 @@ namespace Inventor.WPF.Controls
 	{
 		public SemanticNetworkTreeView()
 		{
-			Resources.Add("language", Core.Localization.Language.Default);
+			Resources.Add("language", Semantics.Localization.Language.Default);
 
 			_contextMenu = new ContextMenu();
 			_contextMenu.ContextMenuOpening += knowledgeContextMenuOpening;
@@ -139,7 +139,7 @@ namespace Inventor.WPF.Controls
 			var selectedItem = SelectedItem;
 			if (selectedItem is ConceptNode || selectedItem is SemanticNetworkConceptsNode)
 			{
-				type = typeof(Core.Concepts.Concept);
+				type = typeof(Semantics.Concepts.Concept);
 			}
 			else if (selectedItem is StatementNode || selectedItem is SemanticNetworkStatementsNode)
 			{

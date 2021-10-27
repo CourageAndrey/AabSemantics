@@ -1,7 +1,7 @@
 ﻿using NUnit.Framework;
 
-using Inventor.Core.Concepts;
-using Inventor.Core.Localization;
+using Inventor.Semantics.Concepts;
+using Inventor.Semantics.Localization;
 
 namespace Inventor.Test.Concepts
 {

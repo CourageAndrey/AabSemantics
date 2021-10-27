@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Linq;
 
-using Inventor.Core;
-using Inventor.Core.Answers;
-using Inventor.Core.Questions;
-using Inventor.Core.Text.Primitives;
+using Inventor.Semantics;
+using Inventor.Semantics.Answers;
+using Inventor.Semantics.Questions;
+using Inventor.Semantics.Text.Primitives;
 
 namespace Samples._04.CustomQuestion
 {

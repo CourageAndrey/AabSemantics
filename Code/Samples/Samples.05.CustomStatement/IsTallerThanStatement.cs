@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 
-using Inventor.Core;
-using Inventor.Core.Statements;
-using Inventor.Core.Localization;
+using Inventor.Semantics;
+using Inventor.Semantics.Statements;
+using Inventor.Semantics.Localization;
 
 namespace Samples._05.CustomStatement
 {

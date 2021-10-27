@@ -6,8 +6,8 @@ using System.Windows.Data;
 
 using Microsoft.Win32;
 
-using Inventor.Core;
-using Inventor.Core.Xml;
+using Inventor.Semantics;
+using Inventor.Semantics.Xml;
 using Inventor.WPF;
 using Inventor.WPF.Commands;
 using Inventor.WPF.Dialogs;
@@ -149,7 +149,7 @@ namespace Inventor.Client
 				selectModulesDialog.Initialize(_application.CurrentLanguage);
 				if (selectModulesDialog.ShowDialog() == true)
 				{
-					var semanticNetwork = new Core.SemanticNetwork(_application.CurrentLanguage)
+					var semanticNetwork = new Semantics.SemanticNetwork(_application.CurrentLanguage)
 						.WithModules(selectModulesDialog.SelectedModules);
 					setModel(semanticNetwork, string.Empty);
 				}

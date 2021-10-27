@@ -2,7 +2,7 @@
 
 using NUnit.Framework;
 
-using Inventor.Core.Concepts;
+using Inventor.Semantics.Concepts;
 using Inventor.Mathematics.Concepts;
 using Inventor.Processes.Concepts;
 

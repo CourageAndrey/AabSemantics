@@ -1,5 +1,5 @@
 ﻿using Inventor.WPF.TreeNodes;
-using Inventor.Core;
+using Inventor.Semantics;
 
 namespace Inventor.WPF
 {

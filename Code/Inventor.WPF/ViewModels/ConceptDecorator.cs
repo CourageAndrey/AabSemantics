@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-using Inventor.Core;
+using Inventor.Semantics;
 
 namespace Inventor.WPF.ViewModels
 {
