@@ -8,7 +8,7 @@ namespace Inventor.Algorithms
 	{
 		public static Dictionary<ItemT, TCode> HuffmanEncode<ItemT, TCode>(
 			this ICollection<ItemT> items,
-			Func<ItemT, ulong> getWeight,
+			Func<ItemT, UInt64> getWeight,
 			TCode emptyCode,
 			Func<TCode, TCode> appendLeft,
 			Func<TCode, TCode> appendRight)
@@ -40,13 +40,13 @@ namespace Inventor.Algorithms
 		private class TreeNode<ItemT, TCode>
 		{
 			private readonly ItemT Item;
-			public ulong Weight { get; }
+			public UInt64 Weight { get; }
 			public TreeNode<ItemT, TCode> Parent { get; private set; }
 			private readonly TreeNode<ItemT, TCode> Left;
 			private readonly TreeNode<ItemT, TCode> Right;
 			public TCode Code { get; private set; }
 
-			public TreeNode(ItemT item, Func<ItemT, ulong> getWeight)
+			public TreeNode(ItemT item, Func<ItemT, UInt64> getWeight)
 			{
 				Item = item;
 				Weight = getWeight(item);
