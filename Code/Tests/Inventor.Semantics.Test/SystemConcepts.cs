@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 
-using Inventor.Semantics;
 using Inventor.Semantics.Concepts;
 using Inventor.Semantics.Mathematics.Concepts;
 using Inventor.Semantics.Processes.Concepts;
