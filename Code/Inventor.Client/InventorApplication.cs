@@ -9,9 +9,9 @@ using Inventor.Semantics;
 using Inventor.Semantics.Localization;
 using Inventor.Semantics.Modules;
 using Inventor.Semantics.Utils;
-using Inventor.Mathematics;
-using Inventor.Processes;
-using Inventor.Set;
+using Inventor.Semantics.Mathematics;
+using Inventor.Semantics.Processes;
+using Inventor.Semantics.Set;
 using Inventor.WPF;
 
 namespace Inventor.Client
@@ -179,9 +179,9 @@ namespace Inventor.Client
 		private void initializeSemanticNetwork()
 		{
 #if DEBUG
-			SemanticNetwork = new Test.Sample.TestSemanticNetwork(CurrentLanguage).SemanticNetwork;
+			SemanticNetwork = new Semantics.Test.Sample.TestSemanticNetwork(CurrentLanguage).SemanticNetwork;
 #else
-			SemanticNetwork = new Core.SemanticNetwork(CurrentLanguage);
+			SemanticNetwork = new SemanticNetwork(CurrentLanguage);
 #endif
 		}
 

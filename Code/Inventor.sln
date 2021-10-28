@@ -7,35 +7,35 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Inventor.Client", "Inventor
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Inventor.Semantics", "Core\Inventor.Semantics\Inventor.Semantics.csproj", "{606F68D8-6ABC-445B-BF4C-A21A1BBC06F6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Inventor.Test", "Tests\Inventor.Test\Inventor.Test.csproj", "{DF675F30-78E6-48B5-9AF1-714FBE99A334}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Inventor.Semantics.Test", "Tests\Inventor.Semantics.Test\Inventor.Semantics.Test.csproj", "{DF675F30-78E6-48B5-9AF1-714FBE99A334}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Samples", "Samples", "{E468A553-63B3-4913-AA93-BE788A5FF2F3}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Samples.01.StatementsAndQuestions", "Samples\Samples.01.StatementsAndQuestions\Samples.01.StatementsAndQuestions.csproj", "{388E2147-9F71-4B06-81D0-80A53534F20B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Samples.Semantics.01.StatementsAndQuestions", "Samples\Inventor.Semantics.Sample01.StatementsAndQuestions\Samples.Semantics.01.StatementsAndQuestions.csproj", "{388E2147-9F71-4B06-81D0-80A53534F20B}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Samples.02.Comparison", "Samples\Samples.02.Comparison\Samples.02.Comparison.csproj", "{1E535E5B-4A0E-463B-A0F7-17FECA4D6DCE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Samples.Semantics.02.Comparison", "Samples\Inventor.Semantics.Sample02.Comparison\Samples.Semantics.02.Comparison.csproj", "{1E535E5B-4A0E-463B-A0F7-17FECA4D6DCE}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Samples.03.Processes", "Samples\Samples.03.Processes\Samples.03.Processes.csproj", "{34C8A1ED-683B-483E-A563-7B6E8225D86B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Samples.Semantics.03.Processes", "Samples\Inventor.Semantics.Sample03.Processes\Samples.Semantics.03.Processes.csproj", "{34C8A1ED-683B-483E-A563-7B6E8225D86B}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Samples.04.CustomQuestion", "Samples\Samples.04.CustomQuestion\Samples.04.CustomQuestion.csproj", "{96330AB4-AD4C-4FFE-BB35-FC7EF05357E6}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Samples.Semantics.04.CustomQuestion", "Samples\Inventor.Semantics.Sample04.CustomQuestion\Samples.Semantics.04.CustomQuestion.csproj", "{96330AB4-AD4C-4FFE-BB35-FC7EF05357E6}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Samples.05.CustomStatement", "Samples\Samples.05.CustomStatement\Samples.05.CustomStatement.csproj", "{21576DF9-66A5-4914-98E5-62E93F2B76D8}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Samples.Semantics.05.CustomStatement", "Samples\Inventor.Semantics.Sample05.CustomStatement\Samples.Semantics.05.CustomStatement.csproj", "{21576DF9-66A5-4914-98E5-62E93F2B76D8}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Samples.06.StructuredText", "Samples\Samples.06.StructuredText\Samples.06.StructuredText.csproj", "{BE5BE0EE-F26F-491B-99DD-32DC3DBEF042}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Samples.Semantics.06.StructuredText", "Samples\Inventor.Semantics.Sample06.StructuredText\Samples.Semantics.06.StructuredText.csproj", "{BE5BE0EE-F26F-491B-99DD-32DC3DBEF042}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Samples.07.CustomModule", "Samples\Samples.07.CustomModule\Samples.07.CustomModule.csproj", "{E44EFDAB-48AF-42C0-8C67-DB3650E3BCD9}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Samples.Semantics.07.CustomModule", "Samples\Inventor.Semantics.Sample07.CustomModule\Samples.Semantics.07.CustomModule.csproj", "{E44EFDAB-48AF-42C0-8C67-DB3650E3BCD9}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Inventor.Test.Sample", "Tests\Inventor.Test.Sample\Inventor.Test.Sample.csproj", "{5E023B0F-1C9F-449E-AAB8-4F7EB1AB1960}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Inventor.Semantics.Test.Sample", "Tests\Inventor.Semantics.Test.Sample\Inventor.Semantics.Test.Sample.csproj", "{5E023B0F-1C9F-449E-AAB8-4F7EB1AB1960}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Modules", "Modules", "{3551B285-81AF-49B9-A479-F23F281B7483}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Inventor.Mathematics", "Modules\Inventor.Mathematics\Inventor.Mathematics.csproj", "{EDD2A80F-14DB-4A28-8113-EF78115AFA63}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Inventor.Semantics.Mathematics", "Modules\Inventor.Semantics.Mathematics\Inventor.Semantics.Mathematics.csproj", "{EDD2A80F-14DB-4A28-8113-EF78115AFA63}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Inventor.Processes", "Modules\Inventor.Processes\Inventor.Processes.csproj", "{EFC2327C-F586-477E-8699-114FC31940AC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Inventor.Semantics.Processes", "Modules\Inventor.Semantics.Processes\Inventor.Semantics.Processes.csproj", "{EFC2327C-F586-477E-8699-114FC31940AC}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Inventor.Set", "Modules\Inventor.Set\Inventor.Set.csproj", "{F6C2B97B-68C8-415C-98DE-663BA4C45ECA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Inventor.Semantics.Set", "Modules\Inventor.Semantics.Set\Inventor.Semantics.Set.csproj", "{F6C2B97B-68C8-415C-98DE-663BA4C45ECA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Inventor.WPF", "Modules\Inventor.WPF\Inventor.WPF.csproj", "{3A307412-D53A-43B9-938F-DD1F5ACA6D60}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Inventor.Semantics.WPF", "Modules\Inventor.Semantics.WPF\Inventor.Semantics.WPF.csproj", "{3A307412-D53A-43B9-938F-DD1F5ACA6D60}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Inventor.Algorithms", "Core\Inventor.Algorithms\Inventor.Algorithms.csproj", "{5F7277B8-E739-4205-AF98-CF032D3C563C}"
 EndProject

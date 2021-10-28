@@ -190,7 +190,7 @@ namespace Inventor.Client
 		{
 			if (canProceedAfterSave())
 			{
-				setModel(new Test.Sample.TestSemanticNetwork(_application.CurrentLanguage).SemanticNetwork, string.Empty);
+				setModel(new Semantics.Test.Sample.TestSemanticNetwork(_application.CurrentLanguage).SemanticNetwork, string.Empty);
 			}
 		}
 
