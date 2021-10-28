@@ -14,27 +14,48 @@ namespace Inventor.Algorithms
 			Func<TCode, TCode> appendRight)
 		{
 			if (items == null) throw new ArgumentNullException(nameof(items));
-			if (items.Count == 0) return new Dictionary<ItemT, TCode>();
 			if (getWeight == null) throw new ArgumentNullException(nameof(getWeight));
 			if (appendLeft == null) throw new ArgumentNullException(nameof(appendLeft));
 			if (appendRight == null) throw new ArgumentNullException(nameof(appendRight));
 
-			var allNodes = items.ToDictionary(
-				instance => instance,
-				instance => new TreeNode<ItemT, TCode>(instance, getWeight));
-
-			var treeNodes = new List<TreeNode<ItemT, TCode>>(allNodes.Values);
-			do
+			if (items.Count == 0)
 			{
-				var hasNotParent = treeNodes.Where(n => n.Parent == null).OrderBy(n => n.Weight).Take(2).ToList();
-				treeNodes.Add(new TreeNode<ItemT, TCode>(hasNotParent[0], hasNotParent[1]));
-			} while (treeNodes.Count(n => n.Parent == null) > 1);
+				return new Dictionary<ItemT, TCode>();
+			}
+			else if (items.Count == 1)
+			{
+				return new Dictionary<ItemT, TCode>
+				{
+					{ items.First(), appendLeft(emptyCode) },
+				};
+			}
+			else if (items.Count == 2)
+			{
+				return new Dictionary<ItemT, TCode>
+				{
+					{ items.First(), appendLeft(emptyCode) },
+					{ items.Last(), appendRight(emptyCode) },
+				};
+			}
+			else
+			{
+				var allNodes = items.ToDictionary(
+					instance => instance,
+					instance => new TreeNode<ItemT, TCode>(instance, getWeight));
 
-			treeNodes.Single(n => n.Parent == null).Encode(emptyCode, appendLeft, appendRight);
+				var treeNodes = new List<TreeNode<ItemT, TCode>>(allNodes.Values);
+				do
+				{
+					var hasNotParent = treeNodes.Where(n => n.Parent == null).OrderBy(n => n.Weight).Take(2).ToList();
+					treeNodes.Add(new TreeNode<ItemT, TCode>(hasNotParent[0], hasNotParent[1]));
+				} while (treeNodes.Count(n => n.Parent == null) > 1);
 
-			return allNodes.ToDictionary(
-				instance => instance.Key,
-				instance => instance.Value.Code);
+				treeNodes.Single(n => n.Parent == null).Encode(emptyCode, appendLeft, appendRight);
+
+				return allNodes.ToDictionary(
+					instance => instance.Key,
+					instance => instance.Value.Code);
+			}
 		}
 
 		private class TreeNode<ItemT, TCode>
