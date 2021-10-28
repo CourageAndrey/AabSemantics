@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.31424.327
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Inventor.Client", "Inventor.Client\Inventor.Client.csproj", "{53163CE5-5303-481B-8625-14B9D9C8A096}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Inventor.SimpleWpfClient", "Inventor.SimpleWpfClient\Inventor.SimpleWpfClient.csproj", "{53163CE5-5303-481B-8625-14B9D9C8A096}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Inventor.Semantics", "Core\Inventor.Semantics\Inventor.Semantics.csproj", "{606F68D8-6ABC-445B-BF4C-A21A1BBC06F6}"
 EndProject

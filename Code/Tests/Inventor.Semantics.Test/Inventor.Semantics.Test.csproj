@@ -114,9 +114,9 @@
     <Compile Include="Xml\SerializationTest.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\Inventor.Client\Inventor.Client.csproj">
+    <ProjectReference Include="..\..\Inventor.SimpleWpfClient\Inventor.SimpleWpfClient.csproj">
       <Project>{53163ce5-5303-481b-8625-14b9d9c8a096}</Project>
-      <Name>Inventor.Client</Name>
+      <Name>Inventor.SimpleWpfClient</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\Core\Inventor.Semantics\Inventor.Semantics.csproj">
       <Project>{606f68d8-6abc-445b-bf4c-a21a1bbc06f6}</Project>
