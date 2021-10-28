@@ -1,9 +1,9 @@
 ﻿using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 
-[assembly: InternalsVisibleTo("Inventor.Test")]
-[assembly: InternalsVisibleTo("Inventor.UI")]
-[assembly: InternalsVisibleTo("Inventor.Client")]
+[assembly: InternalsVisibleTo("Inventor.Semantics.Test")]
+[assembly: InternalsVisibleTo("Inventor.Semantics.WPF")]
+[assembly: InternalsVisibleTo("Inventor.SimpleWpfClient")]
 
 [assembly: ComVisible(false)]
 
