@@ -7,7 +7,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\Inventor.Semantics\Inventor.Semantics.csproj" />
+    <ProjectReference Include="..\..\Core\Inventor.Semantics\Inventor.Semantics.csproj" />
   </ItemGroup>
 
   <ItemGroup>
