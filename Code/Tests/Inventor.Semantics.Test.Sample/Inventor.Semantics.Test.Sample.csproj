@@ -1,0 +1,14 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\Core\Inventor.Semantics\Inventor.Semantics.csproj" />
+    <ProjectReference Include="..\..\Modules\Inventor.Semantics.Mathematics\Inventor.Semantics.Mathematics.csproj" />
+    <ProjectReference Include="..\..\Modules\Inventor.Semantics.Processes\Inventor.Semantics.Processes.csproj" />
+    <ProjectReference Include="..\..\Modules\Inventor.Semantics.Set\Inventor.Semantics.Set.csproj" />
+  </ItemGroup>
+
+</Project>
