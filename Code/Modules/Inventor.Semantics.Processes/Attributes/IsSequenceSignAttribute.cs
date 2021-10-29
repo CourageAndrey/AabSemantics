@@ -1,6 +1,4 @@
-﻿using Inventor.Semantics;
-
-namespace Inventor.Semantics.Processes.Attributes
+﻿namespace Inventor.Semantics.Processes.Attributes
 {
 	public class IsSequenceSignAttribute : IAttribute
 	{

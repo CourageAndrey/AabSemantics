@@ -2,7 +2,6 @@
 
 using NUnit.Framework;
 
-using Inventor.Semantics;
 using Inventor.Semantics.Answers;
 using Inventor.Semantics.Attributes;
 using Inventor.Semantics.Concepts;

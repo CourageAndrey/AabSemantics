@@ -4,7 +4,6 @@ using System.Linq;
 
 using NUnit.Framework;
 
-using Inventor.Semantics;
 using Inventor.Semantics.Localization;
 using Inventor.Semantics.Xml;
 using Inventor.Semantics.Test.Sample;

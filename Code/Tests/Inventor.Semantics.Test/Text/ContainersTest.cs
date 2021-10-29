@@ -3,7 +3,6 @@ using System.Linq;
 
 using NUnit.Framework;
 
-using Inventor.Semantics;
 using Inventor.Semantics.Text.Containers;
 using Inventor.Semantics.Text.Primitives;
 

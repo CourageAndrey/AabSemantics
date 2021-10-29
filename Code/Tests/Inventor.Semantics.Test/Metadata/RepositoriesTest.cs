@@ -3,7 +3,6 @@ using System.Collections.Generic;
 
 using NUnit.Framework;
 
-using Inventor.Semantics;
 using Inventor.Semantics.Metadata;
 
 namespace Inventor.Semantics.Test.Metadata

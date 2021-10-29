@@ -2,7 +2,6 @@
 
 using Inventor.WPF.ViewModels;
 using Inventor.Semantics;
-using Inventor.Semantics.Attributes;
 using Inventor.Semantics.Processes.Attributes;
 
 namespace Inventor.WPF.Controls

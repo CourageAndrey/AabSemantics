@@ -4,10 +4,8 @@ using System.Linq;
 
 using NUnit.Framework;
 
-using Inventor.Semantics;
 using Inventor.Semantics.Contexts;
 using Inventor.Semantics.Localization;
-using Inventor.Semantics.Utils;
 using Inventor.Semantics.Questions;
 
 namespace Inventor.Semantics.Test.Contexts
