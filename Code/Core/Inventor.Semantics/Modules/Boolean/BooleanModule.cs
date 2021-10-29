@@ -1,14 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 
-using Inventor.Semantics.Attributes;
-using Inventor.Semantics.Concepts;
-using Inventor.Semantics.Localization;
-using Inventor.Semantics.Localization.Modules;
 using Inventor.Semantics.Metadata;
-using Inventor.Semantics.Questions;
+using Inventor.Semantics.Modules.Boolean.Attributes;
+using Inventor.Semantics.Modules.Boolean.Concepts;
+using Inventor.Semantics.Modules.Boolean.Localization;
+using Inventor.Semantics.Modules.Boolean.Questions;
 
-namespace Inventor.Semantics.Modules
+namespace Inventor.Semantics.Modules.Boolean
 {
 	public class BooleanModule : ExtensionModule
 	{
@@ -28,7 +27,7 @@ namespace Inventor.Semantics.Modules
 
 		protected override void RegisterLanguage()
 		{
-			Language.Default.Extensions.Add(LanguageBooleanModule.CreateDefault());
+			Semantics.Localization.Language.Default.Extensions.Add(LanguageBooleanModule.CreateDefault());
 		}
 
 		protected override void RegisterAttributes()
@@ -39,7 +38,7 @@ namespace Inventor.Semantics.Modules
 
 		protected override void RegisterConcepts()
 		{
-			Xml.ConceptIdResolver.RegisterEnumType(typeof(LogicalValues));
+			Semantics.Xml.ConceptIdResolver.RegisterEnumType(typeof(LogicalValues));
 		}
 
 		protected override void RegisterQuestions()

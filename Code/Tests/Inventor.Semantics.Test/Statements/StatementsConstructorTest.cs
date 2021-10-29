@@ -3,12 +3,13 @@ using System.Collections.Generic;
 
 using NUnit.Framework;
 
-using Inventor.Semantics.Attributes;
 using Inventor.Semantics.Concepts;
 using Inventor.Semantics.Localization;
 using Inventor.Semantics.Statements;
 using Inventor.Semantics.Mathematics.Attributes;
 using Inventor.Semantics.Mathematics.Statements;
+using Inventor.Semantics.Modules.Boolean.Attributes;
+using Inventor.Semantics.Modules.Classification.Statements;
 using Inventor.Semantics.Processes.Attributes;
 using Inventor.Semantics.Processes.Statements;
 using Inventor.Semantics.Set.Attributes;

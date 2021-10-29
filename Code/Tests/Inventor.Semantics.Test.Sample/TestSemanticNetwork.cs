@@ -1,14 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
 
-using Inventor.Semantics.Attributes;
 using Inventor.Semantics.Concepts;
 using Inventor.Semantics.Localization;
-using Inventor.Semantics.Modules;
 using Inventor.Semantics.Modules.Classification.Statements;
 using Inventor.Semantics.Statements;
 using Inventor.Semantics.Mathematics;
 using Inventor.Semantics.Mathematics.Statements;
+using Inventor.Semantics.Modules.Boolean;
+using Inventor.Semantics.Modules.Boolean.Attributes;
+using Inventor.Semantics.Modules.Classification;
 using Inventor.Semantics.Processes;
 using Inventor.Semantics.Processes.Attributes;
 using Inventor.Semantics.Processes.Statements;

@@ -17,8 +17,8 @@ namespace Inventor.Semantics.Test
 		[TestFixtureSetUp]
 		public void InitializeModules()
 		{
-			new Semantics.Modules.BooleanModule().RegisterMetadata();
-			new Semantics.Modules.ClassificationModule().RegisterMetadata();
+			new Modules.Boolean.BooleanModule().RegisterMetadata();
+			new Modules.Classification.ClassificationModule().RegisterMetadata();
 			new MathematicsModule().RegisterMetadata();
 			new ProcessesModule().RegisterMetadata();
 			new SetModule().RegisterMetadata();

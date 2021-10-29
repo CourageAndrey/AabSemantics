@@ -9,8 +9,8 @@ using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
 using System.Windows.Data;
 
-using Inventor.Semantics.Localization.Modules;
 using Inventor.Semantics.Metadata;
+using Inventor.Semantics.Modules.Boolean.Localization;
 using Inventor.Semantics.WPF.Converters;
 using Inventor.Semantics.WPF.ViewModels;
 using Inventor.Semantics.WPF.ViewModels.Questions;

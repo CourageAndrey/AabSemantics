@@ -5,6 +5,7 @@ using NUnit.Framework;
 using Inventor.Semantics.Answers;
 using Inventor.Semantics.Concepts;
 using Inventor.Semantics.Localization;
+using Inventor.Semantics.Modules.Boolean.Concepts;
 using Inventor.Semantics.Modules.Classification.Statements;
 using Inventor.Semantics.Questions;
 using Inventor.Semantics.Statements;

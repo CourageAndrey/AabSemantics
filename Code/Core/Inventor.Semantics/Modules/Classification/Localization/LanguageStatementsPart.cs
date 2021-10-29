@@ -2,7 +2,9 @@
 using System.Globalization;
 using System.Xml.Serialization;
 
-namespace Inventor.Semantics.Localization.Modules.Classification
+using Inventor.Semantics.Localization;
+
+namespace Inventor.Semantics.Modules.Classification.Localization
 {
 	public interface ILanguageStatementsPart
 	{

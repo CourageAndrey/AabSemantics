@@ -15,7 +15,7 @@ namespace Inventor.Semantics.Test.Metadata
 			// arrange
 			var value = new TestAttributeChecked();
 			Func<ILanguage, string> nameGetter = language => _attributeName;
-			var xml = new Semantics.Xml.IsValueAttribute();
+			var xml = new Modules.Boolean.Xml.IsValueAttribute();
 
 			// act && assert
 			Assert.Throws<ArgumentNullException>(() => new AttributeDefinition(null, value, nameGetter, xml));
@@ -62,7 +62,7 @@ namespace Inventor.Semantics.Test.Metadata
 		{
 			// arrange
 			var type = typeof(TestAttributeChecked);
-			var wrongValue = Semantics.Attributes.IsBooleanAttribute.Value;
+			var wrongValue = Modules.Boolean.Attributes.IsBooleanAttribute.Value;
 			Func<ILanguage, string> nameGetter = language => _attributeName;
 			var xml = new TestAttributeXml();
 

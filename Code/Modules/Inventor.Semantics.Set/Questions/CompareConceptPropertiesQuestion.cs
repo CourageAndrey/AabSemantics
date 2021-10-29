@@ -2,8 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 
+using Inventor.Semantics.Modules.Classification.Statements;
 using Inventor.Semantics.Questions;
-using Inventor.Semantics.Statements;
 using Inventor.Semantics.Text.Containers;
 using Inventor.Semantics.Text.Primitives;
 using Inventor.Semantics.Set.Localization;

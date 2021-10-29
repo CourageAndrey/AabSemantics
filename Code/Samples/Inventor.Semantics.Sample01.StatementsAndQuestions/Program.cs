@@ -1,10 +1,11 @@
 ﻿using System;
 
 using Inventor.Semantics;
-using Inventor.Semantics.Attributes;
 using Inventor.Semantics.Concepts;
 using Inventor.Semantics.Localization;
-using Inventor.Semantics.Modules;
+using Inventor.Semantics.Modules.Boolean;
+using Inventor.Semantics.Modules.Boolean.Attributes;
+using Inventor.Semantics.Modules.Classification;
 using Inventor.Semantics.Modules.Classification.Questions;
 using Inventor.Semantics.Modules.Classification.Statements;
 using Inventor.Semantics.Questions;

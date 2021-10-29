@@ -3,11 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 
 using Inventor.Semantics.Answers;
-using Inventor.Semantics.Concepts;
 using Inventor.Semantics.Localization;
+using Inventor.Semantics.Modules.Boolean.Concepts;
+using Inventor.Semantics.Questions;
 using Inventor.Semantics.Text.Containers;
 
-namespace Inventor.Semantics.Questions
+namespace Inventor.Semantics.Modules.Boolean.Questions
 {
 	public class CheckStatementQuestion : Question
 	{
@@ -43,7 +44,7 @@ namespace Inventor.Semantics.Questions
 			}
 
 			var result = new UnstructuredContainer();
-			Boolean isTrue = statements.Any();
+			System.Boolean isTrue = statements.Any();
 			result.Append(
 				language => Strings.ParamAnswer,
 				new Dictionary<String, IKnowledge> { { Strings.ParamAnswer, isTrue.ToLogicalValue() } });

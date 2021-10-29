@@ -4,7 +4,7 @@ using NUnit.Framework;
 
 using Inventor.Semantics.Answers;
 using Inventor.Semantics.Concepts;
-using Inventor.Semantics.Statements;
+using Inventor.Semantics.Modules.Classification.Statements;
 using Inventor.Semantics.Text.Containers;
 using Inventor.Semantics.Set.Statements;
 

@@ -2,7 +2,7 @@
 
 using NUnit.Framework;
 
-using Inventor.Semantics.Concepts;
+using Inventor.Semantics.Modules.Boolean.Concepts;
 
 namespace Inventor.Semantics.Test.Concepts
 {

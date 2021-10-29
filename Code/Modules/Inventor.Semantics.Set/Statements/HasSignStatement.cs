@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 
+using Inventor.Semantics.Modules.Classification.Statements;
 using Inventor.Semantics.Statements;
 using Inventor.Semantics.Set.Attributes;
 using Inventor.Semantics.Set.Localization;

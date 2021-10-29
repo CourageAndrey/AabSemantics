@@ -5,7 +5,7 @@ using System.Linq;
 using Inventor.Semantics;
 using Inventor.Semantics.Concepts;
 using Inventor.Semantics.Localization;
-using Inventor.Semantics.Modules;
+using Inventor.Semantics.Modules.Boolean;
 
 namespace Samples.Semantics.Sample07.CustomModule
 {

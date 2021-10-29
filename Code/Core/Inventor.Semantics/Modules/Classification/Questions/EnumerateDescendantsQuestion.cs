@@ -2,10 +2,11 @@
 using System.Collections.Generic;
 
 using Inventor.Semantics.Localization;
-using Inventor.Semantics.Localization.Modules;
-using Inventor.Semantics.Statements;
+using Inventor.Semantics.Modules.Classification.Localization;
+using Inventor.Semantics.Modules.Classification.Statements;
+using Inventor.Semantics.Questions;
 
-namespace Inventor.Semantics.Questions
+namespace Inventor.Semantics.Modules.Classification.Questions
 {
 	public class EnumerateDescendantsQuestion : Question
 	{

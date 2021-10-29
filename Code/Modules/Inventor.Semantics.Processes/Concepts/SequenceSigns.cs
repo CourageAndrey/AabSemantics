@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 
-using Inventor.Semantics.Attributes;
 using Inventor.Semantics.Concepts;
 using Inventor.Semantics.Localization;
+using Inventor.Semantics.Modules.Boolean.Attributes;
 using Inventor.Semantics.Processes.Attributes;
 using Inventor.Semantics.Processes.Localization;
 

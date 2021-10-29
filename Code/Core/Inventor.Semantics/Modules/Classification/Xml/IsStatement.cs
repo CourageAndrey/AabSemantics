@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Xml.Serialization;
 
-namespace Inventor.Semantics.Xml
+using Inventor.Semantics.Xml;
+
+namespace Inventor.Semantics.Modules.Classification.Xml
 {
 	[XmlType("Is")]
 	public class IsStatement : Statement
