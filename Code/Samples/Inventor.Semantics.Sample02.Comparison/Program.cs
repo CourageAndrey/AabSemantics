@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 
 using Inventor.Semantics;
-using Inventor.Semantics.Attributes;
 using Inventor.Semantics.Concepts;
 using Inventor.Semantics.Localization;
 using Inventor.Semantics.Questions;
@@ -10,6 +9,7 @@ using Inventor.Semantics.Statements;
 using Inventor.Semantics.Mathematics;
 using Inventor.Semantics.Mathematics.Questions;
 using Inventor.Semantics.Mathematics.Statements;
+using Inventor.Semantics.Modules.Boolean.Attributes;
 
 namespace Samples.Semantics.Sample02.Comparison
 {

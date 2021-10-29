@@ -2,7 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 
-using Inventor.Semantics.Attributes;
+using Inventor.Semantics.Modules.Boolean.Attributes;
+using Inventor.Semantics.Modules.Classification.Statements;
 using Inventor.Semantics.Statements;
 using Inventor.Semantics.Set.Attributes;
 using Inventor.Semantics.Set.Localization;

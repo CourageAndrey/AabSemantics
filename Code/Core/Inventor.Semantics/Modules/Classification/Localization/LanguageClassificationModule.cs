@@ -1,13 +1,15 @@
 ﻿using System.Xml.Serialization;
 
-namespace Inventor.Semantics.Localization.Modules
+using Inventor.Semantics.Localization;
+
+namespace Inventor.Semantics.Modules.Classification.Localization
 {
 	public interface ILanguageClassificationModule
 	{
-		Classification.ILanguageStatements Statements
+		ILanguageStatements Statements
 		{ get; }
 
-		Classification.ILanguageQuestions Questions
+		ILanguageQuestions Questions
 		{ get; }
 	}
 
@@ -17,11 +19,11 @@ namespace Inventor.Semantics.Localization.Modules
 		#region Xml Properties
 
 		[XmlElement(nameof(Statements))]
-		public Classification.LanguageStatements StatementsXml
+		public LanguageStatements StatementsXml
 		{ get; set; }
 
 		[XmlElement(nameof(Questions))]
-		public Classification.LanguageQuestions QuestionsXml
+		public LanguageQuestions QuestionsXml
 		{ get; set; }
 
 		#endregion
@@ -29,11 +31,11 @@ namespace Inventor.Semantics.Localization.Modules
 		#region Interface Properties
 
 		[XmlIgnore]
-		public Classification.ILanguageStatements Statements
+		public ILanguageStatements Statements
 		{ get { return StatementsXml; } }
 
 		[XmlIgnore]
-		public Classification.ILanguageQuestions Questions
+		public ILanguageQuestions Questions
 		{ get { return QuestionsXml; } }
 
 		#endregion
@@ -42,8 +44,8 @@ namespace Inventor.Semantics.Localization.Modules
 		{
 			return new LanguageClassificationModule()
 			{
-				StatementsXml = Classification.LanguageStatements.CreateDefault(),
-				QuestionsXml = Classification.LanguageQuestions.CreateDefault(),
+				StatementsXml = LanguageStatements.CreateDefault(),
+				QuestionsXml = LanguageQuestions.CreateDefault(),
 			};
 		}
 	}

@@ -2,11 +2,11 @@
 using System.Collections.Generic;
 using System.Linq;
 
-using Inventor.Semantics.Attributes;
 using Inventor.Semantics.Concepts;
 using Inventor.Semantics.Localization;
 using Inventor.Semantics.Mathematics.Attributes;
 using Inventor.Semantics.Mathematics.Localization;
+using Inventor.Semantics.Modules.Boolean.Attributes;
 
 namespace Inventor.Semantics.Mathematics.Concepts
 {

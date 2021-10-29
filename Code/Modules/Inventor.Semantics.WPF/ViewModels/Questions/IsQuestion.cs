@@ -1,7 +1,7 @@
 ﻿namespace Inventor.Semantics.WPF.ViewModels.Questions
 {
 	[QuestionDescriptor]
-	public class IsQuestion : QuestionViewModel<Semantics.Questions.IsQuestion>
+	public class IsQuestion : QuestionViewModel<Modules.Classification.Questions.IsQuestion>
 	{
 		[PropertyDescriptor(true, "Questions.Parameters.Child")]
 		public Semantics.IConcept Child
@@ -11,9 +11,9 @@
 		public Semantics.IConcept Parent
 		{ get; set; }
 
-		public override Semantics.Questions.IsQuestion BuildQuestionImplementation()
+		public override Modules.Classification.Questions.IsQuestion BuildQuestionImplementation()
 		{
-			return new Semantics.Questions.IsQuestion(Child, Parent);
+			return new Modules.Classification.Questions.IsQuestion(Child, Parent);
 		}
 	}
 }

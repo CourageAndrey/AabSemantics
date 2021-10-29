@@ -3,9 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 
 using Inventor.Semantics.Localization;
-using Inventor.Semantics.Localization.Modules;
+using Inventor.Semantics.Modules.Classification.Localization;
+using Inventor.Semantics.Statements;
 
-namespace Inventor.Semantics.Statements
+namespace Inventor.Semantics.Modules.Classification.Statements
 {
 	public class IsStatement : Statement<IsStatement>, IParentChild<IConcept>
 	{
@@ -80,7 +81,7 @@ namespace Inventor.Semantics.Statements
 
 		#region Consistency checking
 
-		public override Boolean Equals(IsStatement other)
+		public override System.Boolean Equals(IsStatement other)
 		{
 			if (ReferenceEquals(this, other)) return true;
 			if (other != null)
@@ -91,12 +92,12 @@ namespace Inventor.Semantics.Statements
 			else return false;
 		}
 
-		public Boolean CheckCyclic(IEnumerable<IsStatement> statements)
+		public System.Boolean CheckCyclic(IEnumerable<IsStatement> statements)
 		{
 			return !isCyclic(statements, Descendant, new List<IConcept>());
 		}
 
-		private Boolean isCyclic(IEnumerable<IsStatement> allClasifications, IConcept concept, List<IConcept> chain)
+		private System.Boolean isCyclic(IEnumerable<IsStatement> allClasifications, IConcept concept, List<IConcept> chain)
 		{
 			if (chain.Contains(concept)) return true;
 

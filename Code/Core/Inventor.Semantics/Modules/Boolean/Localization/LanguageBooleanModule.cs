@@ -1,16 +1,18 @@
 ﻿using System.Xml.Serialization;
 
-namespace Inventor.Semantics.Localization.Modules
+using Inventor.Semantics.Localization;
+
+namespace Inventor.Semantics.Modules.Boolean.Localization
 {
 	public interface ILanguageBooleanModule
 	{
-		Boolean.ILanguageAttributes Attributes
+		ILanguageAttributes Attributes
 		{ get; }
 
-		Boolean.ILanguageConcepts Concepts
+		ILanguageConcepts Concepts
 		{ get; }
 
-		Boolean.ILanguageQuestions Questions
+		ILanguageQuestions Questions
 		{ get; }
 	}
 
@@ -20,15 +22,15 @@ namespace Inventor.Semantics.Localization.Modules
 		#region Xml Properties
 
 		[XmlElement(nameof(Attributes))]
-		public Boolean.LanguageAttributes AttributesXml
+		public LanguageAttributes AttributesXml
 		{ get; set; }
 
 		[XmlElement(nameof(Concepts))]
-		public Boolean.LanguageConcepts ConceptsXml
+		public LanguageConcepts ConceptsXml
 		{ get; set; }
 
 		[XmlElement(nameof(Questions))]
-		public Boolean.LanguageQuestions QuestionsXml
+		public LanguageQuestions QuestionsXml
 		{ get; set; }
 
 		#endregion
@@ -36,15 +38,15 @@ namespace Inventor.Semantics.Localization.Modules
 		#region Interface Properties
 
 		[XmlIgnore]
-		public Boolean.ILanguageAttributes Attributes
+		public ILanguageAttributes Attributes
 		{ get { return AttributesXml; } }
 
 		[XmlIgnore]
-		public Boolean.ILanguageConcepts Concepts
+		public ILanguageConcepts Concepts
 		{ get { return ConceptsXml; } }
 
 		[XmlIgnore]
-		public Boolean.ILanguageQuestions Questions
+		public ILanguageQuestions Questions
 		{ get { return QuestionsXml; } }
 
 		#endregion
@@ -53,9 +55,9 @@ namespace Inventor.Semantics.Localization.Modules
 		{
 			return new LanguageBooleanModule()
 			{
-				AttributesXml = Boolean.LanguageAttributes.CreateDefault(),
-				ConceptsXml = Boolean.LanguageConcepts.CreateDefault(),
-				QuestionsXml = Boolean.LanguageQuestions.CreateDefault(),
+				AttributesXml = LanguageAttributes.CreateDefault(),
+				ConceptsXml = LanguageConcepts.CreateDefault(),
+				QuestionsXml = LanguageQuestions.CreateDefault(),
 			};
 		}
 	}

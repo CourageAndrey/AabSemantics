@@ -2,24 +2,24 @@
 using System.Collections.Generic;
 
 using Inventor.Semantics.Localization;
-using Inventor.Semantics.Localization.Modules;
 using Inventor.Semantics.Metadata;
-using Inventor.Semantics.Statements;
-using Inventor.Semantics.Questions;
+using Inventor.Semantics.Modules.Classification.Localization;
+using Inventor.Semantics.Modules.Classification.Questions;
+using Inventor.Semantics.Modules.Classification.Statements;
 
-namespace Inventor.Semantics.Modules
+namespace Inventor.Semantics.Modules.Classification
 {
 	public class ClassificationModule : ExtensionModule
 	{
 		public const String ModuleName = "System.Classification";
 
 		public ClassificationModule()
-			: base(ModuleName, new[] { BooleanModule.ModuleName })
+			: base(ModuleName, new[] { Boolean.BooleanModule.ModuleName })
 		{ }
 
 		protected override void RegisterLanguage()
 		{
-			Language.Default.Extensions.Add(LanguageClassificationModule.CreateDefault());
+			Semantics.Localization.Language.Default.Extensions.Add(LanguageClassificationModule.CreateDefault());
 		}
 
 		protected override void RegisterStatements()

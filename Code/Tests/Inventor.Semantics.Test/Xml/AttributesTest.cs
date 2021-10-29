@@ -20,8 +20,8 @@ namespace Inventor.Semantics.Test.Xml
 		[TestFixtureSetUp]
 		public void InitializeModules()
 		{
-			new Semantics.Modules.BooleanModule().RegisterMetadata();
-			new Semantics.Modules.ClassificationModule().RegisterMetadata();
+			new Modules.Boolean.BooleanModule().RegisterMetadata();
+			new Modules.Classification.ClassificationModule().RegisterMetadata();
 			new MathematicsModule().RegisterMetadata();
 			new ProcessesModule().RegisterMetadata();
 			new SetModule().RegisterMetadata();
@@ -75,11 +75,11 @@ namespace Inventor.Semantics.Test.Xml
 		private IEnumerable<IAttribute> getAllAttributes()
 		{
 			yield return IsComparisonSignAttribute.Value;
-			yield return Semantics.Attributes.IsBooleanAttribute.Value;
+			yield return Modules.Boolean.Attributes.IsBooleanAttribute.Value;
 			yield return IsProcessAttribute.Value;
 			yield return IsSequenceSignAttribute.Value;
 			yield return IsSignAttribute.Value;
-			yield return Semantics.Attributes.IsValueAttribute.Value;
+			yield return Modules.Boolean.Attributes.IsValueAttribute.Value;
 		}
 
 		private class WrongAttribute : IAttribute

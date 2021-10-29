@@ -1,15 +1,15 @@
 ﻿namespace Inventor.Semantics.WPF.ViewModels.Questions
 {
 	[QuestionDescriptor]
-	public class CheckStatementQuestion : QuestionViewModel<Semantics.Questions.CheckStatementQuestion>
+	public class CheckStatementQuestion : QuestionViewModel<Modules.Boolean.Questions.CheckStatementQuestion>
 	{
 		[PropertyDescriptor(true, "Boolean\\Questions.Parameters.Statement")]
 		public StatementViewModel Statement
 		{ get; set; }
 
-		public override Semantics.Questions.CheckStatementQuestion BuildQuestionImplementation()
+		public override Modules.Boolean.Questions.CheckStatementQuestion BuildQuestionImplementation()
 		{
-			return new Semantics.Questions.CheckStatementQuestion(Statement.CreateStatement());
+			return new Modules.Boolean.Questions.CheckStatementQuestion(Statement.CreateStatement());
 		}
 	}
 }

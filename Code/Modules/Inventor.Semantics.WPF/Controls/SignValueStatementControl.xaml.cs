@@ -1,6 +1,6 @@
 ﻿using System.Linq;
 
-using Inventor.Semantics.Attributes;
+using Inventor.Semantics.Modules.Boolean.Attributes;
 using Inventor.Semantics.Set.Attributes;
 using Inventor.Semantics.WPF.ViewModels;
 

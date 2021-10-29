@@ -1,6 +1,8 @@
 ﻿using System.Xml.Serialization;
 
-namespace Inventor.Semantics.Xml
+using Inventor.Semantics.Xml;
+
+namespace Inventor.Semantics.Modules.Boolean.Xml
 {
 	[XmlType("IsBoolean")]
 	public class IsBooleanAttribute : Attribute

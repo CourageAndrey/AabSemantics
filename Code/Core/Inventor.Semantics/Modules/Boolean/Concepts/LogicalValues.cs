@@ -1,11 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 
-using Inventor.Semantics.Attributes;
+using Inventor.Semantics.Concepts;
 using Inventor.Semantics.Localization;
-using Inventor.Semantics.Localization.Modules;
+using Inventor.Semantics.Modules.Boolean.Attributes;
+using Inventor.Semantics.Modules.Boolean.Localization;
 
-namespace Inventor.Semantics.Concepts
+namespace Inventor.Semantics.Modules.Boolean.Concepts
 {
 	public static class LogicalValues
 	{
@@ -51,7 +52,7 @@ namespace Inventor.Semantics.Concepts
 			}
 		}
 
-		public static Boolean ToBoolean(this IConcept value)
+		public static System.Boolean ToBoolean(this IConcept value)
 		{
 			ensureSuits(value);
 
@@ -69,7 +70,7 @@ namespace Inventor.Semantics.Concepts
 			}
 		}
 
-		public static IConcept ToLogicalValue(this Boolean value)
+		public static IConcept ToLogicalValue(this System.Boolean value)
 		{
 			return value
 				? True

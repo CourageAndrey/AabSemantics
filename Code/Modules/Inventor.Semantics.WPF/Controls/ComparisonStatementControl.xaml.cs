@@ -1,7 +1,7 @@
 ﻿using System.Linq;
 
-using Inventor.Semantics.Attributes;
 using Inventor.Semantics.Mathematics.Attributes;
+using Inventor.Semantics.Modules.Boolean.Attributes;
 using Inventor.Semantics.WPF.ViewModels;
 
 namespace Inventor.Semantics.WPF.Controls

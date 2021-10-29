@@ -7,7 +7,6 @@ using System.Windows.Threading;
 
 using Inventor.Semantics;
 using Inventor.Semantics.Localization;
-using Inventor.Semantics.Modules;
 using Inventor.Semantics.Utils;
 using Inventor.Semantics.Mathematics;
 using Inventor.Semantics.Processes;
@@ -167,8 +166,8 @@ namespace Inventor.SimpleWpfClient
 
 		private static void registerModules()
 		{
-			new BooleanModule().RegisterMetadata();
-			new ClassificationModule().RegisterMetadata();
+			new Semantics.Modules.Boolean.BooleanModule().RegisterMetadata();
+			new Semantics.Modules.Classification.ClassificationModule().RegisterMetadata();
 			new SetModule().RegisterMetadata();
 			new MathematicsModule().RegisterMetadata();
 			new ProcessesModule().RegisterMetadata();

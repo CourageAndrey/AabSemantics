@@ -1,6 +1,6 @@
 ﻿using System.Xml.Serialization;
 
-namespace Inventor.Semantics.Localization.Modules.Boolean
+namespace Inventor.Semantics.Modules.Boolean.Localization
 {
 	public interface ILanguageConcepts
 	{

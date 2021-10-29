@@ -3,7 +3,6 @@
 using NUnit.Framework;
 
 using Inventor.Semantics.Answers;
-using Inventor.Semantics.Attributes;
 using Inventor.Semantics.Concepts;
 using Inventor.Semantics.Localization;
 using Inventor.Semantics.Modules.Boolean.Questions;
@@ -13,6 +12,7 @@ using Inventor.Semantics.Statements;
 using Inventor.Semantics.Mathematics.Concepts;
 using Inventor.Semantics.Mathematics.Questions;
 using Inventor.Semantics.Mathematics.Statements;
+using Inventor.Semantics.Modules.Boolean.Attributes;
 using Inventor.Semantics.Processes.Attributes;
 using Inventor.Semantics.Processes.Questions;
 using Inventor.Semantics.Processes.Statements;

@@ -1,6 +1,6 @@
 ﻿using System.Xml.Serialization;
 
-namespace Inventor.Semantics.Localization.Modules.Classification
+namespace Inventor.Semantics.Modules.Classification.Localization
 {
 	public interface ILanguageStatements
 	{

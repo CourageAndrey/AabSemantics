@@ -264,7 +264,7 @@ namespace Inventor.Semantics.Questions
 			var question = Context.Question;
 			var subject = getQuestionSubject(question);
 			var transitiveStatements = Context.SemanticNetwork.Statements
-				.Enumerate<Statements.IsStatement>(Context.ActiveContexts)
+				.Enumerate<Modules.Classification.Statements.IsStatement>(Context.ActiveContexts)
 				.Where(isStatement => isStatement.Child == subject);
 
 			foreach (var transitiveStatement in transitiveStatements)

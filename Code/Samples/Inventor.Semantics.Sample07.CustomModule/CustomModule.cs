@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using Inventor.Semantics;
 using Inventor.Semantics.Localization;
 using Inventor.Semantics.Metadata;
-using Inventor.Semantics.Modules;
+using Inventor.Semantics.Modules.Boolean;
 using Inventor.Semantics.Xml;
 using Samples.Semantics.Sample07.CustomModule.Localization;
 

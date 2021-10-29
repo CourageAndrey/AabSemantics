@@ -1,4 +1,4 @@
-﻿namespace Inventor.Semantics.Attributes
+﻿namespace Inventor.Semantics.Modules.Boolean.Attributes
 {
 	public class IsValueAttribute : IAttribute
 	{

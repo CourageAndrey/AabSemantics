@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-using Inventor.Semantics.Attributes;
+using Inventor.Semantics.Modules.Boolean.Attributes;
 using Inventor.Semantics.Questions;
 using Inventor.Semantics.Set.Localization;
 using Inventor.Semantics.Set.Statements;

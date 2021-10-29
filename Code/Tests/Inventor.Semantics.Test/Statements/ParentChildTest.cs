@@ -5,7 +5,7 @@ using System.Linq;
 using NUnit.Framework;
 
 using Inventor.Semantics.Concepts;
-using Inventor.Semantics.Statements;
+using Inventor.Semantics.Modules.Classification.Statements;
 
 namespace Inventor.Semantics.Test.Statements
 {
