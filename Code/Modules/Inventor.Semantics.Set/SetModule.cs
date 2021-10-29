@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 
-using Inventor.Semantics;
 using Inventor.Semantics.Metadata;
 using Inventor.Semantics.Modules;
 using Inventor.Semantics.Statements;

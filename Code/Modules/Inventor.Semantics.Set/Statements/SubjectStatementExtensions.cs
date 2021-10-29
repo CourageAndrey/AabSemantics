@@ -1,5 +1,4 @@
-﻿using Inventor.Semantics;
-using Inventor.Semantics.Statements;
+﻿using Inventor.Semantics.Statements;
 
 namespace Inventor.Semantics.Set.Statements
 {

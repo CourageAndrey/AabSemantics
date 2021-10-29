@@ -1,6 +1,5 @@
 ﻿using System.Xml.Serialization;
 
-using Inventor.Semantics;
 using Inventor.Semantics.Xml;
 
 namespace Inventor.Semantics.Processes.Xml

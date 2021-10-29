@@ -1,6 +1,5 @@
 ﻿using NUnit.Framework;
 
-using Inventor.Semantics;
 using Inventor.Semantics.Concepts;
 using Inventor.Semantics.Localization;
 using Inventor.Semantics.Modules.Classification.Statements;

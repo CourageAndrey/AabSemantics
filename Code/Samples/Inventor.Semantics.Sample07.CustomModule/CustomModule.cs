@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 
 using Inventor.Semantics;
-using Inventor.Semantics.Concepts;
 using Inventor.Semantics.Localization;
 using Inventor.Semantics.Metadata;
 using Inventor.Semantics.Modules;

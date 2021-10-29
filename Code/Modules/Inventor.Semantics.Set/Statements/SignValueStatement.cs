@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 
-using Inventor.Semantics;
 using Inventor.Semantics.Attributes;
 using Inventor.Semantics.Statements;
 using Inventor.Semantics.Set.Attributes;

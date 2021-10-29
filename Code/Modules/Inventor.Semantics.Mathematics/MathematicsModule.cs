@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 
-using Inventor.Semantics;
 using Inventor.Semantics.Metadata;
 using Inventor.Semantics.Mathematics.Attributes;
 using Inventor.Semantics.Mathematics.Concepts;

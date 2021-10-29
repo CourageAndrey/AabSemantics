@@ -2,7 +2,6 @@
 
 using NUnit.Framework;
 
-using Inventor.Semantics;
 using Inventor.Semantics.Localization;
 
 namespace Inventor.Semantics.Test.Localization

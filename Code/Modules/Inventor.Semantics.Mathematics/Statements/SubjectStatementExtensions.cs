@@ -1,5 +1,4 @@
-﻿using Inventor.Semantics;
-using Inventor.Semantics.Statements;
+﻿using Inventor.Semantics.Statements;
 using Inventor.Semantics.Mathematics.Concepts;
 
 namespace Inventor.Semantics.Mathematics.Statements
