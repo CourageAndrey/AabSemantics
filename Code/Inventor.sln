@@ -11,19 +11,19 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Inventor.Semantics.Test", "
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Samples", "Samples", "{E468A553-63B3-4913-AA93-BE788A5FF2F3}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Samples.Semantics.01.StatementsAndQuestions", "Samples\Inventor.Semantics.Sample01.StatementsAndQuestions\Samples.Semantics.01.StatementsAndQuestions.csproj", "{388E2147-9F71-4B06-81D0-80A53534F20B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Samples.Semantics.Sample01.StatementsAndQuestions", "Samples\Inventor.Semantics.Sample01.StatementsAndQuestions\Samples.Semantics.Sample01.StatementsAndQuestions.csproj", "{388E2147-9F71-4B06-81D0-80A53534F20B}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Samples.Semantics.02.Comparison", "Samples\Inventor.Semantics.Sample02.Comparison\Samples.Semantics.02.Comparison.csproj", "{1E535E5B-4A0E-463B-A0F7-17FECA4D6DCE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Samples.Semantics.Sample02.Comparison", "Samples\Inventor.Semantics.Sample02.Comparison\Samples.Semantics.Sample02.Comparison.csproj", "{1E535E5B-4A0E-463B-A0F7-17FECA4D6DCE}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Samples.Semantics.03.Processes", "Samples\Inventor.Semantics.Sample03.Processes\Samples.Semantics.03.Processes.csproj", "{34C8A1ED-683B-483E-A563-7B6E8225D86B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Samples.Semantics.Sample03.Processes", "Samples\Inventor.Semantics.Sample03.Processes\Samples.Semantics.Sample03.Processes.csproj", "{34C8A1ED-683B-483E-A563-7B6E8225D86B}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Samples.Semantics.04.CustomQuestion", "Samples\Inventor.Semantics.Sample04.CustomQuestion\Samples.Semantics.04.CustomQuestion.csproj", "{96330AB4-AD4C-4FFE-BB35-FC7EF05357E6}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Samples.Semantics.Sample04.CustomQuestion", "Samples\Inventor.Semantics.Sample04.CustomQuestion\Samples.Semantics.Sample04.CustomQuestion.csproj", "{96330AB4-AD4C-4FFE-BB35-FC7EF05357E6}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Samples.Semantics.05.CustomStatement", "Samples\Inventor.Semantics.Sample05.CustomStatement\Samples.Semantics.05.CustomStatement.csproj", "{21576DF9-66A5-4914-98E5-62E93F2B76D8}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Samples.Semantics.Sample05.CustomStatement", "Samples\Inventor.Semantics.Sample05.CustomStatement\Samples.Semantics.Sample05.CustomStatement.csproj", "{21576DF9-66A5-4914-98E5-62E93F2B76D8}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Samples.Semantics.06.StructuredText", "Samples\Inventor.Semantics.Sample06.StructuredText\Samples.Semantics.06.StructuredText.csproj", "{BE5BE0EE-F26F-491B-99DD-32DC3DBEF042}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Samples.Semantics.Sample06.StructuredText", "Samples\Inventor.Semantics.Sample06.StructuredText\Samples.Semantics.Sample06.StructuredText.csproj", "{BE5BE0EE-F26F-491B-99DD-32DC3DBEF042}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Samples.Semantics.07.CustomModule", "Samples\Inventor.Semantics.Sample07.CustomModule\Samples.Semantics.07.CustomModule.csproj", "{E44EFDAB-48AF-42C0-8C67-DB3650E3BCD9}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Samples.Semantics.Sample07.CustomModule", "Samples\Inventor.Semantics.Sample07.CustomModule\Samples.Semantics.Sample07.CustomModule.csproj", "{E44EFDAB-48AF-42C0-8C67-DB3650E3BCD9}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Inventor.Semantics.Test.Sample", "Tests\Inventor.Semantics.Test.Sample\Inventor.Semantics.Test.Sample.csproj", "{5E023B0F-1C9F-449E-AAB8-4F7EB1AB1960}"
 EndProject

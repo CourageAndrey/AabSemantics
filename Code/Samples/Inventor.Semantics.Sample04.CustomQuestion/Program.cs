@@ -5,7 +5,7 @@ using Inventor.Semantics.Concepts;
 using Inventor.Semantics.Localization;
 using Inventor.Semantics.Questions;
 
-namespace Samples._04.CustomQuestion
+namespace Samples.Semantics.Sample04.CustomQuestion
 {
 	class Program
 	{

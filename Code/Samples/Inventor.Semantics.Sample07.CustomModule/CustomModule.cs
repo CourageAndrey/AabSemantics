@@ -6,9 +6,9 @@ using Inventor.Semantics.Localization;
 using Inventor.Semantics.Metadata;
 using Inventor.Semantics.Modules;
 using Inventor.Semantics.Xml;
-using Samples._07.CustomModule.Localization;
+using Samples.Semantics.Sample07.CustomModule.Localization;
 
-namespace Samples._07.CustomModule
+namespace Samples.Semantics.Sample07.CustomModule
 {
 	internal class CustomModule : ExtensionModule
 	{

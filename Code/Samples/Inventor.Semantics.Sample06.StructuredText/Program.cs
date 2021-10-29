@@ -8,7 +8,7 @@ using Inventor.Semantics.Concepts;
 using Inventor.Semantics.Localization;
 using Inventor.Semantics.Text.Primitives;
 
-namespace Samples._06.StructuredText
+namespace Samples.Semantics.Sample06.StructuredText
 {
 	class Program
 	{

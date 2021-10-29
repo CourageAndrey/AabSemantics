@@ -2,14 +2,14 @@
 
 using Inventor.Semantics;
 
-namespace Samples._07.CustomModule.Xml
+namespace Samples.Semantics.Sample07.CustomModule.Xml
 {
 	[XmlType("IsCustom")]
 	public class CustomAttribute : Inventor.Semantics.Xml.Attribute
 	{
 		public override IAttribute Load()
 		{
-			return _07.CustomModule.CustomAttribute.Value;
+			return Sample07.CustomModule.CustomAttribute.Value;
 		}
 	}
 }

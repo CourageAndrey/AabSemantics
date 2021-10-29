@@ -2,7 +2,7 @@
 
 using Inventor.Semantics.Localization;
 
-namespace Samples._07.CustomModule.Localization
+namespace Samples.Semantics.Sample07.CustomModule.Localization
 {
 	public interface ILanguageCustomModule
 	{

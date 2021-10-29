@@ -1,6 +1,6 @@
 ﻿using System.Xml.Serialization;
 
-namespace Samples._07.CustomModule.Xml
+namespace Samples.Semantics.Sample07.CustomModule.Xml
 {
 	[XmlType("Custom")]
 	public class CustomStatement : Inventor.Semantics.Xml.Statement
@@ -22,7 +22,7 @@ namespace Samples._07.CustomModule.Xml
 		public CustomStatement()
 		{ }
 
-		public CustomStatement(_07.CustomModule.CustomStatement statement)
+		public CustomStatement(Sample07.CustomModule.CustomStatement statement)
 		{
 			ID = statement.ID;
 			Concept1 = statement.Concept1?.ID;
@@ -33,7 +33,7 @@ namespace Samples._07.CustomModule.Xml
 
 		public override Inventor.Semantics.IStatement Save(Inventor.Semantics.Xml.ConceptIdResolver conceptIdResolver)
 		{
-			return new _07.CustomModule.CustomStatement(ID, conceptIdResolver.GetConceptById(Concept1), conceptIdResolver.GetConceptById(Concept2));
+			return new Sample07.CustomModule.CustomStatement(ID, conceptIdResolver.GetConceptById(Concept1), conceptIdResolver.GetConceptById(Concept2));
 		}
 	}
 }

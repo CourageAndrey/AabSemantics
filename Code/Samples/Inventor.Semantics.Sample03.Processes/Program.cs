@@ -10,7 +10,7 @@ using Inventor.Semantics.Processes.Attributes;
 using Inventor.Semantics.Processes.Questions;
 using Inventor.Semantics.Processes.Statements;
 
-namespace Samples._03.Processes
+namespace Samples.Semantics.Sample03.Processes
 {
 	class Program
 	{

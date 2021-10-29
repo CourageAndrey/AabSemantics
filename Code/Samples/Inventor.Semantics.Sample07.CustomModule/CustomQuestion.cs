@@ -3,9 +3,9 @@ using System.Collections.Generic;
 
 using Inventor.Semantics;
 using Inventor.Semantics.Questions;
-using Samples._07.CustomModule.Localization;
+using Samples.Semantics.Sample07.CustomModule.Localization;
 
-namespace Samples._07.CustomModule
+namespace Samples.Semantics.Sample07.CustomModule
 {
 	internal class CustomQuestion : Question
 	{

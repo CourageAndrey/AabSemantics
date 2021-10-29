@@ -14,7 +14,7 @@ using Inventor.Semantics.Set.Attributes;
 using Inventor.Semantics.Set.Questions;
 using Inventor.Semantics.Set.Statements;
 
-namespace Samples._01.StatementsAndQuestions
+namespace Samples.Semantics.Sample01.StatementsAndQuestions
 {
 	class Program
 	{
