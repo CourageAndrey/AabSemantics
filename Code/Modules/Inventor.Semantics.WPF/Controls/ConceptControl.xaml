@@ -1,7 +1,7 @@
-﻿<UserControl x:Class="Inventor.WPF.Controls.ConceptControl"
+﻿<UserControl x:Class="Inventor.Semantics.WPF.Controls.ConceptControl"
 		xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
 		xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-		xmlns:controls="clr-namespace:Inventor.WPF.Controls">
+		xmlns:controls="clr-namespace:Inventor.Semantics.WPF.Controls">
 	<Grid Name="_contextControl">
 		<Grid.RowDefinitions>
 			<RowDefinition Height="*"/>

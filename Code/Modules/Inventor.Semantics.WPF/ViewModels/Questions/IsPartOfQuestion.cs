@@ -1,4 +1,4 @@
-﻿namespace Inventor.WPF.ViewModels.Questions
+﻿namespace Inventor.Semantics.WPF.ViewModels.Questions
 {
 	[QuestionDescriptor]
 	public class IsPartOfQuestion : QuestionViewModel<Semantics.Set.Questions.IsPartOfQuestion>

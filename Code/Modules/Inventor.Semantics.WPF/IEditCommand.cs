@@ -1,7 +1,6 @@
-﻿using Inventor.WPF.TreeNodes;
-using Inventor.Semantics;
+﻿using Inventor.Semantics.WPF.TreeNodes;
 
-namespace Inventor.WPF
+namespace Inventor.Semantics.WPF
 {
 	public interface IEditCommand
 	{

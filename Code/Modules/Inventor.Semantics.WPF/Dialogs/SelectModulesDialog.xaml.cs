@@ -3,10 +3,9 @@ using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 
-using Inventor.Semantics;
 using Inventor.Semantics.Metadata;
 
-namespace Inventor.WPF.Dialogs
+namespace Inventor.Semantics.WPF.Dialogs
 {
 	public partial class SelectModulesDialog
 	{

@@ -1,4 +1,4 @@
-﻿namespace Inventor.WPF.ViewModels.Questions
+﻿namespace Inventor.Semantics.WPF.ViewModels.Questions
 {
 	[QuestionDescriptor]
 	public class EnumeratePartsQuestion : QuestionViewModel<Semantics.Set.Questions.EnumeratePartsQuestion>

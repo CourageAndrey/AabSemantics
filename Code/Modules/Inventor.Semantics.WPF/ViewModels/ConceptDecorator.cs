@@ -1,9 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-using Inventor.Semantics;
-
-namespace Inventor.WPF.ViewModels
+namespace Inventor.Semantics.WPF.ViewModels
 {
 	internal class ConceptDecorator : IConcept
 	{

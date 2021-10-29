@@ -7,9 +7,7 @@ using System.Windows.Controls.Primitives;
 using System.Windows.Input;
 using System.Windows.Media;
 
-using Inventor.Semantics;
-
-namespace Inventor.WPF
+namespace Inventor.Semantics.WPF
 {
 	public static class UiHelper
 	{

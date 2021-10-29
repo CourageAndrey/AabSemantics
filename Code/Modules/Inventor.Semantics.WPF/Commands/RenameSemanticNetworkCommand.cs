@@ -1,7 +1,7 @@
-﻿using Inventor.WPF.TreeNodes;
-using Inventor.WPF.ViewModels;
+﻿using Inventor.Semantics.WPF.TreeNodes;
+using Inventor.Semantics.WPF.ViewModels;
 
-namespace Inventor.WPF.Commands
+namespace Inventor.Semantics.WPF.Commands
 {
 	public class RenameSemanticNetworkCommand : BaseEditCommand
 	{

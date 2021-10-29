@@ -1,12 +1,11 @@
 ﻿using System.Collections.Generic;
 using System.Windows;
 
-using Inventor.WPF.Controls;
-using Inventor.WPF.Dialogs;
-using Inventor.Semantics;
 using Inventor.Semantics.Metadata;
+using Inventor.Semantics.WPF.Controls;
+using Inventor.Semantics.WPF.Dialogs;
 
-namespace Inventor.WPF.ViewModels
+namespace Inventor.Semantics.WPF.ViewModels
 {
 	public class Concept : IKnowledgeViewModel
 	{

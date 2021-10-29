@@ -4,7 +4,7 @@ using System.ComponentModel;
 using System.Threading;
 using System.Windows.Media;
 
-namespace Inventor.WPF.TreeNodes
+namespace Inventor.Semantics.WPF.TreeNodes
 {
 	public abstract class ExtendedTreeNode : INotifyPropertyChanged
 	{

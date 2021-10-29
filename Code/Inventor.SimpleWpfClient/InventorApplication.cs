@@ -12,7 +12,8 @@ using Inventor.Semantics.Utils;
 using Inventor.Semantics.Mathematics;
 using Inventor.Semantics.Processes;
 using Inventor.Semantics.Set;
-using Inventor.WPF;
+using Inventor.Semantics.WPF;
+using Inventor.Semantics.WPF.Dialogs;
 
 namespace Inventor.SimpleWpfClient
 {
@@ -126,16 +127,16 @@ namespace Inventor.SimpleWpfClient
 		{
 			if (e.ExceptionObject is Exception)
 			{
-				new WPF.Dialogs.ExceptionDialog(
+				new ExceptionDialog(
 					new ExceptionWrapper(e.ExceptionObject as Exception),
-					WPF.Dialogs.ExceptionDialogMode.ProcessFatalError,
+					ExceptionDialogMode.ProcessFatalError,
 					CurrentLanguage ?? Language.Default).ShowDialog();
 			}
 		}
 
 		private void dispatcherUnhandledException(object sender, DispatcherUnhandledExceptionEventArgs e)
 		{
-			if (new WPF.Dialogs.ExceptionDialog(e.Exception, false, CurrentLanguage ?? Language.Default).ShowDialog() == true)
+			if (new ExceptionDialog(e.Exception, false, CurrentLanguage ?? Language.Default).ShowDialog() == true)
 			{
 				Shutdown();
 			}

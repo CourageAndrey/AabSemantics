@@ -1,9 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-using Inventor.Semantics;
-
-namespace Inventor.WPF
+namespace Inventor.Semantics.WPF
 {
 	public interface IInventorApplication
 	{

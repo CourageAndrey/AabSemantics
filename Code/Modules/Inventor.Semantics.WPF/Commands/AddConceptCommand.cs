@@ -1,9 +1,8 @@
 ﻿using System.Linq;
 
-using Inventor.WPF.TreeNodes;
-using Inventor.Semantics;
+using Inventor.Semantics.WPF.TreeNodes;
 
-namespace Inventor.WPF.Commands
+namespace Inventor.Semantics.WPF.Commands
 {
 	public class AddConceptCommand : BaseEditCommand
 	{

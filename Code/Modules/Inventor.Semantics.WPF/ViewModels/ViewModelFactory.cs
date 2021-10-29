@@ -1,10 +1,9 @@
 ﻿using System;
 
-using Inventor.WPF.TreeNodes;
-using Inventor.WPF.ViewModels.Statements;
-using Inventor.Semantics;
+using Inventor.Semantics.WPF.TreeNodes;
+using Inventor.Semantics.WPF.ViewModels.Statements;
 
-namespace Inventor.WPF.ViewModels
+namespace Inventor.Semantics.WPF.ViewModels
 {
 	public interface IViewModelFactory
 	{

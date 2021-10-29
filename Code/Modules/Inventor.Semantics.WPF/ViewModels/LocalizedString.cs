@@ -2,9 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 
-using Inventor.Semantics;
-
-namespace Inventor.WPF.ViewModels
+namespace Inventor.Semantics.WPF.ViewModels
 {
 	public abstract class LocalizedString
 	{
