@@ -4,10 +4,9 @@ using System.Windows.Data;
 
 using Microsoft.Win32;
 
-using Inventor.Semantics;
 using Inventor.Semantics.Utils;
 
-namespace Inventor.WPF.Dialogs
+namespace Inventor.Semantics.WPF.Dialogs
 {
 	public enum ExceptionDialogMode
 	{

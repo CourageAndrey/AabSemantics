@@ -1,10 +1,9 @@
 ﻿using System.ComponentModel;
 using System.Threading;
 
-using Inventor.Semantics;
 using Inventor.Semantics.Metadata;
 
-namespace Inventor.WPF.ViewModels
+namespace Inventor.Semantics.WPF.ViewModels
 {
 	public class ConceptAttribute : INotifyPropertyChanged
 	{

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Threading;
 
-namespace Inventor.WPF
+namespace Inventor.Semantics.WPF
 {
 	public class ChangeController
 	{

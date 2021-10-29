@@ -1,10 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 
-using Inventor.Semantics;
 using Inventor.Semantics.Localization;
 
-namespace Inventor.WPF.Localization
+namespace Inventor.Semantics.WPF.Localization
 {
 	public class Localizator : ILanguage
 	{

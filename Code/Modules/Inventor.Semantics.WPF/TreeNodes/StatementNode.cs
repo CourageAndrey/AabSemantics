@@ -1,10 +1,9 @@
 ﻿using System.Windows.Media;
 
-using Inventor.WPF.Properties;
-using Inventor.WPF.Converters;
-using Inventor.Semantics;
+using Inventor.Semantics.WPF.Converters;
+using Inventor.Semantics.WPF.Properties;
 
-namespace Inventor.WPF.TreeNodes
+namespace Inventor.Semantics.WPF.TreeNodes
 {
 	public class StatementNode : ExtendedTreeNode
 	{

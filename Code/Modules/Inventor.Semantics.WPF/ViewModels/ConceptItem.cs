@@ -1,8 +1,6 @@
 ﻿using System;
 
-using Inventor.Semantics;
-
-namespace Inventor.WPF.ViewModels
+namespace Inventor.Semantics.WPF.ViewModels
 {
 	public class ConceptItem : IEquatable<ConceptItem>, INamed
 	{

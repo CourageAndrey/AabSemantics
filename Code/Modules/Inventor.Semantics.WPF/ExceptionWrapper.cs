@@ -2,7 +2,7 @@
 using System.Globalization;
 using System.Xml.Serialization;
 
-namespace Inventor.WPF
+namespace Inventor.Semantics.WPF
 {
 	public interface IExceptionWrapper
 	{

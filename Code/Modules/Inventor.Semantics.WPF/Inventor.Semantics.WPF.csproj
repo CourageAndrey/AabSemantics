@@ -6,8 +6,8 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{3A307412-D53A-43B9-938F-DD1F5ACA6D60}</ProjectGuid>
     <OutputType>library</OutputType>
-    <RootNamespace>Inventor.WPF</RootNamespace>
-    <AssemblyName>Inventor.WPF</AssemblyName>
+    <RootNamespace>Inventor.Semantics.WPF</RootNamespace>
+    <AssemblyName>Inventor.Semantics.WPF</AssemblyName>
     <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>

@@ -1,4 +1,4 @@
-﻿<Window x:Class="Inventor.WPF.Dialogs.SelectModulesDialog"
+﻿<Window x:Class="Inventor.Semantics.WPF.Dialogs.SelectModulesDialog"
 		xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
 		xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
 		SizeToContent="WidthAndHeight" MinHeight="200" MinWidth="100" WindowStartupLocation="CenterOwner">

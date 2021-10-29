@@ -1,4 +1,4 @@
-﻿namespace Inventor.WPF
+﻿namespace Inventor.Semantics.WPF
 {
 	public interface IMainWindow
 	{

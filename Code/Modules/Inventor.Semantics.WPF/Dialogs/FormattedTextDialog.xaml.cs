@@ -3,9 +3,7 @@ using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Forms;
 
-using Inventor.Semantics;
-
-namespace Inventor.WPF.Dialogs
+namespace Inventor.Semantics.WPF.Dialogs
 {
 	public partial class FormattedTextDialog
 	{

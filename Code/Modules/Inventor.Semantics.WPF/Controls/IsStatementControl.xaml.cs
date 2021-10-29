@@ -1,9 +1,8 @@
 ﻿using System.Linq;
 
-using Inventor.WPF.ViewModels;
-using Inventor.Semantics;
+using Inventor.Semantics.WPF.ViewModels;
 
-namespace Inventor.WPF.Controls
+namespace Inventor.Semantics.WPF.Controls
 {
 	public partial class IsStatementControl : IStatementEditor
 	{

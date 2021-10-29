@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Xml.Serialization;
 
-namespace Inventor.WPF.Localization
+namespace Inventor.Semantics.WPF.Localization
 {
 	public interface ILanguageQuestionDialog
 	{

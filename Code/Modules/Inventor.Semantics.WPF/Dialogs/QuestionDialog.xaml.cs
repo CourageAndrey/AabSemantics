@@ -9,14 +9,13 @@ using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
 using System.Windows.Data;
 
-using Inventor.WPF.Converters;
-using Inventor.WPF.ViewModels;
-using Inventor.WPF.ViewModels.Questions;
-using Inventor.Semantics;
 using Inventor.Semantics.Localization.Modules;
 using Inventor.Semantics.Metadata;
+using Inventor.Semantics.WPF.Converters;
+using Inventor.Semantics.WPF.ViewModels;
+using Inventor.Semantics.WPF.ViewModels.Questions;
 
-namespace Inventor.WPF.Dialogs
+namespace Inventor.Semantics.WPF.Dialogs
 {
 	public partial class QuestionDialog
 	{

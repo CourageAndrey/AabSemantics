@@ -1,11 +1,10 @@
 ﻿using System.Windows;
 
-using Inventor.WPF.Controls;
-using Inventor.WPF.Dialogs;
-using Inventor.Semantics;
 using Inventor.Semantics.Processes.Localization;
+using Inventor.Semantics.WPF.Controls;
+using Inventor.Semantics.WPF.Dialogs;
 
-namespace Inventor.WPF.ViewModels.Statements
+namespace Inventor.Semantics.WPF.ViewModels.Statements
 {
 	public class ProcessesStatement : StatementViewModel<Semantics.Processes.Statements.ProcessesStatement>
 	{

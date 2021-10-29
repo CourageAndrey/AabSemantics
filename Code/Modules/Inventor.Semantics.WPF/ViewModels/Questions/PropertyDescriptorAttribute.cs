@@ -1,6 +1,6 @@
 using System;
 
-namespace Inventor.WPF.ViewModels.Questions
+namespace Inventor.Semantics.WPF.ViewModels.Questions
 {
 	[AttributeUsage(AttributeTargets.Property, AllowMultiple = false, Inherited = false)]
 	public class PropertyDescriptorAttribute : Attribute

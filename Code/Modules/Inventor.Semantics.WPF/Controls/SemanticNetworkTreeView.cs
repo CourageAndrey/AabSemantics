@@ -4,11 +4,10 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
 
-using Inventor.WPF.Dialogs;
-using Inventor.WPF.TreeNodes;
-using Inventor.Semantics;
+using Inventor.Semantics.WPF.Dialogs;
+using Inventor.Semantics.WPF.TreeNodes;
 
-namespace Inventor.WPF.Controls
+namespace Inventor.Semantics.WPF.Controls
 {
 	public class SemanticNetworkTreeView : TreeView
 	{
