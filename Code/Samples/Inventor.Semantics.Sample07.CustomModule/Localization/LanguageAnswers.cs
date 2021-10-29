@@ -1,6 +1,6 @@
 ﻿using System.Xml.Serialization;
 
-namespace Samples._07.CustomModule.Localization
+namespace Samples.Semantics.Sample07.CustomModule.Localization
 {
 	public interface ILanguageAnswers
 	{

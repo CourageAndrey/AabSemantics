@@ -1,6 +1,6 @@
 ﻿using Inventor.Semantics;
 
-namespace Samples._07.CustomModule
+namespace Samples.Semantics.Sample07.CustomModule
 {
 	internal class CustomAttribute : IAttribute
 	{

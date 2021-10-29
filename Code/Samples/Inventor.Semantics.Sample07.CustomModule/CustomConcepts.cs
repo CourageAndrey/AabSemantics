@@ -1,9 +1,9 @@
 ﻿using Inventor.Semantics;
 using Inventor.Semantics.Concepts;
 using Inventor.Semantics.Localization;
-using Samples._07.CustomModule.Localization;
+using Samples.Semantics.Sample07.CustomModule.Localization;
 
-namespace Samples._07.CustomModule
+namespace Samples.Semantics.Sample07.CustomModule
 {
 	internal static class CustomConcepts
 	{

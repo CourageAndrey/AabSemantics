@@ -11,7 +11,7 @@ using Inventor.Semantics.Mathematics;
 using Inventor.Semantics.Mathematics.Questions;
 using Inventor.Semantics.Mathematics.Statements;
 
-namespace Samples._02.Comparison
+namespace Samples.Semantics.Sample02.Comparison
 {
 	class Program
 	{

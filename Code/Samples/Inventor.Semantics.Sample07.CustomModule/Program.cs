@@ -7,7 +7,7 @@ using Inventor.Semantics.Concepts;
 using Inventor.Semantics.Localization;
 using Inventor.Semantics.Modules;
 
-namespace Samples._07.CustomModule
+namespace Samples.Semantics.Sample07.CustomModule
 {
 	class Program
 	{

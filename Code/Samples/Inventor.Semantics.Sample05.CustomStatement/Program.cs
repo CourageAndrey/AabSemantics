@@ -8,7 +8,7 @@ using Inventor.Semantics.Modules.Boolean.Questions;
 using Inventor.Semantics.Questions;
 using Inventor.Semantics.Statements;
 
-namespace Samples._05.CustomStatement
+namespace Samples.Semantics.Sample05.CustomStatement
 {
 	class Program
 	{

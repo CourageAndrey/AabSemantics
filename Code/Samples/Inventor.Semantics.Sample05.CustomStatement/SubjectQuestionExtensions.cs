@@ -1,7 +1,7 @@
 ﻿using Inventor.Semantics;
 using Inventor.Semantics.Questions;
 
-namespace Samples._05.CustomStatement
+namespace Samples.Semantics.Sample05.CustomStatement
 {
 	public static class SubjectQuestionExtensions
 	{

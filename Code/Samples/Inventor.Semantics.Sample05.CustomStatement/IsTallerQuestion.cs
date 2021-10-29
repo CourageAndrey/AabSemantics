@@ -5,7 +5,7 @@ using System.Linq;
 using Inventor.Semantics;
 using Inventor.Semantics.Questions;
 
-namespace Samples._05.CustomStatement
+namespace Samples.Semantics.Sample05.CustomStatement
 {
 	public class IsTallerQuestion : Question
 	{

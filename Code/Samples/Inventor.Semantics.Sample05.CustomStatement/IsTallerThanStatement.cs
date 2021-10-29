@@ -5,7 +5,7 @@ using Inventor.Semantics;
 using Inventor.Semantics.Statements;
 using Inventor.Semantics.Localization;
 
-namespace Samples._05.CustomStatement
+namespace Samples.Semantics.Sample05.CustomStatement
 {
 	public class IsTallerThanStatement : Statement<IsTallerThanStatement>, IParentChild<IConcept>
 	{

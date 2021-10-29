@@ -6,7 +6,7 @@ using Inventor.Semantics.Answers;
 using Inventor.Semantics.Questions;
 using Inventor.Semantics.Text.Primitives;
 
-namespace Samples._04.CustomQuestion
+namespace Samples.Semantics.Sample04.CustomQuestion
 {
 	public class SelectRandomConceptQuestion : Question
 	{
