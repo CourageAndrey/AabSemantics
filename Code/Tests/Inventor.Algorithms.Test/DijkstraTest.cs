@@ -22,7 +22,7 @@ namespace Inventor.Algorithms.Test
 		public void GivenNullFromNodeWhenTryToFindShortestPathsThenThrowError()
 		{
 			// arrange
-			var arcs = Array.Empty<IArc<SimpleNode>>();
+			var arcs = Array.Empty<IArcWithLength<SimpleNode>>();
 
 			// act & assert
 			Assert.Throws<ArgumentNullException>(() => arcs.FindShortestPaths(null));
@@ -35,9 +35,9 @@ namespace Inventor.Algorithms.Test
 			var start = new SimpleNode("START");
 			var a = new SimpleNode("A");
 
-			var arcs = new IArc<SimpleNode>[]
+			var arcs = new IArcWithLength<SimpleNode>[]
 			{
-				new SimpleArc<SimpleNode>(start, a, -1),
+				new SimpleArcWithLength<SimpleNode>(start, a, -1),
 			};
 
 			// act & assert
@@ -50,7 +50,7 @@ namespace Inventor.Algorithms.Test
 			// arrange
 			var start = new SimpleNode("START");
 
-			var arcs = Array.Empty<IArc<SimpleNode>>();
+			var arcs = Array.Empty<IArcWithLength<SimpleNode>>();
 
 			// act
 			var foundPaths = arcs.FindShortestPaths(start);
@@ -67,9 +67,9 @@ namespace Inventor.Algorithms.Test
 			var a = new SimpleNode("A");
 			var b = new SimpleNode("B");
 
-			var arcs = new IArc<SimpleNode>[]
+			var arcs = new IArcWithLength<SimpleNode>[]
 			{
-				new SimpleArc<SimpleNode>(a, b, 10),
+				new SimpleArcWithLength<SimpleNode>(a, b, 10),
 			};
 
 			// act
@@ -88,11 +88,11 @@ namespace Inventor.Algorithms.Test
 			var b = new SimpleNode("B");
 			var c = new SimpleNode("C");
 
-			var arcs = new IArc<SimpleNode>[]
+			var arcs = new IArcWithLength<SimpleNode>[]
 			{
-				new SimpleArc<SimpleNode>(start, a, 1),
-				new SimpleArc<SimpleNode>(start, b, 2),
-				new SimpleArc<SimpleNode>(start, c, 3),
+				new SimpleArcWithLength<SimpleNode>(start, a, 1),
+				new SimpleArcWithLength<SimpleNode>(start, b, 2),
+				new SimpleArcWithLength<SimpleNode>(start, c, 3),
 			};
 
 			// act
@@ -115,11 +115,11 @@ namespace Inventor.Algorithms.Test
 			var b = new SimpleNode("B");
 			var c = new SimpleNode("C");
 
-			var arcs = new IArc<SimpleNode>[]
+			var arcs = new IArcWithLength<SimpleNode>[]
 			{
-				new SimpleArc<SimpleNode>(start, a, 1),
-				new SimpleArc<SimpleNode>(a, b, 2),
-				new SimpleArc<SimpleNode>(b, c, 3),
+				new SimpleArcWithLength<SimpleNode>(start, a, 1),
+				new SimpleArcWithLength<SimpleNode>(a, b, 2),
+				new SimpleArcWithLength<SimpleNode>(b, c, 3),
 			};
 
 			// act
@@ -141,17 +141,17 @@ namespace Inventor.Algorithms.Test
 			var b = new SimpleNode("B");
 			var c = new SimpleNode("C");
 
-			var arcs = new IArc<SimpleNode>[]
+			var arcs = new IArcWithLength<SimpleNode>[]
 			{
-				new SimpleArc<SimpleNode>(start, a, 1),
-				new SimpleArc<SimpleNode>(start, a, 2),
-				new SimpleArc<SimpleNode>(start, a, 3),
-				new SimpleArc<SimpleNode>(a, b, 1),
-				new SimpleArc<SimpleNode>(a, b, 2),
-				new SimpleArc<SimpleNode>(a, b, 3),
-				new SimpleArc<SimpleNode>(b, c, 1),
-				new SimpleArc<SimpleNode>(b, c, 2),
-				new SimpleArc<SimpleNode>(b, c, 3),
+				new SimpleArcWithLength<SimpleNode>(start, a, 1),
+				new SimpleArcWithLength<SimpleNode>(start, a, 2),
+				new SimpleArcWithLength<SimpleNode>(start, a, 3),
+				new SimpleArcWithLength<SimpleNode>(a, b, 1),
+				new SimpleArcWithLength<SimpleNode>(a, b, 2),
+				new SimpleArcWithLength<SimpleNode>(a, b, 3),
+				new SimpleArcWithLength<SimpleNode>(b, c, 1),
+				new SimpleArcWithLength<SimpleNode>(b, c, 2),
+				new SimpleArcWithLength<SimpleNode>(b, c, 3),
 			};
 
 			// act
@@ -173,13 +173,13 @@ namespace Inventor.Algorithms.Test
 			var b = new SimpleNode("B");
 			var c = new SimpleNode("C");
 
-			var arcs = new IArc<SimpleNode>[]
+			var arcs = new IArcWithLength<SimpleNode>[]
 			{
-				new SimpleArc<SimpleNode>(start, a, 1),
-				new SimpleArc<SimpleNode>(start, b, 10),
-				new SimpleArc<SimpleNode>(start, c, 10),
-				new SimpleArc<SimpleNode>(a, b, 1),
-				new SimpleArc<SimpleNode>(b, c, 1),
+				new SimpleArcWithLength<SimpleNode>(start, a, 1),
+				new SimpleArcWithLength<SimpleNode>(start, b, 10),
+				new SimpleArcWithLength<SimpleNode>(start, c, 10),
+				new SimpleArcWithLength<SimpleNode>(a, b, 1),
+				new SimpleArcWithLength<SimpleNode>(b, c, 1),
 			};
 
 			// act
