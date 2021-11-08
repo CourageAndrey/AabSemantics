@@ -6,13 +6,13 @@ namespace Inventor.Algorithms
 {
 	public static class Dijkstra
 	{
-		public static ICollection<SimplePath<NodeT>> FindShortestPaths<NodeT>(this ICollection<IArc<NodeT>> arcs, NodeT fromNode)
+		public static ICollection<SimplePathWithLenght<NodeT>> FindShortestPaths<NodeT>(this ICollection<IArcWithLength<NodeT>> arcs, NodeT fromNode)
 			where NodeT : class
 		{
 			if (arcs == null) throw new ArgumentNullException(nameof(arcs));
 			if (fromNode == null) throw new ArgumentNullException(nameof(fromNode));
 
-			var shortestArcs = new Dictionary<NodeT, Dictionary<NodeT, IArc<NodeT>>>();
+			var shortestArcs = new Dictionary<NodeT, Dictionary<NodeT, IArcWithLength<NodeT>>>();
 			foreach (var arc in arcs)
 			{
 				if (arc.Lenght < 0)
@@ -20,13 +20,13 @@ namespace Inventor.Algorithms
 					throw new InvalidOperationException("Arcs with negative length are not allowed.");
 				}
 
-				Dictionary<NodeT, IArc<NodeT>> neighboors;
+				Dictionary<NodeT, IArcWithLength<NodeT>> neighboors;
 				if (!shortestArcs.TryGetValue(arc.From, out neighboors))
 				{
-					shortestArcs[arc.From] = neighboors = new Dictionary<NodeT, IArc<NodeT>>();
+					shortestArcs[arc.From] = neighboors = new Dictionary<NodeT, IArcWithLength<NodeT>>();
 				}
 
-				IArc<NodeT> neighboor;
+				IArcWithLength<NodeT> neighboor;
 				if (!neighboors.TryGetValue(arc.To, out neighboor) || arc.Lenght < neighboor.Lenght)
 				{
 					neighboors[arc.To] = arc;
@@ -34,22 +34,22 @@ namespace Inventor.Algorithms
 			}
 
 			var visitedNodes = new HashSet<NodeT>();
-			var currentPath = new SimplePath<NodeT>(fromNode);
-			var foundPaths = new Dictionary<NodeT, SimplePath<NodeT>> { { fromNode, currentPath } };
+			var currentPath = new SimplePathWithLenght<NodeT>(fromNode);
+			var foundPaths = new Dictionary<NodeT, SimplePathWithLenght<NodeT>> { { fromNode, currentPath } };
 
 			while (currentPath != null)
 			{
 				var currentNode = currentPath.To;
-				SimplePath<NodeT> nextPath = null;
+				SimplePathWithLenght<NodeT> nextPath = null;
 
-				Dictionary<NodeT, IArc<NodeT>> currentNeighboors;
+				Dictionary<NodeT, IArcWithLength<NodeT>> currentNeighboors;
 				if (shortestArcs.TryGetValue(currentNode, out currentNeighboors))
 				{
 					foreach (var arc in currentNeighboors.Values)
 					{
-						var newPath = new SimplePath<NodeT>(currentPath, arc);
+						var newPath = new SimplePathWithLenght<NodeT>(currentPath, arc);
 
-						SimplePath<NodeT> oldPath;
+						SimplePathWithLenght<NodeT> oldPath;
 						if (!foundPaths.TryGetValue(arc.To, out oldPath) || newPath.Lenght < oldPath.Lenght)
 						{
 							foundPaths[arc.To] = newPath;
@@ -76,7 +76,7 @@ namespace Inventor.Algorithms
 		}
 	}
 
-	public interface IArc<NodeT>
+	public interface IArcWithLength<NodeT>
 	{
 		NodeT From
 		{ get; }
@@ -88,7 +88,7 @@ namespace Inventor.Algorithms
 		{ get; }
 	}
 
-	public interface IPath<NodeT>
+	public interface IPathWithLenght<NodeT>
 	{
 		NodeT From
 		{ get; }
@@ -96,14 +96,14 @@ namespace Inventor.Algorithms
 		NodeT To
 		{ get; }
 
-		List<IArc<NodeT>> Path
+		List<IArcWithLength<NodeT>> Path
 		{ get; }
 
 		Double Lenght
 		{ get; }
 	}
 
-	public class SimpleArc<NodeT> : IArc<NodeT>
+	public class SimpleArcWithLength<NodeT> : IArcWithLength<NodeT>
 	{
 		#region Properties
 
@@ -118,7 +118,7 @@ namespace Inventor.Algorithms
 
 		#endregion
 
-		public SimpleArc(NodeT from, NodeT to, Double lenght)
+		public SimpleArcWithLength(NodeT from, NodeT to, Double lenght)
 		{
 			From = from;
 			To = to;
@@ -126,7 +126,7 @@ namespace Inventor.Algorithms
 		}
 	}
 
-	public class SimplePath<NodeT> : IPath<NodeT>
+	public class SimplePathWithLenght<NodeT> : IPathWithLenght<NodeT>
 		where NodeT : class
 	{
 		#region Properties
@@ -137,7 +137,7 @@ namespace Inventor.Algorithms
 		public NodeT To
 		{ get; }
 
-		public List<IArc<NodeT>> Path
+		public List<IArcWithLength<NodeT>> Path
 		{ get; }
 
 		public Double Lenght
@@ -147,7 +147,7 @@ namespace Inventor.Algorithms
 
 		#region Constructors
 
-		private SimplePath(NodeT from, NodeT to, List<IArc<NodeT>> path, Double lenght)
+		private SimplePathWithLenght(NodeT from, NodeT to, List<IArcWithLength<NodeT>> path, Double lenght)
 		{
 			From = from;
 			To = to;
@@ -155,12 +155,12 @@ namespace Inventor.Algorithms
 			Lenght = lenght;
 		}
 
-		public SimplePath(NodeT rootNode)
-			: this(rootNode, rootNode, new List<IArc<NodeT>>(), 0)
+		public SimplePathWithLenght(NodeT rootNode)
+			: this(rootNode, rootNode, new List<IArcWithLength<NodeT>>(), 0)
 		{ }
 
-		public SimplePath(SimplePath<NodeT> path, IArc<NodeT> arc)
-			: this(path.From, arc.To, new List<IArc<NodeT>>(path.Path) { arc }, path.Lenght + arc.Lenght)
+		public SimplePathWithLenght(SimplePathWithLenght<NodeT> path, IArcWithLength<NodeT> arc)
+			: this(path.From, arc.To, new List<IArcWithLength<NodeT>>(path.Path) { arc }, path.Lenght + arc.Lenght)
 		{
 			if (path.To != arc.From)
 			{
