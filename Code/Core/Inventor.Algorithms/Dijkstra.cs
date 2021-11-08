@@ -76,29 +76,14 @@ namespace Inventor.Algorithms
 		}
 	}
 
-	public interface IArcWithLength<NodeT>
+	public interface IArcWithLength<out NodeT> : IArc<NodeT>
 	{
-		NodeT From
-		{ get; }
-		
-		NodeT To
-		{ get; }
-
 		Double Lenght
 		{ get; }
 	}
 
-	public interface IPathWithLenght<NodeT>
+	public interface IPathWithLenght<NodeT> : IPath<NodeT, IArcWithLength<NodeT>>
 	{
-		NodeT From
-		{ get; }
-
-		NodeT To
-		{ get; }
-
-		List<IArcWithLength<NodeT>> Path
-		{ get; }
-
 		Double Lenght
 		{ get; }
 	}
