@@ -191,25 +191,5 @@ namespace Inventor.Algorithms.Test
 			Assert.AreEqual(2, foundPaths.First(p => p.To == b).Lenght);
 			Assert.AreEqual(3, foundPaths.First(p => p.To == c).Lenght);
 		}
-
-		private class SimpleNode
-		{
-			public string Name
-			{ get; }
-
-			public SimpleNode(string name)
-			{
-				Name = name;
-			}
-
-			public SimpleNode()
-				: this(string.Empty)
-			{ }
-
-			public override string ToString()
-			{
-				return Name;
-			}
-		}
 	}
 }
