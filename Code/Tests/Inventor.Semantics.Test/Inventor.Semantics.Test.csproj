@@ -109,6 +109,7 @@
     <Compile Include="Text\ContainersTest.cs" />
     <Compile Include="Text\TextRepresentationTest.cs" />
     <Compile Include="Text\TextTest.cs" />
+    <Compile Include="Utils\EnumerableTest.cs" />
     <Compile Include="Utils\EventCollectionTest.cs" />
     <Compile Include="Utils\XmlHelperTest.cs" />
     <Compile Include="Xml\AttributesTest.cs" />
