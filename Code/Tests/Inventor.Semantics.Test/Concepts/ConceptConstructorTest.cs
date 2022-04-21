@@ -27,7 +27,7 @@ namespace Inventor.Semantics.Test.Concepts
 			var concept = new Concept(null, new LocalizedStringVariable(), new LocalizedStringVariable());
 
 			// assert
-			Assert.IsNotNullOrEmpty(concept.ID);
+			Assert.IsFalse(string.IsNullOrEmpty(concept.ID));
 		}
 
 		[Test]

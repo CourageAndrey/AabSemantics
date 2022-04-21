@@ -17,7 +17,7 @@ namespace Inventor.Semantics.Test.Xml
 	[TestFixture]
 	public class AttributesTest
 	{
-		[TestFixtureSetUp]
+		[OneTimeSetUp]
 		public void InitializeModules()
 		{
 			new Modules.Boolean.BooleanModule().RegisterMetadata();
@@ -72,7 +72,7 @@ namespace Inventor.Semantics.Test.Xml
 			Assert.Throws<NotSupportedException>(() => new Semantics.Xml.Concept(concept));
 		}
 
-		private IEnumerable<IAttribute> getAllAttributes()
+		private static IEnumerable<IAttribute> getAllAttributes()
 		{
 			yield return IsComparisonSignAttribute.Value;
 			yield return Modules.Boolean.Attributes.IsBooleanAttribute.Value;

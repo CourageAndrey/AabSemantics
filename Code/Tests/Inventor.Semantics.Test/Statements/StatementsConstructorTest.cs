@@ -391,7 +391,7 @@ namespace Inventor.Semantics.Test.Statements
 			var statement = new TestStatement(null, new LocalizedStringVariable(), new LocalizedStringVariable());
 
 			// assert
-			Assert.IsNotNullOrEmpty(statement.ID);
+			Assert.IsFalse(string.IsNullOrEmpty(statement.ID));
 		}
 
 		[Test]
