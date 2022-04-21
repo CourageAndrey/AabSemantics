@@ -87,7 +87,7 @@ namespace Inventor.SimpleWpfClient
 			catch
 			{
 				var configuration = new InventorConfiguration();
-				SaveConfiguration();
+				configuration.SerializeToFile(ConfigurationFile);
 				return configuration;
 			}
 		}
@@ -143,11 +143,6 @@ namespace Inventor.SimpleWpfClient
 		}
 
 		#endregion
-
-		public void SaveConfiguration()
-		{
-			Configuration.SerializeToFile(ConfigurationFile);
-		}
 
 		[STAThread]
 		private static void Main()
