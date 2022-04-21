@@ -117,7 +117,7 @@ namespace Inventor.Semantics.Test.Utils
 			var error = Assert.Throws<ItemsCantBeRemovedException<string>>(() => collection.Clear());
 
 			Assert.AreEqual(3, collection.Count);
-			Assert.IsNullOrEmpty(result);
+			Assert.IsTrue(string.IsNullOrEmpty(result));
 			Assert.AreEqual("B", error.Items.Single());
 		}
 

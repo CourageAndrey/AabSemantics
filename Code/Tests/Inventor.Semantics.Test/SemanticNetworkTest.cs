@@ -14,7 +14,7 @@ namespace Inventor.Semantics.Test
 	[TestFixture]
 	public class SemanticNetworkTest
 	{
-		[TestFixtureSetUp]
+		[OneTimeSetUp]
 		public void InitializeModules()
 		{
 			new Modules.Boolean.BooleanModule().RegisterMetadata();
