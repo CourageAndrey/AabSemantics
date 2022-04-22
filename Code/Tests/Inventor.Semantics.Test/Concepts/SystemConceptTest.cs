@@ -18,5 +18,15 @@ namespace Inventor.Semantics.Test.Concepts
 			// act & assert
 			Assert.Throws<NotSupportedException>(() => concept.UpdateIdIfAllowed("2"));
 		}
+
+		[Test]
+		public void SettingTheSameIdDoesNotChangeSystemConcept()
+		{
+			// arrange
+			var concept = new SystemConcept("1", null, null);
+
+			// act & assert
+			Assert.DoesNotThrow(() => concept.UpdateIdIfAllowed("1"));
+		}
 	}
 }
