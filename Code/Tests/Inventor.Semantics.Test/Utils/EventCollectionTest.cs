@@ -1,7 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-
+using Inventor.Semantics.Concepts;
 using NUnit.Framework;
 
 using Inventor.Semantics.Utils;
@@ -206,6 +205,51 @@ namespace Inventor.Semantics.Test.Utils
 			}
 
 			#endregion
+		}
+
+		[Test]
+		public void CheckAllEventCollectionMethods()
+		{
+			// arrange
+			IConcept concept1, concept2, concept3;
+			var collection = new EventCollection<IConcept>(new IConcept[]
+			{
+				concept1 = new Concept("1"),
+				concept2 = new Concept("2"),
+				concept3 = new Concept("3"),
+			});
+
+			// this[]
+			Assert.AreSame(concept1, collection["1"]);
+			Assert.AreSame(concept2, collection["2"]);
+			Assert.AreSame(concept3, collection["3"]);
+			Assert.Throws<KeyNotFoundException>(() => { var _ = collection["4"]; });
+
+			// Keys
+			Assert.IsTrue(collection.Keys.SequenceEqual(new[] { "1", "2", "3" }));
+
+			// CopyTo()
+			var array = new IConcept[5];
+			collection.CopyTo(array, 1);
+			Assert.AreSame(null, array[0]);
+			Assert.AreSame(collection["1"], array[1]);
+			Assert.AreSame(collection["2"], array[2]);
+			Assert.AreSame(collection["3"], array[3]);
+			Assert.AreSame(null, array[4]);
+
+			// TryGetValue()
+			IConcept concept;
+			Assert.IsTrue(collection.TryGetValue("1", out concept));
+			Assert.AreSame(concept1, concept);
+			Assert.IsTrue(collection.TryGetValue("2", out concept));
+			Assert.AreSame(concept2, concept);
+			Assert.IsTrue(collection.TryGetValue("3", out concept));
+			Assert.AreSame(concept3, concept);
+			Assert.IsFalse(collection.TryGetValue("4", out concept));
+
+			// Clear()
+			collection.Clear();
+			Assert.AreEqual(0, collection.Count);
 		}
 	}
 }
