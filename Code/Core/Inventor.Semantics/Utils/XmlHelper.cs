@@ -18,7 +18,7 @@ namespace Inventor.Semantics.Utils
 			return AcquireSerializer(typeof(T));
 		}
 
-		public static XmlSerializer AcquireSerializer(Type type)
+		public static XmlSerializer AcquireSerializer(this Type type)
 		{
 			lock (_serializersLock)
 			{
@@ -39,7 +39,7 @@ namespace Inventor.Semantics.Utils
 			}
 		}
 
-		public static void DefineCustomSerializer<T>(XmlSerializer serializer)
+		public static void DefineCustomSerializer<T>(this XmlSerializer serializer)
 		{
 			typeof(T).DefineCustomSerializer(serializer);
 		}
