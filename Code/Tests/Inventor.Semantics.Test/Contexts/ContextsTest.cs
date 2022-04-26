@@ -22,13 +22,13 @@ namespace Inventor.Semantics.Test.Contexts
 			Assert.DoesNotThrow(() =>
 			{
 				// test context is created without children and can be successfully disposed
-				new TestQuestionCreateNestedContext(false).Ask(semanticNetwork.Context);
+				new TestQuestionCreateNestedContext().Ask(semanticNetwork.Context);
 			});
 
 			Assert.Throws<InvalidOperationException>(() =>
 			{
 				// test context is created with unfinished children and fails to dispose
-				new TestQuestionCreateNestedContext(true).Ask(semanticNetwork.Context);
+				new TestQuestionCreateNestedContext(new[] { false }).Ask(semanticNetwork.Context);
 			});
 		}
 
@@ -40,8 +40,8 @@ namespace Inventor.Semantics.Test.Contexts
 			var language = Language.Default;
 			var semanticNetwork = new SemanticNetwork(language);
 			var questionContext = semanticNetwork.Context.CreateQuestionContext(new TestQuestionCreateContextKnowledge());
-			var child1Context = questionContext.CreateQuestionContext(new TestQuestionCreateNestedContext(false));
-			var child2Context = questionContext.CreateQuestionContext(new TestQuestionCreateNestedContext(false));
+			var child1Context = questionContext.CreateQuestionContext(new TestQuestionCreateNestedContext());
+			var child2Context = questionContext.CreateQuestionContext(new TestQuestionCreateNestedContext());
 
 			// act & assert
 			Assert.Throws<InvalidOperationException>(() => questionContext.Dispose());
@@ -119,7 +119,7 @@ namespace Inventor.Semantics.Test.Contexts
 			var language = Language.Default;
 			var semanticNetwork = new SemanticNetwork(language);
 			var questionContext = semanticNetwork.Context.CreateQuestionContext(new TestQuestionCreateContextKnowledge());
-			var childQuestionContext = semanticNetwork.Context.CreateQuestionContext(new TestQuestionCreateNestedContext(false));
+			var childQuestionContext = semanticNetwork.Context.CreateQuestionContext(new TestQuestionCreateNestedContext());
 
 			// act
 			questionContext.Dispose();
@@ -189,18 +189,26 @@ namespace Inventor.Semantics.Test.Contexts
 
 		private class TestQuestionCreateNestedContext : Question
 		{
-			private readonly bool _createNestedContext;
+			private readonly ICollection<bool> _disposedNestedContexts;
 
-			public TestQuestionCreateNestedContext(bool createNestedContext)
+			public TestQuestionCreateNestedContext(ICollection<bool> disposedNestedContexts)
 			{
-				_createNestedContext = createNestedContext;
+				_disposedNestedContexts = disposedNestedContexts;
 			}
+
+			public TestQuestionCreateNestedContext()
+				: this(Array.Empty<bool>())
+			{ }
 
 			public override IAnswer Process(IQuestionProcessingContext context)
 			{
-				if (_createNestedContext)
+				foreach (bool disposeNested in _disposedNestedContexts)
 				{
-					new QuestionProcessingContext<TestQuestionCreateNestedContext>(context, new TestQuestionCreateNestedContext(false));
+					var nestedContext = new QuestionProcessingContext<TestQuestionCreateNestedContext>(context, new TestQuestionCreateNestedContext());
+					if (disposeNested)
+					{
+						nestedContext.Dispose();
+					}
 				}
 
 				return null;
