@@ -1,12 +1,16 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Threading;
+using System.Xml.Serialization;
 
 using NUnit.Framework;
 
 using Inventor.Semantics.Localization;
 using Inventor.Semantics.Xml;
 using Inventor.Semantics.Test.Sample;
+using Inventor.Semantics.Utils;
 
 namespace Inventor.Semantics.Test.Xml
 {
@@ -79,5 +83,96 @@ namespace Inventor.Semantics.Test.Xml
 				restored.Statements.Single(s => statementType == s.GetType() && childConcepts.SequenceEqual(s.GetChildConcepts()));
 			}
 		}
+
+		[Test]
+		public void CheckCustomSerializers()
+		{
+			// arrange
+			var customSerializer = new XmlSerializer(typeof(SerializableCustom));
+
+			// act
+			customSerializer.DefineCustomSerializer<SerializableCustom>();
+			var acquiredSerializer = typeof(SerializableCustom).AcquireSerializer();
+
+			// assert
+			Assert.AreSame(customSerializer, acquiredSerializer);
+		}
+
+		[Test]
+		public void CheckMultiThreading()
+		{
+			// arrange
+			var types = new[]
+			{
+				typeof(Serializable1),
+				typeof(Serializable2),
+				typeof(Serializable3),
+				typeof(Serializable4),
+			};
+
+			const int attemptsPerType = 10;
+			var threads = new List<Thread>();
+			for (int t = 0; t < attemptsPerType; t++)
+			{
+				foreach (var type in types)
+				{
+					threads.Add(new Thread(() =>
+					{
+						type.AcquireSerializer();
+					}));
+				}
+			}
+
+			// act
+			foreach (var thread in threads)
+			{
+				thread.Start();
+			}
+
+			while (!threads.TrueForAll(t => t.ThreadState == ThreadState.Stopped))
+			{
+				Thread.Sleep(100);
+			}
+		}
+	}
+
+	[Serializable, XmlRoot(nameof(SerializableCustom))]
+	public class SerializableCustom
+	{
+		[XmlElement]
+		public string FieldCustom
+		{ get; set; }
+	}
+
+	[Serializable, XmlRoot(nameof(Serializable1))]
+	public class Serializable1
+	{
+		[XmlElement]
+		public string Field1
+		{ get; set; }
+	}
+
+	[Serializable, XmlRoot(nameof(Serializable2))]
+	public class Serializable2
+	{
+		[XmlElement]
+		public string Field2
+		{ get; set; }
+	}
+
+	[Serializable, XmlRoot(nameof(Serializable3))]
+	public class Serializable3
+	{
+		[XmlElement]
+		public string Field3
+		{ get; set; }
+	}
+
+	[Serializable, XmlRoot(nameof(Serializable4))]
+	public class Serializable4
+	{
+		[XmlElement]
+		public string Field4
+		{ get; set; }
 	}
 }
