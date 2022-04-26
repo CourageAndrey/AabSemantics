@@ -1,4 +1,5 @@
-﻿using NUnit.Framework;
+﻿using System.Linq;
+using NUnit.Framework;
 
 using Inventor.Semantics.Concepts;
 using Inventor.Semantics.Localization;
@@ -48,6 +49,16 @@ namespace Inventor.Semantics.Test.Concepts
 
 			// assert
 			Assert.IsNotNull(concept.Hint);
+		}
+
+		[Test]
+		public void CreateConceptWithDifferentIdAndName()
+		{
+			// arrange && act
+			var concept = TestConceptId.CreateConcept(new string(TestConceptId.Reverse().ToArray()));
+
+			// assert
+			Assert.AreNotEqual(concept.ID, concept.Hint);
 		}
 	}
 }
