@@ -10,15 +10,6 @@ using Inventor.Semantics.Questions;
 
 namespace Inventor.Semantics.Test.Contexts
 {
-	// This test checks Question processing contexts, base on default implementation of IQuestion.Ask() method.
-	//
-	//	public IAnswer Ask(ISemanticNetworkContext context)
-	//	{
-	//		using (var questionContext = context.CreateQuestionContext(this))
-	//		{
-	//			return Process(questionContext);
-	//		}
-	//	}
 	[TestFixture]
 	public class ContextsTest
 	{
