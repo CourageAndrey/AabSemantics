@@ -14,22 +14,75 @@ namespace Inventor.Semantics.Test.Contexts
 	public class ContextsTest
 	{
 		[Test]
-		public void EnsureThatImpossibleToDisposeContextWhichHasNotDisposedChildContexts()
+		public void EnsureThatPossibleToDisposeContextWithoutChildContexts()
 		{
+			// arrange
 			var language = Language.Default;
 			var semanticNetwork = new SemanticNetwork(language);
 
+			// act and assert
 			Assert.DoesNotThrow(() =>
 			{
-				// test context is created without children and can be successfully disposed
 				new TestQuestionCreateNestedContext().Ask(semanticNetwork.Context);
 			});
+		}
 
-			Assert.Throws<InvalidOperationException>(() =>
+		[Test]
+		public void EnsureThatPossibleToDisposeContextWithAllDisposedChildContexts()
+		{
+			// arrange
+			var language = Language.Default;
+			var semanticNetwork = new SemanticNetwork(language);
+			var disposedContexts = new List<bool>();
+
+			// act and assert
+			for (int i = 0; i < 10; i++)
 			{
-				// test context is created with unfinished children and fails to dispose
-				new TestQuestionCreateNestedContext(new[] { false }).Ask(semanticNetwork.Context);
-			});
+				disposedContexts.Add(true);
+				Assert.DoesNotThrow(() =>
+				{
+					new TestQuestionCreateNestedContext(disposedContexts).Ask(semanticNetwork.Context);
+				});
+			}
+		}
+
+		[Test]
+		public void EnsureThatImpossibleToDisposeContextWhichHasAllNotDisposedChildContexts()
+		{
+			// arrange
+			var language = Language.Default;
+			var semanticNetwork = new SemanticNetwork(language);
+			var disposedContexts = new List<bool>();
+
+			// act and assert
+			for (int i = 0; i < 10; i++)
+			{
+				disposedContexts.Add(false);
+				Assert.Throws<InvalidOperationException>(() =>
+				{
+					new TestQuestionCreateNestedContext(disposedContexts).Ask(semanticNetwork.Context);
+				});
+			}
+		}
+
+		[Test]
+		public void EnsureThatImpossibleToDisposeContextWhichHasOneNotDisposedChildContext()
+		{
+			// arrange
+			var language = Language.Default;
+			var semanticNetwork = new SemanticNetwork(language);
+			var disposedContexts = new[] { true, true, true, true, true, true, true, true, true, true };
+
+			// act and assert
+			for (int i = 0; i < 10; i++)
+			{
+				disposedContexts[i] = false;
+				Assert.Throws<InvalidOperationException>(() =>
+				{
+					new TestQuestionCreateNestedContext(disposedContexts).Ask(semanticNetwork.Context);
+				});
+				disposedContexts[i] = true;
+			}
 		}
 
 		// This test partially duplicates previous one.
