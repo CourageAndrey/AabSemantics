@@ -1,11 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-
+using Inventor.Semantics.Concepts;
 using NUnit.Framework;
 
 using Inventor.Semantics.Contexts;
 using Inventor.Semantics.Localization;
+using Inventor.Semantics.Modules.Boolean.Questions;
+using Inventor.Semantics.Modules.Classification.Statements;
 using Inventor.Semantics.Questions;
 
 namespace Inventor.Semantics.Test.Contexts
@@ -180,6 +182,49 @@ namespace Inventor.Semantics.Test.Contexts
 
 			// assert
 			Assert.DoesNotThrow(() => questionContext.Dispose());
+		}
+
+		[Test]
+		public void ExplicitlyCheckContextDisposing()
+		{
+			// arrange
+			var language = Language.Default;
+			var semanticNetwork = new SemanticNetwork(language);
+
+			// act && assert
+			Assert.DoesNotThrow(() =>
+			{
+				using (new DisposableProcessingContext(semanticNetwork.Context))
+				{ }
+			});
+
+			Assert.DoesNotThrow(() =>
+			{
+				using (var context = createChildDisposableContext(semanticNetwork.Context))
+				{
+					for (int i = 0; i < 5; i++)
+					{
+						var child = createChildDisposableContext(context);
+						child.Dispose(); // this call remove child from context.Children
+						context.Children.Add(child); // return child back
+					}
+				}
+			});
+
+			Assert.Throws<InvalidOperationException>(() =>
+			{
+				using (var context = createChildDisposableContext(semanticNetwork.Context))
+				{
+					createChildDisposableContext(context);
+				}
+			});
+		}
+
+		private static DisposableProcessingContext createChildDisposableContext(ISemanticNetworkContext parent)
+		{
+			var statement = new IsStatement(null, new Concept(), new Concept());
+			var question = new CheckStatementQuestion(statement);
+			return new QuestionProcessingContext<CheckStatementQuestion>(parent, question);
 		}
 
 		private class TestSemanticNetwork : ISemanticNetwork
