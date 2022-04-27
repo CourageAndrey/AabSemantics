@@ -12,11 +12,15 @@ namespace Inventor.Semantics.Modules.Boolean.Concepts
 	{
 		#region Properties
 
-		public static readonly IConcept True = new SystemConcept($"{{{nameof(LogicalValues)}.{nameof(True)}}}",
-			new LocalizedStringConstant(lang => lang.GetExtension<ILanguageBooleanModule>().Concepts.SystemConceptNames.True), new LocalizedStringConstant(lang => lang.GetExtension<ILanguageBooleanModule>().Concepts.SystemConceptHints.True));
+		public static readonly IConcept True = new SystemConcept(
+			$"{{{nameof(LogicalValues)}.{nameof(True)}}}",
+			new LocalizedStringConstant(lang => lang.GetExtension<ILanguageBooleanModule>().Concepts.SystemConceptNames.True),
+			new LocalizedStringConstant(lang => lang.GetExtension<ILanguageBooleanModule>().Concepts.SystemConceptHints.True));
 
-		public static readonly IConcept False = new SystemConcept($"{{{nameof(LogicalValues)}.{nameof(False)}}}",
-			new LocalizedStringConstant(lang => lang.GetExtension<ILanguageBooleanModule>().Concepts.SystemConceptNames.False), new LocalizedStringConstant(lang => lang.GetExtension<ILanguageBooleanModule>().Concepts.SystemConceptHints.False));
+		public static readonly IConcept False = new SystemConcept(
+			$"{{{nameof(LogicalValues)}.{nameof(False)}}}",
+			new LocalizedStringConstant(lang => lang.GetExtension<ILanguageBooleanModule>().Concepts.SystemConceptNames.False),
+			new LocalizedStringConstant(lang => lang.GetExtension<ILanguageBooleanModule>().Concepts.SystemConceptHints.False));
 
 		public static readonly ICollection<IConcept> All = new HashSet<IConcept>
 		{
