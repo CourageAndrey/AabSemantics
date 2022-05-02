@@ -31,12 +31,12 @@ namespace Inventor.Semantics.Test.Statements
 		{
 			foreach (string node in All)
 			{
-				Assert.AreEqual(0, Array.Empty<TestParentChild>().GetChildrenOnLevel(node).Count);
+				Assert.AreEqual(0, Array.Empty<TestParentChild>().GetChildrenOneLevel(node).Count);
 				Assert.AreEqual(0, Array.Empty<TestParentChild>().GetChildrenAllLevels(node).Count);
 			}
 
 			var allRelationships = createTestSet();
-			Assert.AreEqual(0, allRelationships.GetChildrenOnLevel("Absent").Count);
+			Assert.AreEqual(0, allRelationships.GetChildrenOneLevel("Absent").Count);
 			Assert.AreEqual(0, allRelationships.GetChildrenAllLevels("Absent").Count);
 		}
 
@@ -85,38 +85,38 @@ namespace Inventor.Semantics.Test.Statements
 		{
 			var allRelationships = createTestSet();
 
-			var relationships = allRelationships.GetChildrenOnLevel(Parent1);
+			var relationships = allRelationships.GetChildrenOneLevel(Parent1);
 			Assert.AreEqual(3, relationships.Count);
 			Assert.IsTrue(relationships.Contains(Medium1));
 			Assert.IsTrue(relationships.Contains(Medium2));
 			Assert.IsTrue(relationships.Contains(Single1));
 
-			relationships = allRelationships.GetChildrenOnLevel(Parent2);
+			relationships = allRelationships.GetChildrenOneLevel(Parent2);
 			Assert.AreEqual(3, relationships.Count);
 			Assert.IsTrue(relationships.Contains(Medium1));
 			Assert.IsTrue(relationships.Contains(Medium2));
 			Assert.IsTrue(relationships.Contains(Single2));
 
-			relationships = allRelationships.GetChildrenOnLevel(Child1);
+			relationships = allRelationships.GetChildrenOneLevel(Child1);
 			Assert.AreEqual(0, relationships.Count);
 
-			relationships = allRelationships.GetChildrenOnLevel(Child2);
+			relationships = allRelationships.GetChildrenOneLevel(Child2);
 			Assert.AreEqual(0, relationships.Count);
 
-			relationships = allRelationships.GetChildrenOnLevel(Medium1);
+			relationships = allRelationships.GetChildrenOneLevel(Medium1);
 			Assert.AreEqual(2, relationships.Count);
 			Assert.IsTrue(relationships.Contains(Child1));
 			Assert.IsTrue(relationships.Contains(Child2));
 
-			relationships = allRelationships.GetChildrenOnLevel(Medium2);
+			relationships = allRelationships.GetChildrenOneLevel(Medium2);
 			Assert.AreEqual(2, relationships.Count);
 			Assert.IsTrue(relationships.Contains(Child1));
 			Assert.IsTrue(relationships.Contains(Child2));
 
-			relationships = allRelationships.GetChildrenOnLevel(Single1);
+			relationships = allRelationships.GetChildrenOneLevel(Single1);
 			Assert.AreEqual(Child1, relationships.Single());
 
-			relationships = allRelationships.GetChildrenOnLevel(Single2);
+			relationships = allRelationships.GetChildrenOneLevel(Single2);
 			Assert.AreEqual(Child2, relationships.Single());
 		}
 

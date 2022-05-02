@@ -34,11 +34,11 @@ namespace Inventor.Semantics
 			return GetParentsOneLevel(statements.OfType<RelationshipT>(), item, involvedRelationships);
 		}
 
-		public static List<T> GetChildrenOnLevel<T, RelationshipT>(this IEnumerable<IStatement> statements, T item, List<RelationshipT> involvedRelationships = null)
+		public static List<T> GetChildrenOneLevel<T, RelationshipT>(this IEnumerable<IStatement> statements, T item, List<RelationshipT> involvedRelationships = null)
 			where RelationshipT : IParentChild<T>
 			where T : class
 		{
-			return GetChildrenOnLevel(statements.OfType<RelationshipT>(), item, involvedRelationships);
+			return GetChildrenOneLevel(statements.OfType<RelationshipT>(), item, involvedRelationships);
 		}
 
 		public static ICollection<IStatement> FindPath<T>(this IEnumerable<IStatement> statements, Type statementType, T parent, T child)
@@ -80,7 +80,7 @@ namespace Inventor.Semantics
 			where RelationshipT : IParentChild<T>
 			where T : class
 		{
-			return GetRelatedAllLevels(relationships, item, involvedRelationships, GetChildrenOnLevel);
+			return GetRelatedAllLevels(relationships, item, involvedRelationships, GetChildrenOneLevel);
 		}
 
 		private delegate List<T> GetRelativesDelegate<T, RelationshipT>(IEnumerable<RelationshipT> relationships, T item, List<RelationshipT> involvedRelationships = null);
@@ -111,7 +111,7 @@ namespace Inventor.Semantics
 			return foundRelationships.Select(c => c.Parent).ToList();
 		}
 
-		public static List<T> GetChildrenOnLevel<T, RelationshipT>(this IEnumerable<RelationshipT> relationships, T item, List<RelationshipT> involvedRelationships = null)
+		public static List<T> GetChildrenOneLevel<T, RelationshipT>(this IEnumerable<RelationshipT> relationships, T item, List<RelationshipT> involvedRelationships = null)
 			where RelationshipT : IParentChild<T>
 			where T : class
 		{
