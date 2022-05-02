@@ -11,6 +11,52 @@ namespace Inventor.Semantics
 		T Child { get; }
 	}
 
+	public class ParentChild<T>
+	{
+		public T Value
+		{ get; }
+
+		public ParentChild<T> Parent
+		{ get; private set; }
+
+		public ICollection<ParentChild<T>> Children
+		{ get; }
+
+		public ParentChild(T value, ParentChild<T> parent = null, IEnumerable<ParentChild<T>> children = null)
+		{
+			Value = value;
+
+			SetParent(parent);
+
+			Children = new List<ParentChild<T>>();
+			SetChildren(children);
+		}
+
+		public void SetParent(ParentChild<T> parent)
+		{
+			Parent = parent;
+
+			if (parent != null)
+			{
+				parent.Children.Add(this);
+			}
+		}
+
+		public void SetChildren(IEnumerable<ParentChild<T>> children)
+		{
+			Children.Clear();
+
+			if (children != null)
+			{
+				foreach (var child in children)
+				{
+					Children.Add(child);
+					child.Parent = this;
+				}
+			}
+		}
+	}
+
 	public static class ParentChildHelper
 	{
 		public static List<T> GetParentsAllLevels<T, RelationshipT>(this IEnumerable<IStatement> statements, T item, List<RelationshipT> involvedRelationships = null)
@@ -39,6 +85,13 @@ namespace Inventor.Semantics
 			where T : class
 		{
 			return GetChildrenOneLevel(statements.OfType<RelationshipT>(), item, involvedRelationships);
+		}
+
+		public static ParentChild<T> GetChildrenTree<T, RelationshipT>(this IEnumerable<IStatement> statements, T item, List<RelationshipT> involvedRelationships = null)
+			where RelationshipT : IParentChild<T>
+			where T : class
+		{
+			return GetChildrenTree(statements.OfType<RelationshipT>(), item, involvedRelationships);
 		}
 
 		public static ICollection<IStatement> FindPath<T>(this IEnumerable<IStatement> statements, Type statementType, T parent, T child)
@@ -121,6 +174,27 @@ namespace Inventor.Semantics
 				involvedRelationships.AddRange(foundRelationships);
 			}
 			return foundRelationships.Select(c => c.Child).ToList();
+		}
+
+		public static ParentChild<T> GetChildrenTree<T, RelationshipT>(this IEnumerable<RelationshipT> relationships, T item, List<RelationshipT> involvedRelationships = null)
+			where RelationshipT : IParentChild<T>
+			where T : class
+		{
+			var result = new ParentChild<T>(item);
+
+			var itemsToFill = new Queue<ParentChild<T>>();
+			itemsToFill.Enqueue(result);
+
+			do
+			{
+				var currentItem = itemsToFill.Dequeue();
+				foreach (var child in GetChildrenOneLevel(relationships, currentItem.Value, involvedRelationships))
+				{
+					itemsToFill.Enqueue(new ParentChild<T>(child, currentItem));
+				}
+			} while (itemsToFill.Count > 0);
+
+			return result;
 		}
 	}
 }

@@ -394,6 +394,106 @@ namespace Inventor.Semantics.Test.Statements
 			Assert.IsFalse(statementsInvalid.FindPath<IConcept>(typeof(TestPath), a, a).Any());
 		}
 
+		[Test]
+		public void CheckGetChildrenTree()
+		{
+			// arrange
+			var concept1 =    1.CreateConcept();
+			var concept2 =    2.CreateConcept();
+			var concept3 =    3.CreateConcept();
+			var concept11 =   11.CreateConcept();
+			var concept12 =   12.CreateConcept();
+			var concept13 =   13.CreateConcept();
+			var concept111 =  111.CreateConcept();
+			var concept112 =  112.CreateConcept();
+			var concept113 =  113.CreateConcept();
+			var concept121 =  121.CreateConcept();
+			var concept122 =  122.CreateConcept();
+			var concept123 =  123.CreateConcept();
+			var concept131 =  131.CreateConcept();
+			var concept132 =  132.CreateConcept();
+			var concept133 =  133.CreateConcept();
+			var concept1111 = 1111.CreateConcept();
+			var concept1112 = 1112.CreateConcept();
+			var concept1113 = 1113.CreateConcept();
+			var concept1121 = 1121.CreateConcept();
+			var concept1122 = 1122.CreateConcept();
+			var concept1123 = 1123.CreateConcept();
+			var concept1131 = 1131.CreateConcept();
+			var concept1132 = 1132.CreateConcept();
+			var concept1133 = 1133.CreateConcept();
+
+			var statements = new List<IStatement>
+			{
+				new IsStatement(null, concept1, concept11),
+				new IsStatement(null, concept1, concept12),
+				new IsStatement(null, concept1, concept13),
+
+				new IsStatement(null, concept11, concept111),
+				new IsStatement(null, concept11, concept112),
+				new IsStatement(null, concept11, concept113),
+
+				new IsStatement(null, concept12, concept121),
+				new IsStatement(null, concept12, concept122),
+				new IsStatement(null, concept12, concept123),
+
+				new IsStatement(null, concept13, concept131),
+				new IsStatement(null, concept13, concept132),
+				new IsStatement(null, concept13, concept133),
+
+				new IsStatement(null, concept111, concept1111),
+				new IsStatement(null, concept111, concept1112),
+				new IsStatement(null, concept111, concept1113),
+
+				new IsStatement(null, concept112, concept1121),
+				new IsStatement(null, concept112, concept1122),
+				new IsStatement(null, concept112, concept1123),
+
+				new IsStatement(null, concept113, concept1131),
+				new IsStatement(null, concept113, concept1132),
+				new IsStatement(null, concept113, concept1133),
+			};
+
+			// act
+			var involvedStatements = new List<IsStatement>();
+			var resultTree = statements.GetChildrenTree(concept11, involvedStatements);
+
+			// assert
+			Assert.IsNotNull(resultTree);
+			Assert.AreSame(concept11, resultTree.Value);
+			Assert.AreEqual(3, resultTree.Children.Count);
+
+			var result111 = resultTree.Children.Single(node => node.Value == concept111);
+			Assert.AreSame(concept111, result111.Value);
+			var result112 = resultTree.Children.Single(node => node.Value == concept112);
+			Assert.AreSame(concept112, result112.Value);
+			var result113 = resultTree.Children.Single(node => node.Value == concept113);
+			Assert.AreSame(concept113, result113.Value);
+
+			var result1111 = result111.Children.Single(node => node.Value == concept1111);
+			Assert.AreSame(concept1111, result1111.Value);
+			var result1112 = result111.Children.Single(node => node.Value == concept1112);
+			Assert.AreSame(concept1112, result1112.Value);
+			var result1113 = result111.Children.Single(node => node.Value == concept1113);
+			Assert.AreSame(concept1113, result1113.Value);
+
+			var result1121 = result112.Children.Single(node => node.Value == concept1121);
+			Assert.AreSame(concept1121, result1121.Value);
+			var result1122 = result112.Children.Single(node => node.Value == concept1122);
+			Assert.AreSame(concept1122, result1122.Value);
+			var result1123 = result112.Children.Single(node => node.Value == concept1123);
+			Assert.AreSame(concept1123, result1123.Value);
+
+			var result1131 = result113.Children.Single(node => node.Value == concept1131);
+			Assert.AreSame(concept1131, result1131.Value);
+			var result1132 = result113.Children.Single(node => node.Value == concept1132);
+			Assert.AreSame(concept1132, result1132.Value);
+			var result1133 = result113.Children.Single(node => node.Value == concept1133);
+			Assert.AreSame(concept1133, result1133.Value);
+
+			Assert.AreEqual(statements.Count - 3 - 6, involvedStatements.Count);
+		}
+
 		private const string Parent1 = "Parent 1";
 		private const string Parent2 = "Parent 2";
 		private const string Child1 = "Descendant 1";
