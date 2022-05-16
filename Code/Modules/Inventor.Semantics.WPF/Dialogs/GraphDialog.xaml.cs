@@ -17,6 +17,14 @@ namespace Inventor.Semantics.WPF.Dialogs
 			InitializeComponent();
 
 			_statementColors = Repositories.Statements.Definitions.Keys.GetDifferentColors();
+			foreach (var colorMapping in _statementColors)
+			{
+				_listBoxLegend.Items.Add(new ListBoxItem
+				{
+					Content = colorMapping.Key.Name,
+					Background = colorMapping.Value,
+				});
+			}
 		}
 
 		#region Properties
@@ -36,6 +44,7 @@ namespace Inventor.Semantics.WPF.Dialogs
 			{
 				_application = value;
 				_semanticNetwork = value?.SemanticNetwork;
+				_legendButton.ToolTip = _application.CurrentLanguage.GetExtension<IWpfUiModule>().Misc.NameCategoryStatements;
 				selectConcept(_selectedConcept);
 			}
 		}
@@ -60,7 +69,10 @@ namespace Inventor.Semantics.WPF.Dialogs
 
 			_relatedConcepts.Clear();
 			_visibleStatements.Clear();
+
 			_screen.Children.Clear();
+			_screen.Children.Add(_legendButton);
+			_screen.Children.Add(_popupLegend);
 
 			if (_semanticNetwork != null && _selectedConcept != null)
 			{
@@ -208,6 +220,20 @@ namespace Inventor.Semantics.WPF.Dialogs
 		private void OnNeedRedraw(object sender, RoutedEventArgs e)
 		{
 			selectConcept(_selectedConcept);
+		}
+
+		private void _legendButtonClick(object sender, RoutedEventArgs e)
+		{
+			if (_popupLegend.IsOpen)
+			{
+				_popupLegend.IsOpen = false;
+				_legendButton.Content = ">>>";
+			}
+			else
+			{
+				_popupLegend.IsOpen = true;
+				_legendButton.Content = "<<<";
+			}
 		}
 	}
 }
