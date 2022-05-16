@@ -182,6 +182,7 @@ namespace Inventor.Semantics.WPF.Dialogs
 					var statementView = new Line
 					{
 						Stroke = brush,
+						StrokeThickness = 2,
 						Tag = relatedConcept,
 						ToolTip = TextRepresenters.PlainString.Represent(statement.DescribeTrue(), _application.CurrentLanguage).ToString(),
 					};
