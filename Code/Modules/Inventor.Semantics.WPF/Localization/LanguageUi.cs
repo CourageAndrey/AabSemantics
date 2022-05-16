@@ -23,6 +23,9 @@ namespace Inventor.Semantics.WPF.Localization
 		String SelectModulesDialogHeader
 		{ get; }
 
+		String GraphDialogHeader
+		{ get; }
+
 		String CreateNewStatement
 		{ get; }
 
@@ -80,6 +83,10 @@ namespace Inventor.Semantics.WPF.Localization
 		{ get; set; }
 
 		[XmlElement]
+		public String GraphDialogHeader
+		{ get; set; }
+
+		[XmlElement]
 		public String CreateNewStatement
 		{ get; set; }
 
@@ -123,6 +130,7 @@ namespace Inventor.Semantics.WPF.Localization
 				Back = "< Prev",
 				StatementTypeDialogHeader = "Chose statement type",
 				SelectModulesDialogHeader = "Modules",
+				GraphDialogHeader = "Graph",
 				CreateNewStatement = "Create new statement? (No - edit existing)",
 				CreateNewQuestion = "Create new question? (No - edit existing)",
 				QuestionDialogXml = LanguageQuestionDialog.CreateDefault(),

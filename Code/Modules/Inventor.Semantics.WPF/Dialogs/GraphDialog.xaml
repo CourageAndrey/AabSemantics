@@ -1,0 +1,6 @@
+﻿<Window x:Class="Inventor.Semantics.WPF.Dialogs.GraphDialog"
+		xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+		xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+		Loaded="OnNeedRedraw" SizeChanged="OnNeedRedraw">
+	<Canvas Name="_screen" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" />
+</Window>

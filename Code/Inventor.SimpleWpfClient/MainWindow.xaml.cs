@@ -93,6 +93,22 @@ namespace Inventor.SimpleWpfClient
 			selectModulesDialog.ShowDialog();
 		}
 
+		private void graphClick(object sender, RoutedEventArgs e)
+		{
+			var dialog = new GraphDialog
+			{
+				Owner = this,
+				Application = _application,
+				SelectedConcept = null,
+				Width = Width * 0.8,
+				Height = Height * 0.8,
+				Title = _application.CurrentLanguage.GetExtension<IWpfUiModule>().Ui.GraphDialogHeader,
+				WindowStartupLocation = WindowStartupLocation.CenterOwner,
+			};
+
+			dialog.ShowDialog();
+		}
+
 		private void knowledgeObjectPicked(IKnowledge entity)
 		{
 			treeViewSemanticNetwork.Select(entity);
