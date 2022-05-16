@@ -40,6 +40,51 @@ namespace Inventor.Semantics.WPF
 			}
 		}
 
+		public static IDictionary<T, Brush> GetDifferentColors<T>(this ICollection<T> items)
+		{
+			var colors = new Dictionary<T, Brush>();
+
+			if (items.Count > 0)
+			{
+				byte colorStep = (byte) Math.Max(Math.Min(255 * 3 / (items.Count + 2), 255), 0);
+				byte r = 0, g = 0, b = 0;
+				int colorIndex = 0;
+
+				void UpdateColor()
+				{
+					switch (colorIndex)
+					{
+						case 0:
+							colorIndex = 1;
+							r += colorStep;
+							break;
+						case 1:
+							colorIndex = 2;
+							g += colorStep;
+							break;
+						//case 2:
+						default:
+							colorIndex = 0;
+							b += colorStep;
+							break;
+					}
+
+					if (r == g && g == b)
+					{
+						UpdateColor();
+					}
+				}
+
+				foreach (var type in items)
+				{
+					UpdateColor();
+					colors[type] = new SolidColorBrush(Color.FromRgb(r, g, b));
+				}
+			}
+
+			return colors;
+		}
+
 		#region ComboBox autocomplete
 
 		public static void MakeAutoComplete(this ComboBox comboBox)
@@ -135,6 +180,16 @@ namespace Inventor.Semantics.WPF
 		}
 
 		#endregion
+
+		public static Size GetDesiredSize(this FrameworkElement control, Size maxSize)
+		{
+			control.Measure(maxSize);
+			control.Measure(control.DesiredSize);
+			control.Arrange(new Rect(maxSize));
+			control.UpdateLayout();
+
+			return control.DesiredSize;
+		}
 
 		private static ILanguage _currentLanguage
 		{ get { return (Application.Current as IInventorApplication).CurrentLanguage; } }

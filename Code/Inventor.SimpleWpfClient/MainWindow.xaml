@@ -62,6 +62,9 @@
 				<Button ToolTip="{Binding Source={StaticResource language}, Path=Ui.MainForm.CheckKnowledge, Mode=OneTime}" Click="checkKnowledgeClick" Margin="2">
 					<Image Source="Resources/KbCheck.png" Width="24" Height="24" />
 				</Button>
+				<Button ToolTip="{Binding Source={StaticResource language}, Path=Ui.GraphDialogHeader, Mode=OneTime}" Click="graphClick" Margin="2">
+					<Image Source="Resources/Graph.png" Width="24" Height="24" />
+				</Button>
 				<Button ToolTip="{Binding Source={StaticResource language}, Path=Ui.SelectModulesDialogHeader, Mode=OneTime}" Click="modulesClick" Margin="2">
 					<Image Source="Resources/Modules.png" Width="24" Height="24" />
 				</Button>

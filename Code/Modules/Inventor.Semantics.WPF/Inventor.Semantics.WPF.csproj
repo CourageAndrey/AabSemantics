@@ -100,6 +100,9 @@
     <Compile Include="Dialogs\FormattedTextDialog.xaml.cs">
       <DependentUpon>FormattedTextDialog.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Dialogs\GraphDialog.xaml.cs">
+      <DependentUpon>GraphDialog.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Dialogs\QuestionDialog.xaml.cs">
       <DependentUpon>QuestionDialog.xaml</DependentUpon>
     </Compile>
@@ -260,6 +263,10 @@
     <Page Include="Dialogs\FormattedTextDialog.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Dialogs\GraphDialog.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Dialogs\QuestionDialog.xaml">
       <Generator>MSBuild:Compile</Generator>
