@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace Inventor.Semantics.Mutations
@@ -9,7 +10,14 @@ namespace Inventor.Semantics.Mutations
 
 		public ConceptSearchPattern(ConceptFilter filter)
 		{
-			_filter = filter;
+			if (filter != null)
+			{
+				_filter = filter;
+			}
+			else
+			{
+				throw new ArgumentNullException(nameof(filter));
+			}
 		}
 
 		public IEnumerable<IConcept> FindConcepts(IEnumerable<IConcept> concepts)
