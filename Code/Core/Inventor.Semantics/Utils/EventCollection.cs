@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.Serialization;
 using System.Threading;
+using System.Xml.Serialization;
 
 namespace Inventor.Semantics.Utils
 {
@@ -238,10 +239,17 @@ namespace Inventor.Semantics.Utils
 		/// ctor.
 		/// </summary>
 		/// <param name="items">items</param>
-		public ItemsCantBeRemovedException(ICollection<T> items)
+		public ItemsCantBeRemovedException(IEnumerable<T> items)
 			: base("Some items can not be removed.")
 		{
-			Items = items;
+			if (items != null)
+			{
+				Items = new List<T>(items);
+			}
+			else
+			{
+				throw new ArgumentNullException(nameof(items));
+			}
 		}
 
 		/// <summary>
@@ -249,9 +257,39 @@ namespace Inventor.Semantics.Utils
 		/// </summary>
 		/// <param name="info">serialization info</param>
 		/// <param name="context">streaming context</param>
-		protected ItemsCantBeRemovedException(SerializationInfo info, StreamingContext context)
+		public ItemsCantBeRemovedException(SerializationInfo info, StreamingContext context)
 			: base(info, context)
 		{
+			String itemsString = info.GetString("items");
+
+			Items = itemsString.DeserializeFromText<SerializationWrapper>().Items;
+		}
+
+		public override void GetObjectData(SerializationInfo info, StreamingContext context)
+		{
+			base.GetObjectData(info, context);
+
+			var wrapper = new SerializationWrapper(Items);
+
+			info.AddValue("items", wrapper.SerializeToElement().OuterXml);
+		}
+
+		[XmlType]
+		public class SerializationWrapper
+		{
+			[XmlArray(nameof(Items))]
+			[XmlArrayItem("Item")]
+			public List<T> Items
+			{ get; }
+
+			public SerializationWrapper(IEnumerable<T> items)
+			{
+				Items = new List<T>(items);
+			}
+
+			public SerializationWrapper()
+				: this(Array.Empty<T>())
+			{ }
 		}
 	}
 

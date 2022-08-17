@@ -1,8 +1,13 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.IO;
 using System.Linq;
-using Inventor.Semantics.Concepts;
+using System.Runtime.Serialization.Formatters.Binary;
+using System.Runtime.Serialization;
+
 using NUnit.Framework;
 
+using Inventor.Semantics.Concepts;
 using Inventor.Semantics.Utils;
 
 namespace Inventor.Semantics.Test.Utils
@@ -250,6 +255,35 @@ namespace Inventor.Semantics.Test.Utils
 			// Clear()
 			collection.Clear();
 			Assert.AreEqual(0, collection.Count);
+		}
+
+		[Test]
+		public void ImpossibleToCreateItemsCantBeRemovedExceptionWithoutItems()
+		{
+			// act & assert
+			Assert.Throws<ArgumentNullException>(() => new ItemsCantBeRemovedException<int>(null));
+		}
+
+		[Test]
+		public void TestItemsCantBeRemovedExceptionSerialization()
+		{
+			// arrange
+			var exception = new ItemsCantBeRemovedException<int>(new[] { 123, 987, 465 });
+
+			var formatter = new BinaryFormatter();
+
+			using (var stream = new MemoryStream(new byte[8096]))
+			{
+				// act
+				formatter.Serialize(stream, exception);
+
+				stream.Seek(0, SeekOrigin.Begin);
+
+				var deserialized = (ItemsCantBeRemovedException<int>) formatter.Deserialize(stream);
+
+				// assert
+				Assert.IsTrue(exception.Items.SequenceEqual(deserialized.Items));
+			}
 		}
 	}
 }
