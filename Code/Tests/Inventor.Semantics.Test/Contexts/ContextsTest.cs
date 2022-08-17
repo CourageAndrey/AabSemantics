@@ -1,9 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using Inventor.Semantics.Concepts;
+
 using NUnit.Framework;
 
+using Inventor.Semantics.Concepts;
 using Inventor.Semantics.Contexts;
 using Inventor.Semantics.Localization;
 using Inventor.Semantics.Modules.Boolean.Questions;
