@@ -13,6 +13,32 @@ namespace Inventor.Semantics.Test.Statements
 	public class ParentChildTest
 	{
 		[Test]
+		public void CheckConstructorsIntegrity()
+		{
+			// arrange
+			var root = new ParentChild<int>(0);
+
+			var children = new[]
+			{
+				new ParentChild<int>(1),
+				new ParentChild<int>(2),
+				new ParentChild<int>(3),
+			};
+
+			// act
+			var test = new ParentChild<int>(10, root, children);
+
+			// assert
+			Assert.IsNull(root.Parent);
+			Assert.AreSame(test, root.Children.Single());
+
+			Assert.AreSame(root, test.Parent);
+			Assert.IsTrue(test.Children.SequenceEqual(children));
+
+			Assert.IsTrue(children.All(child => child.Parent == test && child.Children.Count == 0));
+		}
+
+		[Test]
 		public void GetParentsWithoutRelationshipsReturnsEmptyList()
 		{
 			foreach (string node in All)
