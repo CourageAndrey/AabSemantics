@@ -155,6 +155,16 @@ namespace Inventor.Semantics.Test.Metadata
 			}
 		}
 
+		[Test]
+		public void ThereIsNoLanguageExtensionsByDefault()
+		{
+			// arrange
+			var module = new TestModule("test");
+
+			// act & assert
+			Assert.AreEqual(0, module.GetLanguageExtensions().Count);
+		}
+
 		private class TestModule : ExtensionModule
 		{
 			public bool IsSemanticNetworkAttached
