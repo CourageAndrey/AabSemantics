@@ -60,7 +60,7 @@ namespace Inventor.Semantics.Concepts
 
 		public static IConcept CreateConcept(this String name)
 		{
-			return new Concept(name, new LocalizedStringConstant(language => name));
+			return name.CreateConcept(name);
 		}
 
 		public static IConcept CreateConcept(this String id, String name)
