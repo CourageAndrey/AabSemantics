@@ -5,7 +5,30 @@ using System.Linq;
 using NUnit.Framework;
 
 using Inventor.Semantics.Localization;
+using Inventor.Semantics.Mathematics;
+using Inventor.Semantics.Mathematics.Attributes;
+using Inventor.Semantics.Mathematics.Localization;
+using Inventor.Semantics.Mathematics.Questions;
+using Inventor.Semantics.Mathematics.Statements;
 using Inventor.Semantics.Metadata;
+using Inventor.Semantics.Modules.Boolean;
+using Inventor.Semantics.Modules.Boolean.Attributes;
+using Inventor.Semantics.Modules.Boolean.Localization;
+using Inventor.Semantics.Modules.Boolean.Questions;
+using Inventor.Semantics.Modules.Classification;
+using Inventor.Semantics.Modules.Classification.Localization;
+using Inventor.Semantics.Modules.Classification.Questions;
+using Inventor.Semantics.Modules.Classification.Statements;
+using Inventor.Semantics.Processes;
+using Inventor.Semantics.Processes.Attributes;
+using Inventor.Semantics.Processes.Localization;
+using Inventor.Semantics.Processes.Questions;
+using Inventor.Semantics.Processes.Statements;
+using Inventor.Semantics.Set;
+using Inventor.Semantics.Set.Attributes;
+using Inventor.Semantics.Set.Localization;
+using Inventor.Semantics.Set.Questions;
+using Inventor.Semantics.Set.Statements;
 
 namespace Inventor.Semantics.Test.Metadata
 {
@@ -15,7 +38,11 @@ namespace Inventor.Semantics.Test.Metadata
 		[SetUp, TearDown]
 		public void ClearModules()
 		{
+			Language.Default.Extensions.Clear();
 			Repositories.Modules.Clear();
+			Repositories.Attributes.Definitions.Clear();
+			Repositories.Statements.Definitions.Clear();
+			Repositories.Questions.Definitions.Clear();
 		}
 
 		[Test]
@@ -163,6 +190,161 @@ namespace Inventor.Semantics.Test.Metadata
 
 			// act & assert
 			Assert.AreEqual(0, module.GetLanguageExtensions().Count);
+		}
+
+		[Test]
+		public void TestRegisteredMetadata()
+		{
+			// 0-assert
+			Assert.AreEqual(0, Repositories.Attributes.Definitions.Count);
+			Assert.AreEqual(0, Repositories.Statements.Definitions.Count);
+			Assert.AreEqual(0, Repositories.Questions.Definitions.Count);
+			Assert.AreEqual(0, Repositories.Modules.Count);
+
+			// arrange & act
+			var modules = new IExtensionModule[]
+			{
+				new BooleanModule(),
+				new ClassificationModule(),
+				new SetModule(),
+				new MathematicsModule(),
+				new ProcessesModule(),
+			};
+			foreach (var module in modules)
+			{
+				module.RegisterMetadata();
+			}
+
+			var language = Language.Default;
+
+			// assert modules
+			Assert.AreEqual(modules.Length, Repositories.Modules.Count);
+			foreach (var module in modules)
+			{
+				Assert.AreSame(module, Repositories.Modules[module.Name]);
+			}
+
+			// assert attributes
+			var attributeTypes = getAllAttributeTypes();
+			Assert.AreEqual(Repositories.Attributes.Definitions.Count, getAllAttributeTypes().Count);
+			foreach (var type in attributeTypes)
+			{
+				var definition = Repositories.Attributes.Definitions[type];
+				Assert.IsFalse(string.IsNullOrEmpty(definition.GetName(language)));
+			}
+
+			// assert concepts
+			var semanticNetwork = new SemanticNetwork(Language.Default).WithModules(modules);
+			var systemConcepts = SystemConcepts.GetAll().ToList();
+			Assert.AreEqual(semanticNetwork.Concepts.Count, systemConcepts.Count);
+			foreach (var concept in systemConcepts)
+			{
+				Assert.IsTrue(semanticNetwork.Concepts.Contains(concept));
+			}
+
+			// assert statements
+			var statementTypes = getAllStatemtentTypes();
+			Assert.AreEqual(Repositories.Statements.Definitions.Count, statementTypes.Count);
+			foreach (var type in statementTypes)
+			{
+				var definition = Repositories.Statements.Definitions[type];
+				Assert.IsFalse(string.IsNullOrEmpty(definition.GetName(language)));
+			}
+
+			// assert questions
+			var questionTypes = getAllQuestionsTypes();
+			Assert.AreEqual(Repositories.Questions.Definitions.Count, questionTypes.Count);
+			foreach (var type in questionTypes)
+			{
+				var definition = Repositories.Questions.Definitions[type];
+				Assert.IsFalse(string.IsNullOrEmpty(definition.GetName(language)));
+			}
+		}
+
+		[Test]
+		public void CheckLanguageExtensions()
+		{
+			// arrange
+			var modules = new IExtensionModule[]
+			{
+				new BooleanModule(),
+				new ClassificationModule(),
+				new SetModule(),
+				new MathematicsModule(),
+				new ProcessesModule(),
+			};
+			foreach (var module in modules)
+			{
+				module.RegisterMetadata();
+			}
+
+			var language = Language.Default;
+
+			// act
+			int totalExtensionCount = modules.Sum(m => m.GetLanguageExtensions().Count);
+
+			// assert
+			Assert.AreEqual(totalExtensionCount, language.Extensions.Count);
+			Assert.IsNotNull(language.GetExtension<ILanguageBooleanModule>());
+			Assert.IsNotNull(language.GetExtension<ILanguageClassificationModule>());
+			Assert.IsNotNull(language.GetExtension<ILanguageSetModule>());
+			Assert.IsNotNull(language.GetExtension<ILanguageMathematicsModule>());
+			Assert.IsNotNull(language.GetExtension<ILanguageProcessesModule>());
+		}
+
+		private static List<Type> getAllAttributeTypes()
+		{
+			return new List<Type>
+			{
+				typeof(IsValueAttribute),
+				typeof(IsBooleanAttribute),
+				typeof(IsSignAttribute),
+				typeof(IsComparisonSignAttribute),
+				typeof(IsProcessAttribute),
+				typeof(IsSequenceSignAttribute),
+			};
+		}
+
+		private static List<Type> getAllStatemtentTypes()
+		{
+			return new List<Type>
+			{
+				typeof(IsStatement),
+				typeof(HasPartStatement),
+				typeof(GroupStatement),
+				typeof(HasSignStatement),
+				typeof(SignValueStatement),
+				typeof(ComparisonStatement),
+				typeof(ProcessesStatement),
+			};
+		}
+
+		private static List<Type> getAllQuestionsTypes()
+		{
+			return new List<Type>
+			{
+				typeof(CheckStatementQuestion),
+				typeof(ComparisonQuestion),
+				typeof(DescribeSubjectAreaQuestion),
+				typeof(EnumerateAncestorsQuestion),
+				typeof(EnumerateContainersQuestion),
+				typeof(EnumerateDescendantsQuestion),
+				typeof(EnumeratePartsQuestion),
+				typeof(EnumerateSignsQuestion),
+				typeof(FindSubjectAreaQuestion),
+				typeof(GetCommonQuestion),
+				typeof(GetDifferencesQuestion),
+				typeof(HasSignQuestion),
+				typeof(HasSignsQuestion),
+				typeof(IsPartOfQuestion),
+				typeof(IsQuestion),
+				typeof(IsSignQuestion),
+				typeof(IsSubjectAreaQuestion),
+				typeof(IsValueQuestion),
+				typeof(ProcessesQuestion),
+				typeof(SignValueQuestion),
+				typeof(WhatQuestion),
+			};
 		}
 
 		private class TestModule : ExtensionModule
