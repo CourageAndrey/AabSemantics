@@ -1,10 +1,12 @@
-﻿using System.Collections.Generic;
-
+﻿using System;
+using System.Collections.Generic;
+using System.Text;
 using NUnit.Framework;
 
 using Inventor.Semantics.Concepts;
 using Inventor.Semantics.Localization;
 using Inventor.Semantics.Text.Containers;
+using Inventor.Semantics.Text.Decorators;
 using Inventor.Semantics.Text.Primitives;
 
 namespace Inventor.Semantics.Test.Text
@@ -46,6 +48,16 @@ namespace Inventor.Semantics.Test.Text
 				// assert
 				Assert.IsTrue(representation.Contains(searchingToken));
 			}
+		}
+
+		[Test]
+		public void CheckUnsupportedRepresenter()
+		{
+			// arrange
+			IText text = new TestText();
+
+			// act & arrange
+			Assert.Throws<NotSupportedException>(() => TextRepresenters.PlainString.Represent(text, Language.Default));
 		}
 
 		private static IText createAllFeaturesText()
@@ -103,6 +115,14 @@ namespace Inventor.Semantics.Test.Text
 		private static string getText(int number)
 		{
 			return $"TEXT_{number:N3}";
+		}
+
+		private class TestText : IText
+		{
+			public IDictionary<string, IKnowledge> GetParameters()
+			{
+				return new Dictionary<string, IKnowledge>();
+			}
 		}
 	}
 }
