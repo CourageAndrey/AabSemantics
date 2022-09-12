@@ -37,6 +37,7 @@ namespace Inventor.Semantics.Metadata
 			StatementConsistencyCheckerDelegate consistencyChecker)
 		{
 			if (type == null) throw new ArgumentNullException(nameof(type));
+			if (type.IsAbstract || !typeof(IStatement).IsAssignableFrom(type)) throw new ArgumentException($"Type must be non-abstract and implement {typeof(IStatement)}.", nameof(type));
 			if (statementNameGetter == null) throw new ArgumentNullException(nameof(statementNameGetter));
 			if (statementXmlGetter == null) throw new ArgumentNullException(nameof(statementXmlGetter));
 			if (xmlType == null) throw new ArgumentNullException(nameof(xmlType));
@@ -85,6 +86,7 @@ namespace Inventor.Semantics.Metadata
 				xmlType,
 				(semanticNetwork, result) => consistencyChecker(semanticNetwork.Statements.OfType<StatementT>().ToList(), result, semanticNetwork))
 		{
+			if (statementXmlGetter == null) throw new ArgumentNullException(nameof(statementXmlGetter));
 			if (consistencyChecker == null) throw new ArgumentNullException(nameof(consistencyChecker));
 		}
 
