@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 
-using Inventor.Semantics.Localization;
 using Inventor.Semantics.Metadata;
 using Inventor.Semantics.Modules.Classification.Localization;
 using Inventor.Semantics.Modules.Classification.Questions;
@@ -57,7 +56,7 @@ namespace Inventor.Semantics.Modules.Classification
 				{
 					result.Append(
 						language => language.GetExtension<ILanguageClassificationModule>().Statements.Consistency.ErrorCyclic,
-						new Dictionary<String, IKnowledge> { { Strings.ParamStatement, clasification } });
+						new Dictionary<String, IKnowledge> { { Semantics.Localization.Strings.ParamStatement, clasification } });
 				}
 			}
 		}
