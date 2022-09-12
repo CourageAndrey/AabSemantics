@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 
 using NUnit.Framework;
 
@@ -381,6 +382,13 @@ namespace Inventor.Semantics.Test.Questions
 			// assert
 			Assert.AreEqual(answerRegular.Result, answerBuilder.Result);
 			Assert.IsTrue(answerRegular.Explanation.Statements.SequenceEqual(answerBuilder.Explanation.Statements));
+		}
+
+		[Test]
+		public void CheckNullSemanticNetwork()
+		{
+			// act & assert
+			Assert.Throws<ArgumentNullException>(() => new QuestionBuilder(null, Array.Empty<IStatement>()));
 		}
 	}
 }

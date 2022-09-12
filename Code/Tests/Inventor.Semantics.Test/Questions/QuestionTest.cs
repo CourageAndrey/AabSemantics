@@ -107,5 +107,23 @@ namespace Inventor.Semantics.Test.Questions
 			yield return new object[] { new Func<IQuestion>(() => new SignValueQuestion(concept, null)) };
 			yield return new object[] { new Func<IQuestion>(() => new WhatQuestion(null)) };
 		}
+
+		[Test]
+		public void CheckChildAnswer()
+		{
+			// arrange
+			var concept = "test".CreateConcept();
+			var question = new HasSignsQuestion(concept, false);
+			var answer = Answer.CreateUnknown();
+			var transitives = Array.Empty<IStatement>();
+
+			// act
+			var child = new ChildAnswer(question, answer, transitives);
+
+			// assert
+			Assert.AreSame(question, child.Question);
+			Assert.AreSame(answer, child.Answer);
+			Assert.AreSame(transitives, child.TransitiveStatements);
+		}
 	}
 }
