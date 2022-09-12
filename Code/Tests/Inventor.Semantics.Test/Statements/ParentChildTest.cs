@@ -5,7 +5,13 @@ using System.Linq;
 using NUnit.Framework;
 
 using Inventor.Semantics.Concepts;
+using Inventor.Semantics.Localization;
 using Inventor.Semantics.Modules.Classification.Statements;
+using Inventor.Semantics.Modules.Boolean;
+using Inventor.Semantics.Modules.Boolean.Concepts;
+using Inventor.Semantics.Modules.Classification;
+using Inventor.Semantics.Set;
+using Inventor.Semantics.Statements;
 
 namespace Inventor.Semantics.Test.Statements
 {
@@ -518,6 +524,101 @@ namespace Inventor.Semantics.Test.Statements
 			Assert.AreSame(concept1133, result1133.Value);
 
 			Assert.AreEqual(statements.Count - 3 - 6, involvedStatements.Count);
+		}
+
+		[Test]
+		public void CheckGetChildrenOneLevelStatements()
+		{
+			// arrange
+			var semanticNetwork = createBearsSample();
+			var animalsConcept = semanticNetwork.Concepts["Kingdom: Animalia"];
+
+			// act
+			var animals = semanticNetwork.Statements.GetChildrenOneLevel<IConcept, IsStatement>(animalsConcept).Select(concept => concept.ID).ToList();
+			var bears = semanticNetwork.Statements.GetChildrenOneLevel<IConcept, IsStatement>(semanticNetwork.Concepts["Genus: Ursus"]).Select(concept => concept.ID).ToList();
+
+			// assert
+			Assert.AreEqual("Phylum: Chordata", animals.Single());
+
+			Assert.AreEqual(4, bears.Count);
+			Assert.IsTrue(bears.Contains("Ursus americanus"));
+			Assert.IsTrue(bears.Contains("Ursus arctos"));
+			Assert.IsTrue(bears.Contains("Ursus maritimus"));
+			Assert.IsTrue(bears.Contains("Ursus thibetanuss"));
+		}
+
+		[Test]
+		public void CheckGetChildrenAllLevelsStatements()
+		{
+			// arrange
+			var semanticNetwork = createBearsSample();
+			var animalsConcept = semanticNetwork.Concepts["Kingdom: Animalia"];
+			var ignoredConcepts = new[] { LogicalValues.True, LogicalValues.False, animalsConcept };
+
+			// act
+			var animals = semanticNetwork.Statements.GetChildrenAllLevels<IConcept, IsStatement>(semanticNetwork.Concepts["Kingdom: Animalia"]).Select(concept => concept.ID).ToList();
+			var bears = semanticNetwork.Statements.GetChildrenAllLevels<IConcept, IsStatement>(semanticNetwork.Concepts["Genus: Ursus"]).Select(concept => concept.ID).ToList();
+
+			// assert
+			Assert.AreEqual(semanticNetwork.Concepts.Count - ignoredConcepts.Length, animals.Count);
+			foreach (var animal in semanticNetwork.Concepts.Except(ignoredConcepts))
+			{
+				Assert.IsTrue(animals.Contains(animal.ID));
+			}
+
+			Assert.AreEqual(4, bears.Count);
+			Assert.IsTrue(bears.Contains("Ursus americanus"));
+			Assert.IsTrue(bears.Contains("Ursus arctos"));
+			Assert.IsTrue(bears.Contains("Ursus maritimus"));
+			Assert.IsTrue(bears.Contains("Ursus thibetanuss"));
+		}
+
+		private static ISemanticNetwork createBearsSample()
+		{
+			var modules = new IExtensionModule[]
+			{
+				new BooleanModule(),
+				new ClassificationModule(),
+				new SetModule(),
+			};
+			foreach (var module in modules)
+			{
+				module.RegisterMetadata();
+			}
+
+			ISemanticNetwork semanticNetwork = new SemanticNetwork(Language.Default).WithModules(modules);
+
+			IConcept animal = "Kingdom: Animalia".CreateConcept("Animal");
+			IConcept chordate = "Phylum: Chordata".CreateConcept("Chordate");
+			IConcept mammal = "Class: Mammalia".CreateConcept("Mammal");
+			IConcept carnivor = "Order: Carnivora".CreateConcept("Carnivor");
+			// Just skip Ursidae, Ursinae and Ursini for short.
+			IConcept bear = "Genus: Ursus".CreateConcept("Bear");
+			IConcept americanBlackBear = "Ursus americanus".CreateConcept("American black bear");
+			IConcept brownBear = "Ursus arctos".CreateConcept("Brown bear");
+			IConcept polarBear = "Ursus maritimus".CreateConcept("Polar bear");
+			IConcept asianBlackBear = "Ursus thibetanuss".CreateConcept("Asian black bear");
+
+			semanticNetwork.Concepts.Add(animal);
+			semanticNetwork.Concepts.Add(chordate);
+			semanticNetwork.Concepts.Add(mammal);
+			semanticNetwork.Concepts.Add(carnivor);
+			semanticNetwork.Concepts.Add(bear);
+			semanticNetwork.Concepts.Add(americanBlackBear);
+			semanticNetwork.Concepts.Add(brownBear);
+			semanticNetwork.Concepts.Add(polarBear);
+			semanticNetwork.Concepts.Add(asianBlackBear);
+
+			semanticNetwork.DeclareThat(chordate).IsDescendantOf(animal); // Or we can use DeclareThat(animal).IsAncestorOf(chordate) instead.
+			semanticNetwork.DeclareThat(mammal).IsDescendantOf(chordate);
+			semanticNetwork.DeclareThat(carnivor).IsDescendantOf(mammal);
+			semanticNetwork.DeclareThat(bear).IsDescendantOf(carnivor);
+			semanticNetwork.DeclareThat(americanBlackBear).IsDescendantOf(bear);
+			semanticNetwork.DeclareThat(brownBear).IsDescendantOf(bear);
+			semanticNetwork.DeclareThat(polarBear).IsDescendantOf(bear);
+			semanticNetwork.DeclareThat(asianBlackBear).IsDescendantOf(bear);
+
+			return semanticNetwork;
 		}
 
 		private const string Parent1 = "Parent 1";
