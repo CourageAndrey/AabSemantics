@@ -10,6 +10,7 @@ using Inventor.Semantics.Localization;
 using Inventor.Semantics.Modules.Boolean.Questions;
 using Inventor.Semantics.Modules.Classification.Statements;
 using Inventor.Semantics.Questions;
+using System.Runtime.Remoting.Contexts;
 
 namespace Inventor.Semantics.Test.Contexts
 {
@@ -219,6 +220,34 @@ namespace Inventor.Semantics.Test.Contexts
 					createChildDisposableContext(context);
 				}
 			});
+		}
+
+		[Test]
+		public void CheckQuestionContextLanguagesOverride()
+		{
+			// arrange
+			var language1 = Language.Default;
+			var language2 = new Language
+			{
+				Name = "Test",
+				Culture = "123",
+			};
+
+			var semanticNetwork = new SemanticNetwork(language1);
+			var statement = new TestStatement();
+			semanticNetwork.Statements.Add(statement);
+
+			var question = new CheckStatementQuestion(statement);
+
+			// act
+			var contextWithoutLanguage = new QuestionProcessingContext<CheckStatementQuestion>(semanticNetwork.Context, question);
+			var contextWithNullLanguage = new QuestionProcessingContext<CheckStatementQuestion>(semanticNetwork.Context, question, null);
+			var contextWithChangedLanguage = new QuestionProcessingContext<CheckStatementQuestion>(semanticNetwork.Context, question, language2);
+
+			// assert
+			Assert.AreSame(language1, contextWithoutLanguage.Language);
+			Assert.AreSame(language1, contextWithNullLanguage.Language);
+			Assert.AreSame(language2, contextWithChangedLanguage.Language);
 		}
 
 		private static DisposableProcessingContext createChildDisposableContext(ISemanticNetworkContext parent)
