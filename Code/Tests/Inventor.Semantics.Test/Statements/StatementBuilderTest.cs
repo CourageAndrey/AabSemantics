@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 using NUnit.Framework;
 
@@ -231,6 +232,20 @@ namespace Inventor.Semantics.Test.Statements
 			{
 				Assert.AreEqual(statementsByConstuctor[s], statementsByBuilder[s]);
 			}
+		}
+
+		[Test]
+		public void ImpossibleToCreateWithoutSemanticNetwork()
+		{
+			// act & assert
+			Assert.Throws<ArgumentNullException>(() => new StatementBuilder(null, 1.CreateConcept()));
+		}
+
+		[Test]
+		public void ImpossibleToCreateWithoutConcept()
+		{
+			// act & assert
+			Assert.Throws<ArgumentNullException>(() => new StatementBuilder(new SemanticNetwork(Language.Default), null));
 		}
 	}
 }
