@@ -71,6 +71,7 @@ namespace Inventor.Semantics.Test.Questions
 				Assert.IsTrue(childConcepts.All(semanticNetwork.Concepts.Contains));
 				Assert.AreEqual(i, answer.Explanation.Statements.Count);
 				Assert.IsFalse(semanticNetwork.Statements.Except(answer.Explanation.Statements).Any());
+				Assert.IsTrue(answer.Description.ToString().Contains("can be following:"));
 			}
 		}
 	}
