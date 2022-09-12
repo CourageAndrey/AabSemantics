@@ -2,6 +2,7 @@
 
 using NUnit.Framework;
 
+using Inventor.Semantics.Concepts;
 using Inventor.Semantics.Modules.Boolean.Concepts;
 
 namespace Inventor.Semantics.Test.Concepts
@@ -42,6 +43,42 @@ namespace Inventor.Semantics.Test.Concepts
 			foreach (var value in new[] { true, false })
 			{
 				Assert.AreEqual(value, value.ToLogicalValue().ToBoolean());
+			}
+		}
+
+		[Test]
+		public void ImpossibleToInvertIfNotBoolean()
+		{
+			// arrange
+			var testConcept = "test".CreateConcept();
+			LogicalValues.All.Add(testConcept);
+
+			// act && assert
+			try
+			{
+				Assert.AreSame(testConcept, testConcept.Invert());
+			}
+			finally
+			{
+				LogicalValues.All.Remove(testConcept);
+			}
+		}
+
+		[Test]
+		public void ImpossibleToConvertToBooleanIfNotBoolean()
+		{
+			// arrange
+			var testConcept = "test".CreateConcept();
+			LogicalValues.All.Add(testConcept);
+
+			// act && assert
+			try
+			{
+				Assert.Throws<NotSupportedException>(() => testConcept.ToBoolean());
+			}
+			finally
+			{
+				LogicalValues.All.Remove(testConcept);
 			}
 		}
 	}
