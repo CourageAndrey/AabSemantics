@@ -153,7 +153,7 @@ namespace Inventor.Semantics.Test.Questions
 			{ get; }
 
 			public TransitiveTestStatement(IConcept parent, IConcept child)
-				: base(string.Empty.EnsureIdIsSet(), new LocalizedStringConstant(l => string.Empty), new LocalizedStringConstant(l => string.Empty))
+				: base(string.Empty.EnsureIdIsSet(), LocalizedString.Empty, LocalizedString.Empty)
 			{
 				Parent = parent;
 				Child = child;
