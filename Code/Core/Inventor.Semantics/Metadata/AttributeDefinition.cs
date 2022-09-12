@@ -34,6 +34,7 @@ namespace Inventor.Semantics.Metadata
 			Xml.Attribute xml)
 		{
 			if (type == null) throw new ArgumentNullException(nameof(type));
+			if (type.IsAbstract || !typeof(IAttribute).IsAssignableFrom(type)) throw new ArgumentException($"Type must be non-abstract and implement {typeof(IAttribute)}.", nameof(type));
 			if (attributeValue == null) throw new ArgumentNullException(nameof(attributeValue));
 			if (!type.IsInstanceOfType(attributeValue)) throw new InvalidCastException();
 			if (attributeNameGetter == null) throw new ArgumentNullException(nameof(attributeNameGetter));

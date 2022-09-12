@@ -3,12 +3,114 @@
 using NUnit.Framework;
 
 using Inventor.Semantics.Metadata;
+using Inventor.Semantics.Localization;
+using Inventor.Semantics.Modules.Boolean.Attributes;
+using Inventor.Semantics.Modules.Boolean.Questions;
+using Inventor.Semantics.Processes.Attributes;
 
 namespace Inventor.Semantics.Test.Metadata
 {
 	[TestFixture]
 	public class AttributeDefinitionTest
 	{
+		[Test]
+		public void ImpossibleToCreateDefinitionWithoutType()
+		{
+			// act & assert
+			Assert.Throws<ArgumentNullException>(() => new AttributeDefinition(
+				null,
+				IsValueAttribute.Value,
+				language => language.Culture,
+				new Modules.Boolean.Xml.IsValueAttribute()));
+		}
+
+		[Test]
+		public void ImpossibleToCreateDefinitionWithInvalidType()
+		{
+			// act & assert
+			Assert.Throws<ArgumentException>(() => new AttributeDefinition(
+				typeof(CheckStatementQuestion),
+				IsValueAttribute.Value,
+				language => language.Culture,
+				new Modules.Boolean.Xml.IsValueAttribute()));
+			Assert.Throws<ArgumentException>(() => new AttributeDefinition(
+				typeof(TestAbstractAttribute),
+				IsValueAttribute.Value,
+				language => language.Culture,
+				new Modules.Boolean.Xml.IsValueAttribute()));
+		}
+
+		[Test]
+		public void ImpossibleToCreateDefinitionWithoutValue()
+		{
+			// act & assert
+			Assert.Throws<ArgumentNullException>(() => new AttributeDefinition(
+				typeof(IsValueAttribute),
+				null,
+				language => language.Culture,
+				new Modules.Boolean.Xml.IsValueAttribute()));
+		}
+
+		[Test]
+		public void ImpossibleToCreateDefinitionWithWrongValue()
+		{
+			// act & assert
+			Assert.Throws<InvalidCastException>(() => new AttributeDefinition(
+				typeof(IsValueAttribute),
+				IsProcessAttribute.Value,
+				language => language.Culture,
+				new Modules.Boolean.Xml.IsValueAttribute()));
+		}
+
+		[Test]
+		public void ImpossibleToCreateDefinitionWithoutNameGetter()
+		{
+			// act & assert
+			Assert.Throws<ArgumentNullException>(() => new AttributeDefinition(
+				typeof(IsValueAttribute),
+				IsValueAttribute.Value,
+				null,
+				new Modules.Boolean.Xml.IsValueAttribute()));
+		}
+
+		[Test]
+		public void ImpossibleToCreateDefinitionWithoutXmlValue()
+		{
+			// act & assert
+			Assert.Throws<ArgumentNullException>(() => new AttributeDefinition(
+				typeof(IsValueAttribute),
+				IsValueAttribute.Value,
+				language => language.Culture,
+				null));
+		}
+
+		[Test]
+		public void CheckName()
+		{
+			// arrange
+			var definition = new AttributeDefinition(
+				typeof(IsValueAttribute),
+				IsValueAttribute.Value,
+				language => language.Culture,
+				new Modules.Boolean.Xml.IsValueAttribute());
+
+			// act
+			string name = definition.GetName(Language.Default);
+
+			// assert
+			Assert.AreEqual(Language.Default.Culture, name);
+		}
+
+		[Test]
+		public void ValidateNone()
+		{
+			// arrange
+			var language = Language.Default;
+
+			// act & assert
+			Assert.AreEqual(language.Attributes.None, AttributeDefinition.None.GetName(language));
+		}
+
 		[Test]
 		public void GivenNullTypeWhenCreateAttributeDefinitionThenFail()
 		{
@@ -121,5 +223,8 @@ namespace Inventor.Semantics.Test.Metadata
 				throw new NotImplementedException();
 			}
 		}
+
+		private abstract class TestAbstractAttribute : Attribute
+		{ }
 	}
 }

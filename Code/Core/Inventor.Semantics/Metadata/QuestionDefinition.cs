@@ -15,6 +15,10 @@ namespace Inventor.Semantics.Metadata
 
 		public QuestionDefinition(Type type, Func<ILanguage, String> questionNameGetter)
 		{
+			if (type == null) throw new ArgumentNullException(nameof(type));
+			if (type.IsAbstract || !typeof(IQuestion).IsAssignableFrom(type)) throw new ArgumentException($"Type must be non-abstract and implement {typeof(IQuestion)}.", nameof(type));
+			if (questionNameGetter == null) throw new ArgumentNullException(nameof(questionNameGetter));
+
 			Type = type;
 			_questionNameGetter = questionNameGetter;
 		}
