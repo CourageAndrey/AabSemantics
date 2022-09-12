@@ -81,6 +81,63 @@ namespace Inventor.Semantics.Test.Localization
 			Assert.DoesNotThrow(() => { test.GetValue(language.Culture); });
 		}
 
+		[Test]
+		public void CheckToStrings()
+		{
+			// arrange
+			var localizedStrings = new LocalizedString[]
+			{
+				new LocalizedStringConstant(l => "test"),
+				new LocalizedStringVariable(),
+			};
+
+			// act & assert
+			foreach (var localizedString in localizedStrings)
+			{
+				Assert.IsTrue(localizedString.ToString().Contains(Strings.TostringLocalized));
+			}
+		}
+
+		[Test]
+		public void CheckEmpty()
+		{
+			// arrange
+			var languages = new[]
+			{
+				new Language { Name = "English", Culture = "en-US" },
+				new Language { Name = "Русский", Culture = "ru-RU" },
+				new Language { Name = "Français", Culture = "fr-FR" },
+			};
+
+			// act && assert
+			foreach (var language in languages)
+			{
+				Assert.AreEqual(string.Empty, LocalizedString.Empty.GetValue(language));
+			}
+		}
+
+		[Test]
+		public void CheckRemoiveLocale()
+		{
+			// arrange
+			var s = new LocalizedStringVariable("en-US", "en-US");
+			s.SetLocale("ru-RU", "ru-RU");
+			s.SetLocale("fr-FR", "fr-FR");
+
+			// assert before act
+			Assert.AreEqual("en-US", s.GetValue("en-US"));
+			Assert.AreEqual("ru-RU", s.GetValue("ru-RU"));
+			Assert.AreEqual("fr-FR", s.GetValue("fr-FR"));
+
+			// act
+			s.RemoveLocale("ru-RU");
+
+			// assert after act
+			Assert.AreEqual("en-US", s.GetValue("en-US"));
+			Assert.Throws<AbsentLocaleException>(() => s.GetValue("ru-RU"));
+			Assert.AreEqual("fr-FR", s.GetValue("fr-FR"));
+		}
+
 		private static ILanguage createTestLanguage(int number)
 		{
 			return new Language
