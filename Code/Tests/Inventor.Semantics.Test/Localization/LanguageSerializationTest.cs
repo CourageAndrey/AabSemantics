@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Xml.Serialization;
@@ -124,6 +125,86 @@ namespace Inventor.Semantics.Test.Localization
 				var restoredExtension = restored.Extensions.First(e => e.GetType() == extensionType);
 				extension.AssertPropertiesAreEqual(restoredExtension);
 			}
+		}
+
+		[Test]
+		public void CheckAdditionalLanguages()
+		{
+			// arrange
+			string tempFolder = Path.ChangeExtension(Path.GetTempFileName(), string.Empty);
+			var additionalLanguages = new[]
+			{
+				createTestLanguage("Deutsch", "de"),
+				createTestLanguage("Français", "fr"),
+				createTestLanguage("Español", "es"),
+				createTestLanguage("Ελληνικά", "el"),
+				createTestLanguage("فارسی", "fa"),
+				createTestLanguage("ქართული", "ka"),
+				createTestLanguage("中文", "zh"),
+				createTestLanguage("日本語", "ja"),
+			};
+			var languagesDictionary = additionalLanguages.OrderBy(l => l.Culture).ToDictionary(l => l.Culture, l => l.Name);
+
+			try
+			{
+				Directory.CreateDirectory(Path.Combine(tempFolder, LanguagesExtensions.DefaultFolderPath));
+				foreach (var language in additionalLanguages)
+				{
+					language.SerializeToFile(Path.Combine(tempFolder, LanguagesExtensions.DefaultFolderPath, $"{language.Name}.xml"));
+				}
+
+				// act
+				var deserialized = tempFolder.LoadAdditionalLanguages();
+				var deserializedDictionary = deserialized.OrderBy(l => l.Culture).ToDictionary(l => l.Culture, l => l.Name);
+
+				// assert
+				Assert.IsTrue(languagesDictionary.SequenceEqual(deserializedDictionary));
+			}
+			finally
+			{
+				if (Directory.Exists(tempFolder))
+				{
+					Directory.Delete(tempFolder, true);
+				}
+			}
+		}
+
+		[Test]
+		public void CheckAdditionalLanguagesFolderCreation()
+		{
+			// arrange
+			string tempFolder = Path.ChangeExtension(Path.GetTempFileName(), string.Empty);
+
+			try
+			{
+				Directory.CreateDirectory(Path.Combine(tempFolder));
+
+				// act
+				tempFolder.LoadAdditionalLanguages();
+
+				// assert
+				Assert.IsTrue(Directory.Exists(Path.Combine(tempFolder, LanguagesExtensions.DefaultFolderPath)));
+			}
+			finally
+			{
+				if (Directory.Exists(tempFolder))
+				{
+					Directory.Delete(tempFolder, true);
+				}
+			}
+		}
+
+		private static Language createTestLanguage(string name, string culture)
+		{
+			return new Language
+			{
+				Name = name,
+				Culture = culture,
+				AttributesXml = Language.Default.AttributesXml,
+				StatementsXml = Language.Default.StatementsXml,
+				QuestionsXml = Language.Default.QuestionsXml,
+				ExtensionsXml = new List<LanguageExtension>(),
+			};
 		}
 	}
 }
