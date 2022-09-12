@@ -8,6 +8,13 @@ using Inventor.Semantics.Mathematics;
 using Inventor.Semantics.Processes;
 using Inventor.Semantics.Set;
 using Inventor.Semantics.Test.Sample;
+using System.Globalization;
+using System.Xml.Linq;
+using System;
+using Inventor.Semantics.Utils;
+using System.Linq;
+using Inventor.Semantics.Mathematics.Statements;
+using Inventor.Semantics.Modules.Boolean.Attributes;
 
 namespace Inventor.Semantics.Test
 {
@@ -71,6 +78,66 @@ namespace Inventor.Semantics.Test
 
 			// assert
 			Assert.Less(4000, result.Length);
+		}
+
+		[Test]
+		public void WhenRemoveConceptThenAlsoRemoveRelatedStatements()
+		{
+			// arrange
+			var language = Language.Default;
+			var semanticNetwork = new SemanticNetwork(language);
+
+			IConcept concept1, concept2;
+			semanticNetwork.Concepts.Add(concept1 = 1.CreateConcept().WithAttribute(IsValueAttribute.Value));
+			semanticNetwork.Concepts.Add(concept2 = 2.CreateConcept().WithAttribute(IsValueAttribute.Value));
+
+			const int statementsCount = 10;
+			for (int i = 0; i < statementsCount; i++)
+			{
+				semanticNetwork.DeclareThat(concept1).IsLessThan(concept2);
+			}
+
+			// act & assert
+			Assert.AreEqual(statementsCount, semanticNetwork.Statements.Count);
+			semanticNetwork.Concepts.Remove(concept1);
+			Assert.AreEqual(0, semanticNetwork.Statements.Count);
+		}
+
+		[Test]
+		public void ImpossibleToRemoveSystemStatements()
+		{
+			// arrange
+			var language = Language.Default;
+			var semanticNetwork = new SemanticNetwork(language);
+
+			IConcept concept1, concept2;
+			semanticNetwork.Concepts.Add(concept1 = 1.CreateConcept().WithAttribute(IsValueAttribute.Value));
+			semanticNetwork.Concepts.Add(concept2 = 2.CreateConcept().WithAttribute(IsValueAttribute.Value));
+
+			var comparison = semanticNetwork.DeclareThat(concept1).IsLessThan(concept2);
+			comparison.Context = semanticNetwork.Context.Parent;
+
+			// act & assert
+			Assert.IsTrue(semanticNetwork.Statements.Contains(comparison));
+			semanticNetwork.Statements.Remove(comparison);
+			Assert.IsTrue(semanticNetwork.Statements.Contains(comparison));
+
+			comparison.Context = semanticNetwork.Context;
+			semanticNetwork.Statements.Remove(comparison);
+			Assert.IsFalse(semanticNetwork.Statements.Contains(comparison));
+		}
+
+		[Test]
+		public void CheckToString()
+		{
+			// arrange
+			var semanticNetwork = new SemanticNetwork(Language.Default);
+
+			// act
+			string toString = semanticNetwork.ToString();
+
+			// assert
+			Assert.IsTrue(toString.Contains(semanticNetwork.Name.GetValue(Language.Default)));
 		}
 	}
 }
