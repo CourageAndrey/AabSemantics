@@ -4,6 +4,7 @@ using System.Linq;
 
 using NUnit.Framework;
 
+using Inventor.Semantics.Concepts;
 using Inventor.Semantics.Localization;
 using Inventor.Semantics.Mathematics;
 using Inventor.Semantics.Mathematics.Attributes;
@@ -29,6 +30,8 @@ using Inventor.Semantics.Set.Attributes;
 using Inventor.Semantics.Set.Localization;
 using Inventor.Semantics.Set.Questions;
 using Inventor.Semantics.Set.Statements;
+using Inventor.Semantics.Statements;
+using Inventor.Semantics.Text.Containers;
 
 namespace Inventor.Semantics.Test.Metadata
 {
@@ -290,6 +293,45 @@ namespace Inventor.Semantics.Test.Metadata
 			Assert.IsNotNull(language.GetExtension<ILanguageSetModule>());
 			Assert.IsNotNull(language.GetExtension<ILanguageMathematicsModule>());
 			Assert.IsNotNull(language.GetExtension<ILanguageProcessesModule>());
+		}
+
+		[Test]
+		public void CheckCyclicClassifications()
+		{
+			// arrange
+			var language = Language.Default;
+			var semanticNetwork = new SemanticNetwork(language);
+
+			var concept1 = 1.CreateConcept();
+			var concept2 = 2.CreateConcept();
+			semanticNetwork.Concepts.Add(concept1);
+			semanticNetwork.Concepts.Add(concept2);
+
+			semanticNetwork.DeclareThat(concept1).IsAncestorOf(concept2);
+
+			new ClassificationModule().RegisterMetadata();
+			var isDefinition = Repositories.Statements.Definitions[typeof(IsStatement)];
+
+			var validationResult = new UnstructuredContainer();
+
+			// act correct
+			isDefinition.CheckConsistency(semanticNetwork, validationResult);
+
+			// assert correct
+			Assert.AreEqual(0, validationResult.Items.Count);
+
+			// arrange error
+			semanticNetwork.DeclareThat(concept2).IsAncestorOf(concept1);
+
+			// act error
+			isDefinition.CheckConsistency(semanticNetwork, validationResult);
+
+			// assert error
+			var error = validationResult.Items.First();
+			Assert.IsTrue(error.GetParameters().ContainsKey(Strings.ParamStatement));
+
+			var text = TextRepresenters.PlainString.Represent(error, language).ToString();
+			Assert.IsTrue(text.Contains("causes cyclic references"));
 		}
 
 		private static List<Type> getAllAttributeTypes()
