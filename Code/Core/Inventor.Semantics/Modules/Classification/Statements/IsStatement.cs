@@ -94,29 +94,7 @@ namespace Inventor.Semantics.Modules.Classification.Statements
 
 		public System.Boolean CheckCyclic(IEnumerable<IsStatement> statements)
 		{
-			return !isCyclic(statements, Descendant, new List<IConcept>());
-		}
-
-		private System.Boolean isCyclic(IEnumerable<IsStatement> allClasifications, IConcept concept, List<IConcept> chain)
-		{
-			if (chain.Contains(concept)) return true;
-
-			var clasifications = allClasifications.Where(c => c.Descendant == concept).ToList();
-			if (clasifications.Count == 0)
-			{
-				return false;
-			}
-			else
-			{
-				foreach (var clasification in clasifications)
-				{
-					if (isCyclic(allClasifications, clasification.Ancestor, new List<IConcept>(chain) { clasification.Descendant }))
-					{
-						return true;
-					}
-				}
-				return false;
-			}
+			return !statements.FindPath(typeof(IsStatement), Child, Parent).Any();
 		}
 
 		#endregion
