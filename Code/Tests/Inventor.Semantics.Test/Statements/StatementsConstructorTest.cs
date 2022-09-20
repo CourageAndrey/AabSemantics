@@ -5,13 +5,18 @@ using NUnit.Framework;
 
 using Inventor.Semantics.Concepts;
 using Inventor.Semantics.Localization;
+using Inventor.Semantics.Mathematics;
 using Inventor.Semantics.Statements;
 using Inventor.Semantics.Mathematics.Attributes;
 using Inventor.Semantics.Mathematics.Statements;
+using Inventor.Semantics.Modules.Boolean;
 using Inventor.Semantics.Modules.Boolean.Attributes;
+using Inventor.Semantics.Modules.Classification;
 using Inventor.Semantics.Modules.Classification.Statements;
+using Inventor.Semantics.Processes;
 using Inventor.Semantics.Processes.Attributes;
 using Inventor.Semantics.Processes.Statements;
+using Inventor.Semantics.Set;
 using Inventor.Semantics.Set.Attributes;
 using Inventor.Semantics.Set.Statements;
 
@@ -408,6 +413,46 @@ namespace Inventor.Semantics.Test.Statements
 
 			// assert
 			Assert.IsNotNull(statement.Hint);
+		}
+
+		[Test]
+		public void CheckAllHints()
+		{
+		// arrange
+			var modules = new IExtensionModule[]
+			{
+				new BooleanModule(),
+				new ClassificationModule(),
+				new SetModule(),
+				new MathematicsModule(),
+				new ProcessesModule(),
+			};
+			foreach (var module in modules)
+			{
+				module.RegisterMetadata();
+			}
+
+			var concept1 = 1.CreateConcept().WithAttributes(new IAttribute[] { IsValueAttribute.Value, IsProcessAttribute.Value });
+			var concept2 = 2.CreateConcept().WithAttributes(new IAttribute[] { IsValueAttribute.Value, IsProcessAttribute.Value, IsSignAttribute.Value });
+			var concept3 = 3.CreateConcept().WithAttributes(new IAttribute[] { IsValueAttribute.Value, IsComparisonSignAttribute.Value, IsSequenceSignAttribute.Value });
+
+			var language = Language.Default;
+
+			// act && assert
+			foreach (var statement in new IStatement[]
+			{
+				new HasPartStatement(null, concept1, concept2),
+				new GroupStatement(null, concept1, concept2),
+				new HasSignStatement(null, concept1, concept2),
+				new IsStatement(null, concept1, concept2),
+				new SignValueStatement(null, concept1, concept2, concept3),
+				new ComparisonStatement(null, concept1, concept2, concept3),
+				new ProcessesStatement(null, concept1, concept2, concept3),
+			})
+			{
+				Assert.IsNotNull(statement.Hint);
+				Assert.IsNotNull(statement.Hint.GetValue(language));
+			}
 		}
 
 		#endregion
