@@ -11,7 +11,7 @@ namespace Inventor.Semantics.Contexts
 
 		#endregion
 
-		internal SystemContext(ILanguage language)
+		public SystemContext(ILanguage language)
 			: base(language, null)
 		{ }
 
