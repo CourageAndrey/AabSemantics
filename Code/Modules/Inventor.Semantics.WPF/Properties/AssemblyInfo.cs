@@ -7,7 +7,7 @@ using System.Windows;
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("Andrei Bychko")]
 [assembly: AssemblyProduct("Inventor")]
-[assembly: AssemblyCopyright("Copyright © Andrei Bychko 2014")]
+[assembly: AssemblyCopyright("Copyright © Andrei Bychko 2014-2023")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
