@@ -47,6 +47,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Inventor.Semantics.Test", "
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Samples.Semantics.Sample08.Productions", "Samples\Inventor.Semantics.Sample08.Productions\Samples.Semantics.Sample08.Productions.csproj", "{7252C47A-53C4-4893-B706-B5F8446331D6}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Inventor.Semantics.EF", "Modules\Inventor.Semantics.EF\Inventor.Semantics.EF.csproj", "{D9B375A5-9D66-490A-AC5C-4B153749C7D5}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -125,6 +127,10 @@ Global
 		{7252C47A-53C4-4893-B706-B5F8446331D6}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7252C47A-53C4-4893-B706-B5F8446331D6}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7252C47A-53C4-4893-B706-B5F8446331D6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D9B375A5-9D66-490A-AC5C-4B153749C7D5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D9B375A5-9D66-490A-AC5C-4B153749C7D5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D9B375A5-9D66-490A-AC5C-4B153749C7D5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D9B375A5-9D66-490A-AC5C-4B153749C7D5}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -147,6 +153,7 @@ Global
 		{553FA774-E3B2-4AE3-8B38-79C6DC1FE01E} = {889D4651-F24D-45B3-BD03-3AB214C40286}
 		{C2867882-90FC-42D8-A1F1-A15BC6B9DE36} = {889D4651-F24D-45B3-BD03-3AB214C40286}
 		{7252C47A-53C4-4893-B706-B5F8446331D6} = {E468A553-63B3-4913-AA93-BE788A5FF2F3}
+		{D9B375A5-9D66-490A-AC5C-4B153749C7D5} = {3551B285-81AF-49B9-A479-F23F281B7483}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {C59EB050-9F3F-424B-B1B6-86B16C7AC659}
