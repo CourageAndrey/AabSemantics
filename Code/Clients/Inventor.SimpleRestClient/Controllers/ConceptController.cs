@@ -1,0 +1,32 @@
+﻿using Microsoft.AspNetCore.Mvc;
+
+using Inventor.Semantics;
+using Inventor.Semantics.Xml;
+
+namespace Inventor.SimpleRestClient.Controllers
+{
+	[ApiController, Route("[controller]")]
+	public class ConceptController : ControllerBase
+	{
+		private readonly ILogger<ConceptController> _logger;
+		private readonly IDataService _dataService;
+
+		public ConceptController(ILogger<ConceptController> logger, IDataService dataService)
+		{
+			_logger = logger ?? throw new ArgumentNullException(nameof(logger));
+			_dataService = dataService ?? throw new ArgumentNullException(nameof(dataService));
+		}
+
+		[HttpGet(Name = "GetConcept")]
+		public IEnumerable<Concept> Get([FromQuery] string id)
+		{
+			var semanticNetwork = _dataService.GetSemanticNetwork();
+
+			var concepts = string.IsNullOrEmpty(id)
+				? semanticNetwork.Concepts.Where(concept => !ConceptIdResolver.SystemConceptsById.ContainsKey(concept.ID)).ToList() as ICollection<IConcept>
+				: new[] { semanticNetwork.Concepts[id] };
+
+			return concepts.Select(concept => new Concept(concept));
+		}
+	}
+}
