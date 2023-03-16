@@ -1,0 +1,21 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Swashbuckle.AspNetCore" Version="6.2.3" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\Core\Inventor.Semantics\Inventor.Semantics.csproj" />
+    <ProjectReference Include="..\..\Modules\Inventor.Semantics.Mathematics\Inventor.Semantics.Mathematics.csproj" />
+    <ProjectReference Include="..\..\Modules\Inventor.Semantics.Processes\Inventor.Semantics.Processes.csproj" />
+    <ProjectReference Include="..\..\Modules\Inventor.Semantics.Set\Inventor.Semantics.Set.csproj" />
+    <ProjectReference Include="..\..\Tests\Inventor.Semantics.Test.Sample\Inventor.Semantics.Test.Sample.csproj" />
+  </ItemGroup>
+
+</Project>

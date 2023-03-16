@@ -53,6 +53,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Samples.Semantics.Sample09.
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Clients", "Clients", "{E05FAB82-39DC-4FE0-8AAA-4A096140D094}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Inventor.SimpleRestClient", "Clients\Inventor.SimpleRestClient\Inventor.SimpleRestClient.csproj", "{DB788C12-ED8E-40BE-A206-EE78D7136776}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -139,6 +141,10 @@ Global
 		{FA3DD113-2130-40D0-BBB4-68B9EF03D3A2}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FA3DD113-2130-40D0-BBB4-68B9EF03D3A2}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FA3DD113-2130-40D0-BBB4-68B9EF03D3A2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DB788C12-ED8E-40BE-A206-EE78D7136776}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DB788C12-ED8E-40BE-A206-EE78D7136776}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DB788C12-ED8E-40BE-A206-EE78D7136776}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DB788C12-ED8E-40BE-A206-EE78D7136776}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -164,6 +170,7 @@ Global
 		{7252C47A-53C4-4893-B706-B5F8446331D6} = {E468A553-63B3-4913-AA93-BE788A5FF2F3}
 		{D9B375A5-9D66-490A-AC5C-4B153749C7D5} = {3551B285-81AF-49B9-A479-F23F281B7483}
 		{FA3DD113-2130-40D0-BBB4-68B9EF03D3A2} = {E468A553-63B3-4913-AA93-BE788A5FF2F3}
+		{DB788C12-ED8E-40BE-A206-EE78D7136776} = {E05FAB82-39DC-4FE0-8AAA-4A096140D094}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {C59EB050-9F3F-424B-B1B6-86B16C7AC659}
