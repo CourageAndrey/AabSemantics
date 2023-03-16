@@ -4,6 +4,7 @@ using System.Linq;
 
 using NUnit.Framework;
 
+using Inventor.Semantics.Answers;
 using Inventor.Semantics.Concepts;
 using Inventor.Semantics.Localization;
 using Inventor.Semantics.Mathematics;
@@ -61,6 +62,7 @@ namespace Inventor.Semantics.Test.Metadata
 			Assert.IsTrue(module.AreAttributesRegistered);
 			Assert.IsTrue(module.AreStatementsRegistered);
 			Assert.IsTrue(module.AreQuestionsRegistered);
+			Assert.IsTrue(module.AreAnswersRegistered);
 		}
 
 		[Test]
@@ -262,6 +264,15 @@ namespace Inventor.Semantics.Test.Metadata
 				var definition = Repositories.Questions.Definitions[type];
 				Assert.IsFalse(string.IsNullOrEmpty(definition.GetName(language)));
 			}
+
+			// assert answers
+			var answerTypes = getAllAnswersTypes();
+			Assert.AreEqual(Repositories.Answers.Definitions.Count, answerTypes.Count);
+			foreach (var type in answerTypes)
+			{
+				var definition = Repositories.Answers.Definitions[type];
+				Assert.AreSame(definition.Type, type);
+			}
 		}
 
 		[Test]
@@ -389,6 +400,19 @@ namespace Inventor.Semantics.Test.Metadata
 			};
 		}
 
+		private static List<Type> getAllAnswersTypes()
+		{
+			return new List<Type>
+			{
+				typeof(Answer),
+				typeof(BooleanAnswer),
+				typeof(ConceptAnswer),
+				typeof(ConceptsAnswer),
+				typeof(StatementAnswer),
+				typeof(StatementsAnswer),
+			};
+		}
+
 		private class TestModule : ExtensionModule
 		{
 			public bool IsSemanticNetworkAttached
@@ -401,6 +425,9 @@ namespace Inventor.Semantics.Test.Metadata
 			{ get; set; }
 
 			public bool AreQuestionsRegistered
+			{ get; set; }
+
+			public bool AreAnswersRegistered
 			{ get; set; }
 
 			public TestModule(string name, ICollection<string> dependencies = null)
@@ -429,6 +456,12 @@ namespace Inventor.Semantics.Test.Metadata
 			{
 				base.RegisterQuestions();
 				AreQuestionsRegistered = true;
+			}
+
+			protected override void RegisterAnswers()
+			{
+				base.RegisterAnswers();
+				AreAnswersRegistered = true;
 			}
 		}
 	}
