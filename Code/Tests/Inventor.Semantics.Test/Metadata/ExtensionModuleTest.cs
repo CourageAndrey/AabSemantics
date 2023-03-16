@@ -246,7 +246,7 @@ namespace Inventor.Semantics.Test.Metadata
 			}
 
 			// assert statements
-			var statementTypes = getAllStatemtentTypes();
+			var statementTypes = getAllStatementTypes();
 			Assert.AreEqual(Repositories.Statements.Definitions.Count, statementTypes.Count);
 			foreach (var type in statementTypes)
 			{
@@ -347,7 +347,7 @@ namespace Inventor.Semantics.Test.Metadata
 			};
 		}
 
-		private static List<Type> getAllStatemtentTypes()
+		private static List<Type> getAllStatementTypes()
 		{
 			return new List<Type>
 			{
