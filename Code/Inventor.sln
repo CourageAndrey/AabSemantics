@@ -45,7 +45,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Inventor.Algorithms.Test", 
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Inventor.Semantics.Test", "Tests\Inventor.Semantics.Test\Inventor.Semantics.Test.csproj", "{C2867882-90FC-42D8-A1F1-A15BC6B9DE36}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Samples.Semantics.Sample08.Productions", "Samples\Inventor.Semantics.Sample08.Productions\Samples.Semantics.Sample08.Productions.csproj", "{7252C47A-53C4-4893-B706-B5F8446331D6}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Samples.Semantics.Sample08.Productions", "Samples\Inventor.Semantics.Sample08.Productions\Samples.Semantics.Sample08.Productions.csproj", "{7252C47A-53C4-4893-B706-B5F8446331D6}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Inventor.Semantics.EF", "Modules\Inventor.Semantics.EF\Inventor.Semantics.EF.csproj", "{D9B375A5-9D66-490A-AC5C-4B153749C7D5}"
 EndProject
