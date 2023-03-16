@@ -6,6 +6,8 @@ using Inventor.Semantics.Modules.Boolean.Attributes;
 using Inventor.Semantics.Modules.Boolean.Concepts;
 using Inventor.Semantics.Modules.Boolean.Localization;
 using Inventor.Semantics.Modules.Boolean.Questions;
+using Inventor.Semantics.Xml;
+using Inventor.Semantics.Xml.Answers;
 
 namespace Inventor.Semantics.Modules.Boolean
 {
@@ -44,6 +46,16 @@ namespace Inventor.Semantics.Modules.Boolean
 		protected override void RegisterQuestions()
 		{
 			Repositories.RegisterQuestion<CheckStatementQuestion>(language => language.GetExtension<ILanguageBooleanModule>().Questions.Names.CheckStatementQuestion);
+		}
+
+		protected override void RegisterAnswers()
+		{
+			Repositories.RegisterAnswer<Answers.Answer>((answer, language) => new Answer(answer, language), typeof(Answer));
+			Repositories.RegisterAnswer<Answers.BooleanAnswer>((answer, language) => new BooleanAnswer(answer, language), typeof(BooleanAnswer));
+			Repositories.RegisterAnswer<Answers.ConceptAnswer>((answer, language) => new ConceptAnswer(answer, language), typeof(ConceptAnswer));
+			Repositories.RegisterAnswer<Answers.ConceptsAnswer>((answer, language) => new ConceptsAnswer(answer, language), typeof(ConceptsAnswer));
+			Repositories.RegisterAnswer<Answers.StatementAnswer>((answer, language) => new StatementAnswer(answer, language), typeof(StatementAnswer));
+			Repositories.RegisterAnswer<Answers.StatementsAnswer>((answer, language) => new StatementsAnswer(answer, language), typeof(StatementsAnswer));
 		}
 
 		public override IDictionary<String, Type> GetLanguageExtensions()

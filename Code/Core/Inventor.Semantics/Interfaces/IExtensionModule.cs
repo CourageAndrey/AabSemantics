@@ -70,6 +70,7 @@ namespace Inventor.Semantics
 				RegisterConcepts();
 				RegisterStatements();
 				RegisterQuestions();
+				RegisterAnswers();
 
 				Repositories.Modules[Name] = this;
 			}
@@ -93,6 +94,9 @@ namespace Inventor.Semantics
 		{ }
 
 		protected virtual void RegisterQuestions()
+		{ }
+
+		protected virtual void RegisterAnswers()
 		{ }
 	}
 

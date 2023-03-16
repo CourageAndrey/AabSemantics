@@ -69,10 +69,27 @@ namespace Inventor.Semantics.Metadata
 			}
 		}
 
+		public static IRepository<AnswerDefinition> Answers
+		{
+			get { return _answers; }
+			set
+			{
+				if (value != null)
+				{
+					_answers = value;
+				}
+				else
+				{
+					throw new ArgumentNullException(nameof(value));
+				}
+			}
+		}
+
 		private static IDictionary<String, IExtensionModule> _modules = new Dictionary<String, IExtensionModule>();
 		private static IRepository<AttributeDefinition> _attributes = new Repository<AttributeDefinition>();
 		private static IRepository<StatementDefinition> _statements = new Repository<StatementDefinition>();
 		private static IRepository<QuestionDefinition> _questions = new Repository<QuestionDefinition>();
+		private static IRepository<AnswerDefinition> _answers = new Repository<AnswerDefinition>();
 
 		public static void RegisterAttribute<AttributeT>(
 			AttributeT value,
@@ -97,6 +114,14 @@ namespace Inventor.Semantics.Metadata
 			where QuestionT : IQuestion
 		{
 			Questions.Define(new QuestionDefinition(typeof(QuestionT), questionNameGetter));
+		}
+
+		public static void RegisterAnswer<AnswerT>(
+			Func<AnswerT, ILanguage, Xml.Answer> answerXmlGetter,
+			Type xmlType)
+			where AnswerT : IAnswer
+		{
+			Answers.Define(new AnswerDefinition<AnswerT>(answerXmlGetter, xmlType));
 		}
 	}
 }
