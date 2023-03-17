@@ -5,9 +5,9 @@ using Inventor.Semantics.Xml;
 namespace Inventor.Semantics.Processes.Xml
 {
 	[XmlType("IsSequenceSign")]
-	public class IsSequenceSignAttribute : Attribute
+	public class IsSequenceSignAttribute : Attribute<Attributes.IsSequenceSignAttribute>
 	{
-		public override IAttribute Load()
+		public override Attributes.IsSequenceSignAttribute LoadTyped()
 		{
 			return Attributes.IsSequenceSignAttribute.Value;
 		}
