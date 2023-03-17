@@ -28,5 +28,21 @@ namespace Inventor.SimpleRestClient.Controllers
 
 			return concepts.Select(concept => new Concept(concept));
 		}
+
+		[HttpPut(Name = "PutConcept")]
+		public void Put([FromBody] Concept concept)
+		{
+			var semanticNetwork = _dataService.GetSemanticNetwork();
+
+			semanticNetwork.Concepts.Add(concept.Load());
+		}
+
+		[HttpDelete(Name = "DeleteConcept")]
+		public void Delete([FromQuery] string id)
+		{
+			var semanticNetwork = _dataService.GetSemanticNetwork();
+
+			semanticNetwork.Statements.Remove(semanticNetwork.Statements[id]);
+		}
 	}
 }
