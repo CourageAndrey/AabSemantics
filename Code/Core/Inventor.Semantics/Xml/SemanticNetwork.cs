@@ -60,10 +60,10 @@ namespace Inventor.Semantics.Xml
 
 			result.WithModules(Repositories.Modules.Values.Where(module => Modules.Contains(module.Name)).ToList());
 
-			var conceptsCache = new Dictionary<Concept, IConcept>();
+			var conceptsCache = new Dictionary<String, IConcept>();
 			foreach (var concept in Concepts)
 			{
-				result.Concepts.Add(conceptsCache[concept] = concept.Load());
+				result.Concepts.Add(conceptsCache[concept.ID] = concept.Load());
 			}
 
 			var conceptIdResolver = new ConceptIdResolver(conceptsCache);
