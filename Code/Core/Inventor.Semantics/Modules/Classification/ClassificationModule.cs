@@ -32,9 +32,18 @@ namespace Inventor.Semantics.Modules.Classification
 
 		protected override void RegisterQuestions()
 		{
-			Repositories.RegisterQuestion<EnumerateAncestorsQuestion>(language => language.GetExtension<ILanguageClassificationModule>().Questions.Names.EnumerateAncestorsQuestion);
-			Repositories.RegisterQuestion<EnumerateDescendantsQuestion>(language => language.GetExtension<ILanguageClassificationModule>().Questions.Names.EnumerateDescendantsQuestion);
-			Repositories.RegisterQuestion<IsQuestion>(language => language.GetExtension<ILanguageClassificationModule>().Questions.Names.IsQuestion);
+			Repositories.RegisterQuestion<EnumerateAncestorsQuestion>(
+				language => language.GetExtension<ILanguageClassificationModule>().Questions.Names.EnumerateAncestorsQuestion,
+				question => new Xml.EnumerateAncestorsQuestion(question),
+				typeof(Xml.EnumerateAncestorsQuestion));
+			Repositories.RegisterQuestion<EnumerateDescendantsQuestion>(
+				language => language.GetExtension<ILanguageClassificationModule>().Questions.Names.EnumerateDescendantsQuestion,
+				question => new Xml.EnumerateDescendantsQuestion(question),
+				typeof(Xml.EnumerateDescendantsQuestion));
+			Repositories.RegisterQuestion<IsQuestion>(
+				language => language.GetExtension<ILanguageClassificationModule>().Questions.Names.IsQuestion,
+				question => new Xml.IsQuestion(question),
+				typeof(Xml.IsQuestion));
 		}
 
 		public override IDictionary<String, Type> GetLanguageExtensions()
