@@ -20,7 +20,7 @@ namespace Inventor.Semantics.Test.Metadata
 				null,
 				language => language.Culture,
 				statement => null,
-				typeof(Semantics.Xml.Statement),
+				typeof(Modules.Classification.Xml.IsStatement),
 				StatementDefinition.NoConsistencyCheck));
 		}
 
@@ -32,12 +32,12 @@ namespace Inventor.Semantics.Test.Metadata
 				typeof(Semantics.Questions.Question),
 				language => language.Culture,
 				statement => null,
-				typeof(Semantics.Xml.Statement),
+				typeof(Modules.Classification.Xml.IsStatement),
 				StatementDefinition.NoConsistencyCheck));
 			Assert.Throws<ArgumentException>(() => new StatementDefinition<Statement>(
 				language => language.Culture,
 				statement => null,
-				typeof(Semantics.Xml.Statement),
+				typeof(Modules.Classification.Xml.IsStatement),
 				StatementDefinition<Statement>.NoConsistencyCheck));
 		}
 
@@ -48,13 +48,13 @@ namespace Inventor.Semantics.Test.Metadata
 			Assert.Throws<ArgumentNullException>(() => new StatementDefinition<IsStatement>(
 				language => language.Culture,
 				null,
-				typeof(Semantics.Xml.Statement),
+				typeof(Modules.Classification.Xml.IsStatement),
 				StatementDefinition<IsStatement>.NoConsistencyCheck));
 			Assert.Throws<ArgumentNullException>(() => new TestStatementDefinition(
 				typeof(IsStatement),
 				null,
 				statement => null,
-				typeof(Semantics.Xml.Statement),
+				typeof(Modules.Classification.Xml.IsStatement),
 				StatementDefinition.NoConsistencyCheck));
 		}
 
@@ -71,7 +71,7 @@ namespace Inventor.Semantics.Test.Metadata
 				typeof(IsStatement),
 				language => language.Culture,
 				null,
-				typeof(Semantics.Xml.Statement),
+				typeof(Modules.Classification.Xml.IsStatement),
 				StatementDefinition.NoConsistencyCheck));
 			Assert.Throws<ArgumentNullException>(() => new TestStatementDefinition(
 				typeof(IsStatement),
@@ -88,20 +88,20 @@ namespace Inventor.Semantics.Test.Metadata
 			Assert.Throws<ArgumentNullException>(() => new StatementDefinition<IsStatement>(
 				language => language.Culture,
 				statement => null,
-				typeof(Semantics.Xml.Statement),
+				typeof(Modules.Classification.Xml.IsStatement),
 				null));
 			Assert.Throws<ArgumentNullException>(() => new TestStatementDefinition(
 				typeof(IsStatement),
 				language => language.Culture,
 				statement => null,
-				typeof(Semantics.Xml.Statement),
+				typeof(Modules.Classification.Xml.IsStatement),
 				null));
 
 			var definition = new TestStatementDefinition(
 				typeof(IsStatement),
 				language => language.Culture,
 				statement => null,
-				typeof(Semantics.Xml.Statement),
+				typeof(Modules.Classification.Xml.IsStatement),
 				StatementDefinition.NoConsistencyCheck);
 			definition.CheckConsistency(null, null);
 		}
@@ -113,7 +113,7 @@ namespace Inventor.Semantics.Test.Metadata
 			var definition = new StatementDefinition<IsStatement>(
 				language => language.Culture,
 				statement => null,
-				typeof(Semantics.Xml.Statement),
+				typeof(Modules.Classification.Xml.IsStatement),
 				StatementDefinition<IsStatement>.NoConsistencyCheck);
 
 			// act

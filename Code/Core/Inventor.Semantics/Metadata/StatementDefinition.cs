@@ -41,6 +41,7 @@ namespace Inventor.Semantics.Metadata
 			if (statementNameGetter == null) throw new ArgumentNullException(nameof(statementNameGetter));
 			if (statementXmlGetter == null) throw new ArgumentNullException(nameof(statementXmlGetter));
 			if (xmlType == null) throw new ArgumentNullException(nameof(xmlType));
+			if (xmlType.IsAbstract || !typeof(Xml.Statement).IsAssignableFrom(xmlType)) throw new ArgumentException($"Type must be non-abstract and implement {typeof(Xml.Statement)}.", nameof(xmlType));
 			if (consistencyChecker == null) throw new ArgumentNullException(nameof(consistencyChecker));
 
 			Type = type;
