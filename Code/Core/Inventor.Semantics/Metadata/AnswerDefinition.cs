@@ -55,4 +55,18 @@ namespace Inventor.Semantics.Metadata
 			if (answerXmlGetter == null) throw new ArgumentNullException(nameof(answerXmlGetter));
 		}
 	}
+
+	public class AnswerDefinition<AnswerT, XmlT> : AnswerDefinition<AnswerT>
+		where AnswerT : IAnswer
+		where XmlT : Xml.Answer
+	{
+		public AnswerDefinition(
+			Func<AnswerT, ILanguage, XmlT> answerXmlGetter)
+			: base(
+				(answer, language) => answerXmlGetter((AnswerT) answer, language),
+				typeof(XmlT))
+		{
+			if (answerXmlGetter == null) throw new ArgumentNullException(nameof(answerXmlGetter));
+		}
+	}
 }

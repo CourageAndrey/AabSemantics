@@ -85,4 +85,21 @@ namespace Inventor.Semantics.Metadata
 			if (attributeNameGetter == null) throw new ArgumentNullException(nameof(attributeNameGetter));
 		}
 	}
+
+	public class AttributeDefinition<AttributeT, XmlT> : AttributeDefinition<AttributeT>
+		where AttributeT : IAttribute
+		where XmlT : Xml.Attribute
+	{
+		public AttributeDefinition(
+			Func<ILanguage, String> attributeNameGetter,
+			AttributeT attributeValue,
+			XmlT xml)
+			: base(
+				attributeNameGetter,
+				attributeValue,
+				xml)
+		{
+			if (attributeNameGetter == null) throw new ArgumentNullException(nameof(attributeNameGetter));
+		}
+	}
 }

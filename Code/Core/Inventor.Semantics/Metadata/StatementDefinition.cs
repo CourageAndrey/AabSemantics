@@ -93,4 +93,25 @@ namespace Inventor.Semantics.Metadata
 
 		public new static readonly StatementConsistencyCheckerDelegate<StatementT> NoConsistencyCheck = (statements, result, allStatements) => { };
 	}
+
+	public class StatementDefinition<StatementT, XmlT> : StatementDefinition<StatementT>
+		where StatementT: IStatement
+		where XmlT : Xml.Statement
+	{
+		public StatementDefinition(
+			Func<ILanguage, String> statementNameGetter,
+			Func<StatementT, XmlT> statementXmlGetter,
+			StatementConsistencyCheckerDelegate<StatementT> consistencyChecker)
+			: base(
+				statementNameGetter,
+				statementXmlGetter,
+				typeof(XmlT),
+				consistencyChecker)
+		{
+			if (statementXmlGetter == null) throw new ArgumentNullException(nameof(statementXmlGetter));
+			if (consistencyChecker == null) throw new ArgumentNullException(nameof(consistencyChecker));
+		}
+
+		public new static readonly StatementConsistencyCheckerDelegate<StatementT> NoConsistencyCheck = (statements, result, allStatements) => { };
+	}
 }
