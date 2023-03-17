@@ -54,7 +54,10 @@ namespace Inventor.Semantics.Processes
 
 		protected override void RegisterQuestions()
 		{
-			Repositories.RegisterQuestion<ProcessesQuestion>(language => language.GetExtension<ILanguageProcessesModule>().Questions.Names.ProcessesQuestion);
+			Repositories.RegisterQuestion<ProcessesQuestion>(
+				language => language.GetExtension<ILanguageProcessesModule>().Questions.Names.ProcessesQuestion,
+				question => new Xml.ProcessesQuestion(question),
+				typeof(Xml.ProcessesQuestion));
 		}
 
 		public override IDictionary<String, Type> GetLanguageExtensions()

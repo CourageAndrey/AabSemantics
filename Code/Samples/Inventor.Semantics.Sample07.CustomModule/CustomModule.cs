@@ -60,7 +60,10 @@ namespace Samples.Semantics.Sample07.CustomModule
 
 		protected override void RegisterQuestions()
 		{
-			Repositories.RegisterQuestion<CustomQuestion>(language => language.GetExtension<ILanguageCustomModule>().Questions.Names.Custom);
+			Repositories.RegisterQuestion<CustomQuestion>(
+				language => language.GetExtension<ILanguageCustomModule>().Questions.Names.Custom,
+				question => new Xml.CustomQuestion(question),
+				typeof(Xml.CustomQuestion));
 		}
 
 		private static void checkSelfRelations(

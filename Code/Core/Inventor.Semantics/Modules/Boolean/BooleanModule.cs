@@ -45,7 +45,10 @@ namespace Inventor.Semantics.Modules.Boolean
 
 		protected override void RegisterQuestions()
 		{
-			Repositories.RegisterQuestion<CheckStatementQuestion>(language => language.GetExtension<ILanguageBooleanModule>().Questions.Names.CheckStatementQuestion);
+			Repositories.RegisterQuestion<CheckStatementQuestion>(
+				language => language.GetExtension<ILanguageBooleanModule>().Questions.Names.CheckStatementQuestion,
+				question => new Xml.CheckStatementQuestion(question),
+				typeof(Xml.CheckStatementQuestion));
 		}
 
 		protected override void RegisterAnswers()

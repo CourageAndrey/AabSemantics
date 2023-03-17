@@ -110,10 +110,13 @@ namespace Inventor.Semantics.Metadata
 			Statements.Define(new StatementDefinition<StatementT>(statementNameGetter, statementXmlGetter, xmlType, consistencyChecker));
 		}
 
-		public static void RegisterQuestion<QuestionT>(Func<ILanguage, String> questionNameGetter)
+		public static void RegisterQuestion<QuestionT>(
+			Func<ILanguage, String> questionNameGetter,
+			Func<QuestionT, Xml.Question> questionXmlGetter,
+			Type xmlType)
 			where QuestionT : IQuestion
 		{
-			Questions.Define(new QuestionDefinition(typeof(QuestionT), questionNameGetter));
+			Questions.Define(new QuestionDefinition<QuestionT>(questionNameGetter, questionXmlGetter, xmlType));
 		}
 
 		public static void RegisterAnswer<AnswerT>(

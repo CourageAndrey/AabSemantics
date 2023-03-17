@@ -52,7 +52,10 @@ namespace Inventor.Semantics.Mathematics
 
 		protected override void RegisterQuestions()
 		{
-			Repositories.RegisterQuestion<ComparisonQuestion>(language => language.GetExtension<ILanguageMathematicsModule>().Questions.Names.ComparisonQuestion);
+			Repositories.RegisterQuestion<ComparisonQuestion>(
+				language => language.GetExtension<ILanguageMathematicsModule>().Questions.Names.ComparisonQuestion,
+				question => new Xml.ComparisonQuestion(question),
+				typeof(Xml.ComparisonQuestion));
 		}
 
 		public override IDictionary<String, Type> GetLanguageExtensions()

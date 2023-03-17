@@ -7,7 +7,7 @@ using Samples.Semantics.Sample07.CustomModule.Localization;
 
 namespace Samples.Semantics.Sample07.CustomModule
 {
-	internal class CustomQuestion : Question
+	public class CustomQuestion : Question
 	{
 		public IConcept Concept1
 		{ get; }
