@@ -45,20 +45,19 @@ namespace Inventor.Semantics.Modules.Boolean
 
 		protected override void RegisterQuestions()
 		{
-			Repositories.RegisterQuestion<CheckStatementQuestion>(
+			Repositories.RegisterQuestion<CheckStatementQuestion, Xml.CheckStatementQuestion>(
 				language => language.GetExtension<ILanguageBooleanModule>().Questions.Names.CheckStatementQuestion,
-				question => new Xml.CheckStatementQuestion(question),
-				typeof(Xml.CheckStatementQuestion));
+				question => new Xml.CheckStatementQuestion(question));
 		}
 
 		protected override void RegisterAnswers()
 		{
-			Repositories.RegisterAnswer<Answers.Answer>((answer, language) => new Answer(answer, language), typeof(Answer));
-			Repositories.RegisterAnswer<Answers.BooleanAnswer>((answer, language) => new BooleanAnswer(answer, language), typeof(BooleanAnswer));
-			Repositories.RegisterAnswer<Answers.ConceptAnswer>((answer, language) => new ConceptAnswer(answer, language), typeof(ConceptAnswer));
-			Repositories.RegisterAnswer<Answers.ConceptsAnswer>((answer, language) => new ConceptsAnswer(answer, language), typeof(ConceptsAnswer));
-			Repositories.RegisterAnswer<Answers.StatementAnswer>((answer, language) => new StatementAnswer(answer, language), typeof(StatementAnswer));
-			Repositories.RegisterAnswer<Answers.StatementsAnswer>((answer, language) => new StatementsAnswer(answer, language), typeof(StatementsAnswer));
+			Repositories.RegisterAnswer<Answers.Answer, Answer>((answer, language) => new Answer(answer, language));
+			Repositories.RegisterAnswer<Answers.BooleanAnswer, BooleanAnswer>((answer, language) => new BooleanAnswer(answer, language));
+			Repositories.RegisterAnswer<Answers.ConceptAnswer, ConceptAnswer>((answer, language) => new ConceptAnswer(answer, language));
+			Repositories.RegisterAnswer<Answers.ConceptsAnswer, ConceptsAnswer>((answer, language) => new ConceptsAnswer(answer, language));
+			Repositories.RegisterAnswer<Answers.StatementAnswer, StatementAnswer>((answer, language) => new StatementAnswer(answer, language));
+			Repositories.RegisterAnswer<Answers.StatementsAnswer, StatementsAnswer>((answer, language) => new StatementsAnswer(answer, language));
 		}
 
 		public override IDictionary<String, Type> GetLanguageExtensions()

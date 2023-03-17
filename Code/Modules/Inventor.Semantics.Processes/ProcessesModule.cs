@@ -45,19 +45,17 @@ namespace Inventor.Semantics.Processes
 
 		protected override void RegisterStatements()
 		{
-			Repositories.RegisterStatement<ProcessesStatement>(
+			Repositories.RegisterStatement<ProcessesStatement, Xml.ProcessesStatement>(
 				language => language.GetExtension<ILanguageProcessesModule>().Statements.Names.Processes,
 				statement => new Xml.ProcessesStatement(statement),
-				typeof(Xml.ProcessesStatement),
 				checkProcessSequenceSystems);
 		}
 
 		protected override void RegisterQuestions()
 		{
-			Repositories.RegisterQuestion<ProcessesQuestion>(
+			Repositories.RegisterQuestion<ProcessesQuestion, Xml.ProcessesQuestion>(
 				language => language.GetExtension<ILanguageProcessesModule>().Questions.Names.ProcessesQuestion,
-				question => new Xml.ProcessesQuestion(question),
-				typeof(Xml.ProcessesQuestion));
+				question => new Xml.ProcessesQuestion(question));
 		}
 
 		public override IDictionary<String, Type> GetLanguageExtensions()

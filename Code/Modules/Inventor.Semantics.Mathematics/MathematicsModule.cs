@@ -43,19 +43,17 @@ namespace Inventor.Semantics.Mathematics
 
 		protected override void RegisterStatements()
 		{
-			Repositories.RegisterStatement<ComparisonStatement>(
+			Repositories.RegisterStatement<ComparisonStatement, Xml.ComparisonStatement>(
 				language => language.GetExtension<ILanguageMathematicsModule>().Statements.Names.Comparison,
 				statement => new Xml.ComparisonStatement(statement),
-				typeof(Xml.ComparisonStatement),
 				checkComparisonValueSystems);
 		}
 
 		protected override void RegisterQuestions()
 		{
-			Repositories.RegisterQuestion<ComparisonQuestion>(
+			Repositories.RegisterQuestion<ComparisonQuestion, Xml.ComparisonQuestion>(
 				language => language.GetExtension<ILanguageMathematicsModule>().Questions.Names.ComparisonQuestion,
-				question => new Xml.ComparisonQuestion(question),
-				typeof(Xml.ComparisonQuestion));
+				question => new Xml.ComparisonQuestion(question));
 		}
 
 		public override IDictionary<String, Type> GetLanguageExtensions()
