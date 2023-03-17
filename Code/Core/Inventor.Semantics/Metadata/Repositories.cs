@@ -97,7 +97,7 @@ namespace Inventor.Semantics.Metadata
 			Xml.Attribute xml)
 			where AttributeT : IAttribute
 		{
-			Attributes.Define(new AttributeDefinition(typeof(AttributeT), value, attributeNameGetter, xml));
+			Attributes.Define(new AttributeDefinition<AttributeT>(attributeNameGetter, value, xml));
 		}
 
 		public static void RegisterStatement<StatementT>(
