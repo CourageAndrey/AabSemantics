@@ -20,11 +20,11 @@ namespace Inventor.Semantics.Xml
 			}
 		}
 
-		public ConceptIdResolver(IDictionary<Concept, IConcept> concepts)
+		public ConceptIdResolver(IDictionary<String, IConcept> concepts)
 		{
 			foreach (var concept in concepts)
 			{
-				_conceptsById[concept.Key.ID] = concept.Value;
+				_conceptsById[concept.Key] = concept.Value;
 			}
 		}
 
