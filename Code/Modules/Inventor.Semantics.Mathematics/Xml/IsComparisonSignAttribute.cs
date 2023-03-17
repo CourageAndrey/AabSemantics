@@ -5,9 +5,9 @@ using Inventor.Semantics.Xml;
 namespace Inventor.Semantics.Mathematics.Xml
 {
 	[XmlType("IsComparisonSign")]
-	public class IsComparisonSignAttribute : Attribute
+	public class IsComparisonSignAttribute : Attribute<Attributes.IsComparisonSignAttribute>
 	{
-		public override IAttribute Load()
+		public override Attributes.IsComparisonSignAttribute LoadTyped()
 		{
 			return Attributes.IsComparisonSignAttribute.Value;
 		}

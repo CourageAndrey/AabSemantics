@@ -5,11 +5,11 @@ using Inventor.Semantics.Xml;
 namespace Inventor.Semantics.Processes.Xml
 {
 	[XmlType("IsProcess")]
-	public class IsProcessAttribute : Attribute
+	public class IsProcessAttribute : Attribute<Attributes.IsProcessAttribute>
 	{
-		public override IAttribute Load()
+		public override Attributes.IsProcessAttribute LoadTyped()
 		{
-			return Processes.Attributes.IsProcessAttribute.Value;
+			return Attributes.IsProcessAttribute.Value;
 		}
 	}
 }

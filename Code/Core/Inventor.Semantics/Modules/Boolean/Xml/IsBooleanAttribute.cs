@@ -5,9 +5,9 @@ using Inventor.Semantics.Xml;
 namespace Inventor.Semantics.Modules.Boolean.Xml
 {
 	[XmlType("IsBoolean")]
-	public class IsBooleanAttribute : Attribute
+	public class IsBooleanAttribute : Attribute<Attributes.IsBooleanAttribute>
 	{
-		public override IAttribute Load()
+		public override Attributes.IsBooleanAttribute LoadTyped()
 		{
 			return Attributes.IsBooleanAttribute.Value;
 		}

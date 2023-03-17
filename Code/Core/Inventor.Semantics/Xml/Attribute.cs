@@ -15,4 +15,16 @@ namespace Inventor.Semantics.Xml
 			return definition.Xml;
 		}
 	}
+
+	[XmlType]
+	public abstract class Attribute<AttributeT> : Attribute
+		where AttributeT : IAttribute
+	{
+		public override IAttribute Load()
+		{
+			return LoadTyped();
+		}
+
+		public abstract AttributeT LoadTyped();
+	}
 }

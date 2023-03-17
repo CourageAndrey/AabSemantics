@@ -2,7 +2,7 @@
 
 namespace Samples.Semantics.Sample07.CustomModule
 {
-	internal class CustomAttribute : IAttribute
+	public class CustomAttribute : IAttribute
 	{
 		protected CustomAttribute()
 		{ }
