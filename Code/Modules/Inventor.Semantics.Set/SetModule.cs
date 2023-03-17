@@ -36,96 +36,77 @@ namespace Inventor.Semantics.Set
 
 		protected override void RegisterStatements()
 		{
-			Repositories.RegisterStatement<HasPartStatement>(
+			Repositories.RegisterStatement<HasPartStatement, Xml.HasPartStatement>(
 				language => language.GetExtension<ILanguageSetModule>().Statements.Names.Composition,
 				statement => new Xml.HasPartStatement(statement),
-				typeof(Xml.HasPartStatement),
 				StatementDefinition<HasPartStatement>.NoConsistencyCheck);
 
-			Repositories.RegisterStatement<GroupStatement>(
+			Repositories.RegisterStatement<GroupStatement, Xml.GroupStatement>(
 				language => language.GetExtension<ILanguageSetModule>().Statements.Names.SubjectArea,
 				statement => new Xml.GroupStatement(statement),
-				typeof(Xml.GroupStatement),
 				StatementDefinition<GroupStatement>.NoConsistencyCheck);
 
-			Repositories.RegisterStatement<HasSignStatement>(
+			Repositories.RegisterStatement<HasSignStatement, Xml.HasSignStatement>(
 				language => language.GetExtension<ILanguageSetModule>().Statements.Names.HasSign,
 				statement => new Xml.HasSignStatement(statement),
-				typeof(Xml.HasSignStatement),
 				checkSignDuplications);
 
-			Repositories.RegisterStatement<SignValueStatement>(
+			Repositories.RegisterStatement<SignValueStatement, Xml.SignValueStatement>(
 				language => language.GetExtension<ILanguageSetModule>().Statements.Names.SignValue,
 				statement => new Xml.SignValueStatement(statement),
-				typeof(Xml.SignValueStatement),
 				checkSignValues);
 		}
 
 		protected override void RegisterQuestions()
 		{
-			Repositories.RegisterQuestion<DescribeSubjectAreaQuestion>(
+			Repositories.RegisterQuestion<DescribeSubjectAreaQuestion, Xml.DescribeSubjectAreaQuestion>(
 				language => language.GetExtension<ILanguageSetModule>().Questions.Names.DescribeSubjectAreaQuestion,
-				question => new Xml.DescribeSubjectAreaQuestion(question),
-				typeof(Xml.DescribeSubjectAreaQuestion));
-			Repositories.RegisterQuestion<FindSubjectAreaQuestion>(
+				question => new Xml.DescribeSubjectAreaQuestion(question));
+			Repositories.RegisterQuestion<FindSubjectAreaQuestion, Xml.FindSubjectAreaQuestion>(
 				language => language.GetExtension<ILanguageSetModule>().Questions.Names.FindSubjectAreaQuestion,
-				question => new Xml.FindSubjectAreaQuestion(question),
-				typeof(Xml.FindSubjectAreaQuestion));
-			Repositories.RegisterQuestion<IsSubjectAreaQuestion>(
+				question => new Xml.FindSubjectAreaQuestion(question));
+			Repositories.RegisterQuestion<IsSubjectAreaQuestion, Xml.IsSubjectAreaQuestion>(
 				language => language.GetExtension<ILanguageSetModule>().Questions.Names.IsSubjectAreaQuestion,
-				question => new Xml.IsSubjectAreaQuestion(question),
-				typeof(Xml.IsSubjectAreaQuestion));
+				question => new Xml.IsSubjectAreaQuestion(question));
 
-			Repositories.RegisterQuestion<EnumerateContainersQuestion>(
+			Repositories.RegisterQuestion<EnumerateContainersQuestion, Xml.EnumerateContainersQuestion>(
 				language => language.GetExtension<ILanguageSetModule>().Questions.Names.EnumerateContainersQuestion,
-				question => new Xml.EnumerateContainersQuestion(question),
-				typeof(Xml.EnumerateContainersQuestion));
-			Repositories.RegisterQuestion<EnumeratePartsQuestion>(
+				question => new Xml.EnumerateContainersQuestion(question));
+			Repositories.RegisterQuestion<EnumeratePartsQuestion, Xml.EnumeratePartsQuestion>(
 				language => language.GetExtension<ILanguageSetModule>().Questions.Names.EnumeratePartsQuestion,
-				question => new Xml.EnumeratePartsQuestion(question),
-				typeof(Xml.EnumeratePartsQuestion));
-			Repositories.RegisterQuestion<IsPartOfQuestion>(
+				question => new Xml.EnumeratePartsQuestion(question));
+			Repositories.RegisterQuestion<IsPartOfQuestion, Xml.IsPartOfQuestion>(
 				language => language.GetExtension<ILanguageSetModule>().Questions.Names.IsPartOfQuestion,
-				question => new Xml.IsPartOfQuestion(question),
-				typeof(Xml.IsPartOfQuestion));
+				question => new Xml.IsPartOfQuestion(question));
 
-			Repositories.RegisterQuestion<EnumerateSignsQuestion>(
+			Repositories.RegisterQuestion<EnumerateSignsQuestion, Xml.EnumerateSignsQuestion>(
 				language => language.GetExtension<ILanguageSetModule>().Questions.Names.EnumerateSignsQuestion,
-				question => new Xml.EnumerateSignsQuestion(question),
-				typeof(Xml.EnumerateSignsQuestion));
-			Repositories.RegisterQuestion<HasSignQuestion>(
+				question => new Xml.EnumerateSignsQuestion(question));
+			Repositories.RegisterQuestion<HasSignQuestion, Xml.HasSignQuestion>(
 				language => language.GetExtension<ILanguageSetModule>().Questions.Names.HasSignQuestion,
-				question => new Xml.HasSignQuestion(question),
-				typeof(Xml.HasSignQuestion));
-			Repositories.RegisterQuestion<HasSignsQuestion>(
+				question => new Xml.HasSignQuestion(question));
+			Repositories.RegisterQuestion<HasSignsQuestion, Xml.HasSignsQuestion>(
 				language => language.GetExtension<ILanguageSetModule>().Questions.Names.HasSignsQuestion,
-				question => new Xml.HasSignsQuestion(question),
-				typeof(Xml.HasSignsQuestion));
-			Repositories.RegisterQuestion<IsSignQuestion>(
+				question => new Xml.HasSignsQuestion(question));
+			Repositories.RegisterQuestion<IsSignQuestion, Xml.IsSignQuestion>(
 				language => language.GetExtension<ILanguageSetModule>().Questions.Names.IsSignQuestion,
-				question => new Xml.IsSignQuestion(question),
-				typeof(Xml.IsSignQuestion));
-			Repositories.RegisterQuestion<IsValueQuestion>(
+				question => new Xml.IsSignQuestion(question));
+			Repositories.RegisterQuestion<IsValueQuestion, Xml.IsValueQuestion>(
 				language => language.GetExtension<ILanguageSetModule>().Questions.Names.IsValueQuestion,
-				question => new Xml.IsValueQuestion(question),
-				typeof(Xml.IsValueQuestion));
-			Repositories.RegisterQuestion<SignValueQuestion>(
+				question => new Xml.IsValueQuestion(question));
+			Repositories.RegisterQuestion<SignValueQuestion, Xml.SignValueQuestion>(
 				language => language.GetExtension<ILanguageSetModule>().Questions.Names.SignValueQuestion,
-				question => new Xml.SignValueQuestion(question),
-				typeof(Xml.SignValueQuestion));
+				question => new Xml.SignValueQuestion(question));
 
-			Repositories.RegisterQuestion<GetCommonQuestion>(
+			Repositories.RegisterQuestion<GetCommonQuestion, Xml.GetCommonQuestion>(
 				language => language.GetExtension<ILanguageSetModule>().Questions.Names.GetCommonQuestion,
-				question => new Xml.GetCommonQuestion(question),
-				typeof(Xml.GetCommonQuestion));
-			Repositories.RegisterQuestion<GetDifferencesQuestion>(
+				question => new Xml.GetCommonQuestion(question));
+			Repositories.RegisterQuestion<GetDifferencesQuestion, Xml.GetDifferencesQuestion>(
 				language => language.GetExtension<ILanguageSetModule>().Questions.Names.GetDifferencesQuestion,
-				question => new Xml.GetDifferencesQuestion(question),
-				typeof(Xml.GetDifferencesQuestion));
-			Repositories.RegisterQuestion<WhatQuestion>(
+				question => new Xml.GetDifferencesQuestion(question));
+			Repositories.RegisterQuestion<WhatQuestion, Xml.WhatQuestion>(
 				language => language.GetExtension<ILanguageSetModule>().Questions.Names.WhatQuestion,
-				question => new Xml.WhatQuestion(question),
-				typeof(Xml.WhatQuestion));
+				question => new Xml.WhatQuestion(question));
 		}
 
 		public override IDictionary<String, Type> GetLanguageExtensions()

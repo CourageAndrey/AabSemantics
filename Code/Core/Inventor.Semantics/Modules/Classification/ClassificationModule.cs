@@ -23,27 +23,23 @@ namespace Inventor.Semantics.Modules.Classification
 
 		protected override void RegisterStatements()
 		{
-			Repositories.RegisterStatement<IsStatement>(
+			Repositories.RegisterStatement<IsStatement, Xml.IsStatement>(
 				language => language.GetExtension<ILanguageClassificationModule>().Statements.Names.Clasification,
 				statement => new Xml.IsStatement(statement),
-				typeof(Xml.IsStatement),
 				checkCyclicParents);
 		}
 
 		protected override void RegisterQuestions()
 		{
-			Repositories.RegisterQuestion<EnumerateAncestorsQuestion>(
+			Repositories.RegisterQuestion<EnumerateAncestorsQuestion, Xml.EnumerateAncestorsQuestion>(
 				language => language.GetExtension<ILanguageClassificationModule>().Questions.Names.EnumerateAncestorsQuestion,
-				question => new Xml.EnumerateAncestorsQuestion(question),
-				typeof(Xml.EnumerateAncestorsQuestion));
-			Repositories.RegisterQuestion<EnumerateDescendantsQuestion>(
+				question => new Xml.EnumerateAncestorsQuestion(question));
+			Repositories.RegisterQuestion<EnumerateDescendantsQuestion, Xml.EnumerateDescendantsQuestion>(
 				language => language.GetExtension<ILanguageClassificationModule>().Questions.Names.EnumerateDescendantsQuestion,
-				question => new Xml.EnumerateDescendantsQuestion(question),
-				typeof(Xml.EnumerateDescendantsQuestion));
-			Repositories.RegisterQuestion<IsQuestion>(
+				question => new Xml.EnumerateDescendantsQuestion(question));
+			Repositories.RegisterQuestion<IsQuestion, Xml.IsQuestion>(
 				language => language.GetExtension<ILanguageClassificationModule>().Questions.Names.IsQuestion,
-				question => new Xml.IsQuestion(question),
-				typeof(Xml.IsQuestion));
+				question => new Xml.IsQuestion(question));
 		}
 
 		public override IDictionary<String, Type> GetLanguageExtensions()

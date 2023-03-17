@@ -51,19 +51,17 @@ namespace Samples.Semantics.Sample07.CustomModule
 
 		protected override void RegisterStatements()
 		{
-			Repositories.RegisterStatement<CustomStatement>(
+			Repositories.RegisterStatement<CustomStatement, Xml.CustomStatement>(
 				language => language.GetExtension<ILanguageCustomModule>().Statements.Names.Custom,
 				statement => new Xml.CustomStatement(statement),
-				typeof(Xml.CustomStatement),
 				checkSelfRelations);
 		}
 
 		protected override void RegisterQuestions()
 		{
-			Repositories.RegisterQuestion<CustomQuestion>(
+			Repositories.RegisterQuestion<CustomQuestion, Xml.CustomQuestion>(
 				language => language.GetExtension<ILanguageCustomModule>().Questions.Names.Custom,
-				question => new Xml.CustomQuestion(question),
-				typeof(Xml.CustomQuestion));
+				question => new Xml.CustomQuestion(question));
 		}
 
 		private static void checkSelfRelations(
