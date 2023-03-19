@@ -116,7 +116,7 @@ namespace Inventor.SimpleWpfClient
 
 		#endregion
 
-		#region Save/Load
+		#region SaveToXml/Load
 
 		private OpenFileDialog createOpenFileDialog()
 		{
@@ -253,7 +253,7 @@ namespace Inventor.SimpleWpfClient
 
 		private void save()
 		{
-			_application.SemanticNetwork.Save(_fileName);
+			_application.SemanticNetwork.SaveToXml(_fileName);
 			_changeController.SaveHistory();
 		}
 

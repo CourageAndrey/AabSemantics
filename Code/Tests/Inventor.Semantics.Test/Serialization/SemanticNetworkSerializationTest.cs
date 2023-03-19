@@ -27,7 +27,7 @@ namespace Inventor.Semantics.Test.Serialization
 			Semantics.SemanticNetwork restored;
 			try
 			{
-				semanticNetwork.Save(testFileName);
+				semanticNetwork.SaveToXml(testFileName);
 				restored = testFileName.LoadSemanticNetworkFromXml(language);
 			}
 			finally

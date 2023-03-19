@@ -84,7 +84,7 @@ namespace Samples.Semantics.Sample07.CustomModule
 
 			// check [de]serialization works
 			string saveFile = "test.xml";
-			Inventor.Semantics.Serialization.Xml.SemanticNetworkXmlExtensions.Save(semanticNetwork, saveFile);
+			Inventor.Semantics.Serialization.Xml.SemanticNetworkXmlExtensions.SaveToXml(semanticNetwork, saveFile);
 			Inventor.Semantics.Serialization.Xml.SemanticNetworkXmlExtensions.LoadSemanticNetworkFromXml(saveFile, language);
 
 			Console.WriteLine();
