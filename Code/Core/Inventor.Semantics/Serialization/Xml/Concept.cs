@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Xml.Serialization;
 
-namespace Inventor.Semantics.Xml
+namespace Inventor.Semantics.Serialization.Xml
 {
 	[XmlType]
 	public class Concept

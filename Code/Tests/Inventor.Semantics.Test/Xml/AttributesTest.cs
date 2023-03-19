@@ -36,7 +36,7 @@ namespace Inventor.Semantics.Test.Xml
 			concept.WithAttribute(attribute);
 
 			// act
-			var xml = new Semantics.Xml.Concept(concept);
+			var xml = new Semantics.Serialization.Xml.Concept(concept);
 			var restored = xml.Load();
 
 			// assert
@@ -54,7 +54,7 @@ namespace Inventor.Semantics.Test.Xml
 			}
 
 			// act
-			var xml = new Semantics.Xml.Concept(concept);
+			var xml = new Semantics.Serialization.Xml.Concept(concept);
 			var restored = xml.Load();
 
 			// assert
@@ -69,7 +69,7 @@ namespace Inventor.Semantics.Test.Xml
 			concept.WithAttribute(new WrongAttribute());
 
 			// act & assert
-			Assert.Throws<NotSupportedException>(() => new Semantics.Xml.Concept(concept));
+			Assert.Throws<NotSupportedException>(() => new Semantics.Serialization.Xml.Concept(concept));
 		}
 
 		private static IEnumerable<IAttribute> getAllAttributes()

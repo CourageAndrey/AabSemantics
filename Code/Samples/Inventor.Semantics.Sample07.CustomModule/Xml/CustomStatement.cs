@@ -5,7 +5,7 @@ using Inventor.Semantics.Serialization;
 namespace Samples.Semantics.Sample07.CustomModule.Xml
 {
 	[XmlType("Custom")]
-	public class CustomStatement : Inventor.Semantics.Xml.Statement
+	public class CustomStatement : Inventor.Semantics.Serialization.Xml.Statement
 	{
 		#region Properties
 

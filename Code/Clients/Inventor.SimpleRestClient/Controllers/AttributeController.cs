@@ -17,14 +17,14 @@ namespace Inventor.SimpleRestClient.Controllers
 		}
 
 		[HttpGet(Name = "GetAttribute")]
-		public IEnumerable<Semantics.Xml.Attribute> Get()
+		public IEnumerable<Semantics.Serialization.Xml.Attribute> Get()
 		{
 			var semanticNetwork = _dataService.GetSemanticNetwork();
 
 			return Repositories.Attributes
 				.Definitions
 				.Values
-				.Select(definition => Semantics.Xml.Attribute.Save(definition.AttributeValue));
+				.Select(definition => Semantics.Serialization.Xml.Attribute.Save(definition.AttributeValue));
 		}
 	}
 }

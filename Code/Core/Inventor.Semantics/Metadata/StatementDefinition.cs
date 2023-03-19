@@ -22,7 +22,7 @@ namespace Inventor.Semantics.Metadata
 		{ get; }
 
 		private readonly Func<ILanguage, String> _statementNameGetter;
-		private readonly Func<IStatement, Xml.Statement> _statementXmlGetter;
+		private readonly Func<IStatement, Serialization.Xml.Statement> _statementXmlGetter;
 		private readonly StatementConsistencyCheckerDelegate _consistencyChecker;
 
 		#endregion
@@ -32,7 +32,7 @@ namespace Inventor.Semantics.Metadata
 		public StatementDefinition(
 			Type type,
 			Func<ILanguage, String> statementNameGetter,
-			Func<IStatement, Xml.Statement> statementXmlGetter,
+			Func<IStatement, Serialization.Xml.Statement> statementXmlGetter,
 			Type xmlType,
 			StatementConsistencyCheckerDelegate consistencyChecker)
 		{
@@ -41,7 +41,7 @@ namespace Inventor.Semantics.Metadata
 			if (statementNameGetter == null) throw new ArgumentNullException(nameof(statementNameGetter));
 			if (statementXmlGetter == null) throw new ArgumentNullException(nameof(statementXmlGetter));
 			if (xmlType == null) throw new ArgumentNullException(nameof(xmlType));
-			if (xmlType.IsAbstract || !typeof(Xml.Statement).IsAssignableFrom(xmlType)) throw new ArgumentException($"Type must be non-abstract and implement {typeof(Xml.Statement)}.", nameof(xmlType));
+			if (xmlType.IsAbstract || !typeof(Serialization.Xml.Statement).IsAssignableFrom(xmlType)) throw new ArgumentException($"Type must be non-abstract and implement {typeof(Serialization.Xml.Statement)}.", nameof(xmlType));
 			if (consistencyChecker == null) throw new ArgumentNullException(nameof(consistencyChecker));
 
 			Type = type;
@@ -59,7 +59,7 @@ namespace Inventor.Semantics.Metadata
 			return _statementNameGetter(language);
 		}
 
-		public Xml.Statement GetXml(IStatement statement)
+		public Serialization.Xml.Statement GetXml(IStatement statement)
 		{
 			return _statementXmlGetter(statement);
 		}
@@ -77,7 +77,7 @@ namespace Inventor.Semantics.Metadata
 	{
 		public StatementDefinition(
 			Func<ILanguage, String> statementNameGetter,
-			Func<StatementT, Xml.Statement> statementXmlGetter,
+			Func<StatementT, Serialization.Xml.Statement> statementXmlGetter,
 			Type xmlType,
 			StatementConsistencyCheckerDelegate<StatementT> consistencyChecker)
 			: base(
@@ -96,7 +96,7 @@ namespace Inventor.Semantics.Metadata
 
 	public class StatementDefinition<StatementT, XmlT> : StatementDefinition<StatementT>
 		where StatementT: IStatement
-		where XmlT : Xml.Statement
+		where XmlT : Serialization.Xml.Statement
 	{
 		public StatementDefinition(
 			Func<ILanguage, String> statementNameGetter,

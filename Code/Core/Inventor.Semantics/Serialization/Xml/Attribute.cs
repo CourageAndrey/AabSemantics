@@ -2,7 +2,7 @@
 
 using Inventor.Semantics.Metadata;
 
-namespace Inventor.Semantics.Xml
+namespace Inventor.Semantics.Serialization.Xml
 {
 	[XmlType]
 	public abstract class Attribute

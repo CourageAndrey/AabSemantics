@@ -4,9 +4,9 @@ using System.Linq;
 using System.Xml.Serialization;
 
 using Inventor.Semantics.Metadata;
-using Inventor.Semantics.Xml.Answers;
+using Inventor.Semantics.Serialization.Xml.Answers;
 
-namespace Inventor.Semantics.Xml
+namespace Inventor.Semantics.Serialization.Xml
 {
 	[XmlType]
 	[XmlInclude(typeof(BooleanAnswer))]

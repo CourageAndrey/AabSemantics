@@ -12,7 +12,7 @@ namespace Inventor.Semantics.Metadata
 		public IAttribute AttributeValue
 		{ get; }
 
-		public Xml.Attribute Xml
+		public Serialization.Xml.Attribute Xml
 		{ get; }
 
 		public String XmlElementName
@@ -31,7 +31,7 @@ namespace Inventor.Semantics.Metadata
 			Type type,
 			IAttribute attributeValue,
 			Func<ILanguage, String> attributeNameGetter,
-			Xml.Attribute xml)
+			Serialization.Xml.Attribute xml)
 		{
 			if (type == null) throw new ArgumentNullException(nameof(type));
 			if (type.IsAbstract || !typeof(IAttribute).IsAssignableFrom(type)) throw new ArgumentException($"Type must be non-abstract and implement {typeof(IAttribute)}.", nameof(type));
@@ -75,7 +75,7 @@ namespace Inventor.Semantics.Metadata
 		public AttributeDefinition(
 			Func<ILanguage, String> attributeNameGetter,
 			AttributeT attributeValue,
-			Xml.Attribute xml)
+			Serialization.Xml.Attribute xml)
 			: base(
 				typeof(AttributeT),
 				attributeValue,
@@ -88,7 +88,7 @@ namespace Inventor.Semantics.Metadata
 
 	public class AttributeDefinition<AttributeT, XmlT> : AttributeDefinition<AttributeT>
 		where AttributeT : IAttribute
-		where XmlT : Xml.Attribute
+		where XmlT : Serialization.Xml.Attribute
 	{
 		public AttributeDefinition(
 			Func<ILanguage, String> attributeNameGetter,

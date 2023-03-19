@@ -1,6 +1,6 @@
 ﻿using System.Xml.Serialization;
 
-namespace Inventor.Semantics.Xml.Answers
+namespace Inventor.Semantics.Serialization.Xml.Answers
 {
 	[XmlType]
 	public class ConceptAnswer : Answer

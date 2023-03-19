@@ -95,7 +95,7 @@ namespace Inventor.Semantics.Metadata
 			Type type,
 			IAttribute value,
 			Func<ILanguage, String> attributeNameGetter,
-			Xml.Attribute xml)
+			Serialization.Xml.Attribute xml)
 		{
 			Attributes.Define(new AttributeDefinition(type, value, attributeNameGetter, xml));
 		}
@@ -103,7 +103,7 @@ namespace Inventor.Semantics.Metadata
 		public static void RegisterAttribute<AttributeT>(
 			AttributeT value,
 			Func<ILanguage, String> attributeNameGetter,
-			Xml.Attribute xml)
+			Serialization.Xml.Attribute xml)
 			where AttributeT : IAttribute
 		{
 			Attributes.Define(new AttributeDefinition<AttributeT>(attributeNameGetter, value, xml));
@@ -114,7 +114,7 @@ namespace Inventor.Semantics.Metadata
 			Func<ILanguage, String> attributeNameGetter,
 			XmlT xml)
 			where AttributeT : IAttribute
-			where XmlT : Xml.Attribute
+			where XmlT : Serialization.Xml.Attribute
 		{
 			Attributes.Define(new AttributeDefinition<AttributeT, XmlT>(attributeNameGetter, value, xml));
 		}
@@ -122,7 +122,7 @@ namespace Inventor.Semantics.Metadata
 		public static void RegisterStatement(
 			Type type,
 			Func<ILanguage, String> statementNameGetter,
-			Func<IStatement, Xml.Statement> statementXmlGetter,
+			Func<IStatement, Serialization.Xml.Statement> statementXmlGetter,
 			Type xmlType,
 			StatementConsistencyCheckerDelegate consistencyChecker)
 		{
@@ -131,7 +131,7 @@ namespace Inventor.Semantics.Metadata
 
 		public static void RegisterStatement<StatementT>(
 			Func<ILanguage, String> statementNameGetter,
-			Func<StatementT, Xml.Statement> statementXmlGetter,
+			Func<StatementT, Serialization.Xml.Statement> statementXmlGetter,
 			Type xmlType,
 			StatementConsistencyCheckerDelegate<StatementT> consistencyChecker)
 			where StatementT : IStatement
@@ -144,7 +144,7 @@ namespace Inventor.Semantics.Metadata
 			Func<StatementT, XmlT> statementXmlGetter,
 			StatementConsistencyCheckerDelegate<StatementT> consistencyChecker)
 			where StatementT : IStatement
-			where XmlT : Xml.Statement
+			where XmlT : Serialization.Xml.Statement
 		{
 			Statements.Define(new StatementDefinition<StatementT, XmlT>(statementNameGetter, statementXmlGetter, consistencyChecker));
 		}
@@ -152,7 +152,7 @@ namespace Inventor.Semantics.Metadata
 		public static void RegisterQuestion(
 			Type type,
 			Func<ILanguage, String> questionNameGetter,
-			Func<IQuestion, Xml.Question> questionXmlGetter,
+			Func<IQuestion, Serialization.Xml.Question> questionXmlGetter,
 			Type xmlType)
 		{
 			Questions.Define(new QuestionDefinition(type, questionNameGetter, questionXmlGetter, xmlType));
@@ -160,7 +160,7 @@ namespace Inventor.Semantics.Metadata
 
 		public static void RegisterQuestion<QuestionT>(
 			Func<ILanguage, String> questionNameGetter,
-			Func<QuestionT, Xml.Question> questionXmlGetter,
+			Func<QuestionT, Serialization.Xml.Question> questionXmlGetter,
 			Type xmlType)
 			where QuestionT : IQuestion
 		{
@@ -171,21 +171,21 @@ namespace Inventor.Semantics.Metadata
 			Func<ILanguage, String> questionNameGetter,
 			Func<QuestionT, XmlT> questionXmlGetter)
 			where QuestionT : IQuestion
-			where XmlT : Xml.Question
+			where XmlT : Serialization.Xml.Question
 		{
 			Questions.Define(new QuestionDefinition<QuestionT, XmlT>(questionNameGetter, questionXmlGetter));
 		}
 
 		public static void RegisterAnswer(
 			Type type,
-			Func<IAnswer, ILanguage, Xml.Answer> answerXmlGetter,
+			Func<IAnswer, ILanguage, Serialization.Xml.Answer> answerXmlGetter,
 			Type xmlType)
 		{
 			Answers.Define(new AnswerDefinition(type, answerXmlGetter, xmlType));
 		}
 
 		public static void RegisterAnswer<AnswerT>(
-			Func<AnswerT, ILanguage, Xml.Answer> answerXmlGetter,
+			Func<AnswerT, ILanguage, Serialization.Xml.Answer> answerXmlGetter,
 			Type xmlType)
 			where AnswerT : IAnswer
 		{
@@ -195,7 +195,7 @@ namespace Inventor.Semantics.Metadata
 		public static void RegisterAnswer<AnswerT, XmlT>(
 			Func<AnswerT, ILanguage, XmlT> answerXmlGetter)
 			where AnswerT : IAnswer
-			where XmlT : Xml.Answer
+			where XmlT : Serialization.Xml.Answer
 		{
 			Answers.Define(new AnswerDefinition<AnswerT, XmlT>(answerXmlGetter));
 		}
