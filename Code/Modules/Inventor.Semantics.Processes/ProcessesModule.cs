@@ -8,6 +8,7 @@ using Inventor.Semantics.Processes.Concepts;
 using Inventor.Semantics.Processes.Localization;
 using Inventor.Semantics.Processes.Questions;
 using Inventor.Semantics.Processes.Statements;
+using Inventor.Semantics.Serialization;
 
 namespace Inventor.Semantics.Processes
 {
@@ -40,7 +41,7 @@ namespace Inventor.Semantics.Processes
 
 		protected override void RegisterConcepts()
 		{
-			Semantics.Xml.ConceptIdResolver.RegisterEnumType(typeof(SequenceSigns));
+			ConceptIdResolver.RegisterEnumType(typeof(SequenceSigns));
 		}
 
 		protected override void RegisterStatements()

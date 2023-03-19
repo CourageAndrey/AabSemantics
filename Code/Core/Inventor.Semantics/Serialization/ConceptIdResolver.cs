@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 
-namespace Inventor.Semantics.Xml
+namespace Inventor.Semantics.Serialization
 {
 	public class ConceptIdResolver
 	{
