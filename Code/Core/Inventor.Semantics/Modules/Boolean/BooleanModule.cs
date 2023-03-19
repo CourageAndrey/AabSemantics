@@ -7,8 +7,8 @@ using Inventor.Semantics.Modules.Boolean.Concepts;
 using Inventor.Semantics.Modules.Boolean.Localization;
 using Inventor.Semantics.Modules.Boolean.Questions;
 using Inventor.Semantics.Serialization;
-using Inventor.Semantics.Xml;
-using Inventor.Semantics.Xml.Answers;
+using Inventor.Semantics.Serialization.Xml;
+using Inventor.Semantics.Serialization.Xml.Answers;
 
 namespace Inventor.Semantics.Modules.Boolean
 {

@@ -8,7 +8,7 @@ using System.Xml.Serialization;
 using NUnit.Framework;
 
 using Inventor.Semantics.Localization;
-using Inventor.Semantics.Xml;
+using Inventor.Semantics.Serialization.Xml;
 using Inventor.Semantics.Test.Sample;
 using Inventor.Semantics.Utils;
 

@@ -216,7 +216,7 @@ namespace Inventor.Semantics.Test.Metadata
 		private class TestAttributeDerived : TestAttributeChecked
 		{ }
 
-		private class TestAttributeXml : Semantics.Xml.Attribute
+		private class TestAttributeXml : Semantics.Serialization.Xml.Attribute
 		{
 			public override IAttribute Load()
 			{

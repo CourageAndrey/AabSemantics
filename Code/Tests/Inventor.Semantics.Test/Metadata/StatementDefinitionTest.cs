@@ -128,7 +128,7 @@ namespace Inventor.Semantics.Test.Metadata
 			public TestStatementDefinition(
 				Type type,
 				Func<ILanguage, string> statementNameGetter,
-				Func<IStatement, Semantics.Xml.Statement> statementXmlGetter,
+				Func<IStatement, Semantics.Serialization.Xml.Statement> statementXmlGetter,
 				Type xmlType,
 				StatementConsistencyCheckerDelegate consistencyChecker)
 				: base(type, statementNameGetter, statementXmlGetter, xmlType, consistencyChecker)

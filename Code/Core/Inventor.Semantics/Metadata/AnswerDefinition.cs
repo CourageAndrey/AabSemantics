@@ -12,7 +12,7 @@ namespace Inventor.Semantics.Metadata
 		public Type XmlType
 		{ get; }
 
-		private readonly Func<IAnswer, ILanguage, Xml.Answer> _answerXmlGetter;
+		private readonly Func<IAnswer, ILanguage, Serialization.Xml.Answer> _answerXmlGetter;
 
 		#endregion
 
@@ -20,7 +20,7 @@ namespace Inventor.Semantics.Metadata
 
 		public AnswerDefinition(
 			Type type,
-			Func<IAnswer, ILanguage, Xml.Answer> answerXmlGetter,
+			Func<IAnswer, ILanguage, Serialization.Xml.Answer> answerXmlGetter,
 			Type xmlType)
 		{
 			if (type == null) throw new ArgumentNullException(nameof(type));
@@ -35,7 +35,7 @@ namespace Inventor.Semantics.Metadata
 
 		#endregion
 
-		public Xml.Answer GetXml(IAnswer answer, ILanguage language)
+		public Serialization.Xml.Answer GetXml(IAnswer answer, ILanguage language)
 		{
 			return _answerXmlGetter(answer, language);
 		}
@@ -45,7 +45,7 @@ namespace Inventor.Semantics.Metadata
 		where AnswerT : IAnswer
 	{
 		public AnswerDefinition(
-			Func<AnswerT, ILanguage, Xml.Answer> answerXmlGetter,
+			Func<AnswerT, ILanguage, Serialization.Xml.Answer> answerXmlGetter,
 			Type xmlType)
 			: base(
 				typeof(AnswerT),
@@ -58,7 +58,7 @@ namespace Inventor.Semantics.Metadata
 
 	public class AnswerDefinition<AnswerT, XmlT> : AnswerDefinition<AnswerT>
 		where AnswerT : IAnswer
-		where XmlT : Xml.Answer
+		where XmlT : Serialization.Xml.Answer
 	{
 		public AnswerDefinition(
 			Func<AnswerT, ILanguage, XmlT> answerXmlGetter)

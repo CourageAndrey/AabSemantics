@@ -2,7 +2,7 @@
 using System.Xml.Serialization;
 
 using Inventor.Semantics.Serialization;
-using Inventor.Semantics.Xml;
+using Inventor.Semantics.Serialization.Xml;
 
 namespace Inventor.Semantics.Processes.Xml
 {

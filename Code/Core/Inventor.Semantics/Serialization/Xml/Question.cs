@@ -3,9 +3,8 @@ using System.Linq;
 using System.Xml.Serialization;
 
 using Inventor.Semantics.Metadata;
-using Inventor.Semantics.Serialization;
 
-namespace Inventor.Semantics.Xml
+namespace Inventor.Semantics.Serialization.Xml
 {
 	[XmlType]
 	public abstract class Question

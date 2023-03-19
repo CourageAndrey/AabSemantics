@@ -7,7 +7,7 @@ using System.Windows.Data;
 using Microsoft.Win32;
 
 using Inventor.Semantics;
-using Inventor.Semantics.Xml;
+using Inventor.Semantics.Serialization.Xml;
 using Inventor.Semantics.WPF;
 using Inventor.Semantics.WPF.Commands;
 using Inventor.Semantics.WPF.Dialogs;

@@ -3,7 +3,7 @@ using System.Xml.Serialization;
 
 using Inventor.Semantics.Metadata;
 using Inventor.Semantics.Serialization;
-using Inventor.Semantics.Xml;
+using Inventor.Semantics.Serialization.Xml;
 
 namespace Inventor.Semantics.Modules.Boolean.Xml
 {

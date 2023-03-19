@@ -4,7 +4,7 @@ using System.Xml.Serialization;
 
 using Inventor.Semantics.Localization;
 
-namespace Inventor.Semantics.Xml
+namespace Inventor.Semantics.Serialization.Xml
 {
 	[XmlType]
 	public class LocalizedString

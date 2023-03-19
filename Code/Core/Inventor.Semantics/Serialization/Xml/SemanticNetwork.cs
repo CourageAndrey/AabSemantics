@@ -4,10 +4,9 @@ using System.Linq;
 using System.Xml.Serialization;
 
 using Inventor.Semantics.Metadata;
-using Inventor.Semantics.Serialization;
 using Inventor.Semantics.Utils;
 
-namespace Inventor.Semantics.Xml
+namespace Inventor.Semantics.Serialization.Xml
 {
 	[Serializable, XmlRoot(nameof(SemanticNetwork))]
 	public class SemanticNetwork

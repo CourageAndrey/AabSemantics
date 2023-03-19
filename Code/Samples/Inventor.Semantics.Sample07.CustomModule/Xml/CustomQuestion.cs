@@ -4,7 +4,7 @@ using System.Xml.Serialization;
 
 using Inventor.Semantics;
 using Inventor.Semantics.Serialization;
-using Inventor.Semantics.Xml;
+using Inventor.Semantics.Serialization.Xml;
 
 namespace Samples.Semantics.Sample07.CustomModule.Xml
 {
