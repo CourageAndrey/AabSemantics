@@ -6,6 +6,7 @@ using Inventor.Semantics.Modules.Boolean.Attributes;
 using Inventor.Semantics.Modules.Boolean.Concepts;
 using Inventor.Semantics.Modules.Boolean.Localization;
 using Inventor.Semantics.Modules.Boolean.Questions;
+using Inventor.Semantics.Serialization;
 using Inventor.Semantics.Xml;
 using Inventor.Semantics.Xml.Answers;
 
@@ -40,7 +41,7 @@ namespace Inventor.Semantics.Modules.Boolean
 
 		protected override void RegisterConcepts()
 		{
-			Semantics.Xml.ConceptIdResolver.RegisterEnumType(typeof(LogicalValues));
+			ConceptIdResolver.RegisterEnumType(typeof(LogicalValues));
 		}
 
 		protected override void RegisterQuestions()

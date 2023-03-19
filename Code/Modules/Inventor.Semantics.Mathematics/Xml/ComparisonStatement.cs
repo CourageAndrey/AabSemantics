@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Xml.Serialization;
 
+using Inventor.Semantics.Serialization;
 using Inventor.Semantics.Xml;
 
 namespace Inventor.Semantics.Mathematics.Xml

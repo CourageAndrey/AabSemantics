@@ -4,6 +4,7 @@ using System.Linq;
 using System.Xml.Serialization;
 
 using Inventor.Semantics.Metadata;
+using Inventor.Semantics.Serialization;
 using Inventor.Semantics.Utils;
 
 namespace Inventor.Semantics.Xml

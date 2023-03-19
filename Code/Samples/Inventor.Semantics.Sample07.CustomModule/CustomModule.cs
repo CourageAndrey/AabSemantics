@@ -5,7 +5,7 @@ using Inventor.Semantics;
 using Inventor.Semantics.Localization;
 using Inventor.Semantics.Metadata;
 using Inventor.Semantics.Modules.Boolean;
-using Inventor.Semantics.Xml;
+using Inventor.Semantics.Serialization;
 using Samples.Semantics.Sample07.CustomModule.Localization;
 
 namespace Samples.Semantics.Sample07.CustomModule

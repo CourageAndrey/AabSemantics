@@ -7,6 +7,7 @@ using Inventor.Semantics.Mathematics.Concepts;
 using Inventor.Semantics.Mathematics.Localization;
 using Inventor.Semantics.Mathematics.Questions;
 using Inventor.Semantics.Mathematics.Statements;
+using Inventor.Semantics.Serialization;
 
 namespace Inventor.Semantics.Mathematics
 {
@@ -38,7 +39,7 @@ namespace Inventor.Semantics.Mathematics
 
 		protected override void RegisterConcepts()
 		{
-			Semantics.Xml.ConceptIdResolver.RegisterEnumType(typeof(ComparisonSigns));
+			ConceptIdResolver.RegisterEnumType(typeof(ComparisonSigns));
 		}
 
 		protected override void RegisterStatements()
