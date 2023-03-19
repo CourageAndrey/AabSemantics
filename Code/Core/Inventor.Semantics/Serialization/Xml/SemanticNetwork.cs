@@ -107,7 +107,7 @@ namespace Inventor.Semantics.Serialization.Xml
 			return xmlSnapshot.Load(language);
 		}
 
-		public static void Save(this ISemanticNetwork semanticNetwork, String fileName)
+		public static void SaveToXml(this ISemanticNetwork semanticNetwork, String fileName)
 		{
 			var xmlSnapshot = new SemanticNetwork(semanticNetwork);
 			xmlSnapshot.SerializeToFile(fileName);
