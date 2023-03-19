@@ -16,6 +16,20 @@ namespace Inventor.Semantics.Test.Utils
 	public class XmlHelperTest
 	{
 		[Test]
+		public void CheckCustomSerializers()
+		{
+			// arrange
+			var customSerializer = new XmlSerializer(typeof(SerializableCustom));
+
+			// act
+			customSerializer.DefineCustomSerializer<SerializableCustom>();
+			var acquiredSerializer = typeof(SerializableCustom).AcquireSerializer();
+
+			// assert
+			Assert.AreSame(customSerializer, acquiredSerializer);
+		}
+
+		[Test]
 		public void AcquireSerializerTypedAndUntyped()
 		{
 			// act & assert
@@ -92,6 +106,14 @@ namespace Inventor.Semantics.Test.Utils
 		}
 
 		#region Serializable classes
+
+		[Serializable, XmlRoot(nameof(SerializableCustom))]
+		public class SerializableCustom
+		{
+			[XmlElement]
+			public string FieldCustom
+			{ get; set; }
+		}
 
 		[XmlType]
 		public class SerializableClass1

@@ -12,7 +12,7 @@ using Inventor.Semantics.Processes.Attributes;
 using Inventor.Semantics.Set;
 using Inventor.Semantics.Set.Attributes;
 
-namespace Inventor.Semantics.Test.Xml
+namespace Inventor.Semantics.Test.Serialization.Xml
 {
 	[TestFixture]
 	public class AttributesTest
