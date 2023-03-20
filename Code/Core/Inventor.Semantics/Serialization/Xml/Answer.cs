@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Xml.Serialization;
 
+using Inventor.Semantics.Localization;
 using Inventor.Semantics.Metadata;
 using Inventor.Semantics.Serialization.Xml.Answers;
 
@@ -20,17 +21,23 @@ namespace Inventor.Semantics.Serialization.Xml
 
 		[XmlElement]
 		public String Description
-		{ get; }
+		{ get; set; }
 
 		[XmlArray(nameof(Explanation))]
 		public List<Statement> Explanation
-		{ get; }
+		{ get; set; }
 
 		[XmlElement]
 		public Boolean IsEmpty
-		{ get; }
+		{ get; set; }
 
 		#endregion
+
+		#region Constructors
+
+		public Answer()
+			: this(Semantics.Answers.Answer.CreateUnknown(), Language.Default)
+		{ }
 
 		public Answer(IAnswer answer, ILanguage language)
 		{
@@ -38,6 +45,8 @@ namespace Inventor.Semantics.Serialization.Xml
 			Explanation = answer.Explanation.Statements.Select(statement => Statement.Load(statement)).ToList();
 			IsEmpty = answer.IsEmpty;
 		}
+
+		#endregion
 
 		public static Answer Load(IAnswer answer, ILanguage language)
 		{
