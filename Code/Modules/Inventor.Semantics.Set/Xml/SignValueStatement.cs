@@ -7,7 +7,7 @@ using Inventor.Semantics.Serialization.Xml;
 namespace Inventor.Semantics.Set.Xml
 {
 	[XmlType("SignValue")]
-	public class SignValueStatement : Statement
+	public class SignValueStatement : Statement<Statements.SignValueStatement>
 	{
 		#region Properties
 
@@ -40,7 +40,7 @@ namespace Inventor.Semantics.Set.Xml
 
 		#endregion
 
-		public override IStatement Save(ConceptIdResolver conceptIdResolver)
+		protected override Statements.SignValueStatement SaveImplementation(ConceptIdResolver conceptIdResolver)
 		{
 			return new Statements.SignValueStatement(ID, conceptIdResolver.GetConceptById(Concept), conceptIdResolver.GetConceptById(Sign), conceptIdResolver.GetConceptById(Value));
 		}

@@ -7,7 +7,7 @@ using Inventor.Semantics.Serialization.Xml;
 namespace Inventor.Semantics.Set.Xml
 {
 	[XmlType("HasSign")]
-	public class HasSignStatement : Statement
+	public class HasSignStatement : Statement<Statements.HasSignStatement>
 	{
 		#region Properties
 
@@ -35,7 +35,7 @@ namespace Inventor.Semantics.Set.Xml
 
 		#endregion
 
-		public override IStatement Save(ConceptIdResolver conceptIdResolver)
+		protected override Statements.HasSignStatement SaveImplementation(ConceptIdResolver conceptIdResolver)
 		{
 			return new Statements.HasSignStatement(ID, conceptIdResolver.GetConceptById(Concept), conceptIdResolver.GetConceptById(Sign));
 		}

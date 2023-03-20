@@ -7,7 +7,7 @@ using Inventor.Semantics.Serialization.Xml;
 namespace Inventor.Semantics.Set.Xml
 {
 	[XmlType("Group")]
-	public class GroupStatement : Statement
+	public class GroupStatement : Statement<Statements.GroupStatement>
 	{
 		#region Properties
 
@@ -35,7 +35,7 @@ namespace Inventor.Semantics.Set.Xml
 
 		#endregion
 
-		public override IStatement Save(ConceptIdResolver conceptIdResolver)
+		protected override Statements.GroupStatement SaveImplementation(ConceptIdResolver conceptIdResolver)
 		{
 			return new Statements.GroupStatement(ID, conceptIdResolver.GetConceptById(Area), conceptIdResolver.GetConceptById(Concept));
 		}

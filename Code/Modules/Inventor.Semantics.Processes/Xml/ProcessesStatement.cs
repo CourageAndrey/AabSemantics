@@ -7,7 +7,7 @@ using Inventor.Semantics.Serialization.Xml;
 namespace Inventor.Semantics.Processes.Xml
 {
 	[XmlType("Processes")]
-	public class ProcessesStatement : Statement
+	public class ProcessesStatement : Statement<Statements.ProcessesStatement>
 	{
 		#region Properties
 
@@ -40,9 +40,9 @@ namespace Inventor.Semantics.Processes.Xml
 
 		#endregion
 
-		public override IStatement Save(ConceptIdResolver conceptIdResolver)
+		protected override Statements.ProcessesStatement SaveImplementation(ConceptIdResolver conceptIdResolver)
 		{
-			return new Processes.Statements.ProcessesStatement(ID, conceptIdResolver.GetConceptById(ProcessA), conceptIdResolver.GetConceptById(ProcessB), conceptIdResolver.GetConceptById(SequenceSign));
+			return new Statements.ProcessesStatement(ID, conceptIdResolver.GetConceptById(ProcessA), conceptIdResolver.GetConceptById(ProcessB), conceptIdResolver.GetConceptById(SequenceSign));
 		}
 	}
 }

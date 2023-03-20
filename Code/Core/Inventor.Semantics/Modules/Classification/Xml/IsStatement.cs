@@ -7,7 +7,7 @@ using Inventor.Semantics.Serialization.Xml;
 namespace Inventor.Semantics.Modules.Classification.Xml
 {
 	[XmlType("Is")]
-	public class IsStatement : Statement
+	public class IsStatement : Statement<Statements.IsStatement>
 	{
 		#region Properties
 
@@ -35,7 +35,7 @@ namespace Inventor.Semantics.Modules.Classification.Xml
 
 		#endregion
 
-		public override IStatement Save(ConceptIdResolver conceptIdResolver)
+		protected override Statements.IsStatement SaveImplementation(ConceptIdResolver conceptIdResolver)
 		{
 			return new Statements.IsStatement(ID, conceptIdResolver.GetConceptById(Ancestor), conceptIdResolver.GetConceptById(Descendant));
 		}

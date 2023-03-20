@@ -5,7 +5,7 @@ using Inventor.Semantics.Serialization;
 namespace Samples.Semantics.Sample07.CustomModule.Xml
 {
 	[XmlType("Custom")]
-	public class CustomStatement : Inventor.Semantics.Serialization.Xml.Statement
+	public class CustomStatement : Inventor.Semantics.Serialization.Xml.Statement<Sample07.CustomModule.CustomStatement>
 	{
 		#region Properties
 
@@ -33,7 +33,7 @@ namespace Samples.Semantics.Sample07.CustomModule.Xml
 
 		#endregion
 
-		public override Inventor.Semantics.IStatement Save(ConceptIdResolver conceptIdResolver)
+		protected override Sample07.CustomModule.CustomStatement SaveImplementation(ConceptIdResolver conceptIdResolver)
 		{
 			return new Sample07.CustomModule.CustomStatement(ID, conceptIdResolver.GetConceptById(Concept1), conceptIdResolver.GetConceptById(Concept2));
 		}
