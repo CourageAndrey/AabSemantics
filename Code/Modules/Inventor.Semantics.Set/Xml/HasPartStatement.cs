@@ -7,7 +7,7 @@ using Inventor.Semantics.Serialization.Xml;
 namespace Inventor.Semantics.Set.Xml
 {
 	[XmlType("HasPart")]
-	public class HasPartStatement : Statement
+	public class HasPartStatement : Statement<Statements.HasPartStatement>
 	{
 		#region Properties
 
@@ -35,7 +35,7 @@ namespace Inventor.Semantics.Set.Xml
 
 		#endregion
 
-		public override IStatement Save(ConceptIdResolver conceptIdResolver)
+		protected override Statements.HasPartStatement SaveImplementation(ConceptIdResolver conceptIdResolver)
 		{
 			return new Statements.HasPartStatement(ID, conceptIdResolver.GetConceptById(Whole), conceptIdResolver.GetConceptById(Part));
 		}

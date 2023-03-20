@@ -7,7 +7,7 @@ using Inventor.Semantics.Serialization.Xml;
 namespace Inventor.Semantics.Mathematics.Xml
 {
 	[XmlType("Comparison")]
-	public class ComparisonStatement : Statement
+	public class ComparisonStatement : Statement<Statements.ComparisonStatement>
 	{
 		#region Properties
 
@@ -40,7 +40,7 @@ namespace Inventor.Semantics.Mathematics.Xml
 
 		#endregion
 
-		public override IStatement Save(ConceptIdResolver conceptIdResolver)
+		protected override Statements.ComparisonStatement SaveImplementation(ConceptIdResolver conceptIdResolver)
 		{
 			return new Statements.ComparisonStatement(ID, conceptIdResolver.GetConceptById(LeftValue), conceptIdResolver.GetConceptById(RightValue), conceptIdResolver.GetConceptById(ComparisonSign));
 		}

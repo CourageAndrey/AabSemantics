@@ -20,4 +20,16 @@ namespace Inventor.Semantics.Serialization.Xml
 
 		public abstract IStatement Save(ConceptIdResolver conceptIdResolver);
 	}
+
+	[XmlType]
+	public abstract class Statement<StatementT> : Statement
+		where StatementT : IStatement
+	{
+		public override IStatement Save(ConceptIdResolver conceptIdResolver)
+		{
+			return SaveImplementation(conceptIdResolver);
+		}
+
+		protected abstract StatementT SaveImplementation(ConceptIdResolver conceptIdResolver);
+	}
 }
