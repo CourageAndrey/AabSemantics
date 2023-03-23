@@ -117,7 +117,7 @@ namespace Inventor.Semantics.WPF.Dialogs
 		{
 			if (saveDialog.ShowDialog() == true)
 			{
-				_exception.SerializeToFile(saveDialog.FileName);
+				_exception.SerializeToXmlFile(saveDialog.FileName);
 			}
 		}
 

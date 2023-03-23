@@ -116,7 +116,7 @@ namespace Inventor.Semantics.Localization
 				attributeOverrides.Add(languageType, nameof(ExtensionsXml), moduleAttributes);
 
 				var serializer = new XmlSerializer(languageType, attributeOverrides);
-				languageType.DefineCustomSerializer(serializer);
+				languageType.DefineCustomXmlSerializer(serializer);
 
 				_preparedToSerialization.Add(languageType);
 			}

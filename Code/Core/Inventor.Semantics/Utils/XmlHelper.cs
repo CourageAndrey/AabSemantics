@@ -13,12 +13,12 @@ namespace Inventor.Semantics.Utils
 		private static readonly Dictionary<Type, XmlSerializer> _serializers = new Dictionary<Type, XmlSerializer>();
 		private static readonly Object _serializersLock = new Object();
 
-		public static XmlSerializer AcquireSerializer<T>()
+		public static XmlSerializer AcquireXmlSerializer<T>()
 		{
-			return AcquireSerializer(typeof(T));
+			return AcquireXmlSerializer(typeof(T));
 		}
 
-		public static XmlSerializer AcquireSerializer(this Type type)
+		public static XmlSerializer AcquireXmlSerializer(this Type type)
 		{
 			lock (_serializersLock)
 			{
@@ -31,7 +31,7 @@ namespace Inventor.Semantics.Utils
 			}
 		}
 
-		public static void DefineCustomSerializer(this Type type, XmlSerializer serializer)
+		public static void DefineCustomXmlSerializer(this Type type, XmlSerializer serializer)
 		{
 			lock (_serializersLock)
 			{
@@ -39,18 +39,18 @@ namespace Inventor.Semantics.Utils
 			}
 		}
 
-		public static void DefineCustomSerializer<T>(this XmlSerializer serializer)
+		public static void DefineCustomXmlSerializer<T>(this XmlSerializer serializer)
 		{
-			typeof(T).DefineCustomSerializer(serializer);
+			typeof(T).DefineCustomXmlSerializer(serializer);
 		}
 
 		#endregion
 
 		#region Serialization
 
-		public static XmlDocument SerializeToDocument(this Object entity)
+		public static XmlDocument SerializeToXmlDocument(this Object entity)
 		{
-			var serializer = AcquireSerializer(entity.GetType());
+			var serializer = AcquireXmlSerializer(entity.GetType());
 			var document = new XmlDocument();
 			using (var writer = new StringWriter())
 			{
@@ -65,51 +65,51 @@ namespace Inventor.Semantics.Utils
 			return document;
 		}
 
-		public static XmlElement SerializeToElement(this Object entity)
+		public static XmlElement SerializeToXmlElement(this Object entity)
 		{
-			return entity.SerializeToDocument().DocumentElement;
+			return entity.SerializeToXmlDocument().DocumentElement;
 		}
 
-		public static void SerializeToFile(this Object entity, String fileName)
+		public static void SerializeToXmlFile(this Object entity, String fileName)
 		{
-			entity.SerializeToDocument().Save(fileName);
+			entity.SerializeToXmlDocument().Save(fileName);
 		}
 
 		#endregion
 
 		#region Deserialization
 
-		public static T DeserializeFromStream<T>(this XmlReader reader)
+		public static T DeserializeFromXmlStream<T>(this XmlReader reader)
 		{
-			return (T) AcquireSerializer<T>().Deserialize(reader);
+			return (T) AcquireXmlSerializer<T>().Deserialize(reader);
 		}
 
-		public static T Deserialize<T>(this Byte[] bytes)
+		public static T DeserializeFromXmlBytes<T>(this Byte[] bytes)
 		{
 			using (var stream = new MemoryStream(bytes))
 			{
 				using (var reader = XmlReader.Create(stream))
 				{
-					return reader.DeserializeFromStream<T>();
+					return reader.DeserializeFromXmlStream<T>();
 				}
 			}
 		}
 
-		public static T DeserializeFromFile<T>(this String file)
+		public static T DeserializeFromXmlFile<T>(this String file)
 		{
 			using (var xmlFile = new XmlTextReader(file))
 			{
-				return DeserializeFromStream<T>(xmlFile);
+				return DeserializeFromXmlStream<T>(xmlFile);
 			}
 		}
 
-		public static T DeserializeFromText<T>(this String xml)
+		public static T DeserializeFromXmlText<T>(this String xml)
 		{
 			using (var stringReader = new StringReader(xml))
 			{
 				using (var xmlStringReader = new XmlTextReader(stringReader))
 				{
-					return xmlStringReader.DeserializeFromStream<T>();
+					return xmlStringReader.DeserializeFromXmlStream<T>();
 				}
 			}
 		}
