@@ -1,9 +1,5 @@
-﻿using System.Runtime.Serialization.Json;
+﻿using Microsoft.AspNetCore.Mvc;
 
-using Microsoft.AspNetCore.Mvc;
-
-using Inventor.Semantics;
-using Inventor.Semantics.Metadata;
 using Inventor.Semantics.Utils;
 
 namespace Inventor.SimpleRestClient.Controllers
@@ -13,9 +9,6 @@ namespace Inventor.SimpleRestClient.Controllers
 	{
 		private readonly ILogger<SemanticNetworkController> _logger;
 		private readonly IDataService _dataService;
-		private static readonly DataContractJsonSerializer _serializer = new DataContractJsonSerializer(
-			typeof(Semantics.Serialization.Json.SemanticNetwork),
-			Repositories.Statements.GetJsonTypes());
 
 		public SemanticNetworkController(ILogger<SemanticNetworkController> logger, IDataService dataService)
 		{
@@ -30,7 +23,7 @@ namespace Inventor.SimpleRestClient.Controllers
 
 			var snapshot =  new Semantics.Serialization.Json.SemanticNetwork(semanticNetwork);
 
-			return _serializer.SerializeToJsonString(snapshot);
+			return snapshot.SerializeToJsonString();
 		}
 	}
 }

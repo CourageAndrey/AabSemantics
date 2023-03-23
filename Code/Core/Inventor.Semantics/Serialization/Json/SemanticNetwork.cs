@@ -2,8 +2,10 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.Serialization;
+using System.Runtime.Serialization.Json;
 
 using Inventor.Semantics.Metadata;
+using Inventor.Semantics.Utils;
 
 namespace Inventor.Semantics.Serialization.Json
 {
@@ -71,6 +73,30 @@ namespace Inventor.Semantics.Serialization.Json
 			}
 
 			return result;
+		}
+
+		static SemanticNetwork()
+		{
+			var semanticNetworkType = typeof(SemanticNetwork);
+			var serializer = new DataContractJsonSerializer(
+				semanticNetworkType,
+				Repositories.Statements.GetJsonTypes());
+			semanticNetworkType.DefineCustomJsonSerializer(serializer);
+		}
+	}
+
+	public static class SemanticNetworkJsonExtensions
+	{
+		public static Semantics.SemanticNetwork LoadSemanticNetworkFromJson(this String fileName, ILanguage language)
+		{
+			var jsonSnapshot = fileName.DeserializeFromJsonFile<SemanticNetwork>();
+			return jsonSnapshot.Load(language);
+		}
+
+		public static void SaveToJson(this ISemanticNetwork semanticNetwork, String fileName)
+		{
+			var jsonSnapshot = new SemanticNetwork(semanticNetwork);
+			jsonSnapshot.SerializeToJsonFile(fileName);
 		}
 	}
 }

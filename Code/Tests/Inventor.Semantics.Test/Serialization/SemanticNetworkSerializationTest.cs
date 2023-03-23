@@ -2,15 +2,13 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Runtime.Serialization.Json;
 
 using NUnit.Framework;
 
 using Inventor.Semantics.Localization;
-using Inventor.Semantics.Metadata;
+using Inventor.Semantics.Serialization.Json;
 using Inventor.Semantics.Serialization.Xml;
 using Inventor.Semantics.Test.Sample;
-using Inventor.Semantics.Utils;
 
 namespace Inventor.Semantics.Test.Serialization
 {
@@ -28,25 +26,9 @@ namespace Inventor.Semantics.Test.Serialization
 		[Test]
 		public void CheckJson()
 		{
-			DataContractJsonSerializer serializer = null;
-
 			CheckSerialization(
-				(semanticNetwork, fileName) =>
-				{
-					serializer = new DataContractJsonSerializer(
-						typeof(Semantics.Serialization.Json.SemanticNetwork),
-						Repositories.Statements.GetJsonTypes());
-
-					var snapshot = new Semantics.Serialization.Json.SemanticNetwork(semanticNetwork);
-					string json = serializer.SerializeToJsonString(snapshot);
-					File.WriteAllText(fileName, json);
-				},
-				(fileName, language) =>
-				{
-					string json = File.ReadAllText(fileName);
-					var snapshot = (Semantics.Serialization.Json.SemanticNetwork) serializer.DeserializeFromJsonString(json);
-					return snapshot.Load(language);
-				});
+				(semanticNetwork, fileName) => semanticNetwork.SaveToJson(fileName),
+				(fileName, language) => fileName.LoadSemanticNetworkFromJson(language));
 		}
 
 		private void CheckSerialization(
