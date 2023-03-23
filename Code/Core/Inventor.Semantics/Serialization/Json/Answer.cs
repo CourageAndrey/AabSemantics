@@ -1,22 +1,26 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.Serialization;
 
 using Inventor.Semantics.Metadata;
 
 namespace Inventor.Semantics.Serialization.Json
 {
-	[Serializable]
+	[DataContract]
 	public class Answer
 	{
 		#region Properties
 
+		[DataMember]
 		public String Description
 		{ get; set; }
 
+		[DataMember]
 		public List<Statement> Explanation
 		{ get; set; }
 
+		[DataMember]
 		public Boolean IsEmpty
 		{ get; set; }
 

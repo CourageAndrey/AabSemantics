@@ -1,17 +1,21 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Runtime.Serialization;
 
 using Inventor.Semantics.Serialization;
 
 namespace Inventor.Semantics.Set.Json
 {
+	[DataContract]
 	public class GetCommonQuestion : Serialization.Json.Question<Questions.GetCommonQuestion>
 	{
 		#region Properties
 
+		[DataMember]
 		public String Concept1
 		{ get; }
 
+		[DataMember]
 		public String Concept2
 		{ get; }
 

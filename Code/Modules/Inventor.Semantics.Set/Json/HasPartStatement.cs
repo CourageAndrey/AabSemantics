@@ -1,17 +1,20 @@
 ﻿using System;
+using System.Runtime.Serialization;
 
 using Inventor.Semantics.Serialization;
 
 namespace Inventor.Semantics.Set.Json
 {
-	[Serializable]
+	[DataContract]
 	public class HasPartStatement : Serialization.Json.Statement<Statements.HasPartStatement>
 	{
 		#region Properties
 
+		[DataMember]
 		public String Whole
 		{ get; set; }
 
+		[DataMember]
 		public String Part
 		{ get; set; }
 

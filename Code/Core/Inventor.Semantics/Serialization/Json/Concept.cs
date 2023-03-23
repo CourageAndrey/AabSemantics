@@ -1,22 +1,27 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Runtime.Serialization;
 
 namespace Inventor.Semantics.Serialization.Json
 {
-	[Serializable]
+	[DataContract]
 	public class Concept
 	{
 		#region Properties
 
+		[DataMember]
 		public String ID
 		{ get; set; }
 
+		[DataMember]
 		public LocalizedString Name
 		{ get; set; }
 
+		[DataMember]
 		public LocalizedString Hint
 		{ get; set; }
 
+		[DataMember]
 		public List<String> Attributes
 		{ get; set; } = new List<String>();
 
@@ -29,11 +34,10 @@ namespace Inventor.Semantics.Serialization.Json
 
 		public Concept(IConcept concept)
 		{
+			ID = concept.ID;
 			Name = new LocalizedString(concept.Name);
 			Hint = new LocalizedString(concept.Hint);
 			Attributes = concept.Attributes.ToJson();
-			ID = concept.ID;
-			
 		}
 
 		#endregion

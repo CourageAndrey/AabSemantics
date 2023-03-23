@@ -1,12 +1,13 @@
-﻿using System;
+﻿using System.Runtime.Serialization;
 
 namespace Inventor.Semantics.Serialization.Json.Answers
 {
-	[Serializable]
+	[DataContract]
 	public class StatementAnswer : Answer
 	{
 		#region Properties
 
+		[DataMember]
 		public Statement Statement
 		{ get; set; }
 

@@ -1,16 +1,17 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using System.Runtime.Serialization;
 
 using Inventor.Semantics.Serialization;
 using Inventor.Semantics.Serialization.Json;
 
 namespace Inventor.Semantics.Modules.Boolean.Json
 {
-	[Serializable]
+	[DataContract]
 	public class CheckStatementQuestion : Question<Questions.CheckStatementQuestion>
 	{
 		#region Properties
 
+		[DataMember]
 		public Statement Statement
 		{ get; }
 

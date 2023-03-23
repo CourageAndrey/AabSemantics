@@ -1,25 +1,30 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.Serialization;
 
 using Inventor.Semantics.Metadata;
 
 namespace Inventor.Semantics.Serialization.Json
 {
-	[Serializable]
+	[DataContract]
 	public class SemanticNetwork
 	{
 		#region Properties
 
+		[DataMember]
 		public LocalizedString Name
 		{ get; set; }
 
+		[DataMember]
 		public List<Concept> Concepts
 		{ get; set; } = new List<Concept>();
 
+		[DataMember]
 		public List<Statement> Statements
 		{ get; set; } = new List<Statement>();
 
+		[DataMember]
 		public List<String> Modules
 		{ get; set; } = new List<String>();
 

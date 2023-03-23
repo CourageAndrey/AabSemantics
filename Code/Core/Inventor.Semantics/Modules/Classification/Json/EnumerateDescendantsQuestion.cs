@@ -1,16 +1,18 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Runtime.Serialization;
 
 using Inventor.Semantics.Serialization;
 using Inventor.Semantics.Serialization.Json;
 
 namespace Inventor.Semantics.Modules.Classification.Json
 {
-	[Serializable]
+	[DataContract]
 	public class EnumerateDescendantsQuestion : Question<Questions.EnumerateDescendantsQuestion>
 	{
 		#region Properties
 
+		[DataMember]
 		public String Concept
 		{ get; }
 

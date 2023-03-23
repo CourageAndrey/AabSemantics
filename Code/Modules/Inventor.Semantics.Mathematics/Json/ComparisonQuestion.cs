@@ -1,18 +1,21 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Runtime.Serialization;
 
 using Inventor.Semantics.Serialization;
 
 namespace Inventor.Semantics.Mathematics.Json
 {
-	[Serializable]
+	[DataContract]
 	public class ComparisonQuestion : Serialization.Json.Question<Questions.ComparisonQuestion>
 	{
 		#region Properties
 
+		[DataMember]
 		public String LeftValue
 		{ get; set; }
 
+		[DataMember]
 		public String RightValue
 		{ get; set; }
 

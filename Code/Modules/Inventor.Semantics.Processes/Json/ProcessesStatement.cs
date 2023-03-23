@@ -1,20 +1,24 @@
 ﻿using System;
+using System.Runtime.Serialization;
 
 using Inventor.Semantics.Serialization;
 
 namespace Inventor.Semantics.Processes.Json
 {
-	[Serializable]
+	[DataContract]
 	public class ProcessesStatement : Serialization.Json.Statement<Statements.ProcessesStatement>
 	{
 		#region Properties
 
+		[DataMember]
 		public String ProcessA
 		{ get; private set; }
 
+		[DataMember]
 		public String ProcessB
 		{ get; private set; }
 
+		[DataMember]
 		public String SequenceSign
 		{ get; private set; }
 

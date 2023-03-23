@@ -1,18 +1,21 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Runtime.Serialization;
 
 using Inventor.Semantics.Serialization;
 
 namespace Inventor.Semantics.Set.Json
 {
-	[Serializable]
+	[DataContract]
 	public class SignValueQuestion : Serialization.Json.Question<Questions.SignValueQuestion>
 	{
 		#region Properties
 
+		[DataMember]
 		public String Concept
 		{ get; set; }
 
+		[DataMember]
 		public String Sign
 		{ get; set; }
 

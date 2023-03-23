@@ -1,17 +1,20 @@
 ﻿using System;
+using System.Runtime.Serialization;
 
 using Inventor.Semantics.Serialization;
 
 namespace Inventor.Semantics.Set.Json
 {
-	[Serializable]
+	[DataContract]
 	public class HasSignStatement : Serialization.Json.Statement<Statements.HasSignStatement>
 	{
 		#region Properties
 
+		[DataMember]
 		public String Concept
 		{ get; set; }
 
+		[DataMember]
 		public String Sign
 		{ get; set; }
 
