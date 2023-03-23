@@ -22,8 +22,8 @@ namespace Inventor.Semantics.Test.Utils
 			var customSerializer = new XmlSerializer(typeof(SerializableCustom));
 
 			// act
-			customSerializer.DefineCustomSerializer<SerializableCustom>();
-			var acquiredSerializer = typeof(SerializableCustom).AcquireSerializer();
+			customSerializer.DefineCustomXmlSerializer<SerializableCustom>();
+			var acquiredSerializer = typeof(SerializableCustom).AcquireXmlSerializer();
 
 			// assert
 			Assert.AreSame(customSerializer, acquiredSerializer);
@@ -33,7 +33,7 @@ namespace Inventor.Semantics.Test.Utils
 		public void AcquireSerializerTypedAndUntyped()
 		{
 			// act & assert
-			Assert.AreSame(XmlHelper.AcquireSerializer(typeof(SerializableClass1)), XmlHelper.AcquireSerializer<SerializableClass1>());
+			Assert.AreSame(XmlHelper.AcquireXmlSerializer(typeof(SerializableClass1)), XmlHelper.AcquireXmlSerializer<SerializableClass1>());
 		}
 
 		[Test]
@@ -60,7 +60,7 @@ namespace Inventor.Semantics.Test.Utils
 			// act & assert
 			Parallel.ForEach(threadTypes, type =>
 			{
-				Assert.IsNotNull(XmlHelper.AcquireSerializer(type));
+				Assert.IsNotNull(XmlHelper.AcquireXmlSerializer(type));
 			});
 		}
 
@@ -77,17 +77,17 @@ namespace Inventor.Semantics.Test.Utils
 			Test deserializedFromStream, deserializedFromBytes, deserializedFromFile, deserializedFromText;
 			try
 			{
-				serializedDocument = test.SerializeToDocument();
-				serializedElement = test.SerializeToElement();
-				test.SerializeToFile(tempFileName);
+				serializedDocument = test.SerializeToXmlDocument();
+				serializedElement = test.SerializeToXmlElement();
+				test.SerializeToXmlFile(tempFileName);
 
 				using (var xmlReader = new XmlTextReader(tempFileName))
 				{
-					deserializedFromStream = xmlReader.DeserializeFromStream<Test>();
+					deserializedFromStream = xmlReader.DeserializeFromXmlStream<Test>();
 				}
-				deserializedFromBytes = File.ReadAllBytes(tempFileName).Deserialize<Test>();
-				deserializedFromFile = tempFileName.DeserializeFromFile<Test>();
-				deserializedFromText = serializedDocument.OuterXml.DeserializeFromText<Test>();
+				deserializedFromBytes = File.ReadAllBytes(tempFileName).DeserializeFromXmlBytes<Test>();
+				deserializedFromFile = tempFileName.DeserializeFromXmlFile<Test>();
+				deserializedFromText = serializedDocument.OuterXml.DeserializeFromXmlText<Test>();
 			}
 			finally
 			{

@@ -95,7 +95,7 @@ namespace Inventor.Semantics.Serialization.Xml
 			attributeOverrides.Add(semanticNetworkType, "Statements", statementAttributes);
 
 			var serializer = new XmlSerializer(semanticNetworkType, attributeOverrides);
-			semanticNetworkType.DefineCustomSerializer(serializer);
+			semanticNetworkType.DefineCustomXmlSerializer(serializer);
 		}
 	}
 
@@ -103,14 +103,14 @@ namespace Inventor.Semantics.Serialization.Xml
 	{
 		public static Semantics.SemanticNetwork LoadSemanticNetworkFromXml(this String fileName, ILanguage language)
 		{
-			var xmlSnapshot = fileName.DeserializeFromFile<SemanticNetwork>();
+			var xmlSnapshot = fileName.DeserializeFromXmlFile<SemanticNetwork>();
 			return xmlSnapshot.Load(language);
 		}
 
 		public static void SaveToXml(this ISemanticNetwork semanticNetwork, String fileName)
 		{
 			var xmlSnapshot = new SemanticNetwork(semanticNetwork);
-			xmlSnapshot.SerializeToFile(fileName);
+			xmlSnapshot.SerializeToXmlFile(fileName);
 		}
 	}
 }

@@ -55,7 +55,7 @@ namespace Inventor.Semantics
 			{
 				languagesFolder.Create();
 			}
-			return languagesFolder.GetFiles(fileFormat).Select(f => f.FullName.DeserializeFromFile<Language>() as ILanguage).ToList();
+			return languagesFolder.GetFiles(fileFormat).Select(f => f.FullName.DeserializeFromXmlFile<Language>() as ILanguage).ToList();
 		}
 
 		public static ILanguage FindAppropriate(this IEnumerable<ILanguage> languages, Language @default)

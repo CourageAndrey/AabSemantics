@@ -82,12 +82,12 @@ namespace Inventor.SimpleWpfClient
 		{
 			try
 			{
-				return ConfigurationFile.DeserializeFromFile<InventorConfiguration>();
+				return ConfigurationFile.DeserializeFromXmlFile<InventorConfiguration>();
 			}
 			catch
 			{
 				var configuration = new InventorConfiguration();
-				configuration.SerializeToFile(ConfigurationFile);
+				configuration.SerializeToXmlFile(ConfigurationFile);
 				return configuration;
 			}
 		}

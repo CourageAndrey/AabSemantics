@@ -36,8 +36,8 @@ namespace Inventor.Semantics.Test.Localization
 			Language restored;
 			try
 			{
-				language.SerializeToFile(testFileName);
-				restored = testFileName.DeserializeFromFile<Language>();
+				language.SerializeToXmlFile(testFileName);
+				restored = testFileName.DeserializeFromXmlFile<Language>();
 			}
 			finally
 			{
@@ -62,7 +62,7 @@ namespace Inventor.Semantics.Test.Localization
 			language.Extensions.Add(LanguageSetModule.CreateDefault());
 
 			// act
-			var serializationError = Assert.Throws<InvalidOperationException>(() => { language.SerializeToFile(testFileName); });
+			var serializationError = Assert.Throws<InvalidOperationException>(() => { language.SerializeToXmlFile(testFileName); });
 
 			// assert
 			Assert.IsTrue(serializationError.Message.Contains("XML"));
@@ -92,8 +92,8 @@ namespace Inventor.Semantics.Test.Localization
 			Language restored;
 			try
 			{
-				language.SerializeToFile(testFileName);
-				restored = testFileName.DeserializeFromFile<Language>();
+				language.SerializeToXmlFile(testFileName);
+				restored = testFileName.DeserializeFromXmlFile<Language>();
 			}
 			finally
 			{
@@ -150,7 +150,7 @@ namespace Inventor.Semantics.Test.Localization
 				Directory.CreateDirectory(Path.Combine(tempFolder, LanguagesExtensions.DefaultFolderPath));
 				foreach (var language in additionalLanguages)
 				{
-					language.SerializeToFile(Path.Combine(tempFolder, LanguagesExtensions.DefaultFolderPath, $"{language.Name}.xml"));
+					language.SerializeToXmlFile(Path.Combine(tempFolder, LanguagesExtensions.DefaultFolderPath, $"{language.Name}.xml"));
 				}
 
 				// act
