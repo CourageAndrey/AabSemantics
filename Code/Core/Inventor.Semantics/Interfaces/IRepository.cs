@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Inventor.Semantics
 {
@@ -41,6 +42,12 @@ namespace Inventor.Semantics
 			}
 
 			throw new NotSupportedException();
+		}
+
+		public static List<Type> GetJsonTypes<DefinitionT>(this IRepository<DefinitionT> repository)
+			where DefinitionT : IMetadataDefinition
+		{
+			return repository.Definitions.Values.Select(definition => definition.JsonType).ToList();
 		}
 	}
 }
