@@ -6,5 +6,11 @@ namespace Inventor.Semantics
 	{
 		Type Type
 		{ get; }
+
+		Type XmlType
+		{ get; }
+
+		Type JsonType
+		{ get; }
 	}
 }

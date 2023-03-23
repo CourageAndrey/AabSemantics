@@ -24,6 +24,9 @@ namespace Inventor.Semantics.Metadata
 		public Type XmlType
 		{ get; }
 
+		public Type JsonType
+		{ get { return null; } }
+
 		private readonly Func<ILanguage, String> _attributeNameGetter;
 
 		#endregion
