@@ -44,25 +44,32 @@ namespace Inventor.Semantics.Modules.Boolean
 
 		protected override void RegisterQuestions()
 		{
-			Repositories.RegisterQuestion<CheckStatementQuestion, Xml.CheckStatementQuestion>(
+			Repositories.RegisterQuestion<CheckStatementQuestion, Xml.CheckStatementQuestion, Json.CheckStatementQuestion>(
 				language => language.GetExtension<ILanguageBooleanModule>().Questions.Names.CheckStatementQuestion,
-				question => new Xml.CheckStatementQuestion(question));
+				question => new Xml.CheckStatementQuestion(question),
+				question => new Json.CheckStatementQuestion(question));
 		}
 
 		protected override void RegisterAnswers()
 		{
-			Repositories.RegisterAnswer<Answers.Answer, Serialization.Xml.Answer>(
-				(answer, language) => new Serialization.Xml.Answer(answer, language));
-			Repositories.RegisterAnswer<Answers.BooleanAnswer, Serialization.Xml.Answers.BooleanAnswer>(
-				(answer, language) => new Serialization.Xml.Answers.BooleanAnswer(answer, language));
-			Repositories.RegisterAnswer<Answers.ConceptAnswer, Serialization.Xml.Answers.ConceptAnswer>(
-				(answer, language) => new Serialization.Xml.Answers.ConceptAnswer(answer, language));
-			Repositories.RegisterAnswer<Answers.ConceptsAnswer, Serialization.Xml.Answers.ConceptsAnswer>(
-				(answer, language) => new Serialization.Xml.Answers.ConceptsAnswer(answer, language));
-			Repositories.RegisterAnswer<Answers.StatementAnswer, Serialization.Xml.Answers.StatementAnswer>(
-				(answer, language) => new Serialization.Xml.Answers.StatementAnswer(answer, language));
-			Repositories.RegisterAnswer<Answers.StatementsAnswer, Serialization.Xml.Answers.StatementsAnswer>(
-				(answer, language) => new Serialization.Xml.Answers.StatementsAnswer(answer, language));
+			Repositories.RegisterAnswer<Answers.Answer, Serialization.Xml.Answer, Serialization.Json.Answer>(
+				(answer, language) => new Serialization.Xml.Answer(answer, language),
+				(answer, language) => new Serialization.Json.Answer(answer, language));
+			Repositories.RegisterAnswer<Answers.BooleanAnswer, Serialization.Xml.Answers.BooleanAnswer, Serialization.Json.Answers.BooleanAnswer>(
+				(answer, language) => new Serialization.Xml.Answers.BooleanAnswer(answer, language),
+				(answer, language) => new Serialization.Json.Answers.BooleanAnswer(answer, language));
+			Repositories.RegisterAnswer<Answers.ConceptAnswer, Serialization.Xml.Answers.ConceptAnswer, Serialization.Json.Answers.ConceptAnswer>(
+				(answer, language) => new Serialization.Xml.Answers.ConceptAnswer(answer, language),
+				(answer, language) => new Serialization.Json.Answers.ConceptAnswer(answer, language));
+			Repositories.RegisterAnswer<Answers.ConceptsAnswer, Serialization.Xml.Answers.ConceptsAnswer, Serialization.Json.Answers.ConceptsAnswer>(
+				(answer, language) => new Serialization.Xml.Answers.ConceptsAnswer(answer, language),
+				(answer, language) => new Serialization.Json.Answers.ConceptsAnswer(answer, language));
+			Repositories.RegisterAnswer<Answers.StatementAnswer, Serialization.Xml.Answers.StatementAnswer, Serialization.Json.Answers.StatementAnswer>(
+				(answer, language) => new Serialization.Xml.Answers.StatementAnswer(answer, language),
+				(answer, language) => new Serialization.Json.Answers.StatementAnswer(answer, language));
+			Repositories.RegisterAnswer<Answers.StatementsAnswer, Serialization.Xml.Answers.StatementsAnswer, Serialization.Json.Answers.StatementsAnswer>(
+				(answer, language) => new Serialization.Xml.Answers.StatementsAnswer(answer, language),
+				(answer, language) => new Serialization.Json.Answers.StatementsAnswer(answer, language));
 		}
 
 		public override IDictionary<String, Type> GetLanguageExtensions()

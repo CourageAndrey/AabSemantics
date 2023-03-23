@@ -1,10 +1,12 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 
 using NUnit.Framework;
 
 using Inventor.Semantics.Localization;
+using Inventor.Semantics.Serialization.Json;
 using Inventor.Semantics.Serialization.Xml;
 using Inventor.Semantics.Test.Sample;
 
@@ -15,6 +17,24 @@ namespace Inventor.Semantics.Test.Serialization
 	{
 		[Test]
 		public void CheckXml()
+		{
+			CheckSerialization(
+				(semanticNetwork, fileName) => semanticNetwork.SaveToXml(fileName),
+				(fileName, language) => fileName.LoadSemanticNetworkFromXml(language));
+		}
+
+		[Test]
+		public void CheckJson()
+		{
+			Assert.Ignore("Ignored CheckJson() test.");
+			//CheckSerialization(
+			//	(semanticNetwork, fileName) => semanticNetwork.SaveToJson(fileName),
+			//	(fileName, language) => fileName.LoadSemanticNetworkFromJson(language));
+		}
+
+		private void CheckSerialization(
+			Action<ISemanticNetwork, string> saveToFile,
+			Func<string, ILanguage, SemanticNetwork> loadFromFile)
 		{
 			// arrange
 			var language = Language.Default;
@@ -27,8 +47,8 @@ namespace Inventor.Semantics.Test.Serialization
 			Semantics.SemanticNetwork restored;
 			try
 			{
-				semanticNetwork.SaveToXml(testFileName);
-				restored = testFileName.LoadSemanticNetworkFromXml(language);
+				saveToFile(semanticNetwork, testFileName);
+				restored = loadFromFile(testFileName, language);
 			}
 			finally
 			{

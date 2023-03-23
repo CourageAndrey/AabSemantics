@@ -18,6 +18,9 @@ namespace Inventor.Semantics.Metadata
 		public String XmlElementName
 		{ get; }
 
+		public String JsonElementName
+		{ get; }
+
 		public Type XmlType
 		{ get; }
 
@@ -45,7 +48,7 @@ namespace Inventor.Semantics.Metadata
 			_attributeNameGetter = attributeNameGetter;
 			Xml = xml;
 			XmlType = xml.GetType();
-			XmlElementName = XmlType.Name.Replace("Attribute", "");
+			JsonElementName = XmlElementName = XmlType.Name.Replace("Attribute", "");
 		}
 
 		private AttributeDefinition()
