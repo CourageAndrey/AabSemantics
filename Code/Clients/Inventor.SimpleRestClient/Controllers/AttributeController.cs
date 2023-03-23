@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 
 using Inventor.Semantics.Metadata;
+using Inventor.Semantics.Serialization.Json;
 
 namespace Inventor.SimpleRestClient.Controllers
 {
@@ -17,14 +18,15 @@ namespace Inventor.SimpleRestClient.Controllers
 		}
 
 		[HttpGet(Name = "GetAttribute")]
-		public IEnumerable<Semantics.Serialization.Xml.Attribute> Get()
+		public IEnumerable<String> Get()
 		{
 			var semanticNetwork = _dataService.GetSemanticNetwork();
 
 			return Repositories.Attributes
 				.Definitions
 				.Values
-				.Select(definition => Semantics.Serialization.Xml.Attribute.Save(definition.AttributeValue));
+				.Select(definition => definition.AttributeValue)
+				.ToJson();
 		}
 	}
 }
