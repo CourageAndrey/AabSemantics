@@ -20,7 +20,9 @@ namespace Inventor.Semantics.Test.Metadata
 				null,
 				language => language.Culture,
 				statement => null,
+				statement => null,
 				typeof(Modules.Classification.Xml.IsStatement),
+				typeof(Modules.Classification.Json.IsStatement),
 				StatementDefinition.NoConsistencyCheck));
 		}
 
@@ -32,12 +34,16 @@ namespace Inventor.Semantics.Test.Metadata
 				typeof(Semantics.Questions.Question),
 				language => language.Culture,
 				statement => null,
+				statement => null,
 				typeof(Modules.Classification.Xml.IsStatement),
+				typeof(Modules.Classification.Json.IsStatement),
 				StatementDefinition.NoConsistencyCheck));
 			Assert.Throws<ArgumentException>(() => new StatementDefinition<Statement>(
 				language => language.Culture,
 				statement => null,
+				statement => null,
 				typeof(Modules.Classification.Xml.IsStatement),
+				typeof(Modules.Classification.Json.IsStatement),
 				StatementDefinition<Statement>.NoConsistencyCheck));
 		}
 
@@ -46,15 +52,19 @@ namespace Inventor.Semantics.Test.Metadata
 		{
 			// act & assert
 			Assert.Throws<ArgumentNullException>(() => new StatementDefinition<IsStatement>(
-				language => language.Culture,
 				null,
+				statement => null,
+				statement => null,
 				typeof(Modules.Classification.Xml.IsStatement),
+				typeof(Modules.Classification.Json.IsStatement),
 				StatementDefinition<IsStatement>.NoConsistencyCheck));
 			Assert.Throws<ArgumentNullException>(() => new TestStatementDefinition(
 				typeof(IsStatement),
 				null,
 				statement => null,
+				statement => null,
 				typeof(Modules.Classification.Xml.IsStatement),
+				typeof(Modules.Classification.Json.IsStatement),
 				StatementDefinition.NoConsistencyCheck));
 		}
 
@@ -65,19 +75,80 @@ namespace Inventor.Semantics.Test.Metadata
 			Assert.Throws<ArgumentNullException>(() => new StatementDefinition<IsStatement>(
 				language => language.Culture,
 				statement => null,
+				statement => null,
+				null,
+				typeof(Modules.Classification.Json.IsStatement),
+				StatementDefinition<IsStatement>.NoConsistencyCheck));
+			Assert.Throws<ArgumentNullException>(() => new TestStatementDefinition(
+				typeof(IsStatement),
+				language => language.Culture,
+				statement => null,
+				statement => null,
+				null,
+				typeof(Modules.Classification.Json.IsStatement),
+				StatementDefinition.NoConsistencyCheck));
+		}
+
+		[Test]
+		public void ImpossibleToCreateDefinitionWithoutJsonType()
+		{
+			// act & assert
+			Assert.Throws<ArgumentNullException>(() => new StatementDefinition<IsStatement>(
+				language => language.Culture,
+				statement => null,
+				statement => null,
+				typeof(Modules.Classification.Xml.IsStatement),
 				null,
 				StatementDefinition<IsStatement>.NoConsistencyCheck));
 			Assert.Throws<ArgumentNullException>(() => new TestStatementDefinition(
 				typeof(IsStatement),
 				language => language.Culture,
+				statement => null,
+				statement => null,
+				typeof(Modules.Classification.Xml.IsStatement),
+				null,
+				StatementDefinition.NoConsistencyCheck));
+		}
+
+		[Test]
+		public void ImpossibleToCreateDefinitionWithoutXmlGetter()
+		{
+			// act & assert
+			Assert.Throws<ArgumentNullException>(() => new StatementDefinition<IsStatement>(
+				language => language.Culture,
+				null,
+				statement => null,
+				typeof(Modules.Classification.Xml.IsStatement),
+				typeof(Modules.Classification.Json.IsStatement),
+				StatementDefinition<IsStatement>.NoConsistencyCheck));
+			Assert.Throws<ArgumentNullException>(() => new TestStatementDefinition(
+				typeof(IsStatement),
+				language => language.Culture,
+				null,
+				statement => null,
+				typeof(Modules.Classification.Xml.IsStatement),
+				typeof(Modules.Classification.Json.IsStatement),
+				StatementDefinition.NoConsistencyCheck));
+		}
+
+		[Test]
+		public void ImpossibleToCreateDefinitionWithoutJsonGetter()
+		{
+			// act & assert
+			Assert.Throws<ArgumentNullException>(() => new StatementDefinition<IsStatement>(
+				language => language.Culture,
+				statement => null,
 				null,
 				typeof(Modules.Classification.Xml.IsStatement),
-				StatementDefinition.NoConsistencyCheck));
+				typeof(Modules.Classification.Json.IsStatement),
+				StatementDefinition<IsStatement>.NoConsistencyCheck));
 			Assert.Throws<ArgumentNullException>(() => new TestStatementDefinition(
 				typeof(IsStatement),
 				language => language.Culture,
 				statement => null,
 				null,
+				typeof(Modules.Classification.Xml.IsStatement),
+				typeof(Modules.Classification.Json.IsStatement),
 				StatementDefinition.NoConsistencyCheck));
 		}
 
@@ -88,20 +159,26 @@ namespace Inventor.Semantics.Test.Metadata
 			Assert.Throws<ArgumentNullException>(() => new StatementDefinition<IsStatement>(
 				language => language.Culture,
 				statement => null,
+				statement => null,
 				typeof(Modules.Classification.Xml.IsStatement),
+				typeof(Modules.Classification.Json.IsStatement),
 				null));
 			Assert.Throws<ArgumentNullException>(() => new TestStatementDefinition(
 				typeof(IsStatement),
 				language => language.Culture,
 				statement => null,
+				statement => null,
 				typeof(Modules.Classification.Xml.IsStatement),
+				typeof(Modules.Classification.Json.IsStatement),
 				null));
 
 			var definition = new TestStatementDefinition(
 				typeof(IsStatement),
 				language => language.Culture,
 				statement => null,
+				statement => null,
 				typeof(Modules.Classification.Xml.IsStatement),
+				typeof(Modules.Classification.Json.IsStatement),
 				StatementDefinition.NoConsistencyCheck);
 			definition.CheckConsistency(null, null);
 		}
@@ -113,7 +190,9 @@ namespace Inventor.Semantics.Test.Metadata
 			var definition = new StatementDefinition<IsStatement>(
 				language => language.Culture,
 				statement => null,
+				statement => null,
 				typeof(Modules.Classification.Xml.IsStatement),
+				typeof(Modules.Classification.Json.IsStatement),
 				StatementDefinition<IsStatement>.NoConsistencyCheck);
 
 			// act
@@ -129,9 +208,11 @@ namespace Inventor.Semantics.Test.Metadata
 				Type type,
 				Func<ILanguage, string> statementNameGetter,
 				Func<IStatement, Semantics.Serialization.Xml.Statement> statementXmlGetter,
+				Func<IStatement, Semantics.Serialization.Json.Statement> statementJsonGetter,
 				Type xmlType,
+				Type jsonType,
 				StatementConsistencyCheckerDelegate consistencyChecker)
-				: base(type, statementNameGetter, statementXmlGetter, xmlType, consistencyChecker)
+				: base(type, statementNameGetter, statementXmlGetter, statementJsonGetter, xmlType, jsonType, consistencyChecker)
 			{ }
 		}
 	}

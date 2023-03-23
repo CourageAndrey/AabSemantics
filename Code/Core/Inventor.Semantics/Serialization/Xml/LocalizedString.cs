@@ -23,6 +23,7 @@ namespace Inventor.Semantics.Serialization.Xml
 		public LocalizedString(ILocalizedString source)
 			: this()
 		{
+#warning Get rid of such dangerous typecast!
 			var variable = (LocalizedStringVariable) source;
 			foreach (String locale in variable.Locales)
 			{

@@ -20,7 +20,9 @@ namespace Inventor.Semantics.Test.Metadata
 				null,
 				language => language.Culture,
 				question => new Modules.Boolean.Xml.CheckStatementQuestion((CheckStatementQuestion) question),
-				typeof(Modules.Boolean.Xml.CheckStatementQuestion)));
+				question => new Modules.Boolean.Json.CheckStatementQuestion((CheckStatementQuestion) question),
+				typeof(Modules.Boolean.Xml.CheckStatementQuestion),
+				typeof(Modules.Boolean.Json.CheckStatementQuestion)));
 		}
 
 		[Test]
@@ -31,12 +33,16 @@ namespace Inventor.Semantics.Test.Metadata
 				typeof(string),
 				language => language.Culture,
 				question => new Modules.Boolean.Xml.CheckStatementQuestion((CheckStatementQuestion) question),
-				typeof(Modules.Boolean.Xml.CheckStatementQuestion)));
+				question => new Modules.Boolean.Json.CheckStatementQuestion((CheckStatementQuestion) question),
+				typeof(Modules.Boolean.Xml.CheckStatementQuestion),
+				typeof(Modules.Boolean.Json.CheckStatementQuestion)));
 			Assert.Throws<ArgumentException>(() => new QuestionDefinition(
 				typeof(Question),
 				language => language.Culture,
 				question => new Modules.Boolean.Xml.CheckStatementQuestion((CheckStatementQuestion) question),
-				typeof(Modules.Boolean.Xml.CheckStatementQuestion)));
+				question => new Modules.Boolean.Json.CheckStatementQuestion((CheckStatementQuestion) question),
+				typeof(Modules.Boolean.Xml.CheckStatementQuestion),
+				typeof(Modules.Boolean.Json.CheckStatementQuestion)));
 		}
 
 		[Test]
@@ -47,7 +53,9 @@ namespace Inventor.Semantics.Test.Metadata
 				typeof(CheckStatementQuestion),
 				null,
 				question => new Modules.Boolean.Xml.CheckStatementQuestion((CheckStatementQuestion) question),
-				typeof(Modules.Boolean.Xml.CheckStatementQuestion)));
+				question => new Modules.Boolean.Json.CheckStatementQuestion((CheckStatementQuestion) question),
+				typeof(Modules.Boolean.Xml.CheckStatementQuestion),
+				typeof(Modules.Boolean.Json.CheckStatementQuestion)));
 		}
 
 		[Test]
@@ -58,7 +66,22 @@ namespace Inventor.Semantics.Test.Metadata
 				typeof(CheckStatementQuestion),
 				language => language.Culture,
 				null,
-				typeof(Modules.Boolean.Xml.CheckStatementQuestion)));
+				question => new Modules.Boolean.Json.CheckStatementQuestion((CheckStatementQuestion) question),
+				typeof(Modules.Boolean.Xml.CheckStatementQuestion),
+				typeof(Modules.Boolean.Json.CheckStatementQuestion)));
+		}
+
+		[Test]
+		public void ImpossibleToCreateDefinitionWithoutJsonGetter()
+		{
+			// act & assert
+			Assert.Throws<ArgumentNullException>(() => new QuestionDefinition(
+				typeof(CheckStatementQuestion),
+				language => language.Culture,
+				question => new Modules.Boolean.Xml.CheckStatementQuestion((CheckStatementQuestion) question),
+				null,
+				typeof(Modules.Boolean.Xml.CheckStatementQuestion),
+				typeof(Modules.Boolean.Json.CheckStatementQuestion)));
 		}
 
 		[Test]
@@ -68,7 +91,22 @@ namespace Inventor.Semantics.Test.Metadata
 			Assert.Throws<ArgumentNullException>(() => new QuestionDefinition(
 				typeof(CheckStatementQuestion),
 				language => language.Culture,
-				question => new Modules.Boolean.Xml.CheckStatementQuestion((CheckStatementQuestion)question),
+				question => new Modules.Boolean.Xml.CheckStatementQuestion((CheckStatementQuestion) question),
+				question => new Modules.Boolean.Json.CheckStatementQuestion((CheckStatementQuestion) question),
+				null,
+				typeof(Modules.Boolean.Json.CheckStatementQuestion)));
+		}
+
+		[Test]
+		public void ImpossibleToCreateDefinitionWithoutJsonType()
+		{
+			// act & assert
+			Assert.Throws<ArgumentNullException>(() => new QuestionDefinition(
+				typeof(CheckStatementQuestion),
+				language => language.Culture,
+				question => new Modules.Boolean.Xml.CheckStatementQuestion((CheckStatementQuestion) question),
+				question => new Modules.Boolean.Json.CheckStatementQuestion((CheckStatementQuestion) question),
+				typeof(Modules.Boolean.Xml.CheckStatementQuestion),
 				null));
 		}
 
@@ -80,7 +118,9 @@ namespace Inventor.Semantics.Test.Metadata
 				typeof(CheckStatementQuestion),
 				language => language.Culture,
 				question => new Modules.Boolean.Xml.CheckStatementQuestion((CheckStatementQuestion) question),
-				typeof(Modules.Boolean.Xml.CheckStatementQuestion));
+				question => new Modules.Boolean.Json.CheckStatementQuestion((CheckStatementQuestion) question),
+				typeof(Modules.Boolean.Xml.CheckStatementQuestion),
+				typeof(Modules.Boolean.Json.CheckStatementQuestion));
 
 			// act
 			string name = definition.GetName(Language.Default);

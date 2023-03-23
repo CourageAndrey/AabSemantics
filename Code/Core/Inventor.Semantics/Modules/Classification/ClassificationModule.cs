@@ -23,23 +23,27 @@ namespace Inventor.Semantics.Modules.Classification
 
 		protected override void RegisterStatements()
 		{
-			Repositories.RegisterStatement<IsStatement, Xml.IsStatement>(
+			Repositories.RegisterStatement<IsStatement, Xml.IsStatement, Json.IsStatement>(
 				language => language.GetExtension<ILanguageClassificationModule>().Statements.Names.Clasification,
 				statement => new Xml.IsStatement(statement),
+				statement => new Json.IsStatement(statement),
 				checkCyclicParents);
 		}
 
 		protected override void RegisterQuestions()
 		{
-			Repositories.RegisterQuestion<EnumerateAncestorsQuestion, Xml.EnumerateAncestorsQuestion>(
+			Repositories.RegisterQuestion<EnumerateAncestorsQuestion, Xml.EnumerateAncestorsQuestion, Json.EnumerateAncestorsQuestion>(
 				language => language.GetExtension<ILanguageClassificationModule>().Questions.Names.EnumerateAncestorsQuestion,
-				question => new Xml.EnumerateAncestorsQuestion(question));
-			Repositories.RegisterQuestion<EnumerateDescendantsQuestion, Xml.EnumerateDescendantsQuestion>(
+				question => new Xml.EnumerateAncestorsQuestion(question),
+				question => new Json.EnumerateAncestorsQuestion(question));
+			Repositories.RegisterQuestion<EnumerateDescendantsQuestion, Xml.EnumerateDescendantsQuestion, Json.EnumerateDescendantsQuestion>(
 				language => language.GetExtension<ILanguageClassificationModule>().Questions.Names.EnumerateDescendantsQuestion,
-				question => new Xml.EnumerateDescendantsQuestion(question));
-			Repositories.RegisterQuestion<IsQuestion, Xml.IsQuestion>(
+				question => new Xml.EnumerateDescendantsQuestion(question),
+				question => new Json.EnumerateDescendantsQuestion(question));
+			Repositories.RegisterQuestion<IsQuestion, Xml.IsQuestion, Json.IsQuestion>(
 				language => language.GetExtension<ILanguageClassificationModule>().Questions.Names.IsQuestion,
-				question => new Xml.IsQuestion(question));
+				question => new Xml.IsQuestion(question),
+				question => new Json.IsQuestion(question));
 		}
 
 		public override IDictionary<String, Type> GetLanguageExtensions()
