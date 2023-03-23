@@ -2,7 +2,7 @@
 
 using Inventor.Semantics;
 using Inventor.Semantics.Serialization;
-using Inventor.Semantics.Serialization.Xml;
+using Inventor.Semantics.Serialization.Json;
 
 namespace Inventor.SimpleRestClient.Controllers
 {
