@@ -7,8 +7,6 @@ using Inventor.Semantics.Modules.Boolean.Concepts;
 using Inventor.Semantics.Modules.Boolean.Localization;
 using Inventor.Semantics.Modules.Boolean.Questions;
 using Inventor.Semantics.Serialization;
-using Inventor.Semantics.Serialization.Xml;
-using Inventor.Semantics.Serialization.Xml.Answers;
 
 namespace Inventor.Semantics.Modules.Boolean
 {
@@ -53,12 +51,18 @@ namespace Inventor.Semantics.Modules.Boolean
 
 		protected override void RegisterAnswers()
 		{
-			Repositories.RegisterAnswer<Answers.Answer, Answer>((answer, language) => new Answer(answer, language));
-			Repositories.RegisterAnswer<Answers.BooleanAnswer, BooleanAnswer>((answer, language) => new BooleanAnswer(answer, language));
-			Repositories.RegisterAnswer<Answers.ConceptAnswer, ConceptAnswer>((answer, language) => new ConceptAnswer(answer, language));
-			Repositories.RegisterAnswer<Answers.ConceptsAnswer, ConceptsAnswer>((answer, language) => new ConceptsAnswer(answer, language));
-			Repositories.RegisterAnswer<Answers.StatementAnswer, StatementAnswer>((answer, language) => new StatementAnswer(answer, language));
-			Repositories.RegisterAnswer<Answers.StatementsAnswer, StatementsAnswer>((answer, language) => new StatementsAnswer(answer, language));
+			Repositories.RegisterAnswer<Answers.Answer, Serialization.Xml.Answer>(
+				(answer, language) => new Serialization.Xml.Answer(answer, language));
+			Repositories.RegisterAnswer<Answers.BooleanAnswer, Serialization.Xml.Answers.BooleanAnswer>(
+				(answer, language) => new Serialization.Xml.Answers.BooleanAnswer(answer, language));
+			Repositories.RegisterAnswer<Answers.ConceptAnswer, Serialization.Xml.Answers.ConceptAnswer>(
+				(answer, language) => new Serialization.Xml.Answers.ConceptAnswer(answer, language));
+			Repositories.RegisterAnswer<Answers.ConceptsAnswer, Serialization.Xml.Answers.ConceptsAnswer>(
+				(answer, language) => new Serialization.Xml.Answers.ConceptsAnswer(answer, language));
+			Repositories.RegisterAnswer<Answers.StatementAnswer, Serialization.Xml.Answers.StatementAnswer>(
+				(answer, language) => new Serialization.Xml.Answers.StatementAnswer(answer, language));
+			Repositories.RegisterAnswer<Answers.StatementsAnswer, Serialization.Xml.Answers.StatementsAnswer>(
+				(answer, language) => new Serialization.Xml.Answers.StatementsAnswer(answer, language));
 		}
 
 		public override IDictionary<String, Type> GetLanguageExtensions()
