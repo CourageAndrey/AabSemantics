@@ -1,12 +1,14 @@
 ﻿using System;
+using System.Runtime.Serialization;
 
 using Inventor.Semantics.Metadata;
 
 namespace Inventor.Semantics.Serialization.Json
 {
-	[Serializable]
+	[DataContract]
 	public abstract class Statement
 	{
+		[DataMember]
 		public String ID
 		{ get; set; }
 
@@ -19,7 +21,7 @@ namespace Inventor.Semantics.Serialization.Json
 		public abstract IStatement Save(ConceptIdResolver conceptIdResolver);
 	}
 
-	[Serializable]
+	[DataContract]
 	public abstract class Statement<StatementT> : Statement
 		where StatementT : IStatement
 	{

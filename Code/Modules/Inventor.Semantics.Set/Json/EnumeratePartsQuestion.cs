@@ -1,15 +1,17 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Runtime.Serialization;
 
 using Inventor.Semantics.Serialization;
 
 namespace Inventor.Semantics.Set.Json
 {
-	[Serializable]
+	[DataContract]
 	public class EnumeratePartsQuestion : Serialization.Json.Question<Questions.EnumeratePartsQuestion>
 	{
 		#region Properties
 
+		[DataMember]
 		public String Concept
 		{ get; }
 

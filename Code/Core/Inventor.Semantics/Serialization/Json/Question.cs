@@ -1,12 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.Serialization;
 
 using Inventor.Semantics.Metadata;
 
 namespace Inventor.Semantics.Serialization.Json
 {
-	[Serializable]
+	[DataContract]
 	public abstract class Question
 	{
 		#region Properties
@@ -39,7 +40,7 @@ namespace Inventor.Semantics.Serialization.Json
 		public abstract IQuestion Save(ConceptIdResolver conceptIdResolver);
 	}
 
-	[Serializable]
+	[DataContract]
 	public abstract class Question<QuestionT> : Question
 		where QuestionT : IQuestion
 	{

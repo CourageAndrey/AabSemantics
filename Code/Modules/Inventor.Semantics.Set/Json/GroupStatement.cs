@@ -1,17 +1,20 @@
 ﻿using System;
+using System.Runtime.Serialization;
 
 using Inventor.Semantics.Serialization;
 
 namespace Inventor.Semantics.Set.Json
 {
-	[Serializable]
+	[DataContract]
 	public class GroupStatement : Serialization.Json.Statement<Statements.GroupStatement>
 	{
 		#region Properties
 
+		[DataMember]
 		public String Area
 		{ get; set; }
 
+		[DataMember]
 		public String Concept
 		{ get; set; }
 

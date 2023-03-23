@@ -1,20 +1,24 @@
 ﻿using System;
+using System.Runtime.Serialization;
 
 using Inventor.Semantics.Serialization;
 
 namespace Inventor.Semantics.Mathematics.Json
 {
-	[Serializable]
+	[DataContract]
 	public class ComparisonStatement : Serialization.Json.Statement<Statements.ComparisonStatement>
 	{
 		#region Properties
 
+		[DataMember]
 		public String LeftValue
 		{ get; private set; }
 
+		[DataMember]
 		public String RightValue
 		{ get; private set; }
 
+		[DataMember]
 		public String ComparisonSign
 		{ get; private set; }
 

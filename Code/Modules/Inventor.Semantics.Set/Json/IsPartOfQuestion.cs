@@ -1,18 +1,21 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Runtime.Serialization;
 
 using Inventor.Semantics.Serialization;
 
 namespace Inventor.Semantics.Set.Json
 {
-	[Serializable]
+	[DataContract]
 	public class IsPartOfQuestion : Serialization.Json.Question<Questions.IsPartOfQuestion>
 	{
 		#region Properties
 
+		[DataMember]
 		public String Parent
 		{ get; set; }
 
+		[DataMember]
 		public String Child
 		{ get; set; }
 

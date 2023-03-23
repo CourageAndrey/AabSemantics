@@ -1,19 +1,22 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Runtime.Serialization;
 
 using Inventor.Semantics.Serialization;
 using Inventor.Semantics.Serialization.Json;
 
 namespace Inventor.Semantics.Modules.Classification.Json
 {
-	[Serializable]
+	[DataContract]
 	public class IsQuestion : Question<Questions.IsQuestion>
 	{
 		#region Properties
 
+		[DataMember]
 		public String Child
 		{ get; }
 
+		[DataMember]
 		public String Parent
 		{ get; }
 

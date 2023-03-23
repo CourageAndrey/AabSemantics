@@ -1,18 +1,21 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Runtime.Serialization;
 
 using Inventor.Semantics.Serialization;
 
 namespace Inventor.Semantics.Set.Json
 {
-	[Serializable]
+	[DataContract]
 	public class EnumerateSignsQuestion : Serialization.Json.Question<Questions.EnumerateSignsQuestion>
 	{
 		#region Properties
 
+		[DataMember]
 		public String Concept
 		{ get; }
 
+		[DataMember]
 		public Boolean Recursive
 		{ get; }
 

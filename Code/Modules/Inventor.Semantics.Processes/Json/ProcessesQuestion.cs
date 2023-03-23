@@ -1,18 +1,21 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Runtime.Serialization;
 
 using Inventor.Semantics.Serialization;
 
 namespace Inventor.Semantics.Processes.Json
 {
-	[Serializable]
+	[DataContract]
 	public class ProcessesQuestion : Serialization.Json.Question<Questions.ProcessesQuestion>
 	{
 		#region Properties
 
+		[DataMember]
 		public String ProcessA
 		{ get; set; }
 
+		[DataMember]
 		public String ProcessB
 		{ get; set; }
 

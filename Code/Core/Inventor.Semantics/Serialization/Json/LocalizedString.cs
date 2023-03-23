@@ -1,16 +1,18 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.Serialization;
 
 using Inventor.Semantics.Localization;
 
 namespace Inventor.Semantics.Serialization.Json
 {
-	[Serializable]
+	[DataContract]
 	public class LocalizedString
 	{
 		#region Properties
 
+		[DataMember]
 		public Dictionary<String, String> Values
 		{ get; set; }
 
