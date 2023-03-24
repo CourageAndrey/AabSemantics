@@ -539,85 +539,136 @@ namespace Inventor.Semantics.Test.Sample
 
 			#region Statements
 
-			SemanticNetwork.DeclareThat(SubjectArea_Transport).IsSubjectAreaOf(Base_Vehicle);
-			SemanticNetwork.DeclareThat(SubjectArea_Transport).IsSubjectAreaOf(Sign_MotorType);
-			SemanticNetwork.DeclareThat(SubjectArea_Transport).IsSubjectAreaOf(MotorType_Muscles);
-			SemanticNetwork.DeclareThat(SubjectArea_Transport).IsSubjectAreaOf(MotorType_Steam);
-			SemanticNetwork.DeclareThat(SubjectArea_Transport).IsSubjectAreaOf(MotorType_Combusion);
-			SemanticNetwork.DeclareThat(SubjectArea_Transport).IsSubjectAreaOf(MotorType_Jet);
-			SemanticNetwork.DeclareThat(SubjectArea_Transport).IsSubjectAreaOf(Sign_AreaType);
-			SemanticNetwork.DeclareThat(SubjectArea_Transport).IsSubjectAreaOf(AreaType_Ground);
-			SemanticNetwork.DeclareThat(SubjectArea_Transport).IsSubjectAreaOf(AreaType_Water);
-			SemanticNetwork.DeclareThat(SubjectArea_Transport).IsSubjectAreaOf(AreaType_Air);
-			SemanticNetwork.DeclareThat(SubjectArea_Transport).IsSubjectAreaOf(Vehicle_Bicycle);
-			SemanticNetwork.DeclareThat(SubjectArea_Transport).IsSubjectAreaOf(Vehicle_Curragh);
-			SemanticNetwork.DeclareThat(SubjectArea_Transport).IsSubjectAreaOf(Vehicle_SteamLocomotive);
-			SemanticNetwork.DeclareThat(SubjectArea_Transport).IsSubjectAreaOf(Vehicle_Steamboat);
-			SemanticNetwork.DeclareThat(SubjectArea_Transport).IsSubjectAreaOf(Vehicle_Car);
-			SemanticNetwork.DeclareThat(SubjectArea_Transport).IsSubjectAreaOf(Vehicle_Motorcycle);
-			SemanticNetwork.DeclareThat(SubjectArea_Transport).IsSubjectAreaOf(Vehicle_Fighter);
-			SemanticNetwork.DeclareThat(SubjectArea_Transport).IsSubjectAreaOf(Vehicle_Airbus);
-			SemanticNetwork.DeclareThat(SubjectArea_Transport).IsSubjectAreaOf(Vehicle_JetFighter);
-			SemanticNetwork.DeclareThat(SubjectArea_Transport).IsSubjectAreaOf(Part_Body);
-			SemanticNetwork.DeclareThat(SubjectArea_Transport).IsSubjectAreaOf(Part_Engine);
-			SemanticNetwork.DeclareThat(SubjectArea_Transport).IsSubjectAreaOf(Part_Wheels);
+			SemanticNetwork.DeclareThat(SubjectArea_Transport).IsSubjectAreaOf(new[]
+			{
+				Base_Vehicle,
+				Sign_MotorType,
+				MotorType_Muscles,
+				MotorType_Steam,
+				MotorType_Combusion,
+				MotorType_Jet,
+				Sign_AreaType,
+				AreaType_Ground,
+				AreaType_Water,
+				AreaType_Air,
+				Vehicle_Bicycle,
+				Vehicle_Curragh,
+				Vehicle_SteamLocomotive,
+				Vehicle_Steamboat,
+				Vehicle_Car,
+				Vehicle_Motorcycle,
+				Vehicle_Fighter,
+				Vehicle_Airbus,
+				Vehicle_JetFighter,
+				Part_Body,
+				Part_Engine,
+				Part_Wheels,
+			});
 
-			SemanticNetwork.DeclareThat(SubjectArea_Numbers).IsSubjectAreaOf(Number0);
-			SemanticNetwork.DeclareThat(SubjectArea_Numbers).IsSubjectAreaOf(NumberZero);
-			SemanticNetwork.DeclareThat(SubjectArea_Numbers).IsSubjectAreaOf(NumberNotZero);
-			SemanticNetwork.DeclareThat(SubjectArea_Numbers).IsSubjectAreaOf(Number1);
-			SemanticNetwork.DeclareThat(SubjectArea_Numbers).IsSubjectAreaOf(Number1or2);
-			SemanticNetwork.DeclareThat(SubjectArea_Numbers).IsSubjectAreaOf(Number2);
-			SemanticNetwork.DeclareThat(SubjectArea_Numbers).IsSubjectAreaOf(Number2or3);
-			SemanticNetwork.DeclareThat(SubjectArea_Numbers).IsSubjectAreaOf(Number3);
-			SemanticNetwork.DeclareThat(SubjectArea_Numbers).IsSubjectAreaOf(Number3or4);
-			SemanticNetwork.DeclareThat(SubjectArea_Numbers).IsSubjectAreaOf(Number4);
+			SemanticNetwork.DeclareThat(SubjectArea_Numbers).IsSubjectAreaOf(new[]
+			{
+				Number0,
+				NumberZero,
+				NumberNotZero,
+				Number1,
+				Number1or2,
+				Number2,
+				Number2or3,
+				Number3,
+				Number3or4,
+				Number4,
+			});
 
-			SemanticNetwork.DeclareThat(SubjectArea_Processes).IsSubjectAreaOf(ProcessA);
-			SemanticNetwork.DeclareThat(SubjectArea_Processes).IsSubjectAreaOf(ProcessB);
+			SemanticNetwork.DeclareThat(SubjectArea_Processes).IsSubjectAreaOf(new[]
+			{
+				ProcessA,
+				ProcessB,
+			});
 
-			SemanticNetwork.DeclareThat(Base_Vehicle).HasSign(Sign_MotorType);
-			SemanticNetwork.DeclareThat(Base_Vehicle).HasSign(Sign_AreaType);
+			SemanticNetwork.DeclareThat(Base_Vehicle).HasSigns(new[]
+			{
+				Sign_MotorType,
+				Sign_AreaType,
+			});
 
-			SemanticNetwork.DeclareThat(Sign_MotorType).IsAncestorOf(MotorType_Muscles);
-			SemanticNetwork.DeclareThat(Sign_MotorType).IsAncestorOf(MotorType_Steam);
-			SemanticNetwork.DeclareThat(Sign_MotorType).IsAncestorOf(MotorType_Combusion);
-			SemanticNetwork.DeclareThat(Sign_MotorType).IsAncestorOf(MotorType_Jet);
-			SemanticNetwork.DeclareThat(Sign_AreaType).IsAncestorOf(AreaType_Ground);
-			SemanticNetwork.DeclareThat(Sign_AreaType).IsAncestorOf(AreaType_Water);
-			SemanticNetwork.DeclareThat(Sign_AreaType).IsAncestorOf(AreaType_Air);
-			SemanticNetwork.DeclareThat(Base_Vehicle).IsAncestorOf(Vehicle_Bicycle);
-			SemanticNetwork.DeclareThat(Base_Vehicle).IsAncestorOf(Vehicle_Curragh);
-			SemanticNetwork.DeclareThat(Base_Vehicle).IsAncestorOf(Vehicle_SteamLocomotive);
-			SemanticNetwork.DeclareThat(Base_Vehicle).IsAncestorOf(Vehicle_Steamboat);
-			SemanticNetwork.DeclareThat(Base_Vehicle).IsAncestorOf(Vehicle_Car);
-			SemanticNetwork.DeclareThat(Base_Vehicle).IsAncestorOf(Vehicle_Motorcycle);
-			SemanticNetwork.DeclareThat(Base_Vehicle).IsAncestorOf(Vehicle_Fighter);
-			SemanticNetwork.DeclareThat(Base_Vehicle).IsAncestorOf(Vehicle_Airbus);
-			SemanticNetwork.DeclareThat(Base_Vehicle).IsAncestorOf(Vehicle_JetFighter);
+			SemanticNetwork.DeclareThat(Sign_MotorType).IsAncestorOf(new[]
+			{
+				MotorType_Muscles,
+				MotorType_Steam,
+				MotorType_Combusion,
+				MotorType_Jet,
+			});
+			SemanticNetwork.DeclareThat(Sign_AreaType).IsAncestorOf(new[]
+			{
+				AreaType_Ground,
+				AreaType_Water,
+				AreaType_Air,
+			});
+			SemanticNetwork.DeclareThat(Base_Vehicle).IsAncestorOf(new[]
+			{
+				Vehicle_Bicycle,
+				Vehicle_Curragh,
+				Vehicle_SteamLocomotive,
+				Vehicle_Steamboat,
+				Vehicle_Car,
+				Vehicle_Motorcycle,
+				Vehicle_Fighter,
+				Vehicle_Airbus,
+				Vehicle_JetFighter,
+			});
 
-			SemanticNetwork.DeclareThat(Vehicle_Bicycle).HasSignValue(Sign_MotorType, MotorType_Muscles);
-			SemanticNetwork.DeclareThat(Vehicle_Curragh).HasSignValue(Sign_MotorType, MotorType_Muscles);
-			SemanticNetwork.DeclareThat(Vehicle_SteamLocomotive).HasSignValue(Sign_MotorType, MotorType_Steam);
-			SemanticNetwork.DeclareThat(Vehicle_Steamboat).HasSignValue(Sign_MotorType, MotorType_Steam);
-			SemanticNetwork.DeclareThat(Vehicle_Car).HasSignValue(Sign_MotorType, MotorType_Combusion);
-			SemanticNetwork.DeclareThat(Vehicle_Motorcycle).HasSignValue(Sign_MotorType, MotorType_Combusion);
-			SemanticNetwork.DeclareThat(Vehicle_Fighter).HasSignValue(Sign_MotorType, MotorType_Combusion);
-			SemanticNetwork.DeclareThat(Vehicle_Airbus).HasSignValue(Sign_MotorType, MotorType_Jet);
-			SemanticNetwork.DeclareThat(Vehicle_JetFighter).HasSignValue(Sign_MotorType, MotorType_Jet);
-			SemanticNetwork.DeclareThat(Vehicle_Bicycle).HasSignValue(Sign_AreaType, AreaType_Ground);
-			SemanticNetwork.DeclareThat(Vehicle_Curragh).HasSignValue(Sign_AreaType, AreaType_Water);
-			SemanticNetwork.DeclareThat(Vehicle_SteamLocomotive).HasSignValue(Sign_AreaType, AreaType_Ground);
-			SemanticNetwork.DeclareThat(Vehicle_Steamboat).HasSignValue(Sign_AreaType, AreaType_Water);
-			SemanticNetwork.DeclareThat(Vehicle_Car).HasSignValue(Sign_AreaType, AreaType_Ground);
-			SemanticNetwork.DeclareThat(Vehicle_Motorcycle).HasSignValue(Sign_AreaType, AreaType_Ground);
-			SemanticNetwork.DeclareThat(Vehicle_Fighter).HasSignValue(Sign_AreaType, AreaType_Air);
-			SemanticNetwork.DeclareThat(Vehicle_Airbus).HasSignValue(Sign_AreaType, AreaType_Air);
-			SemanticNetwork.DeclareThat(Vehicle_JetFighter).HasSignValue(Sign_AreaType, AreaType_Air);
+			SemanticNetwork.DeclareThat(Vehicle_Bicycle).HasSignValues(new Dictionary<IConcept, IConcept>
+			{
+				{ Sign_MotorType, MotorType_Muscles },
+				{ Sign_AreaType, AreaType_Ground },
+			});
+			SemanticNetwork.DeclareThat(Vehicle_Curragh).HasSignValues(new Dictionary<IConcept, IConcept>
+			{
+				{ Sign_MotorType, MotorType_Muscles },
+				{ Sign_AreaType, AreaType_Water },
+			});
+			SemanticNetwork.DeclareThat(Vehicle_SteamLocomotive).HasSignValues(new Dictionary<IConcept, IConcept>
+			{
+				{ Sign_MotorType, MotorType_Steam },
+				{ Sign_AreaType, AreaType_Ground },
+			});
+			SemanticNetwork.DeclareThat(Vehicle_Steamboat).HasSignValues(new Dictionary<IConcept, IConcept>
+			{
+				{ Sign_MotorType, MotorType_Steam },
+				{ Sign_AreaType, AreaType_Water },
+			});
+			SemanticNetwork.DeclareThat(Vehicle_Car).HasSignValues(new Dictionary<IConcept, IConcept>
+			{
+				{ Sign_MotorType, MotorType_Combusion },
+				{ Sign_AreaType, AreaType_Ground },
+			});
+			SemanticNetwork.DeclareThat(Vehicle_Motorcycle).HasSignValues(new Dictionary<IConcept, IConcept>
+			{
+				{ Sign_MotorType, MotorType_Combusion },
+				{ Sign_AreaType, AreaType_Ground },
+			});
+			SemanticNetwork.DeclareThat(Vehicle_Fighter).HasSignValues(new Dictionary<IConcept, IConcept>
+			{
+				{ Sign_MotorType, MotorType_Combusion },
+				{ Sign_AreaType, AreaType_Air },
+			});
+			SemanticNetwork.DeclareThat(Vehicle_Airbus).HasSignValues(new Dictionary<IConcept, IConcept>
+			{
+				{ Sign_MotorType, MotorType_Jet },
+				{ Sign_AreaType, AreaType_Air },
+			});
+			SemanticNetwork.DeclareThat(Vehicle_JetFighter).HasSignValues(new Dictionary<IConcept, IConcept>
+			{
+				{ Sign_MotorType, MotorType_Jet },
+				{ Sign_AreaType, AreaType_Air },
+			});
 
-			SemanticNetwork.DeclareThat(Vehicle_Car).HasPart(Part_Body);
-			SemanticNetwork.DeclareThat(Vehicle_Car).HasPart(Part_Engine);
-			SemanticNetwork.DeclareThat(Vehicle_Car).HasPart(Part_Wheels);
+			SemanticNetwork.DeclareThat(Vehicle_Car).HasParts(new[]
+			{
+				Part_Body,
+				Part_Engine,
+				Part_Wheels,
+			});
 
 			SemanticNetwork.DeclareThat(Number0).IsEqualTo(NumberZero);
 			SemanticNetwork.DeclareThat(NumberNotZero).IsNotEqualTo(NumberZero);

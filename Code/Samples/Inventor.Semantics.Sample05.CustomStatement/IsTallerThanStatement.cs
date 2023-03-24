@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 
 using Inventor.Semantics;
 using Inventor.Semantics.Statements;
@@ -34,7 +35,6 @@ namespace Samples.Semantics.Sample05.CustomStatement
 			TallerPerson = tallerPerson;
 			ShorterPerson = shorterPerson;
 		}
-
 
 		public override IEnumerable<IConcept> GetChildConcepts()
 		{
@@ -80,11 +80,21 @@ namespace Samples.Semantics.Sample05.CustomStatement
 
 	public static class SubjectStatementExtensions
 	{
+		public static List<IsTallerThanStatement> IsTallerThan(this StatementBuilder builder, IEnumerable<IConcept> shorterList)
+		{
+			return shorterList.Select(builder.IsTallerThan).ToList();
+		}
+
 		public static IsTallerThanStatement IsTallerThan(this StatementBuilder builder, IConcept shorter)
 		{
 			var statement = new IsTallerThanStatement(builder.Subject, shorter);
 			builder.SemanticNetwork.Statements.Add(statement);
 			return statement;
+		}
+
+		public static List<IsTallerThanStatement> IsShorterThan(this StatementBuilder builder, IEnumerable<IConcept> tallerList)
+		{
+			return tallerList.Select(builder.IsShorterThan).ToList();
 		}
 
 		public static IsTallerThanStatement IsShorterThan(this StatementBuilder builder, IConcept taller)
