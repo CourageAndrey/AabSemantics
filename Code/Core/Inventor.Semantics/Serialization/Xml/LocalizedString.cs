@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Xml.Serialization;
 
 using Inventor.Semantics.Localization;
@@ -21,20 +22,17 @@ namespace Inventor.Semantics.Serialization.Xml
 		#region Constructors
 
 		public LocalizedString(ILocalizedString source)
-			: this()
+			: this(source.AsDictionary().Select(locale => new LocalizedStringValue(locale.Key, locale.Value)).ToList())
+		{ }
+
+		public LocalizedString(List<LocalizedStringValue> values)
 		{
-#warning Get rid of such dangerous typecast!
-			var variable = (LocalizedStringVariable) source;
-			foreach (String locale in variable.Locales)
-			{
-				Values.Add(new LocalizedStringValue(locale, variable.GetValue(locale)));
-			}
+			Values = values;
 		}
 
 		public LocalizedString()
-		{
-			Values = new List<LocalizedStringValue>();
-		}
+			: this(new List<LocalizedStringValue>())
+		{ }
 
 		#endregion
 

@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Runtime.Serialization;
 
 using Inventor.Semantics.Localization;
@@ -21,14 +20,8 @@ namespace Inventor.Semantics.Serialization.Json
 		#region Constructors
 
 		public LocalizedString(ILocalizedString source)
-			: this()
-		{
-#warning Get rid of such dangerous typecast!
-			var variable = (LocalizedStringVariable) source;
-			Values = variable.Locales.ToDictionary(
-				locale => locale,
-				locale => variable.GetValue(locale));
-		}
+			: this(source.AsDictionary())
+		{ }
 
 		public LocalizedString(Dictionary<String, String> values)
 		{
