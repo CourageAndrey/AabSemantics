@@ -1,8 +1,10 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Xml.Serialization;
 
 using Inventor.Semantics.Metadata;
+using Inventor.Semantics.Utils;
 
 namespace Inventor.Semantics.Serialization.Xml
 {
@@ -24,6 +26,28 @@ namespace Inventor.Semantics.Serialization.Xml
 		}
 
 		public abstract IQuestion Save(ConceptIdResolver conceptIdResolver);
+
+		static Question()
+		{
+			foreach (var serializedType in new[]
+				{
+					new KeyValuePair<Type, String>(typeof(Question), nameof(Preconditions)),
+					new KeyValuePair<Type, String>(typeof(Modules.Boolean.Xml.CheckStatementQuestion), nameof(Modules.Boolean.Xml.CheckStatementQuestion.Statement)),
+				})
+			{
+				var attributeOverrides = new XmlAttributeOverrides();
+
+				var statementAttributes = new XmlAttributes();
+				foreach (var definition in Repositories.Statements.Definitions.Values)
+				{
+					statementAttributes.XmlElements.Add(new XmlElementAttribute(definition.XmlElementName, definition.XmlType));
+				}
+				attributeOverrides.Add(serializedType.Key, serializedType.Value, statementAttributes);
+
+				var serializer = new XmlSerializer(serializedType.Key, attributeOverrides);
+				serializedType.Key.DefineCustomXmlSerializer(serializer);
+			}
+		}
 	}
 
 	[XmlType]
