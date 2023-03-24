@@ -1,9 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.Serialization;
+using System.Runtime.Serialization.Json;
 
 using Inventor.Semantics.Metadata;
+using Inventor.Semantics.Utils;
 
 namespace Inventor.Semantics.Serialization.Json
 {
@@ -38,6 +39,15 @@ namespace Inventor.Semantics.Serialization.Json
 		}
 
 		public abstract IQuestion Save(ConceptIdResolver conceptIdResolver);
+
+		static Question()
+		{
+			var questionType = typeof(Question);
+			var serializer = new DataContractJsonSerializer(
+				questionType,
+				Repositories.Statements.GetJsonTypes());
+			questionType.DefineCustomJsonSerializer(serializer);
+		}
 	}
 
 	[DataContract]
