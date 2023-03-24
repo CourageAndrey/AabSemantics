@@ -35,7 +35,7 @@ namespace Inventor.Semantics.Serialization.Json
 		public static Question Load(IQuestion question)
 		{
 			var definition = Repositories.Questions.Definitions.GetSuitable(question);
-			return definition.GetJson(question);
+			return definition.JsonSerializationSettings.GetJson(question);
 		}
 
 		public abstract IQuestion Save(ConceptIdResolver conceptIdResolver);

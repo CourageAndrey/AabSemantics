@@ -12,7 +12,7 @@ namespace Inventor.Semantics.Serialization.Xml
 		public static Attribute Save(IAttribute attribute)
 		{
 			var definition = Repositories.Attributes.Definitions.GetSuitable(attribute);
-			return definition.Xml;
+			return definition.XmlSerializationSettings.Xml;
 		}
 	}
 

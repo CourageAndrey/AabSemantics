@@ -2,7 +2,46 @@ using System;
 
 namespace Inventor.Semantics.Metadata
 {
-	public class AttributeDefinition : IMetadataDefinition
+	public class AttributeJsonSerializationSettings : IAttributeSerializationSettings, IJsonSerializationSettings
+	{
+		public String JsonElementName
+		{ get; }
+
+		public Type JsonType
+		{ get { return null; } }
+
+		public AttributeJsonSerializationSettings(
+			Serialization.Xml.Attribute xml)
+		{
+			if (xml == null) throw new ArgumentNullException(nameof(xml));
+
+			JsonElementName = xml.GetType().Name.Replace("Attribute", "");
+		}
+	}
+
+	public class AttributeXmlSerializationSettings : IAttributeSerializationSettings, IXmlSerializationSettings
+	{
+		public Serialization.Xml.Attribute Xml
+		{ get; }
+
+		public String XmlElementName
+		{ get; }
+
+		public Type XmlType
+		{ get; }
+
+		public AttributeXmlSerializationSettings(
+			Serialization.Xml.Attribute xml)
+		{
+			if (xml == null) throw new ArgumentNullException(nameof(xml));
+
+			Xml = xml;
+			XmlType = xml.GetType();
+			XmlElementName = XmlType.Name.Replace("Attribute", "");
+		}
+	}
+
+	public class AttributeDefinition : IMetadataDefinition<AttributeJsonSerializationSettings, AttributeXmlSerializationSettings>
 	{
 		#region Properties
 
@@ -12,20 +51,17 @@ namespace Inventor.Semantics.Metadata
 		public IAttribute AttributeValue
 		{ get; }
 
-		public Serialization.Xml.Attribute Xml
+		public AttributeJsonSerializationSettings JsonSerializationSettings
 		{ get; }
 
-		public String XmlElementName
+		public AttributeXmlSerializationSettings XmlSerializationSettings
 		{ get; }
 
-		public String JsonElementName
-		{ get; }
+		IJsonSerializationSettings IMetadataDefinition.JsonSerializationSettings
+		{ get { return JsonSerializationSettings; } }
 
-		public Type XmlType
-		{ get; }
-
-		public Type JsonType
-		{ get { return null; } }
+		IXmlSerializationSettings IMetadataDefinition.XmlSerializationSettings
+		{ get { return XmlSerializationSettings; } }
 
 		private readonly Func<ILanguage, String> _attributeNameGetter;
 
@@ -44,14 +80,12 @@ namespace Inventor.Semantics.Metadata
 			if (attributeValue == null) throw new ArgumentNullException(nameof(attributeValue));
 			if (!type.IsInstanceOfType(attributeValue)) throw new InvalidCastException();
 			if (attributeNameGetter == null) throw new ArgumentNullException(nameof(attributeNameGetter));
-			if (xml == null) throw new ArgumentNullException(nameof(xml));
 
 			Type = type;
 			AttributeValue = attributeValue;
 			_attributeNameGetter = attributeNameGetter;
-			Xml = xml;
-			XmlType = xml.GetType();
-			JsonElementName = XmlElementName = XmlType.Name.Replace("Attribute", "");
+			JsonSerializationSettings = new AttributeJsonSerializationSettings(xml);
+			XmlSerializationSettings = new AttributeXmlSerializationSettings(xml);
 		}
 
 		private AttributeDefinition()
@@ -59,7 +93,8 @@ namespace Inventor.Semantics.Metadata
 			Type = typeof(NoAttribute);
 			AttributeValue = new NoAttribute();
 			_attributeNameGetter = language => language.Attributes.None;
-			Xml = null;
+			JsonSerializationSettings = null;
+			XmlSerializationSettings = null;
 		}
 
 		#endregion

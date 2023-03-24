@@ -25,7 +25,7 @@ namespace Inventor.Semantics.Modules.Boolean.Xml
 
 		public CheckStatementQuestion(Questions.CheckStatementQuestion question)
 		{
-			Statement = Repositories.Statements.Definitions[typeof(Questions.CheckStatementQuestion)].GetXml(question.Statement);
+			Statement = Repositories.Statements.Definitions[typeof(Questions.CheckStatementQuestion)].XmlSerializationSettings.GetXml(question.Statement);
 		}
 
 		#endregion

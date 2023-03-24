@@ -1,5 +1,7 @@
 ﻿using System;
 
+using Inventor.Semantics.Metadata;
+
 namespace Inventor.Semantics
 {
 	public interface IMetadataDefinition
@@ -7,10 +9,21 @@ namespace Inventor.Semantics
 		Type Type
 		{ get; }
 
-		Type XmlType
+		IJsonSerializationSettings JsonSerializationSettings
 		{ get; }
 
-		Type JsonType
+		IXmlSerializationSettings XmlSerializationSettings
+		{ get; }
+	}
+
+	public interface IMetadataDefinition<out JsonSerializationSettingsT, out XmlSerializationSettingsT> : IMetadataDefinition
+		where JsonSerializationSettingsT : ISerializationSettings, IJsonSerializationSettings
+		where XmlSerializationSettingsT : ISerializationSettings, IXmlSerializationSettings
+	{
+		new JsonSerializationSettingsT JsonSerializationSettings
+		{ get; }
+
+		new XmlSerializationSettingsT XmlSerializationSettings
 		{ get; }
 	}
 }

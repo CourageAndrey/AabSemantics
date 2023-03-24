@@ -47,7 +47,7 @@ namespace Inventor.Semantics
 		public static List<Type> GetJsonTypes<DefinitionT>(this IRepository<DefinitionT> repository)
 			where DefinitionT : IMetadataDefinition
 		{
-			return repository.Definitions.Values.Select(definition => definition.JsonType).ToList();
+			return repository.Definitions.Values.Select(definition => definition.JsonSerializationSettings.JsonType).ToList();
 		}
 	}
 }
