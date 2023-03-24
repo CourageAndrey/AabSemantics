@@ -52,7 +52,7 @@ namespace Inventor.Semantics.Metadata
 		}
 	}
 
-	public class AnswerDefinition : MetadataDefinition<AnswerJsonSerializationSettings, AnswerXmlSerializationSettings>
+	public class AnswerDefinition : MetadataDefinition<IAnswerSerializationSettings>
 	{
 		#region Constructors
 
@@ -62,14 +62,38 @@ namespace Inventor.Semantics.Metadata
 			Func<IAnswer, ILanguage, Serialization.Json.Answer> answerJsonGetter,
 			Type xmlType,
 			Type jsonType)
-			: base(
-				type,
-				typeof(IAnswer),
-				new AnswerJsonSerializationSettings(answerJsonGetter, jsonType),
-				new AnswerXmlSerializationSettings(answerXmlGetter, xmlType))
-		{ }
+			: base(type, typeof(IAnswer))
+		{
+			SerializationSettings.Add(new AnswerJsonSerializationSettings(answerJsonGetter, jsonType));
+			SerializationSettings.Add(new AnswerXmlSerializationSettings(answerXmlGetter, xmlType));
+		}
 
 		#endregion
+	}
+
+	public static class AnswerDefinitionExtensions
+	{
+		public static IXmlSerializationSettings GetXmlSerializationSettings(this AnswerDefinition metadataDefinition)
+		{
+			return metadataDefinition.GetXmlSerializationSettings<AnswerXmlSerializationSettings>();
+		}
+
+		public static SettingsT GetXmlSerializationSettings<SettingsT>(this AnswerDefinition metadataDefinition)
+			where SettingsT : IXmlSerializationSettings, IAnswerSerializationSettings
+		{
+			return metadataDefinition.GetSerializationSettings<SettingsT>();
+		}
+
+		public static IJsonSerializationSettings GetJsonSerializationSettings(this AnswerDefinition metadataDefinition)
+		{
+			return metadataDefinition.GetJsonSerializationSettings<AnswerJsonSerializationSettings>();
+		}
+
+		public static SettingsT GetJsonSerializationSettings<SettingsT>(this AnswerDefinition metadataDefinition)
+			where SettingsT : IJsonSerializationSettings, IAnswerSerializationSettings
+		{
+			return metadataDefinition.GetSerializationSettings<SettingsT>();
+		}
 	}
 
 	public class AnswerDefinition<AnswerT> : AnswerDefinition

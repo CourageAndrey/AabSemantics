@@ -15,7 +15,7 @@ namespace Inventor.Semantics.Serialization.Json
 		public static Statement Load(IStatement statement)
 		{
 			var definition = Repositories.Statements.Definitions.GetSuitable(statement);
-			return definition.JsonSerializationSettings.GetJson(statement);
+			return definition.GetJsonSerializationSettings<StatementJsonSerializationSettings>().GetJson(statement);
 		}
 
 		public abstract IStatement Save(ConceptIdResolver conceptIdResolver);

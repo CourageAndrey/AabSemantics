@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Inventor.Semantics.Metadata;
 
 namespace Inventor.Semantics
 {
@@ -47,7 +48,7 @@ namespace Inventor.Semantics
 		public static List<Type> GetJsonTypes<DefinitionT>(this IRepository<DefinitionT> repository)
 			where DefinitionT : IMetadataDefinition
 		{
-			return repository.Definitions.Values.Select(definition => definition.JsonSerializationSettings.JsonType).ToList();
+			return repository.Definitions.Values.Select(definition => definition.GetSerializationSettings<IJsonSerializationSettings>().JsonType).ToList();
 		}
 	}
 }

@@ -22,7 +22,7 @@ namespace Inventor.Semantics.Serialization.Xml
 		public static Question Load(IQuestion question)
 		{
 			var definition = Repositories.Questions.Definitions.GetSuitable(question);
-			return definition.XmlSerializationSettings.GetXml(question);
+			return definition.GetXmlSerializationSettings<QuestionXmlSerializationSettings>().GetXml(question);
 		}
 
 		public abstract IQuestion Save(ConceptIdResolver conceptIdResolver);
@@ -40,7 +40,8 @@ namespace Inventor.Semantics.Serialization.Xml
 				var statementAttributes = new XmlAttributes();
 				foreach (var definition in Repositories.Statements.Definitions.Values)
 				{
-					statementAttributes.XmlElements.Add(new XmlElementAttribute(definition.XmlSerializationSettings.XmlElementName, definition.XmlSerializationSettings.XmlType));
+					var xmlSettings = definition.GetXmlSerializationSettings<StatementXmlSerializationSettings>();
+					statementAttributes.XmlElements.Add(new XmlElementAttribute(xmlSettings.XmlElementName, xmlSettings.XmlType));
 				}
 				attributeOverrides.Add(serializedType.Key, serializedType.Value, statementAttributes);
 
