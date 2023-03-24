@@ -52,27 +52,8 @@ namespace Inventor.Semantics.Metadata
 		}
 	}
 
-	public class AnswerDefinition : IMetadataDefinition<AnswerJsonSerializationSettings, AnswerXmlSerializationSettings>
+	public class AnswerDefinition : MetadataDefinition<AnswerJsonSerializationSettings, AnswerXmlSerializationSettings>
 	{
-		#region Properties
-
-		public Type Type
-		{ get; }
-
-		public AnswerJsonSerializationSettings JsonSerializationSettings
-		{ get; }
-
-		public AnswerXmlSerializationSettings XmlSerializationSettings
-		{ get; }
-
-		IJsonSerializationSettings IMetadataDefinition.JsonSerializationSettings
-		{ get { return JsonSerializationSettings; } }
-
-		IXmlSerializationSettings IMetadataDefinition.XmlSerializationSettings
-		{ get { return XmlSerializationSettings; } }
-
-		#endregion
-
 		#region Constructors
 
 		public AnswerDefinition(
@@ -81,14 +62,12 @@ namespace Inventor.Semantics.Metadata
 			Func<IAnswer, ILanguage, Serialization.Json.Answer> answerJsonGetter,
 			Type xmlType,
 			Type jsonType)
-		{
-			if (type == null) throw new ArgumentNullException(nameof(type));
-			if (type.IsAbstract || !typeof(IAnswer).IsAssignableFrom(type)) throw new ArgumentException($"Type must be non-abstract and implement {typeof(IAnswer)}.", nameof(type));
-
-			Type = type;
-			JsonSerializationSettings = new AnswerJsonSerializationSettings(answerJsonGetter, jsonType);
-			XmlSerializationSettings = new AnswerXmlSerializationSettings(answerXmlGetter, xmlType);
-		}
+			: base(
+				type,
+				typeof(IAnswer),
+				new AnswerJsonSerializationSettings(answerJsonGetter, jsonType),
+				new AnswerXmlSerializationSettings(answerXmlGetter, xmlType))
+		{ }
 
 		#endregion
 	}
