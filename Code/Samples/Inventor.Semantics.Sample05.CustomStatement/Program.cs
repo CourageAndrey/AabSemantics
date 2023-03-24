@@ -95,6 +95,15 @@ namespace Samples.Semantics.Sample05.CustomStatement
 
 			#endregion
 
+			#region Just to show new possibility to define statements
+
+			Console.WriteLine();
+			Console.WriteLine("Please, check corresponfing SECTION in code in order to get acquainted with list-declarations.");
+			semanticNetwork.Statements.Clear(); // in order not to contradict previously declared statements
+			semanticNetwork.DeclareThat(Alice).IsTallerThan(new[] { Bob, Charlie, Dave, Eve });
+
+			#endregion
+
 			Console.WriteLine();
 			Console.WriteLine("Press any key to exit...");
 			Console.ReadKey();
