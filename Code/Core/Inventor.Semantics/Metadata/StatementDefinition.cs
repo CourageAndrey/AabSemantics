@@ -58,24 +58,9 @@ namespace Inventor.Semantics.Metadata
 		}
 	}
 
-	public class StatementDefinition : IMetadataDefinition<StatementJsonSerializationSettings, StatementXmlSerializationSettings>
+	public class StatementDefinition : MetadataDefinition<StatementJsonSerializationSettings, StatementXmlSerializationSettings>
 	{
 		#region Properties
-
-		public Type Type
-		{ get; }
-
-		public StatementJsonSerializationSettings JsonSerializationSettings
-		{ get; }
-
-		public StatementXmlSerializationSettings XmlSerializationSettings
-		{ get; }
-
-		IJsonSerializationSettings IMetadataDefinition.JsonSerializationSettings
-		{ get { return JsonSerializationSettings; } }
-
-		IXmlSerializationSettings IMetadataDefinition.XmlSerializationSettings
-		{ get { return XmlSerializationSettings; } }
 
 		private readonly Func<ILanguage, String> _statementNameGetter;
 		private readonly StatementConsistencyCheckerDelegate _consistencyChecker;
@@ -92,16 +77,16 @@ namespace Inventor.Semantics.Metadata
 			Type xmlType,
 			Type jsonType,
 			StatementConsistencyCheckerDelegate consistencyChecker)
+			: base(
+				type,
+				typeof(IStatement),
+				new StatementJsonSerializationSettings(statementJsonGetter, jsonType),
+				new StatementXmlSerializationSettings(statementXmlGetter, xmlType))
 		{
-			if (type == null) throw new ArgumentNullException(nameof(type));
-			if (type.IsAbstract || !typeof(IStatement).IsAssignableFrom(type)) throw new ArgumentException($"Type must be non-abstract and implement {typeof(IStatement)}.", nameof(type));
 			if (statementNameGetter == null) throw new ArgumentNullException(nameof(statementNameGetter));
 			if (consistencyChecker == null) throw new ArgumentNullException(nameof(consistencyChecker));
 
-			Type = type;
 			_statementNameGetter = statementNameGetter;
-			JsonSerializationSettings = new StatementJsonSerializationSettings(statementJsonGetter, jsonType);
-			XmlSerializationSettings = new StatementXmlSerializationSettings(statementXmlGetter, xmlType);
 			_consistencyChecker = consistencyChecker;
 		}
 

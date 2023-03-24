@@ -52,24 +52,9 @@ namespace Inventor.Semantics.Metadata
 		}
 	}
 
-	public class QuestionDefinition : IMetadataDefinition<QuestionJsonSerializationSettings, QuestionXmlSerializationSettings>
+	public class QuestionDefinition : MetadataDefinition<QuestionJsonSerializationSettings, QuestionXmlSerializationSettings>
 	{
 		#region Properties
-
-		public Type Type
-		{ get; }
-
-		public QuestionJsonSerializationSettings JsonSerializationSettings
-		{ get; }
-
-		public QuestionXmlSerializationSettings XmlSerializationSettings
-		{ get; }
-
-		IJsonSerializationSettings IMetadataDefinition.JsonSerializationSettings
-		{ get { return JsonSerializationSettings; } }
-
-		IXmlSerializationSettings IMetadataDefinition.XmlSerializationSettings
-		{ get { return XmlSerializationSettings; } }
 
 		private readonly Func<ILanguage, String> _questionNameGetter;
 
@@ -82,15 +67,15 @@ namespace Inventor.Semantics.Metadata
 			Func<IQuestion, Serialization.Json.Question> questionJsonGetter,
 			Type xmlType,
 			Type jsonType)
+			: base(
+				type,
+				typeof(IQuestion),
+				new QuestionJsonSerializationSettings(questionJsonGetter, jsonType),
+				new QuestionXmlSerializationSettings(questionXmlGetter, xmlType))
 		{
-			if (type == null) throw new ArgumentNullException(nameof(type));
-			if (type.IsAbstract || !typeof(IQuestion).IsAssignableFrom(type)) throw new ArgumentException($"Type must be non-abstract and implement {typeof(IQuestion)}.", nameof(type));
 			if (questionNameGetter == null) throw new ArgumentNullException(nameof(questionNameGetter));
 
-			Type = type;
 			_questionNameGetter = questionNameGetter;
-			JsonSerializationSettings = new QuestionJsonSerializationSettings(questionJsonGetter, jsonType);
-			XmlSerializationSettings = new QuestionXmlSerializationSettings(questionXmlGetter, xmlType);
 		}
 
 		public String GetName(ILanguage language)
