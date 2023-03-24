@@ -51,7 +51,7 @@ namespace Inventor.Semantics.Serialization.Json
 		public static Answer Load(IAnswer answer, ILanguage language)
 		{
 			var definition = Repositories.Answers.Definitions.GetSuitable(answer);
-			return definition.JsonSerializationSettings.GetJson(answer, language);
+			return definition.GetJsonSerializationSettings<AnswerJsonSerializationSettings>().GetJson(answer, language);
 		}
 	}
 }

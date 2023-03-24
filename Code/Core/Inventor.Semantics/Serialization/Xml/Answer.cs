@@ -51,7 +51,7 @@ namespace Inventor.Semantics.Serialization.Xml
 		public static Answer Load(IAnswer answer, ILanguage language)
 		{
 			var definition = Repositories.Answers.Definitions.GetSuitable(answer);
-			return definition.XmlSerializationSettings.GetXml(answer, language);
+			return definition.GetXmlSerializationSettings<AnswerXmlSerializationSettings>().GetXml(answer, language);
 		}
 	}
 }

@@ -11,13 +11,13 @@ namespace Inventor.Semantics.Serialization.Json
 		public static List<String> ToJson(this IEnumerable<IAttribute> attributes)
 		{
 			var attributeDefinitions = Repositories.Attributes.Definitions;
-			return attributes.Select(a => attributeDefinitions[a.GetType()].JsonSerializationSettings.JsonElementName).ToList();
+			return attributes.Select(a => attributeDefinitions[a.GetType()].GetJsonSerializationSettings<AttributeJsonSerializationSettings>().JsonElementName).ToList();
 		}
 
 		public static IEnumerable<IAttribute> ToAttributes(this IEnumerable<String> attributes)
 		{
 			var attributeDefinitions = Repositories.Attributes.Definitions.Values;
-			return attributes.Select(a => attributeDefinitions.First(d => d.JsonSerializationSettings.JsonElementName == a).AttributeValue);
+			return attributes.Select(a => attributeDefinitions.First(d => d.GetJsonSerializationSettings<AttributeJsonSerializationSettings>().JsonElementName == a).AttributeValue);
 		}
 	}
 }

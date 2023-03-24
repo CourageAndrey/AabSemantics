@@ -58,7 +58,7 @@ namespace Inventor.Semantics.Metadata
 		}
 	}
 
-	public class StatementDefinition : MetadataDefinition<StatementJsonSerializationSettings, StatementXmlSerializationSettings>
+	public class StatementDefinition : MetadataDefinition<IStatementSerializationSettings>
 	{
 		#region Properties
 
@@ -77,17 +77,16 @@ namespace Inventor.Semantics.Metadata
 			Type xmlType,
 			Type jsonType,
 			StatementConsistencyCheckerDelegate consistencyChecker)
-			: base(
-				type,
-				typeof(IStatement),
-				new StatementJsonSerializationSettings(statementJsonGetter, jsonType),
-				new StatementXmlSerializationSettings(statementXmlGetter, xmlType))
+			: base(type, typeof(IStatement))
 		{
 			if (statementNameGetter == null) throw new ArgumentNullException(nameof(statementNameGetter));
 			if (consistencyChecker == null) throw new ArgumentNullException(nameof(consistencyChecker));
 
 			_statementNameGetter = statementNameGetter;
 			_consistencyChecker = consistencyChecker;
+
+			SerializationSettings.Add(new StatementJsonSerializationSettings(statementJsonGetter, jsonType));
+			SerializationSettings.Add(new StatementXmlSerializationSettings(statementXmlGetter, xmlType));
 		}
 
 		#endregion
@@ -103,6 +102,31 @@ namespace Inventor.Semantics.Metadata
 		}
 
 		public static readonly StatementConsistencyCheckerDelegate NoConsistencyCheck = (statements, result) => { };
+	}
+
+	public static class StatementDefinitionExtensions
+	{
+		public static IXmlSerializationSettings GetXmlSerializationSettings(this StatementDefinition metadataDefinition)
+		{
+			return metadataDefinition.GetXmlSerializationSettings<StatementXmlSerializationSettings>();
+		}
+
+		public static SettingsT GetXmlSerializationSettings<SettingsT>(this StatementDefinition metadataDefinition)
+			where SettingsT : IXmlSerializationSettings, IStatementSerializationSettings
+		{
+			return metadataDefinition.GetSerializationSettings<SettingsT>();
+		}
+
+		public static IJsonSerializationSettings GetJsonSerializationSettings(this StatementDefinition metadataDefinition)
+		{
+			return metadataDefinition.GetJsonSerializationSettings<StatementJsonSerializationSettings>();
+		}
+
+		public static SettingsT GetJsonSerializationSettings<SettingsT>(this StatementDefinition metadataDefinition)
+			where SettingsT : IJsonSerializationSettings, IStatementSerializationSettings
+		{
+			return metadataDefinition.GetSerializationSettings<SettingsT>();
+		}
 	}
 
 	public class StatementDefinition<StatementT> : StatementDefinition

@@ -41,7 +41,7 @@ namespace Inventor.Semantics.Metadata
 		}
 	}
 
-	public class AttributeDefinition : MetadataDefinition<AttributeJsonSerializationSettings, AttributeXmlSerializationSettings>
+	public class AttributeDefinition : MetadataDefinition<IAttributeSerializationSettings>
 	{
 		#region Properties
 
@@ -59,11 +59,7 @@ namespace Inventor.Semantics.Metadata
 			IAttribute attributeValue,
 			Func<ILanguage, String> attributeNameGetter,
 			Serialization.Xml.Attribute xml)
-			: base(
-				type,
-				typeof(IAttribute),
-				new AttributeJsonSerializationSettings(xml),
-				new AttributeXmlSerializationSettings(xml))
+			: base(type, typeof(IAttribute))
 		{
 			if (attributeValue == null) throw new ArgumentNullException(nameof(attributeValue));
 			if (!type.IsInstanceOfType(attributeValue)) throw new InvalidCastException();
@@ -71,14 +67,13 @@ namespace Inventor.Semantics.Metadata
 
 			AttributeValue = attributeValue;
 			_attributeNameGetter = attributeNameGetter;
+
+			SerializationSettings.Add(new AttributeJsonSerializationSettings(xml));
+			SerializationSettings.Add(new AttributeXmlSerializationSettings(xml));
 		}
 
 		private AttributeDefinition()
-			: base(
-				typeof(NoAttribute),
-				typeof(IAttribute),
-				new AttributeJsonSerializationSettings(new Modules.Boolean.Xml.IsValueAttribute()),
-				new AttributeXmlSerializationSettings(new Modules.Boolean.Xml.IsValueAttribute()))
+			: base(typeof(NoAttribute), typeof(IAttribute))
 		{
 			AttributeValue = new NoAttribute();
 			_attributeNameGetter = language => language.Attributes.None;
@@ -95,6 +90,31 @@ namespace Inventor.Semantics.Metadata
 
 		private class NoAttribute : IAttribute
 		{ }
+	}
+
+	public static class AttributeDefinitionExtensions
+	{
+		public static IXmlSerializationSettings GetXmlSerializationSettings(this AttributeDefinition metadataDefinition)
+		{
+			return metadataDefinition.GetXmlSerializationSettings<AttributeXmlSerializationSettings>();
+		}
+
+		public static SettingsT GetXmlSerializationSettings<SettingsT>(this AttributeDefinition metadataDefinition)
+			where SettingsT : IXmlSerializationSettings, IAttributeSerializationSettings
+		{
+			return metadataDefinition.GetSerializationSettings<SettingsT>();
+		}
+
+		public static IJsonSerializationSettings GetJsonSerializationSettings(this AttributeDefinition metadataDefinition)
+		{
+			return metadataDefinition.GetJsonSerializationSettings<AttributeJsonSerializationSettings>();
+		}
+
+		public static SettingsT GetJsonSerializationSettings<SettingsT>(this AttributeDefinition metadataDefinition)
+			where SettingsT : IJsonSerializationSettings, IAttributeSerializationSettings
+		{
+			return metadataDefinition.GetSerializationSettings<SettingsT>();
+		}
 	}
 
 	public class AttributeDefinition<AttributeT> : AttributeDefinition

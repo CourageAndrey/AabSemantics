@@ -52,7 +52,7 @@ namespace Inventor.Semantics.Metadata
 		}
 	}
 
-	public class QuestionDefinition : MetadataDefinition<QuestionJsonSerializationSettings, QuestionXmlSerializationSettings>
+	public class QuestionDefinition : MetadataDefinition<IQuestionSerializationSettings>
 	{
 		#region Properties
 
@@ -67,20 +67,44 @@ namespace Inventor.Semantics.Metadata
 			Func<IQuestion, Serialization.Json.Question> questionJsonGetter,
 			Type xmlType,
 			Type jsonType)
-			: base(
-				type,
-				typeof(IQuestion),
-				new QuestionJsonSerializationSettings(questionJsonGetter, jsonType),
-				new QuestionXmlSerializationSettings(questionXmlGetter, xmlType))
+			: base(type, typeof(IQuestion))
 		{
 			if (questionNameGetter == null) throw new ArgumentNullException(nameof(questionNameGetter));
 
 			_questionNameGetter = questionNameGetter;
+
+			SerializationSettings.Add(new QuestionJsonSerializationSettings(questionJsonGetter, jsonType));
+			SerializationSettings.Add(new QuestionXmlSerializationSettings(questionXmlGetter, xmlType));
 		}
 
 		public String GetName(ILanguage language)
 		{
 			return _questionNameGetter(language);
+		}
+	}
+
+	public static class QuestionDefinitionExtensions
+	{
+		public static IXmlSerializationSettings GetXmlSerializationSettings(this QuestionDefinition metadataDefinition)
+		{
+			return metadataDefinition.GetXmlSerializationSettings<QuestionXmlSerializationSettings>();
+		}
+
+		public static SettingsT GetXmlSerializationSettings<SettingsT>(this QuestionDefinition metadataDefinition)
+			where SettingsT : IXmlSerializationSettings, IQuestionSerializationSettings
+		{
+			return metadataDefinition.GetSerializationSettings<SettingsT>();
+		}
+
+		public static IJsonSerializationSettings GetJsonSerializationSettings(this QuestionDefinition metadataDefinition)
+		{
+			return metadataDefinition.GetJsonSerializationSettings<QuestionJsonSerializationSettings>();
+		}
+
+		public static SettingsT GetJsonSerializationSettings<SettingsT>(this QuestionDefinition metadataDefinition)
+			where SettingsT : IJsonSerializationSettings, IQuestionSerializationSettings
+		{
+			return metadataDefinition.GetSerializationSettings<SettingsT>();
 		}
 	}
 

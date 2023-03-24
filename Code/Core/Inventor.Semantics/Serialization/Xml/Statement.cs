@@ -15,7 +15,7 @@ namespace Inventor.Semantics.Serialization.Xml
 		public static Statement Load(IStatement statement)
 		{
 			var definition = Repositories.Statements.Definitions.GetSuitable(statement);
-			return definition.XmlSerializationSettings.GetXml(statement);
+			return definition.GetXmlSerializationSettings<StatementXmlSerializationSettings>().GetXml(statement);
 		}
 
 		public abstract IStatement Save(ConceptIdResolver conceptIdResolver);
