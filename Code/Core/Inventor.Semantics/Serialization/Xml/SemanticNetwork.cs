@@ -83,14 +83,14 @@ namespace Inventor.Semantics.Serialization.Xml
 			var attributeAttributes = new XmlAttributes();
 			foreach (var definition in Repositories.Attributes.Definitions.Values)
 			{
-				attributeAttributes.XmlElements.Add(new XmlElementAttribute(definition.XmlElementName, definition.XmlType));
+				attributeAttributes.XmlElements.Add(new XmlElementAttribute(definition.XmlSerializationSettings.XmlElementName, definition.XmlSerializationSettings.XmlType));
 			}
 			attributeOverrides.Add(typeof(Concept), "Attributes", attributeAttributes);
 
 			var statementAttributes = new XmlAttributes();
 			foreach (var definition in Repositories.Statements.Definitions.Values)
 			{
-				statementAttributes.XmlElements.Add(new XmlElementAttribute(definition.XmlElementName, definition.XmlType));
+				statementAttributes.XmlElements.Add(new XmlElementAttribute(definition.XmlSerializationSettings.XmlElementName, definition.XmlSerializationSettings.XmlType));
 			}
 			attributeOverrides.Add(semanticNetworkType, "Statements", statementAttributes);
 

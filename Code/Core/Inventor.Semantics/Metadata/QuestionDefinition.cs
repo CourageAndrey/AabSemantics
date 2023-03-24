@@ -2,22 +2,76 @@ using System;
 
 namespace Inventor.Semantics.Metadata
 {
-	public class QuestionDefinition : IMetadataDefinition
+	public class QuestionJsonSerializationSettings : IQuestionSerializationSettings, IJsonSerializationSettings
+	{
+		public Type JsonType
+		{ get; }
+
+		private readonly Func<IQuestion, Serialization.Json.Question> _questionJsonGetter;
+
+		public QuestionJsonSerializationSettings(
+			Func<IQuestion, Serialization.Json.Question> questionJsonGetter,
+			Type jsonType)
+		{
+			if (questionJsonGetter == null) throw new ArgumentNullException(nameof(questionJsonGetter));
+			if (jsonType == null) throw new ArgumentNullException(nameof(jsonType));
+			if (jsonType.IsAbstract || !typeof(Serialization.Json.Question).IsAssignableFrom(jsonType)) throw new ArgumentException($"Type must be non-abstract and implement {typeof(Serialization.Json.Question)}.", nameof(jsonType));
+
+			_questionJsonGetter = questionJsonGetter;
+			JsonType = jsonType;
+		}
+
+		public Serialization.Json.Question GetJson(IQuestion question)
+		{
+			return _questionJsonGetter(question);
+		}
+	}
+
+	public class QuestionXmlSerializationSettings : IQuestionSerializationSettings, IXmlSerializationSettings
+	{
+		public Type XmlType
+		{ get; }
+
+		private readonly Func<IQuestion, Serialization.Xml.Question> _questionXmlGetter;
+
+		public QuestionXmlSerializationSettings(
+			Func<IQuestion, Serialization.Xml.Question> questionXmlGetter,
+			Type xmlType)
+		{
+			if (questionXmlGetter == null) throw new ArgumentNullException(nameof(questionXmlGetter));
+			if (xmlType == null) throw new ArgumentNullException(nameof(xmlType));
+			if (xmlType.IsAbstract || !typeof(Serialization.Xml.Question).IsAssignableFrom(xmlType)) throw new ArgumentException($"Type must be non-abstract and implement {typeof(Serialization.Xml.Question)}.", nameof(xmlType));
+
+			_questionXmlGetter = questionXmlGetter;
+			XmlType = xmlType;
+		}
+
+		public Serialization.Xml.Question GetXml(IQuestion question)
+		{
+			return _questionXmlGetter(question);
+		}
+	}
+
+	public class QuestionDefinition : IMetadataDefinition<QuestionJsonSerializationSettings, QuestionXmlSerializationSettings>
 	{
 		#region Properties
 
 		public Type Type
 		{ get; }
 
-		public Type XmlType
+		public QuestionJsonSerializationSettings JsonSerializationSettings
 		{ get; }
 
-		public Type JsonType
+		public QuestionXmlSerializationSettings XmlSerializationSettings
 		{ get; }
+
+		IJsonSerializationSettings IMetadataDefinition.JsonSerializationSettings
+		{ get { return JsonSerializationSettings; } }
+
+		IXmlSerializationSettings IMetadataDefinition.XmlSerializationSettings
+		{ get { return XmlSerializationSettings; } }
 
 		private readonly Func<ILanguage, String> _questionNameGetter;
-		private readonly Func<IQuestion, Serialization.Xml.Question> _questionXmlGetter;
-		private readonly Func<IQuestion, Serialization.Json.Question> _questionJsonGetter;
 
 		#endregion
 
@@ -32,34 +86,16 @@ namespace Inventor.Semantics.Metadata
 			if (type == null) throw new ArgumentNullException(nameof(type));
 			if (type.IsAbstract || !typeof(IQuestion).IsAssignableFrom(type)) throw new ArgumentException($"Type must be non-abstract and implement {typeof(IQuestion)}.", nameof(type));
 			if (questionNameGetter == null) throw new ArgumentNullException(nameof(questionNameGetter));
-			if (questionXmlGetter == null) throw new ArgumentNullException(nameof(questionXmlGetter));
-			if (questionJsonGetter == null) throw new ArgumentNullException(nameof(questionJsonGetter));
-			if (xmlType == null) throw new ArgumentNullException(nameof(xmlType));
-			if (xmlType.IsAbstract || !typeof(Serialization.Xml.Question).IsAssignableFrom(xmlType)) throw new ArgumentException($"Type must be non-abstract and implement {typeof(Serialization.Xml.Question)}.", nameof(xmlType));
-			if (jsonType == null) throw new ArgumentNullException(nameof(jsonType));
-			if (jsonType.IsAbstract || !typeof(Serialization.Json.Question).IsAssignableFrom(jsonType)) throw new ArgumentException($"Type must be non-abstract and implement {typeof(Serialization.Json.Question)}.", nameof(jsonType));
 
 			Type = type;
 			_questionNameGetter = questionNameGetter;
-			_questionXmlGetter = questionXmlGetter;
-			_questionJsonGetter = questionJsonGetter;
-			XmlType = xmlType;
-			JsonType = jsonType;
+			JsonSerializationSettings = new QuestionJsonSerializationSettings(questionJsonGetter, jsonType);
+			XmlSerializationSettings = new QuestionXmlSerializationSettings(questionXmlGetter, xmlType);
 		}
 
 		public String GetName(ILanguage language)
 		{
 			return _questionNameGetter(language);
-		}
-
-		public Serialization.Xml.Question GetXml(IQuestion question)
-		{
-			return _questionXmlGetter(question);
-		}
-
-		public Serialization.Json.Question GetJson(IQuestion question)
-		{
-			return _questionJsonGetter(question);
 		}
 	}
 

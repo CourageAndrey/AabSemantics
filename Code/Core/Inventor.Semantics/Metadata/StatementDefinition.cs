@@ -8,25 +8,76 @@ namespace Inventor.Semantics.Metadata
 	public delegate void StatementConsistencyCheckerDelegate<StatementT>(ICollection<StatementT> statements, ITextContainer result, ISemanticNetwork semanticNetwork)
 		where StatementT : IStatement;
 
-	public class StatementDefinition : IMetadataDefinition
+	public class StatementJsonSerializationSettings : IStatementSerializationSettings, IJsonSerializationSettings
 	{
-		#region Properties
-
-		public Type Type
+		public Type JsonType
 		{ get; }
 
+		private readonly Func<IStatement, Serialization.Json.Statement> _statementJsonGetter;
+
+		public StatementJsonSerializationSettings(Func<IStatement, Serialization.Json.Statement> statementJsonGetter, Type jsonType)
+		{
+			if (statementJsonGetter == null) throw new ArgumentNullException(nameof(statementJsonGetter));
+			if (jsonType == null) throw new ArgumentNullException(nameof(jsonType));
+			if (jsonType.IsAbstract || !typeof(Serialization.Json.Statement).IsAssignableFrom(jsonType)) throw new ArgumentException($"Type must be non-abstract and implement {typeof(Serialization.Json.Statement)}.", nameof(jsonType));
+
+			_statementJsonGetter = statementJsonGetter;
+			JsonType = jsonType;
+		}
+
+		public Serialization.Json.Statement GetJson(IStatement statement)
+		{
+			return _statementJsonGetter(statement);
+		}
+	}
+
+	public class StatementXmlSerializationSettings : IStatementSerializationSettings, IXmlSerializationSettings
+	{
 		public String XmlElementName
 		{ get; }
 
 		public Type XmlType
 		{ get; }
 
-		public Type JsonType
+		private readonly Func<IStatement, Serialization.Xml.Statement> _statementXmlGetter;
+
+		public StatementXmlSerializationSettings(Func<IStatement, Serialization.Xml.Statement> statementXmlGetter, Type xmlType)
+		{
+			if (statementXmlGetter == null) throw new ArgumentNullException(nameof(statementXmlGetter));
+			if (xmlType == null) throw new ArgumentNullException(nameof(xmlType));
+			if (xmlType.IsAbstract || !typeof(Serialization.Xml.Statement).IsAssignableFrom(xmlType)) throw new ArgumentException($"Type must be non-abstract and implement {typeof(Serialization.Xml.Statement)}.", nameof(xmlType));
+
+			_statementXmlGetter = statementXmlGetter;
+			XmlType = xmlType;
+			XmlElementName = XmlType.Name.Replace("Statement", "");
+		}
+
+		public Serialization.Xml.Statement GetXml(IStatement statement)
+		{
+			return _statementXmlGetter(statement);
+		}
+	}
+
+	public class StatementDefinition : IMetadataDefinition<StatementJsonSerializationSettings, StatementXmlSerializationSettings>
+	{
+		#region Properties
+
+		public Type Type
 		{ get; }
 
+		public StatementJsonSerializationSettings JsonSerializationSettings
+		{ get; }
+
+		public StatementXmlSerializationSettings XmlSerializationSettings
+		{ get; }
+
+		IJsonSerializationSettings IMetadataDefinition.JsonSerializationSettings
+		{ get { return JsonSerializationSettings; } }
+
+		IXmlSerializationSettings IMetadataDefinition.XmlSerializationSettings
+		{ get { return XmlSerializationSettings; } }
+
 		private readonly Func<ILanguage, String> _statementNameGetter;
-		private readonly Func<IStatement, Serialization.Xml.Statement> _statementXmlGetter;
-		private readonly Func<IStatement, Serialization.Json.Statement> _statementJsonGetter;
 		private readonly StatementConsistencyCheckerDelegate _consistencyChecker;
 
 		#endregion
@@ -45,22 +96,13 @@ namespace Inventor.Semantics.Metadata
 			if (type == null) throw new ArgumentNullException(nameof(type));
 			if (type.IsAbstract || !typeof(IStatement).IsAssignableFrom(type)) throw new ArgumentException($"Type must be non-abstract and implement {typeof(IStatement)}.", nameof(type));
 			if (statementNameGetter == null) throw new ArgumentNullException(nameof(statementNameGetter));
-			if (statementXmlGetter == null) throw new ArgumentNullException(nameof(statementXmlGetter));
-			if (statementJsonGetter == null) throw new ArgumentNullException(nameof(statementJsonGetter));
-			if (xmlType == null) throw new ArgumentNullException(nameof(xmlType));
-			if (xmlType.IsAbstract || !typeof(Serialization.Xml.Statement).IsAssignableFrom(xmlType)) throw new ArgumentException($"Type must be non-abstract and implement {typeof(Serialization.Xml.Statement)}.", nameof(xmlType));
-			if (jsonType == null) throw new ArgumentNullException(nameof(jsonType));
-			if (jsonType.IsAbstract || !typeof(Serialization.Json.Statement).IsAssignableFrom(jsonType)) throw new ArgumentException($"Type must be non-abstract and implement {typeof(Serialization.Json.Statement)}.", nameof(jsonType));
 			if (consistencyChecker == null) throw new ArgumentNullException(nameof(consistencyChecker));
 
 			Type = type;
 			_statementNameGetter = statementNameGetter;
-			_statementXmlGetter = statementXmlGetter;
-			_statementJsonGetter = statementJsonGetter;
+			JsonSerializationSettings = new StatementJsonSerializationSettings(statementJsonGetter, jsonType);
+			XmlSerializationSettings = new StatementXmlSerializationSettings(statementXmlGetter, xmlType);
 			_consistencyChecker = consistencyChecker;
-			XmlType = xmlType;
-			JsonType = jsonType;
-			XmlElementName = XmlType.Name.Replace("Statement", "");
 		}
 
 		#endregion
@@ -68,16 +110,6 @@ namespace Inventor.Semantics.Metadata
 		public String GetName(ILanguage language)
 		{
 			return _statementNameGetter(language);
-		}
-
-		public Serialization.Xml.Statement GetXml(IStatement statement)
-		{
-			return _statementXmlGetter(statement);
-		}
-
-		public Serialization.Json.Statement GetJson(IStatement statement)
-		{
-			return _statementJsonGetter(statement);
 		}
 
 		public void CheckConsistency(ISemanticNetwork semanticNetwork, ITextContainer result)
