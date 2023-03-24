@@ -2,19 +2,14 @@
 
 using Inventor.Semantics.Concepts;
 using Inventor.Semantics.Localization;
+using Inventor.Semantics.Modules.Boolean.Attributes;
 using Inventor.Semantics.Modules.Classification.Statements;
 using Inventor.Semantics.Statements;
 using Inventor.Semantics.Mathematics;
+using Inventor.Semantics.Mathematics.Statements;
 using Inventor.Semantics.Processes;
 using Inventor.Semantics.Set;
 using Inventor.Semantics.Test.Sample;
-using System.Globalization;
-using System.Xml.Linq;
-using System;
-using Inventor.Semantics.Utils;
-using System.Linq;
-using Inventor.Semantics.Mathematics.Statements;
-using Inventor.Semantics.Modules.Boolean.Attributes;
 
 namespace Inventor.Semantics.Test
 {
@@ -32,7 +27,7 @@ namespace Inventor.Semantics.Test
 		}
 
 		[Test]
-		public void GivenConsistentSemanticNetworkWhenCheckConsistensyThenReturnEmptyText()
+		public void GivenConsistentSemanticNetworkWhenCheckConsistencyThenReturnEmptyText()
 		{
 			// arrange
 			var language = Language.Default;
@@ -46,7 +41,7 @@ namespace Inventor.Semantics.Test
 		}
 
 		[Test]
-		public void GivenDuplicatedStatementWhenCheckConsistensyThenReturnDuplication()
+		public void GivenDuplicatedStatementWhenCheckConsistencyThenReturnDuplication()
 		{
 			// arrange
 			var language = Language.Default;
