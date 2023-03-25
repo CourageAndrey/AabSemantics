@@ -94,57 +94,57 @@ namespace Inventor.Semantics.Metadata
 		public static AttributeDefinition RegisterAttribute(
 			Type type,
 			IAttribute value,
-			Func<ILanguage, String> attributeNameGetter)
+			Func<ILanguage, String> nameGetter)
 		{
-			var definition = new AttributeDefinition(type, value, attributeNameGetter);
+			var definition = new AttributeDefinition(type, value, nameGetter);
 			Attributes.Definitions[definition.Type] = definition;
 			return definition;
 		}
 
 		public static AttributeDefinition<AttributeT> RegisterAttribute<AttributeT>(
 			AttributeT value,
-			Func<ILanguage, String> attributeNameGetter)
+			Func<ILanguage, String> nameGetter)
 			where AttributeT : IAttribute
 		{
-			var definition = new AttributeDefinition<AttributeT>(value, attributeNameGetter);
+			var definition = new AttributeDefinition<AttributeT>(value, nameGetter);
 			Attributes.Definitions[definition.Type] = definition;
 			return definition;
 		}
 
 		public static StatementDefinition RegisterStatement(
 			Type type,
-			Func<ILanguage, String> statementNameGetter,
+			Func<ILanguage, String> nameGetter,
 			StatementConsistencyCheckerDelegate consistencyChecker)
 		{
-			var definition = new StatementDefinition(type, statementNameGetter, consistencyChecker);
+			var definition = new StatementDefinition(type, nameGetter, consistencyChecker);
 			Statements.Definitions[definition.Type] = definition;
 			return definition;
 		}
 
 		public static StatementDefinition<StatementT> RegisterStatement<StatementT>(
-			Func<ILanguage, String> statementNameGetter,
+			Func<ILanguage, String> nameGetter,
 			StatementConsistencyCheckerDelegate<StatementT> consistencyChecker)
 			where StatementT : IStatement
 		{
-			var definition = new StatementDefinition<StatementT>(statementNameGetter, consistencyChecker);
+			var definition = new StatementDefinition<StatementT>(nameGetter, consistencyChecker);
 			Statements.Definitions[definition.Type] = definition;
 			return definition;
 		}
 
 		public static QuestionDefinition RegisterQuestion(
 			Type type,
-			Func<ILanguage, String> questionNameGetter)
+			Func<ILanguage, String> nameGetter)
 		{
-			var definition = new QuestionDefinition(type, questionNameGetter);
+			var definition = new QuestionDefinition(type, nameGetter);
 			Questions.Definitions[definition.Type] = definition;
 			return definition;
 		}
 
 		public static QuestionDefinition<QuestionT> RegisterQuestion<QuestionT>(
-			Func<ILanguage, String> questionNameGetter)
+			Func<ILanguage, String> nameGetter)
 			where QuestionT : IQuestion
 		{
-			var definition = new QuestionDefinition<QuestionT>(questionNameGetter);
+			var definition = new QuestionDefinition<QuestionT>(nameGetter);
 			Questions.Definitions[definition.Type] = definition;
 			return definition;
 		}

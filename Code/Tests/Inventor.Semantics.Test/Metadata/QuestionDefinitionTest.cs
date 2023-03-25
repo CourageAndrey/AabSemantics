@@ -131,15 +131,15 @@ namespace Inventor.Semantics.Test.Metadata
 
 		private static QuestionDefinition createQuestionDefinition(
 			Type type,
-			Func<ILanguage, String> questionNameGetter,
-			Func<IQuestion, Semantics.Serialization.Xml.Question> questionXmlGetter,
-			Func<IQuestion, Semantics.Serialization.Json.Question> questionJsonGetter,
+			Func<ILanguage, String> nameGetter,
+			Func<IQuestion, Semantics.Serialization.Xml.Question> xmlSerializer,
+			Func<IQuestion, Semantics.Serialization.Json.Question> jsonSerializer,
 			Type xmlType,
 			Type jsonType)
 		{
-			return new QuestionDefinition(type, questionNameGetter)
-				.SerializeToXml(questionXmlGetter, xmlType)
-				.SerializeToJson(questionJsonGetter, jsonType);
+			return new QuestionDefinition(type, nameGetter)
+				.SerializeToXml(xmlSerializer, xmlType)
+				.SerializeToJson(jsonSerializer, jsonType);
 		}
 	}
 }

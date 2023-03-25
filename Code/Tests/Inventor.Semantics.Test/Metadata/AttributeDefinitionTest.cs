@@ -151,7 +151,7 @@ namespace Inventor.Semantics.Test.Metadata
 
 			// assert
 			Assert.AreSame(type, attribute.Type);
-			Assert.AreSame(value, attribute.AttributeValue);
+			Assert.AreSame(value, attribute.Value);
 			Assert.AreEqual(_attributeName, attribute.GetName(null));
 		}
 
@@ -168,7 +168,7 @@ namespace Inventor.Semantics.Test.Metadata
 
 			// assert
 			Assert.AreSame(type, attribute.Type);
-			Assert.AreSame(value, attribute.AttributeValue);
+			Assert.AreSame(value, attribute.Value);
 			Assert.AreEqual(_attributeName, attribute.GetName(null));
 		}
 

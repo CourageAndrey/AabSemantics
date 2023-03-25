@@ -7,23 +7,23 @@ namespace Inventor.Semantics.Metadata
 		public Type JsonType
 		{ get; }
 
-		private readonly Func<IQuestion, Serialization.Json.Question> _questionJsonGetter;
+		private readonly Func<IQuestion, Serialization.Json.Question> _serializer;
 
 		public QuestionJsonSerializationSettings(
-			Func<IQuestion, Serialization.Json.Question> questionJsonGetter,
+			Func<IQuestion, Serialization.Json.Question> serializer,
 			Type jsonType)
 		{
-			if (questionJsonGetter == null) throw new ArgumentNullException(nameof(questionJsonGetter));
+			if (serializer == null) throw new ArgumentNullException(nameof(serializer));
 			if (jsonType == null) throw new ArgumentNullException(nameof(jsonType));
 			if (jsonType.IsAbstract || !typeof(Serialization.Json.Question).IsAssignableFrom(jsonType)) throw new ArgumentException($"Type must be non-abstract and implement {typeof(Serialization.Json.Question)}.", nameof(jsonType));
 
-			_questionJsonGetter = questionJsonGetter;
+			_serializer = serializer;
 			JsonType = jsonType;
 		}
 
 		public Serialization.Json.Question GetJson(IQuestion question)
 		{
-			return _questionJsonGetter(question);
+			return _serializer(question);
 		}
 	}
 
@@ -32,23 +32,23 @@ namespace Inventor.Semantics.Metadata
 		public Type XmlType
 		{ get; }
 
-		private readonly Func<IQuestion, Serialization.Xml.Question> _questionXmlGetter;
+		private readonly Func<IQuestion, Serialization.Xml.Question> _serializer;
 
 		public QuestionXmlSerializationSettings(
-			Func<IQuestion, Serialization.Xml.Question> questionXmlGetter,
+			Func<IQuestion, Serialization.Xml.Question> serializer,
 			Type xmlType)
 		{
-			if (questionXmlGetter == null) throw new ArgumentNullException(nameof(questionXmlGetter));
+			if (serializer == null) throw new ArgumentNullException(nameof(serializer));
 			if (xmlType == null) throw new ArgumentNullException(nameof(xmlType));
 			if (xmlType.IsAbstract || !typeof(Serialization.Xml.Question).IsAssignableFrom(xmlType)) throw new ArgumentException($"Type must be non-abstract and implement {typeof(Serialization.Xml.Question)}.", nameof(xmlType));
 
-			_questionXmlGetter = questionXmlGetter;
+			_serializer = serializer;
 			XmlType = xmlType;
 		}
 
 		public Serialization.Xml.Question GetXml(IQuestion question)
 		{
-			return _questionXmlGetter(question);
+			return _serializer(question);
 		}
 	}
 
@@ -56,29 +56,29 @@ namespace Inventor.Semantics.Metadata
 	{
 		#region Properties
 
-		private readonly Func<ILanguage, String> _questionNameGetter;
+		private readonly Func<ILanguage, String> _nameGetter;
 
 		#endregion
 
-		public QuestionDefinition(Type type, Func<ILanguage, String> questionNameGetter)
+		public QuestionDefinition(Type type, Func<ILanguage, String> nameGetter)
 			: base(type, typeof(IQuestion))
 		{
-			if (questionNameGetter == null) throw new ArgumentNullException(nameof(questionNameGetter));
+			if (nameGetter == null) throw new ArgumentNullException(nameof(nameGetter));
 
-			_questionNameGetter = questionNameGetter;
+			_nameGetter = nameGetter;
 		}
 
 		public String GetName(ILanguage language)
 		{
-			return _questionNameGetter(language);
+			return _nameGetter(language);
 		}
 	}
 
 	public class QuestionDefinition<QuestionT> : QuestionDefinition
 		where QuestionT : IQuestion
 	{
-		public QuestionDefinition(Func<ILanguage, String> questionNameGetter)
-			: base(typeof(QuestionT), questionNameGetter)
+		public QuestionDefinition(Func<ILanguage, String> nameGetter)
+			: base(typeof(QuestionT), nameGetter)
 		{ }
 	}
 
@@ -108,10 +108,10 @@ namespace Inventor.Semantics.Metadata
 
 		public static QuestionDefinition SerializeToXml(
 			this QuestionDefinition metadataDefinition,
-			Func<IQuestion, Serialization.Xml.Question> questionXmlGetter,
+			Func<IQuestion, Serialization.Xml.Question> serializer,
 			Type xmlType)
 		{
-			metadataDefinition.SerializationSettings.Add(new QuestionXmlSerializationSettings(questionXmlGetter, xmlType));
+			metadataDefinition.SerializationSettings.Add(new QuestionXmlSerializationSettings(serializer, xmlType));
 			return metadataDefinition;
 		}
 
@@ -126,47 +126,47 @@ namespace Inventor.Semantics.Metadata
 
 		public static QuestionDefinition<QuestionT> SerializeToXml<QuestionT>(
 			this QuestionDefinition<QuestionT> metadataDefinition,
-			Func<QuestionT, Serialization.Xml.Question> questionXmlGetter,
+			Func<QuestionT, Serialization.Xml.Question> serializer,
 			Type xmlType)
 			where QuestionT : IQuestion
 		{
 			metadataDefinition.SerializationSettings.Add(new QuestionXmlSerializationSettings(
-				question => questionXmlGetter((QuestionT) question),
+				question => serializer((QuestionT) question),
 				xmlType));
 			return metadataDefinition;
 		}
 
 		public static QuestionDefinition<QuestionT> SerializeToJson<QuestionT>(
 			this QuestionDefinition<QuestionT> metadataDefinition,
-			Func<QuestionT, Serialization.Json.Question> questionJsonGetter,
+			Func<QuestionT, Serialization.Json.Question> serializer,
 			Type jsonType)
 			where QuestionT : IQuestion
 		{
 			metadataDefinition.SerializationSettings.Add(new QuestionJsonSerializationSettings(
-				question => questionJsonGetter((QuestionT) question),
+				question => serializer((QuestionT) question),
 				jsonType));
 			return metadataDefinition;
 		}
 
 		public static QuestionDefinition<QuestionT> SerializeToXml<QuestionT, XmlT>(
 			this QuestionDefinition<QuestionT> metadataDefinition,
-			Func<QuestionT, XmlT> questionXmlGetter)
+			Func<QuestionT, XmlT> serializer)
 			where QuestionT : IQuestion
 			where XmlT : Serialization.Xml.Question
 		{
 			return metadataDefinition.SerializeToXml(
-				questionXmlGetter,
+				serializer,
 				typeof(XmlT));
 		}
 
 		public static QuestionDefinition<QuestionT> SerializeToJson<QuestionT, JsonT>(
 			this QuestionDefinition<QuestionT> metadataDefinition,
-			Func<QuestionT, JsonT> questionJsonGetter)
+			Func<QuestionT, JsonT> serializer)
 			where QuestionT : IQuestion
 			where JsonT : Serialization.Json.Question
 		{
 			return metadataDefinition.SerializeToJson(
-				questionJsonGetter,
+				serializer,
 				typeof(JsonT));
 		}
 	}

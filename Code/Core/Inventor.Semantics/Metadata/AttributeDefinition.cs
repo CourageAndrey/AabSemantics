@@ -45,10 +45,10 @@ namespace Inventor.Semantics.Metadata
 	{
 		#region Properties
 
-		public IAttribute AttributeValue
+		public IAttribute Value
 		{ get; }
 
-		private readonly Func<ILanguage, String> _attributeNameGetter;
+		private readonly Func<ILanguage, String> _nameGetter;
 
 		#endregion
 
@@ -56,30 +56,30 @@ namespace Inventor.Semantics.Metadata
 
 		public AttributeDefinition(
 			Type type,
-			IAttribute attributeValue,
-			Func<ILanguage, String> attributeNameGetter)
+			IAttribute value,
+			Func<ILanguage, String> nameGetter)
 			: base(type, typeof(IAttribute))
 		{
-			if (attributeValue == null) throw new ArgumentNullException(nameof(attributeValue));
-			if (!type.IsInstanceOfType(attributeValue)) throw new InvalidCastException();
-			if (attributeNameGetter == null) throw new ArgumentNullException(nameof(attributeNameGetter));
+			if (value == null) throw new ArgumentNullException(nameof(value));
+			if (!type.IsInstanceOfType(value)) throw new InvalidCastException();
+			if (nameGetter == null) throw new ArgumentNullException(nameof(nameGetter));
 
-			AttributeValue = attributeValue;
-			_attributeNameGetter = attributeNameGetter;
+			Value = value;
+			_nameGetter = nameGetter;
 		}
 
 		private AttributeDefinition()
 			: base(typeof(NoAttribute), typeof(IAttribute))
 		{
-			AttributeValue = new NoAttribute();
-			_attributeNameGetter = language => language.Attributes.None;
+			Value = new NoAttribute();
+			_nameGetter = language => language.Attributes.None;
 		}
 
 		#endregion
 
 		public String GetName(ILanguage language)
 		{
-			return _attributeNameGetter(language);
+			return _nameGetter(language);
 		}
 
 		public static readonly AttributeDefinition None = new AttributeDefinition();
@@ -92,9 +92,9 @@ namespace Inventor.Semantics.Metadata
 		where AttributeT : IAttribute
 	{
 		public AttributeDefinition(
-			AttributeT attributeValue,
-			Func<ILanguage, String> attributeNameGetter)
-			: base(typeof(AttributeT), attributeValue, attributeNameGetter)
+			AttributeT value,
+			Func<ILanguage, String> nameGetter)
+			: base(typeof(AttributeT), value, nameGetter)
 		{ }
 	}
 
