@@ -91,131 +91,78 @@ namespace Inventor.Semantics.Metadata
 		private static IRepository<QuestionDefinition> _questions = new Repository<QuestionDefinition>();
 		private static IRepository<AnswerDefinition> _answers = new Repository<AnswerDefinition>();
 
-		public static void RegisterAttribute(
+		public static AttributeDefinition RegisterAttribute(
 			Type type,
 			IAttribute value,
-			Func<ILanguage, String> attributeNameGetter,
-			Serialization.Xml.Attribute xml)
+			Func<ILanguage, String> attributeNameGetter)
 		{
-			Attributes.Define(new AttributeDefinition(type, value, attributeNameGetter, xml));
+			var definition = new AttributeDefinition(type, value, attributeNameGetter);
+			Attributes.Definitions[definition.Type] = definition;
+			return definition;
 		}
 
-		public static void RegisterAttribute<AttributeT>(
+		public static AttributeDefinition<AttributeT> RegisterAttribute<AttributeT>(
 			AttributeT value,
-			Func<ILanguage, String> attributeNameGetter,
-			Serialization.Xml.Attribute xml)
+			Func<ILanguage, String> attributeNameGetter)
 			where AttributeT : IAttribute
 		{
-			Attributes.Define(new AttributeDefinition<AttributeT>(attributeNameGetter, value, xml));
+			var definition = new AttributeDefinition<AttributeT>(value, attributeNameGetter);
+			Attributes.Definitions[definition.Type] = definition;
+			return definition;
 		}
 
-		public static void RegisterAttribute<AttributeT, XmlT>(
-			AttributeT value,
-			Func<ILanguage, String> attributeNameGetter,
-			XmlT xml)
-			where AttributeT : IAttribute
-			where XmlT : Serialization.Xml.Attribute
-		{
-			Attributes.Define(new AttributeDefinition<AttributeT, XmlT>(attributeNameGetter, value, xml));
-		}
-
-		public static void RegisterStatement(
+		public static StatementDefinition RegisterStatement(
 			Type type,
 			Func<ILanguage, String> statementNameGetter,
-			Func<IStatement, Serialization.Xml.Statement> statementXmlGetter,
-			Func<IStatement, Serialization.Json.Statement> statementJsonGetter,
-			Type xmlType,
-			Type jsonType,
 			StatementConsistencyCheckerDelegate consistencyChecker)
 		{
-			Statements.Define(new StatementDefinition(type, statementNameGetter, statementXmlGetter, statementJsonGetter, xmlType, jsonType, consistencyChecker));
+			var definition = new StatementDefinition(type, statementNameGetter, consistencyChecker);
+			Statements.Definitions[definition.Type] = definition;
+			return definition;
 		}
 
-		public static void RegisterStatement<StatementT>(
+		public static StatementDefinition<StatementT> RegisterStatement<StatementT>(
 			Func<ILanguage, String> statementNameGetter,
-			Func<StatementT, Serialization.Xml.Statement> statementXmlGetter,
-			Func<StatementT, Serialization.Json.Statement> statementJsonGetter,
-			Type xmlType,
-			Type jsonType,
 			StatementConsistencyCheckerDelegate<StatementT> consistencyChecker)
 			where StatementT : IStatement
 		{
-			Statements.Define(new StatementDefinition<StatementT>(statementNameGetter, statementXmlGetter, statementJsonGetter, xmlType, jsonType, consistencyChecker));
+			var definition = new StatementDefinition<StatementT>(statementNameGetter, consistencyChecker);
+			Statements.Definitions[definition.Type] = definition;
+			return definition;
 		}
 
-		public static void RegisterStatement<StatementT, XmlT, JsonT>(
-			Func<ILanguage, String> statementNameGetter,
-			Func<StatementT, XmlT> statementXmlGetter,
-			Func<StatementT, JsonT> statementJsonGetter,
-			StatementConsistencyCheckerDelegate<StatementT> consistencyChecker)
-			where StatementT : IStatement
-			where XmlT : Serialization.Xml.Statement
-			where JsonT : Serialization.Json.Statement
-		{
-			Statements.Define(new StatementDefinition<StatementT, XmlT, JsonT>(statementNameGetter, statementXmlGetter, statementJsonGetter, consistencyChecker));
-		}
-
-		public static void RegisterQuestion(
+		public static QuestionDefinition RegisterQuestion(
 			Type type,
-			Func<ILanguage, String> questionNameGetter,
-			Func<IQuestion, Serialization.Xml.Question> questionXmlGetter,
-			Func<IQuestion, Serialization.Json.Question> questionJsonGetter,
-			Type xmlType,
-			Type jsonType)
+			Func<ILanguage, String> questionNameGetter)
 		{
-			Questions.Define(new QuestionDefinition(type, questionNameGetter, questionXmlGetter, questionJsonGetter, xmlType, jsonType));
+			var definition = new QuestionDefinition(type, questionNameGetter);
+			Questions.Definitions[definition.Type] = definition;
+			return definition;
 		}
 
-		public static void RegisterQuestion<QuestionT>(
-			Func<ILanguage, String> questionNameGetter,
-			Func<QuestionT, Serialization.Xml.Question> questionXmlGetter,
-			Func<QuestionT, Serialization.Json.Question> questionJsonGetter,
-			Type xmlType,
-			Type jsonType)
+		public static QuestionDefinition<QuestionT> RegisterQuestion<QuestionT>(
+			Func<ILanguage, String> questionNameGetter)
 			where QuestionT : IQuestion
 		{
-			Questions.Define(new QuestionDefinition<QuestionT>(questionNameGetter, questionXmlGetter, questionJsonGetter, xmlType, jsonType));
+			var definition = new QuestionDefinition<QuestionT>(questionNameGetter);
+			Questions.Definitions[definition.Type] = definition;
+			return definition;
 		}
 
-		public static void RegisterQuestion<QuestionT, XmlT, JsonT>(
-			Func<ILanguage, String> questionNameGetter,
-			Func<QuestionT, XmlT> questionXmlGetter,
-			Func<QuestionT, JsonT> questionJsonGetter)
-			where QuestionT : IQuestion
-			where XmlT : Serialization.Xml.Question
-			where JsonT : Serialization.Json.Question
+		public static AnswerDefinition RegisterAnswer(
+			Type type)
 		{
-			Questions.Define(new QuestionDefinition<QuestionT, XmlT, JsonT>(questionNameGetter, questionXmlGetter, questionJsonGetter));
+			var definition = new AnswerDefinition(type);
+			Answers.Definitions[definition.Type] = definition;
+			return definition;
 		}
 
-		public static void RegisterAnswer(
-			Type type,
-			Func<IAnswer, ILanguage, Serialization.Xml.Answer> answerXmlGetter,
-			Func<IAnswer, ILanguage, Serialization.Json.Answer> answerJsonGetter,
-			Type xmlType,
-			Type jsonType)
-		{
-			Answers.Define(new AnswerDefinition(type, answerXmlGetter, answerJsonGetter, xmlType, jsonType));
-		}
-
-		public static void RegisterAnswer<AnswerT>(
-			Func<AnswerT, ILanguage, Serialization.Xml.Answer> answerXmlGetter,
-			Func<AnswerT, ILanguage, Serialization.Json.Answer> answerJsonGetter,
-			Type xmlType,
-			Type jsonType)
+		public static AnswerDefinition<AnswerT> RegisterAnswer<AnswerT>()
 			where AnswerT : IAnswer
 		{
-			Answers.Define(new AnswerDefinition<AnswerT>(answerXmlGetter, answerJsonGetter, xmlType, jsonType));
-		}
-
-		public static void RegisterAnswer<AnswerT, XmlT, JsonT>(
-			Func<AnswerT, ILanguage, XmlT> answerXmlGetter,
-			Func<AnswerT, ILanguage, JsonT> answerJsonGetter)
-			where AnswerT : IAnswer
-			where XmlT : Serialization.Xml.Answer
-			where JsonT : Serialization.Json.Answer
-		{
-			Answers.Define(new AnswerDefinition<AnswerT, XmlT, JsonT>(answerXmlGetter, answerJsonGetter));
+			var definition = new AnswerDefinition<AnswerT>();
+			Answers.Definitions[definition.Type] = definition;
+			return definition;
 		}
 	}
 }

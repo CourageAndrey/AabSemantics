@@ -38,10 +38,9 @@ namespace Samples.Semantics.Sample07.CustomModule
 
 		protected override void RegisterAttributes()
 		{
-			Repositories.RegisterAttribute(
-				CustomAttribute.Value,
-				language => language.GetExtension<ILanguageCustomModule>().Attributes.Custom,
-				new Xml.CustomAttribute());
+			Repositories.RegisterAttribute(CustomAttribute.Value, language => language.GetExtension<ILanguageCustomModule>().Attributes.Custom)
+				.SerializeToXml(new Xml.CustomAttribute())
+				.SerializeToJson(new Xml.CustomAttribute());
 		}
 
 		protected override void RegisterConcepts()
@@ -51,19 +50,16 @@ namespace Samples.Semantics.Sample07.CustomModule
 
 		protected override void RegisterStatements()
 		{
-			Repositories.RegisterStatement<CustomStatement, Xml.CustomStatement, Json.CustomStatement>(
-				language => language.GetExtension<ILanguageCustomModule>().Statements.Names.Custom,
-				statement => new Xml.CustomStatement(statement),
-				statement => new Json.CustomStatement(statement),
-				checkSelfRelations);
+			Repositories.RegisterStatement<CustomStatement>(language => language.GetExtension<ILanguageCustomModule>().Statements.Names.Custom, checkSelfRelations)
+				.SerializeToXml(statement => new Xml.CustomStatement(statement))
+				.SerializeToJson(statement => new Json.CustomStatement(statement));
 		}
 
 		protected override void RegisterQuestions()
 		{
-			Repositories.RegisterQuestion<CustomQuestion, Xml.CustomQuestion, Json.CustomQuestion>(
-				language => language.GetExtension<ILanguageCustomModule>().Questions.Names.Custom,
-				question => new Xml.CustomQuestion(question),
-				question => new Json.CustomQuestion(question));
+			Repositories.RegisterQuestion<CustomQuestion>(language => language.GetExtension<ILanguageCustomModule>().Questions.Names.Custom)
+				.SerializeToXml(question => new Xml.CustomQuestion(question))
+				.SerializeToJson(question => new Json.CustomQuestion(question));
 		}
 
 		private static void checkSelfRelations(

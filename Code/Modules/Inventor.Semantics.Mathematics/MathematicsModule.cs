@@ -34,7 +34,9 @@ namespace Inventor.Semantics.Mathematics
 
 		protected override void RegisterAttributes()
 		{
-			Repositories.RegisterAttribute(IsComparisonSignAttribute.Value, language => language.GetExtension<ILanguageMathematicsModule>().Attributes.IsComparisonSign, new Xml.IsComparisonSignAttribute());
+			Repositories.RegisterAttribute(IsComparisonSignAttribute.Value, language => language.GetExtension<ILanguageMathematicsModule>().Attributes.IsComparisonSign)
+				.SerializeToXml(new Xml.IsComparisonSignAttribute())
+				.SerializeToJson(new Xml.IsComparisonSignAttribute());
 		}
 
 		protected override void RegisterConcepts()
@@ -44,19 +46,16 @@ namespace Inventor.Semantics.Mathematics
 
 		protected override void RegisterStatements()
 		{
-			Repositories.RegisterStatement<ComparisonStatement, Xml.ComparisonStatement, Json.ComparisonStatement>(
-				language => language.GetExtension<ILanguageMathematicsModule>().Statements.Names.Comparison,
-				statement => new Xml.ComparisonStatement(statement),
-				statement => new Json.ComparisonStatement(statement),
-				checkComparisonValueSystems);
+			Repositories.RegisterStatement<ComparisonStatement>(language => language.GetExtension<ILanguageMathematicsModule>().Statements.Names.Comparison, checkComparisonValueSystems)
+				.SerializeToXml(statement => new Xml.ComparisonStatement(statement))
+				.SerializeToJson(statement => new Json.ComparisonStatement(statement));
 		}
 
 		protected override void RegisterQuestions()
 		{
-			Repositories.RegisterQuestion<ComparisonQuestion, Xml.ComparisonQuestion, Json.ComparisonQuestion>(
-				language => language.GetExtension<ILanguageMathematicsModule>().Questions.Names.ComparisonQuestion,
-				question => new Xml.ComparisonQuestion(question),
-				question => new Json.ComparisonQuestion(question));
+			Repositories.RegisterQuestion<ComparisonQuestion>(language => language.GetExtension<ILanguageMathematicsModule>().Questions.Names.ComparisonQuestion)
+				.SerializeToXml(question => new Xml.ComparisonQuestion(question))
+				.SerializeToJson(question => new Json.ComparisonQuestion(question));
 		}
 
 		public override IDictionary<String, Type> GetLanguageExtensions()

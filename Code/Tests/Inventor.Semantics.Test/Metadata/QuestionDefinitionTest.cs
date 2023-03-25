@@ -16,7 +16,7 @@ namespace Inventor.Semantics.Test.Metadata
 		public void ImpossibleToCreateDefinitionWithoutType()
 		{
 			// act & assert
-			Assert.Throws<ArgumentNullException>(() => new QuestionDefinition(
+			Assert.Throws<ArgumentNullException>(() => createQuestionDefinition(
 				null,
 				language => language.Culture,
 				question => new Modules.Boolean.Xml.CheckStatementQuestion((CheckStatementQuestion) question),
@@ -29,14 +29,14 @@ namespace Inventor.Semantics.Test.Metadata
 		public void ImpossibleToCreateDefinitionWithInvalidType()
 		{
 			// act & assert
-			Assert.Throws<ArgumentException>(() => new QuestionDefinition(
+			Assert.Throws<ArgumentException>(() => createQuestionDefinition(
 				typeof(string),
 				language => language.Culture,
 				question => new Modules.Boolean.Xml.CheckStatementQuestion((CheckStatementQuestion) question),
 				question => new Modules.Boolean.Json.CheckStatementQuestion((CheckStatementQuestion) question),
 				typeof(Modules.Boolean.Xml.CheckStatementQuestion),
 				typeof(Modules.Boolean.Json.CheckStatementQuestion)));
-			Assert.Throws<ArgumentException>(() => new QuestionDefinition(
+			Assert.Throws<ArgumentException>(() => createQuestionDefinition(
 				typeof(Question),
 				language => language.Culture,
 				question => new Modules.Boolean.Xml.CheckStatementQuestion((CheckStatementQuestion) question),
@@ -49,7 +49,7 @@ namespace Inventor.Semantics.Test.Metadata
 		public void ImpossibleToCreateDefinitionWithoutNameGetter()
 		{
 			// act & assert
-			Assert.Throws<ArgumentNullException>(() => new QuestionDefinition(
+			Assert.Throws<ArgumentNullException>(() => createQuestionDefinition(
 				typeof(CheckStatementQuestion),
 				null,
 				question => new Modules.Boolean.Xml.CheckStatementQuestion((CheckStatementQuestion) question),
@@ -62,7 +62,7 @@ namespace Inventor.Semantics.Test.Metadata
 		public void ImpossibleToCreateDefinitionWithoutXmlGetter()
 		{
 			// act & assert
-			Assert.Throws<ArgumentNullException>(() => new QuestionDefinition(
+			Assert.Throws<ArgumentNullException>(() => createQuestionDefinition(
 				typeof(CheckStatementQuestion),
 				language => language.Culture,
 				null,
@@ -75,7 +75,7 @@ namespace Inventor.Semantics.Test.Metadata
 		public void ImpossibleToCreateDefinitionWithoutJsonGetter()
 		{
 			// act & assert
-			Assert.Throws<ArgumentNullException>(() => new QuestionDefinition(
+			Assert.Throws<ArgumentNullException>(() => createQuestionDefinition(
 				typeof(CheckStatementQuestion),
 				language => language.Culture,
 				question => new Modules.Boolean.Xml.CheckStatementQuestion((CheckStatementQuestion) question),
@@ -88,7 +88,7 @@ namespace Inventor.Semantics.Test.Metadata
 		public void ImpossibleToCreateDefinitionWithoutXmlType()
 		{
 			// act & assert
-			Assert.Throws<ArgumentNullException>(() => new QuestionDefinition(
+			Assert.Throws<ArgumentNullException>(() => createQuestionDefinition(
 				typeof(CheckStatementQuestion),
 				language => language.Culture,
 				question => new Modules.Boolean.Xml.CheckStatementQuestion((CheckStatementQuestion) question),
@@ -101,7 +101,7 @@ namespace Inventor.Semantics.Test.Metadata
 		public void ImpossibleToCreateDefinitionWithoutJsonType()
 		{
 			// act & assert
-			Assert.Throws<ArgumentNullException>(() => new QuestionDefinition(
+			Assert.Throws<ArgumentNullException>(() => createQuestionDefinition(
 				typeof(CheckStatementQuestion),
 				language => language.Culture,
 				question => new Modules.Boolean.Xml.CheckStatementQuestion((CheckStatementQuestion) question),
@@ -114,7 +114,7 @@ namespace Inventor.Semantics.Test.Metadata
 		public void CheckName()
 		{
 			// arrange
-			var definition = new QuestionDefinition(
+			var definition = createQuestionDefinition(
 				typeof(CheckStatementQuestion),
 				language => language.Culture,
 				question => new Modules.Boolean.Xml.CheckStatementQuestion((CheckStatementQuestion) question),
@@ -127,6 +127,19 @@ namespace Inventor.Semantics.Test.Metadata
 
 			// assert
 			Assert.AreEqual(Language.Default.Culture, name);
+		}
+
+		private static QuestionDefinition createQuestionDefinition(
+			Type type,
+			Func<ILanguage, String> questionNameGetter,
+			Func<IQuestion, Semantics.Serialization.Xml.Question> questionXmlGetter,
+			Func<IQuestion, Semantics.Serialization.Json.Question> questionJsonGetter,
+			Type xmlType,
+			Type jsonType)
+		{
+			return new QuestionDefinition(type, questionNameGetter)
+				.SerializeToXml(questionXmlGetter, xmlType)
+				.SerializeToJson(questionJsonGetter, jsonType);
 		}
 	}
 }

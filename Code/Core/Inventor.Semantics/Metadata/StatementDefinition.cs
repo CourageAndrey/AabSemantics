@@ -72,10 +72,6 @@ namespace Inventor.Semantics.Metadata
 		public StatementDefinition(
 			Type type,
 			Func<ILanguage, String> statementNameGetter,
-			Func<IStatement, Serialization.Xml.Statement> statementXmlGetter,
-			Func<IStatement, Serialization.Json.Statement> statementJsonGetter,
-			Type xmlType,
-			Type jsonType,
 			StatementConsistencyCheckerDelegate consistencyChecker)
 			: base(type, typeof(IStatement))
 		{
@@ -84,9 +80,6 @@ namespace Inventor.Semantics.Metadata
 
 			_statementNameGetter = statementNameGetter;
 			_consistencyChecker = consistencyChecker;
-
-			SerializationSettings.Add(new StatementJsonSerializationSettings(statementJsonGetter, jsonType));
-			SerializationSettings.Add(new StatementXmlSerializationSettings(statementXmlGetter, xmlType));
 		}
 
 		#endregion
@@ -102,6 +95,23 @@ namespace Inventor.Semantics.Metadata
 		}
 
 		public static readonly StatementConsistencyCheckerDelegate NoConsistencyCheck = (statements, result) => { };
+	}
+
+	public class StatementDefinition<StatementT> : StatementDefinition
+		where StatementT : IStatement
+	{
+		public StatementDefinition(
+			Func<ILanguage, String> statementNameGetter,
+			StatementConsistencyCheckerDelegate<StatementT> consistencyChecker)
+			: base(
+				typeof(StatementT),
+				statementNameGetter,
+				(semanticNetwork, result) => consistencyChecker(semanticNetwork.Statements.OfType<StatementT>().ToList(), result, semanticNetwork))
+		{
+			if (consistencyChecker == null) throw new ArgumentNullException(nameof(consistencyChecker));
+		}
+
+		public static readonly StatementConsistencyCheckerDelegate<StatementT> NoConsistencyCheck = (statements, result, semanticNetwork) => { };
 	}
 
 	public static class StatementDefinitionExtensions
@@ -127,58 +137,73 @@ namespace Inventor.Semantics.Metadata
 		{
 			return metadataDefinition.GetSerializationSettings<SettingsT>();
 		}
-	}
 
-	public class StatementDefinition<StatementT> : StatementDefinition
-		where StatementT: IStatement
-	{
-		public StatementDefinition(
-			Func<ILanguage, String> statementNameGetter,
-			Func<StatementT, Serialization.Xml.Statement> statementXmlGetter,
-			Func<StatementT, Serialization.Json.Statement> statementJsonGetter,
-			Type xmlType,
-			Type jsonType,
-			StatementConsistencyCheckerDelegate<StatementT> consistencyChecker)
-			: base(
-				typeof(StatementT),
-				statementNameGetter,
-				statement => statementXmlGetter((StatementT) statement),
-				statement => statementJsonGetter((StatementT) statement),
-				xmlType,
-				jsonType,
-				(semanticNetwork, result) => consistencyChecker(semanticNetwork.Statements.OfType<StatementT>().ToList(), result, semanticNetwork))
+		public static StatementDefinition SerializeToXml(
+			this StatementDefinition metadataDefinition,
+			Func<IStatement, Serialization.Xml.Statement> statementXmlGetter,
+			Type xmlType)
 		{
-			if (statementXmlGetter == null) throw new ArgumentNullException(nameof(statementXmlGetter));
-			if (statementJsonGetter == null) throw new ArgumentNullException(nameof(statementJsonGetter));
-			if (consistencyChecker == null) throw new ArgumentNullException(nameof(consistencyChecker));
-		}
-
-		public new static readonly StatementConsistencyCheckerDelegate<StatementT> NoConsistencyCheck = (statements, result, allStatements) => { };
-	}
-
-	public class StatementDefinition<StatementT, XmlT, JsonT> : StatementDefinition<StatementT>
-		where StatementT: IStatement
-		where XmlT : Serialization.Xml.Statement
-		where JsonT : Serialization.Json.Statement
-	{
-		public StatementDefinition(
-			Func<ILanguage, String> statementNameGetter,
-			Func<StatementT, XmlT> statementXmlGetter,
-			Func<StatementT, JsonT> statementJsonGetter,
-			StatementConsistencyCheckerDelegate<StatementT> consistencyChecker)
-			: base(
-				statementNameGetter,
+			metadataDefinition.SerializationSettings.Add(new StatementXmlSerializationSettings(
 				statementXmlGetter,
-				statementJsonGetter,
-				typeof(XmlT),
-				typeof(JsonT),
-				consistencyChecker)
-		{
-			if (statementXmlGetter == null) throw new ArgumentNullException(nameof(statementXmlGetter));
-			if (statementJsonGetter == null) throw new ArgumentNullException(nameof(statementJsonGetter));
-			if (consistencyChecker == null) throw new ArgumentNullException(nameof(consistencyChecker));
+				xmlType));
+			return metadataDefinition;
 		}
 
-		public new static readonly StatementConsistencyCheckerDelegate<StatementT> NoConsistencyCheck = (statements, result, allStatements) => { };
+		public static StatementDefinition SerializeToJson(
+			this StatementDefinition metadataDefinition,
+			Func<IStatement, Serialization.Json.Statement> statementJsonGetter,
+			Type jsonType)
+		{
+			metadataDefinition.SerializationSettings.Add(new StatementJsonSerializationSettings(
+				statementJsonGetter,
+				jsonType));
+			return metadataDefinition;
+		}
+
+		public static StatementDefinition<StatementT> SerializeToXml<StatementT>(
+			this StatementDefinition<StatementT> metadataDefinition,
+			Func<StatementT, Serialization.Xml.Statement> statementXmlGetter,
+			Type xmlType)
+			where StatementT : IStatement
+		{
+			metadataDefinition.SerializationSettings.Add(new StatementXmlSerializationSettings(
+				statement => statementXmlGetter((StatementT) statement),
+				xmlType));
+			return metadataDefinition;
+		}
+
+		public static StatementDefinition<StatementT> SerializeToJson<StatementT>(
+			this StatementDefinition<StatementT> metadataDefinition,
+			Func<StatementT, Serialization.Json.Statement> statementJsonGetter,
+			Type jsonType)
+			where StatementT : IStatement
+		{
+			metadataDefinition.SerializationSettings.Add(new StatementJsonSerializationSettings(
+				statement => statementJsonGetter((StatementT) statement),
+				jsonType));
+			return metadataDefinition;
+		}
+
+		public static StatementDefinition<StatementT> SerializeToXml<StatementT, XmlT>(
+			this StatementDefinition<StatementT> metadataDefinition,
+			Func<StatementT, XmlT> statementXmlGetter)
+			where StatementT : IStatement
+			where XmlT : Serialization.Xml.Statement
+		{
+			return metadataDefinition.SerializeToXml(
+				statementXmlGetter,
+				typeof(XmlT));
+		}
+
+		public static StatementDefinition<StatementT> SerializeToJson<StatementT, JsonT>(
+			this StatementDefinition<StatementT> metadataDefinition,
+			Func<StatementT, JsonT> statementJsonGetter)
+			where StatementT : IStatement
+			where JsonT : Serialization.Json.Statement
+		{
+			return metadataDefinition.SerializeToJson(
+				statementJsonGetter,
+				typeof(JsonT));
+		}
 	}
 }

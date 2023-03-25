@@ -35,8 +35,12 @@ namespace Inventor.Semantics.Processes
 
 		protected override void RegisterAttributes()
 		{
-			Repositories.RegisterAttribute(IsProcessAttribute.Value, language => language.GetExtension<ILanguageProcessesModule>().Attributes.IsProcess, new Xml.IsProcessAttribute());
-			Repositories.RegisterAttribute(IsSequenceSignAttribute.Value, language => language.GetExtension<ILanguageProcessesModule>().Attributes.IsSequenceSign, new Xml.IsSequenceSignAttribute());
+			Repositories.RegisterAttribute(IsProcessAttribute.Value, language => language.GetExtension<ILanguageProcessesModule>().Attributes.IsProcess)
+				.SerializeToXml(new Xml.IsProcessAttribute())
+				.SerializeToJson(new Xml.IsProcessAttribute());
+			Repositories.RegisterAttribute(IsSequenceSignAttribute.Value, language => language.GetExtension<ILanguageProcessesModule>().Attributes.IsSequenceSign)
+				.SerializeToXml(new Xml.IsSequenceSignAttribute())
+				.SerializeToJson(new Xml.IsSequenceSignAttribute());
 		}
 
 		protected override void RegisterConcepts()
@@ -46,19 +50,16 @@ namespace Inventor.Semantics.Processes
 
 		protected override void RegisterStatements()
 		{
-			Repositories.RegisterStatement<ProcessesStatement, Xml.ProcessesStatement, Json.ProcessesStatement>(
-				language => language.GetExtension<ILanguageProcessesModule>().Statements.Names.Processes,
-				statement => new Xml.ProcessesStatement(statement),
-				statement => new Json.ProcessesStatement(statement),
-				checkProcessSequenceSystems);
+			Repositories.RegisterStatement<ProcessesStatement>(language => language.GetExtension<ILanguageProcessesModule>().Statements.Names.Processes, checkProcessSequenceSystems)
+				.SerializeToXml(statement => new Xml.ProcessesStatement(statement))
+				.SerializeToJson(statement => new Json.ProcessesStatement(statement));
 		}
 
 		protected override void RegisterQuestions()
 		{
-			Repositories.RegisterQuestion<ProcessesQuestion, Xml.ProcessesQuestion, Json.ProcessesQuestion>(
-				language => language.GetExtension<ILanguageProcessesModule>().Questions.Names.ProcessesQuestion,
-				question => new Xml.ProcessesQuestion(question),
-				question => new Json.ProcessesQuestion(question));
+			Repositories.RegisterQuestion<ProcessesQuestion>(language => language.GetExtension<ILanguageProcessesModule>().Questions.Names.ProcessesQuestion)
+				.SerializeToXml(question => new Xml.ProcessesQuestion(question))
+				.SerializeToJson(question => new Json.ProcessesQuestion(question));
 		}
 
 		public override IDictionary<String, Type> GetLanguageExtensions()
