@@ -3,6 +3,7 @@ using System.Collections.Generic;
 
 using Inventor.Semantics;
 using Inventor.Semantics.Questions;
+using Inventor.Semantics.Text.Primitives;
 using Samples.Semantics.Sample07.CustomModule.Localization;
 
 namespace Samples.Semantics.Sample07.CustomModule
@@ -30,15 +31,28 @@ namespace Samples.Semantics.Sample07.CustomModule
 			return context
 				.From<CustomQuestion, CustomStatement>()
 				.Where(s => s.Concept1 == Concept1 && s.Concept2 == Concept2)
-				.SelectBoolean(
-					statements => statements.Count > 0,
-					language => language.GetExtension<ILanguageCustomModule>().Questions.Answers.CustomTrue,
-					language => language.GetExtension<ILanguageCustomModule>().Questions.Answers.CustomFalse,
-					new Dictionary<String, IKnowledge>
+				.SelectCustom((questionProcessingContext, statements, childAnswers) =>
+				{
+					bool isTrue = statements.Count > 0;
+					var formatter = isTrue
+						? new Func<ILanguage, String>(language => language.GetExtension<ILanguageCustomModule>().Questions.Answers.CustomTrue)
+						: language => language.GetExtension<ILanguageCustomModule>().Questions.Answers.CustomFalse;
+					var parameters = new Dictionary<String, IKnowledge>
 					{
 						{ CustomStatement.ParamConcept1, Concept1 },
 						{ CustomStatement.ParamConcept2, Concept2 },
-					});
+					};
+					return new CustomAnswer(new FormattedText(formatter, parameters), new Explanation(statements));
+				});
+				//.SelectBoolean(
+				//	statements => statements.Count > 0,
+				//	language => language.GetExtension<ILanguageCustomModule>().Questions.Answers.CustomTrue,
+				//	language => language.GetExtension<ILanguageCustomModule>().Questions.Answers.CustomFalse,
+				//	new Dictionary<String, IKnowledge>
+				//	{
+				//		{ CustomStatement.ParamConcept1, Concept1 },
+				//		{ CustomStatement.ParamConcept2, Concept2 },
+				//	});
 		}
 	}
 }
