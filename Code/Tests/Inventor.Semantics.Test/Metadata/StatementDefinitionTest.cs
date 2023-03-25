@@ -38,7 +38,7 @@ namespace Inventor.Semantics.Test.Metadata
 				typeof(Modules.Classification.Xml.IsStatement),
 				typeof(Modules.Classification.Json.IsStatement),
 				StatementDefinition.NoConsistencyCheck));
-			Assert.Throws<ArgumentException>(() => new StatementDefinition<Statement>(
+			Assert.Throws<ArgumentException>(() => createStatementDefinition<Statement>(
 				language => language.Culture,
 				statement => null,
 				statement => null,
@@ -51,7 +51,7 @@ namespace Inventor.Semantics.Test.Metadata
 		public void ImpossibleToCreateDefinitionWithoutNameGetter()
 		{
 			// act & assert
-			Assert.Throws<ArgumentNullException>(() => new StatementDefinition<IsStatement>(
+			Assert.Throws<ArgumentNullException>(() => createStatementDefinition<IsStatement>(
 				null,
 				statement => null,
 				statement => null,
@@ -72,7 +72,7 @@ namespace Inventor.Semantics.Test.Metadata
 		public void ImpossibleToCreateDefinitionWithoutXmlType()
 		{
 			// act & assert
-			Assert.Throws<ArgumentNullException>(() => new StatementDefinition<IsStatement>(
+			Assert.Throws<ArgumentNullException>(() => createStatementDefinition<IsStatement>(
 				language => language.Culture,
 				statement => null,
 				statement => null,
@@ -93,7 +93,7 @@ namespace Inventor.Semantics.Test.Metadata
 		public void ImpossibleToCreateDefinitionWithoutJsonType()
 		{
 			// act & assert
-			Assert.Throws<ArgumentNullException>(() => new StatementDefinition<IsStatement>(
+			Assert.Throws<ArgumentNullException>(() => createStatementDefinition<IsStatement>(
 				language => language.Culture,
 				statement => null,
 				statement => null,
@@ -114,7 +114,7 @@ namespace Inventor.Semantics.Test.Metadata
 		public void ImpossibleToCreateDefinitionWithoutXmlGetter()
 		{
 			// act & assert
-			Assert.Throws<ArgumentNullException>(() => new StatementDefinition<IsStatement>(
+			Assert.Throws<ArgumentNullException>(() => createStatementDefinition<IsStatement>(
 				language => language.Culture,
 				null,
 				statement => null,
@@ -135,7 +135,7 @@ namespace Inventor.Semantics.Test.Metadata
 		public void ImpossibleToCreateDefinitionWithoutJsonGetter()
 		{
 			// act & assert
-			Assert.Throws<ArgumentNullException>(() => new StatementDefinition<IsStatement>(
+			Assert.Throws<ArgumentNullException>(() => createStatementDefinition<IsStatement>(
 				language => language.Culture,
 				statement => null,
 				null,
@@ -156,7 +156,7 @@ namespace Inventor.Semantics.Test.Metadata
 		public void ImpossibleToCreateDefinitionWithoutConsistencyChecker()
 		{
 			// act & assert
-			Assert.Throws<ArgumentNullException>(() => new StatementDefinition<IsStatement>(
+			Assert.Throws<ArgumentNullException>(() => createStatementDefinition<IsStatement>(
 				language => language.Culture,
 				statement => null,
 				statement => null,
@@ -187,7 +187,7 @@ namespace Inventor.Semantics.Test.Metadata
 		public void CheckName()
 		{
 			// arrange
-			var definition = new StatementDefinition<IsStatement>(
+			var definition = createStatementDefinition<IsStatement>(
 				language => language.Culture,
 				statement => null,
 				statement => null,
@@ -202,6 +202,21 @@ namespace Inventor.Semantics.Test.Metadata
 			Assert.AreEqual(Language.Default.Culture, name);
 		}
 
+		private static StatementDefinition<StatementT> createStatementDefinition<StatementT>(
+			Func<ILanguage, String> statementNameGetter,
+			Func<IStatement, Semantics.Serialization.Xml.Statement> statementXmlGetter,
+			Func<IStatement, Semantics.Serialization.Json.Statement> statementJsonGetter,
+			Type xmlType,
+			Type jsonType,
+			StatementConsistencyCheckerDelegate<StatementT> consistencyChecker)
+			where StatementT : IStatement
+		{
+			var statementDefinition = new StatementDefinition<StatementT>(statementNameGetter, consistencyChecker);
+			statementDefinition.SerializeToXml(statementXmlGetter, xmlType);
+			statementDefinition.SerializeToJson(statementJsonGetter, jsonType);
+			return statementDefinition;
+		}
+
 		private class TestStatementDefinition : StatementDefinition
 		{
 			public TestStatementDefinition(
@@ -212,8 +227,11 @@ namespace Inventor.Semantics.Test.Metadata
 				Type xmlType,
 				Type jsonType,
 				StatementConsistencyCheckerDelegate consistencyChecker)
-				: base(type, statementNameGetter, statementXmlGetter, statementJsonGetter, xmlType, jsonType, consistencyChecker)
-			{ }
+				: base(type, statementNameGetter, consistencyChecker)
+			{
+				this.SerializeToXml(statementXmlGetter, xmlType);
+				this.SerializeToJson(statementJsonGetter, jsonType);
+			}
 		}
 	}
 }

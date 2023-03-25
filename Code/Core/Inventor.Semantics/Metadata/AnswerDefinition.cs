@@ -54,21 +54,17 @@ namespace Inventor.Semantics.Metadata
 
 	public class AnswerDefinition : MetadataDefinition<IAnswerSerializationSettings>
 	{
-		#region Constructors
-
-		public AnswerDefinition(
-			Type type,
-			Func<IAnswer, ILanguage, Serialization.Xml.Answer> answerXmlGetter,
-			Func<IAnswer, ILanguage, Serialization.Json.Answer> answerJsonGetter,
-			Type xmlType,
-			Type jsonType)
+		public AnswerDefinition(Type type)
 			: base(type, typeof(IAnswer))
-		{
-			SerializationSettings.Add(new AnswerJsonSerializationSettings(answerJsonGetter, jsonType));
-			SerializationSettings.Add(new AnswerXmlSerializationSettings(answerXmlGetter, xmlType));
-		}
+		{ }
+	}
 
-		#endregion
+	public class AnswerDefinition<AnswerT> : AnswerDefinition
+		where AnswerT : IAnswer
+	{
+		public AnswerDefinition()
+			: base(typeof(AnswerT))
+		{ }
 	}
 
 	public static class AnswerDefinitionExtensions
@@ -94,44 +90,73 @@ namespace Inventor.Semantics.Metadata
 		{
 			return metadataDefinition.GetSerializationSettings<SettingsT>();
 		}
-	}
 
-	public class AnswerDefinition<AnswerT> : AnswerDefinition
-		where AnswerT : IAnswer
-	{
-		public AnswerDefinition(
-			Func<AnswerT, ILanguage, Serialization.Xml.Answer> answerXmlGetter,
-			Func<AnswerT, ILanguage, Serialization.Json.Answer> answerJsonGetter,
-			Type xmlType,
-			Type jsonType)
-			: base(
-				typeof(AnswerT),
-				(answer, language) => answerXmlGetter((AnswerT) answer, language),
-				(answer, language) => answerJsonGetter((AnswerT) answer, language),
-				xmlType,
-				jsonType)
+		public static AnswerDefinition SerializeToXml(
+			this AnswerDefinition metadataDefinition,
+			Func<IAnswer, ILanguage, Serialization.Xml.Answer> answerXmlGetter,
+			Type xmlType)
 		{
-			if (answerXmlGetter == null) throw new ArgumentNullException(nameof(answerXmlGetter));
-			if (answerJsonGetter == null) throw new ArgumentNullException(nameof(answerJsonGetter));
-		}
-	}
-
-	public class AnswerDefinition<AnswerT, XmlT, JsonT> : AnswerDefinition<AnswerT>
-		where AnswerT : IAnswer
-		where XmlT : Serialization.Xml.Answer
-		where JsonT : Serialization.Json.Answer
-	{
-		public AnswerDefinition(
-			Func<AnswerT, ILanguage, XmlT> answerXmlGetter,
-			Func<AnswerT, ILanguage, JsonT> answerJsonGetter)
-			: base(
+			metadataDefinition.SerializationSettings.Add(new AnswerXmlSerializationSettings(
 				answerXmlGetter,
-				answerJsonGetter,
-				typeof(XmlT),
-				typeof(JsonT))
+				xmlType));
+			return metadataDefinition;
+		}
+
+		public static AnswerDefinition SerializeToJson(
+			this AnswerDefinition metadataDefinition,
+			Func<IAnswer, ILanguage, Serialization.Json.Answer> answerJsonGetter,
+			Type jsonType)
 		{
-			if (answerXmlGetter == null) throw new ArgumentNullException(nameof(answerXmlGetter));
-			if (answerJsonGetter == null) throw new ArgumentNullException(nameof(answerJsonGetter));
+			metadataDefinition.SerializationSettings.Add(new AnswerJsonSerializationSettings(
+				answerJsonGetter,
+				jsonType));
+			return metadataDefinition;
+		}
+
+		public static AnswerDefinition<AnswerT> SerializeToXml<AnswerT>(
+			this AnswerDefinition<AnswerT> metadataDefinition,
+			Func<AnswerT, ILanguage, Serialization.Xml.Answer> answerXmlGetter,
+			Type xmlType)
+			where AnswerT : IAnswer
+		{
+			metadataDefinition.SerializationSettings.Add(new AnswerXmlSerializationSettings(
+				(answer, language) => answerXmlGetter((AnswerT) answer, language),
+				xmlType));
+			return metadataDefinition;
+		}
+
+		public static AnswerDefinition<AnswerT> SerializeToJson<AnswerT>(
+			this AnswerDefinition<AnswerT> metadataDefinition,
+			Func<AnswerT, ILanguage, Serialization.Json.Answer> answerJsonGetter,
+			Type jsonType)
+			where AnswerT : IAnswer
+		{
+			metadataDefinition.SerializationSettings.Add(new AnswerJsonSerializationSettings(
+				(answer, language) => answerJsonGetter((AnswerT) answer, language),
+				jsonType));
+			return metadataDefinition;
+		}
+
+		public static AnswerDefinition<AnswerT> SerializeToXml<AnswerT, XmlT>(
+			this AnswerDefinition<AnswerT> metadataDefinition,
+			Func<AnswerT, ILanguage, XmlT> answerXmlGetter)
+			where AnswerT : IAnswer
+			where XmlT : Serialization.Xml.Answer
+		{
+			return metadataDefinition.SerializeToXml(
+				answerXmlGetter,
+				typeof(XmlT));
+		}
+
+		public static AnswerDefinition<AnswerT> SerializeToJson<AnswerT, JsonT>(
+			this AnswerDefinition<AnswerT> metadataDefinition,
+			Func<AnswerT, ILanguage, JsonT> answerJsonGetter)
+			where AnswerT : IAnswer
+			where JsonT : Serialization.Json.Answer
+		{
+			return metadataDefinition.SerializeToJson(
+				answerJsonGetter,
+				typeof(JsonT));
 		}
 	}
 }

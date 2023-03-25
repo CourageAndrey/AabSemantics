@@ -20,8 +20,7 @@ namespace Inventor.Semantics.Test.Metadata
 			Assert.Throws<ArgumentNullException>(() => new AttributeDefinition(
 				null,
 				IsValueAttribute.Value,
-				language => language.Culture,
-				new Modules.Boolean.Xml.IsValueAttribute()));
+				language => language.Culture));
 		}
 
 		[Test]
@@ -31,13 +30,11 @@ namespace Inventor.Semantics.Test.Metadata
 			Assert.Throws<ArgumentException>(() => new AttributeDefinition(
 				typeof(CheckStatementQuestion),
 				IsValueAttribute.Value,
-				language => language.Culture,
-				new Modules.Boolean.Xml.IsValueAttribute()));
+				language => language.Culture));
 			Assert.Throws<ArgumentException>(() => new AttributeDefinition(
 				typeof(TestAbstractAttribute),
 				IsValueAttribute.Value,
-				language => language.Culture,
-				new Modules.Boolean.Xml.IsValueAttribute()));
+				language => language.Culture));
 		}
 
 		[Test]
@@ -47,8 +44,7 @@ namespace Inventor.Semantics.Test.Metadata
 			Assert.Throws<ArgumentNullException>(() => new AttributeDefinition(
 				typeof(IsValueAttribute),
 				null,
-				language => language.Culture,
-				new Modules.Boolean.Xml.IsValueAttribute()));
+				language => language.Culture));
 		}
 
 		[Test]
@@ -58,8 +54,7 @@ namespace Inventor.Semantics.Test.Metadata
 			Assert.Throws<InvalidCastException>(() => new AttributeDefinition(
 				typeof(IsValueAttribute),
 				IsProcessAttribute.Value,
-				language => language.Culture,
-				new Modules.Boolean.Xml.IsValueAttribute()));
+				language => language.Culture));
 		}
 
 		[Test]
@@ -69,18 +64,6 @@ namespace Inventor.Semantics.Test.Metadata
 			Assert.Throws<ArgumentNullException>(() => new AttributeDefinition(
 				typeof(IsValueAttribute),
 				IsValueAttribute.Value,
-				null,
-				new Modules.Boolean.Xml.IsValueAttribute()));
-		}
-
-		[Test]
-		public void ImpossibleToCreateDefinitionWithoutXmlValue()
-		{
-			// act & assert
-			Assert.Throws<ArgumentNullException>(() => new AttributeDefinition(
-				typeof(IsValueAttribute),
-				IsValueAttribute.Value,
-				language => language.Culture,
 				null));
 		}
 
@@ -91,8 +74,7 @@ namespace Inventor.Semantics.Test.Metadata
 			var definition = new AttributeDefinition(
 				typeof(IsValueAttribute),
 				IsValueAttribute.Value,
-				language => language.Culture,
-				new Modules.Boolean.Xml.IsValueAttribute());
+				language => language.Culture);
 
 			// act
 			string name = definition.GetName(Language.Default);
@@ -117,10 +99,9 @@ namespace Inventor.Semantics.Test.Metadata
 			// arrange
 			var value = new TestAttributeChecked();
 			Func<ILanguage, string> nameGetter = language => _attributeName;
-			var xml = new Modules.Boolean.Xml.IsValueAttribute();
 
 			// act && assert
-			Assert.Throws<ArgumentNullException>(() => new AttributeDefinition(null, value, nameGetter, xml));
+			Assert.Throws<ArgumentNullException>(() => new AttributeDefinition(null, value, nameGetter));
 		}
 
 		[Test]
@@ -129,10 +110,9 @@ namespace Inventor.Semantics.Test.Metadata
 			// arrange
 			var type = typeof(TestAttributeChecked);
 			Func<ILanguage, string> nameGetter = language => _attributeName;
-			var xml = new TestAttributeXml();
 
 			// act && assert
-			Assert.Throws<ArgumentNullException>(() => new AttributeDefinition(type, null, nameGetter, xml));
+			Assert.Throws<ArgumentNullException>(() => new AttributeDefinition(type, null, nameGetter));
 		}
 
 		[Test]
@@ -141,22 +121,9 @@ namespace Inventor.Semantics.Test.Metadata
 			// arrange
 			var type = typeof(TestAttributeChecked);
 			var value = new TestAttributeChecked();
-			var xml = new TestAttributeXml();
 
 			// act && assert
-			Assert.Throws<ArgumentNullException>(() => new AttributeDefinition(type, value, null, xml));
-		}
-
-		[Test]
-		public void GivenNullXmlWhenCreateAttributeDefinitionThenFail()
-		{
-			// arrange
-			var type = typeof(TestAttributeChecked);
-			var value = new TestAttributeChecked();
-			Func<ILanguage, string> nameGetter = language => _attributeName;
-
-			// act && assert
-			Assert.Throws<ArgumentNullException>(() => new AttributeDefinition(type, value, nameGetter, null));
+			Assert.Throws<ArgumentNullException>(() => new AttributeDefinition(type, value, null));
 		}
 
 		[Test]
@@ -166,10 +133,9 @@ namespace Inventor.Semantics.Test.Metadata
 			var type = typeof(TestAttributeChecked);
 			var wrongValue = Modules.Boolean.Attributes.IsBooleanAttribute.Value;
 			Func<ILanguage, string> nameGetter = language => _attributeName;
-			var xml = new TestAttributeXml();
 
 			// act && assert
-			Assert.Throws<InvalidCastException>(() => new AttributeDefinition(type, wrongValue, nameGetter, xml));
+			Assert.Throws<InvalidCastException>(() => new AttributeDefinition(type, wrongValue, nameGetter));
 		}
 
 		[Test]
@@ -179,10 +145,9 @@ namespace Inventor.Semantics.Test.Metadata
 			var type = typeof(TestAttributeChecked);
 			var value = new TestAttributeChecked();
 			Func<ILanguage, string> nameGetter = language => _attributeName;
-			var xml = new TestAttributeXml();
 
 			// act
-			var attribute = new AttributeDefinition(type, value, nameGetter, xml);
+			var attribute = new AttributeDefinition(type, value, nameGetter);
 
 			// assert
 			Assert.AreSame(type, attribute.Type);
@@ -197,10 +162,9 @@ namespace Inventor.Semantics.Test.Metadata
 			var type = typeof(TestAttributeChecked);
 			var value = new TestAttributeDerived();
 			Func<ILanguage, string> nameGetter = language => _attributeName;
-			var xml = new TestAttributeXml();
 
 			// act
-			var attribute = new AttributeDefinition(type, value, nameGetter, xml);
+			var attribute = new AttributeDefinition(type, value, nameGetter);
 
 			// assert
 			Assert.AreSame(type, attribute.Type);

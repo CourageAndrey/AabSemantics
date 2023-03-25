@@ -23,27 +23,22 @@ namespace Inventor.Semantics.Modules.Classification
 
 		protected override void RegisterStatements()
 		{
-			Repositories.RegisterStatement<IsStatement, Xml.IsStatement, Json.IsStatement>(
-				language => language.GetExtension<ILanguageClassificationModule>().Statements.Names.Clasification,
-				statement => new Xml.IsStatement(statement),
-				statement => new Json.IsStatement(statement),
-				checkCyclicParents);
+			Repositories.RegisterStatement<IsStatement>(language => language.GetExtension<ILanguageClassificationModule>().Statements.Names.Clasification, checkCyclicParents)
+				.SerializeToXml(statement => new Xml.IsStatement(statement))
+				.SerializeToJson(statement => new Json.IsStatement(statement));
 		}
 
 		protected override void RegisterQuestions()
 		{
-			Repositories.RegisterQuestion<EnumerateAncestorsQuestion, Xml.EnumerateAncestorsQuestion, Json.EnumerateAncestorsQuestion>(
-				language => language.GetExtension<ILanguageClassificationModule>().Questions.Names.EnumerateAncestorsQuestion,
-				question => new Xml.EnumerateAncestorsQuestion(question),
-				question => new Json.EnumerateAncestorsQuestion(question));
-			Repositories.RegisterQuestion<EnumerateDescendantsQuestion, Xml.EnumerateDescendantsQuestion, Json.EnumerateDescendantsQuestion>(
-				language => language.GetExtension<ILanguageClassificationModule>().Questions.Names.EnumerateDescendantsQuestion,
-				question => new Xml.EnumerateDescendantsQuestion(question),
-				question => new Json.EnumerateDescendantsQuestion(question));
-			Repositories.RegisterQuestion<IsQuestion, Xml.IsQuestion, Json.IsQuestion>(
-				language => language.GetExtension<ILanguageClassificationModule>().Questions.Names.IsQuestion,
-				question => new Xml.IsQuestion(question),
-				question => new Json.IsQuestion(question));
+			Repositories.RegisterQuestion<EnumerateAncestorsQuestion>(language => language.GetExtension<ILanguageClassificationModule>().Questions.Names.EnumerateAncestorsQuestion)
+				.SerializeToXml(question => new Xml.EnumerateAncestorsQuestion(question))
+				.SerializeToJson(question => new Json.EnumerateAncestorsQuestion(question));
+			Repositories.RegisterQuestion<EnumerateDescendantsQuestion>(language => language.GetExtension<ILanguageClassificationModule>().Questions.Names.EnumerateDescendantsQuestion)
+				.SerializeToXml(question => new Xml.EnumerateDescendantsQuestion(question))
+				.SerializeToJson(question => new Json.EnumerateDescendantsQuestion(question));
+			Repositories.RegisterQuestion<IsQuestion>(language => language.GetExtension<ILanguageClassificationModule>().Questions.Names.IsQuestion)
+				.SerializeToXml(question => new Xml.IsQuestion(question))
+				.SerializeToJson(question => new Json.IsQuestion(question));
 		}
 
 		public override IDictionary<String, Type> GetLanguageExtensions()

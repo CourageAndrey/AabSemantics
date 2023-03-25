@@ -31,101 +31,80 @@ namespace Inventor.Semantics.Set
 
 		protected override void RegisterAttributes()
 		{
-			Repositories.RegisterAttribute(IsSignAttribute.Value, language => language.GetExtension<ILanguageSetModule>().Attributes.IsSign, new Xml.IsSignAttribute());
+			Repositories.RegisterAttribute(IsSignAttribute.Value, language => language.GetExtension<ILanguageSetModule>().Attributes.IsSign)
+				.SerializeToXml(new Xml.IsSignAttribute())
+				.SerializeToJson(new Xml.IsSignAttribute());
 		}
 
 		protected override void RegisterStatements()
 		{
-			Repositories.RegisterStatement<HasPartStatement, Xml.HasPartStatement, Json.HasPartStatement>(
-				language => language.GetExtension<ILanguageSetModule>().Statements.Names.Composition,
-				statement => new Xml.HasPartStatement(statement),
-				statement => new Json.HasPartStatement(statement),
-				StatementDefinition<HasPartStatement>.NoConsistencyCheck);
+			Repositories.RegisterStatement<HasPartStatement>(language => language.GetExtension<ILanguageSetModule>().Statements.Names.Composition, StatementDefinition<HasPartStatement>.NoConsistencyCheck)
+				.SerializeToXml(statement => new Xml.HasPartStatement(statement))
+				.SerializeToJson(statement => new Json.HasPartStatement(statement));
 
-			Repositories.RegisterStatement<GroupStatement, Xml.GroupStatement, Json.GroupStatement>(
-				language => language.GetExtension<ILanguageSetModule>().Statements.Names.SubjectArea,
-				statement => new Xml.GroupStatement(statement),
-				statement => new Json.GroupStatement(statement),
-				StatementDefinition<GroupStatement>.NoConsistencyCheck);
+			Repositories.RegisterStatement<GroupStatement>(language => language.GetExtension<ILanguageSetModule>().Statements.Names.SubjectArea, StatementDefinition<GroupStatement>.NoConsistencyCheck)
+				.SerializeToXml(statement => new Xml.GroupStatement(statement))
+				.SerializeToJson(statement => new Json.GroupStatement(statement));
 
-			Repositories.RegisterStatement<HasSignStatement, Xml.HasSignStatement, Json.HasSignStatement>(
-				language => language.GetExtension<ILanguageSetModule>().Statements.Names.HasSign,
-				statement => new Xml.HasSignStatement(statement),
-				statement => new Json.HasSignStatement(statement),
-				checkSignDuplications);
+			Repositories.RegisterStatement<HasSignStatement>(language => language.GetExtension<ILanguageSetModule>().Statements.Names.HasSign, checkSignDuplications)
+				.SerializeToXml(statement => new Xml.HasSignStatement(statement))
+				.SerializeToJson(statement => new Json.HasSignStatement(statement));
 
-			Repositories.RegisterStatement<SignValueStatement, Xml.SignValueStatement, Json.SignValueStatement>(
-				language => language.GetExtension<ILanguageSetModule>().Statements.Names.SignValue,
-				statement => new Xml.SignValueStatement(statement),
-				statement => new Json.SignValueStatement(statement),
-				checkSignValues);
+			Repositories.RegisterStatement<SignValueStatement>(language => language.GetExtension<ILanguageSetModule>().Statements.Names.SignValue, checkSignValues)
+				.SerializeToXml(statement => new Xml.SignValueStatement(statement))
+				.SerializeToJson(statement => new Json.SignValueStatement(statement));
 		}
 
 		protected override void RegisterQuestions()
 		{
-			Repositories.RegisterQuestion<DescribeSubjectAreaQuestion, Xml.DescribeSubjectAreaQuestion, Json.DescribeSubjectAreaQuestion>(
-				language => language.GetExtension<ILanguageSetModule>().Questions.Names.DescribeSubjectAreaQuestion,
-				question => new Xml.DescribeSubjectAreaQuestion(question),
-				question => new Json.DescribeSubjectAreaQuestion(question));
-			Repositories.RegisterQuestion<FindSubjectAreaQuestion, Xml.FindSubjectAreaQuestion, Json.FindSubjectAreaQuestion>(
-				language => language.GetExtension<ILanguageSetModule>().Questions.Names.FindSubjectAreaQuestion,
-				question => new Xml.FindSubjectAreaQuestion(question),
-				question => new Json.FindSubjectAreaQuestion(question));
-			Repositories.RegisterQuestion<IsSubjectAreaQuestion, Xml.IsSubjectAreaQuestion, Json.IsSubjectAreaQuestion>(
-				language => language.GetExtension<ILanguageSetModule>().Questions.Names.IsSubjectAreaQuestion,
-				question => new Xml.IsSubjectAreaQuestion(question),
-				question => new Json.IsSubjectAreaQuestion(question));
+			Repositories.RegisterQuestion<DescribeSubjectAreaQuestion>(language => language.GetExtension<ILanguageSetModule>().Questions.Names.DescribeSubjectAreaQuestion)
+				.SerializeToXml(question => new Xml.DescribeSubjectAreaQuestion(question))
+				.SerializeToJson(question => new Json.DescribeSubjectAreaQuestion(question));
+			Repositories.RegisterQuestion<FindSubjectAreaQuestion>(language => language.GetExtension<ILanguageSetModule>().Questions.Names.FindSubjectAreaQuestion)
+				.SerializeToXml(question => new Xml.FindSubjectAreaQuestion(question))
+				.SerializeToJson(question => new Json.FindSubjectAreaQuestion(question));
+			Repositories.RegisterQuestion<IsSubjectAreaQuestion>(language => language.GetExtension<ILanguageSetModule>().Questions.Names.IsSubjectAreaQuestion)
+				.SerializeToXml(question => new Xml.IsSubjectAreaQuestion(question))
+				.SerializeToJson(question => new Json.IsSubjectAreaQuestion(question));
 
-			Repositories.RegisterQuestion<EnumerateContainersQuestion, Xml.EnumerateContainersQuestion, Json.EnumerateContainersQuestion>(
-				language => language.GetExtension<ILanguageSetModule>().Questions.Names.EnumerateContainersQuestion,
-				question => new Xml.EnumerateContainersQuestion(question),
-				question => new Json.EnumerateContainersQuestion(question));
-			Repositories.RegisterQuestion<EnumeratePartsQuestion, Xml.EnumeratePartsQuestion, Json.EnumeratePartsQuestion>(
-				language => language.GetExtension<ILanguageSetModule>().Questions.Names.EnumeratePartsQuestion,
-				question => new Xml.EnumeratePartsQuestion(question),
-				question => new Json.EnumeratePartsQuestion(question));
-			Repositories.RegisterQuestion<IsPartOfQuestion, Xml.IsPartOfQuestion, Json.IsPartOfQuestion>(
-				language => language.GetExtension<ILanguageSetModule>().Questions.Names.IsPartOfQuestion,
-				question => new Xml.IsPartOfQuestion(question),
-				question => new Json.IsPartOfQuestion(question));
+			Repositories.RegisterQuestion<EnumerateContainersQuestion>(language => language.GetExtension<ILanguageSetModule>().Questions.Names.EnumerateContainersQuestion)
+				.SerializeToXml(question => new Xml.EnumerateContainersQuestion(question))
+				.SerializeToJson(question => new Json.EnumerateContainersQuestion(question));
+			Repositories.RegisterQuestion<EnumeratePartsQuestion>(language => language.GetExtension<ILanguageSetModule>().Questions.Names.EnumeratePartsQuestion)
+				.SerializeToXml(question => new Xml.EnumeratePartsQuestion(question))
+				.SerializeToJson(question => new Json.EnumeratePartsQuestion(question));
+			Repositories.RegisterQuestion<IsPartOfQuestion>(language => language.GetExtension<ILanguageSetModule>().Questions.Names.IsPartOfQuestion)
+				.SerializeToXml(question => new Xml.IsPartOfQuestion(question))
+				.SerializeToJson(question => new Json.IsPartOfQuestion(question));
 
-			Repositories.RegisterQuestion<EnumerateSignsQuestion, Xml.EnumerateSignsQuestion, Json.EnumerateSignsQuestion>(
-				language => language.GetExtension<ILanguageSetModule>().Questions.Names.EnumerateSignsQuestion,
-				question => new Xml.EnumerateSignsQuestion(question),
-				question => new Json.EnumerateSignsQuestion(question));
-			Repositories.RegisterQuestion<HasSignQuestion, Xml.HasSignQuestion, Json.HasSignQuestion>(
-				language => language.GetExtension<ILanguageSetModule>().Questions.Names.HasSignQuestion,
-				question => new Xml.HasSignQuestion(question),
-				question => new Json.HasSignQuestion(question));
-			Repositories.RegisterQuestion<HasSignsQuestion, Xml.HasSignsQuestion, Json.HasSignsQuestion>(
-				language => language.GetExtension<ILanguageSetModule>().Questions.Names.HasSignsQuestion,
-				question => new Xml.HasSignsQuestion(question),
-				question => new Json.HasSignsQuestion(question));
-			Repositories.RegisterQuestion<IsSignQuestion, Xml.IsSignQuestion, Json.IsSignQuestion>(
-				language => language.GetExtension<ILanguageSetModule>().Questions.Names.IsSignQuestion,
-				question => new Xml.IsSignQuestion(question),
-				question => new Json.IsSignQuestion(question));
-			Repositories.RegisterQuestion<IsValueQuestion, Xml.IsValueQuestion, Json.IsValueQuestion>(
-				language => language.GetExtension<ILanguageSetModule>().Questions.Names.IsValueQuestion,
-				question => new Xml.IsValueQuestion(question),
-				question => new Json.IsValueQuestion(question));
-			Repositories.RegisterQuestion<SignValueQuestion, Xml.SignValueQuestion, Json.SignValueQuestion>(
-				language => language.GetExtension<ILanguageSetModule>().Questions.Names.SignValueQuestion,
-				question => new Xml.SignValueQuestion(question),
-				question => new Json.SignValueQuestion(question));
+			Repositories.RegisterQuestion<EnumerateSignsQuestion>(language => language.GetExtension<ILanguageSetModule>().Questions.Names.EnumerateSignsQuestion)
+				.SerializeToXml(question => new Xml.EnumerateSignsQuestion(question))
+				.SerializeToJson(question => new Json.EnumerateSignsQuestion(question));
+			Repositories.RegisterQuestion<HasSignQuestion>(language => language.GetExtension<ILanguageSetModule>().Questions.Names.HasSignQuestion)
+				.SerializeToXml(question => new Xml.HasSignQuestion(question))
+				.SerializeToJson(question => new Json.HasSignQuestion(question));
+			Repositories.RegisterQuestion<HasSignsQuestion>(language => language.GetExtension<ILanguageSetModule>().Questions.Names.HasSignsQuestion)
+				.SerializeToXml(question => new Xml.HasSignsQuestion(question))
+				.SerializeToJson(question => new Json.HasSignsQuestion(question));
+			Repositories.RegisterQuestion<IsSignQuestion>(language => language.GetExtension<ILanguageSetModule>().Questions.Names.IsSignQuestion)
+				.SerializeToXml(question => new Xml.IsSignQuestion(question))
+				.SerializeToJson(question => new Json.IsSignQuestion(question));
+			Repositories.RegisterQuestion<IsValueQuestion>(language => language.GetExtension<ILanguageSetModule>().Questions.Names.IsValueQuestion)
+				.SerializeToXml(question => new Xml.IsValueQuestion(question))
+				.SerializeToJson(question => new Json.IsValueQuestion(question));
+			Repositories.RegisterQuestion<SignValueQuestion>(language => language.GetExtension<ILanguageSetModule>().Questions.Names.SignValueQuestion)
+				.SerializeToXml(question => new Xml.SignValueQuestion(question))
+				.SerializeToJson(question => new Json.SignValueQuestion(question));
 
-			Repositories.RegisterQuestion<GetCommonQuestion, Xml.GetCommonQuestion, Json.GetCommonQuestion>(
-				language => language.GetExtension<ILanguageSetModule>().Questions.Names.GetCommonQuestion,
-				question => new Xml.GetCommonQuestion(question),
-				question => new Json.GetCommonQuestion(question));
-			Repositories.RegisterQuestion<GetDifferencesQuestion, Xml.GetDifferencesQuestion, Json.GetDifferencesQuestion>(
-				language => language.GetExtension<ILanguageSetModule>().Questions.Names.GetDifferencesQuestion,
-				question => new Xml.GetDifferencesQuestion(question),
-				question => new Json.GetDifferencesQuestion(question));
-			Repositories.RegisterQuestion<WhatQuestion, Xml.WhatQuestion, Json.WhatQuestion>(
-				language => language.GetExtension<ILanguageSetModule>().Questions.Names.WhatQuestion,
-				question => new Xml.WhatQuestion(question),
-				question => new Json.WhatQuestion(question));
+			Repositories.RegisterQuestion<GetCommonQuestion>(language => language.GetExtension<ILanguageSetModule>().Questions.Names.GetCommonQuestion)
+				.SerializeToXml(question => new Xml.GetCommonQuestion(question))
+				.SerializeToJson(question => new Json.GetCommonQuestion(question));
+			Repositories.RegisterQuestion<GetDifferencesQuestion>(language => language.GetExtension<ILanguageSetModule>().Questions.Names.GetDifferencesQuestion)
+				.SerializeToXml(question => new Xml.GetDifferencesQuestion(question))
+				.SerializeToJson(question => new Json.GetDifferencesQuestion(question));
+			Repositories.RegisterQuestion<WhatQuestion>(language => language.GetExtension<ILanguageSetModule>().Questions.Names.WhatQuestion)
+				.SerializeToXml(question => new Xml.WhatQuestion(question))
+				.SerializeToJson(question => new Json.WhatQuestion(question));
 		}
 
 		public override IDictionary<String, Type> GetLanguageExtensions()

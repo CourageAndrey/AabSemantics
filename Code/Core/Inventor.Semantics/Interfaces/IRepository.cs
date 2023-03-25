@@ -21,12 +21,6 @@ namespace Inventor.Semantics
 
 	public static class RepositoryExtensions
 	{
-		public static void Define<DefinitionT>(this IRepository<DefinitionT> repository, DefinitionT questionDefinition)
-			where DefinitionT : IMetadataDefinition
-		{
-			repository.Definitions[questionDefinition.Type] = questionDefinition;
-		}
-
 		public static DefinitionT GetSuitable<InstanceT, DefinitionT>(this IDictionary<Type, DefinitionT> repository, InstanceT instance)
 		{
 			var type = instance.GetType();

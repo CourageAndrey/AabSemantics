@@ -57,8 +57,7 @@ namespace Inventor.Semantics.Metadata
 		public AttributeDefinition(
 			Type type,
 			IAttribute attributeValue,
-			Func<ILanguage, String> attributeNameGetter,
-			Serialization.Xml.Attribute xml)
+			Func<ILanguage, String> attributeNameGetter)
 			: base(type, typeof(IAttribute))
 		{
 			if (attributeValue == null) throw new ArgumentNullException(nameof(attributeValue));
@@ -67,9 +66,6 @@ namespace Inventor.Semantics.Metadata
 
 			AttributeValue = attributeValue;
 			_attributeNameGetter = attributeNameGetter;
-
-			SerializationSettings.Add(new AttributeJsonSerializationSettings(xml));
-			SerializationSettings.Add(new AttributeXmlSerializationSettings(xml));
 		}
 
 		private AttributeDefinition()
@@ -89,6 +85,16 @@ namespace Inventor.Semantics.Metadata
 		public static readonly AttributeDefinition None = new AttributeDefinition();
 
 		private class NoAttribute : IAttribute
+		{ }
+	}
+
+	public class AttributeDefinition<AttributeT> : AttributeDefinition
+		where AttributeT : IAttribute
+	{
+		public AttributeDefinition(
+			AttributeT attributeValue,
+			Func<ILanguage, String> attributeNameGetter)
+			: base(typeof(AttributeT), attributeValue, attributeNameGetter)
 		{ }
 	}
 
@@ -115,39 +121,21 @@ namespace Inventor.Semantics.Metadata
 		{
 			return metadataDefinition.GetSerializationSettings<SettingsT>();
 		}
-	}
 
-	public class AttributeDefinition<AttributeT> : AttributeDefinition
-		where AttributeT : IAttribute
-	{
-		public AttributeDefinition(
-			Func<ILanguage, String> attributeNameGetter,
-			AttributeT attributeValue,
+		public static AttributeDefinition SerializeToXml(
+			this AttributeDefinition metadataDefinition,
 			Serialization.Xml.Attribute xml)
-			: base(
-				typeof(AttributeT),
-				attributeValue,
-				attributeNameGetter,
-				xml)
 		{
-			if (attributeNameGetter == null) throw new ArgumentNullException(nameof(attributeNameGetter));
+			metadataDefinition.SerializationSettings.Add(new AttributeXmlSerializationSettings(xml));
+			return metadataDefinition;
 		}
-	}
 
-	public class AttributeDefinition<AttributeT, XmlT> : AttributeDefinition<AttributeT>
-		where AttributeT : IAttribute
-		where XmlT : Serialization.Xml.Attribute
-	{
-		public AttributeDefinition(
-			Func<ILanguage, String> attributeNameGetter,
-			AttributeT attributeValue,
-			XmlT xml)
-			: base(
-				attributeNameGetter,
-				attributeValue,
-				xml)
+		public static AttributeDefinition SerializeToJson(
+			this AttributeDefinition metadataDefinition,
+			Serialization.Xml.Attribute xml)
 		{
-			if (attributeNameGetter == null) throw new ArgumentNullException(nameof(attributeNameGetter));
+			metadataDefinition.SerializationSettings.Add(new AttributeJsonSerializationSettings(xml));
+			return metadataDefinition;
 		}
 	}
 }

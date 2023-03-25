@@ -60,27 +60,26 @@ namespace Inventor.Semantics.Metadata
 
 		#endregion
 
-		public QuestionDefinition(
-			Type type,
-			Func<ILanguage, String> questionNameGetter,
-			Func<IQuestion, Serialization.Xml.Question> questionXmlGetter,
-			Func<IQuestion, Serialization.Json.Question> questionJsonGetter,
-			Type xmlType,
-			Type jsonType)
+		public QuestionDefinition(Type type, Func<ILanguage, String> questionNameGetter)
 			: base(type, typeof(IQuestion))
 		{
 			if (questionNameGetter == null) throw new ArgumentNullException(nameof(questionNameGetter));
 
 			_questionNameGetter = questionNameGetter;
-
-			SerializationSettings.Add(new QuestionJsonSerializationSettings(questionJsonGetter, jsonType));
-			SerializationSettings.Add(new QuestionXmlSerializationSettings(questionXmlGetter, xmlType));
 		}
 
 		public String GetName(ILanguage language)
 		{
 			return _questionNameGetter(language);
 		}
+	}
+
+	public class QuestionDefinition<QuestionT> : QuestionDefinition
+		where QuestionT : IQuestion
+	{
+		public QuestionDefinition(Func<ILanguage, String> questionNameGetter)
+			: base(typeof(QuestionT), questionNameGetter)
+		{ }
 	}
 
 	public static class QuestionDefinitionExtensions
@@ -106,48 +105,69 @@ namespace Inventor.Semantics.Metadata
 		{
 			return metadataDefinition.GetSerializationSettings<SettingsT>();
 		}
-	}
 
-	public class QuestionDefinition<QuestionT> : QuestionDefinition
-		where QuestionT : IQuestion
-	{
-		public QuestionDefinition(
-			Func<ILanguage, String> questionNameGetter,
-			Func<QuestionT, Serialization.Xml.Question> questionXmlGetter,
-			Func<QuestionT, Serialization.Json.Question> questionJsonGetter,
-			Type xmlType,
-			Type jsonType)
-			: base(
-				typeof(QuestionT),
-				questionNameGetter,
-				question => questionXmlGetter((QuestionT) question),
-				question => questionJsonGetter((QuestionT) question),
-				xmlType,
-				jsonType)
+		public static QuestionDefinition SerializeToXml(
+			this QuestionDefinition metadataDefinition,
+			Func<IQuestion, Serialization.Xml.Question> questionXmlGetter,
+			Type xmlType)
 		{
-			if (questionXmlGetter == null) throw new ArgumentNullException(nameof(questionXmlGetter));
-			if (questionJsonGetter == null) throw new ArgumentNullException(nameof(questionJsonGetter));
+			metadataDefinition.SerializationSettings.Add(new QuestionXmlSerializationSettings(questionXmlGetter, xmlType));
+			return metadataDefinition;
 		}
-	}
 
-	public class QuestionDefinition<QuestionT, XmlT, JsonT> : QuestionDefinition<QuestionT>
-		where QuestionT : IQuestion
-		where XmlT : Serialization.Xml.Question
-		where JsonT : Serialization.Json.Question
-	{
-		public QuestionDefinition(
-			Func<ILanguage, String> questionNameGetter,
-			Func<QuestionT, XmlT> questionXmlGetter,
-			Func<QuestionT, JsonT> questionJsonGetter)
-			: base(
-				questionNameGetter,
-				questionXmlGetter,
-				questionJsonGetter,
-				typeof(XmlT),
-				typeof(JsonT))
+		public static QuestionDefinition SerializeToJson(
+			this QuestionDefinition metadataDefinition,
+			Func<IQuestion, Serialization.Json.Question> questionJsonGetter,
+			Type jsonType)
 		{
-			if (questionXmlGetter == null) throw new ArgumentNullException(nameof(questionXmlGetter));
-			if (questionJsonGetter == null) throw new ArgumentNullException(nameof(questionJsonGetter));
+			metadataDefinition.SerializationSettings.Add(new QuestionJsonSerializationSettings(questionJsonGetter, jsonType));
+			return metadataDefinition;
+		}
+
+		public static QuestionDefinition<QuestionT> SerializeToXml<QuestionT>(
+			this QuestionDefinition<QuestionT> metadataDefinition,
+			Func<QuestionT, Serialization.Xml.Question> questionXmlGetter,
+			Type xmlType)
+			where QuestionT : IQuestion
+		{
+			metadataDefinition.SerializationSettings.Add(new QuestionXmlSerializationSettings(
+				question => questionXmlGetter((QuestionT) question),
+				xmlType));
+			return metadataDefinition;
+		}
+
+		public static QuestionDefinition<QuestionT> SerializeToJson<QuestionT>(
+			this QuestionDefinition<QuestionT> metadataDefinition,
+			Func<QuestionT, Serialization.Json.Question> questionJsonGetter,
+			Type jsonType)
+			where QuestionT : IQuestion
+		{
+			metadataDefinition.SerializationSettings.Add(new QuestionJsonSerializationSettings(
+				question => questionJsonGetter((QuestionT) question),
+				jsonType));
+			return metadataDefinition;
+		}
+
+		public static QuestionDefinition<QuestionT> SerializeToXml<QuestionT, XmlT>(
+			this QuestionDefinition<QuestionT> metadataDefinition,
+			Func<QuestionT, XmlT> questionXmlGetter)
+			where QuestionT : IQuestion
+			where XmlT : Serialization.Xml.Question
+		{
+			return metadataDefinition.SerializeToXml(
+				questionXmlGetter,
+				typeof(XmlT));
+		}
+
+		public static QuestionDefinition<QuestionT> SerializeToJson<QuestionT, JsonT>(
+			this QuestionDefinition<QuestionT> metadataDefinition,
+			Func<QuestionT, JsonT> questionJsonGetter)
+			where QuestionT : IQuestion
+			where JsonT : Serialization.Json.Question
+		{
+			return metadataDefinition.SerializeToJson(
+				questionJsonGetter,
+				typeof(JsonT));
 		}
 	}
 }
