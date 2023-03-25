@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Runtime.Serialization;
 
 using Inventor.Semantics;
 using Inventor.Semantics.Serialization;
@@ -7,14 +8,16 @@ using Inventor.Semantics.Serialization.Json;
 
 namespace Samples.Semantics.Sample07.CustomModule.Json
 {
-	[Serializable]
+	[DataContract]
 	public class CustomQuestion : Question<Sample07.CustomModule.CustomQuestion>
 	{
 		#region Properties
 
+		[DataMember]
 		public String Concept1
 		{ get; set; }
 
+		[DataMember]
 		public String Concept2
 		{ get; set; }
 

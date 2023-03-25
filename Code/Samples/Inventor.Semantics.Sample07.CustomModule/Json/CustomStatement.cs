@@ -1,17 +1,19 @@
-﻿using System;
+﻿using System.Runtime.Serialization;
 
 using Inventor.Semantics.Serialization;
 
 namespace Samples.Semantics.Sample07.CustomModule.Json
 {
-	[Serializable]
+	[DataContract]
 	public class CustomStatement : Inventor.Semantics.Serialization.Json.Statement<Sample07.CustomModule.CustomStatement>
 	{
 		#region Properties
 
+		[DataMember]
 		public string Concept1
 		{ get; set; }
 
+		[DataMember]
 		public string Concept2
 		{ get; set; }
 
