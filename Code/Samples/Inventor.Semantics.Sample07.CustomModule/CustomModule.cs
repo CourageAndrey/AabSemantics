@@ -36,6 +36,13 @@ namespace Samples.Semantics.Sample07.CustomModule
 			Language.Default.Extensions.Add(LanguageCustomModule.CreateDefault());
 		}
 
+		protected override void RegisterAnswers()
+		{
+			Repositories.RegisterAnswer<CustomAnswer>()
+				.SerializeToXml((answer, language) => new Xml.CustomAnswer())
+				.SerializeToJson((answer, language) => new Json.CustomAnswer());
+		}
+
 		protected override void RegisterAttributes()
 		{
 			Repositories.RegisterAttribute(CustomAttribute.Value, language => language.GetExtension<ILanguageCustomModule>().Attributes.Custom)
