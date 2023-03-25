@@ -25,7 +25,7 @@ namespace Inventor.Semantics.WPF.ViewModels
 			if (attributeDefinition != null)
 			{
 				Name = attributeDefinition.GetName(language);
-				Value = attributeDefinition.AttributeValue;
+				Value = attributeDefinition.Value;
 			}
 			else
 			{

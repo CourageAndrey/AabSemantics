@@ -80,7 +80,7 @@ namespace Inventor.Semantics.WPF.ViewModels
 			Attributes.Add(new ConceptAttribute(AttributeDefinition.None, language, BoundObject == null || BoundObject.Attributes.Count == 0));
 			foreach (var attributeDefinition in attributeRepository.Definitions.Values)
 			{
-				Attributes.Add(new ConceptAttribute(attributeDefinition, language, BoundObject != null && BoundObject.Attributes.Contains(attributeDefinition.AttributeValue)));
+				Attributes.Add(new ConceptAttribute(attributeDefinition, language, BoundObject != null && BoundObject.Attributes.Contains(attributeDefinition.Value)));
 			}
 		}
 

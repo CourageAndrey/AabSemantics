@@ -25,7 +25,7 @@ namespace Inventor.SimpleRestClient.Controllers
 			return Repositories.Attributes
 				.Definitions
 				.Values
-				.Select(definition => definition.AttributeValue)
+				.Select(definition => definition.Value)
 				.ToJson();
 		}
 	}

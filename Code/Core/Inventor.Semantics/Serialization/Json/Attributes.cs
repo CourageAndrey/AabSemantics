@@ -17,7 +17,7 @@ namespace Inventor.Semantics.Serialization.Json
 		public static IEnumerable<IAttribute> ToAttributes(this IEnumerable<String> attributes)
 		{
 			var attributeDefinitions = Repositories.Attributes.Definitions.Values;
-			return attributes.Select(a => attributeDefinitions.First(d => d.GetJsonSerializationSettings<AttributeJsonSerializationSettings>().JsonElementName == a).AttributeValue);
+			return attributes.Select(a => attributeDefinitions.First(d => d.GetJsonSerializationSettings<AttributeJsonSerializationSettings>().JsonElementName == a).Value);
 		}
 	}
 }

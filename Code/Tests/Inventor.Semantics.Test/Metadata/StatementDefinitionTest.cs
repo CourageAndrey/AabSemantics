@@ -203,17 +203,17 @@ namespace Inventor.Semantics.Test.Metadata
 		}
 
 		private static StatementDefinition<StatementT> createStatementDefinition<StatementT>(
-			Func<ILanguage, String> statementNameGetter,
-			Func<IStatement, Semantics.Serialization.Xml.Statement> statementXmlGetter,
-			Func<IStatement, Semantics.Serialization.Json.Statement> statementJsonGetter,
+			Func<ILanguage, String> nameGetter,
+			Func<IStatement, Semantics.Serialization.Xml.Statement> xmlSerializer,
+			Func<IStatement, Semantics.Serialization.Json.Statement> jsonSerializer,
 			Type xmlType,
 			Type jsonType,
 			StatementConsistencyCheckerDelegate<StatementT> consistencyChecker)
 			where StatementT : IStatement
 		{
-			var statementDefinition = new StatementDefinition<StatementT>(statementNameGetter, consistencyChecker);
-			statementDefinition.SerializeToXml(statementXmlGetter, xmlType);
-			statementDefinition.SerializeToJson(statementJsonGetter, jsonType);
+			var statementDefinition = new StatementDefinition<StatementT>(nameGetter, consistencyChecker);
+			statementDefinition.SerializeToXml(xmlSerializer, xmlType);
+			statementDefinition.SerializeToJson(jsonSerializer, jsonType);
 			return statementDefinition;
 		}
 
@@ -221,16 +221,16 @@ namespace Inventor.Semantics.Test.Metadata
 		{
 			public TestStatementDefinition(
 				Type type,
-				Func<ILanguage, string> statementNameGetter,
-				Func<IStatement, Semantics.Serialization.Xml.Statement> statementXmlGetter,
-				Func<IStatement, Semantics.Serialization.Json.Statement> statementJsonGetter,
+				Func<ILanguage, string> nameGetter,
+				Func<IStatement, Semantics.Serialization.Xml.Statement> xmlSerializer,
+				Func<IStatement, Semantics.Serialization.Json.Statement> jsonSerializer,
 				Type xmlType,
 				Type jsonType,
 				StatementConsistencyCheckerDelegate consistencyChecker)
-				: base(type, statementNameGetter, consistencyChecker)
+				: base(type, nameGetter, consistencyChecker)
 			{
-				this.SerializeToXml(statementXmlGetter, xmlType);
-				this.SerializeToJson(statementJsonGetter, jsonType);
+				this.SerializeToXml(xmlSerializer, xmlType);
+				this.SerializeToJson(jsonSerializer, jsonType);
 			}
 		}
 	}
