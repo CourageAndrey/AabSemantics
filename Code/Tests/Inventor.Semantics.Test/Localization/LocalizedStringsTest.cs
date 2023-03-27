@@ -117,7 +117,7 @@ namespace Inventor.Semantics.Test.Localization
 		}
 
 		[Test]
-		public void CheckRemoiveLocale()
+		public void CheckRemoveLocale()
 		{
 			// arrange
 			var s = new LocalizedStringVariable("en-US", "en-US");
