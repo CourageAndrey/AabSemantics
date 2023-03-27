@@ -3,6 +3,8 @@
 using NUnit.Framework;
 
 using Inventor.Semantics.Localization;
+using System.Linq;
+using System;
 
 namespace Inventor.Semantics.Test.Localization
 {
@@ -138,6 +140,63 @@ namespace Inventor.Semantics.Test.Localization
 			Assert.AreEqual("fr-FR", s.GetValue("fr-FR"));
 		}
 
+		[Test]
+		public void GivenNullStringWhenAsDictionaryThenThrowException()
+		{
+			// act & assert
+			Assert.Throws<ArgumentNullException>(() => LocalizedStringExtensions.AsDictionary(null));
+		}
+
+		[Test]
+		public void GivenUnsupportedStringWhenAsDictionaryThenThrowException()
+		{
+			// arrange
+			var localizedString = new TestString();
+
+			// act & assert
+			Assert.Throws<NotSupportedException>(() => localizedString.AsDictionary());
+		}
+
+		[Test]
+		public void GivenVariableStringWhenAsDictionaryThenReturnAllLocales()
+		{
+			// arrange
+			var values = new Dictionary<string, string>
+			{
+				{ "en-US", "dog" },
+				{ "ru-RU", "собака" },
+				{ "es-ES", "perro" },
+				{ "de-DE", "hund" },
+			};
+			var localizedString = new LocalizedStringVariable(values);
+
+			// act
+			var result = localizedString.AsDictionary();
+
+			// assert
+			Assert.IsTrue(values.OrderBy(kvp => kvp.Key).SequenceEqual(result.OrderBy(kvp => kvp.Key)));
+		}
+
+		[Test]
+		public void GivenConstantStringWhenAsDictionaryThenDefaultLocale()
+		{
+			// arrange
+			var values = new Dictionary<string, string>
+			{
+				{ "en-US", "dog" },
+				{ "ru-RU", "собака" },
+				{ "es-ES", "perro" },
+				{ "de-DE", "hund" },
+			};
+			var localizedString = new LocalizedStringConstant(language => values[language.Culture]);
+
+			// act
+			var result = localizedString.AsDictionary();
+
+			// assert
+			Assert.AreEqual(values[Language.Default.Culture], result[result.Keys.Single()]);
+		}
+
 		private static ILanguage createTestLanguage(int number)
 		{
 			return new Language
@@ -145,6 +204,14 @@ namespace Inventor.Semantics.Test.Localization
 				Name = $"Language {number}",
 				Culture = $"c{number}",
 			};
+		}
+
+		private class TestString : ILocalizedString
+		{
+			public string GetValue(ILanguage language)
+			{
+				return language.Culture;
+			}
 		}
 	}
 }
