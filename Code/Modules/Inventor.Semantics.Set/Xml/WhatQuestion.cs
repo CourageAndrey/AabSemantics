@@ -37,5 +37,5 @@ namespace Inventor.Semantics.Set.Xml
 				conceptIdResolver.GetConceptById(Concept),
 				preconditions);
 		}
-}
+	}
 }
