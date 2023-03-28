@@ -1,9 +1,11 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using System.Xml.Serialization;
 
 using Inventor.Semantics.Metadata;
 using Inventor.Semantics.Serialization;
 using Inventor.Semantics.Serialization.Xml;
+using Inventor.Semantics.Utils;
 
 namespace Inventor.Semantics.Modules.Boolean.Xml
 {
@@ -39,6 +41,24 @@ namespace Inventor.Semantics.Modules.Boolean.Xml
 			return new Questions.CheckStatementQuestion(
 				Statement.Save(conceptIdResolver),
 				preconditions);
+		}
+
+		static CheckStatementQuestion()
+		{
+			var serializedType = typeof(CheckStatementQuestion);
+
+			var attributeOverrides = new XmlAttributeOverrides();
+
+			var statementAttributes = new XmlAttributes();
+			foreach (var definition in Repositories.Statements.Definitions.Values)
+			{
+				var xmlSettings = definition.GetXmlSerializationSettings<StatementXmlSerializationSettings>();
+				statementAttributes.XmlElements.Add(new XmlElementAttribute(xmlSettings.XmlType.Name, xmlSettings.XmlType));
+			}
+			attributeOverrides.Add(serializedType, nameof(Statement), statementAttributes);
+
+			var serializer = new XmlSerializer(serializedType, attributeOverrides);
+			serializedType.DefineCustomXmlSerializer(serializer);
 		}
 	}
 }
