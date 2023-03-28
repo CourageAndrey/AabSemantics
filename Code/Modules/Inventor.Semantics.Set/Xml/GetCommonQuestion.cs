@@ -14,11 +14,11 @@ namespace Inventor.Semantics.Set.Xml
 
 		[XmlElement]
 		public String Concept1
-		{ get; }
+		{ get; set; }
 
 		[XmlElement]
 		public String Concept2
-		{ get; }
+		{ get; set; }
 
 		#endregion
 

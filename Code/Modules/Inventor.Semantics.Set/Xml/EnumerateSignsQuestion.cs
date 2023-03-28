@@ -14,11 +14,11 @@ namespace Inventor.Semantics.Set.Xml
 
 		[XmlElement]
 		public String Concept
-		{ get; }
+		{ get; set; }
 
 		[XmlElement]
 		public Boolean Recursive
-		{ get; }
+		{ get; set; }
 
 		#endregion
 
