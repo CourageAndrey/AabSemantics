@@ -24,6 +24,7 @@ namespace Inventor.Semantics.Set.Xml
 		{ }
 
 		public EnumerateContainersQuestion(Questions.EnumerateContainersQuestion question)
+			: base(question)
 		{
 			Concept = question.Concept.ID;
 		}

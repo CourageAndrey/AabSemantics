@@ -29,6 +29,7 @@ namespace Samples.Semantics.Sample07.CustomModule.Xml
 		{ }
 
 		public CustomQuestion(Sample07.CustomModule.CustomQuestion question)
+			: base(question)
 		{
 			Concept1 = question.Concept1.ID;
 			Concept2 = question.Concept2.ID;

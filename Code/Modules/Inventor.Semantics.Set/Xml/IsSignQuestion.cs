@@ -24,6 +24,7 @@ namespace Inventor.Semantics.Set.Xml
 		{ }
 
 		public IsSignQuestion(Questions.IsSignQuestion question)
+			: base(question)
 		{
 			Concept = question.Concept.ID;
 		}

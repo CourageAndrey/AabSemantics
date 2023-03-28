@@ -28,6 +28,7 @@ namespace Inventor.Semantics.Processes.Xml
 		{ }
 
 		public ProcessesQuestion(Questions.ProcessesQuestion question)
+			: base(question)
 		{
 			ProcessA = question.ProcessA.ID;
 			ProcessB = question.ProcessB.ID;

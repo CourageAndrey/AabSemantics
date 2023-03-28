@@ -32,6 +32,7 @@ namespace Inventor.Semantics.Set.Xml
 		{ }
 
 		public HasSignQuestion(Questions.HasSignQuestion question)
+			: base(question)
 		{
 			Concept = question.Concept.ID;
 			Sign = question.Sign.ID;

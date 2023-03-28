@@ -28,6 +28,7 @@ namespace Inventor.Semantics.Set.Xml
 		{ }
 
 		public IsPartOfQuestion(Questions.IsPartOfQuestion question)
+			: base(question)
 		{
 			Parent = question.Parent.ID;
 			Child = question.Child.ID;

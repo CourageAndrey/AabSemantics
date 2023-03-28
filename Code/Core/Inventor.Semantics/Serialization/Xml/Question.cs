@@ -19,6 +19,22 @@ namespace Inventor.Semantics.Serialization.Xml
 
 		#endregion
 
+		#region Constructors
+
+		protected Question()
+		{ }
+
+		protected Question(IQuestion question)
+		{
+			var statementSerializers = Repositories.Statements.Definitions.ToDictionary(
+				definition => definition.Key,
+				definition => (StatementXmlSerializationSettings) definition.Value.GetXmlSerializationSettings());
+
+			Preconditions = question.Preconditions.Select(statement => statementSerializers[statement.GetType()].GetXml(statement)).ToList();
+		}
+
+		#endregion
+
 		public static Question Load(IQuestion question)
 		{
 			var definition = Repositories.Questions.Definitions.GetSuitable(question);
@@ -55,6 +71,17 @@ namespace Inventor.Semantics.Serialization.Xml
 	public abstract class Question<QuestionT> : Question
 		where QuestionT : IQuestion
 	{
+		#region Constructors
+
+		protected Question()
+		{ }
+
+		protected Question(IQuestion question)
+			: base(question)
+		{ }
+
+		#endregion
+
 		public override IQuestion Save(ConceptIdResolver conceptIdResolver)
 		{
 			return SaveImplementation(
