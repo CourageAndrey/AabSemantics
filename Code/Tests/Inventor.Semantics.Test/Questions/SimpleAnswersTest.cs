@@ -21,19 +21,18 @@ using Inventor.Semantics.Statements;
 using Inventor.Semantics.Set.Questions;
 using Inventor.Semantics.Set.Statements;
 using Inventor.Semantics.Set.Localization;
-using Inventor.Semantics.Text.Representers;
 
 namespace Inventor.Semantics.Test.Questions
 {
 	[TestFixture]
-	public class SimpleAnwsersTest
+	public class SimpleAnswersTest
 	{
 		private static readonly ITextRepresenter _textRepresenter;
 		private static readonly ILanguage _language;
 		private static readonly ISemanticNetwork _semanticNetwork;
 		private static readonly IConcept _concept1, _concept2, _concept3;
 
-		static SimpleAnwsersTest()
+		static SimpleAnswersTest()
 		{
 			_textRepresenter = TextRepresenters.PlainString;
 
