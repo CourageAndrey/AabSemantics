@@ -28,6 +28,7 @@ namespace Inventor.Semantics.Set.Xml
 		{ }
 
 		public SignValueQuestion(Questions.SignValueQuestion question)
+			: base(question)
 		{
 			Concept = question.Concept.ID;
 			Sign = question.Sign.ID;

@@ -28,6 +28,7 @@ namespace Inventor.Semantics.Set.Xml
 		{ }
 
 		public EnumerateSignsQuestion(Questions.EnumerateSignsQuestion question)
+			: base(question)
 		{
 			Concept = question.Concept.ID;
 			Recursive = question.Recursive;

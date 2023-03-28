@@ -28,6 +28,7 @@ namespace Inventor.Semantics.Mathematics.Xml
 		{ }
 
 		public ComparisonQuestion(Questions.ComparisonQuestion question)
+			: base(question)
 		{
 			LeftValue = question.LeftValue.ID;
 			RightValue = question.RightValue.ID;

@@ -28,6 +28,7 @@ namespace Inventor.Semantics.Set.Xml
 		{ }
 
 		public IsSubjectAreaQuestion(Questions.IsSubjectAreaQuestion question)
+			: base(question)
 		{
 			Concept = question.Concept.ID;
 			Area = question.Area.ID;

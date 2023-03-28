@@ -28,6 +28,7 @@ namespace Inventor.Semantics.Set.Xml
 		{ }
 
 		public GetDifferencesQuestion(Questions.GetDifferencesQuestion question)
+			: base(question)
 		{
 			Concept1 = question.Concept1.ID;
 			Concept2 = question.Concept2.ID;

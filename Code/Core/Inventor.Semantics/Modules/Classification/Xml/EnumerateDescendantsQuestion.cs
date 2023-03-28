@@ -24,6 +24,7 @@ namespace Inventor.Semantics.Modules.Classification.Xml
 		{ }
 
 		public EnumerateDescendantsQuestion(Questions.EnumerateDescendantsQuestion question)
+			: base(question)
 		{
 			Concept = question.Concept.ID;
 		}

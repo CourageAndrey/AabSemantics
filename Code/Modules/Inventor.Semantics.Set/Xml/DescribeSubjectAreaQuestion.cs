@@ -24,6 +24,7 @@ namespace Inventor.Semantics.Set.Xml
 		{ }
 
 		public DescribeSubjectAreaQuestion(Questions.DescribeSubjectAreaQuestion question)
+			: base(question)
 		{
 			Concept = question.Concept.ID;
 		}

@@ -24,6 +24,7 @@ namespace Inventor.Semantics.Set.Xml
 		{ }
 
 		public WhatQuestion(Questions.WhatQuestion question)
+			: base(question)
 		{
 			Concept = question.Concept.ID;
 		}

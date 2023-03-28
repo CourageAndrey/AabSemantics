@@ -28,6 +28,7 @@ namespace Inventor.Semantics.Modules.Classification.Xml
 		{ }
 
 		public IsQuestion(Questions.IsQuestion question)
+			: base(question)
 		{
 			Child = question.Child.ID;
 			Parent = question.Parent.ID;
