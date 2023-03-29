@@ -33,6 +33,7 @@ namespace Inventor.Semantics.Test.Serialization.Xml
 		private static readonly ILanguage _language;
 		private static readonly ISemanticNetwork _semanticNetwork;
 		private static readonly ConceptIdResolver _conceptIdResolver;
+		private static readonly StatementIdResolver _statementIdResolver;
 
 		static QuestionsAndAnswersTest()
 		{
@@ -50,6 +51,7 @@ namespace Inventor.Semantics.Test.Serialization.Xml
 			_conceptIdResolver = new ConceptIdResolver(_semanticNetwork.Concepts.ToDictionary(
 				concept => concept.ID,
 				concept => concept));
+			_statementIdResolver = new StatementIdResolver(_semanticNetwork);
 		}
 
 		[Test]
@@ -75,7 +77,7 @@ namespace Inventor.Semantics.Test.Serialization.Xml
 				}
 			}
 
-			var restored = restoredXml.Save(_conceptIdResolver);
+			var restored = restoredXml.Save(_conceptIdResolver, _statementIdResolver);
 
 			// assert
 			Assert.AreSame(question.GetType(), restored.GetType());
@@ -108,7 +110,7 @@ namespace Inventor.Semantics.Test.Serialization.Xml
 				}
 			}
 
-			var restored = restoredXml.Save(_conceptIdResolver);
+			var restored = restoredXml.Save(_conceptIdResolver, _statementIdResolver);
 
 			// assert
 			foreach (var property in propertiesToCompare)
@@ -130,13 +132,12 @@ namespace Inventor.Semantics.Test.Serialization.Xml
 				propertyType = typeof(ICollection<IStatement>);
 			}
 
-			if (propertyType == typeof(bool) ||
-				typeof(IStatement).IsAssignableFrom(propertyType)) // because statements are loaded
-#warning Looks like we need to resolve existing statements too.
+			if (propertyType == typeof(bool))
 			{
 				Assert.AreEqual(leftValue, rightValue);
 			}
-			else if (typeof(IConcept).IsAssignableFrom(propertyType)) // because concepts are resolved by ID
+			else if (typeof(IConcept).IsAssignableFrom(propertyType) ||
+					typeof(IStatement).IsAssignableFrom(propertyType))
 			{
 				Assert.AreSame(leftValue, rightValue);
 			}

@@ -41,7 +41,7 @@ namespace Inventor.Semantics.Serialization.Xml
 			return definition.GetXmlSerializationSettings<QuestionXmlSerializationSettings>().GetXml(question);
 		}
 
-		public abstract IQuestion Save(ConceptIdResolver conceptIdResolver);
+		public abstract IQuestion Save(ConceptIdResolver conceptIdResolver, StatementIdResolver statementIdResolver);
 
 		static Question()
 		{
@@ -82,13 +82,14 @@ namespace Inventor.Semantics.Serialization.Xml
 
 		#endregion
 
-		public override IQuestion Save(ConceptIdResolver conceptIdResolver)
+		public override IQuestion Save(ConceptIdResolver conceptIdResolver, StatementIdResolver statementIdResolver)
 		{
 			return SaveImplementation(
 				conceptIdResolver,
-				Preconditions.Select(statement => statement.Save(conceptIdResolver)));
+				statementIdResolver,
+				Preconditions.Select(statement => statement.SaveOrReuse(conceptIdResolver, statementIdResolver)));
 		}
 
-		protected abstract QuestionT SaveImplementation(ConceptIdResolver conceptIdResolver, IEnumerable<IStatement> preconditions);
+		protected abstract QuestionT SaveImplementation(ConceptIdResolver conceptIdResolver, StatementIdResolver statementIdResolver, IEnumerable<IStatement> preconditions);
 	}
 }

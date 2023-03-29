@@ -31,7 +31,7 @@ namespace Inventor.Semantics.Set.Xml
 
 		#endregion
 
-		protected override Questions.EnumeratePartsQuestion SaveImplementation(ConceptIdResolver conceptIdResolver, IEnumerable<IStatement> preconditions)
+		protected override Questions.EnumeratePartsQuestion SaveImplementation(ConceptIdResolver conceptIdResolver, StatementIdResolver statementIdResolver, IEnumerable<IStatement> preconditions)
 		{
 			return new Questions.EnumeratePartsQuestion(
 				conceptIdResolver.GetConceptById(Concept),

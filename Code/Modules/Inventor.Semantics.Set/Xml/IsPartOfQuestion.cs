@@ -36,7 +36,7 @@ namespace Inventor.Semantics.Set.Xml
 
 		#endregion
 
-		protected override Questions.IsPartOfQuestion SaveImplementation(ConceptIdResolver conceptIdResolver, IEnumerable<IStatement> preconditions)
+		protected override Questions.IsPartOfQuestion SaveImplementation(ConceptIdResolver conceptIdResolver, StatementIdResolver statementIdResolver, IEnumerable<IStatement> preconditions)
 		{
 			return new Questions.IsPartOfQuestion(
 				conceptIdResolver.GetConceptById(Child),

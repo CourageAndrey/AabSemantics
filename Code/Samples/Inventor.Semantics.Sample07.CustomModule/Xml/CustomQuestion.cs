@@ -37,7 +37,7 @@ namespace Samples.Semantics.Sample07.CustomModule.Xml
 
 		#endregion
 
-		protected override Sample07.CustomModule.CustomQuestion SaveImplementation(ConceptIdResolver conceptIdResolver, IEnumerable<IStatement> preconditions)
+		protected override Sample07.CustomModule.CustomQuestion SaveImplementation(ConceptIdResolver conceptIdResolver, StatementIdResolver statementIdResolver, IEnumerable<IStatement> preconditions)
 		{
 			return new Sample07.CustomModule.CustomQuestion(
 				conceptIdResolver.GetConceptById(Concept1),
