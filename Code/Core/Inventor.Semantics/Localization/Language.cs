@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Xml.Serialization;
 
 using Inventor.Semantics.Metadata;
@@ -102,21 +103,19 @@ namespace Inventor.Semantics.Localization
 			var languageType = typeof(LanguageT);
 			if (!_preparedToSerialization.Contains(languageType))
 			{
-				var attributeOverrides = new XmlAttributeOverrides();
-
-				var moduleAttributes = new XmlAttributes();
+				var overrides = new Dictionary<String, Type>();
 				foreach (var module in Repositories.Modules.Values)
 				{
 					foreach (var extension in module.GetLanguageExtensions())
 					{
-						moduleAttributes.XmlElements.Add(new XmlElementAttribute(extension.Key, extension.Value));
+						overrides[extension.Key] = extension.Value;
 					}
 				}
-				attributeOverrides.Add(languageType, nameof(Extensions), moduleAttributes);
-				attributeOverrides.Add(languageType, nameof(ExtensionsXml), moduleAttributes);
 
-				var serializer = new XmlSerializer(languageType, attributeOverrides);
-				languageType.DefineCustomXmlSerializer(serializer);
+				languageType.DefineTypeOverrides(new[]
+				{
+					new XmlHelper.PropertyTypes(nameof(ExtensionsXml), languageType, overrides),
+				});
 
 				_preparedToSerialization.Add(languageType);
 			}

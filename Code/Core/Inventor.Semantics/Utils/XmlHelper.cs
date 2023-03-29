@@ -44,6 +44,58 @@ namespace Inventor.Semantics.Utils
 			typeof(T).DefineCustomXmlSerializer(serializer);
 		}
 
+		public static void DefineTypeOverrides(this Type type, IEnumerable<PropertyTypes> overrides)
+		{
+			var attributeOverrides = new XmlAttributeOverrides();
+
+			foreach (var propertyOverride in overrides)
+			{
+				var statementAttributes = new XmlAttributes();
+				foreach (var implementation in propertyOverride.Implementations)
+				{
+					statementAttributes.XmlElements.Add(new XmlElementAttribute(implementation.Key, implementation.Value));
+				}
+				attributeOverrides.Add(propertyOverride.PropertyType, propertyOverride.PropertyName, statementAttributes);
+			}
+
+			var serializer = new XmlSerializer(type, attributeOverrides);
+			type.DefineCustomXmlSerializer(serializer);
+		}
+
+		public static void DefineTypeOverrides<T>(IEnumerable<PropertyTypes> overrides)
+		{
+			typeof(T).DefineTypeOverrides(overrides);
+		}
+
+		public static void DefineTypeOverride(this Type type, PropertyTypes propertyOverride)
+		{
+			type.DefineTypeOverrides(new[] { propertyOverride });
+		}
+
+		public static void DefineTypeOverride<T>(PropertyTypes propertyOverride)
+		{
+			typeof(T).DefineTypeOverride(propertyOverride);
+		}
+
+		public class PropertyTypes
+		{
+			public String PropertyName
+			{ get; }
+
+			public Type PropertyType
+			{ get; }
+
+			public IDictionary<String, Type> Implementations
+			{ get; }
+
+			public PropertyTypes(string propertyName, Type propertyType, IDictionary<string, Type> implementations)
+			{
+				PropertyName = propertyName;
+				PropertyType = propertyType;
+				Implementations = implementations;
+			}
+		}
+
 		#endregion
 
 		#region Serialization

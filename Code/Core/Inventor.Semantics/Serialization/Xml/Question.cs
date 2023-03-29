@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Xml.Serialization;
 
@@ -45,25 +44,12 @@ namespace Inventor.Semantics.Serialization.Xml
 
 		static Question()
 		{
-			foreach (var serializedType in new[]
-				{
-					new KeyValuePair<Type, String>(typeof(Question), nameof(Preconditions)),
-					new KeyValuePair<Type, String>(typeof(Modules.Boolean.Xml.CheckStatementQuestion), nameof(Modules.Boolean.Xml.CheckStatementQuestion.Statement)),
-				})
+			typeof(Question).DefineTypeOverrides(new[]
 			{
-				var attributeOverrides = new XmlAttributeOverrides();
-
-				var statementAttributes = new XmlAttributes();
-				foreach (var definition in Repositories.Statements.Definitions.Values)
-				{
-					var xmlSettings = definition.GetXmlSerializationSettings<StatementXmlSerializationSettings>();
-					statementAttributes.XmlElements.Add(new XmlElementAttribute(xmlSettings.XmlElementName, xmlSettings.XmlType));
-				}
-				attributeOverrides.Add(serializedType.Key, serializedType.Value, statementAttributes);
-
-				var serializer = new XmlSerializer(serializedType.Key, attributeOverrides);
-				serializedType.Key.DefineCustomXmlSerializer(serializer);
-			}
+				new XmlHelper.PropertyTypes(nameof(Preconditions), typeof(Question), Repositories.Statements.Definitions.Values.ToDictionary(
+					definition => definition.GetXmlSerializationSettings<StatementXmlSerializationSettings>().XmlElementName,
+					definition => definition.GetXmlSerializationSettings<StatementXmlSerializationSettings>().XmlType)),
+			});
 		}
 	}
 
