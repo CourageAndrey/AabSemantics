@@ -1,8 +1,10 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Xml.Serialization;
 
 using Inventor.Semantics.Localization;
+using Inventor.Semantics.Text.Primitives;
 
 namespace Inventor.Semantics.Serialization.Xml.Answers
 {
@@ -13,8 +15,8 @@ namespace Inventor.Semantics.Serialization.Xml.Answers
 
 		[XmlArray(nameof(Concepts))]
 		[XmlArrayItem(nameof(Concept))]
-		public List<Concept> Concepts
-		{ get; }
+		public List<String> Concepts
+		{ get; set; }
 
 		#endregion
 
@@ -23,15 +25,23 @@ namespace Inventor.Semantics.Serialization.Xml.Answers
 		public ConceptsAnswer()
 			: base(Semantics.Answers.Answer.CreateUnknown(), Language.Default)
 		{
-			Concepts = new List<Concept>();
+			Concepts = new List<String>();
 		}
 
 		public ConceptsAnswer(Semantics.Answers.ConceptsAnswer answer, ILanguage language)
 			: base(answer, language)
 		{
-			Concepts = answer.Result.Select(concept => new Concept(concept)).ToList();
+			Concepts = answer.Result.Select(concept => concept.ID).ToList();
 		}
 
 		#endregion
+
+		public override IAnswer Save(ConceptIdResolver conceptIdResolver)
+		{
+			return new Semantics.Answers.ConceptsAnswer(
+				Concepts.Select(concept => conceptIdResolver.GetConceptById(concept)).ToList(),
+				new FormattedText(language => Description, new Dictionary<String, IKnowledge>()),
+				new Explanation(Explanation.Select(statement => statement.Save(conceptIdResolver))));
+		}
 	}
 }

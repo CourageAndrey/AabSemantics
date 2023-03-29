@@ -1,7 +1,10 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Xml.Serialization;
 
 using Inventor.Semantics.Localization;
+using Inventor.Semantics.Text.Primitives;
 
 namespace Inventor.Semantics.Serialization.Xml.Answers
 {
@@ -12,7 +15,7 @@ namespace Inventor.Semantics.Serialization.Xml.Answers
 
 		[XmlElement]
 		public Boolean Result
-		{ get; }
+		{ get; set; }
 
 		#endregion
 
@@ -29,5 +32,13 @@ namespace Inventor.Semantics.Serialization.Xml.Answers
 		}
 
 		#endregion
+
+		public override IAnswer Save(ConceptIdResolver conceptIdResolver)
+		{
+			return new Semantics.Answers.BooleanAnswer(
+				Result,
+				new FormattedText(language => Description, new Dictionary<String, IKnowledge>()),
+				new Explanation(Explanation.Select(statement => statement.Save(conceptIdResolver))));
+		}
 	}
 }
