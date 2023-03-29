@@ -36,10 +36,10 @@ namespace Inventor.Semantics.Modules.Boolean.Xml
 
 		#endregion
 
-		protected override Questions.CheckStatementQuestion SaveImplementation(ConceptIdResolver conceptIdResolver, IEnumerable<IStatement> preconditions)
+		protected override Questions.CheckStatementQuestion SaveImplementation(ConceptIdResolver conceptIdResolver, StatementIdResolver statementIdResolver, IEnumerable<IStatement> preconditions)
 		{
 			return new Questions.CheckStatementQuestion(
-				Statement.Save(conceptIdResolver),
+				Statement.SaveOrReuse(conceptIdResolver, statementIdResolver),
 				preconditions);
 		}
 

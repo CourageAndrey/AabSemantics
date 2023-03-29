@@ -33,12 +33,12 @@ namespace Inventor.Semantics.Serialization.Xml.Answers
 
 		#endregion
 
-		public override IAnswer Save(ConceptIdResolver conceptIdResolver)
+		public override IAnswer Save(ConceptIdResolver conceptIdResolver, StatementIdResolver statementIdResolver)
 		{
 			return new Semantics.Answers.ConceptAnswer(
 				conceptIdResolver.GetConceptById(Concept),
 				new FormattedText(language => Description, new Dictionary<String, IKnowledge>()),
-				new Explanation(Explanation.Select(statement => statement.Save(conceptIdResolver))));
+				new Explanation(Explanation.Select(statement => statement.SaveOrReuse(conceptIdResolver, statementIdResolver))));
 		}
 	}
 }

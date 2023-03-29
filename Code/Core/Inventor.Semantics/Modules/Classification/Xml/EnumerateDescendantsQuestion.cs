@@ -31,7 +31,7 @@ namespace Inventor.Semantics.Modules.Classification.Xml
 
 		#endregion
 
-		protected override Questions.EnumerateDescendantsQuestion SaveImplementation(ConceptIdResolver conceptIdResolver, IEnumerable<IStatement> preconditions)
+		protected override Questions.EnumerateDescendantsQuestion SaveImplementation(ConceptIdResolver conceptIdResolver, StatementIdResolver statementIdResolver, IEnumerable<IStatement> preconditions)
 		{
 			return new Questions.EnumerateDescendantsQuestion(
 				conceptIdResolver.GetConceptById(Concept),
