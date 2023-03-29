@@ -1,6 +1,10 @@
-﻿using System.Xml.Serialization;
+﻿using System.Collections.Generic;
+using System.Linq;
+using System;
+using System.Xml.Serialization;
 
 using Inventor.Semantics.Localization;
+using Inventor.Semantics.Text.Primitives;
 
 namespace Inventor.Semantics.Serialization.Xml.Answers
 {
@@ -10,8 +14,8 @@ namespace Inventor.Semantics.Serialization.Xml.Answers
 		#region Properties
 
 		[XmlElement]
-		public Concept Concept
-		{ get; }
+		public String Concept
+		{ get; set; }
 
 		#endregion
 
@@ -24,9 +28,17 @@ namespace Inventor.Semantics.Serialization.Xml.Answers
 		public ConceptAnswer(Semantics.Answers.ConceptAnswer answer, ILanguage language)
 			: base(answer, language)
 		{
-			Concept = new Concept(answer.Result);
+			Concept = answer.Result.ID;
 		}
 
 		#endregion
+
+		public override IAnswer Save(ConceptIdResolver conceptIdResolver)
+		{
+			return new Semantics.Answers.ConceptAnswer(
+				conceptIdResolver.GetConceptById(Concept),
+				new FormattedText(language => Description, new Dictionary<String, IKnowledge>()),
+				new Explanation(Explanation.Select(statement => statement.Save(conceptIdResolver))));
+		}
 	}
 }

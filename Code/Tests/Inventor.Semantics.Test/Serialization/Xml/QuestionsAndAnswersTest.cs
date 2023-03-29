@@ -7,6 +7,7 @@ using System.Xml;
 
 using NUnit.Framework;
 
+using Inventor.Semantics.Answers;
 using Inventor.Semantics.Localization;
 using Inventor.Semantics.Mathematics.Localization;
 using Inventor.Semantics.Mathematics.Questions;
@@ -20,6 +21,7 @@ using Inventor.Semantics.Serialization;
 using Inventor.Semantics.Set.Localization;
 using Inventor.Semantics.Set.Questions;
 using Inventor.Semantics.Test.Sample;
+using Inventor.Semantics.Text.Primitives;
 using Inventor.Semantics.Utils;
 
 namespace Inventor.Semantics.Test.Serialization.Xml
@@ -27,12 +29,15 @@ namespace Inventor.Semantics.Test.Serialization.Xml
 	[TestFixture]
 	public class QuestionsAndAnswersTest
 	{
+		private static readonly ITextRepresenter _textRepresenter;
 		private static readonly ILanguage _language;
 		private static readonly ISemanticNetwork _semanticNetwork;
 		private static readonly ConceptIdResolver _conceptIdResolver;
 
 		static QuestionsAndAnswersTest()
 		{
+			_textRepresenter = TextRepresenters.PlainString;
+
 			_language = Language.Default;
 			_language.Extensions.Add(LanguageBooleanModule.CreateDefault());
 			_language.Extensions.Add(LanguageClassificationModule.CreateDefault());
@@ -80,26 +85,80 @@ namespace Inventor.Semantics.Test.Serialization.Xml
 			}
 		}
 
+		[Test]
+		[TestCaseSource(nameof(createAnswers))]
+		public void CheckAnswersSerialization(IAnswer answer)
+		{
+			// arrange
+			var propertiesToCompare = answer
+				.GetType()
+				.GetProperties(BindingFlags.GetProperty | BindingFlags.Instance | BindingFlags.Public);
+
+			// act
+			var xmlAnswer = Semantics.Serialization.Xml.Answer.Load(answer, _language);
+			var xml = xmlAnswer.SerializeToXmlElement().OuterXml;
+
+			var serializer = xmlAnswer.GetType().AcquireXmlSerializer();
+			Semantics.Serialization.Xml.Answer restoredXml;
+			using (var stringReader = new StringReader(xml))
+			{
+				using (var xmlStringReader = new XmlTextReader(stringReader))
+				{
+					restoredXml = (Semantics.Serialization.Xml.Answer) serializer.Deserialize(xmlStringReader);
+				}
+			}
+
+			var restored = restoredXml.Save(_conceptIdResolver);
+
+			// assert
+			foreach (var property in propertiesToCompare)
+			{
+				AssertEqual(property, answer, restored);
+			}
+		}
+
 		private static void AssertEqual(PropertyInfo property, object left, object right)
 		{
 			object leftValue = property.GetValue(left);
 			object rightValue = property.GetValue(right);
+			Type propertyType = property.PropertyType;
 
-			if (property.PropertyType == typeof(bool) ||
-				typeof(IStatement).IsAssignableFrom(property.PropertyType)) // because statements are loaded
+			if (typeof(IExplanation).IsAssignableFrom(propertyType))
+			{
+				leftValue = ((IExplanation) leftValue).Statements;
+				rightValue = ((IExplanation) rightValue).Statements;
+				propertyType = typeof(ICollection<IStatement>);
+			}
+
+			if (propertyType == typeof(bool) ||
+				typeof(IStatement).IsAssignableFrom(propertyType)) // because statements are loaded
 #warning Looks like we need to resolve existing statements too.
 			{
 				Assert.AreEqual(leftValue, rightValue);
 			}
-			else if (typeof(IConcept).IsAssignableFrom(property.PropertyType)) // because concepts are resolved by ID
+			else if (typeof(IConcept).IsAssignableFrom(propertyType)) // because concepts are resolved by ID
 			{
 				Assert.AreSame(leftValue, rightValue);
 			}
-			else if (typeof(IEnumerable<IStatement>).IsAssignableFrom(property.PropertyType))
+			else if (typeof(IEnumerable<IConcept>).IsAssignableFrom(propertyType))
+			{
+				var leftCollection = (IEnumerable<IConcept>) leftValue;
+				var rightCollection = (IEnumerable<IConcept>) rightValue;
+				Assert.IsTrue(leftCollection.SequenceEqual(rightCollection));
+			}
+			else if (typeof(IEnumerable<IStatement>).IsAssignableFrom(propertyType))
 			{
 				var leftCollection = (IEnumerable<IStatement>) leftValue;
 				var rightCollection = (IEnumerable<IStatement>) rightValue;
 				Assert.IsTrue(leftCollection.SequenceEqual(rightCollection));
+			}
+			else if (typeof(IText).IsAssignableFrom(propertyType))
+			{
+				var leftText = (IText) leftValue;
+				var rightText = (IText) rightValue;
+				var leftString = _textRepresenter.RepresentText(leftText, _language).ToString();
+				var rightString = _textRepresenter.RepresentText(rightText, _language).ToString();
+				Assert.AreEqual(leftString, rightString);
 			}
 			else
 			{
@@ -134,6 +193,21 @@ namespace Inventor.Semantics.Test.Serialization.Xml
 			yield return new IsValueQuestion(testConcept1);
 			yield return new SignValueQuestion(testConcept1, testConcept2);
 			yield return new WhatQuestion(testConcept1);
+		}
+
+		private static IEnumerable<IAnswer> createAnswers()
+		{
+			var text = new FormattedText(
+				language => "_#A#_",
+				new Dictionary<string, IKnowledge>{ { "A", _semanticNetwork.Concepts.First() } });
+			var explanation = new Explanation(_semanticNetwork.Statements);
+
+			yield return new Answer(text, explanation, true);
+			yield return new BooleanAnswer(true, text, explanation);
+			yield return new ConceptAnswer(_semanticNetwork.Concepts.First(), text, explanation);
+			yield return new ConceptsAnswer(_semanticNetwork.Concepts, text, explanation);
+			yield return new StatementAnswer(_semanticNetwork.Statements.First(), text, explanation);
+			yield return new StatementsAnswer(_semanticNetwork.Statements, text, explanation);
 		}
 	}
 }
