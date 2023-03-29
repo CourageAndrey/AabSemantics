@@ -77,27 +77,15 @@ namespace Inventor.Semantics.Serialization.Xml
 
 		static SemanticNetwork()
 		{
-			var semanticNetworkType = typeof(SemanticNetwork);
-			var attributeOverrides = new XmlAttributeOverrides();
-
-			var attributeAttributes = new XmlAttributes();
-			foreach (var definition in Repositories.Attributes.Definitions.Values)
+			typeof(SemanticNetwork).DefineTypeOverrides(new[]
 			{
-				var xmlSettings = definition.GetXmlSerializationSettings<AttributeXmlSerializationSettings>();
-				attributeAttributes.XmlElements.Add(new XmlElementAttribute(xmlSettings.XmlElementName, xmlSettings.XmlType));
-			}
-			attributeOverrides.Add(typeof(Concept), "Attributes", attributeAttributes);
-
-			var statementAttributes = new XmlAttributes();
-			foreach (var definition in Repositories.Statements.Definitions.Values)
-			{
-				var xmlSettings = definition.GetXmlSerializationSettings<StatementXmlSerializationSettings>();
-				statementAttributes.XmlElements.Add(new XmlElementAttribute(xmlSettings.XmlElementName, xmlSettings.XmlType));
-			}
-			attributeOverrides.Add(semanticNetworkType, "Statements", statementAttributes);
-
-			var serializer = new XmlSerializer(semanticNetworkType, attributeOverrides);
-			semanticNetworkType.DefineCustomXmlSerializer(serializer);
+				new XmlHelper.PropertyTypes(nameof(Concept.Attributes), typeof(Concept), Repositories.Attributes.Definitions.Values.ToDictionary(
+					definition => definition.GetXmlSerializationSettings<AttributeXmlSerializationSettings>().XmlElementName,
+					definition => definition.GetXmlSerializationSettings<AttributeXmlSerializationSettings>().XmlType)),
+				new XmlHelper.PropertyTypes(nameof(Statements), typeof(SemanticNetwork), Repositories.Statements.Definitions.Values.ToDictionary(
+					definition => definition.GetXmlSerializationSettings<StatementXmlSerializationSettings>().XmlElementName,
+					definition => definition.GetXmlSerializationSettings<StatementXmlSerializationSettings>().XmlType)),
+			});
 		}
 	}
 

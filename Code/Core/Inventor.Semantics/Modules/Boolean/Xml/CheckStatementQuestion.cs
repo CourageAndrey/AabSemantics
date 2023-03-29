@@ -45,20 +45,12 @@ namespace Inventor.Semantics.Modules.Boolean.Xml
 
 		static CheckStatementQuestion()
 		{
-			var serializedType = typeof(CheckStatementQuestion);
-
-			var attributeOverrides = new XmlAttributeOverrides();
-
-			var statementAttributes = new XmlAttributes();
-			foreach (var definition in Repositories.Statements.Definitions.Values)
+			typeof(CheckStatementQuestion).DefineTypeOverrides(new[]
 			{
-				var xmlSettings = definition.GetXmlSerializationSettings<StatementXmlSerializationSettings>();
-				statementAttributes.XmlElements.Add(new XmlElementAttribute(xmlSettings.XmlType.Name, xmlSettings.XmlType));
-			}
-			attributeOverrides.Add(serializedType, nameof(Statement), statementAttributes);
-
-			var serializer = new XmlSerializer(serializedType, attributeOverrides);
-			serializedType.DefineCustomXmlSerializer(serializer);
+				new XmlHelper.PropertyTypes(nameof(Statement), typeof(CheckStatementQuestion), Repositories.Statements.Definitions.Values.ToDictionary(
+					definition => definition.GetXmlSerializationSettings<StatementXmlSerializationSettings>().XmlElementName,
+					definition => definition.GetXmlSerializationSettings<StatementXmlSerializationSettings>().XmlType)),
+			});
 		}
 	}
 }

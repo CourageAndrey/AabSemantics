@@ -66,45 +66,24 @@ namespace Inventor.Semantics.Serialization.Xml
 
 		static Answer()
 		{
-			var allAnswerTypes = new[]
+			var statementOverrides = Repositories.Statements.Definitions.Values.ToDictionary(
+				definition => definition.GetXmlSerializationSettings<StatementXmlSerializationSettings>().XmlElementName,
+				definition => definition.GetXmlSerializationSettings<StatementXmlSerializationSettings>().XmlType);
+
+			typeof(Answer).DefineTypeOverride(new XmlHelper.PropertyTypes(nameof(Explanation), typeof(Answer), statementOverrides));
+			typeof(BooleanAnswer).DefineTypeOverride(new XmlHelper.PropertyTypes(nameof(Explanation), typeof(Answer), statementOverrides));
+			typeof(ConceptAnswer).DefineTypeOverride(new XmlHelper.PropertyTypes(nameof(Explanation), typeof(Answer), statementOverrides));
+			typeof(ConceptsAnswer).DefineTypeOverride(new XmlHelper.PropertyTypes(nameof(Explanation), typeof(Answer), statementOverrides));
+			typeof(StatementAnswer).DefineTypeOverrides(new[]
 			{
-				typeof(Answer),
-				typeof(BooleanAnswer),
-				typeof(ConceptAnswer),
-				typeof(ConceptsAnswer),
-				typeof(StatementAnswer),
-				typeof(StatementsAnswer),
-			};
-
-			var statementAnswerType = typeof(StatementAnswer);
-			var statementsAnswerType = typeof(StatementsAnswer);
-			var answerOverrides = new XmlAttributeOverrides();
-			var statementAnswerOverrides = new XmlAttributeOverrides();
-			var statementsAnswerOverrides = new XmlAttributeOverrides();
-
-			var statementAttributes = new XmlAttributes();
-			foreach (var definition in Repositories.Statements.Definitions.Values)
+				new XmlHelper.PropertyTypes(nameof(Explanation), typeof(StatementAnswer), statementOverrides),
+				new XmlHelper.PropertyTypes(nameof(StatementAnswer.Statement), typeof(StatementAnswer), statementOverrides),
+			});
+			typeof(StatementsAnswer).DefineTypeOverrides(new[]
 			{
-				var xmlSettings = definition.GetXmlSerializationSettings<StatementXmlSerializationSettings>();
-				statementAttributes.XmlElements.Add(new XmlElementAttribute(xmlSettings.XmlElementName, xmlSettings.XmlType));
-			}
-
-			XmlSerializer serializer;
-			foreach (var answerType in allAnswerTypes)
-			{
-				answerOverrides.Add(answerType, "Explanation", statementAttributes);
-				serializer = new XmlSerializer(answerType, answerOverrides);
-				answerType.DefineCustomXmlSerializer(serializer);
-			}
-
-			statementAnswerOverrides.Add(statementAnswerType, "Statement", statementAttributes);
-			statementsAnswerOverrides.Add(statementsAnswerType, "Statements", statementAttributes);
-
-			serializer = new XmlSerializer(statementAnswerType, statementAnswerOverrides);
-			statementAnswerType.DefineCustomXmlSerializer(serializer);
-
-			serializer = new XmlSerializer(statementsAnswerType, statementsAnswerOverrides);
-			statementsAnswerType.DefineCustomXmlSerializer(serializer);
+				new XmlHelper.PropertyTypes(nameof(Explanation), typeof(StatementsAnswer), statementOverrides),
+				new XmlHelper.PropertyTypes(nameof(StatementsAnswer.Statements), typeof(StatementsAnswer), statementOverrides),
+			});
 		}
 	}
 }
