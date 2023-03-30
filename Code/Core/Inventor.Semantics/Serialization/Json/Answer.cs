@@ -67,6 +67,11 @@ namespace Inventor.Semantics.Serialization.Json
 
 		static Answer()
 		{
+			RefreshMetadata();
+		}
+
+		public static void RefreshMetadata()
+		{
 			var statementTypes = Repositories.Statements.GetJsonTypes();
 			foreach (var answerType in new[]
 			{

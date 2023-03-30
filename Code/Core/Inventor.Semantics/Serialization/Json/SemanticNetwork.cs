@@ -76,6 +76,11 @@ namespace Inventor.Semantics.Serialization.Json
 
 		static SemanticNetwork()
 		{
+			RefreshMetadata();
+		}
+
+		public static void RefreshMetadata()
+		{
 			var semanticNetworkType = typeof(SemanticNetwork);
 			var serializer = new DataContractJsonSerializer(
 				semanticNetworkType,
