@@ -36,7 +36,7 @@ namespace Inventor.Semantics.Mathematics.Json
 
 		#endregion
 
-		protected override Questions.ComparisonQuestion SaveImplementation(ConceptIdResolver conceptIdResolver, IEnumerable<IStatement> preconditions)
+		protected override Questions.ComparisonQuestion SaveImplementation(ConceptIdResolver conceptIdResolver, StatementIdResolver statementIdResolver, IEnumerable<IStatement> preconditions)
 		{
 			return new Questions.ComparisonQuestion(
 				conceptIdResolver.GetConceptById(LeftValue),

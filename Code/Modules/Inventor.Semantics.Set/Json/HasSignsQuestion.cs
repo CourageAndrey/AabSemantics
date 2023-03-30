@@ -36,7 +36,7 @@ namespace Inventor.Semantics.Set.Json
 
 		#endregion
 
-		protected override Questions.HasSignsQuestion SaveImplementation(ConceptIdResolver conceptIdResolver, IEnumerable<IStatement> preconditions)
+		protected override Questions.HasSignsQuestion SaveImplementation(ConceptIdResolver conceptIdResolver, StatementIdResolver statementIdResolver, IEnumerable<IStatement> preconditions)
 		{
 			return new Questions.HasSignsQuestion(
 				conceptIdResolver.GetConceptById(Concept),

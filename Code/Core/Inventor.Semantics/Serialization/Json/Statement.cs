@@ -19,6 +19,14 @@ namespace Inventor.Semantics.Serialization.Json
 		}
 
 		public abstract IStatement Save(ConceptIdResolver conceptIdResolver);
+
+		public IStatement SaveOrReuse(ConceptIdResolver conceptIdResolver, StatementIdResolver statementIdResolver)
+		{
+			IStatement result;
+			return statementIdResolver.TryGetStatement(ID, out result)
+				? result
+				: Save(conceptIdResolver);
+		}
 	}
 
 	[DataContract]

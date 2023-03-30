@@ -36,7 +36,7 @@ namespace Inventor.Semantics.Set.Json
 
 		#endregion
 
-		protected override Questions.GetCommonQuestion SaveImplementation(ConceptIdResolver conceptIdResolver, IEnumerable<IStatement> preconditions)
+		protected override Questions.GetCommonQuestion SaveImplementation(ConceptIdResolver conceptIdResolver, StatementIdResolver statementIdResolver, IEnumerable<IStatement> preconditions)
 		{
 			return new Questions.GetCommonQuestion(
 				conceptIdResolver.GetConceptById(Concept1),

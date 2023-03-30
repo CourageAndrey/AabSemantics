@@ -21,7 +21,7 @@ namespace Inventor.SimpleRestClient.Controllers
 		{
 			var semanticNetwork = _dataService.GetSemanticNetwork();
 
-			var snapshot =  new Semantics.Serialization.Json.SemanticNetwork(semanticNetwork);
+			var snapshot =  new SemanticNetwork(semanticNetwork);
 
 			return snapshot.SerializeToJsonString();
 		}

@@ -31,7 +31,7 @@ namespace Inventor.Semantics.Set.Json
 
 		#endregion
 
-		protected override Questions.FindSubjectAreaQuestion SaveImplementation(ConceptIdResolver conceptIdResolver, IEnumerable<IStatement> preconditions)
+		protected override Questions.FindSubjectAreaQuestion SaveImplementation(ConceptIdResolver conceptIdResolver, StatementIdResolver statementIdResolver, IEnumerable<IStatement> preconditions)
 		{
 			return new Questions.FindSubjectAreaQuestion(
 				conceptIdResolver.GetConceptById(Concept),

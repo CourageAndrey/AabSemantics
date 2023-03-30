@@ -36,7 +36,7 @@ namespace Inventor.Semantics.Processes.Json
 
 		#endregion
 
-		protected override Questions.ProcessesQuestion SaveImplementation(ConceptIdResolver conceptIdResolver, IEnumerable<IStatement> preconditions)
+		protected override Questions.ProcessesQuestion SaveImplementation(ConceptIdResolver conceptIdResolver, StatementIdResolver statementIdResolver, IEnumerable<IStatement> preconditions)
 		{
 			return new Questions.ProcessesQuestion(
 				conceptIdResolver.GetConceptById(ProcessA),
