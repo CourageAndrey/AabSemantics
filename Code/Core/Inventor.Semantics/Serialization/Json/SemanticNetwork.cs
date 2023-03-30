@@ -34,7 +34,9 @@ namespace Inventor.Semantics.Serialization.Json
 		#region Constructors
 
 		public SemanticNetwork()
-		{ }
+		{
+			Name = new LocalizedString();
+		}
 
 		public SemanticNetwork(ISemanticNetwork semanticNetwork)
 		{

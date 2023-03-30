@@ -22,7 +22,9 @@ namespace Inventor.Semantics.Serialization.Json.Answers
 
 		public StatementsAnswer()
 			: base()
-		{ }
+		{
+			Statements = new List<Statement>();
+		}
 
 		public StatementsAnswer(Semantics.Answers.StatementsAnswer answer, ILanguage language)
 			: base(answer, language)
