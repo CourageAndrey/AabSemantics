@@ -4,6 +4,7 @@ using System.Linq;
 using System.Runtime.Serialization;
 
 using Inventor.Semantics.Metadata;
+using Inventor.Semantics.Text.Primitives;
 
 namespace Inventor.Semantics.Serialization.Json
 {
@@ -52,6 +53,14 @@ namespace Inventor.Semantics.Serialization.Json
 		{
 			var definition = Repositories.Answers.Definitions.GetSuitable(answer);
 			return definition.GetJsonSerializationSettings<AnswerJsonSerializationSettings>().GetJson(answer, language);
+		}
+
+		public virtual IAnswer Save(ConceptIdResolver conceptIdResolver, StatementIdResolver statementIdResolver)
+		{
+			return new Semantics.Answers.Answer(
+				new FormattedText(language => Description, new Dictionary<String, IKnowledge>()),
+				new Explanation(Explanation.Select(statement => statement.SaveOrReuse(conceptIdResolver, statementIdResolver))),
+				IsEmpty);
 		}
 	}
 }

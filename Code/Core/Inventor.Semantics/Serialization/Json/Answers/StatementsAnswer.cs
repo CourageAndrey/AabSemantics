@@ -1,6 +1,9 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.Serialization;
+
+using Inventor.Semantics.Text.Primitives;
 
 namespace Inventor.Semantics.Serialization.Json.Answers
 {
@@ -28,5 +31,13 @@ namespace Inventor.Semantics.Serialization.Json.Answers
 		}
 
 		#endregion
+
+		public override IAnswer Save(ConceptIdResolver conceptIdResolver, StatementIdResolver statementIdResolver)
+		{
+			return new Semantics.Answers.StatementsAnswer(
+				Statements.Select(statement => statement.SaveOrReuse(conceptIdResolver, statementIdResolver)).ToList(),
+				new FormattedText(language => Description, new Dictionary<String, IKnowledge>()),
+				new Explanation(Explanation.Select(statement => statement.SaveOrReuse(conceptIdResolver, statementIdResolver))));
+		}
 	}
 }
