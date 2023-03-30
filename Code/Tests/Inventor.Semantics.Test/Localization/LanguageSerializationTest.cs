@@ -10,8 +10,8 @@ using Inventor.Semantics.Localization;
 using Inventor.Semantics.Metadata;
 using Inventor.Semantics.Modules.Boolean.Localization;
 using Inventor.Semantics.Modules.Classification.Localization;
+using Inventor.Semantics.Serialization.Xml;
 using Inventor.Semantics.Set.Localization;
-using Inventor.Semantics.Utils;
 
 namespace Inventor.Semantics.Test.Localization
 {

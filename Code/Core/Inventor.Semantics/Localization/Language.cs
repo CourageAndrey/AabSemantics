@@ -1,10 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Xml.Serialization;
 
 using Inventor.Semantics.Metadata;
-using Inventor.Semantics.Utils;
+using Inventor.Semantics.Serialization.Xml;
 
 namespace Inventor.Semantics.Localization
 {

@@ -18,11 +18,11 @@ using Inventor.Semantics.Modules.Classification.Localization;
 using Inventor.Semantics.Processes.Localization;
 using Inventor.Semantics.Processes.Questions;
 using Inventor.Semantics.Serialization;
+using Inventor.Semantics.Serialization.Xml;
 using Inventor.Semantics.Set.Localization;
 using Inventor.Semantics.Set.Questions;
 using Inventor.Semantics.Test.Sample;
 using Inventor.Semantics.Text.Primitives;
-using Inventor.Semantics.Utils;
 
 namespace Inventor.Semantics.Test.Serialization.Xml
 {
@@ -203,7 +203,7 @@ namespace Inventor.Semantics.Test.Serialization.Xml
 				new Dictionary<string, IKnowledge>{ { "A", _semanticNetwork.Concepts.First() } });
 			var explanation = new Explanation(_semanticNetwork.Statements);
 
-			yield return new Answer(text, explanation, true);
+			yield return new Semantics.Answers.Answer(text, explanation, true);
 			yield return new BooleanAnswer(true, text, explanation);
 			yield return new ConceptAnswer(_semanticNetwork.Concepts.First(), text, explanation);
 			yield return new ConceptsAnswer(_semanticNetwork.Concepts, text, explanation);

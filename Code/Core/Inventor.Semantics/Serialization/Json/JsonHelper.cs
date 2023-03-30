@@ -4,7 +4,7 @@ using System.IO;
 using System.Runtime.Serialization.Json;
 using System.Text;
 
-namespace Inventor.Semantics.Utils
+namespace Inventor.Semantics.Serialization.Json
 {
 	public static class JsonHelper
 	{

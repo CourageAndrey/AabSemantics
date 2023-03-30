@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 
-using Inventor.Semantics.Utils;
+using Inventor.Semantics.Serialization.Json;
 
 namespace Inventor.SimpleRestClient.Controllers
 {

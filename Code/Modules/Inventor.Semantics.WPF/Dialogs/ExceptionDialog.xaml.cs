@@ -4,7 +4,7 @@ using System.Windows.Data;
 
 using Microsoft.Win32;
 
-using Inventor.Semantics.Utils;
+using Inventor.Semantics.Serialization.Xml;
 
 namespace Inventor.Semantics.WPF.Dialogs
 {

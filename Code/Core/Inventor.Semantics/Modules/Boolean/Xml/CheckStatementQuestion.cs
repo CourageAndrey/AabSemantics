@@ -5,7 +5,6 @@ using System.Xml.Serialization;
 using Inventor.Semantics.Metadata;
 using Inventor.Semantics.Serialization;
 using Inventor.Semantics.Serialization.Xml;
-using Inventor.Semantics.Utils;
 
 namespace Inventor.Semantics.Modules.Boolean.Xml
 {

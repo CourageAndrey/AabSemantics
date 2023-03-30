@@ -2,28 +2,28 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Runtime.Serialization;
 using System.Threading.Tasks;
-using System.Runtime.Serialization.Json;
+using System.Xml;
+using System.Xml.Serialization;
 
 using NUnit.Framework;
 
-using Inventor.Semantics.Utils;
+using Inventor.Semantics.Serialization.Xml;
 
-namespace Inventor.Semantics.Test.Utils
+namespace Inventor.Semantics.Test.Serialization.Xml
 {
 	[TestFixture]
-	public class JsonHelperTest
+	public class XmlHelperTest
 	{
 		[Test]
 		public void CheckCustomSerializers()
 		{
 			// arrange
-			var customSerializer = new DataContractJsonSerializer(typeof(SerializableCustom));
+			var customSerializer = new XmlSerializer(typeof(SerializableCustom));
 
 			// act
-			customSerializer.DefineCustomJsonSerializer<SerializableCustom>();
-			var acquiredSerializer = typeof(SerializableCustom).AcquireJsonSerializer();
+			customSerializer.DefineCustomXmlSerializer<SerializableCustom>();
+			var acquiredSerializer = typeof(SerializableCustom).AcquireXmlSerializer();
 
 			// assert
 			Assert.AreSame(customSerializer, acquiredSerializer);
@@ -33,7 +33,7 @@ namespace Inventor.Semantics.Test.Utils
 		public void AcquireSerializerTypedAndUntyped()
 		{
 			// act & assert
-			Assert.AreSame(JsonHelper.AcquireJsonSerializer(typeof(SerializableClass1)), JsonHelper.AcquireJsonSerializer<SerializableClass1>());
+			Assert.AreSame(XmlHelper.AcquireXmlSerializer(typeof(SerializableClass1)), XmlHelper.AcquireXmlSerializer<SerializableClass1>());
 		}
 
 		[Test]
@@ -60,7 +60,7 @@ namespace Inventor.Semantics.Test.Utils
 			// act & assert
 			Parallel.ForEach(threadTypes, type =>
 			{
-				Assert.IsNotNull(JsonHelper.AcquireJsonSerializer(type));
+				Assert.IsNotNull(XmlHelper.AcquireXmlSerializer(type));
 			});
 		}
 
@@ -72,20 +72,22 @@ namespace Inventor.Semantics.Test.Utils
 			string tempFileName = Path.GetTempFileName();
 
 			// act
-			string serializedText;
+			XmlDocument serializedDocument;
+			XmlElement serializedElement;
 			Test deserializedFromStream, deserializedFromBytes, deserializedFromFile, deserializedFromText;
 			try
 			{
-				serializedText = test.SerializeToJsonString();
-				test.SerializeToJsonFile(tempFileName);
+				serializedDocument = test.SerializeToXmlDocument();
+				serializedElement = test.SerializeToXmlElement();
+				test.SerializeToXmlFile(tempFileName);
 
-				using (var fileReader = File.OpenRead(tempFileName))
+				using (var xmlReader = new XmlTextReader(tempFileName))
 				{
-					deserializedFromStream = fileReader.DeserializeFromJsonStream<Test>();
+					deserializedFromStream = xmlReader.DeserializeFromXmlStream<Test>();
 				}
-				deserializedFromBytes = File.ReadAllBytes(tempFileName).DeserializeFromJsonBytes<Test>();
-				deserializedFromFile = tempFileName.DeserializeFromJsonFile<Test>();
-				deserializedFromText = serializedText.DeserializeFromJsonText<Test>();
+				deserializedFromBytes = File.ReadAllBytes(tempFileName).DeserializeFromXmlBytes<Test>();
+				deserializedFromFile = tempFileName.DeserializeFromXmlFile<Test>();
+				deserializedFromText = serializedDocument.OuterXml.DeserializeFromXmlText<Test>();
 			}
 			finally
 			{
@@ -96,6 +98,7 @@ namespace Inventor.Semantics.Test.Utils
 			}
 
 			// assert
+			Assert.AreEqual(serializedDocument.DocumentElement.OuterXml, serializedElement.OuterXml);
 			Assert.AreEqual(test, deserializedFromStream);
 			Assert.AreEqual(test, deserializedFromBytes);
 			Assert.AreEqual(test, deserializedFromFile);
@@ -104,64 +107,65 @@ namespace Inventor.Semantics.Test.Utils
 
 		#region Serializable classes
 
-		[DataContract]
+		[Serializable, XmlRoot(nameof(SerializableCustom))]
 		public class SerializableCustom
 		{
-			[DataMember]
+			[XmlElement]
 			public string FieldCustom
 			{ get; set; }
 		}
 
-		[DataContract]
+		[XmlType]
 		public class SerializableClass1
 		{ }
 
-		[DataContract]
+		[XmlType]
 		public class SerializableClass2
 		{ }
 
-		[DataContract]
+		[XmlType]
 		public class SerializableClass3
 		{ }
 
-		[DataContract]
+		[XmlType]
 		public class SerializableClass4
 		{ }
 
-		[DataContract]
+		[XmlType]
 		public class SerializableClass5
 		{ }
 
-		[DataContract]
+		[XmlType]
 		public class Test : IEquatable<Test>
 		{
 			#region Properties
 
-			[DataMember]
+			[XmlAttribute]
 			public string String
 			{ get; set; }
 
-			[DataMember]
+			[XmlElement]
 			public int Int
 			{ get; set; }
 
-			[DataMember]
+			[XmlAttribute]
 			public DateTime DateTime
 			{ get; set; }
 
-			[DataMember]
+			[XmlElement]
 			public Test SingleChildObject
 			{ get; set; }
 
-			[DataMember]
+			[XmlElement]
 			public Test ChildObject
 			{ get; set; }
 
-			[DataMember]
+			[XmlElement("ChildElement")]
 			public List<Test> ChildElements
 			{ get; set; }
 
-			[DataMember]
+			[XmlArray("Children")]
+			[XmlArrayItem("Child")]
 			public List<Test> Children
 			{ get; set; }
 
@@ -199,7 +203,7 @@ namespace Inventor.Semantics.Test.Utils
 			{
 				return	String == other.String &&
 						Int == other.Int &&
-						(DateTime - other.DateTime).TotalSeconds < 1 && // because of JSON precision problems
+						DateTime == other.DateTime &&
 						(SingleChildObject == null && other.SingleChildObject == null || SingleChildObject.Equals(other.SingleChildObject)) &&
 						ChildElements.SequenceEqual(other.ChildElements) &&
 						Children.SequenceEqual(other.Children);
