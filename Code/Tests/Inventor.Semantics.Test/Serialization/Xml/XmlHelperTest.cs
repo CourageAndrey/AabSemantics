@@ -105,6 +105,124 @@ namespace Inventor.Semantics.Test.Serialization.Xml
 			Assert.AreEqual(test, deserializedFromText);
 		}
 
+		[Test]
+		public void TestAttributesOverride()
+		{
+			// arrange
+			var test = new SerializationParent
+			{
+				ChildrenA =
+				{
+					new SerializationChildA1(),
+					new SerializationChildA2(),
+					new SerializationChildA3(),
+				},
+				ChildrenB =
+				{
+					new SerializationChildB1(),
+					new SerializationChildB2(),
+					new SerializationChildB3(),
+				},
+			};
+
+			var overrides = new[]
+			{
+				new XmlHelper.PropertyTypes(nameof(SerializationParent.ChildrenA), typeof(SerializationParent), new Dictionary<string, Type>
+				{
+					{ "A1", typeof(SerializationChildA1) },
+					{ "A2", typeof(SerializationChildA2) },
+					{ "A3", typeof(SerializationChildA3) },
+				}),
+				new XmlHelper.PropertyTypes(nameof(SerializationParent.ChildrenB), typeof(SerializationParent), new Dictionary<string, Type>
+				{
+					{ "B1", typeof(SerializationChildB1) },
+					{ "B2", typeof(SerializationChildB2) },
+					{ "B3", typeof(SerializationChildB3) },
+				}),
+			};
+
+			// act & assert before
+			var error = Assert.Throws<InvalidOperationException>(() => test.SerializeToXmlDocument());
+			var innerError = (InvalidOperationException) error.InnerException;
+			Assert.IsTrue(innerError.Message.Contains("XmlInclude"));
+
+			// act as extension & assert
+			typeof(SerializationParent).DefineTypeOverrides(overrides);
+
+			string xml = test.SerializeToXmlElement().OuterXml;
+			var deserialized = xml.DeserializeFromXmlText<SerializationParent>();
+
+			Assert.IsTrue(deserialized.Equals(test));
+
+			// clear & try to assert again
+			XmlHelper.DefineCustomXmlSerializer<SerializationParent>(new XmlSerializer(typeof(SerializationParent)));
+
+			error = Assert.Throws<InvalidOperationException>(() => test.SerializeToXmlDocument());
+			innerError = (InvalidOperationException)error.InnerException;
+			Assert.IsTrue(innerError.Message.Contains("XmlInclude"));
+
+			// act and assert by type
+			XmlHelper.DefineTypeOverrides<SerializationParent>(overrides);
+
+			xml = test.SerializeToXmlElement().OuterXml;
+			deserialized = xml.DeserializeFromXmlText<SerializationParent>();
+
+			Assert.IsTrue(deserialized.Equals(test));
+		}
+
+		[Test]
+		public void TestOverloadsOfAttributesOverride()
+		{
+			// arrange
+			var test = new SerializationParent
+			{
+				ChildrenA =
+				{
+					new SerializationChildA1(),
+					new SerializationChildA2(),
+					new SerializationChildA3(),
+				},
+			};
+
+			var overrides = new XmlHelper.PropertyTypes(nameof(SerializationParent.ChildrenA), typeof(SerializationParent), new Dictionary<string, Type>
+			{
+				{ "A1", typeof(SerializationChildA1) },
+				{ "A2", typeof(SerializationChildA2) },
+				{ "A3", typeof(SerializationChildA3) },
+			});
+
+			// act
+			XmlHelper.DefineTypeOverride<SerializationParent>(overrides);
+
+			string xml = test.SerializeToXmlElement().OuterXml;
+			var deserialized = xml.DeserializeFromXmlText<SerializationParent>();
+
+			// assert
+			Assert.IsTrue(deserialized.Equals(test));
+
+			// assert
+
+
+			//XmlHelper.DefineTypeOverride<>(new XmlHelper.PropertyTypes());
+
+			//XmlHelper.DefineTypeOverrides<>(new[]
+			//{
+
+			//});
+
+
+
+			//public static void DefineTypeOverrides<T>(IEnumerable<PropertyTypes> overrides)
+			//{
+			//	typeof(T).DefineTypeOverrides(overrides);
+			//}
+
+			//public static void DefineTypeOverride<T>(PropertyTypes propertyOverride)
+			//{
+			//	typeof(T).DefineTypeOverride(propertyOverride);
+			//}
+		}
+
 		#region Serializable classes
 
 		[Serializable, XmlRoot(nameof(SerializableCustom))]
@@ -220,6 +338,80 @@ namespace Inventor.Semantics.Test.Serialization.Xml
 					new[] { new Test("Child 2.1", 5), new Test("Child 2.2", 6), new Test("Child 2.3", 7), });
 			}
 		}
+
+		[XmlType]
+		public class SerializationParent : IEquatable<SerializationParent>
+		{
+			[XmlArray(nameof(ChildrenA))]
+			public List<SerializationChildA> ChildrenA
+			{ get; set; } = new List<SerializationChildA>();
+
+			[XmlArray(nameof(ChildrenB))]
+			public List<SerializationChildB> ChildrenB
+			{ get; set; } = new List<SerializationChildB>();
+
+			public bool Equals(SerializationParent other)
+			{
+				return ChildrenA.SequenceEqual(other.ChildrenA) && ChildrenB.SequenceEqual(other.ChildrenB);
+			}
+
+			public override bool Equals(object obj)
+			{
+				return Equals(obj as SerializationParent);
+			}
+		}
+
+		[XmlType]
+		public abstract class SerializationChildA : IEquatable<SerializationChildA>
+		{
+			public bool Equals(SerializationChildA other)
+			{
+				return GetType() == other.GetType();
+			}
+
+			public override bool Equals(object obj)
+			{
+				return Equals(obj as SerializationChildA);
+			}
+		}
+
+		[XmlType]
+		public class SerializationChildA1 : SerializationChildA
+		{ }
+
+		[XmlType]
+		public class SerializationChildA2 : SerializationChildA
+		{ }
+
+		[XmlType]
+		public class SerializationChildA3 : SerializationChildA
+		{ }
+
+		[XmlType]
+		public abstract class SerializationChildB : IEquatable<SerializationChildB>
+		{
+			public bool Equals(SerializationChildB other)
+			{
+				return GetType() == other.GetType();
+			}
+
+			public override bool Equals(object obj)
+			{
+				return Equals(obj as SerializationChildB);
+			}
+		}
+
+		[XmlType]
+		public class SerializationChildB1 : SerializationChildB
+		{ }
+
+		[XmlType]
+		public class SerializationChildB2 : SerializationChildB
+		{ }
+
+		[XmlType]
+		public class SerializationChildB3 : SerializationChildB
+		{ }
 
 		#endregion
 	}
