@@ -13,7 +13,7 @@ namespace Inventor.Semantics.Set.Json
 
 		[DataMember]
 		public String Concept
-		{ get; }
+		{ get; set; }
 
 		#endregion
 

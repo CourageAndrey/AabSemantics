@@ -14,7 +14,7 @@ namespace Inventor.Semantics.Modules.Classification.Json
 
 		[DataMember]
 		public String Concept
-		{ get; }
+		{ get; set; }
 
 		#endregion
 
