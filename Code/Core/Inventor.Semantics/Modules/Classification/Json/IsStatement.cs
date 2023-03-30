@@ -13,11 +13,11 @@ namespace Inventor.Semantics.Modules.Classification.Json
 
 		[DataMember]
 		public String Ancestor
-		{ get; private set; }
+		{ get; set; }
 
 		[DataMember]
 		public String Descendant
-		{ get; private set; }
+		{ get; set; }
 
 		#endregion
 

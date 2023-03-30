@@ -12,6 +12,7 @@ namespace Inventor.Semantics.Serialization.Json
 	{
 		#region Properties
 
+		[DataMember]
 		public List<Statement> Preconditions
 		{ get; set; }
 

@@ -14,11 +14,11 @@ namespace Inventor.Semantics.Modules.Classification.Json
 
 		[DataMember]
 		public String Child
-		{ get; }
+		{ get; set; }
 
 		[DataMember]
 		public String Parent
-		{ get; }
+		{ get; set; }
 
 		#endregion
 

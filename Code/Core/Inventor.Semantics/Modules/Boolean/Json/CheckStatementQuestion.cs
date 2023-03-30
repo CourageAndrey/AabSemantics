@@ -1,6 +1,8 @@
 ﻿using System.Collections.Generic;
 using System.Runtime.Serialization;
+using System.Runtime.Serialization.Json;
 
+using Inventor.Semantics.Metadata;
 using Inventor.Semantics.Serialization;
 using Inventor.Semantics.Serialization.Json;
 
@@ -13,7 +15,7 @@ namespace Inventor.Semantics.Modules.Boolean.Json
 
 		[DataMember]
 		public Statement Statement
-		{ get; }
+		{ get; set; }
 
 		#endregion
 
@@ -36,6 +38,15 @@ namespace Inventor.Semantics.Modules.Boolean.Json
 			return new Questions.CheckStatementQuestion(
 				Statement.SaveOrReuse(conceptIdResolver, statementIdResolver),
 				preconditions);
+		}
+
+		static CheckStatementQuestion()
+		{
+			var checkStatementType = typeof(CheckStatementQuestion);
+			var serializer = new DataContractJsonSerializer(
+				checkStatementType,
+				Repositories.Statements.GetJsonTypes());
+			checkStatementType.DefineCustomJsonSerializer(serializer);
 		}
 	}
 }
