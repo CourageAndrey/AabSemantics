@@ -5,6 +5,8 @@ using System.Runtime.Serialization;
 using System.Threading;
 using System.Xml.Serialization;
 
+using Inventor.Semantics.Serialization.Xml;
+
 namespace Inventor.Semantics.Utils
 {
 	public abstract class EventCollectionBase<T> : IEventCollection<T>

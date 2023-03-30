@@ -7,7 +7,6 @@ using Inventor.Semantics.Localization;
 using Inventor.Semantics.Metadata;
 using Inventor.Semantics.Serialization.Xml.Answers;
 using Inventor.Semantics.Text.Primitives;
-using Inventor.Semantics.Utils;
 
 namespace Inventor.Semantics.Serialization.Xml
 {

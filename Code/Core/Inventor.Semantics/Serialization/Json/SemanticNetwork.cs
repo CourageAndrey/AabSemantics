@@ -5,7 +5,6 @@ using System.Runtime.Serialization;
 using System.Runtime.Serialization.Json;
 
 using Inventor.Semantics.Metadata;
-using Inventor.Semantics.Utils;
 
 namespace Inventor.Semantics.Serialization.Json
 {

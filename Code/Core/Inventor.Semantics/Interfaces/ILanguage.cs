@@ -6,7 +6,7 @@ using System.Reflection;
 using System.Threading;
 
 using Inventor.Semantics.Localization;
-using Inventor.Semantics.Utils;
+using Inventor.Semantics.Serialization.Xml;
 
 namespace Inventor.Semantics
 {
