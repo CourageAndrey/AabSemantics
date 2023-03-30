@@ -27,11 +27,12 @@ namespace Inventor.Semantics.Processes.Json
 		#region Constructors
 
 		public ProcessesStatement()
+			: base()
 		{ }
 
 		public ProcessesStatement(Statements.ProcessesStatement statement)
+			: base(statement)
 		{
-			ID = statement.ID;
 			ProcessA = statement.ProcessA.ID;
 			ProcessB = statement.ProcessB.ID;
 			SequenceSign = statement.SequenceSign.ID;

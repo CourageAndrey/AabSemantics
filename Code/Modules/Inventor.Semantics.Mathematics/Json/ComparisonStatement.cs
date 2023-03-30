@@ -27,11 +27,12 @@ namespace Inventor.Semantics.Mathematics.Json
 		#region Constructors
 
 		public ComparisonStatement()
+			: base()
 		{ }
 
 		public ComparisonStatement(Statements.ComparisonStatement statement)
+			: base(statement)
 		{
-			ID = statement.ID;
 			LeftValue = statement.LeftValue.ID;
 			RightValue = statement.RightValue.ID;
 			ComparisonSign = statement.ComparisonSign.ID;

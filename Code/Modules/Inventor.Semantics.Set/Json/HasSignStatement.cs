@@ -23,11 +23,12 @@ namespace Inventor.Semantics.Set.Json
 		#region Constructors
 
 		public HasSignStatement()
+			: base()
 		{ }
 
 		public HasSignStatement(Statements.HasSignStatement statement)
+			: base(statement)
 		{
-			ID = statement.ID;
 			Concept = statement.Concept.ID;
 			Sign = statement.Sign.ID;
 		}

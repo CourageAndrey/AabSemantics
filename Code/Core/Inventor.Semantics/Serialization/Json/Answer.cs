@@ -2,8 +2,10 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.Serialization;
+using System.Runtime.Serialization.Json;
 
 using Inventor.Semantics.Metadata;
+using Inventor.Semantics.Serialization.Json.Answers;
 using Inventor.Semantics.Text.Primitives;
 
 namespace Inventor.Semantics.Serialization.Json
@@ -61,6 +63,26 @@ namespace Inventor.Semantics.Serialization.Json
 				new FormattedText(language => Description, new Dictionary<String, IKnowledge>()),
 				new Explanation(Explanation.Select(statement => statement.SaveOrReuse(conceptIdResolver, statementIdResolver))),
 				IsEmpty);
+		}
+
+		static Answer()
+		{
+			var statementTypes = Repositories.Statements.GetJsonTypes();
+			foreach (var answerType in new[]
+			{
+				typeof(Answer),
+				typeof(BooleanAnswer),
+				typeof(ConceptAnswer),
+				typeof(ConceptsAnswer),
+				typeof(StatementAnswer),
+				typeof(StatementsAnswer),
+			})
+			{
+				var serializer = new DataContractJsonSerializer(
+					answerType,
+					statementTypes);
+				answerType.DefineCustomJsonSerializer(serializer);
+			}
 		}
 	}
 }
