@@ -42,6 +42,12 @@ namespace Inventor.Semantics.Modules.Boolean.Json
 
 		static CheckStatementQuestion()
 		{
+			RefreshMetadata();
+			RefreshMetadataStatement();
+		}
+
+		public static void RefreshMetadataStatement()
+		{
 			var checkStatementType = typeof(CheckStatementQuestion);
 			var serializer = new DataContractJsonSerializer(
 				checkStatementType,

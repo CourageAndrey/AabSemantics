@@ -42,6 +42,11 @@ namespace Inventor.Semantics.Serialization.Json
 
 		static Question()
 		{
+			RefreshMetadata();
+		}
+
+		public static void RefreshMetadata()
+		{
 			var questionType = typeof(Question);
 			var serializer = new DataContractJsonSerializer(
 				questionType,
