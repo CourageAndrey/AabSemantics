@@ -32,7 +32,7 @@ namespace Inventor.Semantics.Modules.Classification.Json
 
 		#endregion
 
-		protected override Questions.EnumerateAncestorsQuestion SaveImplementation(ConceptIdResolver conceptIdResolver, IEnumerable<IStatement> preconditions)
+		protected override Questions.EnumerateAncestorsQuestion SaveImplementation(ConceptIdResolver conceptIdResolver, StatementIdResolver statementIdResolver, IEnumerable<IStatement> preconditions)
 		{
 			return new Questions.EnumerateAncestorsQuestion(
 				conceptIdResolver.GetConceptById(Concept),

@@ -29,8 +29,9 @@ namespace Inventor.SimpleRestClient.Controllers
 				conceptsCache[concept.ID] = concept;
 			}
 			var conceptIdResolver = new ConceptIdResolver(conceptsCache);
+			var statementIdResolver = new StatementIdResolver(semanticNetwork);
 
-			var deserializedQuestion = question.Save(conceptIdResolver);
+			var deserializedQuestion = question.Save(conceptIdResolver, statementIdResolver);
 			var answer = deserializedQuestion.Ask(semanticNetwork.Context);
 			var serializedAnswer = Answer.Load(answer, semanticNetwork.Context.Language);
 
