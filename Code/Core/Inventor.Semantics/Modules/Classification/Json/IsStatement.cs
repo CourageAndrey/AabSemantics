@@ -24,9 +24,11 @@ namespace Inventor.Semantics.Modules.Classification.Json
 		#region Constructors
 
 		public IsStatement()
+			: base()
 		{ }
 
 		public IsStatement(Statements.IsStatement statement)
+			: base(statement)
 		{
 			Ancestor = statement.Ancestor.ID;
 			Descendant = statement.Descendant.ID;

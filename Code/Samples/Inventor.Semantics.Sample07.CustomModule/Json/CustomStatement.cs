@@ -22,11 +22,12 @@ namespace Samples.Semantics.Sample07.CustomModule.Json
 		#region Constructors
 
 		public CustomStatement()
+			: base()
 		{ }
 
 		public CustomStatement(Sample07.CustomModule.CustomStatement statement)
+			: base(statement)
 		{
-			ID = statement.ID;
 			Concept1 = statement.Concept1?.ID;
 			Concept2 = statement.Concept2?.ID;
 		}

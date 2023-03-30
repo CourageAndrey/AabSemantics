@@ -23,11 +23,12 @@ namespace Inventor.Semantics.Set.Json
 		#region Constructors
 
 		public HasPartStatement()
+			: base()
 		{ }
 
 		public HasPartStatement(Statements.HasPartStatement statement)
+			: base(statement)
 		{
-			ID = statement.ID;
 			Whole = statement.Whole.ID;
 			Part = statement.Part.ID;
 		}

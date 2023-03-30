@@ -27,11 +27,12 @@ namespace Inventor.Semantics.Set.Json
 		#region Constructors
 
 		public SignValueStatement()
+			: base()
 		{ }
 
 		public SignValueStatement(Statements.SignValueStatement statement)
+			: base(statement)
 		{
-			ID = statement.ID;
 			Concept = statement.Concept.ID;
 			Sign = statement.Sign.ID;
 			Value = statement.Value.ID;

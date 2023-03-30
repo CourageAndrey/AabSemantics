@@ -23,11 +23,12 @@ namespace Inventor.Semantics.Set.Json
 		#region Constructors
 
 		public GroupStatement()
+			: base()
 		{ }
 
 		public GroupStatement(Statements.GroupStatement statement)
+			: base(statement)
 		{
-			ID = statement.ID;
 			Area = statement.Area.ID;
 			Concept = statement.Concept.ID;
 		}
