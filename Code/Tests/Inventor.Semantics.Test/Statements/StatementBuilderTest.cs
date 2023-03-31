@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 
 using NUnit.Framework;
 
@@ -100,6 +101,35 @@ namespace Inventor.Semantics.Test.Statements
 			// assert
 			Assert.AreEqual(statementByConstuctor, statementByBuilderFromAncestor);
 			Assert.AreEqual(statementByConstuctor, statementByBuilderFromDescendant);
+		}
+
+		[Test]
+		public void TestBuildingMultipleIsStatements()
+		{
+			// arrange
+			var language = Language.Default;
+			var semanticNetwork = new SemanticNetwork(language);
+
+			var ancestor = ConceptCreationHelper.CreateConcept();
+			var ancestor1 = ConceptCreationHelper.CreateConcept();
+			var ancestor2 = ConceptCreationHelper.CreateConcept();
+			var ancestor3 = ConceptCreationHelper.CreateConcept();
+			var descendant = ConceptCreationHelper.CreateConcept();
+			var descendant1 = ConceptCreationHelper.CreateConcept();
+			var descendant2 = ConceptCreationHelper.CreateConcept();
+			var descendant3 = ConceptCreationHelper.CreateConcept();
+
+			// act
+			var statementsByBuilderFromAncestor = semanticNetwork.DeclareThat(ancestor).IsAncestorOf(new[] { descendant1, descendant2, descendant3 });
+			var statementsByBuilderFromDescendant = semanticNetwork.DeclareThat(descendant).IsDescendantOf(new[] { ancestor1, ancestor2, ancestor3 });
+
+			// assert
+			Assert.AreEqual(6, semanticNetwork.Statements.Count);
+			Assert.IsTrue(semanticNetwork.Statements.All(s => s is IsStatement));
+			Assert.AreEqual(3, statementsByBuilderFromAncestor.Count);
+			Assert.IsTrue(statementsByBuilderFromAncestor.All(s => s.Ancestor == ancestor));
+			Assert.AreEqual(3, statementsByBuilderFromDescendant.Count);
+			Assert.IsTrue(statementsByBuilderFromDescendant.All(s => s.Descendant == descendant));
 		}
 
 		[Test]
