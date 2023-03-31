@@ -33,13 +33,13 @@ namespace Inventor.Semantics.Test.Statements
 			var part = ConceptCreationHelper.CreateConcept();
 
 			// act
-			var statementByConstuctor = new HasPartStatement(null, whole, part);
+			var statementByConstructor = new HasPartStatement(null, whole, part);
 			var statementByBuilderFromWhole = semanticNetwork.DeclareThat(whole).HasPart(part);
 			var statementByBuilderFromPart = semanticNetwork.DeclareThat(part).IsPartOf(whole);
 
 			// assert
-			Assert.AreEqual(statementByConstuctor, statementByBuilderFromWhole);
-			Assert.AreEqual(statementByConstuctor, statementByBuilderFromPart);
+			Assert.AreEqual(statementByConstructor, statementByBuilderFromWhole);
+			Assert.AreEqual(statementByConstructor, statementByBuilderFromPart);
 		}
 
 		[Test]
@@ -53,13 +53,13 @@ namespace Inventor.Semantics.Test.Statements
 			var concept = ConceptCreationHelper.CreateConcept();
 
 			// act
-			var statementByConstuctor = new GroupStatement(null, area, concept);
+			var statementByConstructor = new GroupStatement(null, area, concept);
 			var statementByBuilderFromArea = semanticNetwork.DeclareThat(area).IsSubjectAreaOf(concept);
 			var statementByBuilderFromConcept = semanticNetwork.DeclareThat(concept).BelongsToSubjectArea(area);
 
 			// assert
-			Assert.AreEqual(statementByConstuctor, statementByBuilderFromArea);
-			Assert.AreEqual(statementByConstuctor, statementByBuilderFromConcept);
+			Assert.AreEqual(statementByConstructor, statementByBuilderFromArea);
+			Assert.AreEqual(statementByConstructor, statementByBuilderFromConcept);
 		}
 
 		[Test]
@@ -74,13 +74,13 @@ namespace Inventor.Semantics.Test.Statements
 			sign.WithAttribute(IsSignAttribute.Value);
 
 			// act
-			var statementByConstuctor = new HasSignStatement(null, concept, sign);
+			var statementByConstructor = new HasSignStatement(null, concept, sign);
 			var statementByBuilderFromConcept = semanticNetwork.DeclareThat(concept).HasSign(sign);
 			var statementByBuilderFromSign = semanticNetwork.DeclareThat(sign).IsSignOf(concept);
 
 			// assert
-			Assert.AreEqual(statementByConstuctor, statementByBuilderFromConcept);
-			Assert.AreEqual(statementByConstuctor, statementByBuilderFromSign);
+			Assert.AreEqual(statementByConstructor, statementByBuilderFromConcept);
+			Assert.AreEqual(statementByConstructor, statementByBuilderFromSign);
 		}
 
 		[Test]
@@ -94,13 +94,13 @@ namespace Inventor.Semantics.Test.Statements
 			var descendant = ConceptCreationHelper.CreateConcept();
 
 			// act
-			var statementByConstuctor = new IsStatement(null, ancestor, descendant);
+			var statementByConstructor = new IsStatement(null, ancestor, descendant);
 			var statementByBuilderFromAncestor = semanticNetwork.DeclareThat(ancestor).IsAncestorOf(descendant);
 			var statementByBuilderFromDescendant = semanticNetwork.DeclareThat(descendant).IsDescendantOf(ancestor);
 
 			// assert
-			Assert.AreEqual(statementByConstuctor, statementByBuilderFromAncestor);
-			Assert.AreEqual(statementByConstuctor, statementByBuilderFromDescendant);
+			Assert.AreEqual(statementByConstructor, statementByBuilderFromAncestor);
+			Assert.AreEqual(statementByConstructor, statementByBuilderFromDescendant);
 		}
 
 		[Test]
@@ -146,13 +146,13 @@ namespace Inventor.Semantics.Test.Statements
 			value.WithAttribute(IsValueAttribute.Value);
 
 			// act
-			var statementByConstuctor = new SignValueStatement(null, concept, sign, value);
+			var statementByConstructor = new SignValueStatement(null, concept, sign, value);
 			var statementByBuilderFromConcept = semanticNetwork.DeclareThat(concept).HasSignValue(sign, value);
 			var statementByBuilderFromValue = semanticNetwork.DeclareThat(value).IsSignValue(concept, sign);
 
 			// assert
-			Assert.AreEqual(statementByConstuctor, statementByBuilderFromConcept);
-			Assert.AreEqual(statementByConstuctor, statementByBuilderFromValue);
+			Assert.AreEqual(statementByConstructor, statementByBuilderFromConcept);
+			Assert.AreEqual(statementByConstructor, statementByBuilderFromValue);
 		}
 
 		[Test]
