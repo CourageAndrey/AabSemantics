@@ -70,9 +70,9 @@ namespace Samples.Semantics.Sample07.CustomModule
 		}
 
 		private static void checkSelfRelations(
-			ICollection<CustomStatement> statements,
+			ISemanticNetwork semanticNetwork,
 			ITextContainer result,
-			ISemanticNetwork semanticNetwork)
+			ICollection<CustomStatement> statements)
 		{
 			foreach (var statement in statements)
 			{

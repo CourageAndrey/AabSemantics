@@ -116,9 +116,9 @@ namespace Inventor.Semantics.Set
 		}
 
 		private static void checkSignDuplications(
-			ICollection<HasSignStatement> statements,
+			ISemanticNetwork semanticNetwork,
 			ITextContainer result,
-			ISemanticNetwork semanticNetwork)
+			ICollection<HasSignStatement> statements)
 		{
 			var clasifications = semanticNetwork.Statements.OfType<IsStatement>().ToList();
 
@@ -134,9 +134,9 @@ namespace Inventor.Semantics.Set
 		}
 
 		private static void checkSignValues(
-			ICollection<SignValueStatement> statements,
+			ISemanticNetwork semanticNetwork,
 			ITextContainer result,
-			ISemanticNetwork semanticNetwork)
+			ICollection<SignValueStatement> statements)
 		{
 			checkMultiValues(statements, result, semanticNetwork);
 			checkValuesWithoutSign(statements, result, semanticNetwork);

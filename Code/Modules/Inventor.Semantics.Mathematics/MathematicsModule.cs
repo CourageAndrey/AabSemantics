@@ -67,9 +67,9 @@ namespace Inventor.Semantics.Mathematics
 		}
 
 		private static void checkComparisonValueSystems(
-			ICollection<ComparisonStatement> statements,
+			ISemanticNetwork semanticNetwork,
 			ITextContainer result,
-			ISemanticNetwork semanticNetwork)
+			ICollection<ComparisonStatement> statements)
 		{
 			foreach (var contradiction in statements.CheckForContradictions())
 			{

@@ -50,9 +50,9 @@ namespace Inventor.Semantics.Modules.Classification
 		}
 
 		private static void checkCyclicParents(
-			ICollection<IsStatement> statements,
+			ISemanticNetwork semanticNetwork,
 			ITextContainer result,
-			ISemanticNetwork semanticNetwork)
+			ICollection<IsStatement> statements)
 		{
 			foreach (var clasification in statements)
 			{
