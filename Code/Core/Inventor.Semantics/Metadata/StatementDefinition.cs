@@ -5,7 +5,7 @@ using System.Linq;
 namespace Inventor.Semantics.Metadata
 {
 	public delegate void StatementConsistencyCheckerDelegate(ISemanticNetwork semanticNetwork, ITextContainer result);
-	public delegate void StatementConsistencyCheckerDelegate<StatementT>(ICollection<StatementT> statements, ITextContainer result, ISemanticNetwork semanticNetwork)
+	public delegate void StatementConsistencyCheckerDelegate<StatementT>(ISemanticNetwork semanticNetwork, ITextContainer result, ICollection<StatementT> statements)
 		where StatementT : IStatement;
 
 	public class StatementJsonSerializationSettings : IStatementSerializationSettings, IJsonSerializationSettings
@@ -94,7 +94,7 @@ namespace Inventor.Semantics.Metadata
 			_consistencyChecker(semanticNetwork, result);
 		}
 
-		public static readonly StatementConsistencyCheckerDelegate NoConsistencyCheck = (statements, result) => { };
+		public static readonly StatementConsistencyCheckerDelegate NoConsistencyCheck = (semanticNetwork, result) => { };
 	}
 
 	public class StatementDefinition<StatementT> : StatementDefinition
@@ -106,12 +106,12 @@ namespace Inventor.Semantics.Metadata
 			: base(
 				typeof(StatementT),
 				nameGetter,
-				(semanticNetwork, result) => consistencyChecker(semanticNetwork.Statements.OfType<StatementT>().ToList(), result, semanticNetwork))
+				(semanticNetwork, result) => consistencyChecker(semanticNetwork, result, semanticNetwork.Statements.OfType<StatementT>().ToList()))
 		{
 			if (consistencyChecker == null) throw new ArgumentNullException(nameof(consistencyChecker));
 		}
 
-		public static readonly StatementConsistencyCheckerDelegate<StatementT> NoConsistencyCheck = (statements, result, semanticNetwork) => { };
+		public static readonly StatementConsistencyCheckerDelegate<StatementT> NoConsistencyCheck = (semanticNetwork, result, statements) => { };
 	}
 
 	public static class StatementDefinitionExtensions

@@ -71,9 +71,9 @@ namespace Inventor.Semantics.Processes
 		}
 
 		private static void checkProcessSequenceSystems(
-			ICollection<ProcessesStatement> statements,
+			ISemanticNetwork semanticNetwork,
 			ITextContainer result,
-			ISemanticNetwork semanticNetwork)
+			ICollection<ProcessesStatement> statements)
 		{
 			foreach (var contradiction in statements.CheckForContradictions())
 			{
