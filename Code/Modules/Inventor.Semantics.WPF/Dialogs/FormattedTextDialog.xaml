@@ -5,13 +5,18 @@
 		MinWidth="200" MaxWidth="800" MaxHeight="600"
 		Loaded="dialogLoaded">
 	<DockPanel LastChildFill="True">
-		<TabControl>
-			<TabItem Header="HTML">
+		<StackPanel Orientation="Horizontal" DockPanel.Dock="Top" Margin="5">
+			<Button Click="saveClick">
+				<Image Source="/Resources/Save.png" Width="24" Height="24" />
+			</Button>
+		</StackPanel>
+		<TabControl Name="tabControl">
+			<TabItem Header="HTML" Name="tabHtml">
 				<WindowsFormsHost Name="windowsFormsHost">
 					<forms:WebBrowser />
 				</WindowsFormsHost>
 			</TabItem>
-			<TabItem Header="TXT">
+			<TabItem Header="TXT" Name="tabText">
 				<TextBox IsReadOnly="True" Name="textBox" VerticalScrollBarVisibility="Visible" HorizontalScrollBarVisibility="Auto" />
 			</TabItem>
 		</TabControl>

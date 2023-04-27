@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Windows;
 using System.Windows.Forms;
 
@@ -40,6 +41,41 @@ namespace Inventor.Semantics.WPF.Dialogs
 			{
 				Left = Owner.Left + Owner.Width/2;
 				Top = Owner.Top;
+			}
+		}
+
+		private void saveClick(object sender, RoutedEventArgs e)
+		{
+			string defaultExt = null;
+			string fileFilter = null;
+			string content = null;
+
+			if (tabControl.SelectedItem == tabText)
+			{
+				defaultExt = ".txt";
+				fileFilter = "TXT|*.txt";
+
+				content = textBox.Text;
+			}
+			else if (tabControl.SelectedItem == tabHtml)
+			{
+				defaultExt = ".html";
+				fileFilter = "HTML|*.html";
+
+				var browser = (WebBrowser) windowsFormsHost.Child;
+				content = browser.DocumentText;
+			}
+
+			var dialog = new Microsoft.Win32.SaveFileDialog
+			{
+				DefaultExt = defaultExt,
+				Filter = fileFilter,
+				RestoreDirectory = true,
+			};
+
+			if (dialog.ShowDialog() == true)
+			{
+				File.WriteAllText(dialog.FileName, content);
 			}
 		}
 	}
