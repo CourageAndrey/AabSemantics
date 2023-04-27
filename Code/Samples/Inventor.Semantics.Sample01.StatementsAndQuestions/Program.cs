@@ -71,13 +71,15 @@ namespace Samples.Semantics.Sample01.StatementsAndQuestions
 			IConcept brownBear = "Ursus arctos".CreateConcept("Brown bear");
 			IConcept polarBear = "Ursus maritimus".CreateConcept("Polar bear");
 			IConcept asianBlackBear = "Ursus thibetanuss".CreateConcept("Asian black bear");
-			
+			IConcept pandaBear = "Ailuropoda melanoleuca".CreateConcept("Panda bear");
+
 			// Pay attention to attributes of concepts below.
 			IConcept hairColor = "Hair color".CreateConcept("Hair color").WithAttribute(IsSignAttribute.Value);
 			IConcept black = "Color: Black".CreateConcept("Black").WithAttribute(IsValueAttribute.Value);
 			IConcept brown = "Color: Brown".CreateConcept("Brown").WithAttribute(IsValueAttribute.Value);
 			IConcept white = "Color: White".CreateConcept("White").WithAttribute(IsValueAttribute.Value);
-			
+			IConcept blackAndWhite = "Color: Mixed (black and white)".CreateConcept("Mixed (black and white)").WithAttribute(IsValueAttribute.Value);
+
 			// ... and add them to our semantic network.
 			semanticNetwork.Concepts.Add(animal);
 			semanticNetwork.Concepts.Add(chordate);
@@ -92,6 +94,7 @@ namespace Samples.Semantics.Sample01.StatementsAndQuestions
 			semanticNetwork.Concepts.Add(black);
 			semanticNetwork.Concepts.Add(brown);
 			semanticNetwork.Concepts.Add(white);
+			semanticNetwork.Concepts.Add(blackAndWhite);
 			// Actually, this sample is so easy, that we could skip adding concepts to semantic network...
 
 			#endregion
@@ -107,11 +110,13 @@ namespace Samples.Semantics.Sample01.StatementsAndQuestions
 			semanticNetwork.DeclareThat(brownBear).IsDescendantOf(bear);
 			semanticNetwork.DeclareThat(polarBear).IsDescendantOf(bear);
 			semanticNetwork.DeclareThat(asianBlackBear).IsDescendantOf(bear);
+			semanticNetwork.DeclareThat(pandaBear).IsDescendantOf(bear);
 
 			// 3 statements below are also redundant for this simple case.
 			semanticNetwork.DeclareThat(black).IsDescendantOf(hairColor);
 			semanticNetwork.DeclareThat(brown).IsDescendantOf(hairColor);
 			semanticNetwork.DeclareThat(white).IsDescendantOf(hairColor);
+			semanticNetwork.DeclareThat(blackAndWhite).IsDescendantOf(hairColor);
 
 			semanticNetwork.DeclareThat(bear).HasSign(hairColor); // Or we can use semanticNetwork.DeclareThat(hairColor).IsSignOf(bear) instead.
 
@@ -119,6 +124,7 @@ namespace Samples.Semantics.Sample01.StatementsAndQuestions
 			semanticNetwork.DeclareThat(brownBear).HasSignValue(hairColor, brown);
 			semanticNetwork.DeclareThat(polarBear).HasSignValue(hairColor, white);
 			semanticNetwork.DeclareThat(asianBlackBear).HasSignValue(hairColor, black);
+			semanticNetwork.DeclareThat(pandaBear).HasSignValue(hairColor, blackAndWhite);
 
 			#endregion
 
@@ -140,6 +146,10 @@ namespace Samples.Semantics.Sample01.StatementsAndQuestions
 			writeAnswer(
 				"Question 4: What in common American and Asian black bears have?",
 				semanticNetwork.Ask().WhatInCommon(americanBlackBear, asianBlackBear));
+
+			writeAnswer(
+				"Question 5: What is the difference between Panda and Asian black bears have?",
+				semanticNetwork.Ask().WhatIsTheDifference(pandaBear, asianBlackBear));
 
 			#endregion
 
