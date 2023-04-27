@@ -4,6 +4,7 @@ using System.Linq;
 
 using Inventor.Semantics;
 using Inventor.Semantics.Questions;
+using Inventor.Semantics.Utils;
 
 namespace Samples.Semantics.Sample05.CustomStatement
 {
@@ -17,11 +18,8 @@ namespace Samples.Semantics.Sample05.CustomStatement
 
 		public IsTallerQuestion(IConcept tallerPerson, IConcept shorterPerson)
 		{
-			if (tallerPerson == null) throw new ArgumentNullException(nameof(tallerPerson));
-			if (shorterPerson == null) throw new ArgumentNullException(nameof(shorterPerson));
-
-			TallerPerson = tallerPerson;
-			ShorterPerson = shorterPerson;
+			TallerPerson = tallerPerson.EnsureNotNull(nameof(tallerPerson));
+			ShorterPerson = shorterPerson.EnsureNotNull(nameof(shorterPerson));
 		}
 
 		public override IAnswer Process(IQuestionProcessingContext context)

@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using Inventor.Semantics.Questions;
 using Inventor.Semantics.Set.Localization;
 using Inventor.Semantics.Set.Statements;
+using Inventor.Semantics.Utils;
 
 namespace Inventor.Semantics.Set.Questions
 {
@@ -22,11 +23,8 @@ namespace Inventor.Semantics.Set.Questions
 		public SignValueQuestion(IConcept concept, IConcept sign, IEnumerable<IStatement> preconditions = null)
 			: base(preconditions)
 		{
-			if (concept == null) throw new ArgumentNullException(nameof(concept));
-			if (sign == null) throw new ArgumentNullException(nameof(sign));
-
-			Concept = concept;
-			Sign = sign;
+			Concept = concept.EnsureNotNull(nameof(concept));
+			Sign = sign.EnsureNotNull(nameof(sign));
 		}
 
 		public override IAnswer Process(IQuestionProcessingContext context)

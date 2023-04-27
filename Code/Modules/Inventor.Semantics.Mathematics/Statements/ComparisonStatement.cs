@@ -7,6 +7,7 @@ using Inventor.Semantics.Mathematics.Concepts;
 using Inventor.Semantics.Mathematics.Localization;
 using Inventor.Semantics.Mathematics.Questions;
 using Inventor.Semantics.Modules.Boolean.Attributes;
+using Inventor.Semantics.Utils;
 
 namespace Inventor.Semantics.Mathematics.Statements
 {
@@ -36,17 +37,10 @@ namespace Inventor.Semantics.Mathematics.Statements
 
 		public void Update(String id, IConcept leftValue, IConcept rightValue, IConcept comparisonSign)
 		{
-			if (leftValue == null) throw new ArgumentNullException(nameof(leftValue));
-			if (rightValue == null) throw new ArgumentNullException(nameof(rightValue));
-			if (comparisonSign == null) throw new ArgumentNullException(nameof(comparisonSign));
-			if (!leftValue.HasAttribute<IsValueAttribute>()) throw new ArgumentException("Left value concept has to be marked as IsValue Attribute.", nameof(leftValue));
-			if (!rightValue.HasAttribute<IsValueAttribute>()) throw new ArgumentException("Right value concept has to be marked as IsValue Attribute.", nameof(rightValue));
-			if (!comparisonSign.HasAttribute<IsComparisonSignAttribute>()) throw new ArgumentException("Comparison Sign concept has to be marked as IsComparisonSign Attribute.", nameof(comparisonSign));
-
 			Update(id);
-			LeftValue = leftValue;
-			RightValue = rightValue;
-			ComparisonSign = comparisonSign;
+			LeftValue = leftValue.EnsureNotNull(nameof(leftValue)).EnsureHasAttribute<IConcept, IsValueAttribute>(nameof(leftValue));
+			RightValue = rightValue.EnsureNotNull(nameof(rightValue)).EnsureHasAttribute<IConcept, IsValueAttribute>(nameof(rightValue));
+			ComparisonSign = comparisonSign.EnsureNotNull(nameof(comparisonSign)).EnsureHasAttribute<IConcept, IsComparisonSignAttribute>(nameof(comparisonSign));
 		}
 
 		public override IEnumerable<IConcept> GetChildConcepts()

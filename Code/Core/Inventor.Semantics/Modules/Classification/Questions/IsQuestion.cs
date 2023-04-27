@@ -5,6 +5,7 @@ using Inventor.Semantics.Localization;
 using Inventor.Semantics.Modules.Classification.Localization;
 using Inventor.Semantics.Modules.Classification.Statements;
 using Inventor.Semantics.Questions;
+using Inventor.Semantics.Utils;
 
 namespace Inventor.Semantics.Modules.Classification.Questions
 {
@@ -24,11 +25,8 @@ namespace Inventor.Semantics.Modules.Classification.Questions
 		public IsQuestion(IConcept child, IConcept parent, IEnumerable<IStatement> preconditions = null)
 			: base(preconditions)
 		{
-			if (child == null) throw new ArgumentNullException(nameof(child));
-			if (parent == null) throw new ArgumentNullException(nameof(parent));
-
-			Child = child;
-			Parent = parent;
+			Child = child.EnsureNotNull(nameof(child));
+			Parent = parent.EnsureNotNull(nameof(parent));
 		}
 
 		public override IAnswer Process(IQuestionProcessingContext context)

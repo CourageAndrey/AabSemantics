@@ -5,6 +5,7 @@ using System.Linq;
 using Inventor.Semantics.Questions;
 using Inventor.Semantics.Set.Localization;
 using Inventor.Semantics.Set.Statements;
+using Inventor.Semantics.Utils;
 
 namespace Inventor.Semantics.Set.Questions
 {
@@ -24,11 +25,8 @@ namespace Inventor.Semantics.Set.Questions
 		public IsPartOfQuestion(IConcept child, IConcept parent, IEnumerable<IStatement> preconditions = null)
 			: base(preconditions)
 		{
-			if (child == null) throw new ArgumentNullException(nameof(child));
-			if (parent == null) throw new ArgumentNullException(nameof(parent));
-
-			Child = child;
-			Parent = parent;
+			Child = child.EnsureNotNull(nameof(child));
+			Parent = parent.EnsureNotNull(nameof(parent));
 		}
 
 		public override IAnswer Process(IQuestionProcessingContext context)

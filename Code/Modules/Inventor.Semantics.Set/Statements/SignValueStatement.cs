@@ -7,6 +7,7 @@ using Inventor.Semantics.Modules.Classification.Statements;
 using Inventor.Semantics.Statements;
 using Inventor.Semantics.Set.Attributes;
 using Inventor.Semantics.Set.Localization;
+using Inventor.Semantics.Utils;
 
 namespace Inventor.Semantics.Set.Statements
 {
@@ -36,16 +37,10 @@ namespace Inventor.Semantics.Set.Statements
 
 		public void Update(String id, IConcept concept, IConcept sign, IConcept value)
 		{
-			if (concept == null) throw new ArgumentNullException(nameof(concept));
-			if (sign == null) throw new ArgumentNullException(nameof(sign));
-			if (value == null) throw new ArgumentNullException(nameof(value));
-			if (!sign.HasAttribute<IsSignAttribute>()) throw new ArgumentException("Sign concept has to be marked as IsSign Attribute.", nameof(sign));
-			if (!value.HasAttribute<IsValueAttribute>()) throw new ArgumentException("Value concept has to be marked as IsValue Attribute.", nameof(value));
-
 			Update(id);
-			Concept = concept;
-			Sign = sign;
-			Value = value;
+			Concept = concept.EnsureNotNull(nameof(concept));
+			Sign = sign.EnsureNotNull(nameof(sign)).EnsureHasAttribute<IConcept, IsSignAttribute>(nameof(sign));
+			Value = value.EnsureNotNull(nameof(value)).EnsureHasAttribute<IConcept, IsValueAttribute>(nameof(value));
 		}
 
 		public override IEnumerable<IConcept> GetChildConcepts()

@@ -1,8 +1,8 @@
-﻿using System;
-using System.Linq;
+﻿using System.Linq;
 
 using Inventor.Semantics;
 using Inventor.Semantics.Questions;
+using Inventor.Semantics.Utils;
 
 namespace Samples.Semantics.Sample05.CustomStatement
 {
@@ -13,9 +13,7 @@ namespace Samples.Semantics.Sample05.CustomStatement
 
 		public GetTallerQuestion(IConcept person)
 		{
-			if (person == null) throw new ArgumentNullException(nameof(person));
-
-			Person = person;
+			Person = person.EnsureNotNull(nameof(person));
 		}
 
 		public override IAnswer Process(IQuestionProcessingContext context)

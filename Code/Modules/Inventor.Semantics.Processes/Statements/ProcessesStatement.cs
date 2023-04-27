@@ -6,6 +6,7 @@ using Inventor.Semantics.Processes.Attributes;
 using Inventor.Semantics.Processes.Concepts;
 using Inventor.Semantics.Processes.Localization;
 using Inventor.Semantics.Processes.Questions;
+using Inventor.Semantics.Utils;
 
 namespace Inventor.Semantics.Processes.Statements
 {
@@ -35,17 +36,10 @@ namespace Inventor.Semantics.Processes.Statements
 
 		public void Update(String id, IConcept processA, IConcept processB, IConcept sequenceSign)
 		{
-			if (processA == null) throw new ArgumentNullException(nameof(processA));
-			if (processB == null) throw new ArgumentNullException(nameof(processB));
-			if (sequenceSign == null) throw new ArgumentNullException(nameof(sequenceSign));
-			if (!processA.HasAttribute<IsProcessAttribute>()) throw new ArgumentException("Process A concept has to be marked as IsProcess Attribute.", nameof(processA));
-			if (!processB.HasAttribute<IsProcessAttribute>()) throw new ArgumentException("Process B concept has to be marked as IsProcess Attribute.", nameof(processB));
-			if (!sequenceSign.HasAttribute<IsSequenceSignAttribute>()) throw new ArgumentException("Sequence Sign concept has to be marked as IsSequenceSign Attribute.", nameof(sequenceSign));
-
 			Update(id);
-			ProcessA = processA;
-			ProcessB = processB;
-			SequenceSign = sequenceSign;
+			ProcessA = processA.EnsureNotNull(nameof(processA)).EnsureHasAttribute<IConcept, IsProcessAttribute>(nameof(processA));
+			ProcessB = processB.EnsureNotNull(nameof(processB)).EnsureHasAttribute<IConcept, IsProcessAttribute>(nameof(processB));
+			SequenceSign = sequenceSign.EnsureNotNull(nameof(sequenceSign)).EnsureHasAttribute<IConcept, IsSequenceSignAttribute>(nameof(sequenceSign));
 		}
 
 		public override IEnumerable<IConcept> GetChildConcepts()

@@ -7,6 +7,7 @@ using Inventor.Semantics.Localization;
 using Inventor.Semantics.Modules.Boolean.Concepts;
 using Inventor.Semantics.Questions;
 using Inventor.Semantics.Text.Containers;
+using Inventor.Semantics.Utils;
 
 namespace Inventor.Semantics.Modules.Boolean.Questions
 {
@@ -22,9 +23,7 @@ namespace Inventor.Semantics.Modules.Boolean.Questions
 		public CheckStatementQuestion(IStatement statement, IEnumerable<IStatement> preconditions = null)
 			: base(preconditions)
 		{
-			if (statement == null) throw new ArgumentNullException(nameof(statement));
-
-			Statement = statement;
+			Statement = statement.EnsureNotNull(nameof(statement));
 		}
 
 		public override IAnswer Process(IQuestionProcessingContext context)
