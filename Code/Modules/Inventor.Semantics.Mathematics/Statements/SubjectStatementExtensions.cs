@@ -79,5 +79,51 @@ namespace Inventor.Semantics.Mathematics.Statements
 			builder.SemanticNetwork.Statements.Add(statement);
 			return statement;
 		}
+
+		public static List<ComparisonStatement> DefineSequence(this ISemanticNetwork semanticNetwork, IEnumerable<IConcept> numbers, IConcept comparisonSign)
+		{
+			var comparisons = new List<ComparisonStatement>();
+			IConcept leftValue = null;
+
+			foreach (var number in numbers)
+			{
+				if (leftValue == null)
+				{
+					leftValue = number;
+				}
+				else
+				{
+					var rightValue = number;
+
+					var comparison = new ComparisonStatement(null, leftValue, rightValue, comparisonSign);
+					semanticNetwork.Statements.Add(comparison);
+					comparisons.Add(comparison);
+
+					leftValue = rightValue;
+				}
+			}
+
+			return comparisons;
+		}
+
+		public static List<ComparisonStatement> DefineAscendingSequence(this ISemanticNetwork semanticNetwork, IEnumerable<IConcept> numbers)
+		{
+			return DefineSequence(semanticNetwork, numbers, ComparisonSigns.IsLessThan);
+		}
+
+		public static List<ComparisonStatement> DefineDescendingSequence(this ISemanticNetwork semanticNetwork, IEnumerable<IConcept> numbers)
+		{
+			return DefineSequence(semanticNetwork, numbers, ComparisonSigns.IsGreaterThan);
+		}
+
+		public static List<ComparisonStatement> DefineNotAscendingSequence(this ISemanticNetwork semanticNetwork, IEnumerable<IConcept> numbers)
+		{
+			return DefineSequence(semanticNetwork, numbers, ComparisonSigns.IsGreaterThanOrEqualTo);
+		}
+
+		public static List<ComparisonStatement> DefineNotDescendingSequence(this ISemanticNetwork semanticNetwork, IEnumerable<IConcept> numbers)
+		{
+			return DefineSequence(semanticNetwork, numbers, ComparisonSigns.IsLessThanOrEqualTo);
+		}
 	}
 }
