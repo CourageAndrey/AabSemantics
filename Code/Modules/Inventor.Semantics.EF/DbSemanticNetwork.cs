@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Data.Entity;
 
 using Inventor.Semantics.Contexts;
+using Inventor.Semantics.Utils;
 
 namespace Inventor.Semantics.EF
 {
@@ -34,8 +35,8 @@ namespace Inventor.Semantics.EF
 
 		public DbSemanticNetwork(ILanguage language, ILocalizedString name, ContextT dbContext)
 		{
-			Name = name ?? throw new ArgumentNullException(nameof(name));
-			_dbContext = dbContext ?? throw new ArgumentNullException(nameof(dbContext));
+			Name = name.EnsureNotNull(nameof(name));
+			_dbContext = dbContext.EnsureNotNull(nameof(dbContext));
 			_concepts = new MappedCollection<IConcept>();
 			_statements = new MappedCollection<IStatement>();
 			Modules = new Dictionary<String, IExtensionModule>();

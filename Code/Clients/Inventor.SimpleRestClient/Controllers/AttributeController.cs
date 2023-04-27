@@ -2,6 +2,7 @@
 
 using Inventor.Semantics.Metadata;
 using Inventor.Semantics.Serialization.Json;
+using Inventor.Semantics.Utils;
 
 namespace Inventor.SimpleRestClient.Controllers
 {
@@ -13,8 +14,8 @@ namespace Inventor.SimpleRestClient.Controllers
 
 		public AttributeController(ILogger<AttributeController> logger, IDataService dataService)
 		{
-			_logger = logger ?? throw new ArgumentNullException(nameof(logger));
-			_dataService = dataService ?? throw new ArgumentNullException(nameof(dataService));
+			_logger = logger.EnsureNotNull(nameof(logger));
+			_dataService = dataService.EnsureNotNull(nameof(dataService));
 		}
 
 		[HttpGet(Name = "GetAttribute")]

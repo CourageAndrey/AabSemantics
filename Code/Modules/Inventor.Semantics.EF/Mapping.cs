@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
 
+using Inventor.Semantics.Utils;
+
 namespace Inventor.Semantics.EF
 {
 	internal interface IMapping
@@ -59,10 +61,10 @@ namespace Inventor.Semantics.EF
 			Func<ItemT, EntityT> mapBack,
 			Func<EntityT, string> getKey)
 		{
-			DbSet = dbSet ?? throw new ArgumentNullException(nameof(dbSet));
-			_map = map ?? throw new ArgumentNullException(nameof(map));
-			_mapBack = mapBack ?? throw new ArgumentNullException(nameof(mapBack));
-			_getKey = getKey ?? throw new ArgumentNullException(nameof(getKey));
+			DbSet = dbSet.EnsureNotNull(nameof(dbSet));
+			_map = map.EnsureNotNull(nameof(map));
+			_mapBack = mapBack.EnsureNotNull(nameof(mapBack));
+			_getKey = getKey.EnsureNotNull(nameof(getKey));
 		}
 
 		public IEnumerable<string> GetKeys()

@@ -244,14 +244,7 @@ namespace Inventor.Semantics.Utils
 		public ItemsCantBeRemovedException(IEnumerable<T> items)
 			: base("Some items can not be removed.")
 		{
-			if (items != null)
-			{
-				Items = new List<T>(items);
-			}
-			else
-			{
-				throw new ArgumentNullException(nameof(items));
-			}
+			Items = new List<T>(items.EnsureNotNull(nameof(items)));
 		}
 
 		/// <summary>

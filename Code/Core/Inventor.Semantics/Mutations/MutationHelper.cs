@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 
+using Inventor.Semantics.Utils;
+
 namespace Inventor.Semantics.Mutations
 {
 	public static class MutationHelper
@@ -11,8 +13,8 @@ namespace Inventor.Semantics.Mutations
 			ICollection<IMutation> mutations,
 			Func<ISemanticNetwork, ICollection<IMutation>, IMutation, ICollection<IMutation>> updateMutationsCollections = null)
 		{
-			if (semanticNetwork == null) throw new ArgumentNullException(nameof(semanticNetwork));
-			if (mutations == null) throw new ArgumentNullException(nameof(mutations));
+			semanticNetwork.EnsureNotNull(nameof(semanticNetwork));
+			mutations.EnsureNotNull(nameof(mutations));
 			if (updateMutationsCollections == null)
 			{
 				updateMutationsCollections = keepMutationsUnchanged;

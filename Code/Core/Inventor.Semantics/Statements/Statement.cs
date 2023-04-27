@@ -4,6 +4,7 @@ using System.Linq;
 
 using Inventor.Semantics.Localization;
 using Inventor.Semantics.Text.Primitives;
+using Inventor.Semantics.Utils;
 
 namespace Inventor.Semantics.Statements
 {
@@ -36,14 +37,7 @@ namespace Inventor.Semantics.Statements
 		{
 			Update(id);
 
-			if (name != null)
-			{
-				Name = name;
-			}
-			else
-			{
-				throw new ArgumentNullException(nameof(name));
-			}
+			Name = name.EnsureNotNull(nameof(name));
 
 			Hint = hint ?? LocalizedString.Empty;
 		}

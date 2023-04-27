@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using Inventor.Semantics.Utils;
 
 namespace Inventor.Semantics.Mutations
 {
@@ -16,32 +17,9 @@ namespace Inventor.Semantics.Mutations
 
 		public KnowledgeStructure(ISemanticNetwork semanticNetwork, IsomorphicSearchPattern searchPattern, IDictionary<IsomorphicSearchPattern, IKnowledge> knowledge)
 		{
-			if (semanticNetwork != null)
-			{
-				SemanticNetwork = semanticNetwork;
-			}
-			else
-			{
-				throw new ArgumentNullException(nameof(semanticNetwork));
-			}
-
-			if (searchPattern != null)
-			{
-				SearchPattern = searchPattern;
-			}
-			else
-			{
-				throw new ArgumentNullException(nameof(searchPattern));
-			}
-
-			if (knowledge != null)
-			{
-				Knowledge = knowledge;
-			}
-			else
-			{
-				throw new ArgumentNullException(nameof(knowledge));
-			}
+			SemanticNetwork = semanticNetwork.EnsureNotNull(nameof(semanticNetwork));
+			SearchPattern = searchPattern.EnsureNotNull(nameof(searchPattern));
+			Knowledge = knowledge.EnsureNotNull(nameof(knowledge));
 		}
 	}
 }

@@ -1,4 +1,4 @@
-﻿using System;
+﻿using Inventor.Semantics.Utils;
 
 namespace Inventor.Semantics.Statements
 {
@@ -12,11 +12,8 @@ namespace Inventor.Semantics.Statements
 
 		public StatementBuilder(ISemanticNetwork semanticNetwork, IConcept subject)
 		{
-			if (semanticNetwork == null) throw new ArgumentNullException(nameof(semanticNetwork));
-			if (subject == null) throw new ArgumentNullException(nameof(subject));
-
-			SemanticNetwork = semanticNetwork;
-			Subject = subject;
+			SemanticNetwork = semanticNetwork.EnsureNotNull(nameof(semanticNetwork));
+			Subject = subject.EnsureNotNull(nameof(subject));
 		}
 	}
 
