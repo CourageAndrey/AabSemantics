@@ -17,6 +17,8 @@ namespace Inventor.Semantics.WPF.Dialogs
 			var browser = (WebBrowser) windowsFormsHost.Child;
 			browser.DocumentText = TextRepresenters.Html.RepresentText(text, language).ToString();
 			browser.Navigating += browserNavigating;
+
+			textBox.Text = TextRepresenters.PlainString.RepresentText(text, language).ToString();
 		}
 
 		private void browserNavigating(object sender, WebBrowserNavigatingEventArgs webBrowserNavigatingEventArgs)
