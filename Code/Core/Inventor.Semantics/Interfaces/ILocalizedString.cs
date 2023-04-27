@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 
 using Inventor.Semantics.Localization;
+using Inventor.Semantics.Utils;
 
 namespace Inventor.Semantics
 {
@@ -15,11 +16,9 @@ namespace Inventor.Semantics
 	{
 		public static Dictionary<String, String> AsDictionary(this ILocalizedString localizedString)
 		{
-			if (localizedString == null)
-			{
-				throw new ArgumentNullException(nameof(localizedString));
-			}
-			else if (localizedString is LocalizedStringVariable variable)
+			localizedString.EnsureNotNull(nameof(localizedString));
+
+			if (localizedString is LocalizedStringVariable variable)
 			{
 				return variable.Locales.ToDictionary(
 					locale => locale,

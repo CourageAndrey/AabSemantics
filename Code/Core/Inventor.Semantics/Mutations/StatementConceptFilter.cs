@@ -1,4 +1,4 @@
-﻿using System;
+﻿using Inventor.Semantics.Utils;
 
 namespace Inventor.Semantics.Mutations
 {
@@ -13,23 +13,8 @@ namespace Inventor.Semantics.Mutations
 
 		public StatementConceptFilter(StatementConceptSelector<StatementT> conceptSelector, ConceptSearchPattern conceptFilter)
 		{
-			if (conceptSelector != null)
-			{
-				ConceptSelector = conceptSelector;
-			}
-			else
-			{
-				throw new ArgumentNullException(nameof(conceptSelector));
-			}
-
-			if (conceptFilter != null)
-			{
-				ConceptFilter = conceptFilter;
-			}
-			else
-			{
-				throw new ArgumentNullException(nameof(conceptFilter));
-			}
+			ConceptSelector = conceptSelector.EnsureNotNull(nameof(conceptSelector));
+			ConceptFilter = conceptFilter.EnsureNotNull(nameof(conceptFilter));
 		}
 	}
 }

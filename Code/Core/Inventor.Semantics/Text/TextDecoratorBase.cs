@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 
+using Inventor.Semantics.Utils;
+
 namespace Inventor.Semantics.Text
 {
 	public abstract class TextDecoratorBase : TextBase, ITextDecorator
@@ -10,9 +12,7 @@ namespace Inventor.Semantics.Text
 
 		protected TextDecoratorBase(IText innerText)
 		{
-			if (innerText == null) throw new ArgumentNullException(nameof(innerText));
-
-			InnerText = innerText;
+			InnerText = innerText.EnsureNotNull(nameof(innerText));
 		}
 
 		public override IDictionary<String, IKnowledge> GetParameters()

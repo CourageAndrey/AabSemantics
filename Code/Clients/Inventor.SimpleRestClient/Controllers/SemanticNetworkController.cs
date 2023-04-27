@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 
 using Inventor.Semantics.Serialization.Json;
+using Inventor.Semantics.Utils;
 
 namespace Inventor.SimpleRestClient.Controllers
 {
@@ -12,8 +13,8 @@ namespace Inventor.SimpleRestClient.Controllers
 
 		public SemanticNetworkController(ILogger<SemanticNetworkController> logger, IDataService dataService)
 		{
-			_logger = logger ?? throw new ArgumentNullException(nameof(logger));
-			_dataService = dataService ?? throw new ArgumentNullException(nameof(dataService));
+			_logger = logger.EnsureNotNull(nameof(logger));
+			_dataService = dataService.EnsureNotNull(nameof(dataService));
 		}
 
 		[HttpGet(Name = "GetSemanticNetwork")]

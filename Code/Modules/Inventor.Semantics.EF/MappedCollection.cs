@@ -4,6 +4,8 @@ using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
 
+using Inventor.Semantics.Utils;
+
 namespace Inventor.Semantics.EF
 {
 	internal delegate IMapping<ItemT> MappingSelectorDelegate<ItemT>(ICollection<IMapping<ItemT>> mappings, ItemT forItem)
@@ -74,7 +76,7 @@ namespace Inventor.Semantics.EF
 
 		public bool Contains(ItemT item)
 		{
-			if (item == null) throw new ArgumentNullException(nameof(item));
+			item.EnsureNotNull(nameof(item));
 
 			ItemT temp;
 			return _mappings.Any(mapping => mapping.TryGetItem(item.ID, out temp));
@@ -93,7 +95,7 @@ namespace Inventor.Semantics.EF
 
 		public bool Remove(ItemT item)
 		{
-			if (item == null) throw new ArgumentNullException(nameof(item));
+			item.EnsureNotNull(nameof(item));
 
 			foreach (var mapping in _mappings)
 			{

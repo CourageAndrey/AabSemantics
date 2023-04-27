@@ -1,5 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+
+using Inventor.Semantics.Utils;
 
 namespace Inventor.Semantics.Questions
 {
@@ -13,9 +14,7 @@ namespace Inventor.Semantics.Questions
 
 		public QuestionBuilder(ISemanticNetwork semanticNetwork, IEnumerable<IStatement> preconditions)
 		{
-			if (semanticNetwork == null) throw new ArgumentNullException(nameof(semanticNetwork));
-
-			SemanticNetwork = semanticNetwork;
+			SemanticNetwork = semanticNetwork.EnsureNotNull(nameof(semanticNetwork));
 			Preconditions = preconditions;
 		}
 

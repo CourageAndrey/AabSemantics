@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 
+using Inventor.Semantics.Utils;
+
 namespace Inventor.Semantics.Text.Primitives
 {
 	public class FormattedText : TextBase
@@ -17,9 +19,7 @@ namespace Inventor.Semantics.Text.Primitives
 
 		public FormattedText(Func<ILanguage, String> formatter, IDictionary<String, IKnowledge> parameters = null)
 		{
-			if (formatter == null) throw new ArgumentNullException(nameof(formatter));
-
-			Formatter = formatter;
+			Formatter = formatter.EnsureNotNull(nameof(formatter));
 			Parameters = parameters != null
 				? new Dictionary<String, IKnowledge>(parameters)
 				: new Dictionary<String, IKnowledge>();

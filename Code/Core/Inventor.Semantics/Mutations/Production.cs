@@ -1,5 +1,7 @@
 ﻿using System;
 
+using Inventor.Semantics.Utils;
+
 namespace Inventor.Semantics.Mutations
 {
 	public class Production : IMutation
@@ -12,23 +14,8 @@ namespace Inventor.Semantics.Mutations
 
 		public Production(IsomorphicSearchPattern lookupPattern, Action<KnowledgeStructure> applyMethod)
 		{
-			if (lookupPattern != null)
-			{
-				LookupPattern = lookupPattern;
-			}
-			else
-			{
-				throw new ArgumentNullException(nameof(lookupPattern));
-			}
-
-			if (applyMethod != null)
-			{
-				ApplyMethod = applyMethod;
-			}
-			else
-			{
-				throw new ArgumentNullException(nameof(applyMethod));
-			}
+			LookupPattern = lookupPattern.EnsureNotNull(nameof(lookupPattern));
+			ApplyMethod = applyMethod.EnsureNotNull(nameof(applyMethod));
 		}
 
 		public Boolean TryToApply(ISemanticNetwork semanticNetwork)

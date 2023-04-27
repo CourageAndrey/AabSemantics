@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 
+using Inventor.Semantics.Utils;
+
 namespace Inventor.Semantics.Text
 {
 	public abstract class TextContainerBase : TextBase, ITextContainer
@@ -10,9 +12,7 @@ namespace Inventor.Semantics.Text
 
 		protected TextContainerBase(IList<IText> items)
 		{
-			if (items == null) throw new ArgumentNullException(nameof(items));
-
-			Items = items;
+			Items = items.EnsureNotNull(nameof(items));
 		}
 
 		public override IDictionary<String, IKnowledge> GetParameters()

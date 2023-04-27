@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 
+using Inventor.Semantics.Utils;
+
 namespace Inventor.Semantics.Mutations
 {
 	public enum JoinType
@@ -35,43 +37,11 @@ namespace Inventor.Semantics.Mutations
 			StatementConceptSelector<LeftStatementT> leftConceptSelector,
 			StatementConceptSelector<RightStatementT> rightConceptSelector)
 		{
-			if (left != null)
-			{
-				Left = left;
-			}
-			else
-			{
-				throw new ArgumentNullException(nameof(left));
-			}
-
-			if (right != null)
-			{
-				Right = right;
-			}
-			else
-			{
-				throw new ArgumentNullException(nameof(right));
-			}
-
+			Left = left.EnsureNotNull(nameof(left));
+			Right = right.EnsureNotNull(nameof(right));
 			JoinType = joinType;
-
-			if (leftConceptSelector != null)
-			{
-				_leftConceptSelector = leftConceptSelector;
-			}
-			else
-			{
-				throw new ArgumentNullException(nameof(leftConceptSelector));
-			}
-
-			if (rightConceptSelector != null)
-			{
-				_rightConceptSelector = rightConceptSelector;
-			}
-			else
-			{
-				throw new ArgumentNullException(nameof(rightConceptSelector));
-			}
+			_leftConceptSelector = leftConceptSelector.EnsureNotNull(nameof(leftConceptSelector));
+			_rightConceptSelector = rightConceptSelector.EnsureNotNull(nameof(rightConceptSelector));
 		}
 
 		public override IEnumerable<KnowledgeStructure> FindMatches(ISemanticNetwork semanticNetwork)
