@@ -87,7 +87,7 @@ namespace Inventor.Semantics.Test.Serialization.Xml
 				}
 				deserializedFromBytes = File.ReadAllBytes(tempFileName).DeserializeFromXmlBytes<Test>();
 				deserializedFromFile = tempFileName.DeserializeFromXmlFile<Test>();
-				deserializedFromText = serializedDocument.OuterXml.DeserializeFromXmlText<Test>();
+				deserializedFromText = serializedDocument.OuterXml.DeserializeFromXmlString<Test>();
 			}
 			finally
 			{
@@ -150,7 +150,7 @@ namespace Inventor.Semantics.Test.Serialization.Xml
 			typeof(SerializationParent).DefineTypeOverrides(overrides);
 
 			string xml = test.SerializeToXmlElement().OuterXml;
-			var deserialized = xml.DeserializeFromXmlText<SerializationParent>();
+			var deserialized = xml.DeserializeFromXmlString<SerializationParent>();
 
 			Assert.IsTrue(deserialized.Equals(test));
 
@@ -165,7 +165,7 @@ namespace Inventor.Semantics.Test.Serialization.Xml
 			XmlHelper.DefineTypeOverrides<SerializationParent>(overrides);
 
 			xml = test.SerializeToXmlElement().OuterXml;
-			deserialized = xml.DeserializeFromXmlText<SerializationParent>();
+			deserialized = xml.DeserializeFromXmlString<SerializationParent>();
 
 			Assert.IsTrue(deserialized.Equals(test));
 		}
@@ -195,7 +195,7 @@ namespace Inventor.Semantics.Test.Serialization.Xml
 			XmlHelper.DefineTypeOverride<SerializationParent>(overrides);
 
 			string xml = test.SerializeToXmlElement().OuterXml;
-			var deserialized = xml.DeserializeFromXmlText<SerializationParent>();
+			var deserialized = xml.DeserializeFromXmlString<SerializationParent>();
 
 			// assert
 			Assert.IsTrue(deserialized.Equals(test));

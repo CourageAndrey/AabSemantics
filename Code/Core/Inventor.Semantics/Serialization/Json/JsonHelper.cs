@@ -88,7 +88,7 @@ namespace Inventor.Semantics.Serialization.Json
 			return File.ReadAllBytes(file).DeserializeFromJsonBytes<T>();
 		}
 
-		public static T DeserializeFromJsonText<T>(this String json)
+		public static T DeserializeFromJsonString<T>(this String json)
 		{
 			return Encoding.GetBytes(json).DeserializeFromJsonBytes<T>();
 		}

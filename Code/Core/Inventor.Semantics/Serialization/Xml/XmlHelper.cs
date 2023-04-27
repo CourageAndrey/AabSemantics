@@ -155,7 +155,7 @@ namespace Inventor.Semantics.Serialization.Xml
 			}
 		}
 
-		public static T DeserializeFromXmlText<T>(this String xml)
+		public static T DeserializeFromXmlString<T>(this String xml)
 		{
 			using (var stringReader = new StringReader(xml))
 			{
