@@ -100,6 +100,11 @@ namespace Inventor.Semantics.Serialization.Xml
 
 		#region Serialization
 
+		public static String SerializeToXmlString(this Object entity)
+		{
+			return entity.SerializeToXmlDocument().OuterXml;
+		}
+
 		public static XmlDocument SerializeToXmlDocument(this Object entity)
 		{
 			var serializer = AcquireXmlSerializer(entity.GetType());

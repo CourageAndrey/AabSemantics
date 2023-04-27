@@ -72,11 +72,13 @@ namespace Inventor.Semantics.Test.Serialization.Xml
 			string tempFileName = Path.GetTempFileName();
 
 			// act
+			string serializedString;
 			XmlDocument serializedDocument;
 			XmlElement serializedElement;
-			Test deserializedFromStream, deserializedFromBytes, deserializedFromFile, deserializedFromText;
+			Test deserializedFromStream, deserializedFromBytes, deserializedFromFile, deserializedFromDocument, deserializedFromString;
 			try
 			{
+				serializedString = test.SerializeToXmlString();
 				serializedDocument = test.SerializeToXmlDocument();
 				serializedElement = test.SerializeToXmlElement();
 				test.SerializeToXmlFile(tempFileName);
@@ -87,7 +89,8 @@ namespace Inventor.Semantics.Test.Serialization.Xml
 				}
 				deserializedFromBytes = File.ReadAllBytes(tempFileName).DeserializeFromXmlBytes<Test>();
 				deserializedFromFile = tempFileName.DeserializeFromXmlFile<Test>();
-				deserializedFromText = serializedDocument.OuterXml.DeserializeFromXmlString<Test>();
+				deserializedFromDocument = serializedDocument.OuterXml.DeserializeFromXmlString<Test>();
+				deserializedFromString = serializedString.DeserializeFromXmlString<Test>();
 			}
 			finally
 			{
@@ -102,7 +105,8 @@ namespace Inventor.Semantics.Test.Serialization.Xml
 			Assert.AreEqual(test, deserializedFromStream);
 			Assert.AreEqual(test, deserializedFromBytes);
 			Assert.AreEqual(test, deserializedFromFile);
-			Assert.AreEqual(test, deserializedFromText);
+			Assert.AreEqual(test, deserializedFromDocument);
+			Assert.AreEqual(test, deserializedFromString);
 		}
 
 		[Test]
@@ -149,7 +153,7 @@ namespace Inventor.Semantics.Test.Serialization.Xml
 			// act as extension & assert
 			typeof(SerializationParent).DefineTypeOverrides(overrides);
 
-			string xml = test.SerializeToXmlElement().OuterXml;
+			string xml = test.SerializeToXmlString();
 			var deserialized = xml.DeserializeFromXmlString<SerializationParent>();
 
 			Assert.IsTrue(deserialized.Equals(test));
@@ -164,7 +168,7 @@ namespace Inventor.Semantics.Test.Serialization.Xml
 			// act and assert by type
 			XmlHelper.DefineTypeOverrides<SerializationParent>(overrides);
 
-			xml = test.SerializeToXmlElement().OuterXml;
+			xml = test.SerializeToXmlString();
 			deserialized = xml.DeserializeFromXmlString<SerializationParent>();
 
 			Assert.IsTrue(deserialized.Equals(test));
@@ -194,7 +198,7 @@ namespace Inventor.Semantics.Test.Serialization.Xml
 			// act
 			XmlHelper.DefineTypeOverride<SerializationParent>(overrides);
 
-			string xml = test.SerializeToXmlElement().OuterXml;
+			string xml = test.SerializeToXmlString();
 			var deserialized = xml.DeserializeFromXmlString<SerializationParent>();
 
 			// assert
