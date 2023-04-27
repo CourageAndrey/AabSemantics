@@ -1,8 +1,10 @@
 ﻿using System;
-
+using System.Linq;
 using NUnit.Framework;
 
 using Inventor.Semantics.Metadata;
+using Inventor.Semantics.Modules.Boolean;
+using Inventor.Semantics.Modules.Classification;
 
 namespace Inventor.Semantics.Test.Metadata
 {
@@ -209,6 +211,75 @@ namespace Inventor.Semantics.Test.Metadata
 			// act & assert
 			Assert.Throws<ArgumentException>(() => new QuestionJsonSerializationSettings(arg => null, typeof(object)));
 			Assert.Throws<ArgumentException>(() => new QuestionJsonSerializationSettings(arg => null, typeof(AbstractJsonQuestion)));
+		}
+
+		[Test]
+		public void CheckTypes()
+		{
+			// arrange
+			var answerXmlType = typeof(Semantics.Serialization.Xml.Answer);
+			var answerJsonType = typeof(Semantics.Serialization.Json.Answer);
+			var attributeValue = new Modules.Boolean.Xml.IsValueAttribute();
+			Type attributeXmlType = attributeValue.GetType();
+			var statementXmlType = typeof(Modules.Classification.Xml.IsStatement);
+			var statementJsonType = typeof(Modules.Classification.Json.IsStatement);
+			var questionXmlType = typeof(Modules.Boolean.Xml.CheckStatementQuestion);
+			var questionJsonType = typeof(Modules.Boolean.Json.CheckStatementQuestion);
+
+			// act
+			var answerXmlSettings = new AnswerXmlSerializationSettings((arg, lang) => null, answerXmlType);
+			var answerJsonSettings = new AnswerJsonSerializationSettings((arg, lang) => null, answerJsonType);
+			var attributeXmlSettings = new AttributeXmlSerializationSettings(attributeValue);
+			var attributeJsonSettings = new AttributeJsonSerializationSettings(attributeValue);
+			var statementXmlSettings = new StatementXmlSerializationSettings(arg => null, statementXmlType);
+			var statementJsonSettings = new StatementJsonSerializationSettings(arg => null, statementJsonType);
+			var questionXmlSettings = new QuestionXmlSerializationSettings(arg => null, questionXmlType);
+			var questionJsonSettings = new QuestionJsonSerializationSettings(arg => null, questionJsonType);
+
+			// assert
+			Assert.AreSame(answerXmlType, answerXmlSettings.XmlType);
+			Assert.AreSame(answerJsonType, answerJsonSettings.JsonType);
+			Assert.AreSame(attributeXmlType, attributeXmlSettings.XmlType);
+			Assert.IsNull(attributeJsonSettings.JsonType);
+			Assert.AreSame(statementXmlType, statementXmlSettings.XmlType);
+			Assert.AreSame(statementJsonType, statementJsonSettings.JsonType);
+			Assert.AreSame(questionXmlType, questionXmlSettings.XmlType);
+			Assert.AreSame(questionJsonType, questionJsonSettings.JsonType);
+		}
+
+		[Test]
+		public void CheckUntypedExtensions()
+		{
+			// arrange
+			new BooleanModule().RegisterMetadata();
+			new ClassificationModule().RegisterMetadata();
+
+			var answerDefinition = Repositories.Answers.Definitions.Values.First();
+			var attributeDefinition = Repositories.Attributes.Definitions.Values.First();
+			var statementDefinition = Repositories.Statements.Definitions.Values.First();
+			var questionDefinition = Repositories.Questions.Definitions.Values.First();
+
+			// act
+			var answerXmlSerializationSettings = answerDefinition.GetXmlSerializationSettings();
+			var attributeXmlSerializationSettings = attributeDefinition.GetXmlSerializationSettings();
+			var statementXmlSerializationSettings = statementDefinition.GetXmlSerializationSettings();
+			var questionXmlSerializationSettings = questionDefinition.GetXmlSerializationSettings();
+
+			var answerJsonSerializationSettings = answerDefinition.GetJsonSerializationSettings();
+			var attributeJsonSerializationSettings = attributeDefinition.GetJsonSerializationSettings();
+			var statementJsonSerializationSettings = statementDefinition.GetJsonSerializationSettings();
+			var questionJsonSerializationSettings = questionDefinition.GetJsonSerializationSettings();
+
+			// assert
+			Assert.AreSame(answerDefinition.GetXmlSerializationSettings<AnswerXmlSerializationSettings>(), answerXmlSerializationSettings);
+			Assert.AreSame(attributeDefinition.GetXmlSerializationSettings<AttributeXmlSerializationSettings>(), attributeXmlSerializationSettings);
+			Assert.AreSame(statementDefinition.GetXmlSerializationSettings<StatementXmlSerializationSettings>(), statementXmlSerializationSettings);
+			Assert.AreSame(questionDefinition.GetXmlSerializationSettings<QuestionXmlSerializationSettings>(), questionXmlSerializationSettings);
+
+			Assert.AreSame(answerDefinition.GetJsonSerializationSettings<AnswerJsonSerializationSettings>(), answerJsonSerializationSettings);
+			Assert.AreSame(attributeDefinition.GetJsonSerializationSettings<AttributeJsonSerializationSettings>(), attributeJsonSerializationSettings);
+			Assert.AreSame(statementDefinition.GetJsonSerializationSettings<StatementJsonSerializationSettings>(), statementJsonSerializationSettings);
+			Assert.AreSame(questionDefinition.GetJsonSerializationSettings<QuestionJsonSerializationSettings>(), questionJsonSerializationSettings);
 		}
 
 		#region Abstract classes
