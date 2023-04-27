@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 
+using Inventor.Semantics.Utils;
+
 namespace Inventor.Semantics.Metadata
 {
 	public static class Repositories
@@ -8,81 +10,31 @@ namespace Inventor.Semantics.Metadata
 		public static IDictionary<String, IExtensionModule> Modules
 		{
 			get { return _modules; }
-			set
-			{
-				if (value != null)
-				{
-					_modules = value;
-				}
-				else
-				{
-					throw new ArgumentNullException(nameof(value));
-				}
-			}
+			set { _modules = value.EnsureNotNull(nameof(value)); }
 		}
 
 		public static IRepository<AttributeDefinition> Attributes
 		{
 			get { return _attributes; }
-			set
-			{
-				if (value != null)
-				{
-					_attributes = value;
-				}
-				else
-				{
-					throw new ArgumentNullException(nameof(value));
-				}
-			}
+			set { _attributes = value.EnsureNotNull(nameof(value)); }
 		}
 
 		public static IRepository<StatementDefinition> Statements
 		{
 			get { return _statements; }
-			set
-			{
-				if (value != null)
-				{
-					_statements = value;
-				}
-				else
-				{
-					throw new ArgumentNullException(nameof(value));
-				}
-			}
+			set { _statements = value.EnsureNotNull(nameof(value)); }
 		}
 
 		public static IRepository<QuestionDefinition> Questions
 		{
 			get { return _questions; }
-			set
-			{
-				if (value != null)
-				{
-					_questions = value;
-				}
-				else
-				{
-					throw new ArgumentNullException(nameof(value));
-				}
-			}
+			set { _questions = value.EnsureNotNull(nameof(value)); }
 		}
 
 		public static IRepository<AnswerDefinition> Answers
 		{
 			get { return _answers; }
-			set
-			{
-				if (value != null)
-				{
-					_answers = value;
-				}
-				else
-				{
-					throw new ArgumentNullException(nameof(value));
-				}
-			}
+			set { _answers = value.EnsureNotNull(nameof(value)); }
 		}
 
 		private static IDictionary<String, IExtensionModule> _modules = new Dictionary<String, IExtensionModule>();

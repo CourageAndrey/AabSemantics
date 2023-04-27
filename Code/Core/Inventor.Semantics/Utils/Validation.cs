@@ -32,5 +32,22 @@ namespace Inventor.Semantics.Utils
 				return concept;
 			}
 		}
+
+		public static Type EnsureContract<ContractT>(this Type type, String parameterName)
+		{
+			return type.EnsureContract(typeof(ContractT), parameterName);
+		}
+
+		public static Type EnsureContract(this Type type, Type contractType, String parameterName)
+		{
+			if (type.IsAbstract || !contractType.IsAssignableFrom(type))
+			{
+				throw new ArgumentException($"Type must be non-abstract and implement {contractType}.", parameterName);
+			}
+			else
+			{
+				return type;
+			}
+		}
 	}
 }

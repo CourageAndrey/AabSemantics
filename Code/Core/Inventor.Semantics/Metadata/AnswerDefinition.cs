@@ -1,4 +1,5 @@
 ﻿using System;
+using Inventor.Semantics.Utils;
 
 namespace Inventor.Semantics.Metadata
 {
@@ -13,12 +14,8 @@ namespace Inventor.Semantics.Metadata
 			Func<IAnswer, ILanguage, Serialization.Json.Answer> serializer,
 			Type jsonType)
 		{
-			if (serializer == null) throw new ArgumentNullException(nameof(serializer));
-			if (jsonType == null) throw new ArgumentNullException(nameof(jsonType));
-			if (jsonType.IsAbstract || !typeof(Serialization.Json.Answer).IsAssignableFrom(jsonType)) throw new ArgumentException($"Type must be non-abstract and implement {typeof(Serialization.Json.Answer)}.", nameof(jsonType));
-
-			_serializer = serializer;
-			JsonType = jsonType;
+			_serializer = serializer.EnsureNotNull(nameof(serializer));
+			JsonType = jsonType.EnsureNotNull(nameof(jsonType)).EnsureContract<Serialization.Json.Answer>(nameof(jsonType));
 		}
 
 		public Serialization.Json.Answer GetJson(IAnswer answer, ILanguage language)
@@ -38,12 +35,8 @@ namespace Inventor.Semantics.Metadata
 			Func<IAnswer, ILanguage, Serialization.Xml.Answer> serializer,
 			Type xmlType)
 		{
-			if (serializer == null) throw new ArgumentNullException(nameof(serializer));
-			if (xmlType == null) throw new ArgumentNullException(nameof(xmlType));
-			if (xmlType.IsAbstract || !typeof(Serialization.Xml.Answer).IsAssignableFrom(xmlType)) throw new ArgumentException($"Type must be non-abstract and implement {typeof(Serialization.Xml.Answer)}.", nameof(xmlType));
-
-			_serializer = serializer;
-			XmlType = xmlType;
+			_serializer = serializer.EnsureNotNull(nameof(serializer));
+			XmlType = xmlType.EnsureNotNull(nameof(xmlType)).EnsureContract<Serialization.Xml.Answer>(nameof(xmlType));
 		}
 
 		public Serialization.Xml.Answer GetXml(IAnswer answer, ILanguage language)

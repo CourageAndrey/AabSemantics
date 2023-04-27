@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 
 using Inventor.Semantics.Metadata;
+using Inventor.Semantics.Utils;
 
 namespace Inventor.Semantics
 {
@@ -40,10 +41,8 @@ namespace Inventor.Semantics
 
 		protected MetadataDefinition(Type type, Type instanceType)
 		{
-			if (type == null) throw new ArgumentNullException(nameof(type));
-			if (type.IsAbstract || !instanceType.IsAssignableFrom(type)) throw new ArgumentException($"Type must be non-abstract and implement {instanceType}.", nameof(type));
-
-			Type = type;
+			Type = type.EnsureNotNull(nameof(type));
+			type.EnsureContract(instanceType, nameof(type));
 		}
 	}
 
