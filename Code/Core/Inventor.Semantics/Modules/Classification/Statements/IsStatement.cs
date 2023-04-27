@@ -5,6 +5,7 @@ using System.Linq;
 using Inventor.Semantics.Localization;
 using Inventor.Semantics.Modules.Classification.Localization;
 using Inventor.Semantics.Statements;
+using Inventor.Semantics.Utils;
 
 namespace Inventor.Semantics.Modules.Classification.Statements
 {
@@ -37,12 +38,9 @@ namespace Inventor.Semantics.Modules.Classification.Statements
 
 		public void Update(String id, IConcept ancestor, IConcept descendant)
 		{
-			if (ancestor == null) throw new ArgumentNullException(nameof(ancestor));
-			if (descendant == null) throw new ArgumentNullException(nameof(descendant));
-
 			Update(id);
-			Ancestor = ancestor;
-			Descendant = descendant;
+			Ancestor = ancestor.EnsureNotNull(nameof(ancestor));
+			Descendant = descendant.EnsureNotNull(nameof(descendant));
 		}
 
 		public override IEnumerable<IConcept> GetChildConcepts()

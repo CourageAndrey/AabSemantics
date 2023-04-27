@@ -5,6 +5,7 @@ using System.Linq;
 using Inventor.Semantics.Questions;
 using Inventor.Semantics.Set.Localization;
 using Inventor.Semantics.Set.Statements;
+using Inventor.Semantics.Utils;
 
 namespace Inventor.Semantics.Set.Questions
 {
@@ -24,11 +25,8 @@ namespace Inventor.Semantics.Set.Questions
 		public IsSubjectAreaQuestion(IConcept concept, IConcept area, IEnumerable<IStatement> preconditions = null)
 			: base(preconditions)
 		{
-			if (concept == null) throw new ArgumentNullException(nameof(concept));
-			if (area == null) throw new ArgumentNullException(nameof(area));
-
-			Concept = concept;
-			Area = area;
+			Concept = concept.EnsureNotNull(nameof(concept));
+			Area = area.EnsureNotNull(nameof(area));
 		}
 
 		public override IAnswer Process(IQuestionProcessingContext context)

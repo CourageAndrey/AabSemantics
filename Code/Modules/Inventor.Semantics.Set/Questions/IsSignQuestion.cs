@@ -5,6 +5,7 @@ using Inventor.Semantics.Questions;
 using Inventor.Semantics.Set.Attributes;
 using Inventor.Semantics.Set.Localization;
 using Inventor.Semantics.Set.Statements;
+using Inventor.Semantics.Utils;
 
 namespace Inventor.Semantics.Set.Questions
 {
@@ -20,9 +21,7 @@ namespace Inventor.Semantics.Set.Questions
 		public IsSignQuestion(IConcept concept, IEnumerable<IStatement> preconditions = null)
 			: base(preconditions)
 		{
-			if (concept == null) throw new ArgumentNullException(nameof(concept));
-
-			Concept = concept;
+			Concept = concept.EnsureNotNull(nameof(concept));
 		}
 
 		public override IAnswer Process(IQuestionProcessingContext context)

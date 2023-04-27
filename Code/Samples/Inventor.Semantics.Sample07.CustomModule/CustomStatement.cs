@@ -3,6 +3,7 @@ using System.Collections.Generic;
 
 using Inventor.Semantics;
 using Inventor.Semantics.Statements;
+using Inventor.Semantics.Utils;
 using Samples.Semantics.Sample07.CustomModule.Localization;
 
 namespace Samples.Semantics.Sample07.CustomModule
@@ -29,14 +30,9 @@ namespace Samples.Semantics.Sample07.CustomModule
 
 		public void Update(String id, IConcept concept1, IConcept concept2)
 		{
-			if (concept1 == null) throw new ArgumentNullException(nameof(concept1));
-			if (concept2 == null) throw new ArgumentNullException(nameof(concept2));
-			if (!concept1.HasAttribute<CustomAttribute>()) throw new ArgumentException("C1 has to be marked as CustomAttribute Attribute.", nameof(concept1));
-			if (!concept2.HasAttribute<CustomAttribute>()) throw new ArgumentException("C2 has to be marked as CustomAttribute Attribute.", nameof(concept2));
-
 			Update(id);
-			Concept1 = concept1;
-			Concept2 = concept2;
+			Concept1 = concept1.EnsureNotNull(nameof(concept1)).EnsureHasAttribute<IConcept, CustomAttribute>(nameof(concept1));
+			Concept2 = concept2.EnsureNotNull(nameof(concept2)).EnsureHasAttribute<IConcept, CustomAttribute>(nameof(concept2));
 		}
 
 		public override IEnumerable<IConcept> GetChildConcepts()

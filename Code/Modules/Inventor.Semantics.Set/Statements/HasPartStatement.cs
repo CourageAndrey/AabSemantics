@@ -3,6 +3,7 @@ using System.Collections.Generic;
 
 using Inventor.Semantics.Statements;
 using Inventor.Semantics.Set.Localization;
+using Inventor.Semantics.Utils;
 
 namespace Inventor.Semantics.Set.Statements
 {
@@ -35,12 +36,9 @@ namespace Inventor.Semantics.Set.Statements
 
 		public void Update(String id, IConcept whole, IConcept part)
 		{
-			if (whole == null) throw new ArgumentNullException(nameof(whole));
-			if (part == null) throw new ArgumentNullException(nameof(part));
-
 			Update(id);
-			Whole = whole;
-			Part = part;
+			Whole = whole.EnsureNotNull(nameof(whole));
+			Part = part.EnsureNotNull(nameof(part));
 		}
 
 		public override IEnumerable<IConcept> GetChildConcepts()

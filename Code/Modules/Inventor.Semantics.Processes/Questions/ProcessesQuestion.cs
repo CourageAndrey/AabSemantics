@@ -7,6 +7,7 @@ using Inventor.Semantics.Questions;
 using Inventor.Semantics.Text.Containers;
 using Inventor.Semantics.Processes.Concepts;
 using Inventor.Semantics.Processes.Statements;
+using Inventor.Semantics.Utils;
 
 namespace Inventor.Semantics.Processes.Questions
 {
@@ -25,11 +26,8 @@ namespace Inventor.Semantics.Processes.Questions
 		public ProcessesQuestion(IConcept processA, IConcept processB, IEnumerable<IStatement> preconditions = null)
 			: base(preconditions)
 		{
-			if (processA == null) throw new ArgumentNullException(nameof(processA));
-			if (processB == null) throw new ArgumentNullException(nameof(processB));
-
-			ProcessA = processA;
-			ProcessB = processB;
+			ProcessA = processA.EnsureNotNull(nameof(processA));
+			ProcessB = processB.EnsureNotNull(nameof(processB));
 		}
 
 		public override IAnswer Process(IQuestionProcessingContext context)

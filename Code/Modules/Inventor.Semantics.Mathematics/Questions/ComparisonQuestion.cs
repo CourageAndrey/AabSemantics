@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 
 using Inventor.Semantics.Answers;
@@ -7,6 +6,7 @@ using Inventor.Semantics.Questions;
 using Inventor.Semantics.Text.Containers;
 using Inventor.Semantics.Mathematics.Concepts;
 using Inventor.Semantics.Mathematics.Statements;
+using Inventor.Semantics.Utils;
 
 namespace Inventor.Semantics.Mathematics.Questions
 {
@@ -25,11 +25,8 @@ namespace Inventor.Semantics.Mathematics.Questions
 		public ComparisonQuestion(IConcept leftValue, IConcept rightValue, IEnumerable<IStatement> preconditions = null)
 			: base(preconditions)
 		{
-			if (leftValue == null) throw new ArgumentNullException(nameof(leftValue));
-			if (rightValue == null) throw new ArgumentNullException(nameof(rightValue));
-
-			LeftValue = leftValue;
-			RightValue = rightValue;
+			LeftValue = leftValue.EnsureNotNull(nameof(leftValue));
+			RightValue = rightValue.EnsureNotNull(nameof(rightValue));
 		}
 
 		public override IAnswer Process(IQuestionProcessingContext context)

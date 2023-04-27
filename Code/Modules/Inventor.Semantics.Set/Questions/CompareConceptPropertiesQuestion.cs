@@ -8,6 +8,7 @@ using Inventor.Semantics.Text.Containers;
 using Inventor.Semantics.Text.Primitives;
 using Inventor.Semantics.Set.Localization;
 using Inventor.Semantics.Set.Statements;
+using Inventor.Semantics.Utils;
 
 namespace Inventor.Semantics.Set.Questions
 {
@@ -26,12 +27,10 @@ namespace Inventor.Semantics.Set.Questions
 		protected CompareConceptPropertiesQuestion(IConcept concept1, IConcept concept2, IEnumerable<IStatement> preconditions = null)
 			: base(preconditions)
 		{
-			if (concept1 == null) throw new ArgumentNullException(nameof(concept1));
-			if (concept2 == null) throw new ArgumentNullException(nameof(concept2));
 			if (concept1 == concept2) throw new ArgumentException("Attempt to compare concept with itself has no sense.");
 
-			Concept1 = concept1;
-			Concept2 = concept2;
+			Concept1 = concept1.EnsureNotNull(nameof(concept1));
+			Concept2 = concept2.EnsureNotNull(nameof(concept2));
 		}
 
 		public override IAnswer Process(IQuestionProcessingContext context)

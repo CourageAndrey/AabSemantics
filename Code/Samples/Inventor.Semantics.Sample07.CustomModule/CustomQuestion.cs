@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using Inventor.Semantics;
 using Inventor.Semantics.Questions;
 using Inventor.Semantics.Text.Primitives;
+using Inventor.Semantics.Utils;
 using Samples.Semantics.Sample07.CustomModule.Localization;
 
 namespace Samples.Semantics.Sample07.CustomModule
@@ -19,11 +20,8 @@ namespace Samples.Semantics.Sample07.CustomModule
 		public CustomQuestion(IConcept concept1, IConcept concept2, IEnumerable<IStatement> preconditions = null)
 			: base(preconditions)
 		{
-			if (concept1 == null) throw new ArgumentNullException(nameof(concept1));
-			if (concept2 == null) throw new ArgumentNullException(nameof(concept2));
-
-			Concept1 = concept1;
-			Concept2 = concept2;
+			Concept1 = concept1.EnsureNotNull(nameof(concept1));
+			Concept2 = concept2.EnsureNotNull(nameof(concept2));
 		}
 
 		public override IAnswer Process(IQuestionProcessingContext context)

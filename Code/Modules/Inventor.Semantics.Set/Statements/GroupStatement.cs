@@ -3,6 +3,7 @@ using System.Collections.Generic;
 
 using Inventor.Semantics.Statements;
 using Inventor.Semantics.Set.Localization;
+using Inventor.Semantics.Utils;
 
 namespace Inventor.Semantics.Set.Statements
 {
@@ -35,12 +36,9 @@ namespace Inventor.Semantics.Set.Statements
 
 		public void Update(String id, IConcept area, IConcept concept)
 		{
-			if (area == null) throw new ArgumentNullException(nameof(area));
-			if (concept == null) throw new ArgumentNullException(nameof(concept));
-
 			Update(id);
-			Area = area;
-			Concept = concept;
+			Area = area.EnsureNotNull(nameof(area));
+			Concept = concept.EnsureNotNull(nameof(concept));
 		}
 
 		public override IEnumerable<IConcept> GetChildConcepts()

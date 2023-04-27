@@ -1,10 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
 using Inventor.Semantics.Localization;
 using Inventor.Semantics.Modules.Classification.Localization;
 using Inventor.Semantics.Modules.Classification.Statements;
 using Inventor.Semantics.Questions;
+using Inventor.Semantics.Utils;
 
 namespace Inventor.Semantics.Modules.Classification.Questions
 {
@@ -20,9 +20,7 @@ namespace Inventor.Semantics.Modules.Classification.Questions
 		public EnumerateDescendantsQuestion(IConcept concept, IEnumerable<IStatement> preconditions = null)
 			: base(preconditions)
 		{
-			if (concept == null) throw new ArgumentNullException(nameof(concept));
-
-			Concept = concept;
+			Concept = concept.EnsureNotNull(nameof(concept));
 		}
 
 		public override IAnswer Process(IQuestionProcessingContext context)
