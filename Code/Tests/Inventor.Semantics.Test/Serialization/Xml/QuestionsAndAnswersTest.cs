@@ -65,7 +65,7 @@ namespace Inventor.Semantics.Test.Serialization.Xml
 
 			// act
 			var xmlQuestion = Semantics.Serialization.Xml.Question.Load(question);
-			var xml = xmlQuestion.SerializeToXmlElement().OuterXml;
+			var xml = xmlQuestion.SerializeToXmlString();
 
 			var serializer = xmlQuestion.GetType().AcquireXmlSerializer();
 			Semantics.Serialization.Xml.Question restoredXml;
@@ -98,7 +98,7 @@ namespace Inventor.Semantics.Test.Serialization.Xml
 
 			// act
 			var xmlAnswer = Semantics.Serialization.Xml.Answer.Load(answer, _language);
-			var xml = xmlAnswer.SerializeToXmlElement().OuterXml;
+			var xml = xmlAnswer.SerializeToXmlString();
 
 			var serializer = xmlAnswer.GetType().AcquireXmlSerializer();
 			Semantics.Serialization.Xml.Answer restoredXml;

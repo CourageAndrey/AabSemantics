@@ -273,7 +273,7 @@ namespace Inventor.Semantics.Utils
 
 			var wrapper = new SerializationWrapper(Items);
 
-			info.AddValue("items", wrapper.SerializeToXmlElement().OuterXml);
+			info.AddValue("items", wrapper.SerializeToXmlString());
 		}
 
 		[XmlType]
