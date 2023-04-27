@@ -91,28 +91,6 @@ namespace Inventor.Semantics.Metadata
 			return metadataDefinition.GetSerializationSettings<SettingsT>();
 		}
 
-		public static AnswerDefinition SerializeToXml(
-			this AnswerDefinition metadataDefinition,
-			Func<IAnswer, ILanguage, Serialization.Xml.Answer> serializer,
-			Type xmlType)
-		{
-			metadataDefinition.SerializationSettings.Add(new AnswerXmlSerializationSettings(
-				serializer,
-				xmlType));
-			return metadataDefinition;
-		}
-
-		public static AnswerDefinition SerializeToJson(
-			this AnswerDefinition metadataDefinition,
-			Func<IAnswer, ILanguage, Serialization.Json.Answer> serializer,
-			Type jsonType)
-		{
-			metadataDefinition.SerializationSettings.Add(new AnswerJsonSerializationSettings(
-				serializer,
-				jsonType));
-			return metadataDefinition;
-		}
-
 		public static AnswerDefinition<AnswerT> SerializeToXml<AnswerT>(
 			this AnswerDefinition<AnswerT> metadataDefinition,
 			Func<AnswerT, ILanguage, Serialization.Xml.Answer> serializer,
