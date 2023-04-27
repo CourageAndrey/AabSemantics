@@ -1,11 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 
 using Inventor.Semantics;
 using Inventor.Semantics.Concepts;
 using Inventor.Semantics.Localization;
 using Inventor.Semantics.Questions;
-using Inventor.Semantics.Statements;
 using Inventor.Semantics.Mathematics;
 using Inventor.Semantics.Mathematics.Questions;
 using Inventor.Semantics.Mathematics.Statements;
@@ -45,14 +45,8 @@ namespace Samples.Semantics.Sample02.Comparison
 
 			#region Define statements
 
-			for (int i = 0; i < 5; i++)
-			{
-				semanticNetwork.DeclareThat(numbers[i]).IsLessThan(numbers[i + 1]);
-			}
-			for (int i = 10; i > 5; i--)
-			{
-				semanticNetwork.DeclareThat(numbers[i]).IsGreaterThan(numbers[i - 1]);
-			}
+			semanticNetwork.DefineAscendingSequence(numbers.Take(6));
+			semanticNetwork.DefineDescendingSequence(numbers.TakeLast(6).Reverse());
 
 			#endregion
 

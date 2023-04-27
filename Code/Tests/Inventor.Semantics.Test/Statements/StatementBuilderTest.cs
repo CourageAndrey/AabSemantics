@@ -4,16 +4,19 @@ using System.Linq;
 
 using NUnit.Framework;
 
+using Inventor.Semantics.Answers;
 using Inventor.Semantics.Concepts;
 using Inventor.Semantics.Localization;
 using Inventor.Semantics.Modules.Classification.Statements;
 using Inventor.Semantics.Statements;
 using Inventor.Semantics.Mathematics.Concepts;
+using Inventor.Semantics.Mathematics.Questions;
 using Inventor.Semantics.Mathematics.Statements;
 using Inventor.Semantics.Modules.Boolean.Attributes;
 using Inventor.Semantics.Processes.Attributes;
 using Inventor.Semantics.Processes.Concepts;
 using Inventor.Semantics.Processes.Statements;
+using Inventor.Semantics.Questions;
 using Inventor.Semantics.Set.Attributes;
 using Inventor.Semantics.Set.Statements;
 
@@ -194,6 +197,45 @@ namespace Inventor.Semantics.Test.Statements
 			{
 				Assert.AreEqual(statementsByConstuctor[s], statementsByBuilder[s]);
 			}
+		}
+
+		[Test]
+		[TestCaseSource(nameof(getChainComparisons))]
+		public void TestBuildingChainComparisons(Action<ISemanticNetwork, IEnumerable<IConcept>> definitionMethod, IConcept comparisonSign)
+		{
+			// arrange
+			var language = Language.Default;
+			var semanticNetwork = new SemanticNetwork(language);
+
+			const int count = 10;
+			var numbers = new List<IConcept>();
+			for (int i = 1; i <= count; i++)
+			{
+				string n = i.ToString();
+				IConcept number = n.CreateConcept().WithAttribute(IsValueAttribute.Value);
+				numbers.Add(number);
+				semanticNetwork.Concepts.Add(number);
+			}
+
+			// smoke assert
+			Assert.AreEqual(0, semanticNetwork.Statements.Count);
+
+			// act
+			definitionMethod(semanticNetwork, numbers);
+			var answer = (StatementAnswer) semanticNetwork.Ask().HowCompared(numbers.First(), numbers.Last());
+
+			// assert
+			Assert.AreEqual(count - 1, semanticNetwork.Statements.Count);
+			Assert.AreEqual(count - 1, semanticNetwork.Statements.OfType<ComparisonStatement>().Count(comparison => comparison.ComparisonSign == comparisonSign));
+			Assert.AreSame(comparisonSign, ((ComparisonStatement) answer.Result).ComparisonSign);
+		}
+
+		private static IEnumerable<object[]> getChainComparisons()
+		{
+			yield return new object[] { new Action<ISemanticNetwork, IEnumerable<IConcept>>((semanticNetwork, numbers) => semanticNetwork.DefineAscendingSequence(numbers)), ComparisonSigns.IsLessThan };
+			yield return new object[] { new Action<ISemanticNetwork, IEnumerable<IConcept>>((semanticNetwork, numbers) => semanticNetwork.DefineDescendingSequence(numbers)), ComparisonSigns.IsGreaterThan };
+			yield return new object[] { new Action<ISemanticNetwork, IEnumerable<IConcept>>((semanticNetwork, numbers) => semanticNetwork.DefineNotAscendingSequence(numbers)), ComparisonSigns.IsGreaterThanOrEqualTo };
+			yield return new object[] { new Action<ISemanticNetwork, IEnumerable<IConcept>>((semanticNetwork, numbers) => semanticNetwork.DefineNotDescendingSequence(numbers)), ComparisonSigns.IsLessThanOrEqualTo };
 		}
 
 		[Test]
