@@ -1,5 +1,7 @@
 using System;
 
+using Inventor.Semantics.Utils;
+
 namespace Inventor.Semantics.Metadata
 {
 	public class AttributeJsonSerializationSettings : IAttributeSerializationSettings, IJsonSerializationSettings
@@ -13,9 +15,7 @@ namespace Inventor.Semantics.Metadata
 		public AttributeJsonSerializationSettings(
 			Serialization.Xml.Attribute xml)
 		{
-			if (xml == null) throw new ArgumentNullException(nameof(xml));
-
-			JsonElementName = xml.GetType().Name.Replace("Attribute", "");
+			JsonElementName = xml.EnsureNotNull(nameof(xml)).GetType().Name.Replace("Attribute", "");
 		}
 	}
 
@@ -33,9 +33,7 @@ namespace Inventor.Semantics.Metadata
 		public AttributeXmlSerializationSettings(
 			Serialization.Xml.Attribute xml)
 		{
-			if (xml == null) throw new ArgumentNullException(nameof(xml));
-
-			Xml = xml;
+			Xml = xml.EnsureNotNull(nameof(xml));
 			XmlType = xml.GetType();
 			XmlElementName = XmlType.Name.Replace("Attribute", "");
 		}
@@ -60,12 +58,9 @@ namespace Inventor.Semantics.Metadata
 			Func<ILanguage, String> nameGetter)
 			: base(type, typeof(IAttribute))
 		{
-			if (value == null) throw new ArgumentNullException(nameof(value));
+			Value = value.EnsureNotNull(nameof(value));
 			if (!type.IsInstanceOfType(value)) throw new InvalidCastException();
-			if (nameGetter == null) throw new ArgumentNullException(nameof(nameGetter));
-
-			Value = value;
-			_nameGetter = nameGetter;
+			_nameGetter = nameGetter.EnsureNotNull(nameof(nameGetter));
 		}
 
 		private AttributeDefinition()

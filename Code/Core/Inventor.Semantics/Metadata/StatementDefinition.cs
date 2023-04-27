@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Inventor.Semantics.Utils;
 
 namespace Inventor.Semantics.Metadata
 {
@@ -17,12 +18,8 @@ namespace Inventor.Semantics.Metadata
 
 		public StatementJsonSerializationSettings(Func<IStatement, Serialization.Json.Statement> serializer, Type jsonType)
 		{
-			if (serializer == null) throw new ArgumentNullException(nameof(serializer));
-			if (jsonType == null) throw new ArgumentNullException(nameof(jsonType));
-			if (jsonType.IsAbstract || !typeof(Serialization.Json.Statement).IsAssignableFrom(jsonType)) throw new ArgumentException($"Type must be non-abstract and implement {typeof(Serialization.Json.Statement)}.", nameof(jsonType));
-
-			_serializer = serializer;
-			JsonType = jsonType;
+			_serializer = serializer.EnsureNotNull(nameof(serializer));
+			JsonType = jsonType.EnsureNotNull(nameof(jsonType)).EnsureContract<Serialization.Json.Statement>(nameof(jsonType));
 		}
 
 		public Serialization.Json.Statement GetJson(IStatement statement)
@@ -43,12 +40,8 @@ namespace Inventor.Semantics.Metadata
 
 		public StatementXmlSerializationSettings(Func<IStatement, Serialization.Xml.Statement> serializer, Type xmlType)
 		{
-			if (serializer == null) throw new ArgumentNullException(nameof(serializer));
-			if (xmlType == null) throw new ArgumentNullException(nameof(xmlType));
-			if (xmlType.IsAbstract || !typeof(Serialization.Xml.Statement).IsAssignableFrom(xmlType)) throw new ArgumentException($"Type must be non-abstract and implement {typeof(Serialization.Xml.Statement)}.", nameof(xmlType));
-
-			_serializer = serializer;
-			XmlType = xmlType;
+			_serializer = serializer.EnsureNotNull(nameof(serializer));
+			XmlType = xmlType.EnsureNotNull(nameof(xmlType)).EnsureContract<Serialization.Xml.Statement>(nameof(xmlType));
 			XmlElementName = XmlType.Name.Replace("Statement", "");
 		}
 
@@ -75,11 +68,8 @@ namespace Inventor.Semantics.Metadata
 			StatementConsistencyCheckerDelegate consistencyChecker)
 			: base(type, typeof(IStatement))
 		{
-			if (nameGetter == null) throw new ArgumentNullException(nameof(nameGetter));
-			if (consistencyChecker == null) throw new ArgumentNullException(nameof(consistencyChecker));
-
-			_nameGetter = nameGetter;
-			_consistencyChecker = consistencyChecker;
+			_nameGetter = nameGetter.EnsureNotNull(nameof(nameGetter));
+			_consistencyChecker = consistencyChecker.EnsureNotNull(nameof(consistencyChecker));
 		}
 
 		#endregion
@@ -108,7 +98,7 @@ namespace Inventor.Semantics.Metadata
 				nameGetter,
 				(semanticNetwork, result) => consistencyChecker(semanticNetwork, result, semanticNetwork.Statements.OfType<StatementT>().ToList()))
 		{
-			if (consistencyChecker == null) throw new ArgumentNullException(nameof(consistencyChecker));
+			consistencyChecker.EnsureNotNull(nameof(consistencyChecker));
 		}
 
 		public static readonly StatementConsistencyCheckerDelegate<StatementT> NoConsistencyCheck = (semanticNetwork, result, statements) => { };

@@ -1,4 +1,5 @@
 using System;
+using Inventor.Semantics.Utils;
 
 namespace Inventor.Semantics.Metadata
 {
@@ -13,12 +14,8 @@ namespace Inventor.Semantics.Metadata
 			Func<IQuestion, Serialization.Json.Question> serializer,
 			Type jsonType)
 		{
-			if (serializer == null) throw new ArgumentNullException(nameof(serializer));
-			if (jsonType == null) throw new ArgumentNullException(nameof(jsonType));
-			if (jsonType.IsAbstract || !typeof(Serialization.Json.Question).IsAssignableFrom(jsonType)) throw new ArgumentException($"Type must be non-abstract and implement {typeof(Serialization.Json.Question)}.", nameof(jsonType));
-
-			_serializer = serializer;
-			JsonType = jsonType;
+			_serializer = serializer.EnsureNotNull(nameof(serializer));
+			JsonType = jsonType.EnsureNotNull(nameof(jsonType)).EnsureContract<Serialization.Json.Question>(nameof(jsonType));
 		}
 
 		public Serialization.Json.Question GetJson(IQuestion question)
@@ -38,12 +35,8 @@ namespace Inventor.Semantics.Metadata
 			Func<IQuestion, Serialization.Xml.Question> serializer,
 			Type xmlType)
 		{
-			if (serializer == null) throw new ArgumentNullException(nameof(serializer));
-			if (xmlType == null) throw new ArgumentNullException(nameof(xmlType));
-			if (xmlType.IsAbstract || !typeof(Serialization.Xml.Question).IsAssignableFrom(xmlType)) throw new ArgumentException($"Type must be non-abstract and implement {typeof(Serialization.Xml.Question)}.", nameof(xmlType));
-
-			_serializer = serializer;
-			XmlType = xmlType;
+			_serializer = serializer.EnsureNotNull(nameof(serializer));
+			XmlType = xmlType.EnsureNotNull(nameof(xmlType)).EnsureContract<Serialization.Xml.Question>(nameof(xmlType));
 		}
 
 		public Serialization.Xml.Question GetXml(IQuestion question)
@@ -63,9 +56,7 @@ namespace Inventor.Semantics.Metadata
 		public QuestionDefinition(Type type, Func<ILanguage, String> nameGetter)
 			: base(type, typeof(IQuestion))
 		{
-			if (nameGetter == null) throw new ArgumentNullException(nameof(nameGetter));
-
-			_nameGetter = nameGetter;
+			_nameGetter = nameGetter.EnsureNotNull(nameof(nameGetter));
 		}
 
 		public String GetName(ILanguage language)
