@@ -5,8 +5,15 @@
 		MinWidth="200" MaxWidth="800" MaxHeight="600"
 		Loaded="dialogLoaded">
 	<DockPanel LastChildFill="True">
-		<WindowsFormsHost Name="windowsFormsHost">
-			<forms:WebBrowser />
-		</WindowsFormsHost>
+		<TabControl>
+			<TabItem Header="HTML">
+				<WindowsFormsHost Name="windowsFormsHost">
+					<forms:WebBrowser />
+				</WindowsFormsHost>
+			</TabItem>
+			<TabItem Header="TXT">
+				<TextBox IsReadOnly="True" Name="textBox" VerticalScrollBarVisibility="Visible" HorizontalScrollBarVisibility="Auto" />
+			</TabItem>
+		</TabControl>
 	</DockPanel>
 </Window>
