@@ -19,7 +19,7 @@ namespace Inventor.SimpleRestClient.Controllers
 		}
 
 		[HttpGet(Name = "GetAskQuestion")]
-		public Answer Get([FromBody] Question question)
+		public String Get([FromBody] Question question)
 		{
 			var semanticNetwork = _dataService.GetSemanticNetwork();
 
@@ -33,9 +33,10 @@ namespace Inventor.SimpleRestClient.Controllers
 
 			var deserializedQuestion = question.Save(conceptIdResolver, statementIdResolver);
 			var answer = deserializedQuestion.Ask(semanticNetwork.Context);
-			var serializedAnswer = Answer.Load(answer, semanticNetwork.Context.Language);
 
-			return serializedAnswer;
+			var snapshot = Answer.Load(answer, semanticNetwork.Context.Language);
+
+			return snapshot.SerializeToJsonString();
 		}
 	}
 }
