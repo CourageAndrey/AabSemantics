@@ -264,7 +264,7 @@ namespace Inventor.Semantics.Utils
 		{
 			String itemsString = info.GetString("items");
 
-			Items = itemsString.DeserializeFromXmlText<SerializationWrapper>().Items;
+			Items = itemsString.DeserializeFromXmlString<SerializationWrapper>().Items;
 		}
 
 		public override void GetObjectData(SerializationInfo info, StreamingContext context)

@@ -85,7 +85,7 @@ namespace Inventor.Semantics.Test.Serialization.Json
 				}
 				deserializedFromBytes = File.ReadAllBytes(tempFileName).DeserializeFromJsonBytes<Test>();
 				deserializedFromFile = tempFileName.DeserializeFromJsonFile<Test>();
-				deserializedFromText = serializedText.DeserializeFromJsonText<Test>();
+				deserializedFromText = serializedText.DeserializeFromJsonString<Test>();
 			}
 			finally
 			{
