@@ -170,32 +170,32 @@ namespace Inventor.Semantics.Test.Statements
 			var rightValue = ConceptCreationHelper.CreateConcept();
 			rightValue.WithAttribute(IsValueAttribute.Value);
 
-			var statementsByConstuctor = new List<ComparisonStatement>();
+			var statementsByConstructor = new List<ComparisonStatement>();
 			var statementsByBuilder = new List<ComparisonStatement>();
 
 			// act
-			statementsByConstuctor.Add(new ComparisonStatement(null, leftValue, rightValue, ComparisonSigns.IsEqualTo));
+			statementsByConstructor.Add(new ComparisonStatement(null, leftValue, rightValue, ComparisonSigns.IsEqualTo));
 			statementsByBuilder.Add(semanticNetwork.DeclareThat(leftValue).IsEqualTo(rightValue));
 
-			statementsByConstuctor.Add(new ComparisonStatement(null, leftValue, rightValue, ComparisonSigns.IsNotEqualTo));
+			statementsByConstructor.Add(new ComparisonStatement(null, leftValue, rightValue, ComparisonSigns.IsNotEqualTo));
 			statementsByBuilder.Add(semanticNetwork.DeclareThat(leftValue).IsNotEqualTo(rightValue));
 
-			statementsByConstuctor.Add(new ComparisonStatement(null, leftValue, rightValue, ComparisonSigns.IsGreaterThan));
+			statementsByConstructor.Add(new ComparisonStatement(null, leftValue, rightValue, ComparisonSigns.IsGreaterThan));
 			statementsByBuilder.Add(semanticNetwork.DeclareThat(leftValue).IsGreaterThan(rightValue));
 
-			statementsByConstuctor.Add(new ComparisonStatement(null, leftValue, rightValue, ComparisonSigns.IsGreaterThanOrEqualTo));
+			statementsByConstructor.Add(new ComparisonStatement(null, leftValue, rightValue, ComparisonSigns.IsGreaterThanOrEqualTo));
 			statementsByBuilder.Add(semanticNetwork.DeclareThat(leftValue).IsGreaterThanOrEqualTo(rightValue));
 
-			statementsByConstuctor.Add(new ComparisonStatement(null, leftValue, rightValue, ComparisonSigns.IsLessThan));
+			statementsByConstructor.Add(new ComparisonStatement(null, leftValue, rightValue, ComparisonSigns.IsLessThan));
 			statementsByBuilder.Add(semanticNetwork.DeclareThat(leftValue).IsLessThan(rightValue));
 
-			statementsByConstuctor.Add(new ComparisonStatement(null, leftValue, rightValue, ComparisonSigns.IsLessThanOrEqualTo));
+			statementsByConstructor.Add(new ComparisonStatement(null, leftValue, rightValue, ComparisonSigns.IsLessThanOrEqualTo));
 			statementsByBuilder.Add(semanticNetwork.DeclareThat(leftValue).IsLessThanOrEqualTo(rightValue));
 
 			// assert
 			for (int s = 0; s < ComparisonSigns.All.Count; s++)
 			{
-				Assert.AreEqual(statementsByConstuctor[s], statementsByBuilder[s]);
+				Assert.AreEqual(statementsByConstructor[s], statementsByBuilder[s]);
 			}
 		}
 
@@ -250,59 +250,59 @@ namespace Inventor.Semantics.Test.Statements
 			var processB = ConceptCreationHelper.CreateConcept();
 			processB.WithAttribute(IsProcessAttribute.Value);
 
-			var statementsByConstuctor = new List<ProcessesStatement>();
+			var statementsByConstructor = new List<ProcessesStatement>();
 			var statementsByBuilder = new List<ProcessesStatement>();
 
 			// act
-			statementsByConstuctor.Add(new ProcessesStatement(null, processA, processB, SequenceSigns.StartsAfterOtherStarted));
+			statementsByConstructor.Add(new ProcessesStatement(null, processA, processB, SequenceSigns.StartsAfterOtherStarted));
 			statementsByBuilder.Add(semanticNetwork.DeclareThat(processA).StartsAfterOtherStarted(processB));
 
-			statementsByConstuctor.Add(new ProcessesStatement(null, processA, processB, SequenceSigns.StartsWhenOtherStarted));
+			statementsByConstructor.Add(new ProcessesStatement(null, processA, processB, SequenceSigns.StartsWhenOtherStarted));
 			statementsByBuilder.Add(semanticNetwork.DeclareThat(processA).StartsWhenOtherStarted(processB));
 
-			statementsByConstuctor.Add(new ProcessesStatement(null, processA, processB, SequenceSigns.StartsBeforeOtherStarted));
+			statementsByConstructor.Add(new ProcessesStatement(null, processA, processB, SequenceSigns.StartsBeforeOtherStarted));
 			statementsByBuilder.Add(semanticNetwork.DeclareThat(processA).StartsBeforeOtherStarted(processB));
 
-			statementsByConstuctor.Add(new ProcessesStatement(null, processA, processB, SequenceSigns.FinishesAfterOtherStarted));
+			statementsByConstructor.Add(new ProcessesStatement(null, processA, processB, SequenceSigns.FinishesAfterOtherStarted));
 			statementsByBuilder.Add(semanticNetwork.DeclareThat(processA).FinishesAfterOtherStarted(processB));
 
-			statementsByConstuctor.Add(new ProcessesStatement(null, processA, processB, SequenceSigns.FinishesWhenOtherStarted));
+			statementsByConstructor.Add(new ProcessesStatement(null, processA, processB, SequenceSigns.FinishesWhenOtherStarted));
 			statementsByBuilder.Add(semanticNetwork.DeclareThat(processA).FinishesWhenOtherStarted(processB));
 
-			statementsByConstuctor.Add(new ProcessesStatement(null, processA, processB, SequenceSigns.FinishesBeforeOtherStarted));
+			statementsByConstructor.Add(new ProcessesStatement(null, processA, processB, SequenceSigns.FinishesBeforeOtherStarted));
 			statementsByBuilder.Add(semanticNetwork.DeclareThat(processA).FinishesBeforeOtherStarted(processB));
 
-			statementsByConstuctor.Add(new ProcessesStatement(null, processA, processB, SequenceSigns.StartsAfterOtherFinished));
+			statementsByConstructor.Add(new ProcessesStatement(null, processA, processB, SequenceSigns.StartsAfterOtherFinished));
 			statementsByBuilder.Add(semanticNetwork.DeclareThat(processA).StartsAfterOtherFinished(processB));
 
-			statementsByConstuctor.Add(new ProcessesStatement(null, processA, processB, SequenceSigns.StartsWhenOtherFinished));
+			statementsByConstructor.Add(new ProcessesStatement(null, processA, processB, SequenceSigns.StartsWhenOtherFinished));
 			statementsByBuilder.Add(semanticNetwork.DeclareThat(processA).StartsWhenOtherFinished(processB));
 
-			statementsByConstuctor.Add(new ProcessesStatement(null, processA, processB, SequenceSigns.StartsBeforeOtherFinished));
+			statementsByConstructor.Add(new ProcessesStatement(null, processA, processB, SequenceSigns.StartsBeforeOtherFinished));
 			statementsByBuilder.Add(semanticNetwork.DeclareThat(processA).StartsBeforeOtherFinished(processB));
 
-			statementsByConstuctor.Add(new ProcessesStatement(null, processA, processB, SequenceSigns.FinishesAfterOtherFinished));
+			statementsByConstructor.Add(new ProcessesStatement(null, processA, processB, SequenceSigns.FinishesAfterOtherFinished));
 			statementsByBuilder.Add(semanticNetwork.DeclareThat(processA).FinishesAfterOtherFinished(processB));
 
-			statementsByConstuctor.Add(new ProcessesStatement(null, processA, processB, SequenceSigns.FinishesWhenOtherFinished));
+			statementsByConstructor.Add(new ProcessesStatement(null, processA, processB, SequenceSigns.FinishesWhenOtherFinished));
 			statementsByBuilder.Add(semanticNetwork.DeclareThat(processA).FinishesWhenOtherFinished(processB));
 
-			statementsByConstuctor.Add(new ProcessesStatement(null, processA, processB, SequenceSigns.FinishesBeforeOtherFinished));
+			statementsByConstructor.Add(new ProcessesStatement(null, processA, processB, SequenceSigns.FinishesBeforeOtherFinished));
 			statementsByBuilder.Add(semanticNetwork.DeclareThat(processA).FinishesBeforeOtherFinished(processB));
 
-			statementsByConstuctor.Add(new ProcessesStatement(null, processA, processB, SequenceSigns.Causes));
+			statementsByConstructor.Add(new ProcessesStatement(null, processA, processB, SequenceSigns.Causes));
 			statementsByBuilder.Add(semanticNetwork.DeclareThat(processA).Causes(processB));
 
-			statementsByConstuctor.Add(new ProcessesStatement(null, processA, processB, SequenceSigns.IsCausedBy));
+			statementsByConstructor.Add(new ProcessesStatement(null, processA, processB, SequenceSigns.IsCausedBy));
 			statementsByBuilder.Add(semanticNetwork.DeclareThat(processA).IsCausedBy(processB));
 
-			statementsByConstuctor.Add(new ProcessesStatement(null, processA, processB, SequenceSigns.SimultaneousWith));
+			statementsByConstructor.Add(new ProcessesStatement(null, processA, processB, SequenceSigns.SimultaneousWith));
 			statementsByBuilder.Add(semanticNetwork.DeclareThat(processA).SimultaneousWith(processB));
 
 			// assert
 			for (int s = 0; s < SequenceSigns.All.Count; s++)
 			{
-				Assert.AreEqual(statementsByConstuctor[s], statementsByBuilder[s]);
+				Assert.AreEqual(statementsByConstructor[s], statementsByBuilder[s]);
 			}
 		}
 
