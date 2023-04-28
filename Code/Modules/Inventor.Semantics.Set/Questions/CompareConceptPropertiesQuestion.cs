@@ -9,6 +9,7 @@ using Inventor.Semantics.Text.Primitives;
 using Inventor.Semantics.Set.Localization;
 using Inventor.Semantics.Set.Statements;
 using Inventor.Semantics.Utils;
+using Inventor.Semantics.Contexts;
 
 namespace Inventor.Semantics.Set.Questions
 {
@@ -16,21 +17,16 @@ namespace Inventor.Semantics.Set.Questions
 	{
 		#region Properties
 
-		public IConcept Concept1
-		{ get; }
-
-		public IConcept Concept2
+		public IList<IConcept> Concepts
 		{ get; }
 
 		#endregion
 
-		protected CompareConceptPropertiesQuestion(IConcept concept1, IConcept concept2, IEnumerable<IStatement> preconditions = null)
+		protected CompareConceptPropertiesQuestion(IList<IConcept> concepts, IEnumerable<IStatement> preconditions = null)
 			: base(preconditions)
 		{
-			if (concept1 == concept2) throw new ArgumentException("Attempt to compare concept with itself has no sense.");
-
-			Concept1 = concept1.EnsureNotNull(nameof(concept1));
-			Concept2 = concept2.EnsureNotNull(nameof(concept2));
+			Concepts = concepts.EnsureNotNull(nameof(concepts)).Distinct().ToList();
+			if (Concepts.Count < 2) throw new ArgumentException("It's necessary at least two different concepts to compare.");
 		}
 
 		public override IAnswer Process(IQuestionProcessingContext context)
@@ -38,70 +34,88 @@ namespace Inventor.Semantics.Set.Questions
 			var allStatements = context.SemanticNetwork.Statements.Enumerate(context.ActiveContexts).ToList();
 
 			// get hierarchies
-			var isStatements1 = new List<IsStatement>();
-			var isStatements2 = new List<IsStatement>();
-			var parents1 = allStatements.GetParentsAllLevels(Concept1, isStatements1);
-			var parents2 = allStatements.GetParentsAllLevels(Concept2, isStatements2);
+			var allIsStatements = new List<List<IsStatement>>();
+			var allParents = new List<List<IConcept>>();
+			for (int c = 0; c < Concepts.Count; c++)
+			{
+				var isStatements = new List<IsStatement>();
+				allParents.Add(allStatements.GetParentsAllLevels(Concepts[c], isStatements));
+				allIsStatements.Add(isStatements);
+			}
 
 			// intersect parents
-			var isStatements = new List<IsStatement>();
-			var parents = intersect(parents1, parents2, isStatements1, isStatements2, isStatements);
+			var commonIsStatements = new List<IsStatement>();
+			var parents = intersect(allParents, allIsStatements, commonIsStatements);
 			if (parents.Count == 0)
 			{
-				return new Semantics.Answers.Answer(
-					new FormattedText(
-						language => language.GetExtension<ILanguageSetModule>().Questions.Answers.CanNotCompareConcepts,
-						new Dictionary<String, IKnowledge>
-						{
-							{ Strings.ParamConcept1, Concept1 },
-							{ Strings.ParamConcept2, Concept2 },
-						}),
+				var format = new UnstructuredContainer(new FormattedText(
+					language => language.GetExtension<ILanguageSetModule>().Questions.Answers.CanNotCompareConcepts, // !!!!!!!!!!!!!!!!!!
+					new Dictionary<String, IKnowledge>())).AppendBulletsList(Concepts.Enumerate());
+
+				return new Answers.Answer(
+					format,
 					new Explanation(Array.Empty<IStatement>()),
 					true);
 			}
 
 			// get signs
 			var allSignStatements = allStatements.OfType<HasSignStatement>().ToList();
-			var signStatements1 = getAllSigns(allSignStatements, parents1);
-			var signStatements2 = getAllSigns(allSignStatements, parents2);
+			var signStatementsToCheck = new List<ICollection<HasSignStatement>>();
+			for (int p = 0; p < allParents.Count; p++)
+			{
+				signStatementsToCheck.Add(getAllSigns(allSignStatements, allParents[p]));
+			}
 
-			var signs = new HashSet<IConcept>(signStatements1.Select(s => s.Sign).Intersect(signStatements2.Select(s => s.Sign)));
+			var signsEnumeration = signStatementsToCheck[0].Select(s => s.Sign);
+			for (int ss = 1; ss < signStatementsToCheck.Count; ss++)
+			{
+				signsEnumeration = signsEnumeration.Intersect(signStatementsToCheck[ss].Select(s => s.Sign));
+			}
+			var signs = new HashSet<IConcept>(signsEnumeration);
 
 			var signStatements = new List<HasSignStatement>();
-			signStatements.AddRange(signStatements1.Where(s => signs.Contains(s.Sign)));
-			signStatements.AddRange(signStatements2.Where(s => signs.Contains(s.Sign) && !signStatements.Contains(s)));
+
+			foreach (var statements in signStatementsToCheck)
+			{
+				signStatements.AddRange(statements.Where(s => signs.Contains(s.Sign) && !signStatements.Contains(s)));
+			}
 
 			// compare sign values
-			var resultSignValues = new Dictionary<IConcept, Tuple<IConcept, IConcept>>();
+			var resultSignValues = new Dictionary<IConcept, IList<IConcept>>();
 			var signValueStatements = new List<SignValueStatement>();
 			foreach (var sign in signs)
 			{
-				var valueStatement1 = SignValueStatement.GetSignValue(allStatements, Concept1, sign);
-				var valueStatement2 = SignValueStatement.GetSignValue(allStatements, Concept2, sign);
-				var value1 = valueStatement1?.Value;
-				var value2 = valueStatement2?.Value;
-
-				if (NeedToTakeIntoAccount(value1, value2))
+				var valueStatements = new List<SignValueStatement>();
+				var values = new List<IConcept>();
+				foreach (var concept in Concepts)
 				{
-					resultSignValues[sign] = new Tuple<IConcept, IConcept>(value1, value2);
-					signValueStatements.Add(valueStatement1);
-					signValueStatements.Add(valueStatement2);
+					var valueStatement = SignValueStatement.GetSignValue(allStatements, concept, sign);
+					valueStatements.Add(valueStatement);
+
+					var value = valueStatement?.Value;
+					values.Add(value);
+				}
+
+				if (NeedToTakeIntoAccount(values))
+				{
+					resultSignValues[sign] = values;
+					signValueStatements.AddRange(valueStatements);
 				}
 			}
 
 			// format final result
 			var explanation = new List<IStatement>();
-			explanation.AddRange(isStatements);
+			explanation.AddRange(commonIsStatements);
 			explanation.AddRange(signStatements);
 			explanation.AddRange(signValueStatements);
 
-			return new Semantics.Answers.ConceptsAnswer(
+			return new Answers.ConceptsAnswer(
 				resultSignValues.Keys,
 				formatAnswer(parents, resultSignValues),
 				new Explanation(explanation));
 		}
 
-		protected abstract Boolean NeedToTakeIntoAccount(IConcept value1, IConcept value2);
+		protected abstract Boolean NeedToTakeIntoAccount(IList<IConcept> values);
 
 		protected abstract void WriteNotEmptyResultWithoutData(ITextContainer text);
 
@@ -109,14 +123,14 @@ namespace Inventor.Semantics.Set.Questions
 
 		private IText formatAnswer(
 			ICollection<IConcept> parents,
-			IDictionary<IConcept, Tuple<IConcept, IConcept>> signValueStatements)
+			IDictionary<IConcept, IList<IConcept>> signValueStatements)
 		{
 			var result = new UnstructuredContainer(new FormattedText(
 				language => language.GetExtension<ILanguageSetModule>().Questions.Answers.CompareConceptsResult,
 				new Dictionary<String, IKnowledge>
 				{
-					{ Strings.ParamConcept1, Concept1 },
-					{ Strings.ParamConcept2, Concept2 },
+					{ Strings.ParamConcept1, Concepts[0] },// !!!!!!!!!!!!!!!!!!
+					{ Strings.ParamConcept2, Concepts[1] },// !!!!!!!!!!!!!!!!!!
 				})).AppendBulletsList(parents.Enumerate());
 
 			if (signValueStatements.Count > 0)
@@ -135,16 +149,21 @@ namespace Inventor.Semantics.Set.Questions
 		}
 
 		private static ICollection<IConcept> intersect(
-			IEnumerable<IConcept> parents1,
-			IEnumerable<IConcept> parents2,
-			IEnumerable<IsStatement> isStatements1,
-			IEnumerable<IsStatement> isStatements2,
-			List<IsStatement> isStatements)
+			List<List<IConcept>> allParents,
+			List<List<IsStatement>> allIsStatements,
+			List<IsStatement> commonIsStatements)
 		{
-			var parents = new HashSet<IConcept>(parents1.Intersect(parents2));
+			IEnumerable<IConcept> parentsEnumeration = allParents[0];
+			for (int p = 1; p < allParents.Count; p++)
+			{
+				parentsEnumeration = parentsEnumeration.Intersect(allParents[p]);
+			}
+			var parents = new HashSet<IConcept>(parentsEnumeration);
 
-			isStatements.AddRange(isStatements1.Where(i => parents.Contains(i.Ancestor)));
-			isStatements.AddRange(isStatements2.Where(i => parents.Contains(i.Ancestor) && !isStatements.Contains(i)));
+			foreach (var isStatements in allIsStatements)
+			{
+				commonIsStatements.AddRange(isStatements.Where(i => parents.Contains(i.Ancestor) && !commonIsStatements.Contains(i)));
+			}
 
 			return parents;
 		}

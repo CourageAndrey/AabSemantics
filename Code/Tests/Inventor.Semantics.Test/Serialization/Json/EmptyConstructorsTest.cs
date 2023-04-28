@@ -120,6 +120,10 @@ namespace Inventor.Semantics.Test.Serialization.Json
 					{
 						Assert.AreEqual(false, value);
 					}
+					else if(typeof(System.Collections.ICollection).IsAssignableFrom(property.PropertyType))
+					{
+						Assert.AreEqual(0, ((System.Collections.ICollection) value).Count);
+					}
 					else
 					{
 						Assert.IsNull(value);

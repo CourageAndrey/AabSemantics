@@ -86,8 +86,10 @@ namespace Inventor.Semantics.Test.Questions
 			yield return new object[] { new Func<IQuestion>(() => new EnumeratePartsQuestion(null)) };
 			yield return new object[] { new Func<IQuestion>(() => new EnumerateSignsQuestion(null, false)) };
 			yield return new object[] { new Func<IQuestion>(() => new FindSubjectAreaQuestion(null)) };
+			yield return new object[] { new Func<IQuestion>(() => new GetCommonQuestion(null)) };
 			yield return new object[] { new Func<IQuestion>(() => new GetCommonQuestion(null, concept)) };
 			yield return new object[] { new Func<IQuestion>(() => new GetCommonQuestion(concept, null)) };
+			yield return new object[] { new Func<IQuestion>(() => new GetDifferencesQuestion(null)) };
 			yield return new object[] { new Func<IQuestion>(() => new GetDifferencesQuestion(null, concept)) };
 			yield return new object[] { new Func<IQuestion>(() => new GetDifferencesQuestion(concept, null)) };
 			yield return new object[] { new Func<IQuestion>(() => new HasSignQuestion(null, concept, false)) };

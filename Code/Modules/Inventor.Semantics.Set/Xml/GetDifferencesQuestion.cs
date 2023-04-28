@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Xml.Serialization;
 
 using Inventor.Semantics.Serialization;
@@ -12,12 +13,9 @@ namespace Inventor.Semantics.Set.Xml
 	{
 		#region Properties
 
-		[XmlElement]
-		public String Concept1
-		{ get; set; }
-
-		[XmlElement]
-		public String Concept2
+		[XmlArray(nameof(Concepts))]
+		[XmlArrayItem("Concept")]
+		public List<String> Concepts
 		{ get; set; }
 
 		#endregion
@@ -25,13 +23,14 @@ namespace Inventor.Semantics.Set.Xml
 		#region Constructors
 
 		public GetDifferencesQuestion()
-		{ }
+		{
+			Concepts = new List<String>();
+		}
 
 		public GetDifferencesQuestion(Questions.GetDifferencesQuestion question)
 			: base(question)
 		{
-			Concept1 = question.Concept1.ID;
-			Concept2 = question.Concept2.ID;
+			Concepts = question.Concepts.Select(concept => concept.ID).ToList();
 		}
 
 		#endregion
@@ -39,8 +38,7 @@ namespace Inventor.Semantics.Set.Xml
 		protected override Questions.GetDifferencesQuestion SaveImplementation(ConceptIdResolver conceptIdResolver, StatementIdResolver statementIdResolver, IEnumerable<IStatement> preconditions)
 		{
 			return new Questions.GetDifferencesQuestion(
-				conceptIdResolver.GetConceptById(Concept1),
-				conceptIdResolver.GetConceptById(Concept2),
+				Concepts.Select(concept => conceptIdResolver.GetConceptById(concept)).ToList(),
 				preconditions);
 		}
 	}

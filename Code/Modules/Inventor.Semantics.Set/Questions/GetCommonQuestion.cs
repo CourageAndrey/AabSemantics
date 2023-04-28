@@ -2,14 +2,22 @@
 using System.Collections.Generic;
 
 using Inventor.Semantics.Set.Localization;
+using Inventor.Semantics.Utils;
 
 namespace Inventor.Semantics.Set.Questions
 {
 	public class GetCommonQuestion : CompareConceptPropertiesQuestion
 	{
-		public GetCommonQuestion(IConcept concept1, IConcept concept2, IEnumerable<IStatement> preconditions = null)
-			: base(concept1, concept2, preconditions)
+		public GetCommonQuestion(IList<IConcept> concepts, IEnumerable<IStatement> preconditions = null)
+			: base(concepts, preconditions)
 		{ }
+
+		public GetCommonQuestion(IConcept concept1, IConcept concept2, IEnumerable<IStatement> preconditions = null)
+			: this(new[] { concept1, concept2 }, preconditions)
+		{
+			concept1.EnsureNotNull(nameof(concept1));
+			concept2.EnsureNotNull(nameof(concept2));
+		}
 
 		protected override Boolean NeedToTakeIntoAccount(IConcept value1, IConcept value2)
 		{
