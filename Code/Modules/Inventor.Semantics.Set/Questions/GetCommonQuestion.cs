@@ -38,5 +38,17 @@ namespace Inventor.Semantics.Set.Questions
 		{
 			text.Append(language => language.GetExtension<ILanguageSetModule>().Questions.Answers.CompareConceptsNoCommon);
 		}
+
+		protected override void FormatParentsDiff(
+			ITextContainer text,
+			ICollection<IConcept> parents,
+			ICollection<IConcept> parents1,
+			ICollection<IConcept> parents2)
+		{
+			if (parents1.Count == parents.Count && parents2.Count == parents.Count)
+			{
+				text.Append(language => language.GetExtension<ILanguageSetModule>().Questions.Answers.CompareConceptsSameHierarchy);
+			}
+		}
 	}
 }

@@ -100,6 +100,15 @@ namespace Inventor.Semantics.Set.Localization
 
 		String CompareConceptsNoDifference
 		{ get; }
+
+		String CompareConceptsSameHierarchy
+		{ get; }
+
+		String CompareConceptsDifferentHierarchyFirst
+		{ get; }
+
+		String CompareConceptsDifferentHierarchySecond
+		{ get; }
 	}
 
 	[XmlType("SetsAnswers")]
@@ -235,6 +244,18 @@ namespace Inventor.Semantics.Set.Localization
 		public String CompareConceptsNoDifference
 		{ get; set; }
 
+		[XmlElement]
+		public String CompareConceptsSameHierarchy
+		{ get; set; }
+
+		[XmlElement]
+		public String CompareConceptsDifferentHierarchyFirst
+		{ get; set; }
+
+		[XmlElement]
+		public String CompareConceptsDifferentHierarchySecond
+		{ get; set; }
+
 		#endregion
 
 		internal static LanguageAnswers CreateDefault()
@@ -273,6 +294,9 @@ namespace Inventor.Semantics.Set.Localization
 				CompareConceptsFirstNotSet = $"First have {Strings.ParamSign} sign value not set, and second one equal to {Strings.ParamConcept2}.",
 				CompareConceptsSecondNotSet = $"First have {Strings.ParamSign} sign value equal to {Strings.ParamConcept1}, and second one not set.",
 				CompareConceptsNoDifference = "No differences found according to existing information.",
+				CompareConceptsSameHierarchy = "Both have the same ancestor's hierarchy.",
+				CompareConceptsDifferentHierarchyFirst = "First is also:",
+				CompareConceptsDifferentHierarchySecond = "Second is also:",
 			};
 		}
 	}
