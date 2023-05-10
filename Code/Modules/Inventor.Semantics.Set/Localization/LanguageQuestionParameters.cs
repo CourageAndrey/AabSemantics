@@ -10,6 +10,12 @@ namespace Inventor.Semantics.Set.Localization
 
 		String Area
 		{ get; }
+
+		String Concept1
+		{ get; }
+
+		String Concept2
+		{ get; }
 	}
 
 	[XmlType("SetsQuestionParameters")]
@@ -25,6 +31,14 @@ namespace Inventor.Semantics.Set.Localization
 		public String Area
 		{ get; set; }
 
+		[XmlElement]
+		public String Concept1
+		{ get; set; }
+
+		[XmlElement]
+		public String Concept2
+		{ get; set; }
+
 		#endregion
 
 		internal static LanguageQuestionParameters CreateDefault()
@@ -33,6 +47,8 @@ namespace Inventor.Semantics.Set.Localization
 			{
 				Sign = "SIGN",
 				Area = "SUBJECT_AREA",
+				Concept1 = "CONCEPT 1",
+				Concept2 = "CONCEPT 2",
 			};
 		}
 	}
