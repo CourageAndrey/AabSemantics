@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-
+using System.Linq;
 using Inventor.Semantics.Set.Localization;
 
 namespace Inventor.Semantics.Set.Questions
@@ -43,6 +43,28 @@ namespace Inventor.Semantics.Set.Questions
 		protected override void WriteNotEmptyResultWithoutData(ITextContainer text)
 		{
 			text.Append(language => language.GetExtension<ILanguageSetModule>().Questions.Answers.CompareConceptsNoDifference);
+		}
+
+		protected override void FormatParentsDiff(
+			ITextContainer text,
+			ICollection<IConcept> parents,
+			ICollection<IConcept> parents1,
+			ICollection<IConcept> parents2)
+		{
+			var uniqueParents1 = parents1.Except(parents).ToList();
+			var uniqueParents2 = parents2.Except(parents).ToList();
+
+			if (uniqueParents1.Count > 0)
+			{
+				text.Append(language => language.GetExtension<ILanguageSetModule>().Questions.Answers.CompareConceptsDifferentHierarchyFirst)
+					.AppendBulletsList(uniqueParents1.Enumerate());
+			}
+
+			if (uniqueParents2.Count > 0)
+			{
+				text.Append(language => language.GetExtension<ILanguageSetModule>().Questions.Answers.CompareConceptsDifferentHierarchySecond)
+					.AppendBulletsList(uniqueParents2.Enumerate());
+			}
 		}
 	}
 }

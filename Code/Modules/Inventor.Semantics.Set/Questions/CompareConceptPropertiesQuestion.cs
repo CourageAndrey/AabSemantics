@@ -97,7 +97,7 @@ namespace Inventor.Semantics.Set.Questions
 
 			return new Semantics.Answers.ConceptsAnswer(
 				resultSignValues.Keys,
-				formatAnswer(parents, resultSignValues),
+				formatAnswer(parents, parents1, parents2, resultSignValues),
 				new Explanation(explanation));
 		}
 
@@ -107,8 +107,16 @@ namespace Inventor.Semantics.Set.Questions
 
 		protected abstract void WriteOneLine(ITextContainer text, IConcept sign, IConcept value1, IConcept value2);
 
+		protected abstract void FormatParentsDiff(
+			ITextContainer text,
+			ICollection<IConcept> parents,
+			ICollection<IConcept> parents1,
+			ICollection<IConcept> parents2);
+
 		private IText formatAnswer(
 			ICollection<IConcept> parents,
+			ICollection<IConcept> parents1,
+			ICollection<IConcept> parents2,
 			IDictionary<IConcept, Tuple<IConcept, IConcept>> signValueStatements)
 		{
 			var result = new UnstructuredContainer(new FormattedText(
@@ -118,6 +126,8 @@ namespace Inventor.Semantics.Set.Questions
 					{ Strings.ParamConcept1, Concept1 },
 					{ Strings.ParamConcept2, Concept2 },
 				})).AppendBulletsList(parents.Enumerate());
+
+			FormatParentsDiff(result, parents, parents1, parents2);
 
 			if (signValueStatements.Count > 0)
 			{
