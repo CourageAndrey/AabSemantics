@@ -46,6 +46,37 @@ namespace Inventor.Semantics.Test.Statements
 		}
 
 		[Test]
+		public void TestBuildingMultipleHasPartStatements()
+		{
+			// arrange
+			var language = Language.Default;
+			var semanticNetwork = new SemanticNetwork(language);
+
+			var whole1 = ConceptCreationHelper.CreateConcept();
+			var whole2 = ConceptCreationHelper.CreateConcept();
+			var part1 = ConceptCreationHelper.CreateConcept();
+			var part2 = ConceptCreationHelper.CreateConcept();
+
+			// act
+			var statementsByConstructorFromWhole = new List<HasPartStatement>
+			{
+				new HasPartStatement(null, whole1, part1),
+				new HasPartStatement(null, whole1, part2),
+			};
+			var statementsByConstructorFromPart = new List<HasPartStatement>
+			{
+				new HasPartStatement(null, whole1, part1),
+				new HasPartStatement(null, whole2, part1),
+			};
+			var statementsByBuilderFromWhole = semanticNetwork.DeclareThat(whole1).HasParts(new[] { part1, part2 });
+			var statementsByBuilderFromPart = semanticNetwork.DeclareThat(part1).IsPartOf(new[] { whole1, whole2 });
+
+			// assert
+			AssertAreEqual(statementsByConstructorFromWhole, statementsByBuilderFromWhole);
+			AssertAreEqual(statementsByConstructorFromPart, statementsByBuilderFromPart);
+		}
+
+		[Test]
 		public void TestBuildingGroupStatement()
 		{
 			// arrange
@@ -63,6 +94,37 @@ namespace Inventor.Semantics.Test.Statements
 			// assert
 			Assert.AreEqual(statementByConstructor, statementByBuilderFromArea);
 			Assert.AreEqual(statementByConstructor, statementByBuilderFromConcept);
+		}
+
+		[Test]
+		public void TestBuildingMultipleGroupStatements()
+		{
+			// arrange
+			var language = Language.Default;
+			var semanticNetwork = new SemanticNetwork(language);
+
+			var area1 = ConceptCreationHelper.CreateConcept();
+			var area2 = ConceptCreationHelper.CreateConcept();
+			var concept1 = ConceptCreationHelper.CreateConcept();
+			var concept2 = ConceptCreationHelper.CreateConcept();
+
+			// act
+			var statementsByConstructorFromArea = new List<GroupStatement>
+			{
+				new GroupStatement(null, area1, concept1),
+				new GroupStatement(null, area1, concept2),
+			};
+			var statementsByConstructorFromConcept = new List<GroupStatement>
+			{
+				new GroupStatement(null, area1, concept1),
+				new GroupStatement(null, area2, concept1),
+			};
+			var statementsByBuilderFromArea = semanticNetwork.DeclareThat(area1).IsSubjectAreaOf(new[] { concept1, concept2 });
+			var statementsByBuilderFromConcept = semanticNetwork.DeclareThat(concept1).BelongsToSubjectAreas(new[] { area1, area2 });
+
+			// assert
+			AssertAreEqual(statementsByConstructorFromArea, statementsByBuilderFromArea);
+			AssertAreEqual(statementsByConstructorFromConcept, statementsByBuilderFromConcept);
 		}
 
 		[Test]
@@ -84,6 +146,39 @@ namespace Inventor.Semantics.Test.Statements
 			// assert
 			Assert.AreEqual(statementByConstructor, statementByBuilderFromConcept);
 			Assert.AreEqual(statementByConstructor, statementByBuilderFromSign);
+		}
+
+		[Test]
+		public void TestBuildingMultipleHasSignStatements()
+		{
+			// arrange
+			var language = Language.Default;
+			var semanticNetwork = new SemanticNetwork(language);
+
+			var concept1 = ConceptCreationHelper.CreateConcept();
+			var concept2 = ConceptCreationHelper.CreateConcept();
+			var sign1 = ConceptCreationHelper.CreateConcept();
+			sign1.WithAttribute(IsSignAttribute.Value);
+			var sign2 = ConceptCreationHelper.CreateConcept();
+			sign2.WithAttribute(IsSignAttribute.Value);
+
+			// act
+			var statementsByConstructorFromConcept = new List<HasSignStatement>
+			{
+				new HasSignStatement(null, concept1, sign1),
+				new HasSignStatement(null, concept1, sign2),
+			};
+			var statementsByConstructorFromSign = new List<HasSignStatement>
+			{
+				new HasSignStatement(null, concept1, sign1),
+				new HasSignStatement(null, concept2, sign1),
+			};
+			var statementsByBuilderFromConcept = semanticNetwork.DeclareThat(concept1).HasSigns(new[] { sign1, sign2 });
+			var statementsByBuilderFromSign = semanticNetwork.DeclareThat(sign1).IsSignOf(new[] { concept1, concept2 });
+
+			// assert
+			AssertAreEqual(statementsByConstructorFromConcept, statementsByBuilderFromConcept);
+			AssertAreEqual(statementsByConstructorFromSign, statementsByBuilderFromSign);
 		}
 
 		[Test]
@@ -200,6 +295,55 @@ namespace Inventor.Semantics.Test.Statements
 		}
 
 		[Test]
+		public void TestBuildingMultipleComparisonStatement()
+		{
+			// arrange
+			var language = Language.Default;
+			var semanticNetwork = new SemanticNetwork(language);
+
+			var leftValue = ConceptCreationHelper.CreateConcept();
+			leftValue.WithAttribute(IsValueAttribute.Value);
+			var rightValues = new[]
+			{
+				ConceptCreationHelper.CreateConcept(),
+				ConceptCreationHelper.CreateConcept(),
+				ConceptCreationHelper.CreateConcept(),
+			};
+			foreach (var rightValue in rightValues)
+			{
+				rightValue.WithAttribute(IsValueAttribute.Value);
+			}
+
+			var statementsByConstructor = new List<List<ComparisonStatement>>();
+			var statementsByBuilder = new List<List<ComparisonStatement>>();
+
+			// act
+			statementsByConstructor.Add(rightValues.Select(rightValue => new ComparisonStatement(null, leftValue, rightValue, ComparisonSigns.IsEqualTo)).ToList());
+			statementsByBuilder.Add(semanticNetwork.DeclareThat(leftValue).IsEqualTo(rightValues));
+
+			statementsByConstructor.Add(rightValues.Select(rightValue => new ComparisonStatement(null, leftValue, rightValue, ComparisonSigns.IsNotEqualTo)).ToList());
+			statementsByBuilder.Add(semanticNetwork.DeclareThat(leftValue).IsNotEqualTo(rightValues));
+
+			statementsByConstructor.Add(rightValues.Select(rightValue => new ComparisonStatement(null, leftValue, rightValue, ComparisonSigns.IsGreaterThan)).ToList());
+			statementsByBuilder.Add(semanticNetwork.DeclareThat(leftValue).IsGreaterThan(rightValues));
+
+			statementsByConstructor.Add(rightValues.Select(rightValue => new ComparisonStatement(null, leftValue, rightValue, ComparisonSigns.IsGreaterThanOrEqualTo)).ToList());
+			statementsByBuilder.Add(semanticNetwork.DeclareThat(leftValue).IsGreaterThanOrEqualTo(rightValues));
+
+			statementsByConstructor.Add(rightValues.Select(rightValue => new ComparisonStatement(null, leftValue, rightValue, ComparisonSigns.IsLessThan)).ToList());
+			statementsByBuilder.Add(semanticNetwork.DeclareThat(leftValue).IsLessThan(rightValues));
+
+			statementsByConstructor.Add(rightValues.Select(rightValue => new ComparisonStatement(null, leftValue, rightValue, ComparisonSigns.IsLessThanOrEqualTo)).ToList());
+			statementsByBuilder.Add(semanticNetwork.DeclareThat(leftValue).IsLessThanOrEqualTo(rightValues));
+
+			// assert
+			for (int s = 0; s < ComparisonSigns.All.Count; s++)
+			{
+				AssertAreEqual(statementsByConstructor[s], statementsByBuilder[s]);
+			}
+		}
+
+		[Test]
 		[TestCaseSource(nameof(getChainComparisons))]
 		public void TestBuildingChainComparisons(Action<ISemanticNetwork, IEnumerable<IConcept>> definitionMethod, IConcept comparisonSign)
 		{
@@ -307,6 +451,82 @@ namespace Inventor.Semantics.Test.Statements
 		}
 
 		[Test]
+		public void TestBuildingMultipleProcessesStatement()
+		{
+			// arrange
+			var language = Language.Default;
+			var semanticNetwork = new SemanticNetwork(language);
+
+			var processA = ConceptCreationHelper.CreateConcept();
+			processA.WithAttribute(IsProcessAttribute.Value);
+			var processesB = new[]
+			{
+				ConceptCreationHelper.CreateConcept(),
+				ConceptCreationHelper.CreateConcept(),
+				ConceptCreationHelper.CreateConcept(),
+			};
+			foreach (var processB in processesB)
+			{
+				processB.WithAttribute(IsProcessAttribute.Value);
+			}
+
+			var statementsByConstructor = new List<List<ProcessesStatement>>();
+			var statementsByBuilder = new List<List<ProcessesStatement>>();
+
+			// act
+			statementsByConstructor.Add(processesB.Select(processB => new ProcessesStatement(null, processA, processB, SequenceSigns.StartsAfterOtherStarted)).ToList());
+			statementsByBuilder.Add(semanticNetwork.DeclareThat(processA).StartsAfterOthersStarted(processesB));
+
+			statementsByConstructor.Add(processesB.Select(processB => new ProcessesStatement(null, processA, processB, SequenceSigns.StartsWhenOtherStarted)).ToList());
+			statementsByBuilder.Add(semanticNetwork.DeclareThat(processA).StartsWhenOthersStarted(processesB));
+
+			statementsByConstructor.Add(processesB.Select(processB => new ProcessesStatement(null, processA, processB, SequenceSigns.StartsBeforeOtherStarted)).ToList());
+			statementsByBuilder.Add(semanticNetwork.DeclareThat(processA).StartsBeforeOthersStarted(processesB));
+
+			statementsByConstructor.Add(processesB.Select(processB => new ProcessesStatement(null, processA, processB, SequenceSigns.FinishesAfterOtherStarted)).ToList());
+			statementsByBuilder.Add(semanticNetwork.DeclareThat(processA).FinishesAfterOthersStarted(processesB));
+
+			statementsByConstructor.Add(processesB.Select(processB => new ProcessesStatement(null, processA, processB, SequenceSigns.FinishesWhenOtherStarted)).ToList());
+			statementsByBuilder.Add(semanticNetwork.DeclareThat(processA).FinishesWhenOthersStarted(processesB));
+
+			statementsByConstructor.Add(processesB.Select(processB => new ProcessesStatement(null, processA, processB, SequenceSigns.FinishesBeforeOtherStarted)).ToList());
+			statementsByBuilder.Add(semanticNetwork.DeclareThat(processA).FinishesBeforeOthersStarted(processesB));
+
+			statementsByConstructor.Add(processesB.Select(processB => new ProcessesStatement(null, processA, processB, SequenceSigns.StartsAfterOtherFinished)).ToList());
+			statementsByBuilder.Add(semanticNetwork.DeclareThat(processA).StartsAfterOthersFinished(processesB));
+
+			statementsByConstructor.Add(processesB.Select(processB => new ProcessesStatement(null, processA, processB, SequenceSigns.StartsWhenOtherFinished)).ToList());
+			statementsByBuilder.Add(semanticNetwork.DeclareThat(processA).StartsWhenOthersFinished(processesB));
+
+			statementsByConstructor.Add(processesB.Select(processB => new ProcessesStatement(null, processA, processB, SequenceSigns.StartsBeforeOtherFinished)).ToList());
+			statementsByBuilder.Add(semanticNetwork.DeclareThat(processA).StartsBeforeOthersFinished(processesB));
+
+			statementsByConstructor.Add(processesB.Select(processB => new ProcessesStatement(null, processA, processB, SequenceSigns.FinishesAfterOtherFinished)).ToList());
+			statementsByBuilder.Add(semanticNetwork.DeclareThat(processA).FinishesAfterOthersFinished(processesB));
+
+			statementsByConstructor.Add(processesB.Select(processB => new ProcessesStatement(null, processA, processB, SequenceSigns.FinishesWhenOtherFinished)).ToList());
+			statementsByBuilder.Add(semanticNetwork.DeclareThat(processA).FinishesWhenOthersFinished(processesB));
+
+			statementsByConstructor.Add(processesB.Select(processB => new ProcessesStatement(null, processA, processB, SequenceSigns.FinishesBeforeOtherFinished)).ToList());
+			statementsByBuilder.Add(semanticNetwork.DeclareThat(processA).FinishesBeforeOthersFinished(processesB));
+
+			statementsByConstructor.Add(processesB.Select(processB => new ProcessesStatement(null, processA, processB, SequenceSigns.Causes)).ToList());
+			statementsByBuilder.Add(semanticNetwork.DeclareThat(processA).Causes(processesB));
+
+			statementsByConstructor.Add(processesB.Select(processB => new ProcessesStatement(null, processA, processB, SequenceSigns.IsCausedBy)).ToList());
+			statementsByBuilder.Add(semanticNetwork.DeclareThat(processA).IsCausedBy(processesB));
+
+			statementsByConstructor.Add(processesB.Select(processB => new ProcessesStatement(null, processA, processB, SequenceSigns.SimultaneousWith)).ToList());
+			statementsByBuilder.Add(semanticNetwork.DeclareThat(processA).SimultaneousWith(processesB));
+
+			// assert
+			for (int s = 0; s < SequenceSigns.All.Count; s++)
+			{
+				AssertAreEqual(statementsByConstructor[s], statementsByBuilder[s]);
+			}
+		}
+
+		[Test]
 		public void ImpossibleToCreateWithoutSemanticNetwork()
 		{
 			// act & assert
@@ -318,6 +538,16 @@ namespace Inventor.Semantics.Test.Statements
 		{
 			// act & assert
 			Assert.Throws<ArgumentNullException>(() => new StatementBuilder(new SemanticNetwork(Language.Default), null));
+		}
+
+		private static void AssertAreEqual<T>(ICollection<T> sequence1, ICollection<T> sequence2)
+			where T : IEquatable<T>
+		{
+			Assert.AreEqual(sequence1.Count, sequence1.Count);
+			foreach (var item in sequence1)
+			{
+				Assert.IsTrue(sequence2.Contains(item));
+			}
 		}
 	}
 }
