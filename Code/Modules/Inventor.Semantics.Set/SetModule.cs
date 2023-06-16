@@ -120,11 +120,11 @@ namespace Inventor.Semantics.Set
 			ITextContainer result,
 			ICollection<HasSignStatement> statements)
 		{
-			var clasifications = semanticNetwork.Statements.OfType<IsStatement>().ToList();
+			var classifications = semanticNetwork.Statements.OfType<IsStatement>().ToList();
 
 			foreach (var hasSign in statements)
 			{
-				if (!hasSign.CheckSignDuplication(statements, clasifications))
+				if (!hasSign.CheckSignDuplication(statements, classifications))
 				{
 					result.Append(
 						language => language.GetExtension<ILanguageSetModule>().Statements.Consistency.ErrorMultipleSign,
@@ -147,11 +147,11 @@ namespace Inventor.Semantics.Set
 			ITextContainer result,
 			ISemanticNetwork semanticNetwork)
 		{
-			var clasifications = semanticNetwork.Statements.OfType<IsStatement>().ToList();
+			var classifications = semanticNetwork.Statements.OfType<IsStatement>().ToList();
 
 			foreach (var concept in semanticNetwork.Concepts)
 			{
-				var parents = clasifications.GetParentsOneLevel(concept);
+				var parents = classifications.GetParentsOneLevel(concept);
 				foreach (var sign in HasSignStatement.GetSigns(semanticNetwork.Statements, concept, true))
 				{
 					if (statements.FirstOrDefault(sv => sv.Concept == concept && sv.Sign == sign.Sign) == null &&
