@@ -50,7 +50,7 @@ namespace Inventor.Semantics.Test.Metadata
 		}
 
 		[Test]
-		public void SucessfullyRegisterMetadata()
+		public void SuccessfullyRegisterMetadata()
 		{
 			// arrange
 			var module = new TestModule("Test");
