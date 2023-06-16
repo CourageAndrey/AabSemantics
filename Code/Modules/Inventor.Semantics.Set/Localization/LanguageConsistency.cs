@@ -39,7 +39,7 @@ namespace Inventor.Semantics.Set.Localization
 			return new LanguageConsistency
 			{
 				ErrorMultipleSign = $"Statement {Semantics.Localization.Strings.ParamStatement} cause sign value overload.",
-				ErrorMultipleSignValue = $"Value of {Strings.ParamSign} sign of {Semantics.Localization.Strings.ParamConcept} concept is uncertain, because many ancestors define  their own values.",
+				ErrorMultipleSignValue = $"Value of {Strings.ParamSign} sign of {Semantics.Localization.Strings.ParamConcept} concept is uncertain, because many ancestors define their own values.",
 				ErrorSignWithoutValue = $"{Semantics.Localization.Strings.ParamStatement} defines value of sign, which does not belong to concept.",
 			};
 		}
