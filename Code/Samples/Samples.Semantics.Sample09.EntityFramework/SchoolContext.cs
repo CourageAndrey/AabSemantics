@@ -1,9 +1,9 @@
-﻿using System.Data.Entity.ModelConfiguration.Conventions;
+﻿using System;
+using System.Collections.Generic;
+using System.Data.Entity.ModelConfiguration.Conventions;
 using System.Data.Entity;
 
 using Samples.Semantics.Sample09.EntityFramework.Models;
-using System.Collections.Generic;
-using System;
 
 namespace Samples.Semantics.Sample09.EntityFramework
 {

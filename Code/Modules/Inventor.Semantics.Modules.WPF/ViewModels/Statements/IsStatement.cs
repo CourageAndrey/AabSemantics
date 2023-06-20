@@ -6,7 +6,7 @@ using Inventor.Semantics.Modules.WPF.Dialogs;
 
 namespace Inventor.Semantics.Modules.WPF.ViewModels.Statements
 {
-	public class IsStatement : StatementViewModel<Modules.Classification.Statements.IsStatement>
+	public class IsStatement : StatementViewModel<Classification.Statements.IsStatement>
 	{
 		#region Properties
 
@@ -24,7 +24,7 @@ namespace Inventor.Semantics.Modules.WPF.ViewModels.Statements
 			: this(string.Empty, null, null, language)
 		{ }
 
-		public IsStatement(Modules.Classification.Statements.IsStatement statement, ILanguage language)
+		public IsStatement(Classification.Statements.IsStatement statement, ILanguage language)
 			: this(statement.ID, new ConceptItem(statement.Ancestor, language), new ConceptItem(statement.Descendant, language), language)
 		{
 			BoundObject = statement;

@@ -5,8 +5,8 @@ using NUnit.Framework;
 using Inventor.Semantics.Answers;
 using Inventor.Semantics.Concepts;
 using Inventor.Semantics.Modules.Classification.Statements;
-using Inventor.Semantics.Text.Containers;
 using Inventor.Semantics.Modules.Set.Statements;
+using Inventor.Semantics.Text.Containers;
 
 namespace Inventor.Semantics.Test.Answers
 {

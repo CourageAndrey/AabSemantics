@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 
 using Inventor.Semantics.Modules.Boolean.Attributes;
-using Inventor.Semantics.Questions;
 using Inventor.Semantics.Modules.Set.Localization;
 using Inventor.Semantics.Modules.Set.Statements;
+using Inventor.Semantics.Questions;
 using Inventor.Semantics.Utils;
 
 namespace Inventor.Semantics.Modules.Set.Questions

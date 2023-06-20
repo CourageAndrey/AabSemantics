@@ -5,8 +5,8 @@ using NUnit.Framework;
 using Inventor.Semantics.Localization;
 using Inventor.Semantics.Modules.Mathematics.Concepts;
 using Inventor.Semantics.Modules.Mathematics.Statements;
-using Inventor.Semantics.Mutations;
 using Inventor.Semantics.Modules.Set.Statements;
+using Inventor.Semantics.Mutations;
 using Inventor.Semantics.Test.Sample;
 
 namespace Inventor.Semantics.Test.Mutations

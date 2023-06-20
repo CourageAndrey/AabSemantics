@@ -5,9 +5,9 @@ using System.Linq;
 using NUnit.Framework;
 
 using Inventor.Semantics.Concepts;
+using Inventor.Semantics.Modules.Boolean.Attributes;
 using Inventor.Semantics.Modules.Mathematics.Concepts;
 using Inventor.Semantics.Modules.Mathematics.Statements;
-using Inventor.Semantics.Modules.Boolean.Attributes;
 
 namespace Inventor.Semantics.Test.Statements
 {

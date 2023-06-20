@@ -1,13 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-
-using NUnit.Framework;
+﻿using NUnit.Framework;
 
 using Inventor.Semantics.Concepts;
 using Inventor.Semantics.Localization;
 using Inventor.Semantics.Text.Containers;
-using Inventor.Semantics.Text.Primitives;
 
 namespace Inventor.Semantics.Test.Text
 {

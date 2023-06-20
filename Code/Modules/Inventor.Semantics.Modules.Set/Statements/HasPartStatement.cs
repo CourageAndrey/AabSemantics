@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 
-using Inventor.Semantics.Statements;
 using Inventor.Semantics.Modules.Set.Localization;
+using Inventor.Semantics.Statements;
 using Inventor.Semantics.Utils;
 
 namespace Inventor.Semantics.Modules.Set.Statements

@@ -4,9 +4,9 @@ using System.Linq;
 
 using Inventor.Semantics.Answers;
 using Inventor.Semantics.Modules.Classification.Statements;
-using Inventor.Semantics.Questions;
 using Inventor.Semantics.Modules.Set.Localization;
 using Inventor.Semantics.Modules.Set.Statements;
+using Inventor.Semantics.Questions;
 using Inventor.Semantics.Utils;
 
 namespace Inventor.Semantics.Modules.Set.Questions
@@ -33,7 +33,7 @@ namespace Inventor.Semantics.Modules.Set.Questions
 			var isStatements = allStatements.Enumerate<IsStatement>(context.ActiveContexts).Where(c => c.Descendant == Concept).ToList();
 			if (isStatements.Any())
 			{
-				var result = new Semantics.Text.Containers.UnstructuredContainer();
+				var result = new Text.Containers.UnstructuredContainer();
 				var explanation = new List<SignValueStatement>();
 				foreach (var statement in isStatements)
 				{

@@ -1,4 +1,5 @@
 ﻿using System.Linq;
+
 using NUnit.Framework;
 
 using Inventor.Semantics.Concepts;

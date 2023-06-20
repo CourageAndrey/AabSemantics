@@ -1,8 +1,8 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 
-using Inventor.Semantics.Statements;
 using Inventor.Semantics.Modules.Mathematics.Concepts;
+using Inventor.Semantics.Statements;
 
 namespace Inventor.Semantics.Modules.Mathematics.Statements
 {

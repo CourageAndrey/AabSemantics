@@ -3,11 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 
 using Inventor.Semantics.Modules.Classification.Statements;
+using Inventor.Semantics.Modules.Set.Localization;
+using Inventor.Semantics.Modules.Set.Statements;
 using Inventor.Semantics.Questions;
 using Inventor.Semantics.Text.Containers;
 using Inventor.Semantics.Text.Primitives;
-using Inventor.Semantics.Modules.Set.Localization;
-using Inventor.Semantics.Modules.Set.Statements;
 using Inventor.Semantics.Utils;
 
 namespace Inventor.Semantics.Modules.Set.Questions
@@ -48,7 +48,7 @@ namespace Inventor.Semantics.Modules.Set.Questions
 			var parents = intersect(parents1, parents2, isStatements1, isStatements2, isStatements);
 			if (parents.Count == 0)
 			{
-				return new Semantics.Answers.Answer(
+				return new Answers.Answer(
 					new FormattedText(
 						language => language.GetExtension<ILanguageSetModule>().Questions.Answers.CanNotCompareConcepts,
 						new Dictionary<String, IKnowledge>
@@ -95,7 +95,7 @@ namespace Inventor.Semantics.Modules.Set.Questions
 			explanation.AddRange(signStatements);
 			explanation.AddRange(signValueStatements);
 
-			return new Semantics.Answers.ConceptsAnswer(
+			return new Answers.ConceptsAnswer(
 				resultSignValues.Keys,
 				formatAnswer(parents, parents1, parents2, resultSignValues),
 				new Explanation(explanation));

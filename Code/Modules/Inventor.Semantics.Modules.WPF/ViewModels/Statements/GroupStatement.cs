@@ -6,7 +6,7 @@ using Inventor.Semantics.Modules.WPF.Dialogs;
 
 namespace Inventor.Semantics.Modules.WPF.ViewModels.Statements
 {
-	public class GroupStatement : StatementViewModel<Semantics.Modules.Set.Statements.GroupStatement>
+	public class GroupStatement : StatementViewModel<Set.Statements.GroupStatement>
 	{
 		#region Properties
 
@@ -24,7 +24,7 @@ namespace Inventor.Semantics.Modules.WPF.ViewModels.Statements
 			: this(string.Empty, null, null, language)
 		{ }
 
-		public GroupStatement(Semantics.Modules.Set.Statements.GroupStatement statement, ILanguage language)
+		public GroupStatement(Set.Statements.GroupStatement statement, ILanguage language)
 			: this(statement.ID, new ConceptItem(statement.Area, language), new ConceptItem(statement.Concept, language), language)
 		{
 			BoundObject = statement;

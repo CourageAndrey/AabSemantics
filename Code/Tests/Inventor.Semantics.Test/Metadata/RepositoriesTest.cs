@@ -3,11 +3,11 @@ using System.Collections.Generic;
 
 using NUnit.Framework;
 
+using Inventor.Semantics.Answers;
 using Inventor.Semantics.Metadata;
 using Inventor.Semantics.Modules.Boolean.Attributes;
-using Inventor.Semantics.Modules.Classification.Statements;
-using Inventor.Semantics.Answers;
 using Inventor.Semantics.Modules.Boolean.Questions;
+using Inventor.Semantics.Modules.Classification.Statements;
 
 namespace Inventor.Semantics.Test.Metadata
 {

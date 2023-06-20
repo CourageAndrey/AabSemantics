@@ -3,12 +3,12 @@
 using Inventor.Semantics;
 using Inventor.Semantics.Concepts;
 using Inventor.Semantics.Localization;
-using Inventor.Semantics.Questions;
-using Inventor.Semantics.Statements;
 using Inventor.Semantics.Modules.Processes;
 using Inventor.Semantics.Modules.Processes.Attributes;
 using Inventor.Semantics.Modules.Processes.Questions;
 using Inventor.Semantics.Modules.Processes.Statements;
+using Inventor.Semantics.Questions;
+using Inventor.Semantics.Statements;
 
 namespace Samples.Semantics.Sample03.Processes
 {

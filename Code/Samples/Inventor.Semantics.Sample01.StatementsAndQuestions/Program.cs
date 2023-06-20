@@ -8,12 +8,12 @@ using Inventor.Semantics.Modules.Boolean.Attributes;
 using Inventor.Semantics.Modules.Classification;
 using Inventor.Semantics.Modules.Classification.Questions;
 using Inventor.Semantics.Modules.Classification.Statements;
-using Inventor.Semantics.Questions;
-using Inventor.Semantics.Statements;
 using Inventor.Semantics.Modules.Set;
 using Inventor.Semantics.Modules.Set.Attributes;
 using Inventor.Semantics.Modules.Set.Questions;
 using Inventor.Semantics.Modules.Set.Statements;
+using Inventor.Semantics.Questions;
+using Inventor.Semantics.Statements;
 
 namespace Samples.Semantics.Sample01.StatementsAndQuestions
 {

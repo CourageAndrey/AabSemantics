@@ -131,7 +131,7 @@ namespace Inventor.Semantics.Test.Metadata
 		{
 			// arrange
 			var type = typeof(TestAttributeChecked);
-			var wrongValue = Modules.Boolean.Attributes.IsBooleanAttribute.Value;
+			var wrongValue = IsBooleanAttribute.Value;
 			Func<ILanguage, string> nameGetter = language => _attributeName;
 
 			// act && assert

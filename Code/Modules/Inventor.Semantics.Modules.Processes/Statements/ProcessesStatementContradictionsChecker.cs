@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 
-using Inventor.Semantics.Statements;
 using Inventor.Semantics.Modules.Processes.Concepts;
+using Inventor.Semantics.Statements;
 
 namespace Inventor.Semantics.Modules.Processes.Statements
 {

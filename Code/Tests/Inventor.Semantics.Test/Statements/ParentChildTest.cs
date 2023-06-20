@@ -6,10 +6,10 @@ using NUnit.Framework;
 
 using Inventor.Semantics.Concepts;
 using Inventor.Semantics.Localization;
-using Inventor.Semantics.Modules.Classification.Statements;
 using Inventor.Semantics.Modules.Boolean;
 using Inventor.Semantics.Modules.Boolean.Concepts;
 using Inventor.Semantics.Modules.Classification;
+using Inventor.Semantics.Modules.Classification.Statements;
 using Inventor.Semantics.Modules.Set;
 using Inventor.Semantics.Statements;
 

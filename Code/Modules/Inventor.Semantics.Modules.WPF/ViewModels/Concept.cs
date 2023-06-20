@@ -52,7 +52,7 @@ namespace Inventor.Semantics.Modules.WPF.ViewModels
 		public Semantics.Concepts.Concept BoundObject
 		{ get; private set; }
 
-		public Window CreateEditDialog(Window owner, Semantics.ISemanticNetwork semanticNetwork, ILanguage language)
+		public Window CreateEditDialog(Window owner, ISemanticNetwork semanticNetwork, ILanguage language)
 		{
 			updateAttributes(Repositories.Attributes, language);
 			var control = new ConceptControl
@@ -74,7 +74,7 @@ namespace Inventor.Semantics.Modules.WPF.ViewModels
 			return dialog;
 		}
 
-		private void updateAttributes(Semantics.IRepository<AttributeDefinition> attributeRepository, ILanguage language)
+		private void updateAttributes(IRepository<AttributeDefinition> attributeRepository, ILanguage language)
 		{
 			Attributes.Clear();
 			Attributes.Add(new ConceptAttribute(AttributeDefinition.None, language, BoundObject == null || BoundObject.Attributes.Count == 0));
@@ -84,9 +84,9 @@ namespace Inventor.Semantics.Modules.WPF.ViewModels
 			}
 		}
 
-		public object ApplyCreate(Semantics.ISemanticNetwork semanticNetwork)
+		public object ApplyCreate(ISemanticNetwork semanticNetwork)
 		{
-			semanticNetwork.Concepts.Add(BoundObject = new Semantics.Concepts.Concept(ID, Name.Create(), Hint.Create()));
+			semanticNetwork.Concepts.Add(BoundObject = new Concepts.Concept(ID, Name.Create(), Hint.Create()));
 
 			foreach (var attribute in Attributes)
 			{

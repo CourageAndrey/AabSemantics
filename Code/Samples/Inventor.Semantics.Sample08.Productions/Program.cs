@@ -4,11 +4,10 @@ using System.Linq;
 using Inventor.Semantics;
 using Inventor.Semantics.Concepts;
 using Inventor.Semantics.Localization;
-using Inventor.Semantics.Modules.Mathematics;
-using Inventor.Semantics.Modules.Mathematics.Statements;
 using Inventor.Semantics.Modules.Boolean;
 using Inventor.Semantics.Modules.Boolean.Attributes;
-using Inventor.Semantics.Modules.Classification;
+using Inventor.Semantics.Modules.Mathematics;
+using Inventor.Semantics.Modules.Mathematics.Statements;
 using Inventor.Semantics.Mutations;
 using Inventor.Semantics.Statements;
 
