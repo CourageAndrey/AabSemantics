@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Windows.Media;
 
 using Inventor.Semantics.WPF.Converters;
-using Inventor.Semantics.WPF.Properties;
+using Inventor.Semantics.Modules.WPF.Properties;
 
 namespace Inventor.Semantics.WPF.TreeNodes
 {
