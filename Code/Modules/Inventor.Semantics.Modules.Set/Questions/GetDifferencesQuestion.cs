@@ -1,9 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using Inventor.Semantics.Set.Localization;
 
-namespace Inventor.Semantics.Set.Questions
+using Inventor.Semantics.Modules.Set.Localization;
+
+namespace Inventor.Semantics.Modules.Set.Questions
 {
 	public class GetDifferencesQuestion : CompareConceptPropertiesQuestion
 	{
@@ -11,7 +12,7 @@ namespace Inventor.Semantics.Set.Questions
 			: base(concept1, concept2, preconditions)
 		{ }
 
-		protected override Boolean NeedToTakeIntoAccount(IConcept value1, IConcept value2)
+		protected override System.Boolean NeedToTakeIntoAccount(IConcept value1, IConcept value2)
 		{
 			return value1 != value2;
 		}

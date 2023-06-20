@@ -2,9 +2,9 @@
 using System.Linq;
 
 using Inventor.Semantics.Statements;
-using Inventor.Semantics.Mathematics.Concepts;
+using Inventor.Semantics.Modules.Mathematics.Concepts;
 
-namespace Inventor.Semantics.Mathematics.Statements
+namespace Inventor.Semantics.Modules.Mathematics.Statements
 {
 	public static class SubjectStatementExtensions
 	{

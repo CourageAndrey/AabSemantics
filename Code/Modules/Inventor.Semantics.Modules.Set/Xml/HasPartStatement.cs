@@ -4,7 +4,7 @@ using System.Xml.Serialization;
 using Inventor.Semantics.Serialization;
 using Inventor.Semantics.Serialization.Xml;
 
-namespace Inventor.Semantics.Set.Xml
+namespace Inventor.Semantics.Modules.Set.Xml
 {
 	[XmlType("HasPart")]
 	public class HasPartStatement : Statement<Statements.HasPartStatement>

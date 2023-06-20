@@ -1,6 +1,6 @@
-﻿using Inventor.Semantics.WPF.Localization;
+﻿using Inventor.Semantics.Modules.WPF.Localization;
 
-namespace Inventor.Semantics.WPF
+namespace Inventor.Semantics.Modules.WPF
 {
 	public interface IWpfUiModule
 	{

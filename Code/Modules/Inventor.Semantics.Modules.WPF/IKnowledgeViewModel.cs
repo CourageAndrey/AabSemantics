@@ -1,6 +1,6 @@
 ﻿using System.Windows;
 
-namespace Inventor.Semantics.WPF
+namespace Inventor.Semantics.Modules.WPF
 {
 	public interface IKnowledgeViewModel
 	{

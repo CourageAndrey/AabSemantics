@@ -2,7 +2,7 @@
 
 using Inventor.Semantics.Localization;
 
-namespace Inventor.Semantics.WPF.Localization
+namespace Inventor.Semantics.Modules.WPF.Localization
 {
 	[XmlType]
 	public class WpfUiModule : LanguageExtension, IWpfUiModule

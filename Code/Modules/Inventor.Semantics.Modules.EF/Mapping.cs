@@ -5,7 +5,7 @@ using System.Linq;
 
 using Inventor.Semantics.Utils;
 
-namespace Inventor.Semantics.EF
+namespace Inventor.Semantics.Modules.EF
 {
 	internal interface IMapping
 	{

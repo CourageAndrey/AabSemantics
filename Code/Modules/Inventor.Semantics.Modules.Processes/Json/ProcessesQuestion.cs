@@ -4,7 +4,7 @@ using System.Runtime.Serialization;
 
 using Inventor.Semantics.Serialization;
 
-namespace Inventor.Semantics.Processes.Json
+namespace Inventor.Semantics.Modules.Processes.Json
 {
 	[DataContract]
 	public class ProcessesQuestion : Serialization.Json.Question<Questions.ProcessesQuestion>

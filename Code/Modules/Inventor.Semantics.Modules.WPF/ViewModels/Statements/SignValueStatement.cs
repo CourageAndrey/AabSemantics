@@ -1,12 +1,12 @@
 ﻿using System.Windows;
 
-using Inventor.Semantics.Set.Localization;
-using Inventor.Semantics.WPF.Controls;
-using Inventor.Semantics.WPF.Dialogs;
+using Inventor.Semantics.Modules.Set.Localization;
+using Inventor.Semantics.Modules.WPF.Controls;
+using Inventor.Semantics.Modules.WPF.Dialogs;
 
-namespace Inventor.Semantics.WPF.ViewModels.Statements
+namespace Inventor.Semantics.Modules.WPF.ViewModels.Statements
 {
-	public class SignValueStatement : StatementViewModel<Semantics.Set.Statements.SignValueStatement>
+	public class SignValueStatement : StatementViewModel<Semantics.Modules.Set.Statements.SignValueStatement>
 	{
 		#region Properties
 
@@ -27,7 +27,7 @@ namespace Inventor.Semantics.WPF.ViewModels.Statements
 			: this(string.Empty, null, null, null, language)
 		{ }
 
-		public SignValueStatement(Semantics.Set.Statements.SignValueStatement statement, ILanguage language)
+		public SignValueStatement(Semantics.Modules.Set.Statements.SignValueStatement statement, ILanguage language)
 			: this(statement.ID, new ConceptItem(statement.Concept, language), new ConceptItem(statement.Sign, language), new ConceptItem(statement.Value, language), language)
 		{
 			BoundObject = statement;
@@ -66,9 +66,9 @@ namespace Inventor.Semantics.WPF.ViewModels.Statements
 			return dialog;
 		}
 
-		protected override Semantics.Set.Statements.SignValueStatement CreateStatementImplementation()
+		protected override Semantics.Modules.Set.Statements.SignValueStatement CreateStatementImplementation()
 		{
-			return new Semantics.Set.Statements.SignValueStatement(ID, Concept.Concept, Sign.Concept, Value.Concept);
+			return new Semantics.Modules.Set.Statements.SignValueStatement(ID, Concept.Concept, Sign.Concept, Value.Concept);
 		}
 
 		public override void ApplyUpdate()

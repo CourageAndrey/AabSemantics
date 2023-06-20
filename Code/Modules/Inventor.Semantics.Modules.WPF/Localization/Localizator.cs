@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 using Inventor.Semantics.Localization;
 
-namespace Inventor.Semantics.WPF.Localization
+namespace Inventor.Semantics.Modules.WPF.Localization
 {
 	public class Localizator : ILanguage
 	{

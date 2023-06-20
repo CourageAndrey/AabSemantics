@@ -2,10 +2,10 @@
 using System.Collections.Generic;
 
 using Inventor.Semantics.Statements;
-using Inventor.Semantics.Set.Localization;
+using Inventor.Semantics.Modules.Set.Localization;
 using Inventor.Semantics.Utils;
 
-namespace Inventor.Semantics.Set.Statements
+namespace Inventor.Semantics.Modules.Set.Statements
 {
 	public class HasPartStatement : Statement<HasPartStatement>, IParentChild<IConcept>
 	{
@@ -77,7 +77,7 @@ namespace Inventor.Semantics.Set.Statements
 
 		#region Consistency checking
 
-		public override Boolean Equals(HasPartStatement other)
+		public override System.Boolean Equals(HasPartStatement other)
 		{
 			if (ReferenceEquals(this, other)) return true;
 			if (other != null)

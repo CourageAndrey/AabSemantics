@@ -9,16 +9,16 @@ using Inventor.Semantics.Concepts;
 using Inventor.Semantics.Localization;
 using Inventor.Semantics.Modules.Classification.Statements;
 using Inventor.Semantics.Statements;
-using Inventor.Semantics.Mathematics.Concepts;
-using Inventor.Semantics.Mathematics.Questions;
-using Inventor.Semantics.Mathematics.Statements;
+using Inventor.Semantics.Modules.Mathematics.Concepts;
+using Inventor.Semantics.Modules.Mathematics.Questions;
+using Inventor.Semantics.Modules.Mathematics.Statements;
 using Inventor.Semantics.Modules.Boolean.Attributes;
-using Inventor.Semantics.Processes.Attributes;
-using Inventor.Semantics.Processes.Concepts;
-using Inventor.Semantics.Processes.Statements;
+using Inventor.Semantics.Modules.Processes.Attributes;
+using Inventor.Semantics.Modules.Processes.Concepts;
+using Inventor.Semantics.Modules.Processes.Statements;
 using Inventor.Semantics.Questions;
-using Inventor.Semantics.Set.Attributes;
-using Inventor.Semantics.Set.Statements;
+using Inventor.Semantics.Modules.Set.Attributes;
+using Inventor.Semantics.Modules.Set.Statements;
 
 namespace Inventor.Semantics.Test.Statements
 {

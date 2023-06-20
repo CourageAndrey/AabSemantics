@@ -5,10 +5,10 @@ using System.Linq;
 using Inventor.Semantics.Concepts;
 using Inventor.Semantics.Localization;
 using Inventor.Semantics.Modules.Boolean.Attributes;
-using Inventor.Semantics.Processes.Attributes;
-using Inventor.Semantics.Processes.Localization;
+using Inventor.Semantics.Modules.Processes.Attributes;
+using Inventor.Semantics.Modules.Processes.Localization;
 
-namespace Inventor.Semantics.Processes.Concepts
+namespace Inventor.Semantics.Modules.Processes.Concepts
 {
 	public static class SequenceSigns
 	{
@@ -274,7 +274,7 @@ namespace Inventor.Semantics.Processes.Concepts
 				: null;
 		}
 
-		public static Boolean Contradicts(this ICollection<IConcept> signs)
+		public static System.Boolean Contradicts(this ICollection<IConcept> signs)
 		{
 			foreach (var sign in signs)
 			{

@@ -4,7 +4,7 @@ using System.Threading;
 using NUnit.Framework;
 
 using Inventor.Semantics.Localization;
-using Inventor.Semantics.Set.Localization;
+using Inventor.Semantics.Modules.Set.Localization;
 
 namespace Inventor.Semantics.Test.Localization
 {

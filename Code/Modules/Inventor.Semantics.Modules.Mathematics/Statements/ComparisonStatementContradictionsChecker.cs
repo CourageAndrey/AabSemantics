@@ -1,11 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 
 using Inventor.Semantics.Statements;
-using Inventor.Semantics.Mathematics.Concepts;
+using Inventor.Semantics.Modules.Mathematics.Concepts;
 
-namespace Inventor.Semantics.Mathematics.Statements
+namespace Inventor.Semantics.Modules.Mathematics.Statements
 {
 	public class ComparisonStatementContradictionsChecker : ContradictionsChecker<ComparisonStatement>
 	{
@@ -30,9 +29,9 @@ namespace Inventor.Semantics.Mathematics.Statements
 			return statement.ComparisonSign;
 		}
 
-		protected override Boolean SetCombinationWithDescendants(IConcept valueRow, IConcept valueColumn, IConcept sign)
+		protected override System.Boolean SetCombinationWithDescendants(IConcept valueRow, IConcept valueColumn, IConcept sign)
 		{
-			Boolean combinationsUpdated = SetCombination(valueRow, valueColumn, sign);
+			System.Boolean combinationsUpdated = SetCombination(valueRow, valueColumn, sign);
 			if (sign.CanBeReverted())
 			{
 				combinationsUpdated |= SetCombination(valueColumn, valueRow, ComparisonSigns.Revert(sign));
@@ -40,7 +39,7 @@ namespace Inventor.Semantics.Mathematics.Statements
 			return combinationsUpdated;
 		}
 
-		protected override Boolean Contradicts(HashSet<IConcept> signs, IConcept left, IConcept right)
+		protected override System.Boolean Contradicts(HashSet<IConcept> signs, IConcept left, IConcept right)
 		{
 			return doesOneOrMoreContradictedSignsPairExist(signs) || doesValueContradictToItself(signs, left, right);
 		}
@@ -53,7 +52,7 @@ namespace Inventor.Semantics.Mathematics.Statements
 			}
 		}
 
-		private static Boolean doesOneOrMoreContradictedSignsPairExist(ICollection<IConcept> signs)
+		private static System.Boolean doesOneOrMoreContradictedSignsPairExist(ICollection<IConcept> signs)
 		{
 			foreach (var sign1 in signs)
 			{
@@ -68,12 +67,12 @@ namespace Inventor.Semantics.Mathematics.Statements
 			return false;
 		}
 
-		private static Boolean doesValueContradictToItself(HashSet<IConcept> signs, IConcept left, IConcept right)
+		private static System.Boolean doesValueContradictToItself(HashSet<IConcept> signs, IConcept left, IConcept right)
 		{
 			return left == right && signs.Any(s => s != ComparisonSigns.IsEqualTo);
 		}
 
-		protected override Boolean TryToUpdateCombinations(IConcept valueRow, IConcept signRow, IConcept signColumn, IConcept valueColumn)
+		protected override System.Boolean TryToUpdateCombinations(IConcept valueRow, IConcept signRow, IConcept signColumn, IConcept valueColumn)
 		{
 			var resultSign = ComparisonSigns.CompareThreeValues(signRow, signColumn);
 			return resultSign != null && SetCombinationWithDescendants(valueRow, valueColumn, resultSign);

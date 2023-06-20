@@ -4,7 +4,7 @@ using System.Xml.Serialization;
 using Inventor.Semantics.Serialization;
 using Inventor.Semantics.Serialization.Xml;
 
-namespace Inventor.Semantics.Processes.Xml
+namespace Inventor.Semantics.Modules.Processes.Xml
 {
 	[XmlType("Processes")]
 	public class ProcessesStatement : Statement<Statements.ProcessesStatement>

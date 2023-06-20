@@ -1,6 +1,6 @@
-﻿using Inventor.Semantics.WPF.TreeNodes;
+﻿using Inventor.Semantics.Modules.WPF.TreeNodes;
 
-namespace Inventor.Semantics.WPF.Commands
+namespace Inventor.Semantics.Modules.WPF.Commands
 {
 	public class EditConceptCommand : BaseEditCommand
 	{

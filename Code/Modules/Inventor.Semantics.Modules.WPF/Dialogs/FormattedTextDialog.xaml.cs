@@ -4,7 +4,7 @@ using System.IO;
 using System.Windows;
 using System.Windows.Forms;
 
-namespace Inventor.Semantics.WPF.Dialogs
+namespace Inventor.Semantics.Modules.WPF.Dialogs
 {
 	public partial class FormattedTextDialog
 	{

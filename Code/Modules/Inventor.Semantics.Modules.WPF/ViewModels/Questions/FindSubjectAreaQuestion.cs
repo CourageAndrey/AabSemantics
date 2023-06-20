@@ -1,15 +1,15 @@
-﻿namespace Inventor.Semantics.WPF.ViewModels.Questions
+﻿namespace Inventor.Semantics.Modules.WPF.ViewModels.Questions
 {
 	[QuestionDescriptor]
-	public class FindSubjectAreaQuestion : QuestionViewModel<Semantics.Set.Questions.FindSubjectAreaQuestion>
+	public class FindSubjectAreaQuestion : QuestionViewModel<Semantics.Modules.Set.Questions.FindSubjectAreaQuestion>
 	{
 		[PropertyDescriptor(true, "Questions.Parameters.Concept")]
 		public Semantics.IConcept Concept
 		{ get; set; }
 
-		public override Semantics.Set.Questions.FindSubjectAreaQuestion BuildQuestionImplementation()
+		public override Semantics.Modules.Set.Questions.FindSubjectAreaQuestion BuildQuestionImplementation()
 		{
-			return new Semantics.Set.Questions.FindSubjectAreaQuestion(Concept);
+			return new Semantics.Modules.Set.Questions.FindSubjectAreaQuestion(Concept);
 		}
 	}
 }

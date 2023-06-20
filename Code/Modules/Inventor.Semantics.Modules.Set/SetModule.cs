@@ -6,12 +6,12 @@ using Inventor.Semantics.Metadata;
 using Inventor.Semantics.Modules.Boolean;
 using Inventor.Semantics.Modules.Classification;
 using Inventor.Semantics.Modules.Classification.Statements;
-using Inventor.Semantics.Set.Attributes;
-using Inventor.Semantics.Set.Localization;
-using Inventor.Semantics.Set.Questions;
-using Inventor.Semantics.Set.Statements;
+using Inventor.Semantics.Modules.Set.Attributes;
+using Inventor.Semantics.Modules.Set.Localization;
+using Inventor.Semantics.Modules.Set.Questions;
+using Inventor.Semantics.Modules.Set.Statements;
 
-namespace Inventor.Semantics.Set
+namespace Inventor.Semantics.Modules.Set
 {
 	public class SetModule : ExtensionModule
 	{

@@ -3,7 +3,7 @@ using System.Runtime.Serialization;
 
 using Inventor.Semantics.Serialization;
 
-namespace Inventor.Semantics.Set.Json
+namespace Inventor.Semantics.Modules.Set.Json
 {
 	[DataContract]
 	public class SignValueStatement : Serialization.Json.Statement<Statements.SignValueStatement>

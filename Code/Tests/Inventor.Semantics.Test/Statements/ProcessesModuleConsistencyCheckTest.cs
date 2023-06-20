@@ -3,9 +3,9 @@
 using Inventor.Semantics.Concepts;
 using Inventor.Semantics.Localization;
 using Inventor.Semantics.Metadata;
-using Inventor.Semantics.Processes;
-using Inventor.Semantics.Processes.Attributes;
-using Inventor.Semantics.Processes.Statements;
+using Inventor.Semantics.Modules.Processes;
+using Inventor.Semantics.Modules.Processes.Attributes;
+using Inventor.Semantics.Modules.Processes.Statements;
 using Inventor.Semantics.Statements;
 using Inventor.Semantics.Text.Containers;
 

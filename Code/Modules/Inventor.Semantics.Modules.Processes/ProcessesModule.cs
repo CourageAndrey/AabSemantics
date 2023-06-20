@@ -3,14 +3,14 @@ using System.Collections.Generic;
 
 using Inventor.Semantics.Localization;
 using Inventor.Semantics.Metadata;
-using Inventor.Semantics.Processes.Attributes;
-using Inventor.Semantics.Processes.Concepts;
-using Inventor.Semantics.Processes.Localization;
-using Inventor.Semantics.Processes.Questions;
-using Inventor.Semantics.Processes.Statements;
+using Inventor.Semantics.Modules.Processes.Attributes;
+using Inventor.Semantics.Modules.Processes.Concepts;
+using Inventor.Semantics.Modules.Processes.Localization;
+using Inventor.Semantics.Modules.Processes.Questions;
+using Inventor.Semantics.Modules.Processes.Statements;
 using Inventor.Semantics.Serialization;
 
-namespace Inventor.Semantics.Processes
+namespace Inventor.Semantics.Modules.Processes
 {
 	public class ProcessesModule : ExtensionModule
 	{

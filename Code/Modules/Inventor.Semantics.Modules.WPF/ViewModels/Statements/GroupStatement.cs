@@ -1,12 +1,12 @@
 ﻿using System.Windows;
 
-using Inventor.Semantics.Set.Localization;
-using Inventor.Semantics.WPF.Controls;
-using Inventor.Semantics.WPF.Dialogs;
+using Inventor.Semantics.Modules.Set.Localization;
+using Inventor.Semantics.Modules.WPF.Controls;
+using Inventor.Semantics.Modules.WPF.Dialogs;
 
-namespace Inventor.Semantics.WPF.ViewModels.Statements
+namespace Inventor.Semantics.Modules.WPF.ViewModels.Statements
 {
-	public class GroupStatement : StatementViewModel<Semantics.Set.Statements.GroupStatement>
+	public class GroupStatement : StatementViewModel<Semantics.Modules.Set.Statements.GroupStatement>
 	{
 		#region Properties
 
@@ -24,7 +24,7 @@ namespace Inventor.Semantics.WPF.ViewModels.Statements
 			: this(string.Empty, null, null, language)
 		{ }
 
-		public GroupStatement(Semantics.Set.Statements.GroupStatement statement, ILanguage language)
+		public GroupStatement(Semantics.Modules.Set.Statements.GroupStatement statement, ILanguage language)
 			: this(statement.ID, new ConceptItem(statement.Area, language), new ConceptItem(statement.Concept, language), language)
 		{
 			BoundObject = statement;
@@ -62,9 +62,9 @@ namespace Inventor.Semantics.WPF.ViewModels.Statements
 			return dialog;
 		}
 
-		protected override Semantics.Set.Statements.GroupStatement CreateStatementImplementation()
+		protected override Semantics.Modules.Set.Statements.GroupStatement CreateStatementImplementation()
 		{
-			return new Semantics.Set.Statements.GroupStatement(ID, Area.Concept, Concept.Concept);
+			return new Semantics.Modules.Set.Statements.GroupStatement(ID, Area.Concept, Concept.Concept);
 		}
 
 		public override void ApplyUpdate()

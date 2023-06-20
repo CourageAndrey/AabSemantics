@@ -3,8 +3,8 @@
 using NUnit.Framework;
 
 using Inventor.Semantics.Concepts;
-using Inventor.Semantics.Mathematics.Concepts;
-using Inventor.Semantics.Processes.Concepts;
+using Inventor.Semantics.Modules.Mathematics.Concepts;
+using Inventor.Semantics.Modules.Processes.Concepts;
 
 namespace Inventor.Semantics.Test.Concepts
 {

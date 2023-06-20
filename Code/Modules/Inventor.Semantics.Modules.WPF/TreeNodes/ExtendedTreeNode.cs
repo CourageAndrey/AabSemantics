@@ -4,7 +4,7 @@ using System.ComponentModel;
 using System.Threading;
 using System.Windows.Media;
 
-namespace Inventor.Semantics.WPF.TreeNodes
+namespace Inventor.Semantics.Modules.WPF.TreeNodes
 {
 	public abstract class ExtendedTreeNode : INotifyPropertyChanged
 	{
@@ -22,10 +22,10 @@ namespace Inventor.Semantics.WPF.TreeNodes
 		public ObservableCollection<ExtendedTreeNode> Children
 		{ get; } = new ObservableCollection<ExtendedTreeNode>();
 
-		public Boolean IsSelected
+		public System.Boolean IsSelected
 		{ get; set; }
 
-		public Boolean IsExpanded
+		public System.Boolean IsExpanded
 		{ get; set; }
 
 		#endregion

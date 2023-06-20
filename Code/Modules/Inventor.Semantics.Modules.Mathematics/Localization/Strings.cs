@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Inventor.Semantics.Mathematics.Localization
+namespace Inventor.Semantics.Modules.Mathematics.Localization
 {
 	internal static class Strings
 	{

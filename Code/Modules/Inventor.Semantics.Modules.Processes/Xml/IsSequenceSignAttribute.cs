@@ -2,7 +2,7 @@
 
 using Inventor.Semantics.Serialization.Xml;
 
-namespace Inventor.Semantics.Processes.Xml
+namespace Inventor.Semantics.Modules.Processes.Xml
 {
 	[XmlType("IsSequenceSign")]
 	public class IsSequenceSignAttribute : Attribute<Attributes.IsSequenceSignAttribute>

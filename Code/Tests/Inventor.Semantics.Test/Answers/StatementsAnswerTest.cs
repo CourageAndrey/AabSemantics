@@ -6,7 +6,7 @@ using Inventor.Semantics.Answers;
 using Inventor.Semantics.Concepts;
 using Inventor.Semantics.Modules.Classification.Statements;
 using Inventor.Semantics.Text.Containers;
-using Inventor.Semantics.Set.Statements;
+using Inventor.Semantics.Modules.Set.Statements;
 
 namespace Inventor.Semantics.Test.Answers
 {

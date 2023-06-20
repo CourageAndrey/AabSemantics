@@ -1,8 +1,8 @@
-<Window	x:Class="Inventor.Semantics.WPF.Dialogs.QuestionDialog"
+<Window	x:Class="Inventor.Semantics.Modules.WPF.Dialogs.QuestionDialog"
 		xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
 		xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-		xmlns:localization="clr-namespace:Inventor.Semantics.WPF.Localization"
-		xmlns:converters="clr-namespace:Inventor.Semantics.WPF.Converters"
+		xmlns:localization="clr-namespace:Inventor.Semantics.Modules.WPF.Localization"
+		xmlns:converters="clr-namespace:Inventor.Semantics.Modules.WPF.Converters"
 		xmlns:concepts="clr-namespace:Inventor.Semantics.Concepts;assembly=Inventor.Semantics"
 		SizeToContent="WidthAndHeight" MinWidth="350" MaxWidth="1200" MaxHeight="600" WindowStartupLocation="CenterOwner">
 	<Window.Resources>

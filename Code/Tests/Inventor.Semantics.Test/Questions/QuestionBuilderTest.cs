@@ -10,14 +10,14 @@ using Inventor.Semantics.Modules.Boolean.Questions;
 using Inventor.Semantics.Modules.Classification.Questions;
 using Inventor.Semantics.Questions;
 using Inventor.Semantics.Statements;
-using Inventor.Semantics.Mathematics.Concepts;
-using Inventor.Semantics.Mathematics.Questions;
-using Inventor.Semantics.Mathematics.Statements;
+using Inventor.Semantics.Modules.Mathematics.Concepts;
+using Inventor.Semantics.Modules.Mathematics.Questions;
+using Inventor.Semantics.Modules.Mathematics.Statements;
 using Inventor.Semantics.Modules.Boolean.Attributes;
-using Inventor.Semantics.Processes.Attributes;
-using Inventor.Semantics.Processes.Questions;
-using Inventor.Semantics.Processes.Statements;
-using Inventor.Semantics.Set.Questions;
+using Inventor.Semantics.Modules.Processes.Attributes;
+using Inventor.Semantics.Modules.Processes.Questions;
+using Inventor.Semantics.Modules.Processes.Statements;
+using Inventor.Semantics.Modules.Set.Questions;
 using Inventor.Semantics.Test.Sample;
 
 namespace Inventor.Semantics.Test.Questions

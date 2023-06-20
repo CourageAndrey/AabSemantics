@@ -11,7 +11,7 @@ using Inventor.Semantics.Metadata;
 using Inventor.Semantics.Modules.Boolean.Localization;
 using Inventor.Semantics.Modules.Classification.Localization;
 using Inventor.Semantics.Serialization.Xml;
-using Inventor.Semantics.Set.Localization;
+using Inventor.Semantics.Modules.Set.Localization;
 
 namespace Inventor.Semantics.Test.Localization
 {
@@ -80,7 +80,7 @@ namespace Inventor.Semantics.Test.Localization
 
 			new Modules.Boolean.BooleanModule().RegisterMetadata();
 			new Modules.Classification.ClassificationModule().RegisterMetadata();
-			new Set.SetModule().RegisterMetadata();
+			new Modules.Set.SetModule().RegisterMetadata();
 
 			language.Extensions.Add(LanguageBooleanModule.CreateDefault());
 			language.Extensions.Add(LanguageClassificationModule.CreateDefault());

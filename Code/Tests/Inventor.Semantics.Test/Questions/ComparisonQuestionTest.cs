@@ -7,10 +7,10 @@ using NUnit.Framework;
 using Inventor.Semantics.Answers;
 using Inventor.Semantics.Localization;
 using Inventor.Semantics.Questions;
-using Inventor.Semantics.Mathematics.Concepts;
-using Inventor.Semantics.Mathematics.Questions;
-using Inventor.Semantics.Mathematics.Statements;
-using Inventor.Semantics.Processes.Concepts;
+using Inventor.Semantics.Modules.Mathematics.Concepts;
+using Inventor.Semantics.Modules.Mathematics.Questions;
+using Inventor.Semantics.Modules.Mathematics.Statements;
+using Inventor.Semantics.Modules.Processes.Concepts;
 using Inventor.Semantics.Test.Sample;
 
 namespace Inventor.Semantics.Test.Questions

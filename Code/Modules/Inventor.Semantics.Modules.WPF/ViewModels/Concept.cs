@@ -2,10 +2,10 @@
 using System.Windows;
 
 using Inventor.Semantics.Metadata;
-using Inventor.Semantics.WPF.Controls;
-using Inventor.Semantics.WPF.Dialogs;
+using Inventor.Semantics.Modules.WPF.Controls;
+using Inventor.Semantics.Modules.WPF.Dialogs;
 
-namespace Inventor.Semantics.WPF.ViewModels
+namespace Inventor.Semantics.Modules.WPF.ViewModels
 {
 	public class Concept : IKnowledgeViewModel
 	{

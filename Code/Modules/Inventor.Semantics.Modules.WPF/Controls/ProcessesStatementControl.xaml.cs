@@ -1,9 +1,9 @@
 ﻿using System.Linq;
 
-using Inventor.Semantics.Processes.Attributes;
-using Inventor.Semantics.WPF.ViewModels;
+using Inventor.Semantics.Modules.Processes.Attributes;
+using Inventor.Semantics.Modules.WPF.ViewModels;
 
-namespace Inventor.Semantics.WPF.Controls
+namespace Inventor.Semantics.Modules.WPF.Controls
 {
 	public partial class ProcessesStatementControl : IStatementEditor
 	{

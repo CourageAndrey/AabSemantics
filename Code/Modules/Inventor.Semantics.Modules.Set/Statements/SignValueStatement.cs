@@ -5,11 +5,11 @@ using System.Linq;
 using Inventor.Semantics.Modules.Boolean.Attributes;
 using Inventor.Semantics.Modules.Classification.Statements;
 using Inventor.Semantics.Statements;
-using Inventor.Semantics.Set.Attributes;
-using Inventor.Semantics.Set.Localization;
+using Inventor.Semantics.Modules.Set.Attributes;
+using Inventor.Semantics.Modules.Set.Localization;
 using Inventor.Semantics.Utils;
 
-namespace Inventor.Semantics.Set.Statements
+namespace Inventor.Semantics.Modules.Set.Statements
 {
 	public class SignValueStatement : Statement<SignValueStatement>
 	{
@@ -81,7 +81,7 @@ namespace Inventor.Semantics.Set.Statements
 
 		#region Consistency checking
 
-		public override Boolean Equals(SignValueStatement other)
+		public override System.Boolean Equals(SignValueStatement other)
 		{
 			if (ReferenceEquals(this, other)) return true;
 			if (other != null)
@@ -93,7 +93,7 @@ namespace Inventor.Semantics.Set.Statements
 			else return false;
 		}
 
-		public Boolean CheckHasSign(IEnumerable<IStatement> statements)
+		public System.Boolean CheckHasSign(IEnumerable<IStatement> statements)
 		{
 			return HasSignStatement.GetSigns(statements, Concept, true).Select(hs => hs.Sign).Contains(Sign);
 		}
@@ -122,7 +122,7 @@ namespace Inventor.Semantics.Set.Statements
 			}
 		}
 
-		public static List<SignValueStatement> GetSignValues(IEnumerable<IStatement> statements, IConcept concept, Boolean recursive)
+		public static List<SignValueStatement> GetSignValues(IEnumerable<IStatement> statements, IConcept concept, System.Boolean recursive)
 		{
 			var result = new List<SignValueStatement>();
 			var signValues = statements.OfType<SignValueStatement>().ToList();

@@ -7,12 +7,12 @@ using System.Windows.Threading;
 
 using Inventor.Semantics;
 using Inventor.Semantics.Localization;
-using Inventor.Semantics.Mathematics;
-using Inventor.Semantics.Processes;
+using Inventor.Semantics.Modules.Mathematics;
+using Inventor.Semantics.Modules.Processes;
 using Inventor.Semantics.Serialization.Xml;
-using Inventor.Semantics.Set;
-using Inventor.Semantics.WPF;
-using Inventor.Semantics.WPF.Dialogs;
+using Inventor.Semantics.Modules.Set;
+using Inventor.Semantics.Modules.WPF;
+using Inventor.Semantics.Modules.WPF.Dialogs;
 
 namespace Inventor.SimpleWpfClient
 {

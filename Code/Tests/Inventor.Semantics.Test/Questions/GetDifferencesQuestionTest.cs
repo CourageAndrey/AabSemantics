@@ -5,8 +5,8 @@ using NUnit.Framework;
 using Inventor.Semantics.Answers;
 using Inventor.Semantics.Localization;
 using Inventor.Semantics.Questions;
-using Inventor.Semantics.Processes.Attributes;
-using Inventor.Semantics.Set.Questions;
+using Inventor.Semantics.Modules.Processes.Attributes;
+using Inventor.Semantics.Modules.Set.Questions;
 using Inventor.Semantics.Test.Sample;
 
 namespace Inventor.Semantics.Test.Questions

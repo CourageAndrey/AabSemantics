@@ -4,7 +4,7 @@ using System.Runtime.Serialization;
 
 using Inventor.Semantics.Serialization;
 
-namespace Inventor.Semantics.Set.Json
+namespace Inventor.Semantics.Modules.Set.Json
 {
 	[DataContract]
 	public class HasSignsQuestion : Serialization.Json.Question<Questions.HasSignsQuestion>
@@ -16,7 +16,7 @@ namespace Inventor.Semantics.Set.Json
 		{ get; set; }
 
 		[DataMember]
-		public Boolean Recursive
+		public System.Boolean Recursive
 		{ get; set; }
 
 		#endregion

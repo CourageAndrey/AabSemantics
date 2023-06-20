@@ -6,11 +6,11 @@ using Inventor.Semantics.Modules.Classification.Statements;
 using Inventor.Semantics.Questions;
 using Inventor.Semantics.Text.Containers;
 using Inventor.Semantics.Text.Primitives;
-using Inventor.Semantics.Set.Localization;
-using Inventor.Semantics.Set.Statements;
+using Inventor.Semantics.Modules.Set.Localization;
+using Inventor.Semantics.Modules.Set.Statements;
 using Inventor.Semantics.Utils;
 
-namespace Inventor.Semantics.Set.Questions
+namespace Inventor.Semantics.Modules.Set.Questions
 {
 	public abstract class CompareConceptPropertiesQuestion : Question
 	{
@@ -101,7 +101,7 @@ namespace Inventor.Semantics.Set.Questions
 				new Explanation(explanation));
 		}
 
-		protected abstract Boolean NeedToTakeIntoAccount(IConcept value1, IConcept value2);
+		protected abstract System.Boolean NeedToTakeIntoAccount(IConcept value1, IConcept value2);
 
 		protected abstract void WriteNotEmptyResultWithoutData(ITextContainer text);
 

@@ -1,12 +1,12 @@
 ﻿using System.Windows;
 
-using Inventor.Semantics.Set.Localization;
-using Inventor.Semantics.WPF.Controls;
-using Inventor.Semantics.WPF.Dialogs;
+using Inventor.Semantics.Modules.Set.Localization;
+using Inventor.Semantics.Modules.WPF.Controls;
+using Inventor.Semantics.Modules.WPF.Dialogs;
 
-namespace Inventor.Semantics.WPF.ViewModels.Statements
+namespace Inventor.Semantics.Modules.WPF.ViewModels.Statements
 {
-	public class HasPartStatement : StatementViewModel<Semantics.Set.Statements.HasPartStatement>
+	public class HasPartStatement : StatementViewModel<Semantics.Modules.Set.Statements.HasPartStatement>
 	{
 		#region Properties
 
@@ -24,7 +24,7 @@ namespace Inventor.Semantics.WPF.ViewModels.Statements
 			: this(string.Empty, null, null, language)
 		{ }
 
-		public HasPartStatement(Semantics.Set.Statements.HasPartStatement statement, ILanguage language)
+		public HasPartStatement(Semantics.Modules.Set.Statements.HasPartStatement statement, ILanguage language)
 			: this(statement.ID, new ConceptItem(statement.Whole, language), new ConceptItem(statement.Part, language), language)
 		{
 			BoundObject = statement;
@@ -62,9 +62,9 @@ namespace Inventor.Semantics.WPF.ViewModels.Statements
 			return dialog;
 		}
 
-		protected override Semantics.Set.Statements.HasPartStatement CreateStatementImplementation()
+		protected override Semantics.Modules.Set.Statements.HasPartStatement CreateStatementImplementation()
 		{
-			return new Semantics.Set.Statements.HasPartStatement(ID, Whole.Concept, Part.Concept);
+			return new Semantics.Modules.Set.Statements.HasPartStatement(ID, Whole.Concept, Part.Concept);
 		}
 
 		public override void ApplyUpdate()

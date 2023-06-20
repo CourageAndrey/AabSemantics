@@ -3,10 +3,10 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Reflection;
 
-using Inventor.Semantics.WPF.ViewModels;
-using Inventor.Semantics.WPF.ViewModels.Questions;
+using Inventor.Semantics.Modules.WPF.ViewModels;
+using Inventor.Semantics.Modules.WPF.ViewModels.Questions;
 
-namespace Inventor.Semantics.WPF
+namespace Inventor.Semantics.Modules.WPF
 {
 	public interface IQuestionViewModel
 	{

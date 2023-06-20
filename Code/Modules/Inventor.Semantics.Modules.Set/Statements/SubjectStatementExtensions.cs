@@ -3,7 +3,7 @@ using System.Linq;
 
 using Inventor.Semantics.Statements;
 
-namespace Inventor.Semantics.Set.Statements
+namespace Inventor.Semantics.Modules.Set.Statements
 {
 	public static class SubjectStatementExtensions
 	{

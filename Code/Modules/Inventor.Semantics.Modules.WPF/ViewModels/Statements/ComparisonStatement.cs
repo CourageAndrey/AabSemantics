@@ -1,12 +1,12 @@
 ﻿using System.Windows;
 
-using Inventor.Semantics.Mathematics.Localization;
-using Inventor.Semantics.WPF.Controls;
-using Inventor.Semantics.WPF.Dialogs;
+using Inventor.Semantics.Modules.Mathematics.Localization;
+using Inventor.Semantics.Modules.WPF.Controls;
+using Inventor.Semantics.Modules.WPF.Dialogs;
 
-namespace Inventor.Semantics.WPF.ViewModels.Statements
+namespace Inventor.Semantics.Modules.WPF.ViewModels.Statements
 {
-	public class ComparisonStatement : StatementViewModel<Semantics.Mathematics.Statements.ComparisonStatement>
+	public class ComparisonStatement : StatementViewModel<Semantics.Modules.Mathematics.Statements.ComparisonStatement>
 	{
 		#region Properties
 
@@ -27,7 +27,7 @@ namespace Inventor.Semantics.WPF.ViewModels.Statements
 			: this(string.Empty, null, null, null, language)
 		{ }
 
-		public ComparisonStatement(Semantics.Mathematics.Statements.ComparisonStatement statement, ILanguage language)
+		public ComparisonStatement(Semantics.Modules.Mathematics.Statements.ComparisonStatement statement, ILanguage language)
 			: this(statement.ID, new ConceptItem(statement.LeftValue, language), new ConceptItem(statement.RightValue, language), new ConceptItem(statement.ComparisonSign, language), language)
 		{
 			BoundObject = statement;
@@ -66,9 +66,9 @@ namespace Inventor.Semantics.WPF.ViewModels.Statements
 			return dialog;
 		}
 
-		protected override Semantics.Mathematics.Statements.ComparisonStatement CreateStatementImplementation()
+		protected override Semantics.Modules.Mathematics.Statements.ComparisonStatement CreateStatementImplementation()
 		{
-			return new Semantics.Mathematics.Statements.ComparisonStatement(ID, LeftValue.Concept, RightValue.Concept, ComparisonSign.Concept);
+			return new Semantics.Modules.Mathematics.Statements.ComparisonStatement(ID, LeftValue.Concept, RightValue.Concept, ComparisonSign.Concept);
 		}
 
 		public override void ApplyUpdate()

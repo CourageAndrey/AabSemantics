@@ -2,14 +2,14 @@
 using System.Collections.Generic;
 
 using Inventor.Semantics.Metadata;
-using Inventor.Semantics.Mathematics.Attributes;
-using Inventor.Semantics.Mathematics.Concepts;
-using Inventor.Semantics.Mathematics.Localization;
-using Inventor.Semantics.Mathematics.Questions;
-using Inventor.Semantics.Mathematics.Statements;
+using Inventor.Semantics.Modules.Mathematics.Attributes;
+using Inventor.Semantics.Modules.Mathematics.Concepts;
+using Inventor.Semantics.Modules.Mathematics.Localization;
+using Inventor.Semantics.Modules.Mathematics.Questions;
+using Inventor.Semantics.Modules.Mathematics.Statements;
 using Inventor.Semantics.Serialization;
 
-namespace Inventor.Semantics.Mathematics
+namespace Inventor.Semantics.Modules.Mathematics
 {
 	public class MathematicsModule : ExtensionModule
 	{

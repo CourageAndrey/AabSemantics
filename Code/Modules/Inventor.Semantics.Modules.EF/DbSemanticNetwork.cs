@@ -5,7 +5,7 @@ using System.Data.Entity;
 using Inventor.Semantics.Contexts;
 using Inventor.Semantics.Utils;
 
-namespace Inventor.Semantics.EF
+namespace Inventor.Semantics.Modules.EF
 {
 	public class DbSemanticNetwork<ContextT> : ISemanticNetwork
 		where ContextT : DbContext

@@ -3,13 +3,13 @@ using System.Reflection;
 
 using NUnit.Framework;
 
-using Inventor.Semantics.Mathematics.Json;
+using Inventor.Semantics.Modules.Mathematics.Json;
 using Inventor.Semantics.Modules.Boolean.Json;
 using Inventor.Semantics.Modules.Classification.Json;
-using Inventor.Semantics.Processes.Json;
+using Inventor.Semantics.Modules.Processes.Json;
 using Inventor.Semantics.Serialization.Json;
 using Inventor.Semantics.Serialization.Json.Answers;
-using Inventor.Semantics.Set.Json;
+using Inventor.Semantics.Modules.Set.Json;
 
 namespace Inventor.Semantics.Test.Serialization.Json
 {

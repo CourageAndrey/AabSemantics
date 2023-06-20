@@ -4,11 +4,11 @@ using System.Linq;
 
 using Inventor.Semantics.Concepts;
 using Inventor.Semantics.Localization;
-using Inventor.Semantics.Mathematics.Attributes;
-using Inventor.Semantics.Mathematics.Localization;
+using Inventor.Semantics.Modules.Mathematics.Attributes;
+using Inventor.Semantics.Modules.Mathematics.Localization;
 using Inventor.Semantics.Modules.Boolean.Attributes;
 
-namespace Inventor.Semantics.Mathematics.Concepts
+namespace Inventor.Semantics.Modules.Mathematics.Concepts
 {
 	public static class ComparisonSigns
 	{
@@ -66,7 +66,7 @@ namespace Inventor.Semantics.Mathematics.Concepts
 
 		#endregion
 
-		public static Boolean Contradicts(this IConcept sign1, IConcept sign2)
+		public static System.Boolean Contradicts(this IConcept sign1, IConcept sign2)
 		{
 			ensureSuits(sign1);
 			ensureSuits(sign2);
@@ -110,7 +110,7 @@ namespace Inventor.Semantics.Mathematics.Concepts
 			}
 		}
 
-		public static Boolean CanBeReverted(this IConcept sign)
+		public static System.Boolean CanBeReverted(this IConcept sign)
 		{
 			ensureSuits(sign);
 

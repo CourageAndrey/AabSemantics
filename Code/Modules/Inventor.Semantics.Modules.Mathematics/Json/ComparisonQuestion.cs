@@ -4,7 +4,7 @@ using System.Runtime.Serialization;
 
 using Inventor.Semantics.Serialization;
 
-namespace Inventor.Semantics.Mathematics.Json
+namespace Inventor.Semantics.Modules.Mathematics.Json
 {
 	[DataContract]
 	public class ComparisonQuestion : Serialization.Json.Question<Questions.ComparisonQuestion>
