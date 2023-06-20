@@ -27,13 +27,13 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Inventor.Semantics.Test.Sam
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Modules", "Modules", "{3551B285-81AF-49B9-A479-F23F281B7483}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Inventor.Semantics.Mathematics", "Modules\Inventor.Semantics.Mathematics\Inventor.Semantics.Mathematics.csproj", "{EDD2A80F-14DB-4A28-8113-EF78115AFA63}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Inventor.Semantics.Modules.Mathematics", "Modules\Inventor.Semantics.Modules.Mathematics\Inventor.Semantics.Modules.Mathematics.csproj", "{EDD2A80F-14DB-4A28-8113-EF78115AFA63}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Inventor.Semantics.Processes", "Modules\Inventor.Semantics.Processes\Inventor.Semantics.Processes.csproj", "{EFC2327C-F586-477E-8699-114FC31940AC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Inventor.Semantics.Modules.Processes", "Modules\Inventor.Semantics.Modules.Processes\Inventor.Semantics.Modules.Processes.csproj", "{EFC2327C-F586-477E-8699-114FC31940AC}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Inventor.Semantics.Set", "Modules\Inventor.Semantics.Set\Inventor.Semantics.Set.csproj", "{F6C2B97B-68C8-415C-98DE-663BA4C45ECA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Inventor.Semantics.Modules.Set", "Modules\Inventor.Semantics.Modules.Set\Inventor.Semantics.Modules.Set.csproj", "{F6C2B97B-68C8-415C-98DE-663BA4C45ECA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Inventor.Semantics.WPF", "Modules\Inventor.Semantics.WPF\Inventor.Semantics.WPF.csproj", "{3A307412-D53A-43B9-938F-DD1F5ACA6D60}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Inventor.Semantics.Modules.WPF", "Modules\Inventor.Semantics.Modules.WPF\Inventor.Semantics.Modules.WPF.csproj", "{3A307412-D53A-43B9-938F-DD1F5ACA6D60}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Inventor.Algorithms", "Core\Inventor.Algorithms\Inventor.Algorithms.csproj", "{5F7277B8-E739-4205-AF98-CF032D3C563C}"
 EndProject
@@ -47,7 +47,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Inventor.Semantics.Test", "
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Samples.Semantics.Sample08.Productions", "Samples\Inventor.Semantics.Sample08.Productions\Samples.Semantics.Sample08.Productions.csproj", "{7252C47A-53C4-4893-B706-B5F8446331D6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Inventor.Semantics.EF", "Modules\Inventor.Semantics.EF\Inventor.Semantics.EF.csproj", "{D9B375A5-9D66-490A-AC5C-4B153749C7D5}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Inventor.Semantics.Modules.EF", "Modules\Inventor.Semantics.Modules.EF\Inventor.Semantics.Modules.EF.csproj", "{D9B375A5-9D66-490A-AC5C-4B153749C7D5}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Samples.Semantics.Sample09.EntityFramework", "Samples\Samples.Semantics.Sample09.EntityFramework\Samples.Semantics.Sample09.EntityFramework.csproj", "{FA3DD113-2130-40D0-BBB4-68B9EF03D3A2}"
 EndProject
