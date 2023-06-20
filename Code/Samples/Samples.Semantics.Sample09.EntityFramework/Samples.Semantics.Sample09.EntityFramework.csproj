@@ -71,9 +71,9 @@
       <Project>{606f68d8-6abc-445b-bf4c-a21a1bbc06f6}</Project>
       <Name>Inventor.Semantics</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\Modules\Inventor.Semantics.EF\Inventor.Semantics.EF.csproj">
+    <ProjectReference Include="..\..\Modules\Inventor.Semantics.Modules.EF\Inventor.Semantics.Modules.EF.csproj">
       <Project>{d9b375a5-9d66-490a-ac5c-4b153749c7d5}</Project>
-      <Name>Inventor.Semantics.EF</Name>
+      <Name>Inventor.Semantics.Modules.EF</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
