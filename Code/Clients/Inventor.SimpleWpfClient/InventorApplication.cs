@@ -6,13 +6,13 @@ using System.Windows;
 using System.Windows.Threading;
 
 using Inventor.Semantics;
+using Inventor.Semantics.Extensions.WPF;
+using Inventor.Semantics.Extensions.WPF.Dialogs;
 using Inventor.Semantics.Localization;
 using Inventor.Semantics.Modules.Mathematics;
 using Inventor.Semantics.Modules.Processes;
-using Inventor.Semantics.Serialization.Xml;
 using Inventor.Semantics.Modules.Set;
-using Inventor.Semantics.Modules.WPF;
-using Inventor.Semantics.Modules.WPF.Dialogs;
+using Inventor.Semantics.Serialization.Xml;
 
 namespace Inventor.SimpleWpfClient
 {

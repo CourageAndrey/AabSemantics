@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 16
-VisualStudioVersion = 16.0.31424.327
+# Visual Studio Version 17
+VisualStudioVersion = 17.5.33530.505
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Inventor.SimpleWpfClient", "Clients\Inventor.SimpleWpfClient\Inventor.SimpleWpfClient.csproj", "{53163CE5-5303-481B-8625-14B9D9C8A096}"
 EndProject
@@ -33,7 +33,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Inventor.Semantics.Modules.
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Inventor.Semantics.Modules.Set", "Modules\Inventor.Semantics.Modules.Set\Inventor.Semantics.Modules.Set.csproj", "{F6C2B97B-68C8-415C-98DE-663BA4C45ECA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Inventor.Semantics.Modules.WPF", "Modules\Inventor.Semantics.Modules.WPF\Inventor.Semantics.Modules.WPF.csproj", "{3A307412-D53A-43B9-938F-DD1F5ACA6D60}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Inventor.Semantics.Extensions.WPF", "Extensions\Inventor.Semantics.Extensions.WPF\Inventor.Semantics.Extensions.WPF.csproj", "{3A307412-D53A-43B9-938F-DD1F5ACA6D60}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Inventor.Algorithms", "Core\Inventor.Algorithms\Inventor.Algorithms.csproj", "{5F7277B8-E739-4205-AF98-CF032D3C563C}"
 EndProject
@@ -47,13 +47,15 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Inventor.Semantics.Test", "
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Samples.Semantics.Sample08.Productions", "Samples\Inventor.Semantics.Sample08.Productions\Samples.Semantics.Sample08.Productions.csproj", "{7252C47A-53C4-4893-B706-B5F8446331D6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Inventor.Semantics.Modules.EF", "Modules\Inventor.Semantics.Modules.EF\Inventor.Semantics.Modules.EF.csproj", "{D9B375A5-9D66-490A-AC5C-4B153749C7D5}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Inventor.Semantics.Extensions.EF", "Extensions\Inventor.Semantics.Extensions.EF\Inventor.Semantics.Extensions.EF.csproj", "{D9B375A5-9D66-490A-AC5C-4B153749C7D5}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Samples.Semantics.Sample09.EntityFramework", "Samples\Samples.Semantics.Sample09.EntityFramework\Samples.Semantics.Sample09.EntityFramework.csproj", "{FA3DD113-2130-40D0-BBB4-68B9EF03D3A2}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Clients", "Clients", "{E05FAB82-39DC-4FE0-8AAA-4A096140D094}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Inventor.SimpleRestClient", "Clients\Inventor.SimpleRestClient\Inventor.SimpleRestClient.csproj", "{DB788C12-ED8E-40BE-A206-EE78D7136776}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Inventor.SimpleRestClient", "Clients\Inventor.SimpleRestClient\Inventor.SimpleRestClient.csproj", "{DB788C12-ED8E-40BE-A206-EE78D7136776}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Extensions", "Extensions", "{15430F84-D08B-49F8-9E1F-2087F11521FF}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -163,12 +165,12 @@ Global
 		{EDD2A80F-14DB-4A28-8113-EF78115AFA63} = {3551B285-81AF-49B9-A479-F23F281B7483}
 		{EFC2327C-F586-477E-8699-114FC31940AC} = {3551B285-81AF-49B9-A479-F23F281B7483}
 		{F6C2B97B-68C8-415C-98DE-663BA4C45ECA} = {3551B285-81AF-49B9-A479-F23F281B7483}
-		{3A307412-D53A-43B9-938F-DD1F5ACA6D60} = {3551B285-81AF-49B9-A479-F23F281B7483}
+		{3A307412-D53A-43B9-938F-DD1F5ACA6D60} = {15430F84-D08B-49F8-9E1F-2087F11521FF}
 		{5F7277B8-E739-4205-AF98-CF032D3C563C} = {567A0FFE-61D7-4BDC-A260-C195C4F1EE90}
 		{553FA774-E3B2-4AE3-8B38-79C6DC1FE01E} = {889D4651-F24D-45B3-BD03-3AB214C40286}
 		{C2867882-90FC-42D8-A1F1-A15BC6B9DE36} = {889D4651-F24D-45B3-BD03-3AB214C40286}
 		{7252C47A-53C4-4893-B706-B5F8446331D6} = {E468A553-63B3-4913-AA93-BE788A5FF2F3}
-		{D9B375A5-9D66-490A-AC5C-4B153749C7D5} = {3551B285-81AF-49B9-A479-F23F281B7483}
+		{D9B375A5-9D66-490A-AC5C-4B153749C7D5} = {15430F84-D08B-49F8-9E1F-2087F11521FF}
 		{FA3DD113-2130-40D0-BBB4-68B9EF03D3A2} = {E468A553-63B3-4913-AA93-BE788A5FF2F3}
 		{DB788C12-ED8E-40BE-A206-EE78D7136776} = {E05FAB82-39DC-4FE0-8AAA-4A096140D094}
 	EndGlobalSection
