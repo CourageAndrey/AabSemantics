@@ -15,7 +15,7 @@ namespace Inventor.Semantics.Test.Mutations
 	public class StatementSearchPatternTest
 	{
 		[Test]
-		public void FilteringByStatementFilterItsef()
+		public void FilteringByStatementFilterItself()
 		{
 			// arrange
 			var semanticNetwork = new TestSemanticNetwork(Language.Default);

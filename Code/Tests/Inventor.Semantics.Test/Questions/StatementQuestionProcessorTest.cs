@@ -32,9 +32,9 @@ namespace Inventor.Semantics.Test.Questions
 			Assert.IsNotNull(processor.GetStatements());
 			Assert.IsNotNull(processor.GetChildAnswers());
 			Assert.IsNotNull(processor.GetAdditionalTransitives());
-			Assert.IsNotNull(processor.IsItNeccessaryToProcessTransitives(Array.Empty<IsStatement>()));
+			Assert.IsNotNull(processor.IsItNecessaryToProcessTransitives(Array.Empty<IsStatement>()));
 			Assert.IsNotNull(processor.EnumerateTransitiveQuestions(questionContext));
-			Assert.DoesNotThrow(() => processor.IsItNeccessaryToAggregateTransitivesToStatements());
+			Assert.DoesNotThrow(() => processor.IsItNecessaryToAggregateTransitivesToStatements());
 		}
 
 		[Test]
@@ -121,7 +121,7 @@ namespace Inventor.Semantics.Test.Questions
 				return AdditionalTransitives;
 			}
 
-			public Boolean IsItNeccessaryToProcessTransitives(ICollection<IsStatement> statements)
+			public Boolean IsItNecessaryToProcessTransitives(ICollection<IsStatement> statements)
 			{
 				return NeedToProcessTransitives(statements);
 			}
@@ -131,7 +131,7 @@ namespace Inventor.Semantics.Test.Questions
 				return GetTransitiveQuestions(context);
 			}
 
-			public Boolean IsItNeccessaryToAggregateTransitivesToStatements()
+			public Boolean IsItNecessaryToAggregateTransitivesToStatements()
 			{
 				return NeedToAggregateTransitivesToStatements;
 			}
