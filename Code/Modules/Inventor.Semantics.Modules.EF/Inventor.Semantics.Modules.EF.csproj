@@ -8,8 +8,8 @@
     <ProjectGuid>{D9B375A5-9D66-490A-AC5C-4B153749C7D5}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Inventor.Semantics.EF</RootNamespace>
-    <AssemblyName>Inventor.Semantics.EF</AssemblyName>
+    <RootNamespace>Inventor.Semantics.Modules.EF</RootNamespace>
+    <AssemblyName>Inventor.Semantics.Modules.EF</AssemblyName>
     <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <Deterministic>true</Deterministic>
