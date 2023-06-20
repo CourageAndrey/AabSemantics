@@ -1,4 +1,5 @@
 using System;
+
 using Inventor.Semantics.Utils;
 
 namespace Inventor.Semantics.Metadata
