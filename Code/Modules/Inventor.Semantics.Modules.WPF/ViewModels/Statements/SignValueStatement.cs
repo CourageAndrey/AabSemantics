@@ -6,7 +6,7 @@ using Inventor.Semantics.Modules.WPF.Dialogs;
 
 namespace Inventor.Semantics.Modules.WPF.ViewModels.Statements
 {
-	public class SignValueStatement : StatementViewModel<Semantics.Modules.Set.Statements.SignValueStatement>
+	public class SignValueStatement : StatementViewModel<Set.Statements.SignValueStatement>
 	{
 		#region Properties
 
@@ -27,7 +27,7 @@ namespace Inventor.Semantics.Modules.WPF.ViewModels.Statements
 			: this(string.Empty, null, null, null, language)
 		{ }
 
-		public SignValueStatement(Semantics.Modules.Set.Statements.SignValueStatement statement, ILanguage language)
+		public SignValueStatement(Set.Statements.SignValueStatement statement, ILanguage language)
 			: this(statement.ID, new ConceptItem(statement.Concept, language), new ConceptItem(statement.Sign, language), new ConceptItem(statement.Value, language), language)
 		{
 			BoundObject = statement;

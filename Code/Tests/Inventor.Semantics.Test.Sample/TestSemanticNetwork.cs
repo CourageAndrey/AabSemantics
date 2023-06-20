@@ -3,19 +3,19 @@ using System.Collections.Generic;
 
 using Inventor.Semantics.Concepts;
 using Inventor.Semantics.Localization;
-using Inventor.Semantics.Modules.Classification.Statements;
-using Inventor.Semantics.Statements;
-using Inventor.Semantics.Modules.Mathematics;
-using Inventor.Semantics.Modules.Mathematics.Statements;
 using Inventor.Semantics.Modules.Boolean;
 using Inventor.Semantics.Modules.Boolean.Attributes;
 using Inventor.Semantics.Modules.Classification;
+using Inventor.Semantics.Modules.Classification.Statements;
+using Inventor.Semantics.Modules.Mathematics;
+using Inventor.Semantics.Modules.Mathematics.Statements;
 using Inventor.Semantics.Modules.Processes;
 using Inventor.Semantics.Modules.Processes.Attributes;
 using Inventor.Semantics.Modules.Processes.Statements;
 using Inventor.Semantics.Modules.Set;
 using Inventor.Semantics.Modules.Set.Attributes;
 using Inventor.Semantics.Modules.Set.Statements;
+using Inventor.Semantics.Statements;
 
 namespace Inventor.Semantics.Test.Sample
 {

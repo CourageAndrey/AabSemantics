@@ -4,11 +4,11 @@ using Inventor.Semantics.Concepts;
 using Inventor.Semantics.Localization;
 using Inventor.Semantics.Modules.Boolean.Attributes;
 using Inventor.Semantics.Modules.Classification.Statements;
-using Inventor.Semantics.Statements;
 using Inventor.Semantics.Modules.Mathematics;
 using Inventor.Semantics.Modules.Mathematics.Statements;
 using Inventor.Semantics.Modules.Processes;
 using Inventor.Semantics.Modules.Set;
+using Inventor.Semantics.Statements;
 using Inventor.Semantics.Test.Sample;
 
 namespace Inventor.Semantics.Test

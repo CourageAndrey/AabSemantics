@@ -5,11 +5,11 @@ using System.Linq;
 using Inventor.Semantics;
 using Inventor.Semantics.Concepts;
 using Inventor.Semantics.Localization;
-using Inventor.Semantics.Questions;
 using Inventor.Semantics.Modules.Mathematics;
 using Inventor.Semantics.Modules.Mathematics.Questions;
 using Inventor.Semantics.Modules.Mathematics.Statements;
 using Inventor.Semantics.Modules.Boolean.Attributes;
+using Inventor.Semantics.Questions;
 
 namespace Samples.Semantics.Sample02.Comparison
 {

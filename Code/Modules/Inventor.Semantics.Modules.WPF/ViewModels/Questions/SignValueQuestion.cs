@@ -1,19 +1,19 @@
 ﻿namespace Inventor.Semantics.Modules.WPF.ViewModels.Questions
 {
 	[QuestionDescriptor]
-	public class SignValueQuestion : QuestionViewModel<Semantics.Modules.Set.Questions.SignValueQuestion>
+	public class SignValueQuestion : QuestionViewModel<Set.Questions.SignValueQuestion>
 	{
 		[PropertyDescriptor(true, "Questions.Parameters.Concept")]
-		public Semantics.IConcept Concept
+		public IConcept Concept
 		{ get; set; }
 
 		[PropertyDescriptor(true, "Set\\Questions.Parameters.Sign")]
-		public Semantics.IConcept Sign
+		public IConcept Sign
 		{ get; set; }
 
-		public override Semantics.Modules.Set.Questions.SignValueQuestion BuildQuestionImplementation()
+		public override Set.Questions.SignValueQuestion BuildQuestionImplementation()
 		{
-			return new Semantics.Modules.Set.Questions.SignValueQuestion(Concept, Sign);
+			return new Set.Questions.SignValueQuestion(Concept, Sign);
 		}
 	}
 }

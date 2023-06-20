@@ -1,8 +1,8 @@
 ﻿using NUnit.Framework;
 
 using Inventor.Semantics.Concepts;
-using Inventor.Semantics.Modules.Mathematics.Attributes;
 using Inventor.Semantics.Modules.Boolean.Attributes;
+using Inventor.Semantics.Modules.Mathematics.Attributes;
 using Inventor.Semantics.Modules.Processes.Attributes;
 
 namespace Inventor.Semantics.Test.Concepts

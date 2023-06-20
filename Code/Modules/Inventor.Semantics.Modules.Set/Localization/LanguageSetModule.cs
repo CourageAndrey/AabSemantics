@@ -1,4 +1,5 @@
 ﻿using System.Xml.Serialization;
+
 using Inventor.Semantics.Localization;
 
 namespace Inventor.Semantics.Modules.Set.Localization

@@ -43,7 +43,7 @@ namespace Inventor.Semantics.Test.Serialization
 			string testFileName = Path.GetTempFileName();
 
 			// act
-			Semantics.SemanticNetwork restored;
+			SemanticNetwork restored;
 			try
 			{
 				saveToFile(semanticNetwork, testFileName);

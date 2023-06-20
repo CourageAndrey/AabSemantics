@@ -138,7 +138,7 @@ namespace Inventor.Semantics.Modules.WPF.Controls
 			var selectedItem = SelectedItem;
 			if (selectedItem is ConceptNode || selectedItem is SemanticNetworkConceptsNode)
 			{
-				type = typeof(Semantics.Concepts.Concept);
+				type = typeof(Concepts.Concept);
 			}
 			else if (selectedItem is StatementNode || selectedItem is SemanticNetworkStatementsNode)
 			{

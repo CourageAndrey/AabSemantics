@@ -4,9 +4,9 @@ using System.Linq;
 
 using Inventor.Semantics.Concepts;
 using Inventor.Semantics.Localization;
+using Inventor.Semantics.Modules.Boolean.Attributes;
 using Inventor.Semantics.Modules.Mathematics.Attributes;
 using Inventor.Semantics.Modules.Mathematics.Localization;
-using Inventor.Semantics.Modules.Boolean.Attributes;
 
 namespace Inventor.Semantics.Modules.Mathematics.Concepts
 {

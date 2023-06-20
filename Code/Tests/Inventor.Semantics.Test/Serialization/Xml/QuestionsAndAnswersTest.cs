@@ -9,18 +9,18 @@ using NUnit.Framework;
 
 using Inventor.Semantics.Answers;
 using Inventor.Semantics.Localization;
-using Inventor.Semantics.Modules.Mathematics.Localization;
-using Inventor.Semantics.Modules.Mathematics.Questions;
 using Inventor.Semantics.Modules.Boolean.Localization;
 using Inventor.Semantics.Modules.Boolean.Questions;
 using Inventor.Semantics.Modules.Classification.Questions;
 using Inventor.Semantics.Modules.Classification.Localization;
+using Inventor.Semantics.Modules.Mathematics.Localization;
+using Inventor.Semantics.Modules.Mathematics.Questions;
 using Inventor.Semantics.Modules.Processes.Localization;
 using Inventor.Semantics.Modules.Processes.Questions;
-using Inventor.Semantics.Serialization;
-using Inventor.Semantics.Serialization.Xml;
 using Inventor.Semantics.Modules.Set.Localization;
 using Inventor.Semantics.Modules.Set.Questions;
+using Inventor.Semantics.Serialization;
+using Inventor.Semantics.Serialization.Xml;
 using Inventor.Semantics.Test.Sample;
 using Inventor.Semantics.Text.Primitives;
 
@@ -64,16 +64,16 @@ namespace Inventor.Semantics.Test.Serialization.Xml
 				.GetProperties(BindingFlags.GetProperty | BindingFlags.Instance | BindingFlags.Public);
 
 			// act
-			var xmlQuestion = Semantics.Serialization.Xml.Question.Load(question);
+			var xmlQuestion = Question.Load(question);
 			var xml = xmlQuestion.SerializeToXmlString();
 
 			var serializer = xmlQuestion.GetType().AcquireXmlSerializer();
-			Semantics.Serialization.Xml.Question restoredXml;
+			Question restoredXml;
 			using (var stringReader = new StringReader(xml))
 			{
 				using (var xmlStringReader = new XmlTextReader(stringReader))
 				{
-					restoredXml = (Semantics.Serialization.Xml.Question) serializer.Deserialize(xmlStringReader);
+					restoredXml = (Question) serializer.Deserialize(xmlStringReader);
 				}
 			}
 

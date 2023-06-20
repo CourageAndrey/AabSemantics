@@ -22,23 +22,23 @@ namespace Inventor.Semantics.Modules.WPF.ViewModels
 			{
 				return new Concept(language);
 			}
-			else if (type == typeof(Modules.Set.Statements.HasPartStatement))
+			else if (type == typeof(Set.Statements.HasPartStatement))
 			{
 				return new HasPartStatement(language);
 			}
-			else if (type == typeof(Modules.Set.Statements.GroupStatement))
+			else if (type == typeof(Set.Statements.GroupStatement))
 			{
 				return new GroupStatement(language);
 			}
-			else if (type == typeof(Modules.Set.Statements.HasSignStatement))
+			else if (type == typeof(Set.Statements.HasSignStatement))
 			{
 				return new HasSignStatement(language);
 			}
-			else if (type == typeof(Modules.Classification.Statements.IsStatement))
+			else if (type == typeof(Classification.Statements.IsStatement))
 			{
 				return new IsStatement(language);
 			}
-			else if (type == typeof(Modules.Set.Statements.SignValueStatement))
+			else if (type == typeof(Set.Statements.SignValueStatement))
 			{
 				return new SignValueStatement(language);
 			}
@@ -58,25 +58,25 @@ namespace Inventor.Semantics.Modules.WPF.ViewModels
 
 		public virtual StatementViewModel CreateStatementByInstance(IStatement statement, ILanguage language)
 		{
-			if (statement is Modules.Set.Statements.HasPartStatement)
+			if (statement is Set.Statements.HasPartStatement)
 			{
-				return new HasPartStatement(statement as Modules.Set.Statements.HasPartStatement, language);
+				return new HasPartStatement(statement as Set.Statements.HasPartStatement, language);
 			}
-			else if (statement is Modules.Set.Statements.GroupStatement)
+			else if (statement is Set.Statements.GroupStatement)
 			{
-				return new GroupStatement(statement as Modules.Set.Statements.GroupStatement, language);
+				return new GroupStatement(statement as Set.Statements.GroupStatement, language);
 			}
-			else if (statement is Modules.Set.Statements.HasSignStatement)
+			else if (statement is Set.Statements.HasSignStatement)
 			{
-				return new HasSignStatement(statement as Modules.Set.Statements.HasSignStatement, language);
+				return new HasSignStatement(statement as Set.Statements.HasSignStatement, language);
 			}
-			else if (statement is Modules.Classification.Statements.IsStatement)
+			else if (statement is Classification.Statements.IsStatement)
 			{
-				return new IsStatement(statement as Modules.Classification.Statements.IsStatement, language);
+				return new IsStatement(statement as Classification.Statements.IsStatement, language);
 			}
-			else if (statement is Modules.Set.Statements.SignValueStatement)
+			else if (statement is Set.Statements.SignValueStatement)
 			{
-				return new SignValueStatement(statement as Modules.Set.Statements.SignValueStatement, language);
+				return new SignValueStatement(statement as Set.Statements.SignValueStatement, language);
 			}
 			else if (statement is Mathematics.Statements.ComparisonStatement)
 			{
@@ -103,25 +103,25 @@ namespace Inventor.Semantics.Modules.WPF.ViewModels
 			}
 			else if (statementNode != null)
 			{
-				if (statementNode.Statement is Modules.Set.Statements.HasPartStatement)
+				if (statementNode.Statement is Set.Statements.HasPartStatement)
 				{
-					return new HasPartStatement(statementNode.Statement as Modules.Set.Statements.HasPartStatement, language);
+					return new HasPartStatement(statementNode.Statement as Set.Statements.HasPartStatement, language);
 				}
-				else if (statementNode.Statement is Modules.Set.Statements.GroupStatement)
+				else if (statementNode.Statement is Set.Statements.GroupStatement)
 				{
-					return new GroupStatement(statementNode.Statement as Modules.Set.Statements.GroupStatement, language);
+					return new GroupStatement(statementNode.Statement as Set.Statements.GroupStatement, language);
 				}
-				else if (statementNode.Statement is Modules.Set.Statements.HasSignStatement)
+				else if (statementNode.Statement is Set.Statements.HasSignStatement)
 				{
-					return new HasSignStatement(statementNode.Statement as Modules.Set.Statements.HasSignStatement, language);
+					return new HasSignStatement(statementNode.Statement as Set.Statements.HasSignStatement, language);
 				}
-				else if (statementNode.Statement is Modules.Classification.Statements.IsStatement)
+				else if (statementNode.Statement is Classification.Statements.IsStatement)
 				{
-					return new IsStatement(statementNode.Statement as Modules.Classification.Statements.IsStatement, language);
+					return new IsStatement(statementNode.Statement as Classification.Statements.IsStatement, language);
 				}
-				else if (statementNode.Statement is Modules.Set.Statements.SignValueStatement)
+				else if (statementNode.Statement is Set.Statements.SignValueStatement)
 				{
-					return new SignValueStatement(statementNode.Statement as Modules.Set.Statements.SignValueStatement, language);
+					return new SignValueStatement(statementNode.Statement as Set.Statements.SignValueStatement, language);
 				}
 				else if (statementNode.Statement is Mathematics.Statements.ComparisonStatement)
 				{

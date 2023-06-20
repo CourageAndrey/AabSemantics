@@ -4,9 +4,9 @@ using System.Linq;
 
 using Inventor.Semantics.Modules.Boolean.Attributes;
 using Inventor.Semantics.Modules.Classification.Statements;
-using Inventor.Semantics.Statements;
 using Inventor.Semantics.Modules.Set.Attributes;
 using Inventor.Semantics.Modules.Set.Localization;
+using Inventor.Semantics.Statements;
 using Inventor.Semantics.Utils;
 
 namespace Inventor.Semantics.Modules.Set.Statements

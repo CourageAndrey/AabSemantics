@@ -3,10 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 
 using Inventor.Semantics.Answers;
-using Inventor.Semantics.Questions;
-using Inventor.Semantics.Text.Containers;
 using Inventor.Semantics.Modules.Processes.Concepts;
 using Inventor.Semantics.Modules.Processes.Statements;
+using Inventor.Semantics.Questions;
+using Inventor.Semantics.Text.Containers;
 using Inventor.Semantics.Utils;
 
 namespace Inventor.Semantics.Modules.Processes.Questions

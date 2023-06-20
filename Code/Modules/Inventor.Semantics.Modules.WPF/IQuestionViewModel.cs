@@ -13,17 +13,17 @@ namespace Inventor.Semantics.Modules.WPF
 		ICollection<StatementViewModel> Preconditions
 		{ get; }
 
-		Semantics.IQuestion BuildQuestion();
+		IQuestion BuildQuestion();
 	}
 
 	public interface IQuestionViewModel<out QuestionT> : IQuestionViewModel
-		where QuestionT : Semantics.IQuestion
+		where QuestionT : IQuestion
 	{
 		new QuestionT BuildQuestion();
 	}
 
 	public abstract class QuestionViewModel<QuestionT> : IQuestionViewModel<QuestionT>
-		where QuestionT : Semantics.IQuestion
+		where QuestionT : IQuestion
 	{
 		[PropertyDescriptor(true, "Names.Conditions")]
 		public ICollection<StatementViewModel> Preconditions
@@ -43,7 +43,7 @@ namespace Inventor.Semantics.Modules.WPF
 
 		public abstract QuestionT BuildQuestionImplementation();
 
-		Semantics.IQuestion IQuestionViewModel.BuildQuestion()
+		IQuestion IQuestionViewModel.BuildQuestion()
 		{
 			return BuildQuestion();
 		}

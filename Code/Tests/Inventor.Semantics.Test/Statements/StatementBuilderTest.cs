@@ -7,18 +7,18 @@ using NUnit.Framework;
 using Inventor.Semantics.Answers;
 using Inventor.Semantics.Concepts;
 using Inventor.Semantics.Localization;
+using Inventor.Semantics.Modules.Boolean.Attributes;
 using Inventor.Semantics.Modules.Classification.Statements;
-using Inventor.Semantics.Statements;
 using Inventor.Semantics.Modules.Mathematics.Concepts;
 using Inventor.Semantics.Modules.Mathematics.Questions;
 using Inventor.Semantics.Modules.Mathematics.Statements;
-using Inventor.Semantics.Modules.Boolean.Attributes;
 using Inventor.Semantics.Modules.Processes.Attributes;
 using Inventor.Semantics.Modules.Processes.Concepts;
 using Inventor.Semantics.Modules.Processes.Statements;
-using Inventor.Semantics.Questions;
 using Inventor.Semantics.Modules.Set.Attributes;
 using Inventor.Semantics.Modules.Set.Statements;
+using Inventor.Semantics.Questions;
+using Inventor.Semantics.Statements;
 
 namespace Inventor.Semantics.Test.Statements
 {

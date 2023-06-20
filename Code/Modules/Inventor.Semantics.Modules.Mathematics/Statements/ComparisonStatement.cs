@@ -1,12 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 
-using Inventor.Semantics.Statements;
+using Inventor.Semantics.Modules.Boolean.Attributes;
 using Inventor.Semantics.Modules.Mathematics.Attributes;
 using Inventor.Semantics.Modules.Mathematics.Concepts;
 using Inventor.Semantics.Modules.Mathematics.Localization;
 using Inventor.Semantics.Modules.Mathematics.Questions;
-using Inventor.Semantics.Modules.Boolean.Attributes;
+using Inventor.Semantics.Statements;
 using Inventor.Semantics.Utils;
 
 namespace Inventor.Semantics.Modules.Mathematics.Statements

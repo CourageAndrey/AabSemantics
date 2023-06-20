@@ -6,7 +6,7 @@ using Inventor.Semantics.Modules.WPF.Dialogs;
 
 namespace Inventor.Semantics.Modules.WPF.ViewModels.Statements
 {
-	public class ComparisonStatement : StatementViewModel<Semantics.Modules.Mathematics.Statements.ComparisonStatement>
+	public class ComparisonStatement : StatementViewModel<Mathematics.Statements.ComparisonStatement>
 	{
 		#region Properties
 
@@ -27,7 +27,7 @@ namespace Inventor.Semantics.Modules.WPF.ViewModels.Statements
 			: this(string.Empty, null, null, null, language)
 		{ }
 
-		public ComparisonStatement(Semantics.Modules.Mathematics.Statements.ComparisonStatement statement, ILanguage language)
+		public ComparisonStatement(Mathematics.Statements.ComparisonStatement statement, ILanguage language)
 			: this(statement.ID, new ConceptItem(statement.LeftValue, language), new ConceptItem(statement.RightValue, language), new ConceptItem(statement.ComparisonSign, language), language)
 		{
 			BoundObject = statement;

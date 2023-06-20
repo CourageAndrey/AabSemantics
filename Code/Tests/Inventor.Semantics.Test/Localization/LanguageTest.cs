@@ -1,15 +1,15 @@
 ﻿using NUnit.Framework;
 
 using Inventor.Semantics.Localization;
-using Inventor.Semantics.Modules.Mathematics;
 using Inventor.Semantics.Modules.Boolean;
-using Inventor.Semantics.Modules.Classification;
-using Inventor.Semantics.Modules.Processes;
-using Inventor.Semantics.Modules.Set;
-using Inventor.Semantics.Modules.Mathematics.Localization;
 using Inventor.Semantics.Modules.Boolean.Localization;
+using Inventor.Semantics.Modules.Classification;
 using Inventor.Semantics.Modules.Classification.Localization;
+using Inventor.Semantics.Modules.Mathematics;
+using Inventor.Semantics.Modules.Mathematics.Localization;
+using Inventor.Semantics.Modules.Processes;
 using Inventor.Semantics.Modules.Processes.Localization;
+using Inventor.Semantics.Modules.Set;
 using Inventor.Semantics.Modules.Set.Localization;
 
 namespace Inventor.Semantics.Test.Localization

@@ -19,7 +19,7 @@ namespace Inventor.Semantics.Modules.Mathematics.Localization
 		ILanguageStatementsPart QuestionFormatStrings
 		{ get; }
 
-		Inventor.Semantics.Modules.Mathematics.Localization.ILanguageConsistency Consistency
+		ILanguageConsistency Consistency
 		{ get; }
 	}
 
@@ -49,7 +49,7 @@ namespace Inventor.Semantics.Modules.Mathematics.Localization
 		{ get; set; }
 
 		[XmlElement(nameof(Consistency))]
-		public Inventor.Semantics.Modules.Mathematics.Localization.LanguageConsistency ConsistencyXml
+		public LanguageConsistency ConsistencyXml
 		{ get; set; }
 
 		#endregion
@@ -77,7 +77,7 @@ namespace Inventor.Semantics.Modules.Mathematics.Localization
 		{ get { return QuestionFormatStringsXml; } }
 
 		[XmlIgnore]
-		public Inventor.Semantics.Modules.Mathematics.Localization.ILanguageConsistency Consistency
+		public ILanguageConsistency Consistency
 		{ get { return ConsistencyXml; } }
 
 		#endregion

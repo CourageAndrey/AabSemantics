@@ -31,7 +31,7 @@ namespace Inventor.Semantics.Modules.WPF.Controls
 			{
 				_contextControl.DataContext = _concept = value;
 
-				_idControl.IsReadOnly = value.BoundObject is Semantics.Concepts.SystemConcept;
+				_idControl.IsReadOnly = value.BoundObject is Concepts.SystemConcept;
 				_nameControl.IsEnabled = value.Name != null;
 				_hintControl.IsEnabled = value.Hint != null;
 				_groupAttributes.IsEnabled = value.Attributes != null;

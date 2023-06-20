@@ -32,7 +32,7 @@ namespace Inventor.Semantics.Modules.WPF.Controls
 			set
 			{
 				_contextControl.DataContext = value;
-				_idControl.IsReadOnly = value.BoundStatement?.Context is Semantics.Contexts.SystemContext;
+				_idControl.IsReadOnly = value.BoundStatement?.Context is Contexts.SystemContext;
 			}
 		}
 	}

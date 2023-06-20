@@ -1,11 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 
-using Inventor.Semantics.Statements;
 using Inventor.Semantics.Modules.Processes.Attributes;
 using Inventor.Semantics.Modules.Processes.Concepts;
 using Inventor.Semantics.Modules.Processes.Localization;
 using Inventor.Semantics.Modules.Processes.Questions;
+using Inventor.Semantics.Statements;
 using Inventor.Semantics.Utils;
 
 namespace Inventor.Semantics.Modules.Processes.Statements
