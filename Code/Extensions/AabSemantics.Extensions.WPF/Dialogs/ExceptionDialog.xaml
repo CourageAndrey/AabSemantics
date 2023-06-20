@@ -7,7 +7,7 @@
 		WindowStartupLocation ="CenterScreen"
 		MaxWidth="800" MaxHeight="600"
 		Icon="../Resources/Error.ico"
-		Title="Ошибка">
+		Title="ERROR">
 	<Window.Resources>
 		<ObjectDataProvider x:Key="language" ObjectType="{x:Type localization:Localizator}" />
 	</Window.Resources>
