@@ -1,0 +1,15 @@
+﻿<UserControl x:Class="AabSemantics.Extensions.WPF.Controls.HasSignStatementControl"
+		xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+		xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+	<StackPanel Orientation="Vertical" Name="_contextControl">
+		<GroupBox Name="_groupID">
+			<TextBox Text="{Binding Path=ID, Mode=TwoWay}" x:Name="_idControl" />
+		</GroupBox>
+		<GroupBox Name="_groupConcept">
+			<ComboBox Name="_comboBoxConcept" SelectedItem="{Binding Path=Concept, Mode=TwoWay}" />
+		</GroupBox>
+		<GroupBox Name="_groupSign">
+			<ComboBox Name="_comboBoxSign" SelectedItem="{Binding Path=Sign, Mode=TwoWay}" />
+		</GroupBox>
+	</StackPanel>
+</UserControl>

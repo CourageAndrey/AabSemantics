@@ -1,0 +1,11 @@
+﻿<Window x:Class="AabSemantics.Extensions.WPF.Dialogs.GraphDialog"
+		xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+		xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+		Loaded="OnNeedRedraw" SizeChanged="OnNeedRedraw">
+	<Canvas Name="_screen" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+		<Button Name="_legendButton" Canvas.Left="2" Canvas.Top="2" Content=">>>" Padding="5,2,5,2" Click="_legendButtonClick" />
+		<Popup Name="_popupLegend" Placement="Mouse">
+			<ListBox Name="_listBoxLegend" />
+		</Popup>
+	</Canvas>
+</Window>
