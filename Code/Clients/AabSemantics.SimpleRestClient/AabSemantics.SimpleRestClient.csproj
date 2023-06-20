@@ -1,0 +1,20 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Swashbuckle.AspNetCore" Version="6.5.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\Core\AabSemantics\AabSemantics.csproj" />
+    <ProjectReference Include="..\..\Modules\AabSemantics.Modules.Mathematics\AabSemantics.Modules.Mathematics.csproj" />
+    <ProjectReference Include="..\..\Modules\AabSemantics.Modules.Processes\AabSemantics.Modules.Processes.csproj" />
+    <ProjectReference Include="..\..\Tests\AabSemantics.Test.Sample\AabSemantics.Test.Sample.csproj" />
+  </ItemGroup>
+
+</Project>
