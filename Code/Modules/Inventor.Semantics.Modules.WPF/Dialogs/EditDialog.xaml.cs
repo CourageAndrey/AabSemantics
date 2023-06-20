@@ -1,6 +1,6 @@
 ﻿using System.Windows;
 
-namespace Inventor.Semantics.WPF.Dialogs
+namespace Inventor.Semantics.Modules.WPF.Dialogs
 {
 	public partial class EditDialog
 	{

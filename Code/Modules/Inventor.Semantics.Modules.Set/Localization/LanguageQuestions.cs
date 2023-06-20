@@ -1,6 +1,6 @@
 ﻿using System.Xml.Serialization;
 
-namespace Inventor.Semantics.Set.Localization
+namespace Inventor.Semantics.Modules.Set.Localization
 {
 	public interface ILanguageQuestions
 	{
@@ -40,11 +40,11 @@ namespace Inventor.Semantics.Set.Localization
 		{ get { return NamesXml; } }
 
 		[XmlIgnore]
-		public Inventor.Semantics.Set.Localization.ILanguageQuestionParameters Parameters
+		public Inventor.Semantics.Modules.Set.Localization.ILanguageQuestionParameters Parameters
 		{ get { return ParametersXml; } }
 
 		[XmlIgnore]
-		public Inventor.Semantics.Set.Localization.ILanguageAnswers Answers
+		public Inventor.Semantics.Modules.Set.Localization.ILanguageAnswers Answers
 		{ get { return AnswersXml; } }
 
 		#endregion

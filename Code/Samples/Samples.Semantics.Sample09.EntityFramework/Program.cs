@@ -18,7 +18,7 @@ namespace Samples.Semantics.Sample09.EntityFramework
 			using (var dbContext = SchoolContext.GenerateSample())
 			{
 				Console.WriteLine("Wrap it with semantic network.");
-				var semanticNetwork = new Inventor.Semantics.EF.DbSemanticNetwork<SchoolContext>(
+				var semanticNetwork = new Inventor.Semantics.Modules.EF.DbSemanticNetwork<SchoolContext>(
 					language,
 					new LocalizedStringConstant(l => "DB test"),
 					dbContext);

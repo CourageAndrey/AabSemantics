@@ -5,7 +5,7 @@ using System.IO;
 using System.Windows.Data;
 using System.Windows.Media.Imaging;
 
-namespace Inventor.Semantics.WPF.Converters
+namespace Inventor.Semantics.Modules.WPF.Converters
 {
 	[ValueConversion(typeof (Image), typeof (System.Windows.Media.ImageSource))]
 	public class ImageConverter : IValueConverter

@@ -1,10 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
 using Inventor.Semantics.Statements;
-using Inventor.Semantics.Processes.Concepts;
+using Inventor.Semantics.Modules.Processes.Concepts;
 
-namespace Inventor.Semantics.Processes.Statements
+namespace Inventor.Semantics.Modules.Processes.Statements
 {
 	public class ProcessesStatementContradictionsChecker : ContradictionsChecker<ProcessesStatement>
 	{
@@ -27,9 +26,9 @@ namespace Inventor.Semantics.Processes.Statements
 			return statement.SequenceSign;
 		}
 
-		protected override Boolean SetCombinationWithDescendants(IConcept valueRow, IConcept valueColumn, IConcept sign)
+		protected override System.Boolean SetCombinationWithDescendants(IConcept valueRow, IConcept valueColumn, IConcept sign)
 		{
-			Boolean combinationsUpdated = SetCombination(valueRow, valueColumn, sign);
+			System.Boolean combinationsUpdated = SetCombination(valueRow, valueColumn, sign);
 			combinationsUpdated |= SetCombination(valueColumn, valueRow, SequenceSigns.Revert(sign));
 			foreach (var consequentSign in sign.Consequently())
 			{
@@ -38,12 +37,12 @@ namespace Inventor.Semantics.Processes.Statements
 			return combinationsUpdated;
 		}
 
-		protected override Boolean Contradicts(HashSet<IConcept> signs, IConcept left, IConcept right)
+		protected override System.Boolean Contradicts(HashSet<IConcept> signs, IConcept left, IConcept right)
 		{
 			return signs.Contradicts();
 		}
 
-		protected override Boolean TryToUpdateCombinations(IConcept valueRow, IConcept signRow, IConcept signColumn, IConcept valueColumn)
+		protected override System.Boolean TryToUpdateCombinations(IConcept valueRow, IConcept signRow, IConcept signColumn, IConcept valueColumn)
 		{
 			var resultSign = SequenceSigns.TryToCombineMutualSequences(signRow, signColumn);
 			return resultSign != null && SetCombinationWithDescendants(valueRow, valueColumn, resultSign);

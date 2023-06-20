@@ -1,4 +1,4 @@
-﻿namespace Inventor.Semantics.Set.Attributes
+﻿namespace Inventor.Semantics.Modules.Set.Attributes
 {
 	public class IsSignAttribute : IAttribute
 	{

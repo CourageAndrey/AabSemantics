@@ -5,7 +5,7 @@ using System.Xml.Serialization;
 using Inventor.Semantics.Serialization;
 using Inventor.Semantics.Serialization.Xml;
 
-namespace Inventor.Semantics.Set.Xml
+namespace Inventor.Semantics.Modules.Set.Xml
 {
 	[XmlType]
 	public class EnumerateContainersQuestion : Question<Questions.EnumerateContainersQuestion>

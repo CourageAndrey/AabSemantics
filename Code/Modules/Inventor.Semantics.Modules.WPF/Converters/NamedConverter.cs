@@ -2,7 +2,7 @@
 using System.Globalization;
 using System.Windows.Data;
 
-namespace Inventor.Semantics.WPF.Converters
+namespace Inventor.Semantics.Modules.WPF.Converters
 {
 	public class NamedConverter : IValueConverter
 	{

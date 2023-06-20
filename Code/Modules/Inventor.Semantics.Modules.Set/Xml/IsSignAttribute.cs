@@ -2,7 +2,7 @@
 
 using Inventor.Semantics.Serialization.Xml;
 
-namespace Inventor.Semantics.Set.Xml
+namespace Inventor.Semantics.Modules.Set.Xml
 {
 	[XmlType("IsSign")]
 	public class IsSignAttribute : Attribute<Attributes.IsSignAttribute>

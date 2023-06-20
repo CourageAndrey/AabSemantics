@@ -1,4 +1,4 @@
-﻿namespace Inventor.Semantics.WPF.Controls
+﻿namespace Inventor.Semantics.Modules.WPF.Controls
 {
 	public interface IStatementEditor
 	{

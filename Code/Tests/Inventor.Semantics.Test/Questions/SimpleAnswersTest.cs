@@ -6,21 +6,21 @@ using NUnit.Framework;
 using Inventor.Semantics.Answers;
 using Inventor.Semantics.Concepts;
 using Inventor.Semantics.Localization;
-using Inventor.Semantics.Mathematics.Localization;
-using Inventor.Semantics.Mathematics.Questions;
+using Inventor.Semantics.Modules.Mathematics.Localization;
+using Inventor.Semantics.Modules.Mathematics.Questions;
 using Inventor.Semantics.Modules.Boolean.Attributes;
 using Inventor.Semantics.Modules.Boolean.Localization;
 using Inventor.Semantics.Modules.Boolean.Questions;
 using Inventor.Semantics.Modules.Classification.Localization;
 using Inventor.Semantics.Modules.Classification.Questions;
 using Inventor.Semantics.Modules.Classification.Statements;
-using Inventor.Semantics.Processes.Localization;
-using Inventor.Semantics.Processes.Questions;
-using Inventor.Semantics.Set.Attributes;
+using Inventor.Semantics.Modules.Processes.Localization;
+using Inventor.Semantics.Modules.Processes.Questions;
+using Inventor.Semantics.Modules.Set.Attributes;
 using Inventor.Semantics.Statements;
-using Inventor.Semantics.Set.Questions;
-using Inventor.Semantics.Set.Statements;
-using Inventor.Semantics.Set.Localization;
+using Inventor.Semantics.Modules.Set.Questions;
+using Inventor.Semantics.Modules.Set.Statements;
+using Inventor.Semantics.Modules.Set.Localization;
 
 namespace Inventor.Semantics.Test.Questions
 {

@@ -2,7 +2,7 @@
 
 using Inventor.Semantics.Serialization.Xml;
 
-namespace Inventor.Semantics.Mathematics.Xml
+namespace Inventor.Semantics.Modules.Mathematics.Xml
 {
 	[XmlType("IsComparisonSign")]
 	public class IsComparisonSignAttribute : Attribute<Attributes.IsComparisonSignAttribute>

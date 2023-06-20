@@ -1,9 +1,9 @@
 ﻿using System.Windows;
 using System.Windows.Controls;
 
-using Inventor.Semantics.WPF.ViewModels;
+using Inventor.Semantics.Modules.WPF.ViewModels;
 
-namespace Inventor.Semantics.WPF.Controls
+namespace Inventor.Semantics.Modules.WPF.Controls
 {
 	public partial class ConceptControl
 	{

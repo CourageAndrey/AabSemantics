@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Xml.Serialization;
 
-namespace Inventor.Semantics.WPF.Localization
+namespace Inventor.Semantics.Modules.WPF.Localization
 {
 	public interface ILanguageMainForm
 	{

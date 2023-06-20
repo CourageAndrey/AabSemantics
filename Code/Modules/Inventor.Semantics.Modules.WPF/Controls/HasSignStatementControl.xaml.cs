@@ -1,9 +1,9 @@
 ﻿using System.Linq;
 
-using Inventor.Semantics.Set.Attributes;
-using Inventor.Semantics.WPF.ViewModels;
+using Inventor.Semantics.Modules.Set.Attributes;
+using Inventor.Semantics.Modules.WPF.ViewModels;
 
-namespace Inventor.Semantics.WPF.Controls
+namespace Inventor.Semantics.Modules.WPF.Controls
 {
 	public partial class HasSignStatementControl : IStatementEditor
 	{

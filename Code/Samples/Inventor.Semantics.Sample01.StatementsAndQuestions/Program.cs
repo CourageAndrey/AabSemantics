@@ -10,10 +10,10 @@ using Inventor.Semantics.Modules.Classification.Questions;
 using Inventor.Semantics.Modules.Classification.Statements;
 using Inventor.Semantics.Questions;
 using Inventor.Semantics.Statements;
-using Inventor.Semantics.Set;
-using Inventor.Semantics.Set.Attributes;
-using Inventor.Semantics.Set.Questions;
-using Inventor.Semantics.Set.Statements;
+using Inventor.Semantics.Modules.Set;
+using Inventor.Semantics.Modules.Set.Attributes;
+using Inventor.Semantics.Modules.Set.Questions;
+using Inventor.Semantics.Modules.Set.Statements;
 
 namespace Samples.Semantics.Sample01.StatementsAndQuestions
 {

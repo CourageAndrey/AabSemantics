@@ -1,11 +1,11 @@
 ﻿using System.Collections.Generic;
 
 using Inventor.Semantics.Questions;
-using Inventor.Semantics.Set.Localization;
-using Inventor.Semantics.Set.Statements;
+using Inventor.Semantics.Modules.Set.Localization;
+using Inventor.Semantics.Modules.Set.Statements;
 using Inventor.Semantics.Utils;
 
-namespace Inventor.Semantics.Set.Questions
+namespace Inventor.Semantics.Modules.Set.Questions
 {
 	public class EnumerateContainersQuestion : Question
 	{

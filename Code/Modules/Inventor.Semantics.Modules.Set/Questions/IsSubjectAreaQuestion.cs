@@ -3,11 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 
 using Inventor.Semantics.Questions;
-using Inventor.Semantics.Set.Localization;
-using Inventor.Semantics.Set.Statements;
+using Inventor.Semantics.Modules.Set.Localization;
+using Inventor.Semantics.Modules.Set.Statements;
 using Inventor.Semantics.Utils;
 
-namespace Inventor.Semantics.Set.Questions
+namespace Inventor.Semantics.Modules.Set.Questions
 {
 	[Obsolete("This class will be removed as soon as QuestionDialog supports CheckStatementQuestion. Please, use CheckStatementQuestion with corresponding statement instead.")]
 	public class IsSubjectAreaQuestion : Question

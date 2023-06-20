@@ -5,7 +5,7 @@ using System.Windows.Controls;
 
 using Inventor.Semantics.Metadata;
 
-namespace Inventor.Semantics.WPF.Dialogs
+namespace Inventor.Semantics.Modules.WPF.Dialogs
 {
 	public partial class SelectModulesDialog
 	{

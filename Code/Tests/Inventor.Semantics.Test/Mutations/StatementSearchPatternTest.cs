@@ -3,10 +3,10 @@
 using NUnit.Framework;
 
 using Inventor.Semantics.Localization;
-using Inventor.Semantics.Mathematics.Concepts;
-using Inventor.Semantics.Mathematics.Statements;
+using Inventor.Semantics.Modules.Mathematics.Concepts;
+using Inventor.Semantics.Modules.Mathematics.Statements;
 using Inventor.Semantics.Mutations;
-using Inventor.Semantics.Set.Statements;
+using Inventor.Semantics.Modules.Set.Statements;
 using Inventor.Semantics.Test.Sample;
 
 namespace Inventor.Semantics.Test.Mutations

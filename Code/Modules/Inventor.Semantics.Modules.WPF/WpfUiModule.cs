@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 using Inventor.Semantics.Localization;
 
-namespace Inventor.Semantics.WPF
+namespace Inventor.Semantics.Modules.WPF
 {
 	public class WpfUiModule : ExtensionModule
 	{

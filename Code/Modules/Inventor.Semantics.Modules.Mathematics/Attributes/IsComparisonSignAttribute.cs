@@ -1,4 +1,4 @@
-﻿namespace Inventor.Semantics.Mathematics.Attributes
+﻿namespace Inventor.Semantics.Modules.Mathematics.Attributes
 {
 	public class IsComparisonSignAttribute : IAttribute
 	{

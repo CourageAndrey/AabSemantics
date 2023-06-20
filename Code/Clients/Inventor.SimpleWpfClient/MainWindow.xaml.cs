@@ -8,11 +8,11 @@ using Microsoft.Win32;
 
 using Inventor.Semantics;
 using Inventor.Semantics.Serialization.Xml;
-using Inventor.Semantics.WPF;
-using Inventor.Semantics.WPF.Commands;
-using Inventor.Semantics.WPF.Dialogs;
-using Inventor.Semantics.WPF.Localization;
-using Inventor.Semantics.WPF.ViewModels;
+using Inventor.Semantics.Modules.WPF;
+using Inventor.Semantics.Modules.WPF.Commands;
+using Inventor.Semantics.Modules.WPF.Dialogs;
+using Inventor.Semantics.Modules.WPF.Localization;
+using Inventor.Semantics.Modules.WPF.ViewModels;
 
 namespace Inventor.SimpleWpfClient
 {

@@ -1,15 +1,15 @@
-﻿namespace Inventor.Semantics.WPF.ViewModels.Questions
+﻿namespace Inventor.Semantics.Modules.WPF.ViewModels.Questions
 {
 	[QuestionDescriptor]
-	public class EnumeratePartsQuestion : QuestionViewModel<Semantics.Set.Questions.EnumeratePartsQuestion>
+	public class EnumeratePartsQuestion : QuestionViewModel<Semantics.Modules.Set.Questions.EnumeratePartsQuestion>
 	{
 		[PropertyDescriptor(true, "Questions.Parameters.Concept")]
 		public Semantics.IConcept Concept
 		{ get; set; }
 
-		public override Semantics.Set.Questions.EnumeratePartsQuestion BuildQuestionImplementation()
+		public override Semantics.Modules.Set.Questions.EnumeratePartsQuestion BuildQuestionImplementation()
 		{
-			return new Semantics.Set.Questions.EnumeratePartsQuestion(Concept);
+			return new Semantics.Modules.Set.Questions.EnumeratePartsQuestion(Concept);
 		}
 	}
 }

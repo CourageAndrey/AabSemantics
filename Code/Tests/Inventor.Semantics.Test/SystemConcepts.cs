@@ -1,8 +1,8 @@
 ﻿using System.Collections.Generic;
 
-using Inventor.Semantics.Mathematics.Concepts;
+using Inventor.Semantics.Modules.Mathematics.Concepts;
 using Inventor.Semantics.Modules.Boolean.Concepts;
-using Inventor.Semantics.Processes.Concepts;
+using Inventor.Semantics.Modules.Processes.Concepts;
 
 namespace Inventor.Semantics.Test
 {

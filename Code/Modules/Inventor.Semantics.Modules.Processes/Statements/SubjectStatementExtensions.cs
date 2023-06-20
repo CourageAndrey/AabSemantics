@@ -2,9 +2,9 @@
 using System.Linq;
 
 using Inventor.Semantics.Statements;
-using Inventor.Semantics.Processes.Concepts;
+using Inventor.Semantics.Modules.Processes.Concepts;
 
-namespace Inventor.Semantics.Processes.Statements
+namespace Inventor.Semantics.Modules.Processes.Statements
 {
 	public static class SubjectStatementExtensions
 	{

@@ -1,6 +1,6 @@
 ﻿using System.Xml.Serialization;
 
-namespace Inventor.Semantics.Mathematics.Localization
+namespace Inventor.Semantics.Modules.Mathematics.Localization
 {
 	public interface ILanguageConcepts
 	{

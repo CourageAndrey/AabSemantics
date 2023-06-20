@@ -2,13 +2,13 @@
 using System.Collections.Generic;
 
 using Inventor.Semantics.Statements;
-using Inventor.Semantics.Processes.Attributes;
-using Inventor.Semantics.Processes.Concepts;
-using Inventor.Semantics.Processes.Localization;
-using Inventor.Semantics.Processes.Questions;
+using Inventor.Semantics.Modules.Processes.Attributes;
+using Inventor.Semantics.Modules.Processes.Concepts;
+using Inventor.Semantics.Modules.Processes.Localization;
+using Inventor.Semantics.Modules.Processes.Questions;
 using Inventor.Semantics.Utils;
 
-namespace Inventor.Semantics.Processes.Statements
+namespace Inventor.Semantics.Modules.Processes.Statements
 {
 	public class ProcessesStatement : Statement<ProcessesStatement>
 	{
@@ -80,7 +80,7 @@ namespace Inventor.Semantics.Processes.Statements
 
 		#region Consistency checking
 
-		public override Boolean Equals(ProcessesStatement other)
+		public override System.Boolean Equals(ProcessesStatement other)
 		{
 			if (ReferenceEquals(this, other)) return true;
 			if (other != null)

@@ -5,10 +5,10 @@ using Inventor.Semantics.Localization;
 using Inventor.Semantics.Modules.Boolean.Attributes;
 using Inventor.Semantics.Modules.Classification.Statements;
 using Inventor.Semantics.Statements;
-using Inventor.Semantics.Mathematics;
-using Inventor.Semantics.Mathematics.Statements;
-using Inventor.Semantics.Processes;
-using Inventor.Semantics.Set;
+using Inventor.Semantics.Modules.Mathematics;
+using Inventor.Semantics.Modules.Mathematics.Statements;
+using Inventor.Semantics.Modules.Processes;
+using Inventor.Semantics.Modules.Set;
 using Inventor.Semantics.Test.Sample;
 
 namespace Inventor.Semantics.Test

@@ -11,11 +11,11 @@ using System.Windows.Data;
 
 using Inventor.Semantics.Metadata;
 using Inventor.Semantics.Modules.Boolean.Localization;
-using Inventor.Semantics.WPF.Converters;
-using Inventor.Semantics.WPF.ViewModels;
-using Inventor.Semantics.WPF.ViewModels.Questions;
+using Inventor.Semantics.Modules.WPF.Converters;
+using Inventor.Semantics.Modules.WPF.ViewModels;
+using Inventor.Semantics.Modules.WPF.ViewModels.Questions;
 
-namespace Inventor.Semantics.WPF.Dialogs
+namespace Inventor.Semantics.Modules.WPF.Dialogs
 {
 	public partial class QuestionDialog
 	{

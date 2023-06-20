@@ -1,12 +1,12 @@
 ﻿using System.Windows;
 
-using Inventor.Semantics.Processes.Localization;
-using Inventor.Semantics.WPF.Controls;
-using Inventor.Semantics.WPF.Dialogs;
+using Inventor.Semantics.Modules.Processes.Localization;
+using Inventor.Semantics.Modules.WPF.Controls;
+using Inventor.Semantics.Modules.WPF.Dialogs;
 
-namespace Inventor.Semantics.WPF.ViewModels.Statements
+namespace Inventor.Semantics.Modules.WPF.ViewModels.Statements
 {
-	public class ProcessesStatement : StatementViewModel<Semantics.Processes.Statements.ProcessesStatement>
+	public class ProcessesStatement : StatementViewModel<Semantics.Modules.Processes.Statements.ProcessesStatement>
 	{
 		#region Properties
 
@@ -27,7 +27,7 @@ namespace Inventor.Semantics.WPF.ViewModels.Statements
 			: this(string.Empty, null, null, null, language)
 		{ }
 
-		public ProcessesStatement(Semantics.Processes.Statements.ProcessesStatement statement, ILanguage language)
+		public ProcessesStatement(Semantics.Modules.Processes.Statements.ProcessesStatement statement, ILanguage language)
 			: this(statement.ID, new ConceptItem(statement.ProcessA, language), new ConceptItem(statement.ProcessB, language), new ConceptItem(statement.SequenceSign, language), language)
 		{
 			BoundObject = statement;
@@ -66,9 +66,9 @@ namespace Inventor.Semantics.WPF.ViewModels.Statements
 			return dialog;
 		}
 
-		protected override Semantics.Processes.Statements.ProcessesStatement CreateStatementImplementation()
+		protected override Semantics.Modules.Processes.Statements.ProcessesStatement CreateStatementImplementation()
 		{
-			return new Semantics.Processes.Statements.ProcessesStatement(ID, ProcessA.Concept, ProcessB.Concept, SequenceSign.Concept);
+			return new Semantics.Modules.Processes.Statements.ProcessesStatement(ID, ProcessA.Concept, ProcessB.Concept, SequenceSign.Concept);
 		}
 
 		public override void ApplyUpdate()

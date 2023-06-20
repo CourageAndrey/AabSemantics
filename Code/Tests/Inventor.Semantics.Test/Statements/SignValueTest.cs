@@ -7,8 +7,8 @@ using Inventor.Semantics.Concepts;
 using Inventor.Semantics.Localization;
 using Inventor.Semantics.Modules.Classification.Statements;
 using Inventor.Semantics.Modules.Boolean.Attributes;
-using Inventor.Semantics.Set.Attributes;
-using Inventor.Semantics.Set.Statements;
+using Inventor.Semantics.Modules.Set.Attributes;
+using Inventor.Semantics.Modules.Set.Statements;
 using Inventor.Semantics.Statements;
 
 namespace Inventor.Semantics.Test.Statements

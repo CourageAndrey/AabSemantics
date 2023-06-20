@@ -5,11 +5,11 @@ using System.Linq;
 using Inventor.Semantics.Answers;
 using Inventor.Semantics.Questions;
 using Inventor.Semantics.Text.Containers;
-using Inventor.Semantics.Processes.Concepts;
-using Inventor.Semantics.Processes.Statements;
+using Inventor.Semantics.Modules.Processes.Concepts;
+using Inventor.Semantics.Modules.Processes.Statements;
 using Inventor.Semantics.Utils;
 
-namespace Inventor.Semantics.Processes.Questions
+namespace Inventor.Semantics.Modules.Processes.Questions
 {
 	public class ProcessesQuestion : Question
 	{

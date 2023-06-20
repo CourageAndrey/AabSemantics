@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Xml.Serialization;
 
-namespace Inventor.Semantics.Processes.Localization
+namespace Inventor.Semantics.Modules.Processes.Localization
 {
 	public interface ILanguageConsistency
 	{

@@ -1,10 +1,10 @@
 ﻿using System.Windows;
 
 using Inventor.Semantics.Modules.Classification.Localization;
-using Inventor.Semantics.WPF.Controls;
-using Inventor.Semantics.WPF.Dialogs;
+using Inventor.Semantics.Modules.WPF.Controls;
+using Inventor.Semantics.Modules.WPF.Dialogs;
 
-namespace Inventor.Semantics.WPF.ViewModels.Statements
+namespace Inventor.Semantics.Modules.WPF.ViewModels.Statements
 {
 	public class IsStatement : StatementViewModel<Modules.Classification.Statements.IsStatement>
 	{

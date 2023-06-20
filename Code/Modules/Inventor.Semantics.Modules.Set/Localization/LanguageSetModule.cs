@@ -1,7 +1,7 @@
 ﻿using System.Xml.Serialization;
 using Inventor.Semantics.Localization;
 
-namespace Inventor.Semantics.Set.Localization
+namespace Inventor.Semantics.Modules.Set.Localization
 {
 	public interface ILanguageSetModule
 	{

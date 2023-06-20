@@ -6,7 +6,7 @@ using Microsoft.Win32;
 
 using Inventor.Semantics.Serialization.Xml;
 
-namespace Inventor.Semantics.WPF.Dialogs
+namespace Inventor.Semantics.Modules.WPF.Dialogs
 {
 	public enum ExceptionDialogMode
 	{
@@ -58,11 +58,11 @@ namespace Inventor.Semantics.WPF.Dialogs
 			gridData.DataContext = _exception = exception;
 		}
 
-		public ExceptionDialog(IExceptionWrapper exception, Boolean viewOnly, ILanguage language)
+		public ExceptionDialog(IExceptionWrapper exception, System.Boolean viewOnly, ILanguage language)
 			: this(exception, viewOnly ? ExceptionDialogMode.ViewOnly : ExceptionDialogMode.ProcessError, language)
 		{ }
 
-		public ExceptionDialog(Exception exception, Boolean viewOnly, ILanguage language)
+		public ExceptionDialog(Exception exception, System.Boolean viewOnly, ILanguage language)
 			: this(new ExceptionWrapper(exception), viewOnly, language)
 		{ }
 

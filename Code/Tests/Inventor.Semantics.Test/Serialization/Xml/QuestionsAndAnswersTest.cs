@@ -9,18 +9,18 @@ using NUnit.Framework;
 
 using Inventor.Semantics.Answers;
 using Inventor.Semantics.Localization;
-using Inventor.Semantics.Mathematics.Localization;
-using Inventor.Semantics.Mathematics.Questions;
+using Inventor.Semantics.Modules.Mathematics.Localization;
+using Inventor.Semantics.Modules.Mathematics.Questions;
 using Inventor.Semantics.Modules.Boolean.Localization;
 using Inventor.Semantics.Modules.Boolean.Questions;
 using Inventor.Semantics.Modules.Classification.Questions;
 using Inventor.Semantics.Modules.Classification.Localization;
-using Inventor.Semantics.Processes.Localization;
-using Inventor.Semantics.Processes.Questions;
+using Inventor.Semantics.Modules.Processes.Localization;
+using Inventor.Semantics.Modules.Processes.Questions;
 using Inventor.Semantics.Serialization;
 using Inventor.Semantics.Serialization.Xml;
-using Inventor.Semantics.Set.Localization;
-using Inventor.Semantics.Set.Questions;
+using Inventor.Semantics.Modules.Set.Localization;
+using Inventor.Semantics.Modules.Set.Questions;
 using Inventor.Semantics.Test.Sample;
 using Inventor.Semantics.Text.Primitives;
 

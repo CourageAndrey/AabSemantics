@@ -4,7 +4,7 @@ using System.Runtime.Serialization;
 
 using Inventor.Semantics.Serialization;
 
-namespace Inventor.Semantics.Set.Json
+namespace Inventor.Semantics.Modules.Set.Json
 {
 	[DataContract]
 	public class EnumeratePartsQuestion : Serialization.Json.Question<Questions.EnumeratePartsQuestion>

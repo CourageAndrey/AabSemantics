@@ -2,14 +2,14 @@
 using System.Collections.Generic;
 
 using Inventor.Semantics.Statements;
-using Inventor.Semantics.Mathematics.Attributes;
-using Inventor.Semantics.Mathematics.Concepts;
-using Inventor.Semantics.Mathematics.Localization;
-using Inventor.Semantics.Mathematics.Questions;
+using Inventor.Semantics.Modules.Mathematics.Attributes;
+using Inventor.Semantics.Modules.Mathematics.Concepts;
+using Inventor.Semantics.Modules.Mathematics.Localization;
+using Inventor.Semantics.Modules.Mathematics.Questions;
 using Inventor.Semantics.Modules.Boolean.Attributes;
 using Inventor.Semantics.Utils;
 
-namespace Inventor.Semantics.Mathematics.Statements
+namespace Inventor.Semantics.Modules.Mathematics.Statements
 {
 	public class ComparisonStatement : Statement<ComparisonStatement>
 	{
@@ -81,7 +81,7 @@ namespace Inventor.Semantics.Mathematics.Statements
 
 		#region Consistency checking
 
-		public override Boolean Equals(ComparisonStatement other)
+		public override System.Boolean Equals(ComparisonStatement other)
 		{
 			if (ReferenceEquals(this, other)) return true;
 			if (other != null)

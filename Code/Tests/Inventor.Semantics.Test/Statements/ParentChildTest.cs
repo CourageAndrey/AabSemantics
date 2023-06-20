@@ -10,7 +10,7 @@ using Inventor.Semantics.Modules.Classification.Statements;
 using Inventor.Semantics.Modules.Boolean;
 using Inventor.Semantics.Modules.Boolean.Concepts;
 using Inventor.Semantics.Modules.Classification;
-using Inventor.Semantics.Set;
+using Inventor.Semantics.Modules.Set;
 using Inventor.Semantics.Statements;
 
 namespace Inventor.Semantics.Test.Statements

@@ -1,6 +1,6 @@
 ﻿using Inventor.Semantics.Questions;
 
-namespace Inventor.Semantics.Mathematics.Questions
+namespace Inventor.Semantics.Modules.Mathematics.Questions
 {
 	public static class SubjectQuestionExtensions
 	{

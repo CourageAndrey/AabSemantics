@@ -6,7 +6,7 @@ using System.Linq;
 
 using Inventor.Semantics.Utils;
 
-namespace Inventor.Semantics.EF
+namespace Inventor.Semantics.Modules.EF
 {
 	internal delegate IMapping<ItemT> MappingSelectorDelegate<ItemT>(ICollection<IMapping<ItemT>> mappings, ItemT forItem)
 		where ItemT : IIdentifiable;

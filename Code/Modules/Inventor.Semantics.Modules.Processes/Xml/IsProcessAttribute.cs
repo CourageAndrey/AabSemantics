@@ -2,7 +2,7 @@
 
 using Inventor.Semantics.Serialization.Xml;
 
-namespace Inventor.Semantics.Processes.Xml
+namespace Inventor.Semantics.Modules.Processes.Xml
 {
 	[XmlType("IsProcess")]
 	public class IsProcessAttribute : Attribute<Attributes.IsProcessAttribute>

@@ -2,7 +2,7 @@
 using System.Globalization;
 using System.Xml.Serialization;
 
-namespace Inventor.Semantics.WPF
+namespace Inventor.Semantics.Modules.WPF
 {
 	public interface IExceptionWrapper
 	{
@@ -69,7 +69,7 @@ namespace Inventor.Semantics.WPF
 			return String.Format(CultureInfo.InvariantCulture, "{0} : {1}", Class, Message);
 		}
 
-		public Boolean Equals(ExceptionWrapper other)
+		public System.Boolean Equals(ExceptionWrapper other)
 		{
 			if (ReferenceEquals(this, other))
 			{

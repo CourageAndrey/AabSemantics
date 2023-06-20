@@ -4,11 +4,11 @@ using System.Linq;
 
 using Inventor.Semantics.Modules.Classification.Statements;
 using Inventor.Semantics.Statements;
-using Inventor.Semantics.Set.Attributes;
-using Inventor.Semantics.Set.Localization;
+using Inventor.Semantics.Modules.Set.Attributes;
+using Inventor.Semantics.Modules.Set.Localization;
 using Inventor.Semantics.Utils;
 
-namespace Inventor.Semantics.Set.Statements
+namespace Inventor.Semantics.Modules.Set.Statements
 {
 	public class HasSignStatement : Statement<HasSignStatement>
 	{
@@ -74,7 +74,7 @@ namespace Inventor.Semantics.Set.Statements
 
 		#region Consistency checking
 
-		public override Boolean Equals(HasSignStatement other)
+		public override System.Boolean Equals(HasSignStatement other)
 		{
 			if (ReferenceEquals(this, other)) return true;
 			if (other != null)
@@ -85,7 +85,7 @@ namespace Inventor.Semantics.Set.Statements
 			else return false;
 		}
 
-		public Boolean CheckSignDuplication(IEnumerable<HasSignStatement> hasSigns, IEnumerable<IsStatement> clasifications)
+		public System.Boolean CheckSignDuplication(IEnumerable<HasSignStatement> hasSigns, IEnumerable<IsStatement> clasifications)
 		{
 			var signs = hasSigns.Where(hs => hs.Concept == Concept).Select(hs => hs.Sign).ToList();
 			foreach (var parent in clasifications.GetParentsAllLevels(Concept))
@@ -103,7 +103,7 @@ namespace Inventor.Semantics.Set.Statements
 
 		#endregion
 
-		public static List<HasSignStatement> GetSigns(IEnumerable<IStatement> statements, IConcept concept, Boolean recursive)
+		public static List<HasSignStatement> GetSigns(IEnumerable<IStatement> statements, IConcept concept, System.Boolean recursive)
 		{
 			var result = new List<HasSignStatement>();
 			var hasSigns = statements.OfType<HasSignStatement>().ToList();

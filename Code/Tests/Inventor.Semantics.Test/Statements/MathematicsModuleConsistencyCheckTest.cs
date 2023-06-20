@@ -2,8 +2,8 @@
 
 using Inventor.Semantics.Concepts;
 using Inventor.Semantics.Localization;
-using Inventor.Semantics.Mathematics;
-using Inventor.Semantics.Mathematics.Statements;
+using Inventor.Semantics.Modules.Mathematics;
+using Inventor.Semantics.Modules.Mathematics.Statements;
 using Inventor.Semantics.Metadata;
 using Inventor.Semantics.Modules.Boolean.Attributes;
 using Inventor.Semantics.Statements;

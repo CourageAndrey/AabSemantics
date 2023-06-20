@@ -1,6 +1,6 @@
 ﻿using System.Xml.Serialization;
 
-namespace Inventor.Semantics.Mathematics.Localization
+namespace Inventor.Semantics.Modules.Mathematics.Localization
 {
 	public interface ILanguageStatements
 	{
@@ -19,7 +19,7 @@ namespace Inventor.Semantics.Mathematics.Localization
 		ILanguageStatementsPart QuestionFormatStrings
 		{ get; }
 
-		Inventor.Semantics.Mathematics.Localization.ILanguageConsistency Consistency
+		Inventor.Semantics.Modules.Mathematics.Localization.ILanguageConsistency Consistency
 		{ get; }
 	}
 
@@ -49,7 +49,7 @@ namespace Inventor.Semantics.Mathematics.Localization
 		{ get; set; }
 
 		[XmlElement(nameof(Consistency))]
-		public Inventor.Semantics.Mathematics.Localization.LanguageConsistency ConsistencyXml
+		public Inventor.Semantics.Modules.Mathematics.Localization.LanguageConsistency ConsistencyXml
 		{ get; set; }
 
 		#endregion
@@ -77,7 +77,7 @@ namespace Inventor.Semantics.Mathematics.Localization
 		{ get { return QuestionFormatStringsXml; } }
 
 		[XmlIgnore]
-		public Inventor.Semantics.Mathematics.Localization.ILanguageConsistency Consistency
+		public Inventor.Semantics.Modules.Mathematics.Localization.ILanguageConsistency Consistency
 		{ get { return ConsistencyXml; } }
 
 		#endregion

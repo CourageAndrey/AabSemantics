@@ -5,9 +5,9 @@ using System.Linq;
 using NUnit.Framework;
 
 using Inventor.Semantics.Concepts;
-using Inventor.Semantics.Processes.Attributes;
-using Inventor.Semantics.Processes.Concepts;
-using Inventor.Semantics.Processes.Statements;
+using Inventor.Semantics.Modules.Processes.Attributes;
+using Inventor.Semantics.Modules.Processes.Concepts;
+using Inventor.Semantics.Modules.Processes.Statements;
 
 namespace Inventor.Semantics.Test.Statements
 {

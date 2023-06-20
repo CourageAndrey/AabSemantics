@@ -4,7 +4,7 @@ using System.Xml.Serialization;
 using Inventor.Semantics.Serialization;
 using Inventor.Semantics.Serialization.Xml;
 
-namespace Inventor.Semantics.Mathematics.Xml
+namespace Inventor.Semantics.Modules.Mathematics.Xml
 {
 	[XmlType("Comparison")]
 	public class ComparisonStatement : Statement<Statements.ComparisonStatement>

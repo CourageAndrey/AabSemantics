@@ -1,7 +1,7 @@
-﻿namespace Inventor.Semantics.WPF.ViewModels.Questions
+﻿namespace Inventor.Semantics.Modules.WPF.ViewModels.Questions
 {
 	[QuestionDescriptor]
-	public class ComparisonQuestion : QuestionViewModel<Semantics.Mathematics.Questions.ComparisonQuestion>
+	public class ComparisonQuestion : QuestionViewModel<Semantics.Modules.Mathematics.Questions.ComparisonQuestion>
 	{
 		[PropertyDescriptor(true, "Mathematics\\Questions.Parameters.LeftValue")]
 		public Semantics.IConcept LeftValue
@@ -11,9 +11,9 @@
 		public Semantics.IConcept RightValue
 		{ get; set; }
 
-		public override Semantics.Mathematics.Questions.ComparisonQuestion BuildQuestionImplementation()
+		public override Semantics.Modules.Mathematics.Questions.ComparisonQuestion BuildQuestionImplementation()
 		{
-			return new Semantics.Mathematics.Questions.ComparisonQuestion(LeftValue, RightValue);
+			return new Semantics.Modules.Mathematics.Questions.ComparisonQuestion(LeftValue, RightValue);
 		}
 	}
 }

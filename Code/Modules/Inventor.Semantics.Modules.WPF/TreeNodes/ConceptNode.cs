@@ -1,9 +1,9 @@
 ﻿using System.Windows.Media;
 
-using Inventor.Semantics.WPF.Converters;
+using Inventor.Semantics.Modules.WPF.Converters;
 using Inventor.Semantics.Modules.WPF.Properties;
 
-namespace Inventor.Semantics.WPF.TreeNodes
+namespace Inventor.Semantics.Modules.WPF.TreeNodes
 {
 	public class ConceptNode : ExtendedTreeNode
 	{

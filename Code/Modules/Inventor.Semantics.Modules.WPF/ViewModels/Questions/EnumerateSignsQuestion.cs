@@ -1,7 +1,7 @@
-﻿namespace Inventor.Semantics.WPF.ViewModels.Questions
+﻿namespace Inventor.Semantics.Modules.WPF.ViewModels.Questions
 {
 	[QuestionDescriptor]
-	public class EnumerateSignsQuestion : QuestionViewModel<Semantics.Set.Questions.EnumerateSignsQuestion>
+	public class EnumerateSignsQuestion : QuestionViewModel<Semantics.Modules.Set.Questions.EnumerateSignsQuestion>
 	{
 		[PropertyDescriptor(true, "Questions.Parameters.Concept")]
 		public Semantics.IConcept Concept
@@ -11,9 +11,9 @@
 		public bool Recursive
 		{ get; set; }
 
-		public override Semantics.Set.Questions.EnumerateSignsQuestion BuildQuestionImplementation()
+		public override Semantics.Modules.Set.Questions.EnumerateSignsQuestion BuildQuestionImplementation()
 		{
-			return new Semantics.Set.Questions.EnumerateSignsQuestion(Concept, Recursive);
+			return new Semantics.Modules.Set.Questions.EnumerateSignsQuestion(Concept, Recursive);
 		}
 	}
 }

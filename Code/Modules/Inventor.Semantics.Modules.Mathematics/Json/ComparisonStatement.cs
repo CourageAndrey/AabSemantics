@@ -3,7 +3,7 @@ using System.Runtime.Serialization;
 
 using Inventor.Semantics.Serialization;
 
-namespace Inventor.Semantics.Mathematics.Json
+namespace Inventor.Semantics.Modules.Mathematics.Json
 {
 	[DataContract]
 	public class ComparisonStatement : Serialization.Json.Statement<Statements.ComparisonStatement>

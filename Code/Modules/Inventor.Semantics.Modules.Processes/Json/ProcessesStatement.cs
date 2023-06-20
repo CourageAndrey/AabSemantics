@@ -3,7 +3,7 @@ using System.Runtime.Serialization;
 
 using Inventor.Semantics.Serialization;
 
-namespace Inventor.Semantics.Processes.Json
+namespace Inventor.Semantics.Modules.Processes.Json
 {
 	[DataContract]
 	public class ProcessesStatement : Serialization.Json.Statement<Statements.ProcessesStatement>

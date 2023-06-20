@@ -8,8 +8,8 @@ using Inventor.Semantics.Localization;
 using Inventor.Semantics.Modules.Boolean.Localization;
 using Inventor.Semantics.Modules.Classification.Localization;
 using Inventor.Semantics.Modules.Classification.Statements;
-using Inventor.Semantics.Set.Localization;
-using Inventor.Semantics.Set.Statements;
+using Inventor.Semantics.Modules.Set.Localization;
+using Inventor.Semantics.Modules.Set.Statements;
 using Inventor.Semantics.Text.Primitives;
 using Inventor.Semantics.Text.Representers;
 

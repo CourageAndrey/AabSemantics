@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 
-using Inventor.Semantics.Set.Localization;
+using Inventor.Semantics.Modules.Set.Localization;
 
-namespace Inventor.Semantics.Set.Questions
+namespace Inventor.Semantics.Modules.Set.Questions
 {
 	public class GetCommonQuestion : CompareConceptPropertiesQuestion
 	{
@@ -11,7 +11,7 @@ namespace Inventor.Semantics.Set.Questions
 			: base(concept1, concept2, preconditions)
 		{ }
 
-		protected override Boolean NeedToTakeIntoAccount(IConcept value1, IConcept value2)
+		protected override System.Boolean NeedToTakeIntoAccount(IConcept value1, IConcept value2)
 		{
 			return value1 == value2;
 		}

@@ -5,12 +5,12 @@ using System.Linq;
 using NUnit.Framework;
 
 using Inventor.Semantics.Concepts;
-using Inventor.Semantics.Mathematics;
-using Inventor.Semantics.Mathematics.Attributes;
-using Inventor.Semantics.Processes;
-using Inventor.Semantics.Processes.Attributes;
-using Inventor.Semantics.Set;
-using Inventor.Semantics.Set.Attributes;
+using Inventor.Semantics.Modules.Mathematics;
+using Inventor.Semantics.Modules.Mathematics.Attributes;
+using Inventor.Semantics.Modules.Processes;
+using Inventor.Semantics.Modules.Processes.Attributes;
+using Inventor.Semantics.Modules.Set;
+using Inventor.Semantics.Modules.Set.Attributes;
 
 namespace Inventor.Semantics.Test.Serialization.Xml
 {

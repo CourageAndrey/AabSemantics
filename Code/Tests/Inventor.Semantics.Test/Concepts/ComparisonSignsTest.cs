@@ -3,7 +3,7 @@
 using NUnit.Framework;
 
 using Inventor.Semantics.Concepts;
-using Inventor.Semantics.Mathematics.Concepts;
+using Inventor.Semantics.Modules.Mathematics.Concepts;
 
 namespace Inventor.Semantics.Test.Concepts
 {

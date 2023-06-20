@@ -5,7 +5,7 @@ using System.Xml.Serialization;
 using Inventor.Semantics.Serialization;
 using Inventor.Semantics.Serialization.Xml;
 
-namespace Inventor.Semantics.Set.Xml
+namespace Inventor.Semantics.Modules.Set.Xml
 {
 	[XmlType]
 	public class HasSignQuestion : Question<Questions.HasSignQuestion>
@@ -21,7 +21,7 @@ namespace Inventor.Semantics.Set.Xml
 		{ get; set; }
 
 		[XmlElement]
-		public Boolean Recursive
+		public System.Boolean Recursive
 		{ get; set; }
 
 		#endregion

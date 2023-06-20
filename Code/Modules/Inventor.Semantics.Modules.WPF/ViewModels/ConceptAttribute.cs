@@ -3,7 +3,7 @@ using System.Threading;
 
 using Inventor.Semantics.Metadata;
 
-namespace Inventor.Semantics.WPF.ViewModels
+namespace Inventor.Semantics.Modules.WPF.ViewModels
 {
 	public class ConceptAttribute : INotifyPropertyChanged
 	{

@@ -6,8 +6,8 @@ using NUnit.Framework;
 using Inventor.Semantics.Concepts;
 using Inventor.Semantics.Contexts;
 using Inventor.Semantics.Localization;
-using Inventor.Semantics.Mathematics.Concepts;
-using Inventor.Semantics.Mathematics.Statements;
+using Inventor.Semantics.Modules.Mathematics.Concepts;
+using Inventor.Semantics.Modules.Mathematics.Statements;
 using Inventor.Semantics.Modules.Boolean.Attributes;
 
 namespace Inventor.Semantics.Test.Statements

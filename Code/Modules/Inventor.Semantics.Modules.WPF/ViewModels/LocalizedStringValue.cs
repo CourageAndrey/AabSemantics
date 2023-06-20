@@ -1,4 +1,4 @@
-﻿namespace Inventor.Semantics.WPF.ViewModels
+﻿namespace Inventor.Semantics.Modules.WPF.ViewModels
 {
 	public class LocalizedStringValue
 	{
