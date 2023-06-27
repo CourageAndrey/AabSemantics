@@ -19,7 +19,7 @@ namespace AabSemantics.Tests.Answers
 	public class AnswerExtensionsTest
 	{
 		[Test]
-		public void GivenNoExplanationWhenGetDescriptionWithExplanationThenReturnPlainDescription()
+		public void GivenNoExplanation_WhenGetDescriptionWithExplanation_ThenReturnPlainDescription()
 		{
 			// arrange
 			var language = Language.Default;
@@ -42,7 +42,7 @@ namespace AabSemantics.Tests.Answers
 		}
 
 		[Test]
-		public void GivenExplanationStatementsWhenGetDescriptionWithExplanationThenReturnExplainedDescription()
+		public void GivenExplanationStatements_WhenGetDescriptionWithExplanation_ThenReturnExplainedDescription()
 		{
 			// arrange
 			var language = Language.Default;

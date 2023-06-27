@@ -9,7 +9,7 @@ namespace AabSemantics.Tests.Answers
 	public class UnknownAnswerTest
 	{
 		[Test]
-		public void CheckEmptyAnswer()
+		public void GivenEmptyAnswer_WhenCheckIt_ThenItIsEmpty()
 		{
 			// arrange
 			var language = Language.Default;
