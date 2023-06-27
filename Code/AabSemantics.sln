@@ -57,6 +57,14 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AabSemantics.SimpleRestClie
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Extensions", "Extensions", "{15430F84-D08B-49F8-9E1F-2087F11521FF}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AabSemantics.Modules.Mathematics.Tests", "Tests\AabSemantics.Modules.Mathematics.Tests\AabSemantics.Modules.Mathematics.Tests.csproj", "{397EDAA8-B8B4-4020-8D6B-10E48D3494B3}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AabSemantics.Modules.Processes.Tests", "Tests\AabSemantics.Modules.Processes.Tests\AabSemantics.Modules.Processes.Tests.csproj", "{F4EE469E-9B47-41E6-B8C7-88C0DE3A37FB}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AabSemantics.Modules.Set.Tests", "Tests\AabSemantics.Modules.Set.Tests\AabSemantics.Modules.Set.Tests.csproj", "{4FB3AA3E-6C16-4475-91EA-FC9D3CFEFFF1}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AabSemantics.Modules.IntegrationTests", "Tests\AabSemantics.Modules.IntegrationTests\AabSemantics.Modules.IntegrationTests.csproj", "{A0C261B6-CFDD-4DF6-8D80-AA5997DDA63A}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -147,6 +155,22 @@ Global
 		{DB788C12-ED8E-40BE-A206-EE78D7136776}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{DB788C12-ED8E-40BE-A206-EE78D7136776}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{DB788C12-ED8E-40BE-A206-EE78D7136776}.Release|Any CPU.Build.0 = Release|Any CPU
+		{397EDAA8-B8B4-4020-8D6B-10E48D3494B3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{397EDAA8-B8B4-4020-8D6B-10E48D3494B3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{397EDAA8-B8B4-4020-8D6B-10E48D3494B3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{397EDAA8-B8B4-4020-8D6B-10E48D3494B3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F4EE469E-9B47-41E6-B8C7-88C0DE3A37FB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F4EE469E-9B47-41E6-B8C7-88C0DE3A37FB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F4EE469E-9B47-41E6-B8C7-88C0DE3A37FB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F4EE469E-9B47-41E6-B8C7-88C0DE3A37FB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4FB3AA3E-6C16-4475-91EA-FC9D3CFEFFF1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4FB3AA3E-6C16-4475-91EA-FC9D3CFEFFF1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4FB3AA3E-6C16-4475-91EA-FC9D3CFEFFF1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4FB3AA3E-6C16-4475-91EA-FC9D3CFEFFF1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A0C261B6-CFDD-4DF6-8D80-AA5997DDA63A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A0C261B6-CFDD-4DF6-8D80-AA5997DDA63A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A0C261B6-CFDD-4DF6-8D80-AA5997DDA63A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A0C261B6-CFDD-4DF6-8D80-AA5997DDA63A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -173,6 +197,10 @@ Global
 		{D9B375A5-9D66-490A-AC5C-4B153749C7D5} = {15430F84-D08B-49F8-9E1F-2087F11521FF}
 		{FA3DD113-2130-40D0-BBB4-68B9EF03D3A2} = {E468A553-63B3-4913-AA93-BE788A5FF2F3}
 		{DB788C12-ED8E-40BE-A206-EE78D7136776} = {E05FAB82-39DC-4FE0-8AAA-4A096140D094}
+		{397EDAA8-B8B4-4020-8D6B-10E48D3494B3} = {889D4651-F24D-45B3-BD03-3AB214C40286}
+		{F4EE469E-9B47-41E6-B8C7-88C0DE3A37FB} = {889D4651-F24D-45B3-BD03-3AB214C40286}
+		{4FB3AA3E-6C16-4475-91EA-FC9D3CFEFFF1} = {889D4651-F24D-45B3-BD03-3AB214C40286}
+		{A0C261B6-CFDD-4DF6-8D80-AA5997DDA63A} = {889D4651-F24D-45B3-BD03-3AB214C40286}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {C59EB050-9F3F-424B-B1B6-86B16C7AC659}
