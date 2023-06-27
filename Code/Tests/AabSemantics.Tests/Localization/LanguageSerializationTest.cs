@@ -23,6 +23,7 @@ namespace AabSemantics.Tests.Localization
 		{
 			Language.Default.Extensions.Clear();
 			Repositories.Modules.Clear();
+			XmlHelper.ResetCache();
 		}
 
 		[Test]

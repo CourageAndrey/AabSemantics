@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Threading.Tasks;
 using System.Xml;
 using System.Xml.Serialization;
@@ -15,6 +16,27 @@ namespace AabSemantics.Tests.Serialization.Xml
 	[TestFixture]
 	public class XmlHelperTest
 	{
+		[Test]
+		public void ResetCache()
+		{
+			// arrange
+			var serializersField = typeof(XmlHelper).GetField("_serializers", BindingFlags.GetField | BindingFlags.Static | BindingFlags.NonPublic);
+			var serializers = (IDictionary<Type, XmlSerializer>) serializersField.GetValue(null);
+
+			typeof(SerializableClass1).AcquireXmlSerializer();
+			typeof(SerializableClass2).AcquireXmlSerializer();
+			typeof(SerializableClass3).AcquireXmlSerializer();
+			typeof(SerializableClass4).AcquireXmlSerializer();
+			typeof(SerializableClass5).AcquireXmlSerializer();
+			Assert.Less(0, serializers.Count);
+
+			// act
+			XmlHelper.ResetCache();
+
+			// assert
+			Assert.AreEqual(0, serializers.Count);
+		}
+
 		[Test]
 		public void CheckCustomSerializers()
 		{
