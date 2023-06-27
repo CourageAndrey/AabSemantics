@@ -5,8 +5,8 @@ using NUnit.Framework;
 
 using AabSemantics.Concepts;
 using AabSemantics.Localization;
-using AabSemantics.Modules.Classification.Statements;
 using AabSemantics.Modules.Boolean.Attributes;
+using AabSemantics.Modules.Classification.Statements;
 using AabSemantics.Modules.Set.Attributes;
 using AabSemantics.Modules.Set.Statements;
 using AabSemantics.Statements;
@@ -29,7 +29,7 @@ namespace AabSemantics.Tests.Statements
 		private const string ConceptId_ValueE = "VALUE_E";
 
 		[Test]
-		public void GivenNoSignValuesWhenGetSignValuesThenReturnNothing()
+		public void GivenNoSignValues_WhenGetSignValues_ThenReturnNothing()
 		{
 			// arrange
 			var language = Language.Default;
@@ -45,7 +45,7 @@ namespace AabSemantics.Tests.Statements
 		}
 
 		[Test]
-		public void GivenOnlyOwnSignValuesWhenGetSignValuesThenReturnThem()
+		public void GivenOnlyOwnSignValues_WhenGetSignValues_ThenReturnThem()
 		{
 			// arrange
 			var language = Language.Default;
@@ -70,7 +70,7 @@ namespace AabSemantics.Tests.Statements
 		}
 
 		[Test]
-		public void GivenOnlyInheritedSignValuesWhenGetSignValuesThenReturnThem()
+		public void GivenOnlyInheritedSignValues_WhenGetSignValues_ThenReturnThem()
 		{
 			// arrange
 			var language = Language.Default;
@@ -96,7 +96,7 @@ namespace AabSemantics.Tests.Statements
 		}
 
 		[Test]
-		public void GivenAllSignValuesWhenGetSignValuesThenReturnThem()
+		public void GivenAllSignValues_WhenGetSignValues_ThenReturnThem()
 		{
 			// arrange
 			var language = Language.Default;
@@ -123,7 +123,7 @@ namespace AabSemantics.Tests.Statements
 		}
 
 		[Test]
-		public void GivenOverridenSignValuesWhenGetSignValuesThenReturnThem()
+		public void GivenOverridenSignValues_WhenGetSignValues_ThenReturnThem()
 		{
 			// arrange
 			var language = Language.Default;

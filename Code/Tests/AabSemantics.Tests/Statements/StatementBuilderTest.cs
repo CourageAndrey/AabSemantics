@@ -26,7 +26,7 @@ namespace AabSemantics.Tests.Statements
 	public class StatementBuilderTest
 	{
 		[Test]
-		public void TestBuildingHasPartStatement()
+		public void GivenHasPartStatement_WhenDeclare_ThenSucceed()
 		{
 			// arrange
 			var language = Language.Default;
@@ -46,7 +46,7 @@ namespace AabSemantics.Tests.Statements
 		}
 
 		[Test]
-		public void TestBuildingMultipleHasPartStatements()
+		public void GivenMultipleHasPartStatements_WhenDeclare_ThenSucceed()
 		{
 			// arrange
 			var language = Language.Default;
@@ -77,7 +77,7 @@ namespace AabSemantics.Tests.Statements
 		}
 
 		[Test]
-		public void TestBuildingGroupStatement()
+		public void GivenGroupStatement_WhenDeclare_ThenSucceed()
 		{
 			// arrange
 			var language = Language.Default;
@@ -97,7 +97,7 @@ namespace AabSemantics.Tests.Statements
 		}
 
 		[Test]
-		public void TestBuildingMultipleGroupStatements()
+		public void GivenMultipleGroupStatements_WhenDeclare_ThenSucceed()
 		{
 			// arrange
 			var language = Language.Default;
@@ -128,7 +128,7 @@ namespace AabSemantics.Tests.Statements
 		}
 
 		[Test]
-		public void TestBuildingHasSignStatement()
+		public void GivenHasSignStatement_WhenDeclare_ThenSucceed()
 		{
 			// arrange
 			var language = Language.Default;
@@ -149,7 +149,7 @@ namespace AabSemantics.Tests.Statements
 		}
 
 		[Test]
-		public void TestBuildingMultipleHasSignStatements()
+		public void GivenMultipleHasSignStatements_WhenDeclare_ThenSucceed()
 		{
 			// arrange
 			var language = Language.Default;
@@ -182,7 +182,7 @@ namespace AabSemantics.Tests.Statements
 		}
 
 		[Test]
-		public void TestBuildingIsStatement()
+		public void GivenIsStatement_WhenDeclare_ThenSucceed()
 		{
 			// arrange
 			var language = Language.Default;
@@ -202,7 +202,7 @@ namespace AabSemantics.Tests.Statements
 		}
 
 		[Test]
-		public void TestBuildingMultipleIsStatements()
+		public void GivenMultipleIsStatements_WhenDeclare_ThenSucceed()
 		{
 			// arrange
 			var language = Language.Default;
@@ -231,7 +231,7 @@ namespace AabSemantics.Tests.Statements
 		}
 
 		[Test]
-		public void TestBuildingSignValueStatement()
+		public void GivenSignValueStatement_WhenDeclare_ThenSucceed()
 		{
 			// arrange
 			var language = Language.Default;
@@ -254,7 +254,7 @@ namespace AabSemantics.Tests.Statements
 		}
 
 		[Test]
-		public void TestBuildingComparisonStatement()
+		public void GivenComparisonStatement_WhenDeclare_ThenSucceed()
 		{
 			// arrange
 			var language = Language.Default;
@@ -295,7 +295,7 @@ namespace AabSemantics.Tests.Statements
 		}
 
 		[Test]
-		public void TestBuildingMultipleComparisonStatement()
+		public void GivenMultipleComparisonStatements_WhenDeclare_ThenSucceed()
 		{
 			// arrange
 			var language = Language.Default;
@@ -344,8 +344,8 @@ namespace AabSemantics.Tests.Statements
 		}
 
 		[Test]
-		[TestCaseSource(nameof(getChainComparisons))]
-		public void TestBuildingChainComparisons(Action<ISemanticNetwork, IEnumerable<IConcept>> definitionMethod, IConcept comparisonSign)
+		[TestCaseSource(nameof(GetChainComparisons))]
+		public void Given_WhenDeclare_ThenSucceed(Action<ISemanticNetwork, IEnumerable<IConcept>> definitionMethod, IConcept comparisonSign)
 		{
 			// arrange
 			var language = Language.Default;
@@ -374,7 +374,7 @@ namespace AabSemantics.Tests.Statements
 			Assert.AreSame(comparisonSign, ((ComparisonStatement) answer.Result).ComparisonSign);
 		}
 
-		private static IEnumerable<object[]> getChainComparisons()
+		private static IEnumerable<object[]> GetChainComparisons()
 		{
 			yield return new object[] { new Action<ISemanticNetwork, IEnumerable<IConcept>>((semanticNetwork, numbers) => semanticNetwork.DefineAscendingSequence(numbers)), ComparisonSigns.IsLessThan };
 			yield return new object[] { new Action<ISemanticNetwork, IEnumerable<IConcept>>((semanticNetwork, numbers) => semanticNetwork.DefineDescendingSequence(numbers)), ComparisonSigns.IsGreaterThan };
@@ -383,7 +383,7 @@ namespace AabSemantics.Tests.Statements
 		}
 
 		[Test]
-		public void TestBuildingProcessesStatement()
+		public void GivenProcessesStatement_WhenDeclare_ThenSucceed()
 		{
 			// arrange
 			var language = Language.Default;
@@ -451,7 +451,7 @@ namespace AabSemantics.Tests.Statements
 		}
 
 		[Test]
-		public void TestBuildingMultipleProcessesStatement()
+		public void GivenMultipleProcessesStatement_WhenDeclare_ThenSucceed()
 		{
 			// arrange
 			var language = Language.Default;
@@ -527,14 +527,14 @@ namespace AabSemantics.Tests.Statements
 		}
 
 		[Test]
-		public void ImpossibleToCreateWithoutSemanticNetwork()
+		public void GivenNoSemanticNetwork_WhenTryToCreateStatementBuilder_ThenFail()
 		{
 			// act & assert
 			Assert.Throws<ArgumentNullException>(() => new StatementBuilder(null, 1.CreateConcept()));
 		}
 
 		[Test]
-		public void ImpossibleToCreateWithoutConcept()
+		public void GivenNoConcept_WhenTryToCreateStatementBuilder_ThenFail()
 		{
 			// act & assert
 			Assert.Throws<ArgumentNullException>(() => new StatementBuilder(new SemanticNetwork(Language.Default), null));

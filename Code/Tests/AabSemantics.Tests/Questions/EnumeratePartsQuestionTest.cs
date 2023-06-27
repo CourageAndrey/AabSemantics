@@ -16,7 +16,7 @@ namespace AabSemantics.Tests.Questions
 	public class EnumeratePartsQuestionTest
 	{
 		[Test]
-		public void WhenNoRelationshipsReturnEmptyAnswer()
+		public void GivenNoInformation_WhenBeingAsked_ThenReturnEmpty()
 		{
 			// arrange
 			var language = Language.Default;
@@ -44,7 +44,7 @@ namespace AabSemantics.Tests.Questions
 		}
 
 		[Test]
-		public void ReturnAllParts()
+		public void GivenCorrespondingInformation_WhenBeingAsked_ThenReturnAllParts()
 		{
 			// arrange
 			var language = Language.Default;

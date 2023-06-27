@@ -12,7 +12,7 @@ namespace AabSemantics.Tests.Text
 	public class NullArgumentsConstructorTest
 	{
 		[Test]
-		public void CheckAllDecorators()
+		public void GivenDifferentDecorators_WhenTryToCreateWithoutRequiredArguments_ThenFail()
 		{
 			// arrange
 			IText text = null;
@@ -29,7 +29,7 @@ namespace AabSemantics.Tests.Text
 		}
 
 		[Test]
-		public void CheckAllContainers()
+		public void GivenDifferentContainers_WhenTryToCreateWithoutRequiredArguments_ThenFail()
 		{
 			// arrange
 			IList<IText> items = null;
@@ -41,7 +41,7 @@ namespace AabSemantics.Tests.Text
 		}
 
 		[Test]
-		public void CheckFormattedText()
+		public void GivenFormattedText_WhenTryToCreateWithoutRequiredArguments_ThenFail()
 		{
 			// act & assert
 			Assert.Throws<ArgumentNullException>(() => new FormattedText(null, new Dictionary<string, IKnowledge>()));

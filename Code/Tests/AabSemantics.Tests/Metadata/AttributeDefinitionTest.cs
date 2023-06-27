@@ -2,11 +2,10 @@
 
 using NUnit.Framework;
 
-using AabSemantics.Metadata;
 using AabSemantics.Localization;
+using AabSemantics.Metadata;
 using AabSemantics.Modules.Boolean.Attributes;
 using AabSemantics.Modules.Boolean.Questions;
-using AabSemantics.Modules.Processes.Attributes;
 
 namespace AabSemantics.Tests.Metadata
 {
@@ -14,7 +13,7 @@ namespace AabSemantics.Tests.Metadata
 	public class AttributeDefinitionTest
 	{
 		[Test]
-		public void ImpossibleToCreateDefinitionWithoutType()
+		public void GivenNoType_WhenTryToCreate_ThenFail()
 		{
 			// act & assert
 			Assert.Throws<ArgumentNullException>(() => new AttributeDefinition(
@@ -24,7 +23,7 @@ namespace AabSemantics.Tests.Metadata
 		}
 
 		[Test]
-		public void ImpossibleToCreateDefinitionWithInvalidType()
+		public void GivenInvalidType_WhenTryToCreate_ThenFail()
 		{
 			// act & assert
 			Assert.Throws<ArgumentException>(() => new AttributeDefinition(
@@ -38,7 +37,7 @@ namespace AabSemantics.Tests.Metadata
 		}
 
 		[Test]
-		public void ImpossibleToCreateDefinitionWithoutValue()
+		public void GivenNoValue_WhenTryToCreate_ThenFail()
 		{
 			// act & assert
 			Assert.Throws<ArgumentNullException>(() => new AttributeDefinition(
@@ -48,17 +47,7 @@ namespace AabSemantics.Tests.Metadata
 		}
 
 		[Test]
-		public void ImpossibleToCreateDefinitionWithWrongValue()
-		{
-			// act & assert
-			Assert.Throws<InvalidCastException>(() => new AttributeDefinition(
-				typeof(IsValueAttribute),
-				IsProcessAttribute.Value,
-				language => language.Culture));
-		}
-
-		[Test]
-		public void ImpossibleToCreateDefinitionWithoutNameGetter()
+		public void GivenNoNameGetter_WhenTryToCreate_ThenFail()
 		{
 			// act & assert
 			Assert.Throws<ArgumentNullException>(() => new AttributeDefinition(
@@ -68,7 +57,7 @@ namespace AabSemantics.Tests.Metadata
 		}
 
 		[Test]
-		public void CheckName()
+		public void GivenCorrectDefinition_WhenGetName_ThenReturnIt()
 		{
 			// arrange
 			var definition = new AttributeDefinition(
@@ -84,7 +73,7 @@ namespace AabSemantics.Tests.Metadata
 		}
 
 		[Test]
-		public void ValidateNone()
+		public void GivenNoneAttribute_WhenGetName_ThenReturnNoneName()
 		{
 			// arrange
 			var language = Language.Default;
@@ -94,40 +83,7 @@ namespace AabSemantics.Tests.Metadata
 		}
 
 		[Test]
-		public void GivenNullTypeWhenCreateAttributeDefinitionThenFail()
-		{
-			// arrange
-			var value = new TestAttributeChecked();
-			Func<ILanguage, string> nameGetter = language => _attributeName;
-
-			// act && assert
-			Assert.Throws<ArgumentNullException>(() => new AttributeDefinition(null, value, nameGetter));
-		}
-
-		[Test]
-		public void GivenNullValueWhenCreateAttributeDefinitionThenFail()
-		{
-			// arrange
-			var type = typeof(TestAttributeChecked);
-			Func<ILanguage, string> nameGetter = language => _attributeName;
-
-			// act && assert
-			Assert.Throws<ArgumentNullException>(() => new AttributeDefinition(type, null, nameGetter));
-		}
-
-		[Test]
-		public void GivenNullNameGetterWhenCreateAttributeDefinitionThenFail()
-		{
-			// arrange
-			var type = typeof(TestAttributeChecked);
-			var value = new TestAttributeChecked();
-
-			// act && assert
-			Assert.Throws<ArgumentNullException>(() => new AttributeDefinition(type, value, null));
-		}
-
-		[Test]
-		public void GivenWrongTypeValueWhenCreateAttributeDefinitionThenFail()
+		public void GivenWrongTypeValue_WhenTryToCreate_ThenFail()
 		{
 			// arrange
 			var type = typeof(TestAttributeChecked);
@@ -139,7 +95,7 @@ namespace AabSemantics.Tests.Metadata
 		}
 
 		[Test]
-		public void GivenCertainTypeValueWhenCreateAttributeDefinitionThenSucceed()
+		public void GivenCertainTypeValue_WhenCreate_ThenSucceed()
 		{
 			// arrange
 			var type = typeof(TestAttributeChecked);
@@ -156,7 +112,7 @@ namespace AabSemantics.Tests.Metadata
 		}
 
 		[Test]
-		public void GivenDerivedTypeValueWhenCreateAttributeDefinitionThenSucceed()
+		public void GivenDerivedTypeValue_WhenCreate_ThenSucceed()
 		{
 			// arrange
 			var type = typeof(TestAttributeChecked);
@@ -179,14 +135,6 @@ namespace AabSemantics.Tests.Metadata
 
 		private class TestAttributeDerived : TestAttributeChecked
 		{ }
-
-		private class TestAttributeXml : AabSemantics.Serialization.Xml.Attribute
-		{
-			public override IAttribute Load()
-			{
-				throw new NotImplementedException();
-			}
-		}
 
 		private abstract class TestAbstractAttribute : Attribute
 		{ }

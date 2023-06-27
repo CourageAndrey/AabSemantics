@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq;
+
 using NUnit.Framework;
 
 using AabSemantics.Metadata;
@@ -12,28 +13,28 @@ namespace AabSemantics.Tests.Metadata
 	public class SerializationSettingsTest
 	{
 		[Test]
-		public void SuccessfullyCreateXmlForAnswer()
+		public void GivenAllSet_WhenCreateXmlForAnswer_ThenSucceed()
 		{
 			// act & assert
 			Assert.DoesNotThrow(() => new AnswerXmlSerializationSettings((arg, lang) => null, typeof(AabSemantics.Serialization.Xml.Answer)));
 		}
 
 		[Test]
-		public void ImpossibleToCreateXmlForAnswerWithoutSerializer()
+		public void GivenNoSerializer_WhenTryToCreateXmlForAnswer_ThenFail()
 		{
 			// act & assert
 			Assert.Throws<ArgumentNullException>(() => new AnswerXmlSerializationSettings(null, typeof(AabSemantics.Serialization.Xml.Answer)));
 		}
 
 		[Test]
-		public void ImpossibleToCreateXmlForAnswerWithoutType()
+		public void GivenNoType_WhenTryToCreateXmlForAnswer_ThenFail()
 		{
 			// act & assert
 			Assert.Throws<ArgumentNullException>(() => new AnswerXmlSerializationSettings((arg, lang) => null, null));
 		}
 
 		[Test]
-		public void ImpossibleToCreateXmlForAnswerWithWrongType()
+		public void GivenWrongType_WhenTryToCreateXmlForAnswer_ThenFail()
 		{
 			// act & assert
 			Assert.Throws<ArgumentException>(() => new AnswerXmlSerializationSettings((arg, lang) => null, typeof(object)));
@@ -41,28 +42,28 @@ namespace AabSemantics.Tests.Metadata
 		}
 
 		[Test]
-		public void SuccessfullyCreateJsonForAnswer()
+		public void GivenAllSet_WhenCreateJsonForAnswer_ThenSucceed()
 		{
 			// act & assert
 			Assert.DoesNotThrow(() => new AnswerJsonSerializationSettings((arg, lang) => null, typeof(AabSemantics.Serialization.Json.Answer)));
 		}
 
 		[Test]
-		public void ImpossibleToCreateJsonForAnswerWithoutSerializer()
+		public void GivenNoSerializer_WhenTryToCreateJsonForAnswer_ThenFail()
 		{
 			// act & assert
 			Assert.Throws<ArgumentNullException>(() => new AnswerJsonSerializationSettings(null, typeof(AabSemantics.Serialization.Json.Answer)));
 		}
 
 		[Test]
-		public void ImpossibleToCreateJsonForAnswerWithoutType()
+		public void GivenNoType_WhenTryToCreateJsonForAnswer_ThenFail()
 		{
 			// act & assert
 			Assert.Throws<ArgumentNullException>(() => new AnswerJsonSerializationSettings((arg, lang) => null, null));
 		}
 
 		[Test]
-		public void ImpossibleToCreateJsonForAnswerWithWrongType()
+		public void GivenWrongType_WhenTryToCreateJsonForAnswer_ThenFail()
 		{
 			// act & assert
 			Assert.Throws<ArgumentException>(() => new AnswerJsonSerializationSettings((arg, lang) => null, typeof(object)));
@@ -70,56 +71,56 @@ namespace AabSemantics.Tests.Metadata
 		}
 
 		[Test]
-		public void SuccessfullyCreateXmlForAttribute()
+		public void GivenAllSet_WhenCreateXmlForAttribute_ThenSucceed()
 		{
 			// act & assert
 			Assert.DoesNotThrow(() => new AttributeXmlSerializationSettings(new Modules.Boolean.Xml.IsValueAttribute()));
 		}
 
 		[Test]
-		public void ImpossibleToCreateXmlForAttributeWithoutInstance()
+		public void GivenNoInstance_WhenTryToCreateXmlForAttribute_ThenFail()
 		{
 			// act & assert
 			Assert.Throws<ArgumentNullException>(() => new AttributeXmlSerializationSettings(null));
 		}
 
 		[Test]
-		public void SuccessfullyCreateJsonForAttribute()
+		public void GivenAllSet_WhenCreateJsonForAttribute_ThenSucceed()
 		{
 			// act & assert
 			Assert.DoesNotThrow(() => new AttributeJsonSerializationSettings(new Modules.Boolean.Xml.IsValueAttribute()));
 		}
 
 		[Test]
-		public void ImpossibleToCreateJsonForAttributeWithoutInstance()
+		public void GivenNoInstance_WhenTryToCreateJsonForAttribute_ThenFail()
 		{
 			// act & assert
 			Assert.Throws<ArgumentNullException>(() => new AttributeJsonSerializationSettings(null));
 		}
 
 		[Test]
-		public void SuccessfullyCreateXmlForStatement()
+		public void GivenAllSet_WhenCreateXmlForStatement_ThenSucceed()
 		{
 			// act & assert
 			Assert.DoesNotThrow(() => new StatementXmlSerializationSettings(arg => null, typeof(Modules.Classification.Xml.IsStatement)));
 		}
 
 		[Test]
-		public void ImpossibleToCreateXmlForStatementWithoutSerializer()
+		public void GivenNoSerializer_WhenTryToCreateXmlForStatement_ThenFail()
 		{
 			// act & assert
 			Assert.Throws<ArgumentNullException>(() => new StatementXmlSerializationSettings(null, typeof(Modules.Classification.Xml.IsStatement)));
 		}
 
 		[Test]
-		public void ImpossibleToCreateXmlForStatementWithoutType()
+		public void GivenNoType_WhenTryToCreateXmlForStatement_ThenFail()
 		{
 			// act & assert
 			Assert.Throws<ArgumentNullException>(() => new StatementXmlSerializationSettings(arg => null, null));
 		}
 
 		[Test]
-		public void ImpossibleToCreateXmlForStatementWithWrongType()
+		public void GivenWrongType_WhenTryToCreateXmlForStatement_ThenFail()
 		{
 			// act & assert
 			Assert.Throws<ArgumentException>(() => new StatementXmlSerializationSettings(arg => null, typeof(object)));
@@ -127,28 +128,28 @@ namespace AabSemantics.Tests.Metadata
 		}
 
 		[Test]
-		public void SuccessfullyCreateJsonForStatement()
+		public void GivenAllSet_WhenCreateJsonForStatement_ThenSucceed()
 		{
 			// act & assert
 			Assert.DoesNotThrow(() => new StatementJsonSerializationSettings(arg => null, typeof(Modules.Classification.Json.IsStatement)));
 		}
 
 		[Test]
-		public void ImpossibleToCreateJsonForStatementWithoutSerializer()
+		public void GivenNoSerializer_WhenTryToCreateJsonForStatement_ThenFail()
 		{
 			// act & assert
 			Assert.Throws<ArgumentNullException>(() => new StatementJsonSerializationSettings(null, typeof(Modules.Classification.Json.IsStatement)));
 		}
 
 		[Test]
-		public void ImpossibleToCreateJsonForStatementWithoutType()
+		public void GivenNoType_WhenTryToCreateJsonForStatement_ThenFail()
 		{
 			// act & assert
 			Assert.Throws<ArgumentNullException>(() => new StatementJsonSerializationSettings(arg => null, null));
 		}
 
 		[Test]
-		public void ImpossibleToCreateJsonForStatementWithWrongType()
+		public void GivenWrongType_WhenTryToCreateJsonForStatement_ThenFail()
 		{
 			// act & assert
 			Assert.Throws<ArgumentException>(() => new StatementJsonSerializationSettings(arg => null, typeof(object)));
@@ -156,28 +157,28 @@ namespace AabSemantics.Tests.Metadata
 		}
 
 		[Test]
-		public void SuccessfullyCreateXmlForQuestion()
+		public void GivenAllSet_WhenCreateXmlForQuestion_ThenSucceed()
 		{
 			// act & assert
 			Assert.DoesNotThrow(() => new QuestionXmlSerializationSettings(arg => null, typeof(Modules.Boolean.Xml.CheckStatementQuestion)));
 		}
 
 		[Test]
-		public void ImpossibleToCreateXmlForQuestionWithoutSerializer()
+		public void GivenNoSerializer_WhenTryToCreateXmlForQuestion_ThenFail()
 		{
 			// act & assert
 			Assert.Throws<ArgumentNullException>(() => new QuestionXmlSerializationSettings(null, typeof(Modules.Boolean.Xml.CheckStatementQuestion)));
 		}
 
 		[Test]
-		public void ImpossibleToCreateXmlForQuestionWithoutType()
+		public void GivenNoType_WhenTryToCreateXmlForQuestion_ThenFail()
 		{
 			// act & assert
 			Assert.Throws<ArgumentNullException>(() => new QuestionXmlSerializationSettings(arg => null, null));
 		}
 
 		[Test]
-		public void ImpossibleToCreateXmlForQuestionWithWrongType()
+		public void GivenWrongType_WhenTryToCreateXmlForQuestion_ThenFail()
 		{
 			// act & assert
 			Assert.Throws<ArgumentException>(() => new QuestionXmlSerializationSettings(arg => null, typeof(object)));
@@ -185,28 +186,28 @@ namespace AabSemantics.Tests.Metadata
 		}
 
 		[Test]
-		public void SuccessfullyCreateJsonForQuestion()
+		public void GivenAllSet_WhenCreateJsonForQuestion_ThenSucceed()
 		{
 			// act & assert
 			Assert.DoesNotThrow(() => new QuestionJsonSerializationSettings(arg => null, typeof(Modules.Boolean.Json.CheckStatementQuestion)));
 		}
 
 		[Test]
-		public void ImpossibleToCreateJsonForQuestionWithoutSerializer()
+		public void GivenNoSerializer_WhenTryToCreateJsonForQuestion_ThenFail()
 		{
 			// act & assert
 			Assert.Throws<ArgumentNullException>(() => new QuestionJsonSerializationSettings(null, typeof(Modules.Boolean.Json.CheckStatementQuestion)));
 		}
 
 		[Test]
-		public void ImpossibleToCreateJsonForQuestionWithoutType()
+		public void GivenNoType_WhenTryToCreateJsonForQuestion_ThenFail()
 		{
 			// act & assert
 			Assert.Throws<ArgumentNullException>(() => new QuestionJsonSerializationSettings(arg => null, null));
 		}
 
 		[Test]
-		public void ImpossibleToCreateJsonForQuestionWithWrongType()
+		public void GivenWrongType_WhenTryToCreateJsonForQuestion_ThenFail()
 		{
 			// act & assert
 			Assert.Throws<ArgumentException>(() => new QuestionJsonSerializationSettings(arg => null, typeof(object)));
@@ -214,7 +215,7 @@ namespace AabSemantics.Tests.Metadata
 		}
 
 		[Test]
-		public void CheckTypes()
+		public void GivenXmlAndJsonTypes_WhenCreateSerializationSettings_ThenStoreTheseTypes()
 		{
 			// arrange
 			var answerXmlType = typeof(AabSemantics.Serialization.Xml.Answer);
@@ -248,7 +249,7 @@ namespace AabSemantics.Tests.Metadata
 		}
 
 		[Test]
-		public void CheckUntypedExtensions()
+		public void GivenTypedAndUntypedExtensions_WhenCallThem_ThenWorkTheSame()
 		{
 			// arrange
 			new BooleanModule().RegisterMetadata();

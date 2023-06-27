@@ -30,7 +30,7 @@ namespace AabSemantics.Tests.Statements
 		#region HasPartStatement
 
 		[Test]
-		public void GivenNoWholeWhenTryToCreateHasPartStatementThenFail()
+		public void GivenNoWhole_WhenTryToCreateHasPartStatement_ThenFail()
 		{
 			// arrange
 			var concept = ConceptCreationHelper.CreateConcept();
@@ -40,7 +40,7 @@ namespace AabSemantics.Tests.Statements
 		}
 
 		[Test]
-		public void GivenNoPartWhenTryToCreateHasPartStatementThenFail()
+		public void GivenNoPart_WhenTryToCreateHasPartStatement_ThenFail()
 		{
 			// arrange
 			var concept = ConceptCreationHelper.CreateConcept();
@@ -54,7 +54,7 @@ namespace AabSemantics.Tests.Statements
 		#region GroupStatement
 
 		[Test]
-		public void GivenNoAreaWhenTryToCreateGroupStatementThenFail()
+		public void GivenNoArea_WhenTryToCreateGroupStatement_ThenFail()
 		{
 			// arrange
 			var concept = ConceptCreationHelper.CreateConcept();
@@ -64,7 +64,7 @@ namespace AabSemantics.Tests.Statements
 		}
 
 		[Test]
-		public void GivenNoConceptWhenTryToCreateGroupStatementThenFail()
+		public void GivenNoConcept_WhenTryToCreateGroupStatement_ThenFail()
 		{
 			// arrange
 			var concept = ConceptCreationHelper.CreateConcept();
@@ -78,7 +78,7 @@ namespace AabSemantics.Tests.Statements
 		#region HasSignStatement
 
 		[Test]
-		public void GivenNoConceptWhenTryToCreateHasSignStatementThenFail()
+		public void GivenNoConcept_WhenTryToCreateHasSignStatement_ThenFail()
 		{
 			// arrange
 			var sign = ConceptCreationHelper.CreateConcept();
@@ -89,7 +89,7 @@ namespace AabSemantics.Tests.Statements
 		}
 
 		[Test]
-		public void GivenNoSignWhenTryToCreateHasSignStatementThenFail()
+		public void GivenNoSign_WhenTryToCreateHasSignStatement_ThenFail()
 		{
 			// arrange
 			var concept = ConceptCreationHelper.CreateConcept();
@@ -99,7 +99,7 @@ namespace AabSemantics.Tests.Statements
 		}
 
 		[Test]
-		public void GivenSignWithoutAttributeWhenTryToCreateHasSignStatementThenFail()
+		public void GivenSignWithoutAttribute_WhenTryToCreateHasSignStatement_ThenFail()
 		{
 			// arrange
 			var concept = ConceptCreationHelper.CreateConcept();
@@ -114,7 +114,7 @@ namespace AabSemantics.Tests.Statements
 		#region IsStatement
 
 		[Test]
-		public void GivenNoAncestorWhenTryToCreateIsStatementThenFail()
+		public void GivenNoAncestor_WhenTryToCreateIsStatement_ThenFail()
 		{
 			// arrange
 			var concept = ConceptCreationHelper.CreateConcept();
@@ -124,7 +124,7 @@ namespace AabSemantics.Tests.Statements
 		}
 
 		[Test]
-		public void GivenNoDescendantWhenTryToCreateIsStatementThenFail()
+		public void GivenNoDescendant_WhenTryToCreateIsStatement_ThenFail()
 		{
 			// arrange
 			var concept = ConceptCreationHelper.CreateConcept();
@@ -138,7 +138,7 @@ namespace AabSemantics.Tests.Statements
 		#region SignValueStatement
 
 		[Test]
-		public void GivenNoConceptWhenTryToCreateSignValueStatementThenFail()
+		public void GivenNoConcept_WhenTryToCreateSignValueStatement_ThenFail()
 		{
 			// arrange
 			var sign = ConceptCreationHelper.CreateConcept();
@@ -151,7 +151,7 @@ namespace AabSemantics.Tests.Statements
 		}
 
 		[Test]
-		public void GivenNoSignWhenTryToCreateSignValueStatementThenFail()
+		public void GivenNoSign_WhenTryToCreateSignValueStatement_ThenFail()
 		{
 			// arrange
 			var concept = ConceptCreationHelper.CreateConcept();
@@ -165,7 +165,7 @@ namespace AabSemantics.Tests.Statements
 		}
 
 		[Test]
-		public void GivenNoValueWhenTryToCreateSignValueStatementThenFail()
+		public void GivenNoValue_WhenTryToCreateSignValueStatement_ThenFail()
 		{
 			// arrange
 			var concept = ConceptCreationHelper.CreateConcept();
@@ -179,7 +179,7 @@ namespace AabSemantics.Tests.Statements
 		}
 
 		[Test]
-		public void GivenSignWithoutAttributeWhenTryToCreateSignValueStatementThenFail()
+		public void GivenSignWithoutAttribute_WhenTryToCreateSignValueStatement_ThenFail()
 		{
 			// arrange
 			var concept = ConceptCreationHelper.CreateConcept();
@@ -192,7 +192,7 @@ namespace AabSemantics.Tests.Statements
 		}
 
 		[Test]
-		public void GivenValueWithoutAttributeWhenTryToCreateSignValueStatementThenFail()
+		public void GivenValueWithoutAttribute_WhenTryToCreateSignValueStatement_ThenFail()
 		{
 			// arrange
 			var concept = ConceptCreationHelper.CreateConcept();
@@ -209,7 +209,7 @@ namespace AabSemantics.Tests.Statements
 		#region ComparisonStatement
 
 		[Test]
-		public void GivenNoLeftValueWhenTryToCreateComparisonStatementThenFail()
+		public void GivenNoLeftValue_WhenTryToCreateComparisonStatement_ThenFail()
 		{
 			// arrange
 			var right = ConceptCreationHelper.CreateConcept();
@@ -222,7 +222,7 @@ namespace AabSemantics.Tests.Statements
 		}
 
 		[Test]
-		public void GivenNoRightValueWhenTryToCreateComparisonStatementThenFail()
+		public void GivenNoRightValue_WhenTryToCreateComparisonStatement_ThenFail()
 		{
 			// arrange
 			var left = ConceptCreationHelper.CreateConcept();
@@ -235,7 +235,7 @@ namespace AabSemantics.Tests.Statements
 		}
 
 		[Test]
-		public void GivenNoSignWhenTryToCreateComparisonStatementThenFail()
+		public void GivenNoSign_WhenTryToCreateComparisonStatement_ThenFail()
 		{
 			// arrange
 			var left = ConceptCreationHelper.CreateConcept();
@@ -248,7 +248,7 @@ namespace AabSemantics.Tests.Statements
 		}
 
 		[Test]
-		public void GivenLeftWithoutAttributeWhenTryToCreateComparisonStatementThenFail()
+		public void GivenLeftWithoutAttribute_WhenTryToCreateComparisonStatement_ThenFail()
 		{
 			// arrange
 			var left = ConceptCreationHelper.CreateConcept();
@@ -262,7 +262,7 @@ namespace AabSemantics.Tests.Statements
 		}
 
 		[Test]
-		public void GivenRightWithoutAttributeWhenTryToCreateComparisonStatementThenFail()
+		public void GivenRightWithoutAttribute_WhenTryToCreateComparisonStatement_ThenFail()
 		{
 			// arrange
 			var left = ConceptCreationHelper.CreateConcept();
@@ -276,7 +276,7 @@ namespace AabSemantics.Tests.Statements
 		}
 
 		[Test]
-		public void GivenSignWithoutAttributeWhenTryToCreateComparisonStatementThenFail()
+		public void GivenSignWithoutAttribute_WhenTryToCreateComparisonStatement_ThenFail()
 		{
 			// arrange
 			var left = ConceptCreationHelper.CreateConcept();
@@ -294,7 +294,7 @@ namespace AabSemantics.Tests.Statements
 		#region ProcessesStatement
 
 		[Test]
-		public void GivenNoProcessAWhenTryToCreateProcessesStatementThenFail()
+		public void GivenNoProcessA_WhenTryToCreateProcessesStatement_ThenFail()
 		{
 			// arrange
 			var processB = ConceptCreationHelper.CreateConcept();
@@ -307,7 +307,7 @@ namespace AabSemantics.Tests.Statements
 		}
 
 		[Test]
-		public void GivenNoProcessBWhenTryToCreateProcessesStatementThenFail()
+		public void GivenNoProcessB_WhenTryToCreateProcessesStatement_ThenFail()
 		{
 			// arrange
 			var processA = ConceptCreationHelper.CreateConcept();
@@ -320,7 +320,7 @@ namespace AabSemantics.Tests.Statements
 		}
 
 		[Test]
-		public void GivenNoSignWhenTryToCreateProcessesStatementThenFail()
+		public void GivenNoSign_WhenTryToCreateProcessesStatement_ThenFail()
 		{
 			// arrange
 			var processA = ConceptCreationHelper.CreateConcept();
@@ -333,7 +333,7 @@ namespace AabSemantics.Tests.Statements
 		}
 
 		[Test]
-		public void GivenProcessAWithoutAttributeWhenTryToCreateProcessesStatementThenFail()
+		public void GivenProcessAWithoutAttribute_WhenTryToCreateProcessesStatement_ThenFail()
 		{
 			// arrange
 			var processA = ConceptCreationHelper.CreateConcept();
@@ -347,7 +347,7 @@ namespace AabSemantics.Tests.Statements
 		}
 
 		[Test]
-		public void GivenProcessBWithoutAttributeWhenTryToCreateProcessesStatementThenFail()
+		public void GivenProcessBWithoutAttribute_WhenTryToCreateProcessesStatement_ThenFail()
 		{
 			// arrange
 			var processA = ConceptCreationHelper.CreateConcept();
@@ -361,7 +361,7 @@ namespace AabSemantics.Tests.Statements
 		}
 
 		[Test]
-		public void GivenSignWithoutAttributeWhenTryToCreateProcessesStatementThenFail()
+		public void GivenSignWithoutAttribute_WhenTryToCreateProcessesStatement_ThenFail()
 		{
 			// arrange
 			var processA = ConceptCreationHelper.CreateConcept();
@@ -379,7 +379,7 @@ namespace AabSemantics.Tests.Statements
 		#region Common properties (ID, name, hint)
 
 		[Test]
-		public void CreateStatementWithAllPropertiesSet()
+		public void GivenAllPropertiesSet_WhenCreate_ThenSucceed()
 		{
 			// arrange && act
 			var statement = new TestStatement(TestStatementId, new LocalizedStringVariable(), new LocalizedStringVariable());
@@ -389,7 +389,7 @@ namespace AabSemantics.Tests.Statements
 		}
 
 		[Test]
-		public void CreateStatementWithoutId()
+		public void GivenNoId_WhenCreate_ThenIdIsNotNull()
 		{
 			// arrange && act
 			var statement = new TestStatement(null, new LocalizedStringVariable(), new LocalizedStringVariable());
@@ -399,13 +399,13 @@ namespace AabSemantics.Tests.Statements
 		}
 
 		[Test]
-		public void FailToCreateStatementWithoutName()
+		public void GivenNoName_WhenTryToCreate_ThenFail()
 		{
 			Assert.Throws<ArgumentNullException>(() => new TestStatement(TestStatementId, null, new LocalizedStringVariable()));
 		}
 
 		[Test]
-		public void CreateStatementWithoutHint()
+		public void GivenNoHint_WhenCreate_ThenHintIsNotNull()
 		{
 			// arrange && act
 			var statement = new TestStatement(TestStatementId, new LocalizedStringVariable(), null);
@@ -415,7 +415,7 @@ namespace AabSemantics.Tests.Statements
 		}
 
 		[Test]
-		public void CheckAllHints()
+		public void GivenBasicStatements_WhenCheckHint_ThenItIsNotEmpty()
 		{
 		// arrange
 			var modules = new IExtensionModule[]

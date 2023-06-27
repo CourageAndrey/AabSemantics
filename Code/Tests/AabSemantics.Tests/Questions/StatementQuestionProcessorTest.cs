@@ -19,7 +19,7 @@ namespace AabSemantics.Tests.Questions
 	public class StatementQuestionProcessorTest
 	{
 		[Test]
-		public void StatementQuestionProcessorWorksByDefault()
+		public void GivenCustomQuestionProcessor_WhenProcess_ThenSucceed()
 		{
 			// arrange
 			var semanticNetwork = new SemanticNetwork(Language.Default);
@@ -38,7 +38,7 @@ namespace AabSemantics.Tests.Questions
 		}
 
 		[Test]
-		public void CheckAdditionalTransitives()
+		public void GivenTransitiveStatements_WhenProcess_ThenSucceed()
 		{
 			// arrange
 			var testData = new TestSemanticNetwork(Language.Default);

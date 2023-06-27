@@ -13,14 +13,14 @@ namespace AabSemantics.Tests.Mutations
 	public class ConceptSearchPatternTest
 	{
 		[Test]
-		public void GivenNoConceptFilterWhenTryToCreateConceptSearchPatternThenThrow()
+		public void GivenNoConceptFilter_WhenTryToCreateConceptSearchPattern_ThenThrow()
 		{
 			// act && assert
 			Assert.Throws<ArgumentNullException>(() => new ConceptSearchPattern(null));
 		}
 
 		[Test]
-		public void GivenAllConceptSearchPatternWhenFindThenReturnAll()
+		public void GivenAllConceptSearchPattern_WhenFind_ThenReturnAll()
 		{
 			// arrange
 			var concepts = new List<IConcept>();

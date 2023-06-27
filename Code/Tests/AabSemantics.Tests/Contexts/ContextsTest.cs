@@ -17,7 +17,7 @@ namespace AabSemantics.Tests.Contexts
 	public class ContextsTest
 	{
 		[Test]
-		public void EnsureThatPossibleToDisposeContextWithoutChildContexts()
+		public void GivenNoChildContexts_WhenDispose_ThenSucceed()
 		{
 			// arrange
 			var language = Language.Default;
@@ -31,7 +31,7 @@ namespace AabSemantics.Tests.Contexts
 		}
 
 		[Test]
-		public void EnsureThatPossibleToDisposeContextWithAllDisposedChildContexts()
+		public void GivenAllChildContextsDisposed_WhenDispose_ThenSucceed()
 		{
 			// arrange
 			var language = Language.Default;
@@ -50,7 +50,7 @@ namespace AabSemantics.Tests.Contexts
 		}
 
 		[Test]
-		public void EnsureThatImpossibleToDisposeContextWhichHasAllNotDisposedChildContexts()
+		public void GivenAllChildContextsNotDisposed_WhenTryToDispose_ThenFail()
 		{
 			// arrange
 			var language = Language.Default;
@@ -69,7 +69,7 @@ namespace AabSemantics.Tests.Contexts
 		}
 
 		[Test]
-		public void EnsureThatImpossibleToDisposeContextWhichHasOneNotDisposedChildContext()
+		public void GivenAtLeastOneChildContextNotDisposed_WhenTryToDispose_ThenFail()
 		{
 			// arrange
 			var language = Language.Default;
@@ -88,7 +88,7 @@ namespace AabSemantics.Tests.Contexts
 			}
 		}
 
-		// This test partially duplicates previous one.
+#warning This test partially duplicates previous one.
 		[Test]
 		public void ImpossibleToDisposeContextWithActiveChildren()
 		{
@@ -110,7 +110,7 @@ namespace AabSemantics.Tests.Contexts
 		}
 
 		[Test]
-		public void ContextDisposingRemovesStatementsAddedByIt()
+		public void GivenContextStatements_WhenDispose_ThenRemoveThemFromSemanticsNetwork()
 		{
 			var language = Language.Default;
 			var semanticNetwork = new SemanticNetwork(language);
@@ -118,12 +118,12 @@ namespace AabSemantics.Tests.Contexts
 			// this context adds to semantic network new test statement, attached to this context
 			new TestQuestionCreateContextKnowledge().Ask(semanticNetwork.Context);
 
-			// as context has been disposed after previous line, ensure, that added test stametement(s) was (were) also deleted
+			// as context has been disposed after previous line, ensure, that added test statement(s) was (were) also deleted
 			Assert.IsFalse(semanticNetwork.Statements.Enumerate<TestStatement>().Any());
 		}
 
 		[Test]
-		public void OnlySystemContextIsSystem()
+		public void GivenDifferentContexts_WhenCheckIsSystemProperty_ThenOnlySystemContextReturnsTrue()
 		{
 			var language = Language.Default;
 
@@ -139,7 +139,7 @@ namespace AabSemantics.Tests.Contexts
 		}
 
 		[Test]
-		public void AccessQuestionContextQuestion()
+		public void GivenQuestionContext_WhenGetQuestion_ThenReturnIt()
 		{
 			// arrange
 			var language = Language.Default;
@@ -157,7 +157,7 @@ namespace AabSemantics.Tests.Contexts
 		}
 
 		[Test]
-		public void ImpossibleToInstantiateMoreThanOneSemanticNetworkContextOutOfOneSystemContext()
+		public void GivenInstantiatedSystemContext_WhenTryInstantiateOnceMore_ThenFail()
 		{
 			// arrange
 			var language = Language.Default;
@@ -169,7 +169,7 @@ namespace AabSemantics.Tests.Contexts
 		}
 
 		[Test]
-		public void ContextDisposalWorksOnlyOnce()
+		public void GivenDisposedContext_WhenTryToDisposeOnceMore_ThenNothingHappens()
 		{
 			// arrange
 			var language = Language.Default;
@@ -186,7 +186,7 @@ namespace AabSemantics.Tests.Contexts
 		}
 
 		[Test]
-		public void ExplicitlyCheckContextDisposing()
+		public void GivenComplexContextsSystem_WhenDispose_ThenAllWorksCorrect()
 		{
 			// arrange
 			var language = Language.Default;
@@ -201,11 +201,11 @@ namespace AabSemantics.Tests.Contexts
 
 			Assert.DoesNotThrow(() =>
 			{
-				using (var context = createChildDisposableContext(semanticNetwork.Context))
+				using (var context = CreateChildDisposableContext(semanticNetwork.Context))
 				{
 					for (int i = 0; i < 5; i++)
 					{
-						var child = createChildDisposableContext(context);
+						var child = CreateChildDisposableContext(context);
 						child.Dispose(); // this call remove child from context.Children
 						context.Children.Add(child); // return child back
 					}
@@ -214,15 +214,15 @@ namespace AabSemantics.Tests.Contexts
 
 			Assert.Throws<InvalidOperationException>(() =>
 			{
-				using (var context = createChildDisposableContext(semanticNetwork.Context))
+				using (var context = CreateChildDisposableContext(semanticNetwork.Context))
 				{
-					createChildDisposableContext(context);
+					CreateChildDisposableContext(context);
 				}
 			});
 		}
 
 		[Test]
-		public void CheckQuestionContextLanguagesOverride()
+		public void GivenDifferentLanguages_WhenCreateContext_ThenChildContextLanguageChanges()
 		{
 			// arrange
 			var language1 = Language.Default;
@@ -249,7 +249,7 @@ namespace AabSemantics.Tests.Contexts
 			Assert.AreSame(language2, contextWithChangedLanguage.Language);
 		}
 
-		private static DisposableProcessingContext createChildDisposableContext(ISemanticNetworkContext parent)
+		private static DisposableProcessingContext CreateChildDisposableContext(ISemanticNetworkContext parent)
 		{
 			var statement = new IsStatement(null, new Concept(), new Concept());
 			var question = new CheckStatementQuestion(statement);

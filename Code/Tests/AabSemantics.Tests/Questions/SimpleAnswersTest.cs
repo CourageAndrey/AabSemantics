@@ -64,8 +64,8 @@ namespace AabSemantics.Tests.Questions
 		}
 
 		[Test]
-		[TestCaseSource(nameof(createEmptyQuestions))]
-		public void CheckEmpty(IQuestion question)
+		[TestCaseSource(nameof(CreateEmptyQuestions))]
+		public void GivenQuestionsForEmpty_WhenBeingAsked_ThenAnswerCorrespondingly(IQuestion question)
 		{
 			// act
 			var answer = question.Ask(_semanticNetwork.Context);
@@ -78,8 +78,8 @@ namespace AabSemantics.Tests.Questions
 		}
 
 		[Test]
-		[TestCaseSource(nameof(createTrueQuestions))]
-		public void CheckTrue(IQuestion question, string expectedAnswerToken)
+		[TestCaseSource(nameof(CreateTrueQuestions))]
+		public void GivenQuestionsForTrue_WhenBeingAsked_ThenAnswerCorrespondingly(IQuestion question, string expectedAnswerToken)
 		{
 			// act
 			var answer = (BooleanAnswer) question.Ask(_semanticNetwork.Context);
@@ -91,8 +91,8 @@ namespace AabSemantics.Tests.Questions
 		}
 
 		[Test]
-		[TestCaseSource(nameof(createFalseQuestions))]
-		public void CheckFalse(IQuestion question, string expectedAnswerToken)
+		[TestCaseSource(nameof(CreateFalseQuestions))]
+		public void GivenQuestionsForFalse_WhenBeingAsked_ThenAnswerCorrespondingly(IQuestion question, string expectedAnswerToken)
 		{
 			// act
 			var answer = (BooleanAnswer) question.Ask(_semanticNetwork.Context);
@@ -103,7 +103,7 @@ namespace AabSemantics.Tests.Questions
 			Assert.IsTrue(description.Contains(expectedAnswerToken));
 		}
 
-		private static IEnumerable<object[]> createEmptyQuestions()
+		private static IEnumerable<object[]> CreateEmptyQuestions()
 		{
 			var concept1 = 1.CreateConcept();
 			var concept2 = 2.CreateConcept();
@@ -120,7 +120,7 @@ namespace AabSemantics.Tests.Questions
 			yield return new object[] { new SignValueQuestion(concept1, concept2) };
 		}
 
-		private static IEnumerable<object[]> createTrueQuestions()
+		private static IEnumerable<object[]> CreateTrueQuestions()
 		{
 			var statement = _semanticNetwork.Statements.First();
 
@@ -134,7 +134,7 @@ namespace AabSemantics.Tests.Questions
 			yield return new object[] { new IsValueQuestion(_concept2), " is sign value." };
 		}
 
-		private static IEnumerable<object[]> createFalseQuestions()
+		private static IEnumerable<object[]> CreateFalseQuestions()
 		{
 			var statement = new IsStatement(null, _concept3, _concept2);
 

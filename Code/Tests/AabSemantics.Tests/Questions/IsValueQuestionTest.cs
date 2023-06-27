@@ -17,7 +17,7 @@ namespace AabSemantics.Tests.Questions
 	public class IsValueQuestionTest
 	{
 		[Test]
-		public void ReturnFalseIfNoAttribute()
+		public void GivenNoAttribute_WhenBeingAsked_ThenReturnFalse()
 		{
 			// arrange
 			var language = Language.Default;
@@ -36,7 +36,7 @@ namespace AabSemantics.Tests.Questions
 		}
 
 		[Test]
-		public void ReturnTrueWithoutExplanationIfNoRelationships()
+		public void GivenNoStatements_WhenBeingAsked_ThenReturnTrueWithoutExplanation()
 		{
 			// arrange
 			var language = Language.Default;
@@ -56,7 +56,7 @@ namespace AabSemantics.Tests.Questions
 		}
 
 		[Test]
-		public void ReturnTrueWithtExplanation()
+		public void GivenExistingStatements_WhenBeingAsked_ThenReturnTrueWithExplanation()
 		{
 			// arrange
 			var language = Language.Default;

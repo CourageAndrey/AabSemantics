@@ -17,11 +17,11 @@ namespace AabSemantics.Tests.Statements
 		private const int _testChainLength = 5;
 
 		[Test]
-		public void SingleStatementCanNotContradict()
+		public void GivenSingleStatement_WhenCheckContradictions_ThenNoContradictions()
 		{
 			// arrange
-			var processA = createProcessConcept("A");
-			var processB = createProcessConcept("B");
+			var processA = CreateProcessConcept("A");
+			var processB = CreateProcessConcept("B");
 
 			// act
 			foreach (var sign in SequenceSigns.All)
@@ -36,12 +36,12 @@ namespace AabSemantics.Tests.Statements
 		}
 
 		[Test]
-		public void ValidSequenceCombinationsCanNotContradict()
+		public void GivenValidSequenceCombination_WhenCheckContradictions_ThenNoContradictions()
 		{
 			// arrange
-			var processA = createProcessConcept("A");
-			var processI = createProcessConcept("I");
-			var processB = createProcessConcept("B");
+			var processA = CreateProcessConcept("A");
+			var processI = CreateProcessConcept("I");
+			var processB = CreateProcessConcept("B");
 
 			// act
 			foreach (var signPair in SequenceSigns.ValidSequenceCombinations)
@@ -64,14 +64,14 @@ namespace AabSemantics.Tests.Statements
 		}
 
 		[Test]
-		public void SingleTransitiveSignChainsHaveNoContradictions()
+		public void GivenSingleSignChain_WhenCheckContradictions_ThenNoContradictions()
 		{
 			// arrange
 			var concepts = new List<IConcept>();
 			char letter = 'A';
 			for (int i = 0; i < _testChainLength; i++)
 			{
-				concepts.Add(createProcessConcept(letter.ToString()));
+				concepts.Add(CreateProcessConcept(letter.ToString()));
 				letter++;
 			}
 
@@ -80,7 +80,7 @@ namespace AabSemantics.Tests.Statements
 			{
 				for (int revertCount = 0; revertCount < _testChainLength; revertCount++)
 				{
-					var statements = createSimpleChain(concepts, sign);
+					var statements = CreateSimpleChain(concepts, sign);
 					for (int r = 0; r < revertCount; r++)
 					{
 						statements[r] = statements[r].SwapOperands();
@@ -95,11 +95,11 @@ namespace AabSemantics.Tests.Statements
 		}
 
 		[Test]
-		public void DuplicatedStatementsHaveNoContradictions()
+		public void GivenDuplicatingStatements_WhenCheckContradictions_ThenNoContradictions()
 		{
 			// arrange
-			var concept1 = createProcessConcept("A");
-			var concept2 = createProcessConcept("B");
+			var concept1 = CreateProcessConcept("A");
+			var concept2 = CreateProcessConcept("B");
 
 			// act
 			foreach (var sign in SequenceSigns.All)
@@ -118,11 +118,11 @@ namespace AabSemantics.Tests.Statements
 		}
 
 		[Test]
-		public void TwoCondradictedStatementsHaveContradictions()
+		public void GivenTwoContradictedStatements_WhenCheckContradictions_ThenFindContradictions()
 		{
 			// arrange
-			var conceptA = createProcessConcept("A");
-			var conceptB = createProcessConcept("B");
+			var conceptA = CreateProcessConcept("A");
+			var conceptB = CreateProcessConcept("B");
 
 			// act
 			foreach (var sign in SequenceSigns.All)
@@ -152,14 +152,14 @@ namespace AabSemantics.Tests.Statements
 		}
 
 		[Test]
-		public void SingleSignLoopsHaveContradictions()
+		public void GivenSingleSignSequenceLoop_WhenCheckContradictions_ThenFindContradictions()
 		{
 			// arrange
 			var concepts = new List<IConcept>();
 			char letter = 'A';
 			for (int i = 0; i < _testChainLength; i++)
 			{
-				concepts.Add(createProcessConcept(letter.ToString()));
+				concepts.Add(CreateProcessConcept(letter.ToString()));
 				letter++;
 			}
 
@@ -168,7 +168,7 @@ namespace AabSemantics.Tests.Statements
 			{
 				foreach (var sign in SequenceSigns.TransitiveSigns.Except(SequenceSigns.WhenSigns))
 				{
-					var statements = createSimpleLoop(concepts.Take(chainLength).ToList(), sign);
+					var statements = CreateSimpleLoop(concepts.Take(chainLength).ToList(), sign);
 
 					var contradictions = statements.CheckForContradictions();
 
@@ -179,10 +179,10 @@ namespace AabSemantics.Tests.Statements
 		}
 
 		[Test]
-		public void ProcessCanNotChangeItsBounds()
+		public void GivenValueSequencedItself_WhenCheckContradictions_ThenCheckSelfContradiction()
 		{
 			// arrange
-			var process = createProcessConcept("process");
+			var process = CreateProcessConcept("process");
 
 			// act
 			foreach (var sign in SequenceSigns.All)
@@ -203,14 +203,14 @@ namespace AabSemantics.Tests.Statements
 			}
 		}
 
-		private static IConcept createProcessConcept(string name)
+		private static IConcept CreateProcessConcept(string name)
 		{
 			var concept = name.CreateConcept();
 			concept.WithAttribute(IsProcessAttribute.Value);
 			return concept;
 		}
 
-		private static List<ProcessesStatement> createSimpleChain(List<IConcept> concepts, IConcept sign)
+		private static List<ProcessesStatement> CreateSimpleChain(List<IConcept> concepts, IConcept sign)
 		{
 			var statements = new List<ProcessesStatement>();
 			for (int i = 0; i < concepts.Count - 1; i++)
@@ -222,9 +222,9 @@ namespace AabSemantics.Tests.Statements
 			return statements;
 		}
 
-		private static List<ProcessesStatement> createSimpleLoop(List<IConcept> concepts, IConcept sign)
+		private static List<ProcessesStatement> CreateSimpleLoop(List<IConcept> concepts, IConcept sign)
 		{
-			var statements = createSimpleChain(concepts, sign);
+			var statements = CreateSimpleChain(concepts, sign);
 			statements.Add(new ProcessesStatement(null, statements.Last().ProcessB,
 				statements.First().ProcessA,
 				sign));

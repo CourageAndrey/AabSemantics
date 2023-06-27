@@ -18,7 +18,7 @@ namespace AabSemantics.Tests.Mutations
 	public class JoinSearchPatternTest
 	{
 		[Test]
-		public void ImpossibleToCreateWithoutLeftSearchPattern()
+		public void GivenNoLeftSearchPattern_WhenTryToCreate_ThenFail()
 		{
 			// arrange
 			var rightSearchPattern = new StatementSearchPattern<IsStatement>();
@@ -35,7 +35,7 @@ namespace AabSemantics.Tests.Mutations
 		}
 
 		[Test]
-		public void ImpossibleToCreateWithoutRightSearchPattern()
+		public void GivenNoRightSearchPattern_WhenTryToCreate_ThenFail()
 		{
 			// arrange
 			var leftSearchPattern = new StatementSearchPattern<IsStatement>();
@@ -52,7 +52,7 @@ namespace AabSemantics.Tests.Mutations
 		}
 
 		[Test]
-		public void ImpossibleToCreateWithoutRightLeftConceptSelector()
+		public void GivenNoRightLeftConceptSelector_WhenTryToCreate_ThenFail()
 		{
 			// arrange
 			var leftSearchPattern = new StatementSearchPattern<IsStatement>();
@@ -69,7 +69,7 @@ namespace AabSemantics.Tests.Mutations
 		}
 
 		[Test]
-		public void ImpossibleToCreateWithoutRightConceptSelector()
+		public void GivenNoRightConceptSelector_WhenTryToCreate_ThenFail()
 		{
 			// arrange
 			var leftSearchPattern = new StatementSearchPattern<IsStatement>();
@@ -86,33 +86,33 @@ namespace AabSemantics.Tests.Mutations
 		}
 
 		[Test]
-		public void GivenAllDataWhenIntersectJoinThenFindProperData()
+		public void GivenAllData_WhenIntersectJoin_ThenFindProperData()
 		{
 			// arrange
-			var semanticNetwork = createTestSemanticNetwork();
-			var joinSearchPattern = createTestSearchPattern(JoinType.IntersectJoin);
+			var semanticNetwork = CreateTestSemanticNetwork();
+			var joinSearchPattern = CreateTestSearchPattern(JoinType.IntersectJoin);
 
 			// act
 			var matches = joinSearchPattern.FindMatches(semanticNetwork).ToList();
 
 			// assert
 			Assert.AreEqual(8, matches.Count);
-			validateInnerJoins(semanticNetwork, matches, joinSearchPattern);
+			ValidateInnerJoins(semanticNetwork, matches, joinSearchPattern);
 		}
 
 		[Test]
-		public void GivenAllDataWhenLeftJoinThenFindProperData()
+		public void GivenAllData_WhenLeftJoin_ThenFindProperData()
 		{
 			// arrange
-			var semanticNetwork = createTestSemanticNetwork();
-			var joinSearchPattern = createTestSearchPattern(JoinType.LeftJoin);
+			var semanticNetwork = CreateTestSemanticNetwork();
+			var joinSearchPattern = CreateTestSearchPattern(JoinType.LeftJoin);
 
 			// act
 			var matches = joinSearchPattern.FindMatches(semanticNetwork).ToList();
 
 			// assert
 			Assert.AreEqual(9, matches.Count);
-			validateInnerJoins(semanticNetwork, matches, joinSearchPattern);
+			ValidateInnerJoins(semanticNetwork, matches, joinSearchPattern);
 			Assert.AreEqual(1, matches.Count(m =>
 				m.SearchPattern == joinSearchPattern &&
 				m.SemanticNetwork == semanticNetwork &&
@@ -123,18 +123,18 @@ namespace AabSemantics.Tests.Mutations
 		}
 
 		[Test]
-		public void GivenAllDataWhenRightJoinThenFindProperData()
+		public void GivenAllData_WhenRightJoin_ThenFindProperData()
 		{
 			// arrange
-			var semanticNetwork = createTestSemanticNetwork();
-			var joinSearchPattern = createTestSearchPattern(JoinType.RightJoin);
+			var semanticNetwork = CreateTestSemanticNetwork();
+			var joinSearchPattern = CreateTestSearchPattern(JoinType.RightJoin);
 
 			// act
 			var matches = joinSearchPattern.FindMatches(semanticNetwork).ToList();
 
 			// assert
 			Assert.AreEqual(9, matches.Count);
-			validateInnerJoins(semanticNetwork, matches, joinSearchPattern);
+			ValidateInnerJoins(semanticNetwork, matches, joinSearchPattern);
 			Assert.AreEqual(1, matches.Count(m =>
 				m.SearchPattern == joinSearchPattern &&
 				m.SemanticNetwork == semanticNetwork &&
@@ -145,11 +145,11 @@ namespace AabSemantics.Tests.Mutations
 		}
 
 		[Test]
-		public void GivenAllDataWhenFullJoinThenFindProperData()
+		public void GivenAllData_WhenFullJoin_ThenFindProperData()
 		{
 			// arrange
-			var semanticNetwork = createTestSemanticNetwork();
-			var joinSearchPattern = createTestSearchPattern(JoinType.FullJoin);
+			var semanticNetwork = CreateTestSemanticNetwork();
+			var joinSearchPattern = CreateTestSearchPattern(JoinType.FullJoin);
 
 			// act
 			var matches = joinSearchPattern.FindMatches(semanticNetwork).ToList();
@@ -163,7 +163,7 @@ namespace AabSemantics.Tests.Mutations
 				m.Knowledge[joinSearchPattern] == semanticNetwork.Concepts["10"] &&
 				((ComparisonStatement) m.Knowledge[joinSearchPattern.Left])?.LeftValue == semanticNetwork.Concepts["9"] &&
 				((ComparisonStatement) m.Knowledge[joinSearchPattern.Right])?.RightValue == null));
-			validateInnerJoins(semanticNetwork, matches, joinSearchPattern);
+			ValidateInnerJoins(semanticNetwork, matches, joinSearchPattern);
 			Assert.AreEqual(1, matches.Count(m =>
 				m.SearchPattern == joinSearchPattern &&
 				m.SemanticNetwork == semanticNetwork &&
@@ -175,7 +175,7 @@ namespace AabSemantics.Tests.Mutations
 
 		private const int _numbersCount = 10;
 
-		private static ISemanticNetwork createTestSemanticNetwork()
+		private static ISemanticNetwork CreateTestSemanticNetwork()
 		{
 			var semanticNetwork = new SemanticNetwork(Language.Default);
 
@@ -194,7 +194,7 @@ namespace AabSemantics.Tests.Mutations
 			return semanticNetwork;
 		}
 
-		private static JoinSearchPattern<ComparisonStatement, ComparisonStatement> createTestSearchPattern(JoinType joinType)
+		private static JoinSearchPattern<ComparisonStatement, ComparisonStatement> CreateTestSearchPattern(JoinType joinType)
 		{
 			return new JoinSearchPattern<ComparisonStatement, ComparisonStatement>(
 				new StatementSearchPattern<ComparisonStatement>(),
@@ -204,11 +204,11 @@ namespace AabSemantics.Tests.Mutations
 				comparison => comparison.LeftValue);
 		}
 
-		private static void validateInnerJoins(ISemanticNetwork semanticNetwork, List<KnowledgeStructure> matches, JoinSearchPattern<ComparisonStatement, ComparisonStatement> joinSearchPattern)
+		private static void ValidateInnerJoins(ISemanticNetwork semanticNetwork, List<KnowledgeStructure> matches, JoinSearchPattern<ComparisonStatement, ComparisonStatement> joinSearchPattern)
 		{
 			for (int i = 1; i <= 8; i++)
 			{
-				Assert.AreEqual(1, matches.Count(m => validateJoin(
+				Assert.AreEqual(1, matches.Count(m => ValidateJoin(
 					semanticNetwork,
 					joinSearchPattern,
 					m,
@@ -218,7 +218,7 @@ namespace AabSemantics.Tests.Mutations
 			}
 		}
 
-		private static bool validateJoin(
+		private static bool ValidateJoin(
 			ISemanticNetwork semanticNetwork,
 			JoinSearchPattern<ComparisonStatement, ComparisonStatement> joinSearchPattern,
 			KnowledgeStructure knowledgeStructure,

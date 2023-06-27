@@ -15,7 +15,7 @@ namespace AabSemantics.Tests.Utils
 	public class EventCollectionTest
 	{
 		[Test]
-		public void AddAddsItem()
+		public void GivenNoHandlers_WhenAdd_ThenSucceed()
 		{
 			var collection = new SimpleEventCollection();
 
@@ -31,7 +31,7 @@ namespace AabSemantics.Tests.Utils
 		}
 
 		[Test]
-		public void RemoveRemovesItem()
+		public void GivenNoHandlers_WhenRemove_ThenSucceed()
 		{
 			var collection = new SimpleEventCollection { "A", "B", "C" };
 
@@ -45,7 +45,7 @@ namespace AabSemantics.Tests.Utils
 		}
 
 		[Test]
-		public void ClearRemoveAllItems()
+		public void GivenNoHandlers_WhenClear_ThenSucceed()
 		{
 			var collection = new SimpleEventCollection { "A", "B", "C" };
 
@@ -59,7 +59,7 @@ namespace AabSemantics.Tests.Utils
 		}
 
 		[Test]
-		public void AddWorksOnlyIfAllowed()
+		public void GivenDifferentHandlers_WhenTryToAdd_ThenWorkOnlyIfAllowed()
 		{
 			var collection = new SimpleEventCollection();
 			string result = string.Empty;
@@ -78,7 +78,7 @@ namespace AabSemantics.Tests.Utils
 		}
 
 		[Test]
-		public void RemoveWorksOnlyIfAllowed()
+		public void GivenDifferentHandlers_WhenTryToRemove_ThenWorkOnlyIfAllowed()
 		{
 			var collection = new SimpleEventCollection { "A", "B", "C" };
 			string result = string.Empty;
@@ -96,7 +96,7 @@ namespace AabSemantics.Tests.Utils
 		}
 
 		[Test]
-		public void SuccessfulClearWorks()
+		public void GivenAllowingHandler_WhenClear_ThenSucceed()
 		{
 			var collection = new SimpleEventCollection { "A", "B", "C" };
 			string result = string.Empty;
@@ -110,7 +110,7 @@ namespace AabSemantics.Tests.Utils
 		}
 
 		[Test]
-		public void ForbiddenClearFails()
+		public void GivenForbiddingHandler_WhenTryToClear_ThenFail()
 		{
 			var collection = new SimpleEventCollection { "A", "B", "C" };
 			string result = string.Empty;
@@ -125,7 +125,7 @@ namespace AabSemantics.Tests.Utils
 		}
 
 		[Test]
-		public void EventCollectionIsAlwaysEditable()
+		public void GivenEventCollection_WhenCheckIsReadOnly_ThenReturnFalse()
 		{
 			Assert.IsFalse(new SimpleEventCollection().IsReadOnly);
 
@@ -135,7 +135,7 @@ namespace AabSemantics.Tests.Utils
 		}
 
 		[Test]
-		public void CopyToCopiesItems()
+		public void GivenEventCollection_WhenCopyTo_ThenSucceed()
 		{
 			// arrange
 			var collection = new SimpleEventCollection { "A", "B", "C" };
@@ -212,7 +212,7 @@ namespace AabSemantics.Tests.Utils
 		}
 
 		[Test]
-		public void CheckAllEventCollectionMethods()
+		public void GivenEventCollection_WhenCallCollectionMethods_ThenSucceed()
 		{
 			// arrange
 			IConcept concept1, concept2, concept3;
@@ -257,14 +257,14 @@ namespace AabSemantics.Tests.Utils
 		}
 
 		[Test]
-		public void ImpossibleToCreateItemsCantBeRemovedExceptionWithoutItems()
+		public void GivenNoItems_WhenTryToCreateItemsCantBeRemovedException_ThenFail()
 		{
 			// act & assert
 			Assert.Throws<ArgumentNullException>(() => new ItemsCantBeRemovedException<int>(null));
 		}
 
 		[Test]
-		public void TestItemsCantBeRemovedExceptionSerialization()
+		public void GivenItemsCantBeRemovedException_WhenSerializeAdDeserialize_ThenSucceed()
 		{
 			// arrange
 			var exception = new ItemsCantBeRemovedException<int>(new[] { 123, 987, 465 });

@@ -10,7 +10,7 @@ namespace AabSemantics.Tests.Text
 	public class EnumerationTest
 	{
 		[Test]
-		public void Enumerate()
+		public void GivenManyConcepts_WhenEnumerate_ThenCreateMultilineList()
 		{
 			// arrange
 			var knowledge = new IKnowledge[]
@@ -37,7 +37,7 @@ namespace AabSemantics.Tests.Text
 		}
 
 		[Test]
-		public void EnumerateOneLine()
+		public void Given_WhenEnumerateOneLine_ThenCreateSingleLineList()
 		{
 			// arrange
 			var knowledge = new IKnowledge[]

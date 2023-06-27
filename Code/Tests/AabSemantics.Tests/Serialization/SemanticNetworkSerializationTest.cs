@@ -16,7 +16,7 @@ namespace AabSemantics.Tests.Serialization
 	public class SemanticNetworkSerializationTest
 	{
 		[Test]
-		public void CheckXml()
+		public void GivenXml_WhenSerializeAndDeserialize_ThenSucceed()
 		{
 			CheckSerialization(
 				(semanticNetwork, fileName) => semanticNetwork.SaveToXml(fileName),
@@ -24,7 +24,7 @@ namespace AabSemantics.Tests.Serialization
 		}
 
 		[Test]
-		public void CheckJson()
+		public void GivenJson_WhenSerializeAndDeserialize_ThenSucceed()
 		{
 			CheckSerialization(
 				(semanticNetwork, fileName) => semanticNetwork.SaveToJson(fileName),

@@ -10,7 +10,7 @@ namespace AabSemantics.Tests.Concepts
 	public class SystemConceptTest
 	{
 		[Test]
-		public void CannotChangeIdOfSystemConcept()
+		public void GivenSystemConcept_WhenTryToChangeId_ThenFail()
 		{
 			// arrange
 			var concept = new SystemConcept("1", null, null);
@@ -20,7 +20,7 @@ namespace AabSemantics.Tests.Concepts
 		}
 
 		[Test]
-		public void SettingTheSameIdDoesNotChangeSystemConcept()
+		public void GivenSystemConcept_WhenTryChangeIdWithTheSameValue_ThenNothingHappens()
 		{
 			// arrange
 			var concept = new SystemConcept("1", null, null);

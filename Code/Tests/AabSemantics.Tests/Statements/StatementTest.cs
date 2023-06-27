@@ -9,7 +9,7 @@ namespace AabSemantics.Tests.Statements
 	public class StatementTest
 	{
 		[Test]
-		public void ToStringContainsTypeAndId()
+		public void GivenDifferentStatements_WhenToString_ThenResultContainsTypeAndId()
 		{
 			// arrange
 			var semanticNetwork = new TestSemanticNetwork(Language.Default).SemanticNetwork;
@@ -25,7 +25,7 @@ namespace AabSemantics.Tests.Statements
 		}
 
 		[Test]
-		public void AllDescribesWorkCorrect()
+		public void GivenAllDescribes_WhenCall_ThenSucceed()
 		{
 			// arrange
 			var language = Language.Default;

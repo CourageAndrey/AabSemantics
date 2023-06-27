@@ -15,7 +15,7 @@ namespace AabSemantics.Tests.Mutations
 	public class StatementSearchPatternTest
 	{
 		[Test]
-		public void FilteringByStatementFilterItself()
+		public void GivenStatementFilter_WhenFindMatches_ThenFilter()
 		{
 			// arrange
 			var semanticNetwork = new TestSemanticNetwork(Language.Default);
@@ -36,7 +36,7 @@ namespace AabSemantics.Tests.Mutations
 		}
 
 		[Test]
-		public void FilteringByConceptFilters()
+		public void GivenConceptFilter_WhenFindMatches_ThenFilter()
 		{
 			// arrange
 			var semanticNetwork = new TestSemanticNetwork(Language.Default);
@@ -59,7 +59,7 @@ namespace AabSemantics.Tests.Mutations
 		}
 
 		[Test]
-		public void FilteringByAllFilters()
+		public void GivenFiltersStructure_WhenFindMatches_ThenFilter()
 		{
 			// arrange
 			var semanticNetwork = new TestSemanticNetwork(Language.Default);
@@ -87,7 +87,7 @@ namespace AabSemantics.Tests.Mutations
 		}
 
 		[Test]
-		public void AllFilterWorksTheSameAsOfType()
+		public void GivenAllFilter_WhenFindMatches_Then()
 		{
 			// arrange
 			var semanticNetwork = new TestSemanticNetwork(Language.Default).SemanticNetwork;

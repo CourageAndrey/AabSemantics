@@ -10,10 +10,10 @@ namespace AabSemantics.Tests.Utils
 	public class EnumerableTest
 	{
 		[Test]
-		public void GivenMissingElementWhenIndexOfThenReturnNegative()
+		public void GivenMissingElement_WhenIndexOf_ThenReturnNegative()
 		{
 			// arrange
-			var list = generateTestSequence();
+			var list = GenerateTestSequence();
 			IEnumerable<TestItem> sequence = list;
 
 			// act
@@ -24,10 +24,10 @@ namespace AabSemantics.Tests.Utils
 		}
 
 		[Test]
-		public void GivenElementWithinListWhenIndexOfThenReturnIndex()
+		public void GivenElementWithinList_WhenIndexOf_ThenReturnIndex()
 		{
 			// arrange
-			var list = generateTestSequence();
+			var list = GenerateTestSequence();
 			IEnumerable<TestItem> sequence = list;
 
 			for (int i = _testSequenceMinimum; i <= _testSequenceMaximum; i++)
@@ -55,7 +55,7 @@ namespace AabSemantics.Tests.Utils
 			}
 		}
 
-		private static List<TestItem> generateTestSequence()
+		private static List<TestItem> GenerateTestSequence()
 		{
 			var sequence = new List<TestItem>();
 

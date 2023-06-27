@@ -15,7 +15,7 @@ namespace AabSemantics.Tests.Questions
 	public class IsPartOfQuestionTest
 	{
 		[Test]
-		public void ReturnFalseIfNotFound()
+		public void GivenNoInformation_WhenBeingAsked_ThenReturnFalse()
 		{
 			// arrange
 			var language = Language.Default;
@@ -31,7 +31,7 @@ namespace AabSemantics.Tests.Questions
 		}
 
 		[Test]
-		public void ReturnTrueIfFound()
+		public void GivenCorrespondingInformation_WhenBeingAsked_ThenReturnTrue()
 		{
 			// arrange
 			var language = Language.Default;

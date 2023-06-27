@@ -17,7 +17,7 @@ namespace AabSemantics.Tests.Questions
 	public class IsQuestionTest
 	{
 		[Test]
-		public void AnswerNotFound()
+		public void GivenNoStatements_WhenBeingAsked_ThenEmptyResult()
 		{
 			// arrange
 			var language = Language.Default;
@@ -33,7 +33,7 @@ namespace AabSemantics.Tests.Questions
 		}
 
 		[Test]
-		public void FindCertainStatement()
+		public void GivenCertainStatement_WhenBeingAsked_ThenFindIt()
 		{
 			// arrange
 			var language = Language.Default;
@@ -52,7 +52,7 @@ namespace AabSemantics.Tests.Questions
 		}
 
 		[Test]
-		public void FindWithTransition()
+		public void GivenTransition_WhenBeingAsked_ThenFindThem()
 		{
 			// arrange
 			var language = Language.Default;

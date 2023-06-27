@@ -16,10 +16,10 @@ namespace AabSemantics.Tests.Statements
 	public class StatementHelperTest
 	{
 		[Test]
-		public void GivenNoFilterWhenEnumerateThenReturnAll()
+		public void GivenNoFilter_WhenEnumerate_ThenReturnAll()
 		{
 			// arrange
-			var semanticNetwork = createTestSemanticNetwork();
+			var semanticNetwork = CreateTestSemanticNetwork();
 
 			// act
 			var filtered = semanticNetwork.Statements.Enumerate().ToList();
@@ -31,10 +31,10 @@ namespace AabSemantics.Tests.Statements
 		}
 
 		[Test]
-		public void GivenSingleContextWhenEnumerateThenReturnFiltered()
+		public void GivenSingleContext_WhenEnumerate_ThenReturnFiltered()
 		{
 			// arrange
-			var semanticNetwork = createTestSemanticNetwork();
+			var semanticNetwork = CreateTestSemanticNetwork();
 
 			foreach (var statement in semanticNetwork.Statements)
 			{
@@ -49,10 +49,10 @@ namespace AabSemantics.Tests.Statements
 		}
 
 		[Test]
-		public void GivenManyContextsWhenEnumerateThenReturnFiltered()
+		public void GivenManyContexts_WhenEnumerate_ThenReturnFiltered()
 		{
 			// arrange
-			var semanticNetwork = createTestSemanticNetwork();
+			var semanticNetwork = CreateTestSemanticNetwork();
 			ISemanticNetworkContext context = (SemanticNetworkContext) semanticNetwork.Statements.Last().Context;
 
 			while (context != null)
@@ -70,10 +70,10 @@ namespace AabSemantics.Tests.Statements
 		}
 
 		[Test]
-		public void GivenContextFilterWhenEnumerateThenReturnFiltered()
+		public void GivenContextFilter_WhenEnumerate_ThenReturnFiltered()
 		{
 			// arrange
-			var semanticNetwork = createTestSemanticNetwork();
+			var semanticNetwork = CreateTestSemanticNetwork();
 
 			// act
 			var filtered = semanticNetwork.Statements.Enumerate(context => (context as TestContext)?.Name.EndsWith("odd") == true).ToList();
@@ -94,7 +94,7 @@ namespace AabSemantics.Tests.Statements
 
 		private const int _numbersCount = 10;
 
-		private static ISemanticNetwork createTestSemanticNetwork()
+		private static ISemanticNetwork CreateTestSemanticNetwork()
 		{
 			var semanticNetwork = new SemanticNetwork(Language.Default);
 

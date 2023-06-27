@@ -13,10 +13,10 @@ namespace AabSemantics.Tests.Metadata
 	public class QuestionDefinitionTest
 	{
 		[Test]
-		public void ImpossibleToCreateDefinitionWithoutType()
+		public void GivenNoType_WhenTryToCreate_ThenFail()
 		{
 			// act & assert
-			Assert.Throws<ArgumentNullException>(() => createQuestionDefinition(
+			Assert.Throws<ArgumentNullException>(() => CreateQuestionDefinition(
 				null,
 				language => language.Culture,
 				question => new Modules.Boolean.Xml.CheckStatementQuestion((CheckStatementQuestion) question),
@@ -26,17 +26,17 @@ namespace AabSemantics.Tests.Metadata
 		}
 
 		[Test]
-		public void ImpossibleToCreateDefinitionWithInvalidType()
+		public void GivenInvalidType_WhenTryToCreate_ThenFail()
 		{
 			// act & assert
-			Assert.Throws<ArgumentException>(() => createQuestionDefinition(
+			Assert.Throws<ArgumentException>(() => CreateQuestionDefinition(
 				typeof(string),
 				language => language.Culture,
 				question => new Modules.Boolean.Xml.CheckStatementQuestion((CheckStatementQuestion) question),
 				question => new Modules.Boolean.Json.CheckStatementQuestion((CheckStatementQuestion) question),
 				typeof(Modules.Boolean.Xml.CheckStatementQuestion),
 				typeof(Modules.Boolean.Json.CheckStatementQuestion)));
-			Assert.Throws<ArgumentException>(() => createQuestionDefinition(
+			Assert.Throws<ArgumentException>(() => CreateQuestionDefinition(
 				typeof(Question),
 				language => language.Culture,
 				question => new Modules.Boolean.Xml.CheckStatementQuestion((CheckStatementQuestion) question),
@@ -46,10 +46,10 @@ namespace AabSemantics.Tests.Metadata
 		}
 
 		[Test]
-		public void ImpossibleToCreateDefinitionWithoutNameGetter()
+		public void GivenNoNameGetter_WhenTryToCreate_ThenFail()
 		{
 			// act & assert
-			Assert.Throws<ArgumentNullException>(() => createQuestionDefinition(
+			Assert.Throws<ArgumentNullException>(() => CreateQuestionDefinition(
 				typeof(CheckStatementQuestion),
 				null,
 				question => new Modules.Boolean.Xml.CheckStatementQuestion((CheckStatementQuestion) question),
@@ -59,10 +59,10 @@ namespace AabSemantics.Tests.Metadata
 		}
 
 		[Test]
-		public void ImpossibleToCreateDefinitionWithoutXmlGetter()
+		public void GivenNoXmlGetter_WhenTryToCreate_ThenFail()
 		{
 			// act & assert
-			Assert.Throws<ArgumentNullException>(() => createQuestionDefinition(
+			Assert.Throws<ArgumentNullException>(() => CreateQuestionDefinition(
 				typeof(CheckStatementQuestion),
 				language => language.Culture,
 				null,
@@ -72,10 +72,10 @@ namespace AabSemantics.Tests.Metadata
 		}
 
 		[Test]
-		public void ImpossibleToCreateDefinitionWithoutJsonGetter()
+		public void GivenNoJsonGetter_WhenTryToCreate_ThenFail()
 		{
 			// act & assert
-			Assert.Throws<ArgumentNullException>(() => createQuestionDefinition(
+			Assert.Throws<ArgumentNullException>(() => CreateQuestionDefinition(
 				typeof(CheckStatementQuestion),
 				language => language.Culture,
 				question => new Modules.Boolean.Xml.CheckStatementQuestion((CheckStatementQuestion) question),
@@ -85,10 +85,10 @@ namespace AabSemantics.Tests.Metadata
 		}
 
 		[Test]
-		public void ImpossibleToCreateDefinitionWithoutXmlType()
+		public void GivenNoXmlType_WhenTryToCreate_ThenFail()
 		{
 			// act & assert
-			Assert.Throws<ArgumentNullException>(() => createQuestionDefinition(
+			Assert.Throws<ArgumentNullException>(() => CreateQuestionDefinition(
 				typeof(CheckStatementQuestion),
 				language => language.Culture,
 				question => new Modules.Boolean.Xml.CheckStatementQuestion((CheckStatementQuestion) question),
@@ -98,10 +98,10 @@ namespace AabSemantics.Tests.Metadata
 		}
 
 		[Test]
-		public void ImpossibleToCreateDefinitionWithoutJsonType()
+		public void GivenNoJsonType_WhenTryToCreate_ThenFail()
 		{
 			// act & assert
-			Assert.Throws<ArgumentNullException>(() => createQuestionDefinition(
+			Assert.Throws<ArgumentNullException>(() => CreateQuestionDefinition(
 				typeof(CheckStatementQuestion),
 				language => language.Culture,
 				question => new Modules.Boolean.Xml.CheckStatementQuestion((CheckStatementQuestion) question),
@@ -111,10 +111,10 @@ namespace AabSemantics.Tests.Metadata
 		}
 
 		[Test]
-		public void CheckName()
+		public void GivenCorrectDefinition_WhenGetName_ThenReturnIt()
 		{
 			// arrange
-			var definition = createQuestionDefinition(
+			var definition = CreateQuestionDefinition(
 				typeof(CheckStatementQuestion),
 				language => language.Culture,
 				question => new Modules.Boolean.Xml.CheckStatementQuestion((CheckStatementQuestion) question),
@@ -129,7 +129,7 @@ namespace AabSemantics.Tests.Metadata
 			Assert.AreEqual(Language.Default.Culture, name);
 		}
 
-		private static QuestionDefinition createQuestionDefinition(
+		private static QuestionDefinition CreateQuestionDefinition(
 			Type type,
 			Func<ILanguage, String> nameGetter,
 			Func<IQuestion, AabSemantics.Serialization.Xml.Question> xmlSerializer,

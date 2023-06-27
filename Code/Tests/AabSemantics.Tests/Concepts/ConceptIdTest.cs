@@ -8,7 +8,7 @@ namespace AabSemantics.Tests.Concepts
 	public class ConceptIdTest
 	{
 		[Test]
-		public void SetNewId()
+		public void GivenConcept_WhenSetNewId_ThenIdIsChanged()
 		{
 			// arrange
 			var concept = new Concept("Initial_ID");
@@ -21,7 +21,7 @@ namespace AabSemantics.Tests.Concepts
 		}
 
 		[Test]
-		public void TryToSetEmptyId()
+		public void GivenConcept_WhenTryToSetEmptyId_ThenIdIsUpdatedWithNonEmptyValue()
 		{
 			// arrange
 			var concept = new Concept("Initial_ID");
@@ -35,7 +35,7 @@ namespace AabSemantics.Tests.Concepts
 		}
 
 		[Test]
-		public void TryToSetNullId()
+		public void GivenConcept_WhenTryToSetNullId_ThenIdIsUpdatedWithNonEmptyValue()
 		{
 			// arrange
 			var concept = new Concept("Initial_ID");

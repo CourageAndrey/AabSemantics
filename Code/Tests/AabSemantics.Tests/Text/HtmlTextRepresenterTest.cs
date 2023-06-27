@@ -13,7 +13,7 @@ namespace AabSemantics.Tests.Text
 		private const string ValidHtmRegex = "<(\"[^\"]*\"|'[^']*'|[^'\">])*>";
 
 		[Test]
-		public void CheckGeneratedWebPage()
+		public void GivenHtmlRepresenter_WhenRepresentText_ThenGenerateValidHtml()
 		{
 			// arrange
 			var language = Language.Default;

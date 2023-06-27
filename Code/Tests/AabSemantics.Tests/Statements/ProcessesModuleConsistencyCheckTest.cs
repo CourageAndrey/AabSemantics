@@ -24,7 +24,7 @@ namespace AabSemantics.Tests.Statements
 		}
 
 		[Test]
-		public void GivenContradictionsWhenCheckThenFail()
+		public void GivenContradictions_WhenCheck_ThenFail()
 		{
 			// arrange
 			var statementDefinition = Repositories.Statements.Definitions[typeof(ProcessesStatement)];
@@ -50,7 +50,7 @@ namespace AabSemantics.Tests.Statements
 		}
 
 		[Test]
-		public void GivenCorrectStatementsWhenCheckThenSucceed()
+		public void GivenCorrectStatements_WhenCheck_ThenSucceed()
 		{
 			// arrange
 			var statementDefinition = Repositories.Statements.Definitions[typeof(ProcessesStatement)];

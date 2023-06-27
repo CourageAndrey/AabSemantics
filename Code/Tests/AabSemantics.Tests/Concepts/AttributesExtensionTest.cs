@@ -11,7 +11,7 @@ namespace AabSemantics.Tests.Concepts
 	public class AttributesExtensionTest
 	{
 		[Test]
-		public void AttributesFlow()
+		public void GivenConcept_WhenAddOrRemoveAttributes_ThenConceptAttributesChange()
 		{
 			var concept = new Concept();
 
