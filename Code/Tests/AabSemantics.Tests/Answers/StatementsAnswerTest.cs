@@ -14,10 +14,9 @@ namespace AabSemantics.Tests.Answers
 	public class StatementsAnswerTest
 	{
 		[Test]
-		public void CheckTypedToUntypedAndViceVersaTransformations()
+		public void GivenStatementsAnswer_WhenUpcastAndDowncast_ThenAnswerLooksTheSame()
 		{
 			// arrange
-
 			var concept1 = ConceptCreationHelper.CreateConcept();
 			var concept2 = ConceptCreationHelper.CreateConcept();
 
@@ -50,7 +49,6 @@ namespace AabSemantics.Tests.Answers
 
 			Assert.IsTrue(untypedAnswer.Result.SequenceEqual(genericAnswer.Result));
 			Assert.IsTrue(untypedAnswer.Explanation.Statements.SequenceEqual(genericAnswer.Explanation.Statements));
-
 		}
 	}
 }
