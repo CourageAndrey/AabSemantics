@@ -1,7 +1,7 @@
 ﻿using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 
-[assembly: InternalsVisibleTo("AabSemantics.Test")]
+[assembly: InternalsVisibleTo("AabSemantics.Tests")]
 [assembly: InternalsVisibleTo("AabSemantics.WPF")]
 [assembly: InternalsVisibleTo("AabSemantics.SimpleWpfClient")]
 
