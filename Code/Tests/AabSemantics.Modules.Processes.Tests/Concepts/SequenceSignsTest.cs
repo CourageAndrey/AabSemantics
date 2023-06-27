@@ -11,7 +11,7 @@ namespace AabSemantics.Modules.Processes.Tests.Concepts
 	public class SequenceSignsTest
 	{
 		[Test]
-		public void OnlySequenceSignsSuit()
+		public void GivenNonSequenceSigns_WhenTryToCallSequenceSignExtensions_ThenFail()
 		{
 			foreach (var concept in LogicalValues.All)
 			{
@@ -25,7 +25,7 @@ namespace AabSemantics.Modules.Processes.Tests.Concepts
 		}
 
 		[Test]
-		public void DoubleReversionDoNothing()
+		public void GivenSequenceSigns_WhenRevertTwice_ThenGetTheSame()
 		{
 			foreach (var sign in SequenceSigns.All)
 			{
