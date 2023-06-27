@@ -17,7 +17,7 @@ namespace AabSemantics.Modules.Processes.Tests.Concepts
 			{
 				Assert.Throws<InvalidOperationException>(() => { new[] { concept, SequenceSigns.SimultaneousWith }.Contradicts(); });
 
-				Assert.Throws<InvalidOperationException>(() => { SequenceSigns.Revert(concept); });
+				Assert.Throws<InvalidOperationException>(() => { concept.Revert(); });
 
 				Assert.Throws<InvalidOperationException>(() => { SequenceSigns.TryToCombineMutualSequences(concept, SequenceSigns.SimultaneousWith); });
 				Assert.Throws<InvalidOperationException>(() => { SequenceSigns.TryToCombineMutualSequences(SequenceSigns.SimultaneousWith, concept); });
@@ -29,7 +29,7 @@ namespace AabSemantics.Modules.Processes.Tests.Concepts
 		{
 			foreach (var sign in SequenceSigns.All)
 			{
-				Assert.AreSame(sign, SequenceSigns.Revert(SequenceSigns.Revert(sign)));
+				Assert.AreSame(sign, sign.Revert().Revert());
 			}
 		}
 	}

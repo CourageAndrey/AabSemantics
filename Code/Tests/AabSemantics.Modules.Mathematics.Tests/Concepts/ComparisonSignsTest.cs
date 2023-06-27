@@ -18,7 +18,7 @@ namespace AabSemantics.Modules.Mathematics.Tests.Concepts
 				Assert.Throws<InvalidOperationException>(() => { concept.Contradicts(ComparisonSigns.IsEqualTo); });
 				Assert.Throws<InvalidOperationException>(() => { ComparisonSigns.IsEqualTo.Contradicts(concept); });
 
-				Assert.Throws<InvalidOperationException>(() => { ComparisonSigns.Revert(concept); });
+				Assert.Throws<InvalidOperationException>(() => { concept.Revert(); });
 
 				Assert.Throws<InvalidOperationException>(() => { concept.CanBeReverted(); });
 
@@ -32,7 +32,7 @@ namespace AabSemantics.Modules.Mathematics.Tests.Concepts
 		{
 			foreach (var sign in ComparisonSigns.All)
 			{
-				Assert.AreSame(sign, ComparisonSigns.Revert(ComparisonSigns.Revert(sign)));
+				Assert.AreSame(sign, sign.Revert().Revert());
 			}
 		}
 	}
