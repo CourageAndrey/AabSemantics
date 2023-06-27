@@ -11,7 +11,7 @@ namespace AabSemantics.Modules.Mathematics.Tests.Concepts
 	public class ComparisonSignsTest
 	{
 		[Test]
-		public void OnlyComparisonSignsSuit()
+		public void GivenNonComparisonSigns_WhenTryToCallComparisonSignExtensions_ThenFail()
 		{
 			foreach (var concept in LogicalValues.All)
 			{
@@ -28,7 +28,7 @@ namespace AabSemantics.Modules.Mathematics.Tests.Concepts
 		}
 
 		[Test]
-		public void DoubleReversionDoNothing()
+		public void GivenComparisonSigns_WhenRevertTwice_ThenGetTheSame()
 		{
 			foreach (var sign in ComparisonSigns.All)
 			{
