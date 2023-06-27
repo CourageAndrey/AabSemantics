@@ -19,17 +19,17 @@ namespace AabSemantics.Tests.Questions
 	public class ProcessesQuestionTest
 	{
 		[Test]
-		[TestCaseSource(nameof(getAllValidCombinations))]
-		public void CheckAllValidCombinations(IConcept signAI, IConcept signIB, IConcept resultSign)
+		[TestCaseSource(nameof(GetAllValidCombinations))]
+		public void GivenValidCombination_WhenBeingAsked_ThenReturnResult(IConcept signAI, IConcept signIB, IConcept resultSign)
 		{
 			// arrange
 			var language = Language.Default;
 			var semanticNetwork = new SemanticNetwork(language);
 
 			IConcept processA, processB, processI;
-			semanticNetwork.Concepts.Add(processA = createProcess("Process A"));
-			semanticNetwork.Concepts.Add(processB = createProcess("Process B"));
-			semanticNetwork.Concepts.Add(processI = createProcess("Process I"));
+			semanticNetwork.Concepts.Add(processA = CreateProcess("Process A"));
+			semanticNetwork.Concepts.Add(processB = CreateProcess("Process B"));
+			semanticNetwork.Concepts.Add(processI = CreateProcess("Process I"));
 
 			var statementAI = new ProcessesStatement(null, processA, processI, signAI);
 			var statementIA = new ProcessesStatement(null, processI, processA, SequenceSigns.Revert(signAI));
@@ -73,18 +73,18 @@ namespace AabSemantics.Tests.Questions
 		}
 
 		[Test]
-		public void CheckAllInvalidCombinations()
+		public void GivenInvalidCombination_WhenBeingAsked_ThenReturnEmpty()
 		{
 			// arrange
 			var language = Language.Default;
 			var semanticNetwork = new SemanticNetwork(language);
 
 			IConcept processA, processB, processI;
-			semanticNetwork.Concepts.Add(processA = createProcess("Process A"));
-			semanticNetwork.Concepts.Add(processB = createProcess("Process B"));
-			semanticNetwork.Concepts.Add(processI = createProcess("Process I"));
+			semanticNetwork.Concepts.Add(processA = CreateProcess("Process A"));
+			semanticNetwork.Concepts.Add(processB = CreateProcess("Process B"));
+			semanticNetwork.Concepts.Add(processI = CreateProcess("Process I"));
 
-			var validCombinations = getAllValidCombinations().Select(array => new Tuple<IConcept, IConcept, IConcept>((IConcept) array[0], (IConcept) array[1], (IConcept) array[2])).ToList();
+			var validCombinations = GetAllValidCombinations().Select(array => new Tuple<IConcept, IConcept, IConcept>((IConcept) array[0], (IConcept) array[1], (IConcept) array[2])).ToList();
 
 			foreach (var signAI in SequenceSigns.All)
 			{
@@ -128,14 +128,14 @@ namespace AabSemantics.Tests.Questions
 			}
 		}
 
-		private static IConcept createProcess(string name)
+		private static IConcept CreateProcess(string name)
 		{
 			var process = name.CreateConcept();
 			process.WithAttribute(IsProcessAttribute.Value);
 			return process;
 		}
 
-		private static IEnumerable<object[]> getAllValidCombinations()
+		private static IEnumerable<object[]> GetAllValidCombinations()
 		{
 			foreach (var combinations in SequenceSigns.ValidSequenceCombinations)
 			{

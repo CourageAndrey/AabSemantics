@@ -15,24 +15,24 @@ namespace AabSemantics.Tests.Text
 	{
 		[Test]
 		[TestCaseSource(typeof(TextRepresenters), nameof(TextRepresenters.All))]
-		public void EnsureAllTextRepresenterFeaturesWork(IStructuredTextRepresenter representer)
+		public void GivenComplicatedText_WhenRepresent_ThenSucceed(IStructuredTextRepresenter representer)
 		{
 			// arrange
-			var text = createAllFeaturesText();
+			var text = CreateAllFeaturesText();
 
 			// act
 			string representedText = representer.Represent(text, Language.Default).ToString();
 
 			// assert
-			for (int i = 1; i <= 21; i++) // count of used blocks within createAllFeaturesText() method
+			for (int i = 1; i <= 21; i++) // count of used blocks within CreateAllFeaturesText() method
 			{
-				Assert.IsTrue(representedText.Contains(getText(i)));
+				Assert.IsTrue(representedText.Contains(GetText(i)));
 			}
 		}
 
 		[Test]
 		[TestCaseSource(typeof(TextRepresenters), nameof(TextRepresenters.All))]
-		public void EnsureAnyLevelOfTextBlockIsSupported(IStructuredTextRepresenter representer)
+		public void GivenMultipleLevelsText_WhenRepresent_ThenSucceed(IStructuredTextRepresenter representer)
 		{
 			// arrange
 			string searchingToken = "QWERTY";
@@ -50,7 +50,7 @@ namespace AabSemantics.Tests.Text
 		}
 
 		[Test]
-		public void CheckUnsupportedRepresenter()
+		public void GivenUnsupportedText_WhenTryToRepresent_ThenFail()
 		{
 			// arrange
 			IText text = new TestText();
@@ -59,59 +59,59 @@ namespace AabSemantics.Tests.Text
 			Assert.Throws<NotSupportedException>(() => TextRepresenters.PlainString.Represent(text, Language.Default));
 		}
 
-		private static IText createAllFeaturesText()
+		private static IText CreateAllFeaturesText()
 		{
 			return
-				getFormattedText(1)
-				.Append(getFormattedText(2)) // call IText extension
-				.Append(getFormattedText(3)) // call ITextContainer extension
-				.Append(language => $"{getID(4)}", new Dictionary<string, IKnowledge>
+				GetFormattedText(1)
+				.Append(GetFormattedText(2)) // call IText extension
+				.Append(GetFormattedText(3)) // call ITextContainer extension
+				.Append(language => $"{GetID(4)}", new Dictionary<string, IKnowledge>
 				{
-					{ getID(4), getText(4).CreateConcept() },
+					{ GetID(4), GetText(4).CreateConcept() },
 				})
 				.AppendLineBreak()
 				.AppendSpace()
 				.AppendBulletsList(new IText[]
 				{
-					getFormattedText(5),
-					getFormattedText(6),
-					getFormattedText(7),
+					GetFormattedText(5),
+					GetFormattedText(6),
+					GetFormattedText(7),
 				})
 				.AppendNumberingList(new IText[]
 				{
-					getFormattedText(8),
-					getFormattedText(9),
-					getFormattedText(10),
+					GetFormattedText(8),
+					GetFormattedText(9),
+					GetFormattedText(10),
 				})
-				.Append(getFormattedText(11).MakeBold())
-				.Append(getFormattedText(12).MakeItalic())
-				.Append(getFormattedText(13).MakeUnderline())
-				.Append(getFormattedText(14).MakeStrikeout())
-				.Append(getFormattedText(15).MakeSubscript())
-				.Append(getFormattedText(16).MakeSuperscript())
-				.Append(getFormattedText(17).MakeHeader(1))
-				.Append(getFormattedText(18).MakeHeader(2))
-				.Append(getFormattedText(19).MakeHeader(3))
-				.Append(getFormattedText(20).MakeHeader(4))
-				.Append(getFormattedText(21).MakeParagraph());
+				.Append(GetFormattedText(11).MakeBold())
+				.Append(GetFormattedText(12).MakeItalic())
+				.Append(GetFormattedText(13).MakeUnderline())
+				.Append(GetFormattedText(14).MakeStrikeout())
+				.Append(GetFormattedText(15).MakeSubscript())
+				.Append(GetFormattedText(16).MakeSuperscript())
+				.Append(GetFormattedText(17).MakeHeader(1))
+				.Append(GetFormattedText(18).MakeHeader(2))
+				.Append(GetFormattedText(19).MakeHeader(3))
+				.Append(GetFormattedText(20).MakeHeader(4))
+				.Append(GetFormattedText(21).MakeParagraph());
 		}
 
-		private static FormattedText getFormattedText(int number)
+		private static FormattedText GetFormattedText(int number)
 		{
 			return new FormattedText(
-				language => $"+++ {getID(number)} +++",
+				language => $"+++ {GetID(number)} +++",
 				new Dictionary<string, IKnowledge>
 				{
-					{ getID(number), getText(number).CreateConcept() },
+					{ GetID(number), GetText(number).CreateConcept() },
 				});
 		}
 
-		private static string getID(int number)
+		private static string GetID(int number)
 		{
 			return $"ID_{number:N3}";
 		}
 
-		private static string getText(int number)
+		private static string GetText(int number)
 		{
 			return $"TEXT_{number:N3}";
 		}

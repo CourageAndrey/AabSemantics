@@ -11,7 +11,7 @@ namespace AabSemantics.Tests.Mutations
 	public class IsomorphicSearchPatternExtensionsTest
 	{
 		[Test]
-		public void GivenNoMatchesWhenDoesMatchThenReturnFalse()
+		public void GivenNoMatches_WhenDoesMatch_ThenReturnFalse()
 		{
 			// arrange
 			var language = Language.Default;
@@ -28,7 +28,7 @@ namespace AabSemantics.Tests.Mutations
 		}
 
 		[Test]
-		public void GivenMatchesWhenDoesMatchThenReturnTrue()
+		public void GivenMatches_WhenDoesMatch_ThenReturnTrue()
 		{
 			// arrange
 			var language = Language.Default;
@@ -47,7 +47,7 @@ namespace AabSemantics.Tests.Mutations
 		}
 
 		[Test]
-		public void GivenNoMatchesWhenFindFirstMatchThenReturnNull()
+		public void GivenNoMatches_WhenFindFirstMatch_ThenReturnNull()
 		{
 			// arrange
 			var language = Language.Default;
@@ -64,7 +64,7 @@ namespace AabSemantics.Tests.Mutations
 		}
 
 		[Test]
-		public void GivenMatchesWhenFindFirstMatchThenReturnFirstMatch()
+		public void GivenMatches_WhenFindFirstMatch_ThenReturnFirstMatch()
 		{
 			// arrange
 			var language = Language.Default;

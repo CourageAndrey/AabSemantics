@@ -24,7 +24,7 @@ namespace AabSemantics.Tests.Questions
 	public class QuestionTest
 	{
 		[Test]
-		public void ExplainPreconditions()
+		public void GivenPreconditions_WhenBeingAsked_ThenQuestionIsProcessedTakenThemIntoAccount()
 		{
 			// arrange
 			var language = Language.Default;
@@ -66,13 +66,13 @@ namespace AabSemantics.Tests.Questions
 		}
 
 		[Test]
-		[TestCaseSource(nameof(createQuestionsArgumentNullException))]
-		public void CheckQuestionsArgumentNullExceptions(Func<IQuestion> constructor)
+		[TestCaseSource(nameof(CreateQuestionsArgumentNullException))]
+		public void GivenNullArguments_WhenCreateQuestions_ThenFail(Func<IQuestion> constructor)
 		{
 			Assert.Throws<ArgumentNullException>(() => constructor());
 		}
 
-		private static IEnumerable<object[]> createQuestionsArgumentNullException()
+		private static IEnumerable<object[]> CreateQuestionsArgumentNullException()
 		{
 			IConcept concept = "test".CreateConcept();
 
@@ -109,7 +109,7 @@ namespace AabSemantics.Tests.Questions
 		}
 
 		[Test]
-		public void CheckChildAnswer()
+		public void GivenAllParameterSet_WhenCreateChildAnswer_ThenScceed()
 		{
 			// arrange
 			var concept = "test".CreateConcept();

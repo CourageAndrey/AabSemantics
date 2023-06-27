@@ -18,7 +18,7 @@ namespace AabSemantics.Tests.Localization
 	public class LanguageTest
 	{
 		[Test]
-		public void LanguageNameIsItsStringRepresentation()
+		public void GivenDefaultLanguage_WhenConvertToString_ThenReturnLanguageName()
 		{
 			// arrange
 			var language = Language.Default;
@@ -28,7 +28,7 @@ namespace AabSemantics.Tests.Localization
 		}
 
 		[Test]
-		public void CheckLanguageTree()
+		public void GivenDefaultLanguageWithBaseModules_WhenCheckMembersTree_ThenAllMembersAreDefined()
 		{
 			// arrange
 			var modules = new IExtensionModule[]

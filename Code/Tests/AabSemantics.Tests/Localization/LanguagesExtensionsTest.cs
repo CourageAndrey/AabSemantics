@@ -12,7 +12,7 @@ namespace AabSemantics.Tests.Localization
 	public class LanguagesExtensionsTest
 	{
 		[Test]
-		public void GivenExistingCultureWhenFindAppropriateThenReturnRequested()
+		public void GivenExistingCulture_WhenFindAppropriate_ThenReturnRequested()
 		{
 			// arrange
 			Language searchedLanguage;
@@ -35,7 +35,7 @@ namespace AabSemantics.Tests.Localization
 		}
 
 		[Test]
-		public void GivenMissingCultureWhenFindAppropriateThenReturnDefault()
+		public void GivenMissingCulture_WhenFindAppropriate_ThenReturnDefault()
 		{
 			// arrange
 			var languages = new[]
@@ -57,7 +57,7 @@ namespace AabSemantics.Tests.Localization
 		}
 
 		[Test]
-		public void GivenPathWithoutModuleWhenGetBoundTextThenReturnText()
+		public void GivenPathWithoutModule_WhenGetBoundText_ThenReturnText()
 		{
 			// arrange
 			var language = Language.Default;
@@ -70,7 +70,7 @@ namespace AabSemantics.Tests.Localization
 		}
 
 		[Test]
-		public void GivenPathWithModuleWhenGetBoundTextThenReturnText()
+		public void GivenPathWithModule_WhenGetBoundText_ThenReturnText()
 		{
 			// arrange
 			Language.Default.Extensions.Add(LanguageSetModule.CreateDefault());
@@ -85,7 +85,7 @@ namespace AabSemantics.Tests.Localization
 		}
 
 		[Test]
-		public void GivenPathWithNullInMiddleWhenGetBoundTextThenReturnNull()
+		public void GivenPathWithNullInMiddle_WhenGetBoundText_ThenReturnNull()
 		{
 			// arrange
 			var language = new Language();

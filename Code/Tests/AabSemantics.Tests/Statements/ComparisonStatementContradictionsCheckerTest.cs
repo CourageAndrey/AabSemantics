@@ -17,11 +17,11 @@ namespace AabSemantics.Tests.Statements
 		private const int _testChainLength = 5;
 
 		[Test]
-		public void SingleStatementCanNotContradict()
+		public void GivenSingleStatement_WhenCheckContradictions_ThenNoContradictions()
 		{
 			// arrange
-			var value1 = createValueConcept(1);
-			var value2 = createValueConcept(2);
+			var value1 = CreateValueConcept(1);
+			var value2 = CreateValueConcept(2);
 
 			// act
 			foreach (var sign in ComparisonSigns.All)
@@ -36,13 +36,13 @@ namespace AabSemantics.Tests.Statements
 		}
 
 		[Test]
-		public void SingleSignChainsHaveNoContradictions()
+		public void GivenSingleSignChain_WhenCheckContradictions_ThenNoContradictions()
 		{
 			// arrange
 			var concepts = new List<IConcept>();
 			for (int i = 0; i < _testChainLength; i++)
 			{
-				concepts.Add(createValueConcept(i));
+				concepts.Add(CreateValueConcept(i));
 			}
 
 			// act
@@ -50,7 +50,7 @@ namespace AabSemantics.Tests.Statements
 			{
 				for (int revertCount = 0; revertCount < _testChainLength; revertCount++)
 				{
-					var statements = createSimpleChain(concepts, sign);
+					var statements = CreateSimpleChain(concepts, sign);
 					for (int r = 0; r < revertCount; r++)
 					{
 						statements[r] = statements[r].SwapOperands();
@@ -65,11 +65,11 @@ namespace AabSemantics.Tests.Statements
 		}
 
 		[Test]
-		public void DuplicatedStatementsHaveNoContradictions()
+		public void GivenDuplicatingStatements_WhenCheckContradictions_ThenNoContradictions()
 		{
 			// arrange
-			var concept1 = createValueConcept(1);
-			var concept2 = createValueConcept(2);
+			var concept1 = CreateValueConcept(1);
+			var concept2 = CreateValueConcept(2);
 
 			// act
 			foreach (var sign in ComparisonSigns.All)
@@ -88,11 +88,11 @@ namespace AabSemantics.Tests.Statements
 		}
 
 		[Test]
-		public void TwoCondradictedStatementsHaveContradictions()
+		public void GivenTwoContradictedStatements_WhenCheckContradictions_ThenFindContradictions()
 		{
 			// arrange
-			var concept1 = createValueConcept(1);
-			var concept2 = createValueConcept(2);
+			var concept1 = CreateValueConcept(1);
+			var concept2 = CreateValueConcept(2);
 
 			// act
 			foreach (var contradictedPair in ComparisonSigns.Contradictions)
@@ -116,13 +116,13 @@ namespace AabSemantics.Tests.Statements
 		}
 
 		[Test]
-		public void SingleSignLoopsHaveContradictions()
+		public void GivenSingleSignComparisonLoop_WhenCheckContradictions_ThenFindContradictions()
 		{
 			// arrange
 			var concepts = new List<IConcept>();
 			for (int i = 0; i < _testChainLength; i++)
 			{
-				concepts.Add(createValueConcept(i));
+				concepts.Add(CreateValueConcept(i));
 			}
 
 			// act
@@ -134,7 +134,7 @@ namespace AabSemantics.Tests.Statements
 					ComparisonSigns.IsLessThan,
 				})
 				{
-					var statements = createSimpleLoop(concepts.Take(chainLength).ToList(), sign);
+					var statements = CreateSimpleLoop(concepts.Take(chainLength).ToList(), sign);
 
 					var contradictions = statements.CheckForContradictions();
 
@@ -145,12 +145,12 @@ namespace AabSemantics.Tests.Statements
 		}
 
 		[Test]
-		public void TwoValuesEqualToThirdButDontEqualEachOtherHaveContradictions()
+		public void GivenTwoValuesEqualToThirdButDontEqualEachOther_WhenCheckContradictions_ThenFindContradictions()
 		{
 			// arrange
-			var a = createValueConcept(1);
-			var b = createValueConcept(1);
-			var c = createValueConcept(1);
+			var a = CreateValueConcept(1);
+			var b = CreateValueConcept(1);
+			var c = CreateValueConcept(1);
 
 			// act
 			foreach (var sign in new[]
@@ -175,10 +175,10 @@ namespace AabSemantics.Tests.Statements
 		}
 
 		[Test]
-		public void ValueHasToBeEqualToItself()
+		public void GivenValueComparedToItself_WhenCheckContradictions_ThenFindContradictions()
 		{
 			// arrange
-			var value = createValueConcept(0);
+			var value = CreateValueConcept(0);
 
 			// act
 			foreach (var sign in new[]
@@ -204,14 +204,14 @@ namespace AabSemantics.Tests.Statements
 			}
 		}
 
-		private static IConcept createValueConcept(int number)
+		private static IConcept CreateValueConcept(int number)
 		{
 			var concept = number.CreateConcept();
 			concept.WithAttribute(IsValueAttribute.Value);
 			return concept;
 		}
 
-		private static List<ComparisonStatement> createSimpleChain(List<IConcept> concepts, IConcept sign)
+		private static List<ComparisonStatement> CreateSimpleChain(List<IConcept> concepts, IConcept sign)
 		{
 			var statements = new List<ComparisonStatement>();
 			for (int i = 0; i < concepts.Count - 1; i++)
@@ -223,9 +223,9 @@ namespace AabSemantics.Tests.Statements
 			return statements;
 		}
 
-		private static List<ComparisonStatement> createSimpleLoop(List<IConcept> concepts, IConcept sign)
+		private static List<ComparisonStatement> CreateSimpleLoop(List<IConcept> concepts, IConcept sign)
 		{
-			var statements = createSimpleChain(concepts, sign);
+			var statements = CreateSimpleChain(concepts, sign);
 			statements.Add(new ComparisonStatement(null, statements.Last().RightValue,
 				statements.First().LeftValue,
 				sign));

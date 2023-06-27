@@ -13,7 +13,7 @@ namespace AabSemantics.Tests.Concepts
 		private const string TestConceptId = "123";
 
 		[Test]
-		public void CreateConceptWithAllPropertiesSet()
+		public void GivenAllPropertiesSet_WhenCreateConcept_ThenSucceed()
 		{
 			// arrange && act
 			var concept = new Concept(TestConceptId, new LocalizedStringVariable(), new LocalizedStringVariable());
@@ -23,7 +23,7 @@ namespace AabSemantics.Tests.Concepts
 		}
 
 		[Test]
-		public void CreateConceptWithoutId()
+		public void GivenNoId_WhenCreateConcept_ThenSucceed()
 		{
 			// arrange && act
 			var concept = new Concept(null, new LocalizedStringVariable(), new LocalizedStringVariable());
@@ -33,7 +33,7 @@ namespace AabSemantics.Tests.Concepts
 		}
 
 		[Test]
-		public void CreateConceptWithoutName()
+		public void GivenNoName_WhenCreateConcept_ThenSucceed()
 		{
 			// arrange && act
 			var concept = new Concept(TestConceptId, null, new LocalizedStringVariable());
@@ -43,7 +43,7 @@ namespace AabSemantics.Tests.Concepts
 		}
 
 		[Test]
-		public void CreateConceptWithoutHint()
+		public void GivenNoHint_WhenCreateConcept_ThenSucceed()
 		{
 			// arrange && act
 			var concept = new Concept(TestConceptId, new LocalizedStringVariable(), null);
@@ -53,7 +53,7 @@ namespace AabSemantics.Tests.Concepts
 		}
 
 		[Test]
-		public void CreateConceptWithDifferentIdAndName()
+		public void GivenDifferentIdAndName_WhenCreateConcept_ThenSucceed()
 		{
 			// arrange && act
 			var concept = TestConceptId.CreateConcept(new string(TestConceptId.Reverse().ToArray()));

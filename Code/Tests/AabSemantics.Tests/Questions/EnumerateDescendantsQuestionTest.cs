@@ -16,7 +16,7 @@ namespace AabSemantics.Tests.Questions
 	public class EnumerateDescendantsQuestionTest
 	{
 		[Test]
-		public void WhenNoRelationshipsReturnEmptyAnswer()
+		public void GivenNoInformation_WhenBeingAsked_ThenReturnEmpty()
 		{
 			// arrange
 			var language = Language.Default;
@@ -44,7 +44,7 @@ namespace AabSemantics.Tests.Questions
 		}
 
 		[Test]
-		public void ReturnAllChildren()
+		public void GivenCorrespondingInformation_WhenBeingAsked_ThenReturnAllRelated()
 		{
 			// arrange
 			var language = Language.Default;

@@ -13,14 +13,14 @@ namespace AabSemantics.Tests.Mutations
 	public class ProductionsTest
 	{
 		[Test]
-		public void ImpossibleToCreateWithoutLookupPattern()
+		public void GivenNoLookupPattern_WhenTryToCreate_ThenFail()
 		{
 			// act && assert
 			Assert.Throws<ArgumentNullException>(() => new Production(null, knowledgeStructure => { }));
 		}
 
 		[Test]
-		public void ImpossibleToCreateWithoutSearchMethod()
+		public void GivenNoSearchMethod_WhenTryToCreate_ThenFail()
 		{
 			// arrange
 			var conceptSearchPattern = new ConceptSearchPattern(concept => true);
@@ -30,14 +30,14 @@ namespace AabSemantics.Tests.Mutations
 		}
 
 		[Test]
-		public void GivenNoSemanticNetworkWhenMutateThenThrowArgumentNullException()
+		public void GivenNoSemanticNetwork_WhenMutate_ThenThrowArgumentNullException()
 		{
 			// act && assert
 			Assert.Throws<ArgumentNullException>(() => MutationHelper.Mutate(null, Array.Empty<IMutation>()));
 		}
 
 		[Test]
-		public void GivenNoMutationsWhenMutateThenThrowArgumentNullException()
+		public void GivenNoMutations_WhenMutate_ThenThrowArgumentNullException()
 		{
 			// arrange
 			var language = Language.Default;
@@ -48,7 +48,7 @@ namespace AabSemantics.Tests.Mutations
 		}
 
 		[Test]
-		public void GivenConstantMutationsListWhenMutateThenWorkWhenPossible()
+		public void GivenConstantMutationsList_WhenMutate_ThenWorkWhenPossible()
 		{
 			// arrange
 			var language = Language.Default;

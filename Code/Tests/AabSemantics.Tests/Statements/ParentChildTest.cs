@@ -19,7 +19,7 @@ namespace AabSemantics.Tests.Statements
 	public class ParentChildTest
 	{
 		[Test]
-		public void CheckConstructorsIntegrity()
+		public void GivenParentChild_WhenCreate_ThenIntegritySucceeds()
 		{
 			// arrange
 			var root = new ParentChild<int>(0);
@@ -45,7 +45,7 @@ namespace AabSemantics.Tests.Statements
 		}
 
 		[Test]
-		public void GetParentsWithoutRelationshipsReturnsEmptyList()
+		public void GivenNoStatements_WhenGetParentsOneOrAllLevels_ThenReturnEmptyList()
 		{
 			foreach (string node in All)
 			{
@@ -53,13 +53,13 @@ namespace AabSemantics.Tests.Statements
 				Assert.AreEqual(0, Array.Empty<TestParentChild>().GetParentsAllLevels(node).Count);
 			}
 
-			var allRelationships = createTestSet();
+			var allRelationships = CreateTestSet();
 			Assert.AreEqual(0, allRelationships.GetParentsOneLevel("Absent").Count);
 			Assert.AreEqual(0, allRelationships.GetParentsAllLevels("Absent").Count);
 		}
 
 		[Test]
-		public void GetChildrenWithoutRelationshipsReturnsEmptyList()
+		public void GivenNoStatements_WhenGetChildrenOneOrAllLevels_ThenReturnEmptyList()
 		{
 			foreach (string node in All)
 			{
@@ -67,15 +67,15 @@ namespace AabSemantics.Tests.Statements
 				Assert.AreEqual(0, Array.Empty<TestParentChild>().GetChildrenAllLevels(node).Count);
 			}
 
-			var allRelationships = createTestSet();
+			var allRelationships = CreateTestSet();
 			Assert.AreEqual(0, allRelationships.GetChildrenOneLevel("Absent").Count);
 			Assert.AreEqual(0, allRelationships.GetChildrenAllLevels("Absent").Count);
 		}
 
 		[Test]
-		public void GetPlainParentsReturnsOneLevel()
+		public void GivenTestSet_WhenGetParentsOneLevel_ThenReturnAllFound()
 		{
-			var allRelationships = createTestSet();
+			var allRelationships = CreateTestSet();
 
 			var relationships = allRelationships.GetParentsOneLevel(Parent1);
 			Assert.AreEqual(0, relationships.Count);
@@ -113,9 +113,9 @@ namespace AabSemantics.Tests.Statements
 		}
 
 		[Test]
-		public void GetPlainChildrenReturnsOneLevel()
+		public void GivenTestSet_WhenGetChildrenOneLevel_ThenReturnAllFound()
 		{
-			var allRelationships = createTestSet();
+			var allRelationships = CreateTestSet();
 
 			var relationships = allRelationships.GetChildrenOneLevel(Parent1);
 			Assert.AreEqual(3, relationships.Count);
@@ -153,9 +153,9 @@ namespace AabSemantics.Tests.Statements
 		}
 
 		[Test]
-		public void GetParentsTreeReturnsAllLevels()
+		public void GivenTestSet_WhenGetParentsAllLevels_ThenReturnAllFound()
 		{
-			var allRelationships = createTestSet();
+			var allRelationships = CreateTestSet();
 
 			var relationships = allRelationships.GetParentsAllLevels(Parent1);
 			Assert.AreEqual(0, relationships.Count);
@@ -197,9 +197,9 @@ namespace AabSemantics.Tests.Statements
 		}
 
 		[Test]
-		public void GetChildrenTreeReturnsAllLevels()
+		public void GivenTestSet_WhenGetChildrenAllLevels_ThenReturnAllFound()
 		{
-			var allRelationships = createTestSet();
+			var allRelationships = CreateTestSet();
 
 			var relationships = allRelationships.GetChildrenAllLevels(Parent1);
 			Assert.AreEqual(5, relationships.Count);
@@ -241,7 +241,7 @@ namespace AabSemantics.Tests.Statements
 		}
 
 		[Test]
-		public void AllMethodsSupportRecursion()
+		public void GivenRecursiveLoops_WhenGetChildrenOrParentsAllLevels_ThenNotFail()
 		{
 			// 1 variable loop
 			const string x = "x";
@@ -315,9 +315,9 @@ namespace AabSemantics.Tests.Statements
 		}
 
 		[Test]
-		public void CheckExplanation()
+		public void GivenTestSet_WhenGetParentsAllLevels_ThenExplanationContainsFoundRelationships()
 		{
-			var allRelationships = createTestSet();
+			var allRelationships = CreateTestSet();
 			var explanation = new List<TestParentChild>();
 
 			allRelationships.GetParentsAllLevels(Child1, explanation);
@@ -333,7 +333,7 @@ namespace AabSemantics.Tests.Statements
 		}
 
 		[Test]
-		public void CheckPathFinding()
+		public void GivenValidStructure_WhenFindPath_ThenFindAny()
 		{
 			var parent1 = ConceptCreationHelper.CreateConcept();
 			var topMedium1 = ConceptCreationHelper.CreateConcept();
@@ -385,7 +385,7 @@ namespace AabSemantics.Tests.Statements
 		}
 
 		[Test]
-		public void CheckRecursivePaths()
+		public void GivenRecursiveLoops_WhenFindPath_ThenNotFail()
 		{
 			var a = ConceptCreationHelper.CreateConcept();
 			var b = ConceptCreationHelper.CreateConcept();
@@ -427,12 +427,10 @@ namespace AabSemantics.Tests.Statements
 		}
 
 		[Test]
-		public void CheckGetChildrenTree()
+		public void GivenValidTree_WhenGetChildrenTree_ThenReturnIt()
 		{
 			// arrange
 			var concept1 =    1.CreateConcept();
-			var concept2 =    2.CreateConcept();
-			var concept3 =    3.CreateConcept();
 			var concept11 =   11.CreateConcept();
 			var concept12 =   12.CreateConcept();
 			var concept13 =   13.CreateConcept();
@@ -527,10 +525,10 @@ namespace AabSemantics.Tests.Statements
 		}
 
 		[Test]
-		public void CheckGetChildrenOneLevelStatements()
+		public void GivenInvolvedStatements_WhenGetChildrenOneLevel_ThenReturnThem()
 		{
 			// arrange
-			var semanticNetwork = createBearsSample();
+			var semanticNetwork = CreateBearsSample();
 			var animalsConcept = semanticNetwork.Concepts["Kingdom: Animalia"];
 
 			// act
@@ -548,10 +546,10 @@ namespace AabSemantics.Tests.Statements
 		}
 
 		[Test]
-		public void CheckGetChildrenAllLevelsStatements()
+		public void GivenInvolvedStatements_WhenGetChildrenAllLevels_ThenReturnThem()
 		{
 			// arrange
-			var semanticNetwork = createBearsSample();
+			var semanticNetwork = CreateBearsSample();
 			var animalsConcept = semanticNetwork.Concepts["Kingdom: Animalia"];
 			var ignoredConcepts = new[] { LogicalValues.True, LogicalValues.False, animalsConcept };
 
@@ -573,7 +571,7 @@ namespace AabSemantics.Tests.Statements
 			Assert.IsTrue(bears.Contains("Ursus thibetanuss"));
 		}
 
-		private static ISemanticNetwork createBearsSample()
+		private static ISemanticNetwork CreateBearsSample()
 		{
 			var modules = new IExtensionModule[]
 			{
@@ -641,7 +639,7 @@ namespace AabSemantics.Tests.Statements
 			Single2,
 		};
 
-		private static List<TestParentChild> createTestSet()
+		private static List<TestParentChild> CreateTestSet()
 		{
 			return new List<TestParentChild>
 			{

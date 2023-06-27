@@ -27,7 +27,7 @@ namespace AabSemantics.Tests.Localization
 		}
 
 		[Test]
-		public void SerializeDefaultLanguage()
+		public void GivenDefaultLanguage_WhenSerializeAndDeserializeBack_ThenGetTheSameOne()
 		{
 			// arrange
 			var language = Language.Default;
@@ -50,11 +50,11 @@ namespace AabSemantics.Tests.Localization
 
 			// assert
 			Assert.IsNull(restored.FileName);
-			assertLanuagesAreEqual(language, restored);
+			AssertLanguagesAreEqual(language, restored);
 		}
 
 		[Test]
-		public void ImpossibleToSerializeLanguageWithUnregisteredExtension()
+		public void GivenUnregisteredExtension_WhenTryToSerializeLanguage_ThenFail()
 		{
 			// arrange
 			var language = Language.Default;
@@ -73,7 +73,7 @@ namespace AabSemantics.Tests.Localization
 		}
 
 		[Test]
-		public void SerializeLanguageWithRegisteredExtension()
+		public void GivenRegisteredExtension_WhenSerializeLanguage_ThenSucceed()
 		{
 			// arrange
 			var language = Language.Default;
@@ -106,10 +106,10 @@ namespace AabSemantics.Tests.Localization
 
 			// assert
 			Assert.IsNull(restored.FileName);
-			assertLanuagesAreEqual(language, restored);
+			AssertLanguagesAreEqual(language, restored);
 		}
 
-		private static void assertLanuagesAreEqual(Language language, Language restored)
+		private static void AssertLanguagesAreEqual(Language language, Language restored)
 		{
 			Assert.IsNull(restored.FileName);
 			Assert.AreEqual(language.Culture, restored.Culture);
@@ -129,20 +129,20 @@ namespace AabSemantics.Tests.Localization
 		}
 
 		[Test]
-		public void CheckAdditionalLanguages()
+		public void GivenAdditionalLanguages_WhenDeserializeThem_ThenSucceed()
 		{
 			// arrange
 			string tempFolder = Path.ChangeExtension(Path.GetTempFileName(), string.Empty);
 			var additionalLanguages = new[]
 			{
-				createTestLanguage("Deutsch", "de"),
-				createTestLanguage("Français", "fr"),
-				createTestLanguage("Español", "es"),
-				createTestLanguage("Ελληνικά", "el"),
-				createTestLanguage("فارسی", "fa"),
-				createTestLanguage("ქართული", "ka"),
-				createTestLanguage("中文", "zh"),
-				createTestLanguage("日本語", "ja"),
+				CreateTestLanguage("Deutsch", "de"),
+				CreateTestLanguage("Français", "fr"),
+				CreateTestLanguage("Español", "es"),
+				CreateTestLanguage("Ελληνικά", "el"),
+				CreateTestLanguage("فارسی", "fa"),
+				CreateTestLanguage("ქართული", "ka"),
+				CreateTestLanguage("中文", "zh"),
+				CreateTestLanguage("日本語", "ja"),
 			};
 			var languagesDictionary = additionalLanguages.OrderBy(l => l.Culture).ToDictionary(l => l.Culture, l => l.Name);
 
@@ -171,7 +171,7 @@ namespace AabSemantics.Tests.Localization
 		}
 
 		[Test]
-		public void CheckAdditionalLanguagesFolderCreation()
+		public void GivenNoLanguagesFolder_WhenTryToLoadFromIt_ThenCreateIt()
 		{
 			// arrange
 			string tempFolder = Path.ChangeExtension(Path.GetTempFileName(), string.Empty);
@@ -195,7 +195,7 @@ namespace AabSemantics.Tests.Localization
 			}
 		}
 
-		private static Language createTestLanguage(string name, string culture)
+		private static Language CreateTestLanguage(string name, string culture)
 		{
 			return new Language
 			{

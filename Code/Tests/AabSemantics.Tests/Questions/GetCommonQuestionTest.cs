@@ -21,7 +21,7 @@ namespace AabSemantics.Tests.Questions
 	public class GetCommonQuestionTest
 	{
 		[Test]
-		public void ReturnEmptyIfConceptsCanNotBeCompared()
+		public void GivenConceptsCanNotBeCompared_WhenBeingAsked_ThenReturnEmpty()
 		{
 			// arrange
 			var language = Language.Default;
@@ -36,7 +36,7 @@ namespace AabSemantics.Tests.Questions
 		}
 
 		[Test]
-		public void ReturnEmptyWithExplanationIfNoCommonFound()
+		public void GivenNoCommon_WhenBeingAsked_ThenReturnEmptyExplanation()
 		{
 			// arrange
 			var language = Language.Default;
@@ -51,7 +51,7 @@ namespace AabSemantics.Tests.Questions
 		}
 
 		[Test]
-		public void ReturnAllCommon()
+		public void GivenAllSetOnTheSameLevel_WhenBeingAsked_ThenReturnAllCommon()
 		{
 			// arrange
 			var language = Language.Default;
@@ -69,7 +69,7 @@ namespace AabSemantics.Tests.Questions
 		}
 
 		[Test]
-		public void ReturnAllCommonManyLevels()
+		public void GivenAllSetOnTheDifferentLevels_WhenBeingAsked_ThenReturnAllCommonManyLevels()
 		{
 			// arrange
 			var language = Language.Default;

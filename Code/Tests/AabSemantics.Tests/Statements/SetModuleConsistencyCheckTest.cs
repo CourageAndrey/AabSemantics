@@ -73,7 +73,7 @@ namespace AabSemantics.Tests.Statements
 		}*/
 
 		[Test]
-		public void GivenNoSignWhenCheckValuesWithoutSignThenFail()
+		public void GivenNoSign_WhenCheckValuesWithoutSign_ThenFail()
 		{
 			// arrange
 			var statementDefinition = Repositories.Statements.Definitions[typeof(SignValueStatement)];
@@ -100,7 +100,7 @@ namespace AabSemantics.Tests.Statements
 		}
 
 		[Test]
-		public void GivenCorrectSignsWithValuesWhenCheckValuesWithoutSignThenSucceed()
+		public void GivenCorrectSignsWithValues_WhenCheckValuesWithoutSign_ThenSucceed()
 		{
 			// arrange
 			var statementDefinition = Repositories.Statements.Definitions[typeof(SignValueStatement)];
@@ -128,7 +128,7 @@ namespace AabSemantics.Tests.Statements
 		}
 
 		[Test]
-		public void GivenDuplicatingSignsWhenCheckSignDuplicationsThenFail()
+		public void GivenDuplicatingSigns_WhenCheckSignDuplications_ThenFail()
 		{
 			// arrange
 			var statementDefinition = Repositories.Statements.Definitions[typeof(HasSignStatement)];
@@ -157,7 +157,7 @@ namespace AabSemantics.Tests.Statements
 		}
 
 		[Test]
-		public void GivenNoDuplicatingSignsWhenCheckSignDuplicationsThenSucceed()
+		public void GivenNoDuplicatingSigns_WhenCheckSignDuplications_ThenSucceed()
 		{
 			// arrange
 			var statementDefinition = Repositories.Statements.Definitions[typeof(HasSignStatement)];

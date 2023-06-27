@@ -16,7 +16,7 @@ namespace AabSemantics.Tests.Questions
 	public class CheckStatementQuestionTest
 	{
 		[Test]
-		public void ReturnEmptyAnswerIfNoMathingStatementsFound()
+		public void GivenNoMatchingStatementsFound_WhenAsk_ThenReturnEmptyAnswer()
 		{
 			// arrange
 			var language = Language.Default;
@@ -43,7 +43,7 @@ namespace AabSemantics.Tests.Questions
 		}
 
 		[Test]
-		public void ReturnFoundStatementIfExists()
+		public void GivenExistingStatement_WhenAsk_ThenReturnFoundStatement()
 		{
 			// arrange
 			var language = Language.Default;
@@ -70,7 +70,7 @@ namespace AabSemantics.Tests.Questions
 		}
 
 		[Test]
-		public void SupportTransitiveStatements()
+		public void GivenTransitiveStatements_WhenAsk_ThenProcessCorrectly()
 		{
 			// arrange
 			var language = Language.Default;
@@ -145,7 +145,6 @@ namespace AabSemantics.Tests.Questions
 
 		private class TransitiveTestStatement : Statement<TransitiveTestStatement>, IParentChild<IConcept>
 		{
-
 			public IConcept Parent
 			{ get; }
 

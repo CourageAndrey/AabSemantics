@@ -11,7 +11,7 @@ namespace AabSemantics.Tests.Mutations
 	public class StatementConceptFilterTest
 	{
 		[Test]
-		public void ImpossibleToCreateWithoutConceptSelector()
+		public void GivenNoConceptSelector_WhenTryToCreate_ThenFail()
 		{
 			// arrange
 			var conceptFilter = new ConceptSearchPattern(concept => true);
@@ -21,7 +21,7 @@ namespace AabSemantics.Tests.Mutations
 		}
 
 		[Test]
-		public void ImpossibleToCreateWithoutConceptFilter()
+		public void GivenNoConceptFilter_WhenTryToCreate_ThenFail()
 		{
 			// arrange
 			var conceptSelector = new StatementConceptSelector<IsStatement>(statement => null);
@@ -31,7 +31,7 @@ namespace AabSemantics.Tests.Mutations
 		}
 
 		[Test]
-		public void GivenAllCorrectParametersWhenCreateThenCreate()
+		public void GivenAllCorrectParameters_WhenCreate_ThenSucceed()
 		{
 			// arrange
 			var conceptFilter = new ConceptSearchPattern(concept => true);

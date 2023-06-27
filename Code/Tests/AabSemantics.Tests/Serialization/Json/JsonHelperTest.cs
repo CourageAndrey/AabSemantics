@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Runtime.Serialization;
-using System.Threading.Tasks;
 using System.Runtime.Serialization.Json;
+using System.Threading.Tasks;
 
 using NUnit.Framework;
 
@@ -16,7 +16,7 @@ namespace AabSemantics.Tests.Serialization.Json
 	public class JsonHelperTest
 	{
 		[Test]
-		public void CheckCustomSerializers()
+		public void GivenCustomSerializer_WhenAcquireSerializer_ThenReturnCustom()
 		{
 			// arrange
 			var customSerializer = new DataContractJsonSerializer(typeof(SerializableCustom));
@@ -30,14 +30,14 @@ namespace AabSemantics.Tests.Serialization.Json
 		}
 
 		[Test]
-		public void AcquireSerializerTypedAndUntyped()
+		public void GivenTypedAndUntypedOverloads_WhenAcquireSerializer_ThenWorkTheSame()
 		{
 			// act & assert
 			Assert.AreSame(JsonHelper.AcquireJsonSerializer(typeof(SerializableClass1)), JsonHelper.AcquireJsonSerializer<SerializableClass1>());
 		}
 
 		[Test]
-		public void AcquireSerializerMultithreading()
+		public void GivenMultithreading_WhenAcquireSerializer_ThenSucceed()
 		{
 			// arrange
 			const int threadsPerType = 10;
@@ -65,7 +65,7 @@ namespace AabSemantics.Tests.Serialization.Json
 		}
 
 		[Test]
-		public void TestSerialization()
+		public void GivenDifferentWays_WhenCheckSerialization_ThenAllWorkTheSame()
 		{
 			// arrange
 			var test = Test.Create();

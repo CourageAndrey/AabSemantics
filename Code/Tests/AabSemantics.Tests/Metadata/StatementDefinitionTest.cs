@@ -13,7 +13,7 @@ namespace AabSemantics.Tests.Metadata
 	public class StatementDefinitionTest
 	{
 		[Test]
-		public void ImpossibleToCreateDefinitionWithoutType()
+		public void GivenNoType_WhenTryToCreate_ThenFail()
 		{
 			// act & assert
 			Assert.Throws<ArgumentNullException>(() => new TestStatementDefinition(
@@ -27,7 +27,7 @@ namespace AabSemantics.Tests.Metadata
 		}
 
 		[Test]
-		public void ImpossibleToCreateDefinitionWithInvalidType()
+		public void GivenInvalidType_WhenTryToCreate_ThenFail()
 		{
 			// act & assert
 			Assert.Throws<ArgumentException>(() => new TestStatementDefinition(
@@ -38,7 +38,7 @@ namespace AabSemantics.Tests.Metadata
 				typeof(Modules.Classification.Xml.IsStatement),
 				typeof(Modules.Classification.Json.IsStatement),
 				StatementDefinition.NoConsistencyCheck));
-			Assert.Throws<ArgumentException>(() => createStatementDefinition<Statement>(
+			Assert.Throws<ArgumentException>(() => CreateStatementDefinition<Statement>(
 				language => language.Culture,
 				statement => null,
 				statement => null,
@@ -48,10 +48,10 @@ namespace AabSemantics.Tests.Metadata
 		}
 
 		[Test]
-		public void ImpossibleToCreateDefinitionWithoutNameGetter()
+		public void GivenNoNameGetter_WhenTryToCreate_ThenFail()
 		{
 			// act & assert
-			Assert.Throws<ArgumentNullException>(() => createStatementDefinition<IsStatement>(
+			Assert.Throws<ArgumentNullException>(() => CreateStatementDefinition<IsStatement>(
 				null,
 				statement => null,
 				statement => null,
@@ -69,10 +69,10 @@ namespace AabSemantics.Tests.Metadata
 		}
 
 		[Test]
-		public void ImpossibleToCreateDefinitionWithoutXmlType()
+		public void GivenNoXmlType_WhenTryToCreate_ThenFail()
 		{
 			// act & assert
-			Assert.Throws<ArgumentNullException>(() => createStatementDefinition<IsStatement>(
+			Assert.Throws<ArgumentNullException>(() => CreateStatementDefinition<IsStatement>(
 				language => language.Culture,
 				statement => null,
 				statement => null,
@@ -90,10 +90,10 @@ namespace AabSemantics.Tests.Metadata
 		}
 
 		[Test]
-		public void ImpossibleToCreateDefinitionWithoutJsonType()
+		public void GivenNoJsonType_WhenTryToCreate_ThenFail()
 		{
 			// act & assert
-			Assert.Throws<ArgumentNullException>(() => createStatementDefinition<IsStatement>(
+			Assert.Throws<ArgumentNullException>(() => CreateStatementDefinition<IsStatement>(
 				language => language.Culture,
 				statement => null,
 				statement => null,
@@ -111,10 +111,10 @@ namespace AabSemantics.Tests.Metadata
 		}
 
 		[Test]
-		public void ImpossibleToCreateDefinitionWithoutXmlGetter()
+		public void GivenNoXmlGetter_WhenTryToCreate_ThenFail()
 		{
 			// act & assert
-			Assert.Throws<ArgumentNullException>(() => createStatementDefinition<IsStatement>(
+			Assert.Throws<ArgumentNullException>(() => CreateStatementDefinition<IsStatement>(
 				language => language.Culture,
 				null,
 				statement => null,
@@ -132,10 +132,10 @@ namespace AabSemantics.Tests.Metadata
 		}
 
 		[Test]
-		public void ImpossibleToCreateDefinitionWithoutJsonGetter()
+		public void GivenNoJsonGetter_WhenTryToCreate_ThenFail()
 		{
 			// act & assert
-			Assert.Throws<ArgumentNullException>(() => createStatementDefinition<IsStatement>(
+			Assert.Throws<ArgumentNullException>(() => CreateStatementDefinition<IsStatement>(
 				language => language.Culture,
 				statement => null,
 				null,
@@ -153,10 +153,10 @@ namespace AabSemantics.Tests.Metadata
 		}
 
 		[Test]
-		public void ImpossibleToCreateDefinitionWithoutConsistencyChecker()
+		public void GivenNoConsistencyChecker_WhenTryToCreate_ThenFail()
 		{
 			// act & assert
-			Assert.Throws<ArgumentNullException>(() => createStatementDefinition<IsStatement>(
+			Assert.Throws<ArgumentNullException>(() => CreateStatementDefinition<IsStatement>(
 				language => language.Culture,
 				statement => null,
 				statement => null,
@@ -184,10 +184,10 @@ namespace AabSemantics.Tests.Metadata
 		}
 
 		[Test]
-		public void CheckName()
+		public void GivenCorrectDefinition_WhenGetName_ThenReturnIt()
 		{
 			// arrange
-			var definition = createStatementDefinition<IsStatement>(
+			var definition = CreateStatementDefinition<IsStatement>(
 				language => language.Culture,
 				statement => null,
 				statement => null,
@@ -202,7 +202,7 @@ namespace AabSemantics.Tests.Metadata
 			Assert.AreEqual(Language.Default.Culture, name);
 		}
 
-		private static StatementDefinition<StatementT> createStatementDefinition<StatementT>(
+		private static StatementDefinition<StatementT> CreateStatementDefinition<StatementT>(
 			Func<ILanguage, String> nameGetter,
 			Func<IStatement, AabSemantics.Serialization.Xml.Statement> xmlSerializer,
 			Func<IStatement, AabSemantics.Serialization.Json.Statement> jsonSerializer,

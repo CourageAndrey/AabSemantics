@@ -3,13 +3,13 @@ using System.Reflection;
 
 using NUnit.Framework;
 
-using AabSemantics.Modules.Mathematics.Json;
 using AabSemantics.Modules.Boolean.Json;
 using AabSemantics.Modules.Classification.Json;
+using AabSemantics.Modules.Mathematics.Json;
 using AabSemantics.Modules.Processes.Json;
+using AabSemantics.Modules.Set.Json;
 using AabSemantics.Serialization.Json;
 using AabSemantics.Serialization.Json.Answers;
-using AabSemantics.Modules.Set.Json;
 
 namespace AabSemantics.Tests.Serialization.Json
 {
@@ -17,7 +17,7 @@ namespace AabSemantics.Tests.Serialization.Json
 	public class EmptyConstructorsTest
 	{
 		[Test]
-		public void CheckSemanticNetwork()
+		public void GivenSemanticNetwork_WhenCreateWithoutParameters_ThenSucceed()
 		{
 			// arrange
 			var semanticNetwork = new AabSemantics.Serialization.Json.SemanticNetwork();
@@ -30,7 +30,7 @@ namespace AabSemantics.Tests.Serialization.Json
 		}
 
 		[Test]
-		public void CheckLocalizedString()
+		public void GivenLocalizedString_WhenCreateWithoutParameters_ThenSucceed()
 		{
 			// arrange
 			var localizedString = new LocalizedString();
@@ -40,7 +40,7 @@ namespace AabSemantics.Tests.Serialization.Json
 		}
 
 		[Test]
-		public void CheckConcept()
+		public void GivenConcept_WhenCreateWithoutParameters_ThenSucceed()
 		{
 			// arrange
 			var concept = new Concept();
@@ -53,7 +53,7 @@ namespace AabSemantics.Tests.Serialization.Json
 		}
 
 		[Test]
-		public void CheckStatements()
+		public void GivenStatements_WhenCreateWithoutParameters_ThenSucceed()
 		{
 			var statementsToCheck = new Statement[]
 			{
@@ -79,7 +79,7 @@ namespace AabSemantics.Tests.Serialization.Json
 		}
 
 		[Test]
-		public void CheckQuestions()
+		public void GivenQuestions_WhenCreateWithoutParameters_ThenSucceed()
 		{
 			// arrange
 			var questionsToCheck = new Question[]
@@ -129,7 +129,7 @@ namespace AabSemantics.Tests.Serialization.Json
 		}
 
 		[Test]
-		public void CheckAnswers()
+		public void GivenAnswers_WhenCreateWithoutParameters_ThenSucceed()
 		{
 			// arrange
 			var emptyAnswer = new Answer();

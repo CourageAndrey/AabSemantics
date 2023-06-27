@@ -28,8 +28,8 @@ namespace AabSemantics.Tests.Serialization.Xml
 		}
 
 		[Test]
-		[TestCaseSource(nameof(getAllAttributes))]
-		public void OneAttribute(IAttribute attribute)
+		[TestCaseSource(nameof(GetAllAttributes))]
+		public void GivenOneAttribute_WhenSerializeDeserialize_ThenSucceed(IAttribute attribute)
 		{
 			// arrange
 			var concept = new Concept();
@@ -44,11 +44,11 @@ namespace AabSemantics.Tests.Serialization.Xml
 		}
 
 		[Test]
-		public void AllAttributes()
+		public void GivenAllAttributes_WhenSerializeDeserialize_ThenSucceed()
 		{
 			// arrange
 			var concept = new Concept();
-			foreach (var attribute in getAllAttributes())
+			foreach (var attribute in GetAllAttributes())
 			{
 				concept.WithAttribute(attribute);
 			}
@@ -62,7 +62,7 @@ namespace AabSemantics.Tests.Serialization.Xml
 		}
 
 		[Test]
-		public void UnknownAttribute()
+		public void GivenUnknownAttribute_WhenTryToSerialize_ThenFail()
 		{
 			// arrange
 			var concept = new Concept();
@@ -72,7 +72,7 @@ namespace AabSemantics.Tests.Serialization.Xml
 			Assert.Throws<NotSupportedException>(() => new AabSemantics.Serialization.Xml.Concept(concept));
 		}
 
-		private static IEnumerable<IAttribute> getAllAttributes()
+		private static IEnumerable<IAttribute> GetAllAttributes()
 		{
 			yield return IsComparisonSignAttribute.Value;
 			yield return Modules.Boolean.Attributes.IsBooleanAttribute.Value;

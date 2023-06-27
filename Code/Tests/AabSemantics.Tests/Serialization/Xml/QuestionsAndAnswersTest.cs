@@ -55,8 +55,8 @@ namespace AabSemantics.Tests.Serialization.Xml
 		}
 
 		[Test]
-		[TestCaseSource(nameof(createQuestions))]
-		public void CheckQuestionsSerialization(IQuestion question)
+		[TestCaseSource(nameof(CreateQuestions))]
+		public void GivenDifferentQuestions_WhenSerializeDeserialize_ThenSucceed(IQuestion question)
 		{
 			// arrange
 			var propertiesToCompare = question
@@ -88,8 +88,8 @@ namespace AabSemantics.Tests.Serialization.Xml
 		}
 
 		[Test]
-		[TestCaseSource(nameof(createAnswers))]
-		public void CheckAnswersSerialization(IAnswer answer)
+		[TestCaseSource(nameof(CreateAnswers))]
+		public void GivenDifferentAnswers_WhenSerializeDeserialize_ThenSucceed(IAnswer answer)
 		{
 			// arrange
 			var propertiesToCompare = answer
@@ -167,7 +167,7 @@ namespace AabSemantics.Tests.Serialization.Xml
 			}
 		}
 
-		private static IEnumerable<IQuestion> createQuestions()
+		private static IEnumerable<IQuestion> CreateQuestions()
 		{
 			var testStatement = _semanticNetwork.Statements.First();
 			var testConcept1 = _semanticNetwork.Concepts.First();
@@ -196,7 +196,7 @@ namespace AabSemantics.Tests.Serialization.Xml
 			yield return new WhatQuestion(testConcept1);
 		}
 
-		private static IEnumerable<IAnswer> createAnswers()
+		private static IEnumerable<IAnswer> CreateAnswers()
 		{
 			var text = new FormattedText(
 				language => "_#A#_",

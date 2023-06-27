@@ -18,7 +18,7 @@ namespace AabSemantics.Tests.Questions
 	public class SignValueQuestionTest
 	{
 		[Test]
-		public void ReturnUnknownIfNoInformation()
+		public void GivenNoInformation_WhenBeingAsked_ThenReturnEmpty()
 		{
 			// arrange
 			var language = Language.Default;
@@ -33,7 +33,7 @@ namespace AabSemantics.Tests.Questions
 		}
 
 		[Test]
-		public void ReturnDirectSignValue()
+		public void GivenDirectSignValue_WhenBeingAsked_ThenReturnIt()
 		{
 			// arrange
 			var language = Language.Default;
@@ -49,7 +49,7 @@ namespace AabSemantics.Tests.Questions
 		}
 
 		[Test]
-		public void ReturnInheritedSignValue()
+		public void GivenInheritedSignValue_WhenBeingAsked_ThenReturnIt()
 		{
 			// arrange
 			var language = Language.Default;
@@ -72,7 +72,7 @@ namespace AabSemantics.Tests.Questions
 		}
 
 		[Test]
-		public void ReturnOverridenSignValue()
+		public void GivenOverridenValue_WhenBeingAsked_ThenReturnIt()
 		{
 			// arrange
 			var language = Language.Default;

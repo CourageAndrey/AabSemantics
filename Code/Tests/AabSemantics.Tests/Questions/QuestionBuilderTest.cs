@@ -6,12 +6,12 @@ using NUnit.Framework;
 using AabSemantics.Answers;
 using AabSemantics.Concepts;
 using AabSemantics.Localization;
+using AabSemantics.Modules.Boolean.Attributes;
 using AabSemantics.Modules.Boolean.Questions;
 using AabSemantics.Modules.Classification.Questions;
 using AabSemantics.Modules.Mathematics.Concepts;
 using AabSemantics.Modules.Mathematics.Questions;
 using AabSemantics.Modules.Mathematics.Statements;
-using AabSemantics.Modules.Boolean.Attributes;
 using AabSemantics.Modules.Processes.Attributes;
 using AabSemantics.Modules.Processes.Questions;
 using AabSemantics.Modules.Processes.Statements;
@@ -26,7 +26,7 @@ namespace AabSemantics.Tests.Questions
 	public class QuestionBuilderTest
 	{
 		[Test]
-		public void TestBuildingIsTrueThat()
+		public void GivenIsTrueThat_WhenBeingAsked_ThenBuildAndAskQuestion()
 		{
 			// arrange
 			var language = Language.Default;
@@ -46,7 +46,7 @@ namespace AabSemantics.Tests.Questions
 		}
 
 		[Test]
-		public void TestBuildingHowCompared()
+		public void GivenHowCompared_WhenBeingAsked_ThenBuildAndAskQuestion()
 		{
 			// arrange
 			var language = Language.Default;
@@ -64,7 +64,7 @@ namespace AabSemantics.Tests.Questions
 		}
 
 		[Test]
-		public void TestBuildingWhichConceptsBelongToSubjectArea()
+		public void GivenWhichConceptsBelongToSubjectArea_WhenBeingAsked_ThenBuildAndAskQuestion()
 		{
 			// arrange
 			var language = Language.Default;
@@ -82,7 +82,7 @@ namespace AabSemantics.Tests.Questions
 		}
 
 		[Test]
-		public void TestBuildingWhichDescendantsHas()
+		public void GivenWhichDescendantsHas_WhenBeingAsked_ThenBuildAndAskQuestion()
 		{
 			// arrange
 			var language = Language.Default;
@@ -100,7 +100,7 @@ namespace AabSemantics.Tests.Questions
 		}
 
 		[Test]
-		public void TestBuildingWhichContainersInclude()
+		public void GivenWhichContainersInclude_WhenBeingAsked_ThenBuildAndAskQuestion()
 		{
 			// arrange
 			var language = Language.Default;
@@ -118,7 +118,7 @@ namespace AabSemantics.Tests.Questions
 		}
 
 		[Test]
-		public void TestBuildingWhichPartsHas()
+		public void GivenWhichPartsHas_WhenBeingAsked_ThenBuildAndAskQuestion()
 		{
 			// arrange
 			var language = Language.Default;
@@ -136,7 +136,7 @@ namespace AabSemantics.Tests.Questions
 		}
 
 		[Test]
-		public void TestBuildingWhichSignsHas()
+		public void GivenWhichSignsHas_WhenBeingAsked_ThenBuildAndAskQuestion()
 		{
 			// arrange
 			var language = Language.Default;
@@ -154,7 +154,7 @@ namespace AabSemantics.Tests.Questions
 		}
 
 		[Test]
-		public void TestBuildingToWhichSubjectAreasBelongs()
+		public void GivenToWhichSubjectAreasBelongs_WhenBeingAsked_ThenBuildAndAskQuestion()
 		{
 			// arrange
 			var language = Language.Default;
@@ -172,7 +172,7 @@ namespace AabSemantics.Tests.Questions
 		}
 
 		[Test]
-		public void TestBuildingIfHasSign()
+		public void GivenIfHasSign_WhenBeingAsked_ThenBuildAndAskQuestion()
 		{
 			// arrange
 			var language = Language.Default;
@@ -190,7 +190,7 @@ namespace AabSemantics.Tests.Questions
 		}
 
 		[Test]
-		public void TestBuildingIfHasSigns()
+		public void GivenIfHasSigns_WhenBeingAsked_ThenBuildAndAskQuestion()
 		{
 			// arrange
 			var language = Language.Default;
@@ -208,7 +208,7 @@ namespace AabSemantics.Tests.Questions
 		}
 
 		[Test]
-		public void TestBuildingIfIsPartOf()
+		public void GivenIfIsPartOf_WhenBeingAsked_ThenBuildAndAskQuestion()
 		{
 			// arrange
 			var language = Language.Default;
@@ -226,7 +226,7 @@ namespace AabSemantics.Tests.Questions
 		}
 
 		[Test]
-		public void TestBuildingIfIs()
+		public void GivenIfIs_WhenBeingAsked_ThenBuildAndAskQuestion()
 		{
 			// arrange
 			var language = Language.Default;
@@ -244,7 +244,7 @@ namespace AabSemantics.Tests.Questions
 		}
 
 		[Test]
-		public void TestBuildingIfIsSign()
+		public void GivenIfIsSign_WhenBeingAsked_ThenBuildAndAskQuestion()
 		{
 			// arrange
 			var language = Language.Default;
@@ -262,7 +262,7 @@ namespace AabSemantics.Tests.Questions
 		}
 
 		[Test]
-		public void TestBuildingIfConceptBelongsToSubjectArea()
+		public void GivenIfConceptBelongsToSubjectArea_WhenBeingAsked_ThenBuildAndAskQuestion()
 		{
 			// arrange
 			var language = Language.Default;
@@ -280,7 +280,7 @@ namespace AabSemantics.Tests.Questions
 		}
 
 		[Test]
-		public void TestBuildingIfIsValue()
+		public void GivenIfIsValue_WhenBeingAsked_ThenBuildAndAskQuestion()
 		{
 			// arrange
 			var language = Language.Default;
@@ -298,7 +298,7 @@ namespace AabSemantics.Tests.Questions
 		}
 
 		[Test]
-		public void TestBuildingWhatIsMutualSequenceOfProcesses()
+		public void GivenWhatIsMutualSequenceOfProcesses_WhenBeingAsked_ThenBuildAndAskQuestion()
 		{
 			// arrange
 			var language = Language.Default;
@@ -323,7 +323,7 @@ namespace AabSemantics.Tests.Questions
 		}
 
 		[Test]
-		public void TestBuildingWhatIsSignValue()
+		public void GivenWhatIsSignValue_WhenBeingAsked_ThenBuildAndAskQuestion()
 		{
 			// arrange
 			var language = Language.Default;
@@ -341,7 +341,7 @@ namespace AabSemantics.Tests.Questions
 		}
 
 		[Test]
-		public void TestBuildingWhatIs()
+		public void GivenWhatIs_WhenBeingAsked_ThenBuildAndAskQuestion()
 		{
 			// arrange
 			var language = Language.Default;
@@ -361,7 +361,7 @@ namespace AabSemantics.Tests.Questions
 		}
 
 		[Test]
-		public void TestBuildingPreconditions()
+		public void GivenPreconditions_WhenBeingAsked_ThenTakeThemIntoAccount()
 		{
 			// arrange
 			var language = Language.Default;
@@ -385,7 +385,7 @@ namespace AabSemantics.Tests.Questions
 		}
 
 		[Test]
-		public void CheckNullSemanticNetwork()
+		public void GivenNoSemanticNetwork_WhenBeingAsked_ThenThrowArgumentNullException()
 		{
 			// act & assert
 			Assert.Throws<ArgumentNullException>(() => new QuestionBuilder(null, Array.Empty<IStatement>()));

@@ -19,7 +19,7 @@ namespace AabSemantics.Tests.Questions
 	public class ComparisonQuestionTest
 	{
 		[Test]
-		public void CheckUncomparableValues()
+		public void GivenIncomparableValues_WhenBeingAsked_ThenReturnEmpty()
 		{
 			// arrange
 			var language = Language.Default;
@@ -34,7 +34,7 @@ namespace AabSemantics.Tests.Questions
 		}
 
 		[Test]
-		public void CheckEquality()
+		public void GivenEqualConditions_WhenBeingAsked_ThenReturnResult()
 		{
 			// arrange
 			var language = Language.Default;
@@ -65,7 +65,7 @@ namespace AabSemantics.Tests.Questions
 		}
 
 		[Test]
-		public void CheckGreaterAndLessConditions()
+		public void GivenGreaterAndLessConditions_WhenBeingAsked_ThenReturnResult()
 		{
 			// arrange
 			var language = Language.Default;
@@ -121,7 +121,7 @@ namespace AabSemantics.Tests.Questions
 		}
 
 		[Test]
-		public void CheckConditionsWithLeAndGe()
+		public void GivenConditionsWithLeAndGe_WhenBeingAsked_ThenReturnResult()
 		{
 			// arrange
 			var language = Language.Default;

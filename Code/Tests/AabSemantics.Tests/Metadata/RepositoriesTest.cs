@@ -15,7 +15,7 @@ namespace AabSemantics.Tests.Metadata
 	public class RepositoriesTest
 	{
 		[Test]
-		public void ImpossibleToSetNullModules()
+		public void GivenRepositories_WhenTryToSetNullModules_ThenFail()
 		{
 			Assert.Throws<ArgumentNullException>(() => Repositories.Modules = null);
 
@@ -23,7 +23,7 @@ namespace AabSemantics.Tests.Metadata
 		}
 
 		[Test]
-		public void ImpossibleToSetNullAttributes()
+		public void GivenRepositories_WhenTryToSetNullAttributes_ThenFail()
 		{
 			Assert.Throws<ArgumentNullException>(() => Repositories.Attributes = null);
 
@@ -31,7 +31,7 @@ namespace AabSemantics.Tests.Metadata
 		}
 
 		[Test]
-		public void ImpossibleToSetNullStatements()
+		public void GivenRepositories_WhenTryToSetNullStatements_ThenFail()
 		{
 			Assert.Throws<ArgumentNullException>(() => Repositories.Statements = null);
 
@@ -39,7 +39,7 @@ namespace AabSemantics.Tests.Metadata
 		}
 
 		[Test]
-		public void ImpossibleToSetNullQuestions()
+		public void GivenRepositories_WhenTryToSetNullQuestions_ThenFail()
 		{
 			Assert.Throws<ArgumentNullException>(() => Repositories.Questions = null);
 
@@ -47,7 +47,7 @@ namespace AabSemantics.Tests.Metadata
 		}
 
 		[Test]
-		public void ImpossibleToSetNullAnswers()
+		public void GivenRepositories_WhenTryToSetNullAnswers_ThenFail()
 		{
 			Assert.Throws<ArgumentNullException>(() => Repositories.Answers = null);
 
@@ -55,7 +55,7 @@ namespace AabSemantics.Tests.Metadata
 		}
 
 		[Test]
-		public void TypedAnduntypedRegistrationWorkTheSame()
+		public void GivenTypedAndUntypedMethods_WhenRegisterMetadata_ThenWorksTheSame()
 		{
 			// arrange
 			Repositories.Attributes.Definitions.Clear();

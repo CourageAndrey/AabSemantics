@@ -50,7 +50,7 @@ namespace AabSemantics.Tests.Metadata
 		}
 
 		[Test]
-		public void SuccessfullyRegisterMetadata()
+		public void GivenCorrectModule_WhenRegisterMetadata_ThenSucceed()
 		{
 			// arrange
 			var module = new TestModule("Test");
@@ -66,7 +66,7 @@ namespace AabSemantics.Tests.Metadata
 		}
 
 		[Test]
-		public void RegisterMetadataOnce()
+		public void GivenRegisteredModule_WhenTryToRegisterMetadata_ThenMetadataIsNotRegistered()
 		{
 			// arrange
 			var module = new TestModule("Test");
@@ -83,7 +83,7 @@ namespace AabSemantics.Tests.Metadata
 		}
 
 		[Test]
-		public void AttachToSemanticNetworkOnce()
+		public void GivenSemanticNetworkWithAttachedModule_WhenTryToAttachModuleWithTheSameName_ThenModuleIsNotAttached()
 		{
 			// arrange
 			var language = Language.Default;
@@ -100,7 +100,7 @@ namespace AabSemantics.Tests.Metadata
 		}
 
 		[Test]
-		public void ImpossibleToRegisterModuleWithUnregisteredDependencies()
+		public void GivenUnregisteredDependencies_WhenTryToRegisterModule_ThenFail()
 		{
 			// arrange
 			var language = Language.Default;
@@ -115,7 +115,7 @@ namespace AabSemantics.Tests.Metadata
 		}
 
 		[Test]
-		public void WithModulesDoesNotDependOnSequence()
+		public void GivenManyDependentModules_WhenRegister_ThenAllDependenciesAreSuccessfullyResolved()
 		{
 			// arrange
 			var language = Language.Default;
@@ -143,7 +143,7 @@ namespace AabSemantics.Tests.Metadata
 		}
 
 		[Test]
-		public void WithModulesFailsIfCannotResolveDependencies()
+		public void GivenUnresolvedDependencies_WhenTryToWithModules_ThenFail()
 		{
 			// arrange
 			var language = Language.Default;
@@ -165,7 +165,7 @@ namespace AabSemantics.Tests.Metadata
 		}
 
 		[Test]
-		public void WithModulesFailsOnCircularDependencies()
+		public void GivenCircularDependencies_WhenTryToWithModules_ThenFail()
 		{
 			// arrange
 			var language = Language.Default;
@@ -188,7 +188,7 @@ namespace AabSemantics.Tests.Metadata
 		}
 
 		[Test]
-		public void ThereIsNoLanguageExtensionsByDefault()
+		public void GivenDefaultLanguage_WhenGetExtensions_ThenReturnNothing()
 		{
 			// arrange
 			var module = new TestModule("test");
@@ -198,7 +198,7 @@ namespace AabSemantics.Tests.Metadata
 		}
 
 		[Test]
-		public void TestRegisteredMetadata()
+		public void GivenCorrectModules_WhenRegisterMetadata_ThenSucceed()
 		{
 			// 0-assert
 			Assert.AreEqual(0, Repositories.Attributes.Definitions.Count);
@@ -230,8 +230,8 @@ namespace AabSemantics.Tests.Metadata
 			}
 
 			// assert attributes
-			var attributeTypes = getAllAttributeTypes();
-			Assert.AreEqual(Repositories.Attributes.Definitions.Count, getAllAttributeTypes().Count);
+			var attributeTypes = GetAllAttributeTypes();
+			Assert.AreEqual(Repositories.Attributes.Definitions.Count, GetAllAttributeTypes().Count);
 			foreach (var type in attributeTypes)
 			{
 				var definition = Repositories.Attributes.Definitions[type];
@@ -248,7 +248,7 @@ namespace AabSemantics.Tests.Metadata
 			}
 
 			// assert statements
-			var statementTypes = getAllStatementTypes();
+			var statementTypes = GetAllStatementTypes();
 			Assert.AreEqual(Repositories.Statements.Definitions.Count, statementTypes.Count);
 			foreach (var type in statementTypes)
 			{
@@ -257,7 +257,7 @@ namespace AabSemantics.Tests.Metadata
 			}
 
 			// assert questions
-			var questionTypes = getAllQuestionsTypes();
+			var questionTypes = GetAllQuestionsTypes();
 			Assert.AreEqual(Repositories.Questions.Definitions.Count, questionTypes.Count);
 			foreach (var type in questionTypes)
 			{
@@ -266,7 +266,7 @@ namespace AabSemantics.Tests.Metadata
 			}
 
 			// assert answers
-			var answerTypes = getAllAnswersTypes();
+			var answerTypes = GetAllAnswersTypes();
 			Assert.AreEqual(Repositories.Answers.Definitions.Count, answerTypes.Count);
 			foreach (var type in answerTypes)
 			{
@@ -276,7 +276,7 @@ namespace AabSemantics.Tests.Metadata
 		}
 
 		[Test]
-		public void CheckLanguageExtensions()
+		public void GivenLanguageExtensions_WhenGetThem_ThenAllAreGet()
 		{
 			// arrange
 			var modules = new IExtensionModule[]
@@ -307,7 +307,7 @@ namespace AabSemantics.Tests.Metadata
 		}
 
 		[Test]
-		public void CheckCyclicClassifications()
+		public void GivenDifferentInputs_WhenCheckCyclicClassifications_ThenAllWorksAsExpected()
 		{
 			// arrange
 			var language = Language.Default;
@@ -345,7 +345,7 @@ namespace AabSemantics.Tests.Metadata
 			Assert.IsTrue(text.Contains("causes cyclic references"));
 		}
 
-		private static List<Type> getAllAttributeTypes()
+		private static List<Type> GetAllAttributeTypes()
 		{
 			return new List<Type>
 			{
@@ -358,7 +358,7 @@ namespace AabSemantics.Tests.Metadata
 			};
 		}
 
-		private static List<Type> getAllStatementTypes()
+		private static List<Type> GetAllStatementTypes()
 		{
 			return new List<Type>
 			{
@@ -372,7 +372,7 @@ namespace AabSemantics.Tests.Metadata
 			};
 		}
 
-		private static List<Type> getAllQuestionsTypes()
+		private static List<Type> GetAllQuestionsTypes()
 		{
 			return new List<Type>
 			{
@@ -400,7 +400,7 @@ namespace AabSemantics.Tests.Metadata
 			};
 		}
 
-		private static List<Type> getAllAnswersTypes()
+		private static List<Type> GetAllAnswersTypes()
 		{
 			return new List<Type>
 			{

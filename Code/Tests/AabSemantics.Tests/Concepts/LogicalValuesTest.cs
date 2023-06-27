@@ -11,7 +11,7 @@ namespace AabSemantics.Tests.Concepts
 	public class LogicalValuesTest
 	{
 		[Test]
-		public void OnlyLogicalValuesSuit()
+		public void GivenNonLogicalValues_WhenTryToCallLogicalValueExtensions_ThenFail()
 		{
 			foreach (var concept in SystemConcepts.GetAll())
 			{
@@ -24,7 +24,7 @@ namespace AabSemantics.Tests.Concepts
 		}
 
 		[Test]
-		public void DoubleInversionDoNothing()
+		public void GivenLogicalValues_WhenRevertTwice_ThenGetTheSame()
 		{
 			foreach (var value in LogicalValues.All)
 			{
@@ -33,7 +33,7 @@ namespace AabSemantics.Tests.Concepts
 		}
 
 		[Test]
-		public void ConversionToBooleanAndBackDoNothing()
+		public void GivenLogicalValues_WhenConvertToBooleanAndBack_ThenGetTheSame()
 		{
 			foreach (var value in LogicalValues.All)
 			{
@@ -47,7 +47,7 @@ namespace AabSemantics.Tests.Concepts
 		}
 
 		[Test]
-		public void ImpossibleToInvertIfNotBoolean()
+		public void GivenFakeLogicalValue_WhenTryInvert_ThenReturnTheSame()
 		{
 			// arrange
 			var testConcept = "test".CreateConcept();
@@ -65,7 +65,7 @@ namespace AabSemantics.Tests.Concepts
 		}
 
 		[Test]
-		public void ImpossibleToConvertToBooleanIfNotBoolean()
+		public void GivenFakeLogicalValue_WhenTryConvertToBoolean_ThenFail()
 		{
 			// arrange
 			var testConcept = "test".CreateConcept();

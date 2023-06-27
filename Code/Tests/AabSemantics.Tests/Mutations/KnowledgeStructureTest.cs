@@ -12,7 +12,7 @@ namespace AabSemantics.Tests.Mutations
 	public class KnowledgeStructureTest
 	{
 		[Test]
-		public void ImpossibleToCreateWithoutSemanticNetwork()
+		public void GivenSemanticNetwork_WhenTryToCreate_ThenFail()
 		{
 			// arrange
 			var searchPattern = new ConceptSearchPattern(concept => true);
@@ -23,7 +23,7 @@ namespace AabSemantics.Tests.Mutations
 		}
 
 		[Test]
-		public void ImpossibleToCreateWithoutSearchPattern()
+		public void GivenSearchPattern_WhenTryToCreate_ThenFail()
 		{
 			// arrange
 			var language = Language.Default;
@@ -35,7 +35,7 @@ namespace AabSemantics.Tests.Mutations
 		}
 
 		[Test]
-		public void ImpossibleToCreateWithoutKnowledge()
+		public void GivenKnowledge_WhenTryToCreate_ThenFail()
 		{
 			// arrange
 			var language = Language.Default;
@@ -47,7 +47,7 @@ namespace AabSemantics.Tests.Mutations
 		}
 
 		[Test]
-		public void GivenAllCorrectParametersWhenCreateThenCreate()
+		public void GivenAllCorrectParameters_WhenCreate_ThenSucceed()
 		{
 			// arrange
 			var language = Language.Default;

@@ -20,7 +20,7 @@ namespace AabSemantics.Tests.Questions
 	public class HasSignsQuestionTest
 	{
 		[Test]
-		public void ReturnEmptyAnswerIfNoSigns()
+		public void GivenNoSigns_WhenBeingAsked_ThenReturnEmpty()
 		{
 			// arrange
 			var language = Language.Default;
@@ -43,7 +43,7 @@ namespace AabSemantics.Tests.Questions
 		}
 
 		[Test]
-		public void ReturnEmptyAnswerIfThereAreParentSignsButNotRecursive()
+		public void GivenParentSignsButNotRecursive_WhenBeingAsked_ThenReturnEmpty()
 		{
 			// arrange
 			var language = Language.Default;
@@ -61,7 +61,7 @@ namespace AabSemantics.Tests.Questions
 		}
 
 		[Test]
-		public void ReturnOwnSignsOnlyIfNoRecursion()
+		public void GivenNoRecursion_WhenBeingAsked_ThenReturnOwnSignsOnly()
 		{
 			// arrange
 			var language = Language.Default;
@@ -91,7 +91,7 @@ namespace AabSemantics.Tests.Questions
 		}
 
 		[Test]
-		public void ReturnAllSignsIfRecursive()
+		public void GivenRecursive_WhenBeingAsked_ThenReturnAllSigns()
 		{
 			// arrange
 			var language = Language.Default;

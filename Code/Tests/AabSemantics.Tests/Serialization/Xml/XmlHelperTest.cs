@@ -17,7 +17,7 @@ namespace AabSemantics.Tests.Serialization.Xml
 	public class XmlHelperTest
 	{
 		[Test]
-		public void ResetCache()
+		public void GivenXmlHelper_WhenResetCache_ThenRemoveAllDefinedSerializers()
 		{
 			// arrange
 			var serializersField = typeof(XmlHelper).GetField("_serializers", BindingFlags.GetField | BindingFlags.Static | BindingFlags.NonPublic);
@@ -38,7 +38,7 @@ namespace AabSemantics.Tests.Serialization.Xml
 		}
 
 		[Test]
-		public void CheckCustomSerializers()
+		public void GivenCustomSerializer_WhenAcquireSerializer_ThenReturnCustom()
 		{
 			// arrange
 			var customSerializer = new XmlSerializer(typeof(SerializableCustom));
@@ -52,14 +52,14 @@ namespace AabSemantics.Tests.Serialization.Xml
 		}
 
 		[Test]
-		public void AcquireSerializerTypedAndUntyped()
+		public void GivenTypedAndUntypedOverloads_WhenAcquireSerializer_ThenWorkTheSame()
 		{
 			// act & assert
 			Assert.AreSame(XmlHelper.AcquireXmlSerializer(typeof(SerializableClass1)), XmlHelper.AcquireXmlSerializer<SerializableClass1>());
 		}
 
 		[Test]
-		public void AcquireSerializerMultithreading()
+		public void GivenMultithreading_WhenAcquireSerializer_ThenSucceed()
 		{
 			// arrange
 			const int threadsPerType = 10;
@@ -87,7 +87,7 @@ namespace AabSemantics.Tests.Serialization.Xml
 		}
 
 		[Test]
-		public void TestSerialization()
+		public void GivenDifferentWays_WhenCheckSerialization_ThenAllWorkTheSame()
 		{
 			// arrange
 			var test = Test.Create();
@@ -132,7 +132,7 @@ namespace AabSemantics.Tests.Serialization.Xml
 		}
 
 		[Test]
-		public void TestAttributesOverride()
+		public void GivenOverridenAttributes_WhenSerializeDeserialize_ThenSucceed()
 		{
 			// arrange
 			var test = new SerializationParent
@@ -194,59 +194,6 @@ namespace AabSemantics.Tests.Serialization.Xml
 			deserialized = xml.DeserializeFromXmlString<SerializationParent>();
 
 			Assert.IsTrue(deserialized.Equals(test));
-		}
-
-		[Test]
-		public void TestOverloadsOfAttributesOverride()
-		{
-			// arrange
-			var test = new SerializationParent
-			{
-				ChildrenA =
-				{
-					new SerializationChildA1(),
-					new SerializationChildA2(),
-					new SerializationChildA3(),
-				},
-			};
-
-			var overrides = new XmlHelper.PropertyTypes(nameof(SerializationParent.ChildrenA), typeof(SerializationParent), new Dictionary<string, Type>
-			{
-				{ "A1", typeof(SerializationChildA1) },
-				{ "A2", typeof(SerializationChildA2) },
-				{ "A3", typeof(SerializationChildA3) },
-			});
-
-			// act
-			XmlHelper.DefineTypeOverride<SerializationParent>(overrides);
-
-			string xml = test.SerializeToXmlString();
-			var deserialized = xml.DeserializeFromXmlString<SerializationParent>();
-
-			// assert
-			Assert.IsTrue(deserialized.Equals(test));
-
-			// assert
-
-
-			//XmlHelper.DefineTypeOverride<>(new XmlHelper.PropertyTypes());
-
-			//XmlHelper.DefineTypeOverrides<>(new[]
-			//{
-
-			//});
-
-
-
-			//public static void DefineTypeOverrides<T>(IEnumerable<PropertyTypes> overrides)
-			//{
-			//	typeof(T).DefineTypeOverrides(overrides);
-			//}
-
-			//public static void DefineTypeOverride<T>(PropertyTypes propertyOverride)
-			//{
-			//	typeof(T).DefineTypeOverride(propertyOverride);
-			//}
 		}
 
 		#region Serializable classes

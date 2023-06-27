@@ -27,7 +27,7 @@ namespace AabSemantics.Tests
 		}
 
 		[Test]
-		public void GivenConsistentSemanticNetworkWhenCheckConsistencyThenReturnEmptyText()
+		public void GivenConsistentSemanticNetwork_WhenCheckConsistency_ThenReturnEmptyText()
 		{
 			// arrange
 			var language = Language.Default;
@@ -41,7 +41,7 @@ namespace AabSemantics.Tests
 		}
 
 		[Test]
-		public void GivenDuplicatedStatementWhenCheckConsistencyThenReturnDuplication()
+		public void GivenDuplicatedStatement_WhenCheckConsistency_ThenReturnDuplication()
 		{
 			// arrange
 			var language = Language.Default;
@@ -62,7 +62,7 @@ namespace AabSemantics.Tests
 		}
 
 		[Test]
-		public void DescribeRulesEnumeratesThem()
+		public void GivenSemanticNetwork_WhenDescribeRules_ThenEnumerateThem()
 		{
 			// arrange
 			var language = Language.Default;
@@ -76,7 +76,7 @@ namespace AabSemantics.Tests
 		}
 
 		[Test]
-		public void WhenRemoveConceptThenAlsoRemoveRelatedStatements()
+		public void GivenSemanticNetwork_WhenRemoveConcept_ThenRemoveRelatedStatements()
 		{
 			// arrange
 			var language = Language.Default;
@@ -99,7 +99,7 @@ namespace AabSemantics.Tests
 		}
 
 		[Test]
-		public void ImpossibleToRemoveSystemStatements()
+		public void GivenSemanticNetwork_WhenTryToRemoveSystemStatements_ThenDontRemoveThem()
 		{
 			// arrange
 			var language = Language.Default;
@@ -123,7 +123,7 @@ namespace AabSemantics.Tests
 		}
 
 		[Test]
-		public void CheckToString()
+		public void GivenSemanticNetwork_WhenToString_ThenReturnName()
 		{
 			// arrange
 			var semanticNetwork = new SemanticNetwork(Language.Default);

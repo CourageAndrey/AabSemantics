@@ -17,7 +17,7 @@ namespace AabSemantics.Tests.Questions
 	public class DescribeSubjectAreaQuestionTest
 	{
 		[Test]
-		public void SubjectAreaWithoutConceptsHasNoConcepts()
+		public void GivenNoInformation_WhenBeingAsked_ThenReturnEmpty()
 		{
 			// arrange
 			var language = Language.Default;
@@ -33,7 +33,7 @@ namespace AabSemantics.Tests.Questions
 		}
 
 		[Test]
-		public void SubjectAreaWithConceptCanFindIt()
+		public void GivenSingleConcept_WhenBeingAsked_ThenReturnIt()
 		{
 			// arrange
 			var language = Language.Default;
@@ -56,7 +56,7 @@ namespace AabSemantics.Tests.Questions
 		}
 
 		[Test]
-		public void MultipleConcepts()
+		public void GivenMultipleConcepts_WhenBeingAsked_ThenReturnThem()
 		{
 			// arrange
 			var language = Language.Default;

@@ -15,7 +15,7 @@ namespace AabSemantics.Tests.Questions
 	public class GetDifferencesQuestionTest
 	{
 		[Test]
-		public void ReturnEmptyIfConceptsCanNotBeCompared()
+		public void GivenConceptsCanNotBeCompared_WhenBeingAsked_ThenReturnEmpty()
 		{
 			// arrange
 			var language = Language.Default;
@@ -30,7 +30,7 @@ namespace AabSemantics.Tests.Questions
 		}
 
 		[Test]
-		public void ReturnEmptyWithExplanationIfNoDifferenceFound()
+		public void GivenNoDifferences_WhenBeingAsked_ThenReturnEmptyWithExplanation()
 		{
 			// arrange
 			var language = Language.Default;
@@ -45,7 +45,7 @@ namespace AabSemantics.Tests.Questions
 		}
 
 		[Test]
-		public void ReturnAllDifference()
+		public void GivenAllSetOnTheSameLevel_WhenBeingAsked_ThenReturnAllDifferences()
 		{
 			// arrange
 			var language = Language.Default;
@@ -66,7 +66,7 @@ namespace AabSemantics.Tests.Questions
 		}
 
 		[Test]
-		public void ReturnAllDifferenceManyLevels()
+		public void GivenAllSetOnTheDifferentLevels_WhenBeingAsked_ThenReturnAllDifferencesManyLevels()
 		{
 			// arrange
 			var language = Language.Default;

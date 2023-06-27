@@ -17,18 +17,18 @@ namespace AabSemantics.Tests
 			var type = a.GetType();
 			Assert.AreSame(type, b.GetType());
 
-			foreach (var property in type.getElementaryProperties())
+			foreach (var property in type.GetElementaryProperties())
 			{
 				Assert.AreEqual(property.GetValue(a), property.GetValue(b));
 			}
 		}
 
-		private static IEnumerable<PropertyInfo> getElementaryProperties(this Type type)
+		private static IEnumerable<PropertyInfo> GetElementaryProperties(this Type type)
 		{
-			return type.GetProperties(BindingFlags.Public | BindingFlags.Instance | BindingFlags.GetProperty).Where(p => p.PropertyType.isElementary());
+			return type.GetProperties(BindingFlags.Public | BindingFlags.Instance | BindingFlags.GetProperty).Where(p => p.PropertyType.IsElementary());
 		}
 
-		private static bool isElementary(this Type type)
+		private static bool IsElementary(this Type type)
 		{
 			return type == typeof(string) || typeof(ValueType).IsAssignableFrom(type);
 		}

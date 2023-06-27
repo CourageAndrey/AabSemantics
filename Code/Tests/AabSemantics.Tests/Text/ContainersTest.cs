@@ -12,7 +12,7 @@ namespace AabSemantics.Tests.Text
 	public class ContainersTest
 	{
 		[Test]
-		public void CreateEmptyBulletsContainer()
+		public void GivenNoItems_WhenCreateBulletsContainer_ThenSucceed()
 		{
 			// act
 			var container = new BulletsContainer();
@@ -22,7 +22,7 @@ namespace AabSemantics.Tests.Text
 		}
 
 		[Test]
-		public void CreateOneItemBulletsContainer()
+		public void GivenSingleItem_WhenCreateBulletsContainer_ThenSucceed()
 		{
 			// arrange
 			var item = new SpaceText();
@@ -35,7 +35,7 @@ namespace AabSemantics.Tests.Text
 		}
 
 		[Test]
-		public void CreateManyItemsBulletsContainer()
+		public void GivenManyItems_WhenCreateBulletsContainer_ThenSucceed()
 		{
 			// arrange
 			var items = new List<IText>
@@ -53,7 +53,7 @@ namespace AabSemantics.Tests.Text
 		}
 
 		[Test]
-		public void CreateEmptyNumberingContainer()
+		public void GivenNoItems_WhenCreateNumberingContainer_ThenSucceed()
 		{
 			// act
 			var container = new NumberingContainer();
@@ -63,7 +63,7 @@ namespace AabSemantics.Tests.Text
 		}
 
 		[Test]
-		public void CreateOneItemNumberingContainer()
+		public void GivenSingleItem_WhenCreateNumberingContainer_ThenSucceed()
 		{
 			// arrange
 			var item = new SpaceText();
@@ -76,7 +76,7 @@ namespace AabSemantics.Tests.Text
 		}
 
 		[Test]
-		public void CreateManyItemsNumberingContainer()
+		public void GivenManyItems_WhenCreateNumberingContainer_ThenSucceed()
 		{
 			// arrange
 			var items = new List<IText>
@@ -94,7 +94,7 @@ namespace AabSemantics.Tests.Text
 		}
 
 		[Test]
-		public void CreateEmptyUnstructuredContainer()
+		public void GivenNoItems_WhenCreateUnstructuredContainer_ThenSucceed()
 		{
 			// act
 			var container = new UnstructuredContainer();
@@ -104,7 +104,7 @@ namespace AabSemantics.Tests.Text
 		}
 
 		[Test]
-		public void CreateOneItemUnstructuredContainer()
+		public void GivenSingleItem_WhenCreateUnstructuredContainer_ThenSucceed()
 		{
 			// arrange
 			var item = new SpaceText();
@@ -117,7 +117,7 @@ namespace AabSemantics.Tests.Text
 		}
 
 		[Test]
-		public void CreateManyItemsUnstructuredContainer()
+		public void GivenManyItems_WhenCreateUnstructuredContainer_ThenSucceed()
 		{
 			// arrange
 			var items = new List<IText>

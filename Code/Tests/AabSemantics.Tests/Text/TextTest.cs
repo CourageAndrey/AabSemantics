@@ -15,7 +15,7 @@ namespace AabSemantics.Tests.Text
 	public class TextTest
 	{
 		[Test]
-		public void ToStringUsesPlainRepresentation()
+		public void GivenText_WhenToString_ThenRepresentPlain()
 		{
 			// arrange
 			var seed = new Random(DateTime.Now.Millisecond);
@@ -35,7 +35,7 @@ namespace AabSemantics.Tests.Text
 		}
 
 		[Test]
-		public void LineBreakHasNoParameters()
+		public void GivenLineBreak_WhenGetParameters_ThenReturnEmpty()
 		{
 			// arrange
 			var text = new LineBreakText();
@@ -45,7 +45,7 @@ namespace AabSemantics.Tests.Text
 		}
 
 		[Test]
-		public void SpaceHasNoParameters()
+		public void GivenSpace_WhenGetParameters_ThenReturnEmpty()
 		{
 			// arrange
 			var text = new SpaceText();
@@ -55,8 +55,8 @@ namespace AabSemantics.Tests.Text
 		}
 
 		[Test]
-		[TestCaseSource(nameof(getDecorators))]
-		public void AllDecoratorsReturnParametersOfDecorated(ITextDecorator decorator)
+		[TestCaseSource(nameof(GetDecorators))]
+		public void GivenAnyDecorator_WhenCheckParameters_ThenContainsDecoratedParameters(ITextDecorator decorator)
 		{
 			// arrange & act
 			var decorated = decorator.GetParameters();
@@ -67,8 +67,8 @@ namespace AabSemantics.Tests.Text
 		}
 
 		[Test]
-		[TestCaseSource(nameof(getDecorators))]
-		public void AllDecoratorsContainTextOfDecorated(ITextDecorator decorator)
+		[TestCaseSource(nameof(GetDecorators))]
+		public void GivenAnyDecorator_WhenCheckFormat_ThenContainsDecoratedFormat(ITextDecorator decorator)
 		{
 			// arrange & act
 			string decorated = TextRepresenters.PlainString.RepresentText(decorator, Language.Default).ToString();
@@ -80,8 +80,8 @@ namespace AabSemantics.Tests.Text
 		}
 
 		[Test]
-		[TestCaseSource(nameof(getContainers))]
-		public void AllContainersAggregateItemsParameters(ITextContainer container)
+		[TestCaseSource(nameof(GetContainers))]
+		public void GivenAnyContainer_WhenCheckParameters_ThenAggregateAllItemsParameters(ITextContainer container)
 		{
 			// arrange & act
 			var containerParameters = container.GetParameters();
@@ -100,8 +100,8 @@ namespace AabSemantics.Tests.Text
 		}
 
 		[Test]
-		[TestCaseSource(nameof(getContainers))]
-		public void AllContainersAggregateItemsText(ITextContainer container)
+		[TestCaseSource(nameof(GetContainers))]
+		public void GivenAnyContainer_WhenCheckFormat_ThenThenAggregateAllItemsFormat(ITextContainer container)
 		{
 			// arrange & act
 			string containerText = TextRepresenters.PlainString.RepresentText(container, Language.Default).ToString();
@@ -115,7 +115,7 @@ namespace AabSemantics.Tests.Text
 			}
 		}
 
-		private static IEnumerable<ITextDecorator> getDecorators()
+		private static IEnumerable<ITextDecorator> GetDecorators()
 		{
 			var createDecorated = new Func<IText>(() => new FormattedText(
 				l => "Carpe diem.",
@@ -134,7 +134,7 @@ namespace AabSemantics.Tests.Text
 			yield return createDecorated().MakeParagraph();
 		}
 
-		private static IEnumerable<ITextContainer> getContainers()
+		private static IEnumerable<ITextContainer> GetContainers()
 		{
 			var createItems = new Func<IList<IText>>(() =>
 			{

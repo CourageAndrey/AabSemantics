@@ -16,7 +16,7 @@ namespace AabSemantics.Tests.Questions
 	public class EnumerateContainersQuestionTest
 	{
 		[Test]
-		public void WhenNoRelationshipsReturnEmptyAnswer()
+		public void GivenNoInformation_WhenBeingAsked_ThenReturnEmpty()
 		{
 			// arrange
 			var language = Language.Default;
@@ -44,7 +44,7 @@ namespace AabSemantics.Tests.Questions
 		}
 
 		[Test]
-		public void ReturnAllContainers()
+		public void GivenCorrespondingInformation_WhenBeingAsked_ThenReturnAllContainers()
 		{
 			// arrange
 			var language = Language.Default;
