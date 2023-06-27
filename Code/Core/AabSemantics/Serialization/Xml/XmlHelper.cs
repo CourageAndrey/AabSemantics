@@ -13,6 +13,14 @@ namespace AabSemantics.Serialization.Xml
 		private static readonly Dictionary<Type, XmlSerializer> _serializers = new Dictionary<Type, XmlSerializer>();
 		private static readonly Object _serializersLock = new Object();
 
+		public static void ResetCache()
+		{
+			lock (_serializersLock)
+			{
+				_serializers.Clear();
+			}
+		}
+
 		public static XmlSerializer AcquireXmlSerializer<T>()
 		{
 			return AcquireXmlSerializer(typeof(T));
