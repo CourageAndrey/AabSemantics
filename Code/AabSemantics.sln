@@ -43,7 +43,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Core", "Core", "{567A0FFE-6
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Inventor.Algorithms.Test", "Tests\Inventor.Algorithms.Test\Inventor.Algorithms.Test.csproj", "{553FA774-E3B2-4AE3-8B38-79C6DC1FE01E}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AabSemantics.Test", "Tests\AabSemantics.Test\AabSemantics.Test.csproj", "{C2867882-90FC-42D8-A1F1-A15BC6B9DE36}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AabSemantics.Tests", "Tests\AabSemantics.Tests\AabSemantics.Tests.csproj", "{C2867882-90FC-42D8-A1F1-A15BC6B9DE36}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AabSemantics.Sample08.Productions", "Samples\AabSemantics.Sample08.Productions\AabSemantics.Sample08.Productions.csproj", "{7252C47A-53C4-4893-B706-B5F8446331D6}"
 EndProject
