@@ -23,153 +23,162 @@ namespace AabSemantics.Test.Sample
 	{
 		#region Properties
 
-		public SemanticNetwork SemanticNetwork
+		public ISemanticNetwork SemanticNetwork
+		{ get; }
+
+		public MathematicsTestSemanticNetwork Mathematics
+		{ get; }
+
+		public ProcessesTestSemanticNetwork Processes
+		{ get; }
+
+		public SetTestSemanticNetwork Set
 		{ get; }
 
 		#region Subject Areas
 
-		public Concept SubjectArea_Transport
+		public IConcept SubjectArea_Transport
+		{ get { return Set.SubjectArea_Transport; } }
+
+		public IConcept SubjectArea_Numbers
 		{ get; }
 
-		public Concept SubjectArea_Numbers
-		{ get; }
-
-		public Concept SubjectArea_Processes
+		public IConcept SubjectArea_Processes
 		{ get; }
 
 		#endregion
 
 		#region Base Concepts
 
-		public Concept Base_Vehicle
-		{ get; }
+		public IConcept Base_Vehicle
+		{ get { return Set.Base_Vehicle; } }
 
 		#endregion
 
 		#region Signs
 
-		public Concept Sign_MotorType
-		{ get; }
+		public IConcept Sign_MotorType
+		{ get { return Set.Sign_MotorType; } }
 
-		public Concept Sign_AreaType
-		{ get; }
+		public IConcept Sign_AreaType
+		{ get { return Set.Sign_AreaType; } }
 
 		#endregion
 
 		#region Motor Types
 
-		public Concept MotorType_Muscles
-		{ get; }
+		public IConcept MotorType_Muscles
+		{ get { return Set.MotorType_Muscles; } }
 
-		public Concept MotorType_Steam
-		{ get; }
+		public IConcept MotorType_Steam
+		{ get { return Set.MotorType_Steam; } }
 
-		public Concept MotorType_Combustion
-		{ get; }
+		public IConcept MotorType_Combustion
+		{ get { return Set.MotorType_Combustion; } }
 
-		public Concept MotorType_Jet
-		{ get; }
+		public IConcept MotorType_Jet
+		{ get { return Set.MotorType_Jet; } }
 
 		#endregion
 
 		#region Area Types
 
-		public Concept AreaType_Ground
-		{ get; }
+		public IConcept AreaType_Ground
+		{ get { return Set.AreaType_Ground; } }
 
-		public Concept AreaType_Water
-		{ get; }
+		public IConcept AreaType_Water
+		{ get { return Set.AreaType_Water; } }
 
-		public Concept AreaType_Air
-		{ get; }
+		public IConcept AreaType_Air
+		{ get { return Set.AreaType_Air; } }
 
 		#endregion
 
 		#region Certain Transportation Devices
 
-		public Concept Vehicle_Bicycle
-		{ get; }
+		public IConcept Vehicle_Bicycle
+		{ get { return Set.Vehicle_Bicycle; } }
 
-		public Concept Vehicle_Curragh
-		{ get; }
+		public IConcept Vehicle_Curragh
+		{ get { return Set.Vehicle_Curragh; } }
 
-		public Concept Vehicle_SteamLocomotive
-		{ get; }
+		public IConcept Vehicle_SteamLocomotive
+		{ get { return Set.Vehicle_SteamLocomotive; } }
 
-		public Concept Vehicle_Steamboat
-		{ get; }
+		public IConcept Vehicle_Steamboat
+		{ get { return Set.Vehicle_Steamboat; } }
 
-		public Concept Vehicle_Car
-		{ get; }
+		public IConcept Vehicle_Car
+		{ get { return Set.Vehicle_Car; } }
 
-		public Concept Vehicle_Motorcycle
-		{ get; }
+		public IConcept Vehicle_Motorcycle
+		{ get { return Set.Vehicle_Motorcycle; } }
 
-		public Concept Vehicle_Fighter
-		{ get; }
+		public IConcept Vehicle_Fighter
+		{ get { return Set.Vehicle_Fighter; } }
 
-		public Concept Vehicle_Airbus
-		{ get; }
+		public IConcept Vehicle_Airbus
+		{ get { return Set.Vehicle_Airbus; } }
 
-		public Concept Vehicle_JetFighter
-		{ get; }
+		public IConcept Vehicle_JetFighter
+		{ get { return Set.Vehicle_JetFighter; } }
 
 		#endregion
 
 		#region Car parts
 
 		public IConcept Part_Engine
-		{ get; }
+		{ get { return Set.Part_Engine; } }
 
 		public IConcept Part_Wheels
-		{ get; }
+		{ get { return Set.Part_Wheels; } }
 
 		public IConcept Part_Body
-		{ get; }
+		{ get { return Set.Part_Body; } }
 
 		#endregion
 
 		#region Comparable Values
 
-		public Concept Number0
-		{ get; }
+		public IConcept Number0
+		{ get { return Mathematics.Number0; } }
 
-		public Concept NumberZero
-		{ get; }
+		public IConcept NumberZero
+		{ get { return Mathematics.NumberZero; } }
 
-		public Concept NumberNotZero
-		{ get; }
+		public IConcept NumberNotZero
+		{ get { return Mathematics.NumberNotZero; } }
 
-		public Concept Number1
-		{ get; }
+		public IConcept Number1
+		{ get { return Mathematics.Number1; } }
 
-		public Concept Number1or2
-		{ get; }
+		public IConcept Number1or2
+		{ get { return Mathematics.Number1or2; } }
 
-		public Concept Number2
-		{ get; }
+		public IConcept Number2
+		{ get { return Mathematics.Number2; } }
 
-		public Concept Number2or3
-		{ get; }
+		public IConcept Number2or3
+		{ get { return Mathematics.Number2or3; } }
 
-		public Concept Number3
-		{ get; }
+		public IConcept Number3
+		{ get { return Mathematics.Number3; } }
 
-		public Concept Number3or4
-		{ get; }
+		public IConcept Number3or4
+		{ get { return Mathematics.Number3or4; } }
 
-		public Concept Number4
-		{ get; }
+		public IConcept Number4
+		{ get { return Mathematics.Number4; } }
 
 		#endregion
 
 		#region Processes
 
-		public Concept ProcessA
-		{ get; }
+		public IConcept ProcessA
+		{ get { return Processes.ProcessA; } }
 
-		public Concept ProcessB
-		{ get; }
+		public IConcept ProcessB
+		{ get { return Processes.ProcessB; } }
 
 		#endregion
 
@@ -177,31 +186,16 @@ namespace AabSemantics.Test.Sample
 
 		public TestSemanticNetwork(ILanguage language)
 		{
-			#region Semantic network
-
-			SemanticNetwork = new SemanticNetwork(language);
-			SemanticNetwork
+			SemanticNetwork = new SemanticNetwork(language)
 				.WithModule<BooleanModule>()
-				.WithModule<ClassificationModule>()
-				.WithModule<SetModule>()
-				.WithModule<MathematicsModule>()
-				.WithModule<ProcessesModule>();
+				.WithModule<ClassificationModule>();
+
 			((LocalizedStringVariable) SemanticNetwork.Name).SetLocale("ru-RU", "Тестовая база знаний");
 			((LocalizedStringVariable) SemanticNetwork.Name).SetLocale("en-US", "Test knowledgebase");
 
-			#endregion
-
-			#region Subject Areas
-
-			SemanticNetwork.Concepts.Add(SubjectArea_Transport = new Concept(nameof(SubjectArea_Transport), new LocalizedStringVariable(new Dictionary<String, String>
-			{
-				{ "ru-RU", "Транспорт" },
-				{ "en-US", "Transport" },
-			}), new LocalizedStringVariable(new Dictionary<String, String>
-			{
-				{ "ru-RU", "Средства передвижения." },
-				{ "en-US", "Vehicles." },
-			})));
+			Mathematics = SemanticNetwork.CreateMathematicsTestData();
+			Processes = SemanticNetwork.CreateProcessesTestData();
+			Set = SemanticNetwork.CreateSetTestData();
 
 			SemanticNetwork.Concepts.Add(SubjectArea_Numbers = new Concept(nameof(SubjectArea_Numbers), new LocalizedStringVariable(new Dictionary<String, String>
 			{
@@ -221,6 +215,355 @@ namespace AabSemantics.Test.Sample
 			{
 				{ "ru-RU", "Процессы." },
 				{ "en-US", "Processes." },
+			})));
+
+			SemanticNetwork.DeclareThat(SubjectArea_Numbers).IsSubjectAreaOf(new[]
+			{
+				Number0,
+				NumberZero,
+				NumberNotZero,
+				Number1,
+				Number1or2,
+				Number2,
+				Number2or3,
+				Number3,
+				Number3or4,
+				Number4,
+			});
+
+			SemanticNetwork.DeclareThat(SubjectArea_Processes).IsSubjectAreaOf(new[]
+			{
+				ProcessA,
+				ProcessB,
+			});
+		}
+	}
+
+	public static class TestSemanticNetworkExtension
+	{
+		public static MathematicsTestSemanticNetwork CreateMathematicsTestData(this ISemanticNetwork semanticNetwork)
+		{
+			return new MathematicsTestSemanticNetwork(semanticNetwork);
+		}
+
+		public static ProcessesTestSemanticNetwork CreateProcessesTestData(this ISemanticNetwork semanticNetwork)
+		{
+			return new ProcessesTestSemanticNetwork(semanticNetwork);
+		}
+
+		public static SetTestSemanticNetwork CreateSetTestData(this ISemanticNetwork semanticNetwork)
+		{
+			return new SetTestSemanticNetwork(semanticNetwork);
+		}
+	}
+
+	public class MathematicsTestSemanticNetwork
+	{
+		#region Properties
+
+		public ISemanticNetwork SemanticNetwork
+		{ get; }
+
+		#region Comparable Values
+
+		public IConcept Number0
+		{ get; }
+
+		public IConcept NumberZero
+		{ get; }
+
+		public IConcept NumberNotZero
+		{ get; }
+
+		public IConcept Number1
+		{ get; }
+
+		public IConcept Number1or2
+		{ get; }
+
+		public IConcept Number2
+		{ get; }
+
+		public IConcept Number2or3
+		{ get; }
+
+		public IConcept Number3
+		{ get; }
+
+		public IConcept Number3or4
+		{ get; }
+
+		public IConcept Number4
+		{ get; }
+
+		#endregion
+
+		#endregion
+
+		public MathematicsTestSemanticNetwork(ISemanticNetwork semanticNetwork)
+		{
+			#region Semantic network
+
+			SemanticNetwork = semanticNetwork
+				.WithModule<BooleanModule>()
+				.WithModule<ClassificationModule>()
+				.WithModule<MathematicsModule>();
+
+			#endregion
+
+			#region Comparable Values
+
+			Func<String, LocalizedStringVariable> getString = text => new LocalizedStringVariable(
+				new Dictionary<String, String>
+				{
+					{ "ru-RU", text },
+					{ "en-US", text },
+				});
+			Func<Int32, LocalizedStringVariable> getStringByNumber = number => getString(number.ToString());
+
+			SemanticNetwork.Concepts.Add(Number0 = new Concept("0", getStringByNumber(0), getStringByNumber(0)));
+
+			SemanticNetwork.Concepts.Add(NumberZero = new Concept("_0_", getString("_0_"), getString("_0_")));
+
+			SemanticNetwork.Concepts.Add(NumberNotZero = new Concept("!0", getString("!0"), getString("!0")));
+
+			SemanticNetwork.Concepts.Add(Number1 = new Concept("1", getStringByNumber(1), getStringByNumber(1)));
+
+			SemanticNetwork.Concepts.Add(Number1or2 = new Concept("1 || 2", getString("1 || 2"), getString("1 || 2")));
+
+			SemanticNetwork.Concepts.Add(Number2 = new Concept("2", getStringByNumber(2), getStringByNumber(2)));
+
+			SemanticNetwork.Concepts.Add(Number2or3 = new Concept("2 || 3", getString("2 || 3"), getString("2 || 3")));
+
+			SemanticNetwork.Concepts.Add(Number3 = new Concept("3", getStringByNumber(3), getStringByNumber(3)));
+
+			SemanticNetwork.Concepts.Add(Number3or4 = new Concept("3 || 4", getString("3 || 4"), getString("3 || 4")));
+
+			SemanticNetwork.Concepts.Add(Number4 = new Concept("4", getStringByNumber(4), getStringByNumber(4)));
+
+			#endregion
+
+			#region Concept Attributes
+
+			Number0.WithAttribute(IsValueAttribute.Value);
+			NumberZero.WithAttribute(IsValueAttribute.Value);
+			NumberNotZero.WithAttribute(IsValueAttribute.Value);
+			Number1.WithAttribute(IsValueAttribute.Value);
+			Number1or2.WithAttribute(IsValueAttribute.Value);
+			Number2.WithAttribute(IsValueAttribute.Value);
+			Number2or3.WithAttribute(IsValueAttribute.Value);
+			Number3.WithAttribute(IsValueAttribute.Value);
+			Number3or4.WithAttribute(IsValueAttribute.Value);
+			Number4.WithAttribute(IsValueAttribute.Value);
+
+			#endregion
+
+			#region Statements
+
+			SemanticNetwork.DeclareThat(Number0).IsEqualTo(NumberZero);
+			SemanticNetwork.DeclareThat(NumberNotZero).IsNotEqualTo(NumberZero);
+			SemanticNetwork.DeclareThat(Number0).IsLessThan(Number1);
+			SemanticNetwork.DeclareThat(Number1).IsLessThan(Number2);
+			SemanticNetwork.DeclareThat(Number3).IsGreaterThan(Number2);
+			SemanticNetwork.DeclareThat(Number4).IsGreaterThan(Number3);
+			SemanticNetwork.DeclareThat(Number1).IsLessThanOrEqualTo(Number1or2);
+			SemanticNetwork.DeclareThat(Number1or2).IsLessThanOrEqualTo(Number2);
+			SemanticNetwork.DeclareThat(Number2).IsLessThanOrEqualTo(Number2or3);
+			SemanticNetwork.DeclareThat(Number3).IsGreaterThanOrEqualTo(Number2or3);
+			SemanticNetwork.DeclareThat(Number4).IsGreaterThanOrEqualTo(Number3or4);
+			SemanticNetwork.DeclareThat(Number3or4).IsGreaterThanOrEqualTo(Number3);
+
+			#endregion
+		}
+	}
+
+	public class ProcessesTestSemanticNetwork
+	{
+		#region Properties
+
+		public ISemanticNetwork SemanticNetwork
+		{ get; }
+
+		#region Processes
+
+		public IConcept ProcessA
+		{ get; }
+
+		public IConcept ProcessB
+		{ get; }
+
+		#endregion
+
+		#endregion
+
+		public ProcessesTestSemanticNetwork(ISemanticNetwork semanticNetwork)
+		{
+			#region Semantic network
+
+			SemanticNetwork = semanticNetwork
+				.WithModule<BooleanModule>()
+				.WithModule<ClassificationModule>()
+				.WithModule<ProcessesModule>();
+
+			#endregion
+
+			#region Processes
+			
+			Func<String, LocalizedStringVariable> getString = text => new LocalizedStringVariable(
+				new Dictionary<String, String>
+				{
+					{ "ru-RU", text },
+					{ "en-US", text },
+				});
+
+			SemanticNetwork.Concepts.Add(ProcessA = new Concept(nameof(ProcessA), getString("Process A")));
+			SemanticNetwork.Concepts.Add(ProcessB = new Concept(nameof(ProcessB), getString("Process B")));
+
+			#endregion
+
+			#region Concept Attributes
+
+			ProcessA.WithAttribute(IsProcessAttribute.Value);
+			ProcessB.WithAttribute(IsProcessAttribute.Value);
+
+			#endregion
+
+			#region Statements
+
+			SemanticNetwork.DeclareThat(ProcessA).StartsBeforeOtherStarted(ProcessB);
+			SemanticNetwork.DeclareThat(ProcessA).FinishesAfterOtherFinished(ProcessB);
+
+			#endregion
+		}
+	}
+
+	public class SetTestSemanticNetwork
+	{
+		#region Properties
+
+		public ISemanticNetwork SemanticNetwork
+		{ get; }
+
+		#region Subject Areas
+
+		public IConcept SubjectArea_Transport
+		{ get; }
+
+		#endregion
+
+		#region Base Concepts
+
+		public IConcept Base_Vehicle
+		{ get; }
+
+		#endregion
+
+		#region Signs
+
+		public IConcept Sign_MotorType
+		{ get; }
+
+		public IConcept Sign_AreaType
+		{ get; }
+
+		#endregion
+
+		#region Motor Types
+
+		public IConcept MotorType_Muscles
+		{ get; }
+
+		public IConcept MotorType_Steam
+		{ get; }
+
+		public IConcept MotorType_Combustion
+		{ get; }
+
+		public IConcept MotorType_Jet
+		{ get; }
+
+		#endregion
+
+		#region Area Types
+
+		public IConcept AreaType_Ground
+		{ get; }
+
+		public IConcept AreaType_Water
+		{ get; }
+
+		public IConcept AreaType_Air
+		{ get; }
+
+		#endregion
+
+		#region Certain Transportation Devices
+
+		public IConcept Vehicle_Bicycle
+		{ get; }
+
+		public IConcept Vehicle_Curragh
+		{ get; }
+
+		public IConcept Vehicle_SteamLocomotive
+		{ get; }
+
+		public IConcept Vehicle_Steamboat
+		{ get; }
+
+		public IConcept Vehicle_Car
+		{ get; }
+
+		public IConcept Vehicle_Motorcycle
+		{ get; }
+
+		public IConcept Vehicle_Fighter
+		{ get; }
+
+		public IConcept Vehicle_Airbus
+		{ get; }
+
+		public IConcept Vehicle_JetFighter
+		{ get; }
+
+		#endregion
+
+		#region Car parts
+
+		public IConcept Part_Engine
+		{ get; }
+
+		public IConcept Part_Wheels
+		{ get; }
+
+		public IConcept Part_Body
+		{ get; }
+
+		#endregion
+
+		#endregion
+
+		public SetTestSemanticNetwork(ISemanticNetwork semanticNetwork)
+		{
+			#region Semantic network
+
+			SemanticNetwork = semanticNetwork
+				.WithModule<BooleanModule>()
+				.WithModule<ClassificationModule>()
+				.WithModule<SetModule>();
+
+			#endregion
+
+			#region Subject Areas
+
+			SemanticNetwork.Concepts.Add(SubjectArea_Transport = new Concept(nameof(SubjectArea_Transport), new LocalizedStringVariable(new Dictionary<String, String>
+			{
+				{ "ru-RU", "Транспорт" },
+				{ "en-US", "Transport" },
+			}), new LocalizedStringVariable(new Dictionary<String, String>
+			{
+				{ "ru-RU", "Средства передвижения." },
+				{ "en-US", "Vehicles." },
 			})));
 
 			#endregion
@@ -469,45 +812,6 @@ namespace AabSemantics.Test.Sample
 
 			#endregion
 
-			#region Comparable Values
-
-			Func<String, LocalizedStringVariable> getString = text => new LocalizedStringVariable(
-				new Dictionary<String, String>
-				{
-					{ "ru-RU", text },
-					{ "en-US", text },
-				});
-			Func<Int32, LocalizedStringVariable> getStringByNumber = number => getString(number.ToString());
-
-			SemanticNetwork.Concepts.Add(Number0 = new Concept("0", getStringByNumber(0), getStringByNumber(0)));
-
-			SemanticNetwork.Concepts.Add(NumberZero = new Concept("_0_", getString("_0_"), getString("_0_")));
-
-			SemanticNetwork.Concepts.Add(NumberNotZero = new Concept("!0", getString("!0"), getString("!0")));
-
-			SemanticNetwork.Concepts.Add(Number1 = new Concept("1", getStringByNumber(1), getStringByNumber(1)));
-
-			SemanticNetwork.Concepts.Add(Number1or2 = new Concept("1 || 2", getString("1 || 2"), getString("1 || 2")));
-
-			SemanticNetwork.Concepts.Add(Number2 = new Concept("2", getStringByNumber(2), getStringByNumber(2)));
-
-			SemanticNetwork.Concepts.Add(Number2or3 = new Concept("2 || 3", getString("2 || 3"), getString("2 || 3")));
-
-			SemanticNetwork.Concepts.Add(Number3 = new Concept("3", getStringByNumber(3), getStringByNumber(3)));
-
-			SemanticNetwork.Concepts.Add(Number3or4 = new Concept("3 || 4", getString("3 || 4"), getString("3 || 4")));
-
-			SemanticNetwork.Concepts.Add(Number4 = new Concept("4", getStringByNumber(4), getStringByNumber(4)));
-
-			#endregion
-
-			#region Processes
-
-			SemanticNetwork.Concepts.Add(ProcessA = new Concept(nameof(ProcessA), getString("Process A")));
-			SemanticNetwork.Concepts.Add(ProcessB = new Concept(nameof(ProcessB), getString("Process B")));
-
-			#endregion
-
 			#region Concept Attributes
 
 			Sign_MotorType.WithAttribute(IsSignAttribute.Value);
@@ -520,20 +824,6 @@ namespace AabSemantics.Test.Sample
 			AreaType_Ground.WithAttribute(IsValueAttribute.Value);
 			AreaType_Water.WithAttribute(IsValueAttribute.Value);
 			AreaType_Air.WithAttribute(IsValueAttribute.Value);
-
-			Number0.WithAttribute(IsValueAttribute.Value);
-			NumberZero.WithAttribute(IsValueAttribute.Value);
-			NumberNotZero.WithAttribute(IsValueAttribute.Value);
-			Number1.WithAttribute(IsValueAttribute.Value);
-			Number1or2.WithAttribute(IsValueAttribute.Value);
-			Number2.WithAttribute(IsValueAttribute.Value);
-			Number2or3.WithAttribute(IsValueAttribute.Value);
-			Number3.WithAttribute(IsValueAttribute.Value);
-			Number3or4.WithAttribute(IsValueAttribute.Value);
-			Number4.WithAttribute(IsValueAttribute.Value);
-
-			ProcessA.WithAttribute(IsProcessAttribute.Value);
-			ProcessB.WithAttribute(IsProcessAttribute.Value);
 
 			#endregion
 
@@ -563,26 +853,6 @@ namespace AabSemantics.Test.Sample
 				Part_Body,
 				Part_Engine,
 				Part_Wheels,
-			});
-
-			SemanticNetwork.DeclareThat(SubjectArea_Numbers).IsSubjectAreaOf(new[]
-			{
-				Number0,
-				NumberZero,
-				NumberNotZero,
-				Number1,
-				Number1or2,
-				Number2,
-				Number2or3,
-				Number3,
-				Number3or4,
-				Number4,
-			});
-
-			SemanticNetwork.DeclareThat(SubjectArea_Processes).IsSubjectAreaOf(new[]
-			{
-				ProcessA,
-				ProcessB,
 			});
 
 			SemanticNetwork.DeclareThat(Base_Vehicle).HasSigns(new[]
@@ -669,22 +939,6 @@ namespace AabSemantics.Test.Sample
 				Part_Engine,
 				Part_Wheels,
 			});
-
-			SemanticNetwork.DeclareThat(Number0).IsEqualTo(NumberZero);
-			SemanticNetwork.DeclareThat(NumberNotZero).IsNotEqualTo(NumberZero);
-			SemanticNetwork.DeclareThat(Number0).IsLessThan(Number1);
-			SemanticNetwork.DeclareThat(Number1).IsLessThan(Number2);
-			SemanticNetwork.DeclareThat(Number3).IsGreaterThan(Number2);
-			SemanticNetwork.DeclareThat(Number4).IsGreaterThan(Number3);
-			SemanticNetwork.DeclareThat(Number1).IsLessThanOrEqualTo(Number1or2);
-			SemanticNetwork.DeclareThat(Number1or2).IsLessThanOrEqualTo(Number2);
-			SemanticNetwork.DeclareThat(Number2).IsLessThanOrEqualTo(Number2or3);
-			SemanticNetwork.DeclareThat(Number3).IsGreaterThanOrEqualTo(Number2or3);
-			SemanticNetwork.DeclareThat(Number4).IsGreaterThanOrEqualTo(Number3or4);
-			SemanticNetwork.DeclareThat(Number3or4).IsGreaterThanOrEqualTo(Number3);
-
-			SemanticNetwork.DeclareThat(ProcessA).StartsBeforeOtherStarted(ProcessB);
-			SemanticNetwork.DeclareThat(ProcessA).FinishesAfterOtherFinished(ProcessB);
 
 			#endregion
 		}
