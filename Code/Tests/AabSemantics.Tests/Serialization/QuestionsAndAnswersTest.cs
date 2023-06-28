@@ -24,7 +24,7 @@ namespace AabSemantics.Tests.Serialization
 {
 	public abstract class QuestionsAndAnswersTest
 	{
-		private static readonly ITextRepresenter _textRepresenter;
+		private static readonly ITextRender _textRender;
 		private static readonly ISemanticNetwork _semanticNetwork;
 		protected static readonly ILanguage Language;
 		protected static readonly ConceptIdResolver ConceptIdResolver;
@@ -32,7 +32,7 @@ namespace AabSemantics.Tests.Serialization
 
 		static QuestionsAndAnswersTest()
 		{
-			_textRepresenter = TextRepresenters.PlainString;
+			_textRender = TextRenders.PlainString;
 
 			Language = AabSemantics.Localization.Language.Default;
 			Language.Extensions.Add(LanguageBooleanModule.CreateDefault());
@@ -87,8 +87,8 @@ namespace AabSemantics.Tests.Serialization
 			{
 				var leftText = (IText) leftValue;
 				var rightText = (IText) rightValue;
-				var leftString = _textRepresenter.RepresentText(leftText, Language).ToString();
-				var rightString = _textRepresenter.RepresentText(rightText, Language).ToString();
+				var leftString = _textRender.RenderText(leftText, Language).ToString();
+				var rightString = _textRender.RenderText(rightText, Language).ToString();
 				Assert.AreEqual(leftString, rightString);
 			}
 			else

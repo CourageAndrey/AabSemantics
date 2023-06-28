@@ -42,7 +42,7 @@ namespace AabSemantics.Serialization.Xml
 
 		public Answer(IAnswer answer, ILanguage language)
 		{
-			Description = TextRepresenters.PlainString.Represent(answer.Description, language).ToString();
+			Description = TextRenders.PlainString.Render(answer.Description, language).ToString();
 			Explanation = answer.Explanation.Statements.Select(statement => Statement.Load(statement)).ToList();
 			IsEmpty = answer.IsEmpty;
 		}

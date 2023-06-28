@@ -13,11 +13,11 @@ namespace AabSemantics.Tests.Answers
 		{
 			// arrange
 			var language = Language.Default;
-			var representer = TextRepresenters.PlainString;
+			var render = TextRenders.PlainString;
 
 			// act
 			var emptyAnswer = Answer.CreateUnknown();
-			string representation = representer.Represent(emptyAnswer.Description, language).ToString();
+			string representation = render.Render(emptyAnswer.Description, language).ToString();
 
 			// assert
 			Assert.IsTrue(emptyAnswer.IsEmpty);

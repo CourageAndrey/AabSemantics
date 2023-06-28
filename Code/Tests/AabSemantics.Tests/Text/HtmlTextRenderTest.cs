@@ -8,12 +8,12 @@ using AabSemantics.Test.Sample;
 namespace AabSemantics.Tests.Text
 {
 	[TestFixture]
-	public class HtmlTextRepresenterTest
+	public class HtmlTextRenderTest
 	{
 		private const string ValidHtmRegex = "<(\"[^\"]*\"|'[^']*'|[^'\">])*>";
 
 		[Test]
-		public void GivenHtmlRepresenter_WhenRepresentText_ThenGenerateValidHtml()
+		public void GivenHtmlRender_WhenRenderText_ThenGenerateValidHtml()
 		{
 			// arrange
 			var language = Language.Default;
@@ -22,7 +22,7 @@ namespace AabSemantics.Tests.Text
 			var text = semanticNetwork.DescribeRules();
 
 			// act
-			var html = TextRepresenters.Html.RepresentText(text, language).ToString();
+			var html = TextRenders.Html.RenderText(text, language).ToString();
 
 			// assert
 			Assert.IsTrue(Regex.IsMatch(html, ValidHtmRegex));

@@ -341,7 +341,7 @@ namespace AabSemantics.Tests.Metadata
 			var error = validationResult.Items.First();
 			Assert.IsTrue(error.GetParameters().ContainsKey(Strings.ParamStatement));
 
-			var text = TextRepresenters.PlainString.Represent(error, language).ToString();
+			var text = TextRenders.PlainString.Render(error, language).ToString();
 			Assert.IsTrue(text.Contains("causes cyclic references"));
 		}
 

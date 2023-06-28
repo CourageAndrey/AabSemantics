@@ -16,10 +16,10 @@ namespace AabSemantics.Extensions.WPF.Dialogs
 			_linkClicked = linkClicked;
 
 			var browser = (WebBrowser) windowsFormsHost.Child;
-			browser.DocumentText = TextRepresenters.Html.RepresentText(text, language).ToString();
+			browser.DocumentText = TextRenders.Html.RenderText(text, language).ToString();
 			browser.Navigating += browserNavigating;
 
-			textBox.Text = TextRepresenters.PlainString.RepresentText(text, language).ToString();
+			textBox.Text = TextRenders.PlainString.RenderText(text, language).ToString();
 		}
 
 		private void browserNavigating(object sender, WebBrowserNavigatingEventArgs webBrowserNavigatingEventArgs)

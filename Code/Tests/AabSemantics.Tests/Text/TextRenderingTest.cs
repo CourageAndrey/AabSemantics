@@ -11,28 +11,28 @@ using AabSemantics.Text.Primitives;
 namespace AabSemantics.Tests.Text
 {
 	[TestFixture]
-	public class TextRepresentationTest
+	public class TextRenderingTest
 	{
 		[Test]
-		[TestCaseSource(typeof(TextRepresenters), nameof(TextRepresenters.All))]
-		public void GivenComplicatedText_WhenRepresent_ThenSucceed(IStructuredTextRepresenter representer)
+		[TestCaseSource(typeof(TextRenders), nameof(TextRenders.All))]
+		public void GivenComplicatedText_WhenRender_ThenSucceed(IStructuredTextRender render)
 		{
 			// arrange
 			var text = CreateAllFeaturesText();
 
 			// act
-			string representedText = representer.Represent(text, Language.Default).ToString();
+			string renderedText = render.Render(text, Language.Default).ToString();
 
 			// assert
 			for (int i = 1; i <= 21; i++) // count of used blocks within CreateAllFeaturesText() method
 			{
-				Assert.IsTrue(representedText.Contains(GetText(i)));
+				Assert.IsTrue(renderedText.Contains(GetText(i)));
 			}
 		}
 
 		[Test]
-		[TestCaseSource(typeof(TextRepresenters), nameof(TextRepresenters.All))]
-		public void GivenMultipleLevelsText_WhenRepresent_ThenSucceed(IStructuredTextRepresenter representer)
+		[TestCaseSource(typeof(TextRenders), nameof(TextRenders.All))]
+		public void GivenMultipleLevelsText_WhenRender_ThenSucceed(IStructuredTextRender render)
 		{
 			// arrange
 			string searchingToken = "QWERTY";
@@ -42,7 +42,7 @@ namespace AabSemantics.Tests.Text
 			for (int i = 0; i < 10; i++)
 			{
 				text = new UnstructuredContainer(text);
-				string representation = representer.Represent(text, Language.Default).ToString();
+				string representation = render.Render(text, Language.Default).ToString();
 
 				// assert
 				Assert.IsTrue(representation.Contains(searchingToken));
@@ -50,13 +50,13 @@ namespace AabSemantics.Tests.Text
 		}
 
 		[Test]
-		public void GivenUnsupportedText_WhenTryToRepresent_ThenFail()
+		public void GivenUnsupportedText_WhenTryToRender_ThenFail()
 		{
 			// arrange
 			IText text = new TestText();
 
 			// act & arrange
-			Assert.Throws<NotSupportedException>(() => TextRepresenters.PlainString.Represent(text, Language.Default));
+			Assert.Throws<NotSupportedException>(() => TextRenders.PlainString.Render(text, Language.Default));
 		}
 
 		private static IText CreateAllFeaturesText()

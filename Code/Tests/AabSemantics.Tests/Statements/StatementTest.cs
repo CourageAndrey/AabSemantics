@@ -31,7 +31,7 @@ namespace AabSemantics.Tests.Statements
 			var language = Language.Default;
 			var semanticNetwork = new TestSemanticNetwork(language).SemanticNetwork;
 
-			var representer = TextRepresenters.PlainString;
+			var render = TextRenders.PlainString;
 
 			// act & assert
 			foreach (var statement in semanticNetwork.Statements)
@@ -39,7 +39,7 @@ namespace AabSemantics.Tests.Statements
 				foreach (var text in new[] { statement.DescribeTrue(), statement.DescribeFalse(), statement.DescribeQuestion() })
 				{
 					Assert.IsNotNull(text);
-					Assert.False(string.IsNullOrEmpty(representer.Represent(text, language).ToString()));
+					Assert.False(string.IsNullOrEmpty(render.Render(text, language).ToString()));
 				}
 			}
 		}

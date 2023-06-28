@@ -15,7 +15,7 @@ namespace AabSemantics.Tests.Text
 	public class TextTest
 	{
 		[Test]
-		public void GivenText_WhenToString_ThenRepresentPlain()
+		public void GivenText_WhenToString_ThenRenderPlain()
 		{
 			// arrange
 			var seed = new Random(DateTime.Now.Millisecond);
@@ -28,7 +28,7 @@ namespace AabSemantics.Tests.Text
 
 			// act
 			string toString = text.ToString();
-			string representation = TextRepresenters.PlainString.RepresentText(text, Language.Default).ToString();
+			string representation = TextRenders.PlainString.RenderText(text, Language.Default).ToString();
 
 			// assert
 			Assert.AreEqual(representation, toString);
@@ -71,8 +71,8 @@ namespace AabSemantics.Tests.Text
 		public void GivenAnyDecorator_WhenCheckFormat_ThenContainsDecoratedFormat(ITextDecorator decorator)
 		{
 			// arrange & act
-			string decorated = TextRepresenters.PlainString.RepresentText(decorator, Language.Default).ToString();
-			string original = TextRepresenters.PlainString.RepresentText(decorator.InnerText, Language.Default).ToString();
+			string decorated = TextRenders.PlainString.RenderText(decorator, Language.Default).ToString();
+			string original = TextRenders.PlainString.RenderText(decorator.InnerText, Language.Default).ToString();
 
 			// assert
 			Assert.IsTrue(decorated.Contains(original));
@@ -104,11 +104,11 @@ namespace AabSemantics.Tests.Text
 		public void GivenAnyContainer_WhenCheckFormat_ThenThenAggregateAllItemsFormat(ITextContainer container)
 		{
 			// arrange & act
-			string containerText = TextRepresenters.PlainString.RepresentText(container, Language.Default).ToString();
+			string containerText = TextRenders.PlainString.RenderText(container, Language.Default).ToString();
 
 			foreach (var text in container.Items)
 			{
-				string itemText = TextRepresenters.PlainString.RepresentText(text, Language.Default).ToString();
+				string itemText = TextRenders.PlainString.RenderText(text, Language.Default).ToString();
 
 				// assert
 				Assert.IsTrue(containerText.Contains(itemText));
