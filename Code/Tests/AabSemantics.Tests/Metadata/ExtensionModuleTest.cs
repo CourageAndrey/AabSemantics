@@ -32,6 +32,7 @@ using AabSemantics.Modules.Set.Localization;
 using AabSemantics.Modules.Set.Questions;
 using AabSemantics.Modules.Set.Statements;
 using AabSemantics.Statements;
+using AabSemantics.Test.Sample;
 using AabSemantics.Text.Containers;
 
 namespace AabSemantics.Tests.Metadata

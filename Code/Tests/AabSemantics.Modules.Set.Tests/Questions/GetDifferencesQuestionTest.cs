@@ -9,7 +9,7 @@ using AabSemantics.Modules.Set.Questions;
 using AabSemantics.Questions;
 using AabSemantics.Test.Sample;
 
-namespace AabSemantics.Tests.Questions
+namespace AabSemantics.Modules.Set.Tests.Questions
 {
 	[TestFixture]
 	public class GetDifferencesQuestionTest

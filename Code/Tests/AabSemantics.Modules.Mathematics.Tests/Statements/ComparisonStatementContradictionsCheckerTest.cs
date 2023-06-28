@@ -9,7 +9,7 @@ using AabSemantics.Modules.Boolean.Attributes;
 using AabSemantics.Modules.Mathematics.Concepts;
 using AabSemantics.Modules.Mathematics.Statements;
 
-namespace AabSemantics.Tests.Statements
+namespace AabSemantics.Modules.Mathematics.Tests.Statements
 {
 	[TestFixture]
 	public class ComparisonStatementContradictionsCheckerTest

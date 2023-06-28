@@ -9,7 +9,7 @@ using AabSemantics.Modules.Processes.Attributes;
 using AabSemantics.Modules.Processes.Concepts;
 using AabSemantics.Modules.Processes.Statements;
 
-namespace AabSemantics.Tests.Statements
+namespace AabSemantics.Modules.Processes.Tests.Statements
 {
 	[TestFixture]
 	public class ProcessesStatementContradictionsCheckerTest

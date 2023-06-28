@@ -11,7 +11,7 @@ using AabSemantics.Modules.Set.Attributes;
 using AabSemantics.Modules.Set.Statements;
 using AabSemantics.Statements;
 
-namespace AabSemantics.Tests.Statements
+namespace AabSemantics.Modules.Set.Tests.Statements
 {
 	[TestFixture]
 	public class SignValueTest

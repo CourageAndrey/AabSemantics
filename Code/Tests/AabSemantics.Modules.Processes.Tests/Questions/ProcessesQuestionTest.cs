@@ -13,7 +13,7 @@ using AabSemantics.Modules.Processes.Questions;
 using AabSemantics.Modules.Processes.Statements;
 using AabSemantics.Questions;
 
-namespace AabSemantics.Tests.Questions
+namespace AabSemantics.Modules.Processes.Tests.Questions
 {
 	[TestFixture]
 	public class ProcessesQuestionTest

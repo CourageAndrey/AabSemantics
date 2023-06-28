@@ -2,24 +2,23 @@
 
 using AabSemantics.Concepts;
 using AabSemantics.Localization;
+using AabSemantics.Modules.Boolean.Attributes;
+using AabSemantics.Modules.Mathematics.Statements;
 using AabSemantics.Metadata;
-using AabSemantics.Modules.Processes;
-using AabSemantics.Modules.Processes.Attributes;
-using AabSemantics.Modules.Processes.Statements;
 using AabSemantics.Statements;
 using AabSemantics.Text.Containers;
 
-namespace AabSemantics.Tests.Statements
+namespace AabSemantics.Modules.Mathematics.Tests.Statements
 {
 	[TestFixture]
-	public class ProcessesModuleConsistencyCheckTest
+	public class MathematicsModuleConsistencyCheckTest
 	{
-		private ProcessesModule _module;
+		private MathematicsModule _module;
 
 		[OneTimeSetUp]
 		public void RegisterModule()
 		{
-			_module = new ProcessesModule();
+			_module = new MathematicsModule();
 			_module.RegisterMetadata();
 		}
 
@@ -27,18 +26,18 @@ namespace AabSemantics.Tests.Statements
 		public void GivenContradictions_WhenCheck_ThenFail()
 		{
 			// arrange
-			var statementDefinition = Repositories.Statements.Definitions[typeof(ProcessesStatement)];
+			var statementDefinition = Repositories.Statements.Definitions[typeof(ComparisonStatement)];
 
 			var language = Language.Default;
 			var semanticNetwork = new SemanticNetwork(language)
-				.WithModule<ProcessesModule>();
+				.WithModules(new IExtensionModule[] { _module });
 
-			var concept1 = ConceptCreationHelper.CreateConcept().WithAttribute(IsProcessAttribute.Value);
-			var concept2 = ConceptCreationHelper.CreateConcept().WithAttribute(IsProcessAttribute.Value);
+			var concept1 = ConceptCreationHelper.CreateConcept().WithAttribute(IsValueAttribute.Value);
+			var concept2 = ConceptCreationHelper.CreateConcept().WithAttribute(IsValueAttribute.Value);
 			semanticNetwork.Concepts.Add(concept1);
 			semanticNetwork.Concepts.Add(concept2);
-			semanticNetwork.DeclareThat(concept1).StartsAfterOtherFinished(concept2);
-			semanticNetwork.DeclareThat(concept2).StartsAfterOtherFinished(concept1);
+			semanticNetwork.DeclareThat(concept1).IsGreaterThan(concept2);
+			semanticNetwork.DeclareThat(concept2).IsGreaterThan(concept1);
 
 			var result = new UnstructuredContainer();
 
@@ -53,17 +52,17 @@ namespace AabSemantics.Tests.Statements
 		public void GivenCorrectStatements_WhenCheck_ThenSucceed()
 		{
 			// arrange
-			var statementDefinition = Repositories.Statements.Definitions[typeof(ProcessesStatement)];
+			var statementDefinition = Repositories.Statements.Definitions[typeof(ComparisonStatement)];
 
 			var language = Language.Default;
 			var semanticNetwork = new SemanticNetwork(language)
-				.WithModule<ProcessesModule>();
+				.WithModules(new IExtensionModule[] { _module });
 
-			var concept1 = ConceptCreationHelper.CreateConcept().WithAttribute(IsProcessAttribute.Value);
-			var concept2 = ConceptCreationHelper.CreateConcept().WithAttribute(IsProcessAttribute.Value);
+			var concept1 = ConceptCreationHelper.CreateConcept().WithAttribute(IsValueAttribute.Value);
+			var concept2 = ConceptCreationHelper.CreateConcept().WithAttribute(IsValueAttribute.Value);
 			semanticNetwork.Concepts.Add(concept1);
 			semanticNetwork.Concepts.Add(concept2);
-			semanticNetwork.DeclareThat(concept1).SimultaneousWith(concept2);
+			semanticNetwork.DeclareThat(concept1).IsGreaterThan(concept2);
 
 			var result = new UnstructuredContainer();
 
