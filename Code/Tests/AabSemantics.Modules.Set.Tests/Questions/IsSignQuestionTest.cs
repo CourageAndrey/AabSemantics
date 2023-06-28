@@ -21,7 +21,7 @@ namespace AabSemantics.Modules.Set.Tests.Questions
 		{
 			// arrange
 			var language = Language.Default;
-			var semanticNetwork = new TestSemanticNetwork(language).SemanticNetwork;
+			var semanticNetwork = new SemanticNetwork(language).CreateSetTestData().SemanticNetwork;
 
 			var concept = ConceptCreationHelper.CreateConcept();
 			semanticNetwork.Concepts.Add(concept);
@@ -40,7 +40,7 @@ namespace AabSemantics.Modules.Set.Tests.Questions
 		{
 			// arrange
 			var language = Language.Default;
-			var semanticNetwork = new TestSemanticNetwork(language).SemanticNetwork;
+			var semanticNetwork = new SemanticNetwork(language).CreateSetTestData().SemanticNetwork;
 
 			var concept = ConceptCreationHelper.CreateConcept();
 			concept.WithAttribute(IsSignAttribute.Value);
@@ -60,7 +60,7 @@ namespace AabSemantics.Modules.Set.Tests.Questions
 		{
 			// arrange
 			var language = Language.Default;
-			var semanticNetwork = new TestSemanticNetwork(language);
+			var semanticNetwork = new SemanticNetwork(language).CreateSetTestData();
 
 			// act
 			var answer = semanticNetwork.SemanticNetwork.Ask().IfIsSign(semanticNetwork.Sign_AreaType);

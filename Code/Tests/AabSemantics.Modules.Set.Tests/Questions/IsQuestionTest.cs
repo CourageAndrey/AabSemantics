@@ -21,7 +21,7 @@ namespace AabSemantics.Modules.Set.Tests.Questions
 		{
 			// arrange
 			var language = Language.Default;
-			var semanticNetwork = new TestSemanticNetwork(language);
+			var semanticNetwork = new SemanticNetwork(language).CreateSetTestData();
 
 			// act
 			var answer = semanticNetwork.SemanticNetwork.Ask().IfIs(semanticNetwork.Sign_AreaType, semanticNetwork.Base_Vehicle);
@@ -37,7 +37,7 @@ namespace AabSemantics.Modules.Set.Tests.Questions
 		{
 			// arrange
 			var language = Language.Default;
-			var semanticNetwork = new TestSemanticNetwork(language);
+			var semanticNetwork = new SemanticNetwork(language).CreateSetTestData();
 
 			// act
 			var answer = semanticNetwork.SemanticNetwork.Ask().IfIs(semanticNetwork.Vehicle_Airbus, semanticNetwork.Base_Vehicle);
@@ -56,7 +56,7 @@ namespace AabSemantics.Modules.Set.Tests.Questions
 		{
 			// arrange
 			var language = Language.Default;
-			var semanticNetwork = new TestSemanticNetwork(language);
+			var semanticNetwork = new SemanticNetwork(language).CreateSetTestData();
 
 			var hugeAirbus = ConceptCreationHelper.CreateConcept();
 			semanticNetwork.SemanticNetwork.Concepts.Add(hugeAirbus);

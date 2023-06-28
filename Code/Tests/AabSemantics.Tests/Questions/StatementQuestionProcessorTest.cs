@@ -41,8 +41,10 @@ namespace AabSemantics.Tests.Questions
 		public void GivenTransitiveStatements_WhenProcess_ThenSucceed()
 		{
 			// arrange
-			var testData = new TestSemanticNetwork(Language.Default);
-			var semanticNetwork = testData.SemanticNetwork;
+			var semanticNetwork = new SemanticNetwork(Language.Default);
+			var testData = semanticNetwork.CreateSetTestData();
+			semanticNetwork.CreateMathematicsTestData();
+			semanticNetwork.CreateProcessesTestData();
 
 			var thomasTheTrain = "TtT".CreateConcept();
 			semanticNetwork.Concepts.Add(thomasTheTrain);

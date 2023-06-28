@@ -23,7 +23,7 @@ namespace AabSemantics.Modules.Mathematics.Tests.Questions
 		{
 			// arrange
 			var language = Language.Default;
-			var semanticNetwork = new TestSemanticNetwork(language);
+			var semanticNetwork = new SemanticNetwork(language).CreateMathematicsTestData();
 
 			// act
 			var answer = semanticNetwork.SemanticNetwork.Ask().HowCompared(ComparisonSigns.IsNotEqualTo, LogicalValues.False);
@@ -38,7 +38,7 @@ namespace AabSemantics.Modules.Mathematics.Tests.Questions
 		{
 			// arrange
 			var language = Language.Default;
-			var semanticNetwork = new TestSemanticNetwork(language);
+			var semanticNetwork = new SemanticNetwork(language).CreateMathematicsTestData();
 
 			// act
 			var answer1 = semanticNetwork.SemanticNetwork.Ask().HowCompared(semanticNetwork.Number0, semanticNetwork.NumberZero);
@@ -69,7 +69,7 @@ namespace AabSemantics.Modules.Mathematics.Tests.Questions
 		{
 			// arrange
 			var language = Language.Default;
-			var semanticNetwork = new TestSemanticNetwork(language);
+			var semanticNetwork = new SemanticNetwork(language).CreateMathematicsTestData();
 
 			var orderedNumbersWith0 = new List<IConcept>
 			{
@@ -125,7 +125,7 @@ namespace AabSemantics.Modules.Mathematics.Tests.Questions
 		{
 			// arrange
 			var language = Language.Default;
-			var semanticNetwork = new TestSemanticNetwork(language);
+			var semanticNetwork = new SemanticNetwork(language).CreateMathematicsTestData();
 
 			var comparisons = new[]
 			{

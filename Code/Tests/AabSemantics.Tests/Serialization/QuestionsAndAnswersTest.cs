@@ -41,7 +41,10 @@ namespace AabSemantics.Tests.Serialization
 			Language.Extensions.Add(LanguageProcessesModule.CreateDefault());
 			Language.Extensions.Add(LanguageMathematicsModule.CreateDefault());
 
-			_semanticNetwork = new TestSemanticNetwork(Language).SemanticNetwork;
+			_semanticNetwork = new SemanticNetwork(Language);
+			_semanticNetwork.CreateSetTestData();
+			_semanticNetwork.CreateMathematicsTestData();
+			_semanticNetwork.CreateProcessesTestData();
 
 			ConceptIdResolver = new ConceptIdResolver(_semanticNetwork.Concepts.ToDictionary(
 				concept => concept.ID,

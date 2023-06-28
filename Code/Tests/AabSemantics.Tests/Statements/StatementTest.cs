@@ -12,7 +12,10 @@ namespace AabSemantics.Tests.Statements
 		public void GivenDifferentStatements_WhenToString_ThenResultContainsTypeAndId()
 		{
 			// arrange
-			var semanticNetwork = new TestSemanticNetwork(Language.Default).SemanticNetwork;
+			var semanticNetwork = new SemanticNetwork(Language.Default);
+			semanticNetwork.CreateSetTestData();
+			semanticNetwork.CreateMathematicsTestData();
+			semanticNetwork.CreateProcessesTestData();
 
 			// act & assert
 			foreach (var statement in semanticNetwork.Statements)
@@ -29,7 +32,10 @@ namespace AabSemantics.Tests.Statements
 		{
 			// arrange
 			var language = Language.Default;
-			var semanticNetwork = new TestSemanticNetwork(language).SemanticNetwork;
+			var semanticNetwork = new SemanticNetwork(Language.Default);
+			semanticNetwork.CreateSetTestData();
+			semanticNetwork.CreateMathematicsTestData();
+			semanticNetwork.CreateProcessesTestData();
 
 			var render = TextRenders.PlainString;
 

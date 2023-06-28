@@ -18,7 +18,7 @@ namespace AabSemantics.Tests.Mutations
 		public void GivenStatementFilter_WhenFindMatches_ThenFilter()
 		{
 			// arrange
-			var semanticNetwork = new TestSemanticNetwork(Language.Default);
+			var semanticNetwork = new SemanticNetwork(Language.Default).CreateMathematicsTestData();
 
 			var statementFilter = new StatementFilter<ComparisonStatement>(comparison => comparison.ComparisonSign == ComparisonSigns.IsGreaterThanOrEqualTo);
 			var statementSearchPattern = new StatementSearchPattern<ComparisonStatement>(statementFilter);
@@ -39,7 +39,7 @@ namespace AabSemantics.Tests.Mutations
 		public void GivenConceptFilter_WhenFindMatches_ThenFilter()
 		{
 			// arrange
-			var semanticNetwork = new TestSemanticNetwork(Language.Default);
+			var semanticNetwork = new SemanticNetwork(Language.Default).CreateMathematicsTestData();
 
 			var conceptSearchPattern = new ConceptSearchPattern(number => number.ID.Contains("3"));
 			var conceptFilters = new[] { new StatementConceptFilter<ComparisonStatement>(comparison => comparison.LeftValue, conceptSearchPattern) };
@@ -62,7 +62,7 @@ namespace AabSemantics.Tests.Mutations
 		public void GivenFiltersStructure_WhenFindMatches_ThenFilter()
 		{
 			// arrange
-			var semanticNetwork = new TestSemanticNetwork(Language.Default);
+			var semanticNetwork = new SemanticNetwork(Language.Default).CreateMathematicsTestData();
 
 			var statementFilter = new StatementFilter<ComparisonStatement>(comparison => comparison.ComparisonSign == ComparisonSigns.IsGreaterThanOrEqualTo);
 			var conceptSearchPattern = new ConceptSearchPattern(number => number.ID.Contains("3"));
@@ -90,7 +90,10 @@ namespace AabSemantics.Tests.Mutations
 		public void GivenAllFilter_WhenFindMatches_Then()
 		{
 			// arrange
-			var semanticNetwork = new TestSemanticNetwork(Language.Default).SemanticNetwork;
+			var semanticNetwork = new SemanticNetwork(Language.Default);
+			semanticNetwork.CreateSetTestData();
+			semanticNetwork.CreateMathematicsTestData();
+			semanticNetwork.CreateProcessesTestData();
 			var groupStatements = semanticNetwork.Statements.OfType<GroupStatement>().ToList();
 
 			var searchPattern = StatementSearchPattern<GroupStatement>.All;

@@ -19,7 +19,7 @@ using AabSemantics.Statements;
 
 namespace AabSemantics.Test.Sample
 {
-	public class TestSemanticNetwork
+	public class CombinedTestSemanticNetwork
 	{
 		#region Properties
 
@@ -37,9 +37,6 @@ namespace AabSemantics.Test.Sample
 
 		#region Subject Areas
 
-		public IConcept SubjectArea_Transport
-		{ get { return Set.SubjectArea_Transport; } }
-
 		public IConcept SubjectArea_Numbers
 		{ get; }
 
@@ -48,145 +45,11 @@ namespace AabSemantics.Test.Sample
 
 		#endregion
 
-		#region Base Concepts
-
-		public IConcept Base_Vehicle
-		{ get { return Set.Base_Vehicle; } }
-
 		#endregion
 
-		#region Signs
-
-		public IConcept Sign_MotorType
-		{ get { return Set.Sign_MotorType; } }
-
-		public IConcept Sign_AreaType
-		{ get { return Set.Sign_AreaType; } }
-
-		#endregion
-
-		#region Motor Types
-
-		public IConcept MotorType_Muscles
-		{ get { return Set.MotorType_Muscles; } }
-
-		public IConcept MotorType_Steam
-		{ get { return Set.MotorType_Steam; } }
-
-		public IConcept MotorType_Combustion
-		{ get { return Set.MotorType_Combustion; } }
-
-		public IConcept MotorType_Jet
-		{ get { return Set.MotorType_Jet; } }
-
-		#endregion
-
-		#region Area Types
-
-		public IConcept AreaType_Ground
-		{ get { return Set.AreaType_Ground; } }
-
-		public IConcept AreaType_Water
-		{ get { return Set.AreaType_Water; } }
-
-		public IConcept AreaType_Air
-		{ get { return Set.AreaType_Air; } }
-
-		#endregion
-
-		#region Certain Transportation Devices
-
-		public IConcept Vehicle_Bicycle
-		{ get { return Set.Vehicle_Bicycle; } }
-
-		public IConcept Vehicle_Curragh
-		{ get { return Set.Vehicle_Curragh; } }
-
-		public IConcept Vehicle_SteamLocomotive
-		{ get { return Set.Vehicle_SteamLocomotive; } }
-
-		public IConcept Vehicle_Steamboat
-		{ get { return Set.Vehicle_Steamboat; } }
-
-		public IConcept Vehicle_Car
-		{ get { return Set.Vehicle_Car; } }
-
-		public IConcept Vehicle_Motorcycle
-		{ get { return Set.Vehicle_Motorcycle; } }
-
-		public IConcept Vehicle_Fighter
-		{ get { return Set.Vehicle_Fighter; } }
-
-		public IConcept Vehicle_Airbus
-		{ get { return Set.Vehicle_Airbus; } }
-
-		public IConcept Vehicle_JetFighter
-		{ get { return Set.Vehicle_JetFighter; } }
-
-		#endregion
-
-		#region Car parts
-
-		public IConcept Part_Engine
-		{ get { return Set.Part_Engine; } }
-
-		public IConcept Part_Wheels
-		{ get { return Set.Part_Wheels; } }
-
-		public IConcept Part_Body
-		{ get { return Set.Part_Body; } }
-
-		#endregion
-
-		#region Comparable Values
-
-		public IConcept Number0
-		{ get { return Mathematics.Number0; } }
-
-		public IConcept NumberZero
-		{ get { return Mathematics.NumberZero; } }
-
-		public IConcept NumberNotZero
-		{ get { return Mathematics.NumberNotZero; } }
-
-		public IConcept Number1
-		{ get { return Mathematics.Number1; } }
-
-		public IConcept Number1or2
-		{ get { return Mathematics.Number1or2; } }
-
-		public IConcept Number2
-		{ get { return Mathematics.Number2; } }
-
-		public IConcept Number2or3
-		{ get { return Mathematics.Number2or3; } }
-
-		public IConcept Number3
-		{ get { return Mathematics.Number3; } }
-
-		public IConcept Number3or4
-		{ get { return Mathematics.Number3or4; } }
-
-		public IConcept Number4
-		{ get { return Mathematics.Number4; } }
-
-		#endregion
-
-		#region Processes
-
-		public IConcept ProcessA
-		{ get { return Processes.ProcessA; } }
-
-		public IConcept ProcessB
-		{ get { return Processes.ProcessB; } }
-
-		#endregion
-
-		#endregion
-
-		public TestSemanticNetwork(ILanguage language)
+		public CombinedTestSemanticNetwork(ISemanticNetwork semanticNetwork)
 		{
-			SemanticNetwork = new SemanticNetwork(language)
+			SemanticNetwork = semanticNetwork
 				.WithModule<BooleanModule>()
 				.WithModule<ClassificationModule>();
 
@@ -219,28 +82,33 @@ namespace AabSemantics.Test.Sample
 
 			SemanticNetwork.DeclareThat(SubjectArea_Numbers).IsSubjectAreaOf(new[]
 			{
-				Number0,
-				NumberZero,
-				NumberNotZero,
-				Number1,
-				Number1or2,
-				Number2,
-				Number2or3,
-				Number3,
-				Number3or4,
-				Number4,
+				Mathematics.Number0,
+				Mathematics.NumberZero,
+				Mathematics.NumberNotZero,
+				Mathematics.Number1,
+				Mathematics.Number1or2,
+				Mathematics.Number2,
+				Mathematics.Number2or3,
+				Mathematics.Number3,
+				Mathematics.Number3or4,
+				Mathematics.Number4,
 			});
 
 			SemanticNetwork.DeclareThat(SubjectArea_Processes).IsSubjectAreaOf(new[]
 			{
-				ProcessA,
-				ProcessB,
+				Processes.ProcessA,
+				Processes.ProcessB,
 			});
 		}
 	}
 
 	public static class TestSemanticNetworkExtension
 	{
+		public static CombinedTestSemanticNetwork CreateCombinedTestData(this ISemanticNetwork semanticNetwork)
+		{
+			return new CombinedTestSemanticNetwork(semanticNetwork);
+		}
+
 		public static MathematicsTestSemanticNetwork CreateMathematicsTestData(this ISemanticNetwork semanticNetwork)
 		{
 			return new MathematicsTestSemanticNetwork(semanticNetwork);

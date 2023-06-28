@@ -31,7 +31,10 @@ namespace AabSemantics.Tests
 		{
 			// arrange
 			var language = Language.Default;
-			var semanticNetwork = new TestSemanticNetwork(language).SemanticNetwork;
+			var semanticNetwork = new SemanticNetwork(language);
+			semanticNetwork.CreateSetTestData();
+			semanticNetwork.CreateMathematicsTestData();
+			semanticNetwork.CreateProcessesTestData();
 
 			// act
 			var result = semanticNetwork.CheckConsistency();
@@ -66,7 +69,10 @@ namespace AabSemantics.Tests
 		{
 			// arrange
 			var language = Language.Default;
-			var semanticNetwork = new TestSemanticNetwork(language).SemanticNetwork;
+			var semanticNetwork = new SemanticNetwork(language);
+			semanticNetwork.CreateSetTestData();
+			semanticNetwork.CreateMathematicsTestData();
+			semanticNetwork.CreateProcessesTestData();
 
 			// act
 			var result = semanticNetwork.DescribeRules().ToString();
