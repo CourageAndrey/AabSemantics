@@ -184,7 +184,7 @@ namespace AabSemantics.Extensions.WPF.Dialogs
 						Stroke = brush,
 						StrokeThickness = 2,
 						Tag = relatedConcept,
-						ToolTip = TextRepresenters.PlainString.Represent(statement.DescribeTrue(), _application.CurrentLanguage).ToString(),
+						ToolTip = TextRenders.PlainString.Render(statement.DescribeTrue(), _application.CurrentLanguage).ToString(),
 					};
 
 					_screen.Children.Add(statementView);

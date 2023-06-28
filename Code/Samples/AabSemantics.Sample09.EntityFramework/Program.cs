@@ -55,8 +55,8 @@ namespace AabSemantics.Sample09.EntityFramework
 				Console.WriteLine();
 				Console.WriteLine("=== Enumerate all knowledge: ===");
 				var text = semanticNetwork.DescribeRules();
-				var representer = TextRepresenters.PlainString;
-				Console.WriteLine(representer.Represent(text, language).ToString());
+				var render = TextRenders.PlainString;
+				Console.WriteLine(render.Render(text, language).ToString());
 
 				Console.WriteLine("Sample is finished. Press any key to exit app...");
 				Console.ReadKey();

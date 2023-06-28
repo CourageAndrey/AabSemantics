@@ -22,11 +22,11 @@ namespace AabSemantics.Tests.Text
 			};
 
 			var language = Language.Default;
-			var representer = TextRepresenters.PlainString;
+			var render = TextRenders.PlainString;
 
 			// act
 			var text = new NumberingContainer(knowledge.Enumerate());
-			var @string = representer.RepresentText(text, language).ToString();
+			var @string = render.RenderText(text, language).ToString();
 
 			// assert
 			foreach (var concept in knowledge)
@@ -49,11 +49,11 @@ namespace AabSemantics.Tests.Text
 			};
 
 			var language = Language.Default;
-			var representer = TextRepresenters.PlainString;
+			var render = TextRenders.PlainString;
 
 			// act
 			var text = knowledge.EnumerateOneLine();
-			var @string = representer.RepresentText(text, language).ToString();
+			var @string = render.RenderText(text, language).ToString();
 
 			// assert
 			foreach (var concept in knowledge)

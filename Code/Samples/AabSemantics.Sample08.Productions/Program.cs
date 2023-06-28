@@ -63,13 +63,13 @@ namespace AabSemantics.Sample08.Productions
 			var mutations = semanticNetwork.Mutate(new IMutation[] { production });
 
 			// show result
-			var representer = TextRepresenters.PlainString;
+			var render = TextRenders.PlainString;
 			Console.WriteLine();
 			Console.WriteLine($"{mutations.Count} mutations have been applied. Defined statements:");
 			foreach (var statement in semanticNetwork.Statements)
 			{
 				var text = statement.DescribeTrue();
-				Console.WriteLine(representer.RepresentText(text, language).ToString());
+				Console.WriteLine(render.RenderText(text, language).ToString());
 			}
 
 			Console.WriteLine();

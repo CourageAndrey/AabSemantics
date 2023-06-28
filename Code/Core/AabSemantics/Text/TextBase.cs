@@ -9,7 +9,7 @@ namespace AabSemantics.Text
 	{
 		public sealed override String ToString()
 		{
-			return TextRepresenters.PlainString.RepresentText(this, Language.Default).ToString();
+			return TextRenders.PlainString.RenderText(this, Language.Default).ToString();
 		}
 
 		public abstract IDictionary<String, IKnowledge> GetParameters();

@@ -63,7 +63,7 @@ namespace AabSemantics.Extensions.WPF
 		{
 			var statement = BoundObject ?? CreateStatementImplementation();
 			var text = statement.DescribeTrue();
-			return TextRepresenters.PlainString.RepresentText(text, _language).ToString();
+			return TextRenders.PlainString.RenderText(text, _language).ToString();
 		}
 	}
 }

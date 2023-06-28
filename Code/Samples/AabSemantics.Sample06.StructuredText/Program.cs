@@ -51,14 +51,14 @@ namespace AabSemantics.Sample06.StructuredText
 			Console.WriteLine("Plain text representation:");
 			Console.WriteLine();
 
-			var plainText = TextRepresenters.PlainString.RepresentText(text, Language.Default);
+			var plainText = TextRenders.PlainString.RenderText(text, Language.Default);
 			Console.Write(plainText);
 
 			Console.WriteLine();
 			Console.WriteLine(new string('=', 50));
 			Console.WriteLine();
 
-			var html = TextRepresenters.Html.RepresentText(text, Language.Default);
+			var html = TextRenders.Html.RenderText(text, Language.Default);
 			string tempHtmlFile = Path.ChangeExtension(Path.GetTempFileName(), "html");
 			try
 			{

@@ -78,7 +78,7 @@ namespace AabSemantics.Sample07.CustomModule
 			Console.WriteLine();
 			Console.WriteLine("Check consistency:");
 			var errors = semanticNetwork.CheckConsistency();
-			Console.Write(TextRepresenters.PlainString.RepresentText(errors, language));
+			Console.Write(TextRenders.PlainString.RenderText(errors, language));
 			Console.WriteLine();
 
 			// check [de]serialization works

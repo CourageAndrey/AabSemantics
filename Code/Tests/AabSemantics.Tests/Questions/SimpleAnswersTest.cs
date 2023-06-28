@@ -27,14 +27,14 @@ namespace AabSemantics.Tests.Questions
 	[TestFixture]
 	public class SimpleAnswersTest
 	{
-		private static readonly ITextRepresenter _textRepresenter;
+		private static readonly ITextRender _textRender;
 		private static readonly ILanguage _language;
 		private static readonly ISemanticNetwork _semanticNetwork;
 		private static readonly IConcept _concept1, _concept2, _concept3;
 
 		static SimpleAnswersTest()
 		{
-			_textRepresenter = TextRepresenters.PlainString;
+			_textRender = TextRenders.PlainString;
 
 			_language = Language.Default;
 			_language.Extensions.Add(LanguageBooleanModule.CreateDefault());
@@ -69,7 +69,7 @@ namespace AabSemantics.Tests.Questions
 		{
 			// act
 			var answer = question.Ask(_semanticNetwork.Context);
-			var description = _textRepresenter.RepresentText(answer.Description, _language).ToString();
+			var description = _textRender.RenderText(answer.Description, _language).ToString();
 
 			// assert
 			Assert.IsTrue(answer.IsEmpty);
@@ -83,7 +83,7 @@ namespace AabSemantics.Tests.Questions
 		{
 			// act
 			var answer = (BooleanAnswer) question.Ask(_semanticNetwork.Context);
-			var description = _textRepresenter.RepresentText(answer.Description, _language).ToString();
+			var description = _textRender.RenderText(answer.Description, _language).ToString();
 
 			// assert
 			Assert.IsTrue(answer.Result);
@@ -96,7 +96,7 @@ namespace AabSemantics.Tests.Questions
 		{
 			// act
 			var answer = (BooleanAnswer) question.Ask(_semanticNetwork.Context);
-			var description = _textRepresenter.RepresentText(answer.Description, _language).ToString();
+			var description = _textRender.RenderText(answer.Description, _language).ToString();
 
 			// assert
 			Assert.IsFalse(answer.Result);
@@ -124,7 +124,7 @@ namespace AabSemantics.Tests.Questions
 		{
 			var statement = _semanticNetwork.Statements.First();
 
-			yield return new object[] { new CheckStatementQuestion(statement), _textRepresenter.RepresentText(statement.DescribeTrue(), _language).ToString() };
+			yield return new object[] { new CheckStatementQuestion(statement), _textRender.RenderText(statement.DescribeTrue(), _language).ToString() };
 			yield return new object[] { new HasSignQuestion(_concept1, _concept2, true), "\" has got \"" };
 			yield return new object[] { new HasSignsQuestion(_concept1, true), " has signs " };
 			yield return new object[] { new IsPartOfQuestion(_concept1, _concept2), " is part of " };
@@ -138,7 +138,7 @@ namespace AabSemantics.Tests.Questions
 		{
 			var statement = new IsStatement(null, _concept3, _concept2);
 
-			yield return new object[] { new CheckStatementQuestion(statement), _textRepresenter.RepresentText(statement.DescribeFalse(), _language).ToString() };
+			yield return new object[] { new CheckStatementQuestion(statement), _textRender.RenderText(statement.DescribeFalse(), _language).ToString() };
 			yield return new object[] { new HasSignQuestion(_concept2, _concept1, true), "\" has not got \"" };
 			yield return new object[] { new HasSignsQuestion(_concept3, true), " has not signs " };
 			yield return new object[] { new IsPartOfQuestion(_concept2, _concept1), " is not part of " };

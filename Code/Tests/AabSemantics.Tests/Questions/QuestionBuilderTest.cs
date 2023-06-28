@@ -347,7 +347,7 @@ namespace AabSemantics.Tests.Questions
 			var language = Language.Default;
 			var semanticNetwork = new TestSemanticNetwork(language);
 
-			var representer = TextRepresenters.PlainString;
+			var render = TextRenders.PlainString;
 
 			// act
 			var questionRegular = new WhatQuestion(semanticNetwork.Vehicle_Car);
@@ -356,7 +356,7 @@ namespace AabSemantics.Tests.Questions
 			var answerBuilder = semanticNetwork.SemanticNetwork.Ask().WhatIs(semanticNetwork.Vehicle_Car);
 
 			// assert
-			Assert.AreEqual(representer.RepresentText(answerRegular.Description, language).ToString(), representer.RepresentText(answerBuilder.Description, language).ToString());
+			Assert.AreEqual(render.RenderText(answerRegular.Description, language).ToString(), render.RenderText(answerBuilder.Description, language).ToString());
 			Assert.IsTrue(answerRegular.Explanation.Statements.SequenceEqual(answerBuilder.Explanation.Statements));
 		}
 

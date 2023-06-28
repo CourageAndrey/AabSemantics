@@ -44,7 +44,7 @@ namespace AabSemantics.Serialization.Json
 
 		public Answer(IAnswer answer, ILanguage language)
 			: this(
-				TextRepresenters.PlainString.Represent(answer.Description, language).ToString(),
+				TextRenders.PlainString.Render(answer.Description, language).ToString(),
 				answer.Explanation.Statements.Select(statement => Statement.Load(statement)).ToList(),
 				answer.IsEmpty)
 		{ }
