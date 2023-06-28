@@ -64,7 +64,7 @@ namespace AabSemantics.Test.Sample
 		public Concept MotorType_Steam
 		{ get; }
 
-		public Concept MotorType_Combusion
+		public Concept MotorType_Combustion
 		{ get; }
 
 		public Concept MotorType_Jet
@@ -285,7 +285,7 @@ namespace AabSemantics.Test.Sample
 				{ "en-US", "To use steam engine to move." },
 			})));
 
-			SemanticNetwork.Concepts.Add(MotorType_Combusion = new Concept(nameof(MotorType_Combusion), new LocalizedStringVariable(new Dictionary<String, String>
+			SemanticNetwork.Concepts.Add(MotorType_Combustion = new Concept(nameof(MotorType_Combustion), new LocalizedStringVariable(new Dictionary<String, String>
 			{
 				{ "ru-RU", "Внутреннее сгорание" },
 				{ "en-US", "Combustion engine" },
@@ -515,7 +515,7 @@ namespace AabSemantics.Test.Sample
 
 			MotorType_Muscles.WithAttribute(IsValueAttribute.Value);
 			MotorType_Steam.WithAttribute(IsValueAttribute.Value);
-			MotorType_Combusion.WithAttribute(IsValueAttribute.Value);
+			MotorType_Combustion.WithAttribute(IsValueAttribute.Value);
 			MotorType_Jet.WithAttribute(IsValueAttribute.Value);
 			AreaType_Ground.WithAttribute(IsValueAttribute.Value);
 			AreaType_Water.WithAttribute(IsValueAttribute.Value);
@@ -545,7 +545,7 @@ namespace AabSemantics.Test.Sample
 				Sign_MotorType,
 				MotorType_Muscles,
 				MotorType_Steam,
-				MotorType_Combusion,
+				MotorType_Combustion,
 				MotorType_Jet,
 				Sign_AreaType,
 				AreaType_Ground,
@@ -595,7 +595,7 @@ namespace AabSemantics.Test.Sample
 			{
 				MotorType_Muscles,
 				MotorType_Steam,
-				MotorType_Combusion,
+				MotorType_Combustion,
 				MotorType_Jet,
 			});
 			SemanticNetwork.DeclareThat(Sign_AreaType).IsAncestorOf(new[]
@@ -639,17 +639,17 @@ namespace AabSemantics.Test.Sample
 			});
 			SemanticNetwork.DeclareThat(Vehicle_Car).HasSignValues(new Dictionary<IConcept, IConcept>
 			{
-				{ Sign_MotorType, MotorType_Combusion },
+				{ Sign_MotorType, MotorType_Combustion },
 				{ Sign_AreaType, AreaType_Ground },
 			});
 			SemanticNetwork.DeclareThat(Vehicle_Motorcycle).HasSignValues(new Dictionary<IConcept, IConcept>
 			{
-				{ Sign_MotorType, MotorType_Combusion },
+				{ Sign_MotorType, MotorType_Combustion },
 				{ Sign_AreaType, AreaType_Ground },
 			});
 			SemanticNetwork.DeclareThat(Vehicle_Fighter).HasSignValues(new Dictionary<IConcept, IConcept>
 			{
-				{ Sign_MotorType, MotorType_Combusion },
+				{ Sign_MotorType, MotorType_Combustion },
 				{ Sign_AreaType, AreaType_Air },
 			});
 			SemanticNetwork.DeclareThat(Vehicle_Airbus).HasSignValues(new Dictionary<IConcept, IConcept>

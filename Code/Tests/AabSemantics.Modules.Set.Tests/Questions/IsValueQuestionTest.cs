@@ -63,7 +63,7 @@ namespace AabSemantics.Modules.Set.Tests.Questions
 			var semanticNetwork = new TestSemanticNetwork(language);
 
 			// act
-			var answer = semanticNetwork.SemanticNetwork.Ask().IfIsValue(semanticNetwork.MotorType_Combusion);
+			var answer = semanticNetwork.SemanticNetwork.Ask().IfIsValue(semanticNetwork.MotorType_Combustion);
 
 			// assert
 			Assert.IsFalse(answer.IsEmpty);
