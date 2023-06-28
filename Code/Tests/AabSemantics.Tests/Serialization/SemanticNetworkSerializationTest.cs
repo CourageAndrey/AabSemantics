@@ -37,7 +37,8 @@ namespace AabSemantics.Tests.Serialization
 		{
 			// arrange
 			var language = Language.Default;
-			var semanticNetwork = new TestSemanticNetwork(language).SemanticNetwork;
+			var semanticNetwork = new SemanticNetwork(language);
+			semanticNetwork.CreateCombinedTestData();
 			var name = (LocalizedStringVariable) semanticNetwork.Name;
 			var locales = name.Locales;
 			string testFileName = Path.GetTempFileName();

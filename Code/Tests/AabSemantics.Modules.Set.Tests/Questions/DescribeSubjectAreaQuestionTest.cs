@@ -21,7 +21,7 @@ namespace AabSemantics.Modules.Set.Tests.Questions
 		{
 			// arrange
 			var language = Language.Default;
-			var semanticNetwork = new TestSemanticNetwork(language);
+			var semanticNetwork = new SemanticNetwork(language).CreateSetTestData();
 			var noSubjectAreaConcept = SystemConcepts.GetAll().First();
 
 			// act
@@ -37,7 +37,7 @@ namespace AabSemantics.Modules.Set.Tests.Questions
 		{
 			// arrange
 			var language = Language.Default;
-			var semanticNetwork = new TestSemanticNetwork(language);
+			var semanticNetwork = new SemanticNetwork(language).CreateSetTestData();
 
 			var area = LogicalValues.True;
 			var concept = LogicalValues.False;
@@ -60,7 +60,7 @@ namespace AabSemantics.Modules.Set.Tests.Questions
 		{
 			// arrange
 			var language = Language.Default;
-			var semanticNetwork = new TestSemanticNetwork(language);
+			var semanticNetwork = new SemanticNetwork(language).CreateSetTestData();
 
 			// act
 			var answer = semanticNetwork.SemanticNetwork.Ask().WhichConceptsBelongToSubjectArea(semanticNetwork.SubjectArea_Transport);

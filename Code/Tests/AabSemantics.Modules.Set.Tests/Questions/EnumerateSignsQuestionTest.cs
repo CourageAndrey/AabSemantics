@@ -24,7 +24,7 @@ namespace AabSemantics.Modules.Set.Tests.Questions
 		{
 			// arrange
 			var language = Language.Default;
-			var semanticNetwork = new TestSemanticNetwork(language).SemanticNetwork;
+			var semanticNetwork = new SemanticNetwork(language).CreateSetTestData().SemanticNetwork;
 
 			var questionWithoutRecursion = new EnumerateSignsQuestion(LogicalValues.True, false);
 
@@ -45,7 +45,7 @@ namespace AabSemantics.Modules.Set.Tests.Questions
 		{
 			// arrange
 			var language = Language.Default;
-			var semanticNetwork = new TestSemanticNetwork(language);
+			var semanticNetwork = new SemanticNetwork(language).CreateSetTestData();
 
 			var question = new EnumerateSignsQuestion(semanticNetwork.Vehicle_Motorcycle, false);
 
@@ -62,7 +62,7 @@ namespace AabSemantics.Modules.Set.Tests.Questions
 		{
 			// arrange
 			var language = Language.Default;
-			var semanticNetwork = new TestSemanticNetwork(language);
+			var semanticNetwork = new SemanticNetwork(language).CreateSetTestData();
 
 			var ownSign = ConceptCreationHelper.CreateConcept();
 			ownSign.WithAttribute(IsSignAttribute.Value);
@@ -86,7 +86,7 @@ namespace AabSemantics.Modules.Set.Tests.Questions
 		{
 			// arrange
 			var language = Language.Default;
-			var semanticNetwork = new TestSemanticNetwork(language);
+			var semanticNetwork = new SemanticNetwork(language).CreateSetTestData();
 
 			var question = new EnumerateSignsQuestion(semanticNetwork.Vehicle_Motorcycle, true);
 
@@ -105,7 +105,7 @@ namespace AabSemantics.Modules.Set.Tests.Questions
 		{
 			// arrange
 			var language = Language.Default;
-			var semanticNetwork = new TestSemanticNetwork(language);
+			var semanticNetwork = new SemanticNetwork(language).CreateSetTestData();
 
 			var ownSign = ConceptCreationHelper.CreateConcept();
 			ownSign.WithAttribute(IsSignAttribute.Value);

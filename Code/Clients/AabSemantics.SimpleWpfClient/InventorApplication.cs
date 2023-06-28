@@ -12,6 +12,7 @@ using AabSemantics.Modules.Mathematics;
 using AabSemantics.Modules.Processes;
 using AabSemantics.Modules.Set;
 using AabSemantics.Serialization.Xml;
+using AabSemantics.Test.Sample;
 
 namespace AabSemantics.SimpleWpfClient
 {
@@ -160,8 +161,8 @@ namespace AabSemantics.SimpleWpfClient
 
 		private static void registerModules()
 		{
-			new AabSemantics.Modules.Boolean.BooleanModule().RegisterMetadata();
-			new AabSemantics.Modules.Classification.ClassificationModule().RegisterMetadata();
+			new Modules.Boolean.BooleanModule().RegisterMetadata();
+			new Modules.Classification.ClassificationModule().RegisterMetadata();
 			new SetModule().RegisterMetadata();
 			new MathematicsModule().RegisterMetadata();
 			new ProcessesModule().RegisterMetadata();
@@ -173,7 +174,8 @@ namespace AabSemantics.SimpleWpfClient
 		private void initializeSemanticNetwork()
 		{
 #if DEBUG
-			SemanticNetwork = new AabSemantics.Test.Sample.TestSemanticNetwork(CurrentLanguage).SemanticNetwork;
+			SemanticNetwork = new SemanticNetwork(CurrentLanguage);
+			SemanticNetwork.CreateCombinedTestData();
 #else
 			SemanticNetwork = new SemanticNetwork(CurrentLanguage);
 #endif

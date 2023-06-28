@@ -17,7 +17,10 @@ namespace AabSemantics.Tests.Text
 		{
 			// arrange
 			var language = Language.Default;
-			var semanticNetwork = new TestSemanticNetwork(language).SemanticNetwork;
+			var semanticNetwork = new SemanticNetwork(language);
+			semanticNetwork.CreateSetTestData();
+			semanticNetwork.CreateMathematicsTestData();
+			semanticNetwork.CreateProcessesTestData();
 
 			var text = semanticNetwork.DescribeRules();
 

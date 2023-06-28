@@ -30,7 +30,7 @@ namespace AabSemantics.Tests.Questions
 		{
 			// arrange
 			var language = Language.Default;
-			var semanticNetwork = new TestSemanticNetwork(language);
+			var semanticNetwork = new SemanticNetwork(language).CreateSetTestData();
 
 			var checkedStatement = semanticNetwork.SemanticNetwork.Statements.First();
 
@@ -50,7 +50,7 @@ namespace AabSemantics.Tests.Questions
 		{
 			// arrange
 			var language = Language.Default;
-			var semanticNetwork = new TestSemanticNetwork(language);
+			var semanticNetwork = new SemanticNetwork(language).CreateMathematicsTestData();
 
 			// act
 			var questionRegular = new ComparisonQuestion(semanticNetwork.Number0, semanticNetwork.Number2);
@@ -68,7 +68,7 @@ namespace AabSemantics.Tests.Questions
 		{
 			// arrange
 			var language = Language.Default;
-			var semanticNetwork = new TestSemanticNetwork(language);
+			var semanticNetwork = new SemanticNetwork(language).CreateSetTestData();
 
 			// act
 			var questionRegular = new DescribeSubjectAreaQuestion(semanticNetwork.SubjectArea_Transport);
@@ -86,7 +86,7 @@ namespace AabSemantics.Tests.Questions
 		{
 			// arrange
 			var language = Language.Default;
-			var semanticNetwork = new TestSemanticNetwork(language);
+			var semanticNetwork = new SemanticNetwork(language).CreateSetTestData();
 
 			// act
 			var questionRegular = new EnumerateDescendantsQuestion(semanticNetwork.Base_Vehicle);
@@ -104,7 +104,7 @@ namespace AabSemantics.Tests.Questions
 		{
 			// arrange
 			var language = Language.Default;
-			var semanticNetwork = new TestSemanticNetwork(language);
+			var semanticNetwork = new SemanticNetwork(language).CreateSetTestData();
 
 			// act
 			var questionRegular = new EnumerateContainersQuestion(semanticNetwork.Part_Engine);
@@ -122,7 +122,7 @@ namespace AabSemantics.Tests.Questions
 		{
 			// arrange
 			var language = Language.Default;
-			var semanticNetwork = new TestSemanticNetwork(language);
+			var semanticNetwork = new SemanticNetwork(language).CreateSetTestData();
 
 			// act
 			var questionRegular = new EnumeratePartsQuestion(semanticNetwork.Vehicle_Car);
@@ -140,7 +140,7 @@ namespace AabSemantics.Tests.Questions
 		{
 			// arrange
 			var language = Language.Default;
-			var semanticNetwork = new TestSemanticNetwork(language);
+			var semanticNetwork = new SemanticNetwork(language).CreateSetTestData();
 
 			// act
 			var questionRegular = new EnumerateSignsQuestion(semanticNetwork.Vehicle_Car, true);
@@ -158,7 +158,7 @@ namespace AabSemantics.Tests.Questions
 		{
 			// arrange
 			var language = Language.Default;
-			var semanticNetwork = new TestSemanticNetwork(language);
+			var semanticNetwork = new SemanticNetwork(language).CreateSetTestData();
 
 			// act
 			var questionRegular = new FindSubjectAreaQuestion(semanticNetwork.Vehicle_Car);
@@ -176,7 +176,7 @@ namespace AabSemantics.Tests.Questions
 		{
 			// arrange
 			var language = Language.Default;
-			var semanticNetwork = new TestSemanticNetwork(language);
+			var semanticNetwork = new SemanticNetwork(language).CreateSetTestData();
 
 			// act
 			var questionRegular = new HasSignQuestion(semanticNetwork.Vehicle_Car, semanticNetwork.Sign_MotorType, true);
@@ -194,7 +194,7 @@ namespace AabSemantics.Tests.Questions
 		{
 			// arrange
 			var language = Language.Default;
-			var semanticNetwork = new TestSemanticNetwork(language);
+			var semanticNetwork = new SemanticNetwork(language).CreateSetTestData();
 
 			// act
 			var questionRegular = new HasSignsQuestion(semanticNetwork.Vehicle_Car, true);
@@ -212,7 +212,7 @@ namespace AabSemantics.Tests.Questions
 		{
 			// arrange
 			var language = Language.Default;
-			var semanticNetwork = new TestSemanticNetwork(language);
+			var semanticNetwork = new SemanticNetwork(language).CreateSetTestData();
 
 			// act
 			var questionRegular = new IsPartOfQuestion(semanticNetwork.Part_Engine, semanticNetwork.Vehicle_Car);
@@ -230,7 +230,7 @@ namespace AabSemantics.Tests.Questions
 		{
 			// arrange
 			var language = Language.Default;
-			var semanticNetwork = new TestSemanticNetwork(language);
+			var semanticNetwork = new SemanticNetwork(language).CreateSetTestData();
 
 			// act
 			var questionRegular = new IsQuestion(semanticNetwork.Vehicle_Car, semanticNetwork.Base_Vehicle);
@@ -248,7 +248,7 @@ namespace AabSemantics.Tests.Questions
 		{
 			// arrange
 			var language = Language.Default;
-			var semanticNetwork = new TestSemanticNetwork(language);
+			var semanticNetwork = new SemanticNetwork(language).CreateSetTestData();
 
 			// act
 			var questionRegular = new IsSignQuestion(semanticNetwork.Sign_AreaType);
@@ -266,7 +266,7 @@ namespace AabSemantics.Tests.Questions
 		{
 			// arrange
 			var language = Language.Default;
-			var semanticNetwork = new TestSemanticNetwork(language);
+			var semanticNetwork = new SemanticNetwork(language).CreateSetTestData();
 
 			// act
 			var questionRegular = new IsSubjectAreaQuestion(semanticNetwork.Vehicle_Car, semanticNetwork.SubjectArea_Transport);
@@ -284,7 +284,7 @@ namespace AabSemantics.Tests.Questions
 		{
 			// arrange
 			var language = Language.Default;
-			var semanticNetwork = new TestSemanticNetwork(language);
+			var semanticNetwork = new SemanticNetwork(language).CreateSetTestData();
 
 			// act
 			var questionRegular = new IsValueQuestion(semanticNetwork.AreaType_Air);
@@ -302,7 +302,7 @@ namespace AabSemantics.Tests.Questions
 		{
 			// arrange
 			var language = Language.Default;
-			var semanticNetwork = new TestSemanticNetwork(language);
+			var semanticNetwork = new SemanticNetwork(language).CreateSetTestData();
 
 			var processA = ConceptCreationHelper.CreateConcept();
 			processA.WithAttribute(IsProcessAttribute.Value);
@@ -327,7 +327,7 @@ namespace AabSemantics.Tests.Questions
 		{
 			// arrange
 			var language = Language.Default;
-			var semanticNetwork = new TestSemanticNetwork(language);
+			var semanticNetwork = new SemanticNetwork(language).CreateSetTestData();
 
 			// act
 			var questionRegular = new SignValueQuestion(semanticNetwork.Vehicle_Car, semanticNetwork.Sign_MotorType);
@@ -345,7 +345,7 @@ namespace AabSemantics.Tests.Questions
 		{
 			// arrange
 			var language = Language.Default;
-			var semanticNetwork = new TestSemanticNetwork(language);
+			var semanticNetwork = new SemanticNetwork(language).CreateSetTestData();
 
 			var render = TextRenders.PlainString;
 
@@ -365,7 +365,7 @@ namespace AabSemantics.Tests.Questions
 		{
 			// arrange
 			var language = Language.Default;
-			var semanticNetwork = new TestSemanticNetwork(language);
+			var semanticNetwork = new SemanticNetwork(language).CreateMathematicsTestData();
 
 			var numberMinus1 = ConceptCreationHelper.CreateConcept();
 			numberMinus1.WithAttribute(IsValueAttribute.Value);

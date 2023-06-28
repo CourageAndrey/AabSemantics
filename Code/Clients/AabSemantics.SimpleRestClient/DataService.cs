@@ -10,7 +10,13 @@ namespace AabSemantics.SimpleRestClient
 
 	public class DataService : IDataService
 	{
-		private readonly ISemanticNetwork _semanticNetwork = new TestSemanticNetwork(Language.Default).SemanticNetwork;
+		private readonly ISemanticNetwork _semanticNetwork;
+
+		public DataService()
+		{
+			_semanticNetwork = new SemanticNetwork(Language.Default);
+			_semanticNetwork.CreateCombinedTestData();
+		}
 
 		public ISemanticNetwork GetSemanticNetwork()
 		{

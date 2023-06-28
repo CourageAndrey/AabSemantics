@@ -12,6 +12,7 @@ using AabSemantics.Extensions.WPF.Commands;
 using AabSemantics.Extensions.WPF.Dialogs;
 using AabSemantics.Extensions.WPF.Localization;
 using AabSemantics.Extensions.WPF.ViewModels;
+using AabSemantics.Test.Sample;
 
 namespace AabSemantics.SimpleWpfClient
 {
@@ -205,7 +206,9 @@ namespace AabSemantics.SimpleWpfClient
 		{
 			if (canProceedAfterSave())
 			{
-				setModel(new AabSemantics.Test.Sample.TestSemanticNetwork(_application.CurrentLanguage).SemanticNetwork, string.Empty);
+				var sample = new SemanticNetwork(_application.CurrentLanguage);
+				sample.CreateCombinedTestData();
+				setModel(sample, string.Empty);
 			}
 		}
 

@@ -21,7 +21,7 @@ namespace AabSemantics.Modules.Set.Tests.Questions
 		{
 			// arrange
 			var language = Language.Default;
-			var semanticNetwork = new TestSemanticNetwork(language);
+			var semanticNetwork = new SemanticNetwork(language).CreateSetTestData();
 			var conceptsWithoutSubjectArea = new List<IConcept>(SystemConcepts.GetAll()) { semanticNetwork.SubjectArea_Transport };
 
 			foreach (var concept in conceptsWithoutSubjectArea)
@@ -40,11 +40,11 @@ namespace AabSemantics.Modules.Set.Tests.Questions
 		{
 			// arrange
 			var language = Language.Default;
-			var semanticNetwork = new TestSemanticNetwork(language);
+			var semanticNetwork = new SemanticNetwork(language).CreateCombinedTestData();
 
 			IList<IConcept> subjectAreas = new IConcept[]
 			{
-				semanticNetwork.SubjectArea_Transport,
+				semanticNetwork.Set.SubjectArea_Transport,
 				semanticNetwork.SubjectArea_Numbers,
 				semanticNetwork.SubjectArea_Processes,
 			};
@@ -74,7 +74,7 @@ namespace AabSemantics.Modules.Set.Tests.Questions
 		{
 			// arrange
 			var language = Language.Default;
-			var semanticNetwork = new TestSemanticNetwork(language);
+			var semanticNetwork = new SemanticNetwork(language).CreateSetTestData();
 			var concept = semanticNetwork.Base_Vehicle;
 
 			var secondSubjectArea = Boolean.Concepts.LogicalValues.True;
