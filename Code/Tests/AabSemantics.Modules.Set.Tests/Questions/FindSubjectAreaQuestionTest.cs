@@ -11,7 +11,7 @@ using AabSemantics.Questions;
 using AabSemantics.Statements;
 using AabSemantics.Test.Sample;
 
-namespace AabSemantics.Tests.Questions
+namespace AabSemantics.Modules.Set.Tests.Questions
 {
 	[TestFixture]
 	public class FindSubjectAreaQuestionTest
@@ -77,7 +77,7 @@ namespace AabSemantics.Tests.Questions
 			var semanticNetwork = new TestSemanticNetwork(language);
 			var concept = semanticNetwork.Base_Vehicle;
 
-			var secondSubjectArea = Modules.Boolean.Concepts.LogicalValues.True;
+			var secondSubjectArea = Boolean.Concepts.LogicalValues.True;
 			semanticNetwork.SemanticNetwork.DeclareThat(concept).BelongsToSubjectArea(secondSubjectArea);
 
 			// act

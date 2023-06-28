@@ -9,10 +9,10 @@ using AabSemantics.Modules.Set.Statements;
 using AabSemantics.Questions;
 using AabSemantics.Test.Sample;
 
-namespace AabSemantics.Tests.Questions
+namespace AabSemantics.Modules.Set.Tests.Questions
 {
 	[TestFixture]
-	public class IsPartOfQuestionTest
+	public class IsSubjectAreaQuestionTest
 	{
 		[Test]
 		public void GivenNoInformation_WhenBeingAsked_ThenReturnFalse()
@@ -22,7 +22,7 @@ namespace AabSemantics.Tests.Questions
 			var semanticNetwork = new TestSemanticNetwork(language);
 
 			// act
-			var answer = semanticNetwork.SemanticNetwork.Ask().IfIsPartOf(semanticNetwork.Part_Engine, semanticNetwork.Base_Vehicle);
+			var answer = semanticNetwork.SemanticNetwork.Ask().IfConceptBelongsToSubjectArea(semanticNetwork.Base_Vehicle, semanticNetwork.SubjectArea_Numbers);
 
 			// assert
 			Assert.IsFalse(answer.IsEmpty);
@@ -38,14 +38,14 @@ namespace AabSemantics.Tests.Questions
 			var semanticNetwork = new TestSemanticNetwork(language);
 
 			// act
-			var answer = semanticNetwork.SemanticNetwork.Ask().IfIsPartOf(semanticNetwork.Part_Engine, semanticNetwork.Vehicle_Car);
+			var answer = semanticNetwork.SemanticNetwork.Ask().IfConceptBelongsToSubjectArea(semanticNetwork.Base_Vehicle, semanticNetwork.SubjectArea_Transport);
 
 			// assert
 			Assert.IsFalse(answer.IsEmpty);
 			Assert.IsTrue(((BooleanAnswer) answer).Result);
 
-			var statement = (HasPartStatement) answer.Explanation.Statements.Single();
-			Assert.IsTrue(statement.Whole == semanticNetwork.Vehicle_Car && statement.Part == semanticNetwork.Part_Engine);
+			var statement = (GroupStatement) answer.Explanation.Statements.Single();
+			Assert.IsTrue(statement.Concept == semanticNetwork.Base_Vehicle && statement.Area == semanticNetwork.SubjectArea_Transport);
 		}
 	}
 }

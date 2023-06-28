@@ -14,7 +14,7 @@ using AabSemantics.Questions;
 using AabSemantics.Statements;
 using AabSemantics.Test.Sample;
 
-namespace AabSemantics.Tests.Questions
+namespace AabSemantics.Modules.Set.Tests.Questions
 {
 	[TestFixture]
 	public class HasSignQuestionTest

@@ -10,10 +10,10 @@ using AabSemantics.Modules.Set.Statements;
 using AabSemantics.Questions;
 using AabSemantics.Statements;
 
-namespace AabSemantics.Tests.Questions
+namespace AabSemantics.Modules.Set.Tests.Questions
 {
 	[TestFixture]
-	public class EnumeratePartsQuestionTest
+	public class EnumerateContainersQuestionTest
 	{
 		[Test]
 		public void GivenNoInformation_WhenBeingAsked_ThenReturnEmpty()
@@ -31,44 +31,44 @@ namespace AabSemantics.Tests.Questions
 			semanticNetwork.DeclareThat(partConcept).IsPartOf(wholeConcept);
 
 			// act
-			var answerToCheck = semanticNetwork.Ask().WhichPartsHas(conceptToCheck);
+			var answerToCheck = semanticNetwork.Ask().WhichContainersInclude(conceptToCheck);
 
-			var answerPart = semanticNetwork.Ask().WhichPartsHas(partConcept);
+			var answerWhole = semanticNetwork.Ask().WhichContainersInclude(wholeConcept);
 
 			// assert
 			Assert.IsTrue(answerToCheck.IsEmpty);
 			Assert.AreEqual(0, answerToCheck.Explanation.Statements.Count);
 
-			Assert.IsTrue(answerPart.IsEmpty);
-			Assert.AreEqual(0, answerPart.Explanation.Statements.Count);
+			Assert.IsTrue(answerWhole.IsEmpty);
+			Assert.AreEqual(0, answerWhole.Explanation.Statements.Count);
 		}
 
 		[Test]
-		public void GivenCorrespondingInformation_WhenBeingAsked_ThenReturnAllParts()
+		public void GivenCorrespondingInformation_WhenBeingAsked_ThenReturnAllContainers()
 		{
 			// arrange
 			var language = Language.Default;
 			var semanticNetwork = new SemanticNetwork(language);
 
-			var wholeConcept = ConceptCreationHelper.CreateConcept();
-			semanticNetwork.Concepts.Add(wholeConcept);
+			var partConcept = ConceptCreationHelper.CreateConcept();
+			semanticNetwork.Concepts.Add(partConcept);
 
-			const int partCount = 4;
+			const int containerCount = 4;
 
-			for (int i = 1; i <= partCount; i++)
+			for (int i = 1; i <= containerCount; i++)
 			{
 				// act
-				var partConcept = ConceptCreationHelper.CreateConcept();
-				semanticNetwork.Concepts.Add(partConcept);
+				var wholeConcept = ConceptCreationHelper.CreateConcept();
+				semanticNetwork.Concepts.Add(wholeConcept);
 				semanticNetwork.DeclareThat(partConcept).IsPartOf(wholeConcept);
 
-				var answer = semanticNetwork.Ask().WhichPartsHas(wholeConcept);
+				var answer = semanticNetwork.Ask().WhichContainersInclude(partConcept);
 
 				// assert
 				Assert.IsFalse(answer.IsEmpty);
-				var partConcepts = ((ConceptsAnswer) answer).Result;
-				Assert.AreEqual(i, partConcepts.Count);
-				Assert.IsTrue(partConcepts.All(semanticNetwork.Concepts.Contains));
+				var containerConcepts = ((ConceptsAnswer) answer).Result;
+				Assert.AreEqual(i, containerConcepts.Count);
+				Assert.IsTrue(containerConcepts.All(semanticNetwork.Concepts.Contains));
 				Assert.AreEqual(i, answer.Explanation.Statements.Count);
 				Assert.IsFalse(semanticNetwork.Statements.Except(answer.Explanation.Statements).Any());
 			}

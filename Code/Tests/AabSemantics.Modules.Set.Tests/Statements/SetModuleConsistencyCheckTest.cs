@@ -9,13 +9,12 @@ using AabSemantics.Modules.Boolean;
 using AabSemantics.Modules.Boolean.Attributes;
 using AabSemantics.Modules.Classification;
 using AabSemantics.Modules.Classification.Statements;
-using AabSemantics.Modules.Set;
 using AabSemantics.Modules.Set.Attributes;
 using AabSemantics.Modules.Set.Statements;
 using AabSemantics.Statements;
 using AabSemantics.Text.Containers;
 
-namespace AabSemantics.Tests.Statements
+namespace AabSemantics.Modules.Set.Tests.Statements
 {
 	[TestFixture]
 	public class SetModuleConsistencyCheckTest

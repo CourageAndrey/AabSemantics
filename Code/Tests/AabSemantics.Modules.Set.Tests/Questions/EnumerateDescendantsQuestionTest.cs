@@ -10,7 +10,7 @@ using AabSemantics.Modules.Classification.Statements;
 using AabSemantics.Questions;
 using AabSemantics.Statements;
 
-namespace AabSemantics.Tests.Questions
+namespace AabSemantics.Modules.Set.Tests.Questions
 {
 	[TestFixture]
 	public class EnumerateDescendantsQuestionTest

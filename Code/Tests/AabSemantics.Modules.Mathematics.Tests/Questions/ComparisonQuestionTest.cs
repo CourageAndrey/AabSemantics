@@ -6,14 +6,14 @@ using NUnit.Framework;
 
 using AabSemantics.Answers;
 using AabSemantics.Localization;
+using AabSemantics.Modules.Boolean.Concepts;
 using AabSemantics.Modules.Mathematics.Concepts;
 using AabSemantics.Modules.Mathematics.Questions;
 using AabSemantics.Modules.Mathematics.Statements;
-using AabSemantics.Modules.Processes.Concepts;
 using AabSemantics.Questions;
 using AabSemantics.Test.Sample;
 
-namespace AabSemantics.Tests.Questions
+namespace AabSemantics.Modules.Mathematics.Tests.Questions
 {
 	[TestFixture]
 	public class ComparisonQuestionTest
@@ -26,7 +26,7 @@ namespace AabSemantics.Tests.Questions
 			var semanticNetwork = new TestSemanticNetwork(language);
 
 			// act
-			var answer = semanticNetwork.SemanticNetwork.Ask().HowCompared(ComparisonSigns.IsNotEqualTo, SequenceSigns.Causes);
+			var answer = semanticNetwork.SemanticNetwork.Ask().HowCompared(ComparisonSigns.IsNotEqualTo, LogicalValues.False);
 
 			// assert
 			Assert.IsTrue(answer.IsEmpty);
