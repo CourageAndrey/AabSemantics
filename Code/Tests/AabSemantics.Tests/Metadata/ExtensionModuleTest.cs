@@ -6,32 +6,17 @@ using NUnit.Framework;
 
 using AabSemantics.Answers;
 using AabSemantics.Concepts;
-using AabSemantics.IntegrationTests;
 using AabSemantics.Localization;
 using AabSemantics.Metadata;
 using AabSemantics.Modules.Boolean;
 using AabSemantics.Modules.Boolean.Attributes;
+using AabSemantics.Modules.Boolean.Concepts;
 using AabSemantics.Modules.Boolean.Localization;
 using AabSemantics.Modules.Boolean.Questions;
 using AabSemantics.Modules.Classification;
 using AabSemantics.Modules.Classification.Localization;
 using AabSemantics.Modules.Classification.Questions;
 using AabSemantics.Modules.Classification.Statements;
-using AabSemantics.Modules.Mathematics;
-using AabSemantics.Modules.Mathematics.Attributes;
-using AabSemantics.Modules.Mathematics.Localization;
-using AabSemantics.Modules.Mathematics.Questions;
-using AabSemantics.Modules.Mathematics.Statements;
-using AabSemantics.Modules.Processes;
-using AabSemantics.Modules.Processes.Attributes;
-using AabSemantics.Modules.Processes.Localization;
-using AabSemantics.Modules.Processes.Questions;
-using AabSemantics.Modules.Processes.Statements;
-using AabSemantics.Modules.Set;
-using AabSemantics.Modules.Set.Attributes;
-using AabSemantics.Modules.Set.Localization;
-using AabSemantics.Modules.Set.Questions;
-using AabSemantics.Modules.Set.Statements;
 using AabSemantics.Statements;
 using AabSemantics.Text.Containers;
 
@@ -212,9 +197,6 @@ namespace AabSemantics.Tests.Metadata
 			{
 				new BooleanModule(),
 				new ClassificationModule(),
-				new SetModule(),
-				new MathematicsModule(),
-				new ProcessesModule(),
 			};
 			foreach (var module in modules)
 			{
@@ -241,7 +223,7 @@ namespace AabSemantics.Tests.Metadata
 
 			// assert concepts
 			var semanticNetwork = new SemanticNetwork(Language.Default).WithModules(modules);
-			var systemConcepts = SystemConcepts.GetAll().ToList();
+			var systemConcepts = GetSystemConcepts();
 			Assert.AreEqual(semanticNetwork.Concepts.Count, systemConcepts.Count);
 			foreach (var concept in systemConcepts)
 			{
@@ -284,9 +266,6 @@ namespace AabSemantics.Tests.Metadata
 			{
 				new BooleanModule(),
 				new ClassificationModule(),
-				new SetModule(),
-				new MathematicsModule(),
-				new ProcessesModule(),
 			};
 			foreach (var module in modules)
 			{
@@ -302,9 +281,6 @@ namespace AabSemantics.Tests.Metadata
 			Assert.AreEqual(totalExtensionCount, language.Extensions.Count);
 			Assert.IsNotNull(language.GetExtension<ILanguageBooleanModule>());
 			Assert.IsNotNull(language.GetExtension<ILanguageClassificationModule>());
-			Assert.IsNotNull(language.GetExtension<ILanguageSetModule>());
-			Assert.IsNotNull(language.GetExtension<ILanguageMathematicsModule>());
-			Assert.IsNotNull(language.GetExtension<ILanguageProcessesModule>());
 		}
 
 		[Test]
@@ -352,10 +328,6 @@ namespace AabSemantics.Tests.Metadata
 			{
 				typeof(IsValueAttribute),
 				typeof(IsBooleanAttribute),
-				typeof(IsSignAttribute),
-				typeof(IsComparisonSignAttribute),
-				typeof(IsProcessAttribute),
-				typeof(IsSequenceSignAttribute),
 			};
 		}
 
@@ -364,12 +336,6 @@ namespace AabSemantics.Tests.Metadata
 			return new List<Type>
 			{
 				typeof(IsStatement),
-				typeof(HasPartStatement),
-				typeof(GroupStatement),
-				typeof(HasSignStatement),
-				typeof(SignValueStatement),
-				typeof(ComparisonStatement),
-				typeof(ProcessesStatement),
 			};
 		}
 
@@ -378,26 +344,9 @@ namespace AabSemantics.Tests.Metadata
 			return new List<Type>
 			{
 				typeof(CheckStatementQuestion),
-				typeof(ComparisonQuestion),
-				typeof(DescribeSubjectAreaQuestion),
 				typeof(EnumerateAncestorsQuestion),
-				typeof(EnumerateContainersQuestion),
 				typeof(EnumerateDescendantsQuestion),
-				typeof(EnumeratePartsQuestion),
-				typeof(EnumerateSignsQuestion),
-				typeof(FindSubjectAreaQuestion),
-				typeof(GetCommonQuestion),
-				typeof(GetDifferencesQuestion),
-				typeof(HasSignQuestion),
-				typeof(HasSignsQuestion),
-				typeof(IsPartOfQuestion),
 				typeof(IsQuestion),
-				typeof(IsSignQuestion),
-				typeof(IsSubjectAreaQuestion),
-				typeof(IsValueQuestion),
-				typeof(ProcessesQuestion),
-				typeof(SignValueQuestion),
-				typeof(WhatQuestion),
 			};
 		}
 
@@ -412,6 +361,11 @@ namespace AabSemantics.Tests.Metadata
 				typeof(StatementAnswer),
 				typeof(StatementsAnswer),
 			};
+		}
+
+		private static ICollection<IConcept> GetSystemConcepts()
+		{
+			return LogicalValues.All;
 		}
 
 		private class TestModule : ExtensionModule
