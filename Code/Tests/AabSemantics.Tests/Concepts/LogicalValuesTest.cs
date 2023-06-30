@@ -3,7 +3,6 @@
 using NUnit.Framework;
 
 using AabSemantics.Concepts;
-using AabSemantics.IntegrationTests;
 using AabSemantics.Modules.Boolean.Concepts;
 
 namespace AabSemantics.Tests.Concepts
@@ -14,14 +13,12 @@ namespace AabSemantics.Tests.Concepts
 		[Test]
 		public void GivenNonLogicalValues_WhenTryToCallLogicalValueExtensions_ThenFail()
 		{
-			foreach (var concept in SystemConcepts.GetAll())
-			{
-				if (!LogicalValues.All.Contains(concept))
-				{
-					Assert.Throws<InvalidOperationException>(() => { concept.ToBoolean(); });
-					Assert.Throws<InvalidOperationException>(() => { concept.Invert(); });
-				}
-			}
+			// arrange
+			var concept = "test".CreateConcept();
+
+			// act && assert
+			Assert.Throws<InvalidOperationException>(() => { concept.ToBoolean(); });
+			Assert.Throws<InvalidOperationException>(() => { concept.Invert(); });
 		}
 
 		[Test]
