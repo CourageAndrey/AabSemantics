@@ -4,7 +4,7 @@ using System.Threading;
 using NUnit.Framework;
 
 using AabSemantics.Localization;
-using AabSemantics.Modules.Set.Localization;
+using AabSemantics.Modules.Boolean.Localization;
 
 namespace AabSemantics.Tests.Localization
 {
@@ -73,15 +73,15 @@ namespace AabSemantics.Tests.Localization
 		public void GivenPathWithModule_WhenGetBoundText_ThenReturnText()
 		{
 			// arrange
-			Language.Default.Extensions.Add(LanguageSetModule.CreateDefault());
+			Language.Default.Extensions.Add(LanguageBooleanModule.CreateDefault());
 
 			var language = Language.Default;
 
 			// act
-			string text = language.GetBoundText("Set\\Attributes.IsSign");
+			string text = language.GetBoundText("Boolean\\Attributes.IsBoolean");
 
 			// assert
-			Assert.AreEqual(language.GetExtension<ILanguageSetModule>().Attributes.IsSign, text);
+			Assert.AreEqual(language.GetExtension<ILanguageBooleanModule>().Attributes.IsBoolean, text);
 		}
 
 		[Test]
