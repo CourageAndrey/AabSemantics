@@ -177,9 +177,9 @@
       <Project>{f6c2b97b-68c8-415c-98de-663ba4c45eca}</Project>
       <Name>AabSemantics.Modules.Set</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\Tests\AabSemantics.Test.Sample\AabSemantics.Test.Sample.csproj">
-      <Project>{5e023b0f-1c9f-449e-aab8-4f7eb1ab1960}</Project>
-      <Name>AabSemantics.Test.Sample</Name>
+    <ProjectReference Include="..\..\Tests\AabSemantics.IntegrationTests\AabSemantics.IntegrationTests.csproj">
+      <Project>{a0c261b6-cfdd-4df6-8d80-aa5997dda63a}</Project>
+      <Name>AabSemantics.IntegrationTests</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

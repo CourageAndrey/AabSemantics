@@ -6,13 +6,13 @@ using System.Windows.Data;
 
 using Microsoft.Win32;
 
-using AabSemantics.Serialization.Xml;
 using AabSemantics.Extensions.WPF;
 using AabSemantics.Extensions.WPF.Commands;
 using AabSemantics.Extensions.WPF.Dialogs;
 using AabSemantics.Extensions.WPF.Localization;
 using AabSemantics.Extensions.WPF.ViewModels;
-using AabSemantics.Test.Sample;
+using AabSemantics.IntegrationTests;
+using AabSemantics.Serialization.Xml;
 
 namespace AabSemantics.SimpleWpfClient
 {

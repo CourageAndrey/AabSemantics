@@ -3,8 +3,8 @@
 using NUnit.Framework;
 
 using AabSemantics.Concepts;
+using AabSemantics.IntegrationTests;
 using AabSemantics.Modules.Boolean.Concepts;
-using AabSemantics.Test.Sample;
 
 namespace AabSemantics.Tests.Concepts
 {

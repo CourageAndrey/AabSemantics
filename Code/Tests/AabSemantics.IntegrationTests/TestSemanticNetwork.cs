@@ -11,7 +11,7 @@ using AabSemantics.Modules.Set.Statements;
 using AabSemantics.Modules.Set.Tests;
 using AabSemantics.Statements;
 
-namespace AabSemantics.Test.Sample
+namespace AabSemantics.IntegrationTests
 {
 	public class CombinedTestSemanticNetwork
 	{
