@@ -83,6 +83,24 @@ namespace AabSemantics.Tests.Questions
 		}
 
 		[Test]
+		public void GivenWhichAncestorsHas_WhenBeingAsked_ThenBuildAndAskQuestion()
+		{
+			// arrange
+			var language = Language.Default;
+			var semanticNetwork = new SemanticNetwork(language).CreateSetTestData();
+
+			// act
+			var questionRegular = new EnumerateAncestorsQuestion(semanticNetwork.Vehicle_Car);
+			var answerRegular = (ConceptsAnswer) questionRegular.Ask(semanticNetwork.SemanticNetwork.Context);
+
+			var answerBuilder = (ConceptsAnswer) semanticNetwork.SemanticNetwork.Ask().WhichAncestorsHas(semanticNetwork.Vehicle_Car);
+
+			// assert
+			Assert.IsTrue(answerRegular.Result.SequenceEqual(answerBuilder.Result));
+			Assert.IsTrue(answerRegular.Explanation.Statements.SequenceEqual(answerBuilder.Explanation.Statements));
+		}
+
+		[Test]
 		public void GivenWhichDescendantsHas_WhenBeingAsked_ThenBuildAndAskQuestion()
 		{
 			// arrange
