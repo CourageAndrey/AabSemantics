@@ -57,13 +57,13 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AabSemantics.SimpleRestClie
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Extensions", "Extensions", "{15430F84-D08B-49F8-9E1F-2087F11521FF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AabSemantics.Modules.Mathematics.Tests", "Tests\AabSemantics.Modules.Mathematics.Tests\AabSemantics.Modules.Mathematics.Tests.csproj", "{397EDAA8-B8B4-4020-8D6B-10E48D3494B3}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AabSemantics.Modules.Mathematics.Tests", "Tests\AabSemantics.Modules.Mathematics.Tests\AabSemantics.Modules.Mathematics.Tests.csproj", "{397EDAA8-B8B4-4020-8D6B-10E48D3494B3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AabSemantics.Modules.Processes.Tests", "Tests\AabSemantics.Modules.Processes.Tests\AabSemantics.Modules.Processes.Tests.csproj", "{F4EE469E-9B47-41E6-B8C7-88C0DE3A37FB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AabSemantics.Modules.Processes.Tests", "Tests\AabSemantics.Modules.Processes.Tests\AabSemantics.Modules.Processes.Tests.csproj", "{F4EE469E-9B47-41E6-B8C7-88C0DE3A37FB}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AabSemantics.Modules.Set.Tests", "Tests\AabSemantics.Modules.Set.Tests\AabSemantics.Modules.Set.Tests.csproj", "{4FB3AA3E-6C16-4475-91EA-FC9D3CFEFFF1}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AabSemantics.Modules.Set.Tests", "Tests\AabSemantics.Modules.Set.Tests\AabSemantics.Modules.Set.Tests.csproj", "{4FB3AA3E-6C16-4475-91EA-FC9D3CFEFFF1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AabSemantics.Modules.IntegrationTests", "Tests\AabSemantics.Modules.IntegrationTests\AabSemantics.Modules.IntegrationTests.csproj", "{A0C261B6-CFDD-4DF6-8D80-AA5997DDA63A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AabSemantics.IntegrationTests", "Tests\AabSemantics.IntegrationTests\AabSemantics.IntegrationTests.csproj", "{A0C261B6-CFDD-4DF6-8D80-AA5997DDA63A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
