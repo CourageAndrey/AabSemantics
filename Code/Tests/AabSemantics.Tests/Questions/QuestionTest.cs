@@ -109,7 +109,7 @@ namespace AabSemantics.Tests.Questions
 		}
 
 		[Test]
-		public void GivenAllParameterSet_WhenCreateChildAnswer_ThenScceed()
+		public void GivenAllParameterSet_WhenCreateChildAnswer_ThenSucceed()
 		{
 			// arrange
 			var concept = "test".CreateConcept();
