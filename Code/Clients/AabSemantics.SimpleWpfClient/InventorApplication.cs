@@ -7,12 +7,12 @@ using System.Windows.Threading;
 
 using AabSemantics.Extensions.WPF;
 using AabSemantics.Extensions.WPF.Dialogs;
+using AabSemantics.IntegrationTests;
 using AabSemantics.Localization;
 using AabSemantics.Modules.Mathematics;
 using AabSemantics.Modules.Processes;
 using AabSemantics.Modules.Set;
 using AabSemantics.Serialization.Xml;
-using AabSemantics.Test.Sample;
 
 namespace AabSemantics.SimpleWpfClient
 {

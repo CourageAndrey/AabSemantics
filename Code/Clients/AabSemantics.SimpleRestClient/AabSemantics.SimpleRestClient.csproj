@@ -14,7 +14,7 @@
     <ProjectReference Include="..\..\Core\AabSemantics\AabSemantics.csproj" />
     <ProjectReference Include="..\..\Modules\AabSemantics.Modules.Mathematics\AabSemantics.Modules.Mathematics.csproj" />
     <ProjectReference Include="..\..\Modules\AabSemantics.Modules.Processes\AabSemantics.Modules.Processes.csproj" />
-    <ProjectReference Include="..\..\Tests\AabSemantics.Test.Sample\AabSemantics.Test.Sample.csproj" />
+    <ProjectReference Include="..\..\Tests\AabSemantics.IntegrationTests\AabSemantics.IntegrationTests.csproj" />
   </ItemGroup>
 
 </Project>

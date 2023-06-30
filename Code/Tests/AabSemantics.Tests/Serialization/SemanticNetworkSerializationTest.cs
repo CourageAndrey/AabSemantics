@@ -5,10 +5,10 @@ using System.Linq;
 
 using NUnit.Framework;
 
+using AabSemantics.IntegrationTests;
 using AabSemantics.Localization;
 using AabSemantics.Serialization.Json;
 using AabSemantics.Serialization.Xml;
-using AabSemantics.Test.Sample;
 
 namespace AabSemantics.Tests.Serialization
 {

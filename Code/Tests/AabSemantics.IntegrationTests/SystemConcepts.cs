@@ -4,7 +4,7 @@ using AabSemantics.Modules.Boolean.Concepts;
 using AabSemantics.Modules.Mathematics.Concepts;
 using AabSemantics.Modules.Processes.Concepts;
 
-namespace AabSemantics.Test.Sample
+namespace AabSemantics.IntegrationTests
 {
 	public static class SystemConcepts
 	{

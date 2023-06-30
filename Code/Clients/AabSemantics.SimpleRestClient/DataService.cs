@@ -1,5 +1,5 @@
-﻿using AabSemantics.Localization;
-using AabSemantics.Test.Sample;
+﻿using AabSemantics.IntegrationTests;
+using AabSemantics.Localization;
 
 namespace AabSemantics.SimpleRestClient
 {
