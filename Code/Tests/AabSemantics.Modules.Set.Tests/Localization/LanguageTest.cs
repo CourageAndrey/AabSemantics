@@ -5,22 +5,13 @@ using AabSemantics.Modules.Boolean;
 using AabSemantics.Modules.Boolean.Localization;
 using AabSemantics.Modules.Classification;
 using AabSemantics.Modules.Classification.Localization;
+using AabSemantics.Modules.Set.Localization;
 
-namespace AabSemantics.Tests.Localization
+namespace AabSemantics.Modules.Set.Tests.Localization
 {
 	[TestFixture]
 	public class LanguageTest
 	{
-		[Test]
-		public void GivenDefaultLanguage_WhenConvertToString_ThenReturnLanguageName()
-		{
-			// arrange
-			var language = Language.Default;
-
-			// assert
-			Assert.AreEqual(language.Name, language.ToString());
-		}
-
 		[Test]
 		public void GivenDefaultLanguageWithBaseModules_WhenCheckMembersTree_ThenAllMembersAreDefined()
 		{
@@ -29,6 +20,7 @@ namespace AabSemantics.Tests.Localization
 			{
 				new BooleanModule(),
 				new ClassificationModule(),
+				new SetModule(),
 			};
 			foreach (var module in modules)
 			{
@@ -63,6 +55,19 @@ namespace AabSemantics.Tests.Localization
 			Assert.IsNotNull(classificationExtension.Statements.Names);
 			Assert.IsNotNull(classificationExtension.Statements.QuestionFormatStrings);
 			Assert.IsNotNull(classificationExtension.Statements.TrueFormatStrings);
+
+			var setExtension = language.GetExtension<ILanguageSetModule>();
+			Assert.IsNotNull(setExtension.Attributes);
+			Assert.IsNotNull(setExtension.Questions);
+			Assert.IsNotNull(setExtension.Questions.Answers);
+			Assert.IsNotNull(setExtension.Questions.Parameters);
+			Assert.IsNotNull(setExtension.Statements);
+			Assert.IsNotNull(setExtension.Statements.Consistency);
+			Assert.IsNotNull(setExtension.Statements.FalseFormatStrings);
+			Assert.IsNotNull(setExtension.Statements.Hints);
+			Assert.IsNotNull(setExtension.Statements.Names);
+			Assert.IsNotNull(setExtension.Statements.QuestionFormatStrings);
+			Assert.IsNotNull(setExtension.Statements.TrueFormatStrings);
 		}
 	}
 }

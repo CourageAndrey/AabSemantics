@@ -16,7 +16,6 @@
     <Folder Include="Attributes\" />
     <Folder Include="Concepts\" />
     <Folder Include="Json\" />
-    <Folder Include="Localization\" />
     <Folder Include="Questions\" />
     <Folder Include="Xml\" />
   </ItemGroup>

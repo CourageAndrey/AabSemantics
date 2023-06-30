@@ -5,22 +5,13 @@ using AabSemantics.Modules.Boolean;
 using AabSemantics.Modules.Boolean.Localization;
 using AabSemantics.Modules.Classification;
 using AabSemantics.Modules.Classification.Localization;
+using AabSemantics.Modules.Processes.Localization;
 
-namespace AabSemantics.Tests.Localization
+namespace AabSemantics.Modules.Processes.Tests.Localization
 {
 	[TestFixture]
 	public class LanguageTest
 	{
-		[Test]
-		public void GivenDefaultLanguage_WhenConvertToString_ThenReturnLanguageName()
-		{
-			// arrange
-			var language = Language.Default;
-
-			// assert
-			Assert.AreEqual(language.Name, language.ToString());
-		}
-
 		[Test]
 		public void GivenDefaultLanguageWithBaseModules_WhenCheckMembersTree_ThenAllMembersAreDefined()
 		{
@@ -29,6 +20,7 @@ namespace AabSemantics.Tests.Localization
 			{
 				new BooleanModule(),
 				new ClassificationModule(),
+				new ProcessesModule(),
 			};
 			foreach (var module in modules)
 			{
@@ -63,6 +55,19 @@ namespace AabSemantics.Tests.Localization
 			Assert.IsNotNull(classificationExtension.Statements.Names);
 			Assert.IsNotNull(classificationExtension.Statements.QuestionFormatStrings);
 			Assert.IsNotNull(classificationExtension.Statements.TrueFormatStrings);
+
+			var processesExtension = language.GetExtension<ILanguageProcessesModule>();
+			Assert.IsNotNull(processesExtension.Attributes);
+			Assert.IsNotNull(processesExtension.Concepts);
+			Assert.IsNotNull(processesExtension.Questions);
+			Assert.IsNotNull(processesExtension.Questions.Parameters);
+			Assert.IsNotNull(processesExtension.Statements);
+			Assert.IsNotNull(processesExtension.Statements.Consistency);
+			Assert.IsNotNull(processesExtension.Statements.FalseFormatStrings);
+			Assert.IsNotNull(processesExtension.Statements.Hints);
+			Assert.IsNotNull(processesExtension.Statements.Names);
+			Assert.IsNotNull(processesExtension.Statements.QuestionFormatStrings);
+			Assert.IsNotNull(processesExtension.Statements.TrueFormatStrings);
 		}
 	}
 }
