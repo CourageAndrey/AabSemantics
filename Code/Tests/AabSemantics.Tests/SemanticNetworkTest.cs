@@ -6,10 +6,12 @@ using AabSemantics.Modules.Boolean.Attributes;
 using AabSemantics.Modules.Classification.Statements;
 using AabSemantics.Modules.Mathematics;
 using AabSemantics.Modules.Mathematics.Statements;
+using AabSemantics.Modules.Mathematics.Tests;
 using AabSemantics.Modules.Processes;
+using AabSemantics.Modules.Processes.Tests;
 using AabSemantics.Modules.Set;
+using AabSemantics.Modules.Set.Tests;
 using AabSemantics.Statements;
-using AabSemantics.Test.Sample;
 
 namespace AabSemantics.Tests
 {

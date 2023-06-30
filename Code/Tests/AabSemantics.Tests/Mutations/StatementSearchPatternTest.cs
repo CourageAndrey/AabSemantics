@@ -5,9 +5,11 @@ using NUnit.Framework;
 using AabSemantics.Localization;
 using AabSemantics.Modules.Mathematics.Concepts;
 using AabSemantics.Modules.Mathematics.Statements;
+using AabSemantics.Modules.Mathematics.Tests;
+using AabSemantics.Modules.Processes.Tests;
 using AabSemantics.Modules.Set.Statements;
+using AabSemantics.Modules.Set.Tests;
 using AabSemantics.Mutations;
-using AabSemantics.Test.Sample;
 
 namespace AabSemantics.Tests.Mutations
 {

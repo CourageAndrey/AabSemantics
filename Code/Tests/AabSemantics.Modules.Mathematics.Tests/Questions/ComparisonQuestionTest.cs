@@ -11,7 +11,6 @@ using AabSemantics.Modules.Mathematics.Concepts;
 using AabSemantics.Modules.Mathematics.Questions;
 using AabSemantics.Modules.Mathematics.Statements;
 using AabSemantics.Questions;
-using AabSemantics.Test.Sample;
 
 namespace AabSemantics.Modules.Mathematics.Tests.Questions
 {

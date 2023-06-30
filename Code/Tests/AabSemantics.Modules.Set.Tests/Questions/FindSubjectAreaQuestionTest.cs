@@ -5,11 +5,11 @@ using NUnit.Framework;
 
 using AabSemantics.Answers;
 using AabSemantics.Localization;
+using AabSemantics.Modules.Boolean.Concepts;
 using AabSemantics.Modules.Set.Questions;
 using AabSemantics.Modules.Set.Statements;
 using AabSemantics.Questions;
 using AabSemantics.Statements;
-using AabSemantics.Test.Sample;
 
 namespace AabSemantics.Modules.Set.Tests.Questions
 {
@@ -22,7 +22,7 @@ namespace AabSemantics.Modules.Set.Tests.Questions
 			// arrange
 			var language = Language.Default;
 			var semanticNetwork = new SemanticNetwork(language).CreateSetTestData();
-			var conceptsWithoutSubjectArea = new List<IConcept>(SystemConcepts.GetAll()) { semanticNetwork.SubjectArea_Transport };
+			var conceptsWithoutSubjectArea = new List<IConcept>(LogicalValues.All) { semanticNetwork.SubjectArea_Transport };
 
 			foreach (var concept in conceptsWithoutSubjectArea)
 			{
@@ -40,16 +40,14 @@ namespace AabSemantics.Modules.Set.Tests.Questions
 		{
 			// arrange
 			var language = Language.Default;
-			var semanticNetwork = new SemanticNetwork(language).CreateCombinedTestData();
+			var semanticNetwork = new SemanticNetwork(language).CreateSetTestData();
 
 			IList<IConcept> subjectAreas = new IConcept[]
 			{
-				semanticNetwork.Set.SubjectArea_Transport,
-				semanticNetwork.SubjectArea_Numbers,
-				semanticNetwork.SubjectArea_Processes,
+				semanticNetwork.SubjectArea_Transport,
 			};
 
-			var conceptsWithoutSubjectArea = new List<IConcept>(SystemConcepts.GetAll());
+			var conceptsWithoutSubjectArea = new List<IConcept>(LogicalValues.All);
 			conceptsWithoutSubjectArea.AddRange(subjectAreas);
 
 			foreach (var concept in semanticNetwork.SemanticNetwork.Concepts.Except(conceptsWithoutSubjectArea))
@@ -77,7 +75,7 @@ namespace AabSemantics.Modules.Set.Tests.Questions
 			var semanticNetwork = new SemanticNetwork(language).CreateSetTestData();
 			var concept = semanticNetwork.Base_Vehicle;
 
-			var secondSubjectArea = Boolean.Concepts.LogicalValues.True;
+			var secondSubjectArea = LogicalValues.True;
 			semanticNetwork.SemanticNetwork.DeclareThat(concept).BelongsToSubjectArea(secondSubjectArea);
 
 			// act

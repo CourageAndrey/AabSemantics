@@ -4,10 +4,10 @@ using NUnit.Framework;
 
 using AabSemantics.Answers;
 using AabSemantics.Localization;
+using AabSemantics.Modules.Boolean.Concepts;
 using AabSemantics.Modules.Set.Questions;
 using AabSemantics.Modules.Set.Statements;
 using AabSemantics.Questions;
-using AabSemantics.Test.Sample;
 
 namespace AabSemantics.Modules.Set.Tests.Questions
 {
@@ -19,10 +19,10 @@ namespace AabSemantics.Modules.Set.Tests.Questions
 		{
 			// arrange
 			var language = Language.Default;
-			var semanticNetwork = new SemanticNetwork(language).CreateCombinedTestData();
+			var semanticNetwork = new SemanticNetwork(language).CreateSetTestData();
 
 			// act
-			var answer = semanticNetwork.SemanticNetwork.Ask().IfConceptBelongsToSubjectArea(semanticNetwork.Set.Base_Vehicle, semanticNetwork.SubjectArea_Numbers);
+			var answer = semanticNetwork.SemanticNetwork.Ask().IfConceptBelongsToSubjectArea(semanticNetwork.Base_Vehicle, LogicalValues.True);
 
 			// assert
 			Assert.IsFalse(answer.IsEmpty);

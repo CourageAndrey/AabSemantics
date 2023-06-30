@@ -12,13 +12,14 @@ using AabSemantics.Modules.Classification.Questions;
 using AabSemantics.Modules.Mathematics.Concepts;
 using AabSemantics.Modules.Mathematics.Questions;
 using AabSemantics.Modules.Mathematics.Statements;
+using AabSemantics.Modules.Mathematics.Tests;
 using AabSemantics.Modules.Processes.Attributes;
 using AabSemantics.Modules.Processes.Questions;
 using AabSemantics.Modules.Processes.Statements;
 using AabSemantics.Modules.Set.Questions;
+using AabSemantics.Modules.Set.Tests;
 using AabSemantics.Questions;
 using AabSemantics.Statements;
-using AabSemantics.Test.Sample;
 
 namespace AabSemantics.Tests.Questions
 {

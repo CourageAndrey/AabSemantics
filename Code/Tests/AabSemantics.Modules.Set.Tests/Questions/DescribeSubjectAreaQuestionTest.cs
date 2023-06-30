@@ -9,7 +9,6 @@ using AabSemantics.Modules.Set.Questions;
 using AabSemantics.Modules.Set.Statements;
 using AabSemantics.Questions;
 using AabSemantics.Statements;
-using AabSemantics.Test.Sample;
 
 namespace AabSemantics.Modules.Set.Tests.Questions
 {
@@ -22,7 +21,7 @@ namespace AabSemantics.Modules.Set.Tests.Questions
 			// arrange
 			var language = Language.Default;
 			var semanticNetwork = new SemanticNetwork(language).CreateSetTestData();
-			var noSubjectAreaConcept = SystemConcepts.GetAll().First();
+			var noSubjectAreaConcept = LogicalValues.True;
 
 			// act
 			var answer = semanticNetwork.SemanticNetwork.Ask().WhichConceptsBelongToSubjectArea(noSubjectAreaConcept);

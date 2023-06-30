@@ -1,7 +1,9 @@
 ﻿using NUnit.Framework;
 
 using AabSemantics.Localization;
-using AabSemantics.Test.Sample;
+using AabSemantics.Modules.Mathematics.Tests;
+using AabSemantics.Modules.Processes.Tests;
+using AabSemantics.Modules.Set.Tests;
 
 namespace AabSemantics.Tests.Statements
 {

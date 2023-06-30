@@ -12,12 +12,14 @@ using AabSemantics.Modules.Classification.Questions;
 using AabSemantics.Modules.Classification.Localization;
 using AabSemantics.Modules.Mathematics.Localization;
 using AabSemantics.Modules.Mathematics.Questions;
+using AabSemantics.Modules.Mathematics.Tests;
 using AabSemantics.Modules.Processes.Localization;
 using AabSemantics.Modules.Processes.Questions;
+using AabSemantics.Modules.Processes.Tests;
 using AabSemantics.Modules.Set.Localization;
 using AabSemantics.Modules.Set.Questions;
+using AabSemantics.Modules.Set.Tests;
 using AabSemantics.Serialization;
-using AabSemantics.Test.Sample;
 using AabSemantics.Text.Primitives;
 
 namespace AabSemantics.Tests.Serialization

@@ -9,7 +9,6 @@ using AabSemantics.Modules.Set.Attributes;
 using AabSemantics.Modules.Set.Questions;
 using AabSemantics.Modules.Set.Statements;
 using AabSemantics.Questions;
-using AabSemantics.Test.Sample;
 
 namespace AabSemantics.Modules.Set.Tests.Questions
 {
