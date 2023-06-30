@@ -15,7 +15,6 @@
   <ItemGroup>
     <Folder Include="Attributes\" />
     <Folder Include="Json\" />
-    <Folder Include="Localization\" />
     <Folder Include="Xml\" />
   </ItemGroup>
 
