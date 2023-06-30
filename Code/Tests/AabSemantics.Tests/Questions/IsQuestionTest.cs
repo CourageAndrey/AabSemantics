@@ -7,11 +7,11 @@ using AabSemantics.Concepts;
 using AabSemantics.Localization;
 using AabSemantics.Modules.Classification.Questions;
 using AabSemantics.Modules.Classification.Statements;
+using AabSemantics.Modules.Set.Tests;
 using AabSemantics.Questions;
 using AabSemantics.Statements;
-using AabSemantics.Test.Sample;
 
-namespace AabSemantics.Modules.Set.Tests.Questions
+namespace AabSemantics.Tests.Questions
 {
 	[TestFixture]
 	public class IsQuestionTest

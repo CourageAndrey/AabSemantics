@@ -7,7 +7,6 @@ using AabSemantics.Localization;
 using AabSemantics.Modules.Processes.Attributes;
 using AabSemantics.Modules.Set.Questions;
 using AabSemantics.Questions;
-using AabSemantics.Test.Sample;
 
 namespace AabSemantics.Modules.Set.Tests.Questions
 {

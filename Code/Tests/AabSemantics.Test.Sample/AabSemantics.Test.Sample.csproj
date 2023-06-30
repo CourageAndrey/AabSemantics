@@ -9,6 +9,9 @@
     <ProjectReference Include="..\..\Modules\AabSemantics.Modules.Mathematics\AabSemantics.Modules.Mathematics.csproj" />
     <ProjectReference Include="..\..\Modules\AabSemantics.Modules.Processes\AabSemantics.Modules.Processes.csproj" />
     <ProjectReference Include="..\..\Modules\AabSemantics.Modules.Set\AabSemantics.Modules.Set.csproj" />
+    <ProjectReference Include="..\AabSemantics.Modules.Mathematics.Tests\AabSemantics.Modules.Mathematics.Tests.csproj" />
+    <ProjectReference Include="..\AabSemantics.Modules.Processes.Tests\AabSemantics.Modules.Processes.Tests.csproj" />
+    <ProjectReference Include="..\AabSemantics.Modules.Set.Tests\AabSemantics.Modules.Set.Tests.csproj" />
   </ItemGroup>
 
 </Project>

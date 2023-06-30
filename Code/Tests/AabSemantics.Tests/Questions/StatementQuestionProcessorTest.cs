@@ -9,9 +9,11 @@ using AabSemantics.Contexts;
 using AabSemantics.Localization;
 using AabSemantics.Modules.Classification.Questions;
 using AabSemantics.Modules.Classification.Statements;
+using AabSemantics.Modules.Mathematics.Tests;
+using AabSemantics.Modules.Processes.Tests;
+using AabSemantics.Modules.Set.Tests;
 using AabSemantics.Questions;
 using AabSemantics.Statements;
-using AabSemantics.Test.Sample;
 
 namespace AabSemantics.Tests.Questions
 {
