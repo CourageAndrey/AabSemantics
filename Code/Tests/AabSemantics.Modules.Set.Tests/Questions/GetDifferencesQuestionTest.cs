@@ -27,6 +27,24 @@ namespace AabSemantics.Modules.Set.Tests.Questions
 		}
 
 		[Test]
+		public void GivenGetDifferences_WhenBeingAsked_ThenBuildAndAskQuestion()
+		{
+			// arrange
+			var language = Language.Default;
+			var semanticNetwork = new SemanticNetwork(language).CreateSetTestData();
+
+			// act
+			var questionRegular = new GetDifferencesQuestion(semanticNetwork.Vehicle_Car, semanticNetwork.Vehicle_Airbus);
+			var answerRegular = (ConceptsAnswer) questionRegular.Ask(semanticNetwork.SemanticNetwork.Context);
+
+			var answerBuilder = (ConceptsAnswer) semanticNetwork.SemanticNetwork.Ask().WhatIsTheDifference(semanticNetwork.Vehicle_Car, semanticNetwork.Vehicle_Airbus);
+
+			// assert
+			Assert.IsTrue(answerRegular.Result.SequenceEqual(answerBuilder.Result));
+			Assert.IsTrue(answerRegular.Explanation.Statements.SequenceEqual(answerBuilder.Explanation.Statements));
+		}
+
+		[Test]
 		public void GivenConceptsCanNotBeCompared_WhenBeingAsked_ThenReturnEmpty()
 		{
 			// arrange
