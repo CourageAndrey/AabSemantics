@@ -201,7 +201,7 @@ namespace AabSemantics.Questions
 			Boolean result = false;
 			var explanation = new List<IStatement>(Statements.OfType<IStatement>());
 
-			if (Statements.Count > 0)
+			if (valueGetter(Statements))
 			{
 				result = true;
 			}
