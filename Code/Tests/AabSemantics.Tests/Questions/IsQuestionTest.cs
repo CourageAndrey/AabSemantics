@@ -60,6 +60,7 @@ namespace AabSemantics.Tests.Questions
 			Assert.IsFalse(answer.IsEmpty);
 			Assert.IsFalse(((BooleanAnswer) answer).Result);
 			Assert.AreEqual(0, answer.Explanation.Statements.Count);
+			Assert.IsTrue(answer.Description.ToString().StartsWith("No, "));
 		}
 
 		[Test]
@@ -79,6 +80,7 @@ namespace AabSemantics.Tests.Questions
 			var classification = (IsStatement) answer.Explanation.Statements.Single();
 			Assert.AreSame(semanticNetwork.Base_Vehicle, classification.Ancestor);
 			Assert.AreSame(semanticNetwork.Vehicle_Airbus, classification.Descendant);
+			Assert.IsTrue(answer.Description.ToString().StartsWith("Yes, "));
 		}
 
 		[Test]

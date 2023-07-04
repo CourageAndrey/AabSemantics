@@ -7,10 +7,12 @@ using NUnit.Framework;
 using AabSemantics.Answers;
 using AabSemantics.Concepts;
 using AabSemantics.Localization;
+using AabSemantics.Modules.Boolean.Localization;
 using AabSemantics.Modules.Boolean.Questions;
 using AabSemantics.Modules.Set.Tests;
 using AabSemantics.Questions;
 using AabSemantics.Statements;
+using AabSemantics.Text.Primitives;
 
 namespace AabSemantics.Tests.Questions
 {
@@ -76,6 +78,7 @@ namespace AabSemantics.Tests.Questions
 		{
 			// arrange
 			var language = Language.Default;
+			language.Extensions.Add(LanguageBooleanModule.CreateDefault());
 			var semanticNetwork = new SemanticNetwork(language);
 			var statementToCheck = new TestStatement(1);
 			var statementRight = new TestStatement(1);
@@ -85,17 +88,21 @@ namespace AabSemantics.Tests.Questions
 
 			// act
 			var answerToCheck = semanticNetwork.Ask().IsTrueThat(statementToCheck);
+			var textToCheck = (FormattedText) ((ITextContainer) answerToCheck.Description).Items.First();
 
 			var answerRight = semanticNetwork.Ask().IsTrueThat(statementRight);
+			var textRight = (FormattedText) ((ITextContainer) answerRight.Description).Items.First();
 
 			// assert
 			Assert.IsFalse(answerToCheck.IsEmpty);
 			Assert.IsTrue(((BooleanAnswer) answerToCheck).Result);
 			Assert.AreSame(statementRight, answerToCheck.Explanation.Statements.Single());
+			Assert.AreEqual($"\"true\"", textToCheck.ToString());
 
 			Assert.IsFalse(answerRight.IsEmpty);
 			Assert.IsTrue(((BooleanAnswer) answerRight).Result);
 			Assert.AreSame(statementRight, answerRight.Explanation.Statements.Single());
+			Assert.AreEqual($"\"true\"", textRight.ToString());
 		}
 
 		[Test]
