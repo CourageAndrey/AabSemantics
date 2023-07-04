@@ -3,10 +3,7 @@ using System.Linq;
 
 using NUnit.Framework;
 
-using AabSemantics.Answers;
-using AabSemantics.Concepts;
 using AabSemantics.Localization;
-using AabSemantics.Modules.Processes.Attributes;
 using AabSemantics.Modules.Set.Questions;
 using AabSemantics.Questions;
 
@@ -15,6 +12,13 @@ namespace AabSemantics.Modules.Set.Tests.Questions
 	[TestFixture]
 	public class WhatQuestionTest
 	{
+		[Test]
+		public void GivenNullArguments_WhenCreateQuestion_ThenFail()
+		{
+			// act && assert
+			Assert.Throws<ArgumentNullException>(() => new WhatQuestion(null));
+		}
+
 		[Test]
 		public void GivenWhatIs_WhenBeingAsked_ThenBuildAndAskQuestion()
 		{
