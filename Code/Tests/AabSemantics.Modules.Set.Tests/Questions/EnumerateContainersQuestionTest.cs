@@ -79,6 +79,8 @@ namespace AabSemantics.Modules.Set.Tests.Questions
 			var partConcept = ConceptCreationHelper.CreateConcept();
 			semanticNetwork.Concepts.Add(partConcept);
 
+			var render = TextRenders.PlainString;
+
 			const int containerCount = 4;
 
 			for (int i = 1; i <= containerCount; i++)
@@ -89,6 +91,7 @@ namespace AabSemantics.Modules.Set.Tests.Questions
 				semanticNetwork.DeclareThat(partConcept).IsPartOf(wholeConcept);
 
 				var answer = semanticNetwork.Ask().WhichContainersInclude(partConcept);
+				var text = render.RenderText(answer.Description, language).ToString();
 
 				// assert
 				Assert.IsFalse(answer.IsEmpty);
@@ -97,6 +100,8 @@ namespace AabSemantics.Modules.Set.Tests.Questions
 				Assert.IsTrue(containerConcepts.All(semanticNetwork.Concepts.Contains));
 				Assert.AreEqual(i, answer.Explanation.Statements.Count);
 				Assert.IsFalse(semanticNetwork.Statements.Except(answer.Explanation.Statements).Any());
+
+				Assert.IsTrue(text.Contains(" is part of:"));
 			}
 		}
 	}

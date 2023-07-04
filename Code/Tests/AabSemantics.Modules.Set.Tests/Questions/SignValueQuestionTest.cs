@@ -114,13 +114,18 @@ namespace AabSemantics.Modules.Set.Tests.Questions
 
 			var newValue = semanticNetwork.SemanticNetwork.DeclareThat(semanticNetwork.AreaType_Air).IsSignValue(flyingCar, semanticNetwork.Sign_AreaType);
 
+			var render = TextRenders.PlainString;
+
 			// act
 			var answer = semanticNetwork.SemanticNetwork.Ask().WhatIsSignValue(flyingCar, semanticNetwork.Sign_AreaType);
+			var text = render.RenderText(answer.Description, language).ToString();
 
 			// assert
 			Assert.IsFalse(answer.IsEmpty);
 			Assert.AreSame(semanticNetwork.AreaType_Air, ((ConceptAnswer) answer).Result);
 			Assert.AreSame(newValue, answer.Explanation.Statements.Single());
+
+			Assert.IsTrue(text.Contains(" concept has "));
 		}
 	}
 }

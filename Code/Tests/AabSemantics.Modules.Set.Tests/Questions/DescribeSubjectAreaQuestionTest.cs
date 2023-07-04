@@ -68,8 +68,11 @@ namespace AabSemantics.Modules.Set.Tests.Questions
 			var concept = LogicalValues.False;
 			var groupStatement = semanticNetwork.SemanticNetwork.DeclareThat(concept).BelongsToSubjectArea(area);
 
+			var render = TextRenders.PlainString;
+
 			// act
 			var answer = semanticNetwork.SemanticNetwork.Ask().WhichConceptsBelongToSubjectArea(area);
+			var text = render.RenderText(answer.Description, language).ToString();
 
 			// assert
 			Assert.IsFalse(answer.IsEmpty);
@@ -78,6 +81,8 @@ namespace AabSemantics.Modules.Set.Tests.Questions
 
 			var conceptsAnswer = (ConceptsAnswer) answer;
 			Assert.AreEqual(concept, conceptsAnswer.Result.Single());
+
+			Assert.IsTrue(text.Contains(" subject area contains following concepts:"));
 		}
 
 		[Test]

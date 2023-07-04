@@ -138,8 +138,11 @@ namespace AabSemantics.Modules.Set.Tests.Questions
 
 			var ownSignStatement = semanticNetwork.SemanticNetwork.DeclareThat(ownSign).IsSignOf(semanticNetwork.Vehicle_Motorcycle);
 
+			var render = TextRenders.PlainString;
+
 			// act
 			var answer = (ConceptsAnswer) semanticNetwork.SemanticNetwork.Ask().WhichSignsHas(semanticNetwork.Vehicle_Motorcycle);
+			var text = render.RenderText(answer.Description, language).ToString();
 
 			// assert
 			Assert.IsFalse(answer.IsEmpty);
@@ -148,6 +151,8 @@ namespace AabSemantics.Modules.Set.Tests.Questions
 			Assert.IsTrue(answer.Explanation.Statements.Contains(ownSignStatement));
 			Assert.AreEqual(1, answer.Explanation.Statements.OfType<IsStatement>().Count());
 			Assert.AreEqual(3, answer.Explanation.Statements.OfType<HasSignStatement>().Count());
+
+			Assert.IsTrue(text.Contains(" concept has following signs"));
 		}
 	}
 }

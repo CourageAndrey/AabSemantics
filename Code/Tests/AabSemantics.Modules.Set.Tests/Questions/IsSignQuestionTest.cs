@@ -51,13 +51,18 @@ namespace AabSemantics.Modules.Set.Tests.Questions
 			var concept = ConceptCreationHelper.CreateConcept();
 			semanticNetwork.Concepts.Add(concept);
 
+			var render = TextRenders.PlainString;
+
 			// act
 			var answer = semanticNetwork.Ask().IfIsSign(concept);
+			var text = render.RenderText(answer.Description, language).ToString();
 
 			// assert
 			Assert.IsFalse(answer.IsEmpty);
 			Assert.IsFalse(((BooleanAnswer) answer).Result);
 			Assert.AreEqual(0, answer.Explanation.Statements.Count);
+
+			Assert.IsTrue(text.Contains(" is not sign."));
 		}
 
 		[Test]
@@ -87,13 +92,18 @@ namespace AabSemantics.Modules.Set.Tests.Questions
 			var language = Language.Default;
 			var semanticNetwork = new SemanticNetwork(language).CreateSetTestData();
 
+			var render = TextRenders.PlainString;
+
 			// act
 			var answer = semanticNetwork.SemanticNetwork.Ask().IfIsSign(semanticNetwork.Sign_AreaType);
+			var text = render.RenderText(answer.Description, language).ToString();
 
 			// assert
 			Assert.IsFalse(answer.IsEmpty);
 			Assert.IsTrue(((BooleanAnswer) answer).Result);
 			Assert.IsTrue(answer.Explanation.Statements.OfType<HasSignStatement>().Any());
+
+			Assert.IsTrue(text.Contains(" is sign."));
 		}
 	}
 }
