@@ -61,6 +61,8 @@ namespace AabSemantics.Modules.Processes.Tests.Localization
 			Assert.IsNotNull(processesExtension.Concepts);
 			Assert.IsNotNull(processesExtension.Questions);
 			Assert.IsNotNull(processesExtension.Questions.Parameters);
+			Assert.IsNotNull(processesExtension.Questions.Parameters.ProcessA);
+			Assert.IsNotNull(processesExtension.Questions.Parameters.ProcessB);
 			Assert.IsNotNull(processesExtension.Statements);
 			Assert.IsNotNull(processesExtension.Statements.Consistency);
 			Assert.IsNotNull(processesExtension.Statements.FalseFormatStrings);
