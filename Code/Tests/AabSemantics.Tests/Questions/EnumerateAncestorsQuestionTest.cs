@@ -18,7 +18,7 @@ namespace AabSemantics.Tests.Questions
 	public class EnumerateAncestorsQuestionTest
 	{
 		[Test]
-		public void GivenNullArguments_WhenCreateQuestion_ThenFail()
+		public void GivenNullArguments_WhenTryToCreateQuestion_ThenFail()
 		{
 			// act && assert
 			Assert.Throws<ArgumentNullException>(() => new EnumerateAncestorsQuestion(null));

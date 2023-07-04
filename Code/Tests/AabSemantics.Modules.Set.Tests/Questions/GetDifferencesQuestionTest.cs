@@ -16,7 +16,7 @@ namespace AabSemantics.Modules.Set.Tests.Questions
 	public class GetDifferencesQuestionTest
 	{
 		[Test]
-		public void GivenNullArguments_WhenCreateQuestion_ThenFail()
+		public void GivenNullArguments_WhenTryToCreateQuestion_ThenFail()
 		{
 			// arrange
 			IConcept concept = "test".CreateConcept();
@@ -27,7 +27,7 @@ namespace AabSemantics.Modules.Set.Tests.Questions
 		}
 
 		[Test]
-		public void GivenSameArguments_WhenCreateQuestion_ThenFail()
+		public void GivenSameArguments_WhenTryToCreateQuestion_ThenFail()
 		{
 			// arrange
 			IConcept concept = "test".CreateConcept();

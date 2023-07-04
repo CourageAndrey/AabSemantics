@@ -18,7 +18,7 @@ namespace AabSemantics.Tests.Questions
 	public class IsQuestionTest
 	{
 		[Test]
-		public void GivenNullArguments_WhenCreateQuestion_ThenFail()
+		public void GivenNullArguments_WhenTryToCreateQuestion_ThenFail()
 		{
 			// arrange
 			IConcept concept = "test".CreateConcept();

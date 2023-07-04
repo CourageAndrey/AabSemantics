@@ -22,7 +22,7 @@ namespace AabSemantics.Modules.Mathematics.Tests.Questions
 	public class ComparisonQuestionTest
 	{
 		[Test]
-		public void GivenNullArguments_WhenCreateQuestion_ThenFail()
+		public void GivenNullArguments_WhenTryToCreateQuestion_ThenFail()
 		{
 			// arrange
 			IConcept concept = "test".CreateConcept();
