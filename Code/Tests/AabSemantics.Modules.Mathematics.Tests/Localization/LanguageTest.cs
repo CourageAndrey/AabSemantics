@@ -61,6 +61,8 @@ namespace AabSemantics.Modules.Mathematics.Tests.Localization
 			Assert.IsNotNull(mathematicsExtension.Concepts);
 			Assert.IsNotNull(mathematicsExtension.Questions);
 			Assert.IsNotNull(mathematicsExtension.Questions.Parameters);
+			Assert.IsNotNull(mathematicsExtension.Questions.Parameters.LeftValue);
+			Assert.IsNotNull(mathematicsExtension.Questions.Parameters.RightValue);
 			Assert.IsNotNull(mathematicsExtension.Statements);
 			Assert.IsNotNull(mathematicsExtension.Statements.Consistency);
 			Assert.IsNotNull(mathematicsExtension.Statements.FalseFormatStrings);
