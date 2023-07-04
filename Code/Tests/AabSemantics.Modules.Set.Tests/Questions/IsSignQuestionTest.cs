@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 
 using NUnit.Framework;
 
@@ -15,6 +16,31 @@ namespace AabSemantics.Modules.Set.Tests.Questions
 	[TestFixture]
 	public class IsSignQuestionTest
 	{
+		[Test]
+		public void GivenNullArguments_WhenCreateQuestion_ThenFail()
+		{
+			// act && assert
+			Assert.Throws<ArgumentNullException>(() => new IsSignQuestion(null));
+		}
+
+		[Test]
+		public void GivenIfIsSign_WhenBeingAsked_ThenBuildAndAskQuestion()
+		{
+			// arrange
+			var language = Language.Default;
+			var semanticNetwork = new SemanticNetwork(language).CreateSetTestData();
+
+			// act
+			var questionRegular = new IsSignQuestion(semanticNetwork.Sign_AreaType);
+			var answerRegular = (BooleanAnswer) questionRegular.Ask(semanticNetwork.SemanticNetwork.Context);
+
+			var answerBuilder = (BooleanAnswer) semanticNetwork.SemanticNetwork.Ask().IfIsSign(semanticNetwork.Sign_AreaType);
+
+			// assert
+			Assert.AreEqual(answerRegular.Result, answerBuilder.Result);
+			Assert.IsTrue(answerRegular.Explanation.Statements.SequenceEqual(answerBuilder.Explanation.Statements));
+		}
+
 		[Test]
 		public void GivenNoAttribute_WhenBeingAsked_ThenReturnFalse()
 		{

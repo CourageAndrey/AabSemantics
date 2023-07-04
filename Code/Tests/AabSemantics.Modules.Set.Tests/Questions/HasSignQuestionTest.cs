@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 
 using NUnit.Framework;
 
@@ -18,6 +19,35 @@ namespace AabSemantics.Modules.Set.Tests.Questions
 	[TestFixture]
 	public class HasSignQuestionTest
 	{
+		[Test]
+		public void GivenNullArguments_WhenCreateQuestion_ThenFail()
+		{
+			// arrange
+			IConcept concept = "test".CreateConcept();
+
+			// act && assert
+			Assert.Throws<ArgumentNullException>(() => new HasSignQuestion(null, concept, false));
+			Assert.Throws<ArgumentNullException>(() => new HasSignQuestion(concept, null, false));
+		}
+
+		[Test]
+		public void GivenIfHasSign_WhenBeingAsked_ThenBuildAndAskQuestion()
+		{
+			// arrange
+			var language = Language.Default;
+			var semanticNetwork = new SemanticNetwork(language).CreateSetTestData();
+
+			// act
+			var questionRegular = new HasSignQuestion(semanticNetwork.Vehicle_Car, semanticNetwork.Sign_MotorType, true);
+			var answerRegular = (BooleanAnswer) questionRegular.Ask(semanticNetwork.SemanticNetwork.Context);
+
+			var answerBuilder = (BooleanAnswer) semanticNetwork.SemanticNetwork.Ask().IfHasSign(semanticNetwork.Vehicle_Car, semanticNetwork.Sign_MotorType);
+
+			// assert
+			Assert.AreEqual(answerRegular.Result, answerBuilder.Result);
+			Assert.IsTrue(answerRegular.Explanation.Statements.SequenceEqual(answerBuilder.Explanation.Statements));
+		}
+
 		[Test]
 		public void GivenNoSigns_WhenBeingAsked_ThenReturnEmpty()
 		{

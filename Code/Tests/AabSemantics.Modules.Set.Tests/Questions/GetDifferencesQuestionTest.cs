@@ -1,8 +1,10 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 
 using NUnit.Framework;
 
 using AabSemantics.Answers;
+using AabSemantics.Concepts;
 using AabSemantics.Localization;
 using AabSemantics.Modules.Processes.Attributes;
 using AabSemantics.Modules.Set.Questions;
@@ -13,6 +15,17 @@ namespace AabSemantics.Modules.Set.Tests.Questions
 	[TestFixture]
 	public class GetDifferencesQuestionTest
 	{
+		[Test]
+		public void GivenNullArguments_WhenCreateQuestion_ThenFail()
+		{
+			// arrange
+			IConcept concept = "test".CreateConcept();
+
+			// act && assert
+			Assert.Throws<ArgumentNullException>(() => new GetDifferencesQuestion(null, concept));
+			Assert.Throws<ArgumentNullException>(() => new GetDifferencesQuestion(concept, null));
+		}
+
 		[Test]
 		public void GivenConceptsCanNotBeCompared_WhenBeingAsked_ThenReturnEmpty()
 		{
