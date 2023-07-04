@@ -1,4 +1,6 @@
-﻿using NUnit.Framework;
+﻿using System.Linq;
+
+using NUnit.Framework;
 
 using AabSemantics.Concepts;
 using AabSemantics.Localization;
@@ -46,6 +48,10 @@ namespace AabSemantics.Modules.Mathematics.Tests.Statements
 
 			// assert
 			Assert.Greater(result.Items.Count, 0);
+			Assert.IsTrue(result.Items.Any(line =>
+				line.ToString().StartsWith("Impossible to compare") &&
+				line.GetParameters().ContainsKey("#LEFTVALUE#") &&
+				line.GetParameters().ContainsKey("#RIGHTVALUE#")));
 		}
 
 		[Test]
