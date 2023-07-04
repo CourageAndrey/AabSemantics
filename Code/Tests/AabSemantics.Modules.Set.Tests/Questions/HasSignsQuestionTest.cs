@@ -76,13 +76,18 @@ namespace AabSemantics.Modules.Set.Tests.Questions
 
 			var question = new HasSignsQuestion(semanticNetwork.Vehicle_Motorcycle, false);
 
+			var render = TextRenders.PlainString;
+
 			// act
 			var answer = question.Ask(semanticNetwork.SemanticNetwork.Context);
+			var text = render.RenderText(answer.Description, language).ToString();
 
 			// assert
 			Assert.IsFalse(answer.IsEmpty);
 			Assert.IsFalse(((BooleanAnswer) answer).Result);
 			Assert.AreEqual(0, answer.Explanation.Statements.Count);
+
+			Assert.IsTrue(text.Contains("has not signs "));
 		}
 
 		[Test]
@@ -128,9 +133,13 @@ namespace AabSemantics.Modules.Set.Tests.Questions
 
 			semanticNetwork.SemanticNetwork.DeclareThat(semanticNetwork.Vehicle_Motorcycle).HasSign(ownSign);
 
+			var render = TextRenders.PlainString;
+
 			// act
 			var answerOwnSign = semanticNetwork.SemanticNetwork.Ask().IfHasSigns(semanticNetwork.Vehicle_Motorcycle);
+			var textOwnSign = render.RenderText(answerOwnSign.Description, language).ToString();
 			var answerInheritedSign = semanticNetwork.SemanticNetwork.Ask().IfHasSigns(semanticNetwork.Base_Vehicle);
+			var textInheritedSign = render.RenderText(answerInheritedSign.Description, language).ToString();
 
 			// assert
 			Assert.IsFalse(answerOwnSign.IsEmpty);
@@ -143,6 +152,9 @@ namespace AabSemantics.Modules.Set.Tests.Questions
 			Assert.IsTrue(((BooleanAnswer) answerInheritedSign).Result);
 			Assert.AreEqual(2, answerInheritedSign.Explanation.Statements.Count);
 			Assert.AreEqual(2, answerInheritedSign.Explanation.Statements.OfType<HasSignStatement>().Count());
+
+			Assert.IsTrue(textOwnSign.Contains("has signs "));
+			Assert.IsTrue(textInheritedSign.Contains("has signs "));
 		}
 	}
 }

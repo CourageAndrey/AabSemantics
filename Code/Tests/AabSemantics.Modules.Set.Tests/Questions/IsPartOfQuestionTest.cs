@@ -51,13 +51,18 @@ namespace AabSemantics.Modules.Set.Tests.Questions
 			var language = Language.Default;
 			var semanticNetwork = new SemanticNetwork(language).CreateSetTestData();
 
+			var render = TextRenders.PlainString;
+
 			// act
 			var answer = semanticNetwork.SemanticNetwork.Ask().IfIsPartOf(semanticNetwork.Part_Engine, semanticNetwork.Base_Vehicle);
+			var text = render.RenderText(answer.Description, language).ToString();
 
 			// assert
 			Assert.IsFalse(answer.IsEmpty);
 			Assert.IsFalse(((BooleanAnswer) answer).Result);
 			Assert.AreEqual(0, answer.Explanation.Statements.Count);
+
+			Assert.IsTrue(text.Contains(" is not part of "));
 		}
 
 		[Test]
@@ -67,8 +72,11 @@ namespace AabSemantics.Modules.Set.Tests.Questions
 			var language = Language.Default;
 			var semanticNetwork = new SemanticNetwork(language).CreateSetTestData();
 
+			var render = TextRenders.PlainString;
+
 			// act
 			var answer = semanticNetwork.SemanticNetwork.Ask().IfIsPartOf(semanticNetwork.Part_Engine, semanticNetwork.Vehicle_Car);
+			var text = render.RenderText(answer.Description, language).ToString();
 
 			// assert
 			Assert.IsFalse(answer.IsEmpty);
@@ -76,6 +84,8 @@ namespace AabSemantics.Modules.Set.Tests.Questions
 
 			var statement = (HasPartStatement) answer.Explanation.Statements.Single();
 			Assert.IsTrue(statement.Whole == semanticNetwork.Vehicle_Car && statement.Part == semanticNetwork.Part_Engine);
+
+			Assert.IsTrue(text.Contains(" is part of "));
 		}
 	}
 }

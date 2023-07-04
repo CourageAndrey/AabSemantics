@@ -105,9 +105,13 @@ namespace AabSemantics.Modules.Set.Tests.Questions
 			var questionOwnSign = new HasSignQuestion(semanticNetwork.Vehicle_Motorcycle, ownSign, false);
 			var questionInheritedSign = new HasSignQuestion(semanticNetwork.Vehicle_Motorcycle, semanticNetwork.Sign_AreaType, false);
 
+			var render = TextRenders.PlainString;
+
 			// act
 			var answerOwnSign = questionOwnSign.Ask(semanticNetwork.SemanticNetwork.Context);
+			var textOwnSign = render.RenderText(answerOwnSign.Description, language).ToString();
 			var answerInheritedSign = questionInheritedSign.Ask(semanticNetwork.SemanticNetwork.Context);
+			var textInheritedSign = render.RenderText(answerInheritedSign.Description, language).ToString();
 
 			// assert
 			Assert.IsFalse(answerOwnSign.IsEmpty);
@@ -117,6 +121,9 @@ namespace AabSemantics.Modules.Set.Tests.Questions
 			Assert.IsFalse(answerInheritedSign.IsEmpty);
 			Assert.IsFalse(((BooleanAnswer) answerInheritedSign).Result);
 			Assert.AreEqual(0, answerInheritedSign.Explanation.Statements.Count);
+
+			Assert.IsTrue(textOwnSign.Contains(" has got "));
+			Assert.IsTrue(textInheritedSign.Contains(" has not got "));
 		}
 
 		[Test]

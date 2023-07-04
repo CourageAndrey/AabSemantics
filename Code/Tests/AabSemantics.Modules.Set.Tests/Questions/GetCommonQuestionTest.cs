@@ -68,12 +68,17 @@ namespace AabSemantics.Modules.Set.Tests.Questions
 			var language = Language.Default;
 			var semanticNetwork = new SemanticNetwork(language).CreateSetTestData();
 
+			var render = TextRenders.PlainString;
+
 			// act
 			var answer = semanticNetwork.SemanticNetwork.Ask().WhatInCommon(semanticNetwork.AreaType_Air, semanticNetwork.MotorType_Jet);
+			var text = render.RenderText(answer.Description, language).ToString();
 
 			// assert
 			Assert.IsTrue(answer.IsEmpty);
 			Assert.AreEqual(0, answer.Explanation.Statements.Count);
+
+			Assert.IsTrue(text.Contains("have no common ancestors and can not be compared."));
 		}
 
 		[Test]
@@ -83,12 +88,17 @@ namespace AabSemantics.Modules.Set.Tests.Questions
 			var language = Language.Default;
 			var semanticNetwork = new SemanticNetwork(language).CreateSetTestData();
 
+			var render = TextRenders.PlainString;
+
 			// act
 			var answer = semanticNetwork.SemanticNetwork.Ask().WhatInCommon(semanticNetwork.Vehicle_Car, semanticNetwork.Vehicle_JetFighter);
+			var text = render.RenderText(answer.Description, language).ToString();
 
 			// assert
 			Assert.IsTrue(answer.IsEmpty);
 			Assert.Greater(answer.Explanation.Statements.Count, 0);
+
+			Assert.IsTrue(text.Contains("No common found according to existing information."));
 		}
 
 		[Test]
@@ -117,10 +127,13 @@ namespace AabSemantics.Modules.Set.Tests.Questions
 			var semanticNetwork = new SemanticNetwork(language);
 			CreateCompareConceptsTest(semanticNetwork);
 
+			var render = TextRenders.PlainString;
+
 			// act
 			var answer = semanticNetwork.Ask().WhatInCommon(
 				semanticNetwork.Concepts.First(c => c.HasAttribute<IsProcessAttribute>()),
 				semanticNetwork.Concepts.Last(c => c.HasAttribute<IsProcessAttribute>()));
+			var text = render.RenderText(answer.Description, language).ToString();
 
 			// assert
 			Assert.IsFalse(answer.IsEmpty);
@@ -131,6 +144,10 @@ namespace AabSemantics.Modules.Set.Tests.Questions
 			Assert.IsTrue(signs.Contains(SignBothNotSet));
 
 			Assert.Greater(answer.Explanation.Statements.Count, 0);
+
+			Assert.IsTrue(
+				text.Contains("Both have ") &&
+				text.Contains(" sign value equal to "));
 		}
 
 		internal const string SignSameValues = "Same values";
@@ -201,6 +218,43 @@ namespace AabSemantics.Modules.Set.Tests.Questions
 			semanticNetwork.DeclareThat(concept2).HasSignValue(signDifferentValues, LogicalValues.False);
 			semanticNetwork.DeclareThat(concept2).HasSignValue(signFirstNotSet, LogicalValues.True);
 			semanticNetwork.DeclareThat(concept1).HasSignValue(signSecondNotSet, LogicalValues.True);
+		}
+
+		[Test]
+		public void GivenDifferentHierarchyLevels_WhenBeingAsked_ThenReturnAdditionalHierarchies()
+		{
+			// arrange
+			var language = Language.Default;
+			var semanticNetwork = new SemanticNetwork(language);
+			GetCommonQuestionTest.CreateCompareConceptsTest(semanticNetwork);
+
+			const string sideBranchId = "SIDE_BRANCH";
+			var sideBranch = sideBranchId.CreateConcept();
+			semanticNetwork.Concepts.Add(sideBranch);
+			semanticNetwork.DeclareThat(sideBranch).IsDescendantOf(semanticNetwork.Concepts["Parent 2"]);
+
+			var render = TextRenders.PlainString;
+
+			// act
+			var answerFirst = semanticNetwork.Ask().WhatIsTheDifference(
+				semanticNetwork.Concepts["Concept 1"],
+				semanticNetwork.Concepts[sideBranchId]);
+			var textFirst = render.RenderText(answerFirst.Description, language).ToString();
+
+			var answerSecond = semanticNetwork.Ask().WhatIsTheDifference(
+				semanticNetwork.Concepts[sideBranchId],
+				semanticNetwork.Concepts["Concept 1"]);
+			var textSecond = render.RenderText(answerSecond.Description, language).ToString();
+
+			// assert
+			Assert.IsFalse(answerFirst.IsEmpty);
+			Assert.IsFalse(answerSecond.IsEmpty);
+
+			Assert.Greater(answerFirst.Explanation.Statements.Count, 0);
+			Assert.Greater(answerSecond.Explanation.Statements.Count, 0);
+
+			Assert.IsTrue(textFirst.Contains("First is also:"));
+			Assert.IsTrue(textSecond.Contains("Second is also:"));
 		}
 	}
 }

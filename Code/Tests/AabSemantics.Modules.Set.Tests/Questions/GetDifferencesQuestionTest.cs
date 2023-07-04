@@ -6,9 +6,11 @@ using NUnit.Framework;
 using AabSemantics.Answers;
 using AabSemantics.Concepts;
 using AabSemantics.Localization;
+using AabSemantics.Modules.Classification.Statements;
 using AabSemantics.Modules.Processes.Attributes;
 using AabSemantics.Modules.Set.Questions;
 using AabSemantics.Questions;
+using AabSemantics.Statements;
 
 namespace AabSemantics.Modules.Set.Tests.Questions
 {
@@ -63,12 +65,17 @@ namespace AabSemantics.Modules.Set.Tests.Questions
 			var language = Language.Default;
 			var semanticNetwork = new SemanticNetwork(language).CreateSetTestData();
 
+			var render = TextRenders.PlainString;
+
 			// act
 			var answer = semanticNetwork.SemanticNetwork.Ask().WhatIsTheDifference(semanticNetwork.AreaType_Air, semanticNetwork.MotorType_Jet);
+			var text = render.RenderText(answer.Description, language).ToString();
 
 			// assert
 			Assert.IsTrue(answer.IsEmpty);
 			Assert.AreEqual(0, answer.Explanation.Statements.Count);
+
+			Assert.IsTrue(text.Contains("have no common ancestors and can not be compared."));
 		}
 
 		[Test]
@@ -78,12 +85,17 @@ namespace AabSemantics.Modules.Set.Tests.Questions
 			var language = Language.Default;
 			var semanticNetwork = new SemanticNetwork(language).CreateSetTestData();
 
+			var render = TextRenders.PlainString;
+
 			// act
 			var answer = semanticNetwork.SemanticNetwork.Ask().WhatIsTheDifference(semanticNetwork.Vehicle_Car, semanticNetwork.Vehicle_Motorcycle);
+			var text = render.RenderText(answer.Description, language).ToString();
 
 			// assert
 			Assert.IsTrue(answer.IsEmpty);
 			Assert.Greater(answer.Explanation.Statements.Count, 0);
+
+			Assert.IsTrue(text.Contains("No differences found according to existing information."));
 		}
 
 		[Test]
@@ -115,10 +127,13 @@ namespace AabSemantics.Modules.Set.Tests.Questions
 			var semanticNetwork = new SemanticNetwork(language);
 			GetCommonQuestionTest.CreateCompareConceptsTest(semanticNetwork);
 
+			var render = TextRenders.PlainString;
+
 			// act
 			var answer = semanticNetwork.Ask().WhatIsTheDifference(
 				semanticNetwork.Concepts.First(c => c.HasAttribute<IsProcessAttribute>()),
 				semanticNetwork.Concepts.Last(c => c.HasAttribute<IsProcessAttribute>()));
+			var text = render.RenderText(answer.Description, language).ToString();
 
 			// assert
 			Assert.IsFalse(answer.IsEmpty);
@@ -130,6 +145,49 @@ namespace AabSemantics.Modules.Set.Tests.Questions
 			Assert.IsTrue(signs.Contains(GetCommonQuestionTest.SignSecondNotSet));
 
 			Assert.Greater(answer.Explanation.Statements.Count, 0);
+
+			Assert.IsTrue(
+				text.Contains("Result of ") &&
+				text.Contains(" comparison:") &&
+				text.Contains("sign value equal") &&
+				text.Contains(", and second one equal to "));
+		}
+
+		[Test]
+		public void GivenDifferentHierarchyLevels_WhenBeingAsked_ThenReturnAdditionalHierarchies()
+		{
+			// arrange
+			var language = Language.Default;
+			var semanticNetwork = new SemanticNetwork(language);
+			GetCommonQuestionTest.CreateCompareConceptsTest(semanticNetwork);
+
+			const string sideBranchId = "SIDE_BRANCH";
+			var sideBranch = sideBranchId.CreateConcept();
+			semanticNetwork.Concepts.Add(sideBranch);
+			semanticNetwork.DeclareThat(sideBranch).IsDescendantOf(semanticNetwork.Concepts["Parent 2"]);
+
+			var render = TextRenders.PlainString;
+
+			// act
+			var answerFirst = semanticNetwork.Ask().WhatIsTheDifference(
+				semanticNetwork.Concepts["Concept 1"],
+				semanticNetwork.Concepts[sideBranchId]);
+			var textFirst = render.RenderText(answerFirst.Description, language).ToString();
+
+			var answerSecond = semanticNetwork.Ask().WhatIsTheDifference(
+				semanticNetwork.Concepts[sideBranchId],
+				semanticNetwork.Concepts["Concept 1"]);
+			var textSecond = render.RenderText(answerSecond.Description, language).ToString();
+
+			// assert
+			Assert.IsFalse(answerFirst.IsEmpty);
+			Assert.IsFalse(answerSecond.IsEmpty);
+
+			Assert.Greater(answerFirst.Explanation.Statements.Count, 0);
+			Assert.Greater(answerSecond.Explanation.Statements.Count, 0);
+
+			Assert.IsTrue(textFirst.Contains("First is also:"));
+			Assert.IsTrue(textSecond.Contains("Second is also:"));
 		}
 	}
 }

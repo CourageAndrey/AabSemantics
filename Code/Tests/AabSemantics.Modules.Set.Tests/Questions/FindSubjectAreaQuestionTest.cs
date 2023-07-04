@@ -104,8 +104,11 @@ namespace AabSemantics.Modules.Set.Tests.Questions
 			var secondSubjectArea = LogicalValues.True;
 			semanticNetwork.SemanticNetwork.DeclareThat(concept).BelongsToSubjectArea(secondSubjectArea);
 
+			var render = TextRenders.PlainString;
+
 			// act
 			var answer = semanticNetwork.SemanticNetwork.Ask().ToWhichSubjectAreasBelongs(concept);
+			var text = render.RenderText(answer.Description, language).ToString();
 
 			// assert
 			Assert.IsFalse(answer.IsEmpty);
@@ -116,6 +119,8 @@ namespace AabSemantics.Modules.Set.Tests.Questions
 			var conceptsAnswer = (ConceptsAnswer) answer;
 			Assert.IsTrue(conceptsAnswer.Result.Contains(semanticNetwork.SubjectArea_Transport));
 			Assert.IsTrue(conceptsAnswer.Result.Contains(secondSubjectArea));
+
+			Assert.IsTrue(text.Contains(" belongs to following subject areas:"));
 		}
 	}
 }
