@@ -7,17 +7,83 @@ using NUnit.Framework;
 using AabSemantics.Answers;
 using AabSemantics.Concepts;
 using AabSemantics.Localization;
+using AabSemantics.Modules.Boolean.Localization;
+using AabSemantics.Modules.Classification.Localization;
 using AabSemantics.Modules.Processes.Attributes;
 using AabSemantics.Modules.Processes.Concepts;
+using AabSemantics.Modules.Processes.Localization;
 using AabSemantics.Modules.Processes.Questions;
 using AabSemantics.Modules.Processes.Statements;
 using AabSemantics.Questions;
+using AabSemantics.Statements;
 
 namespace AabSemantics.Modules.Processes.Tests.Questions
 {
 	[TestFixture]
 	public class ProcessesQuestionTest
 	{
+		[Test]
+		public void GivenNullArguments_WhenCreateQuestion_ThenFail()
+		{
+			// arrange
+			IConcept concept = "test".CreateConcept();
+
+			// act && assert
+			Assert.Throws<ArgumentNullException>(() => new ProcessesQuestion(null, concept));
+			Assert.Throws<ArgumentNullException>(() => new ProcessesQuestion(concept, null));
+		}
+
+		[Test]
+		public void GivenWhatIsMutualSequenceOfProcesses_WhenBeingAsked_ThenBuildAndAskQuestion()
+		{
+			// arrange
+			var language = Language.Default;
+			var semanticNetwork = new SemanticNetwork(language);
+			semanticNetwork.CreateProcessesTestData();
+
+			var processA = ConceptCreationHelper.CreateConcept();
+			processA.WithAttribute(IsProcessAttribute.Value);
+			var processB = ConceptCreationHelper.CreateConcept();
+			processB.WithAttribute(IsProcessAttribute.Value);
+			semanticNetwork.DeclareThat(processA).StartsBeforeOtherStarted(processB);
+			semanticNetwork.DeclareThat(processA).FinishesAfterOtherFinished(processB);
+
+			// act
+			var questionRegular = new ProcessesQuestion(processA, processB);
+			var answerRegular = (StatementsAnswer<ProcessesStatement>) questionRegular.Ask(semanticNetwork.Context);
+
+			var answerBuilder = (StatementsAnswer<ProcessesStatement>) semanticNetwork.Ask().WhatIsMutualSequenceOfProcesses(processA, processB);
+
+			// assert
+			Assert.IsTrue(answerRegular.Result.SequenceEqual(answerBuilder.Result));
+			Assert.IsTrue(answerRegular.Explanation.Statements.SequenceEqual(answerBuilder.Explanation.Statements));
+		}
+
+		[Test]
+		public void GivenNoInformation_WhenBeingAsked_ThenReturnEmpty()
+		{
+			// arrange
+			var textRender = TextRenders.PlainString;
+
+			var language = Language.Default;
+			language.Extensions.Add(LanguageBooleanModule.CreateDefault());
+			language.Extensions.Add(LanguageClassificationModule.CreateDefault());
+			language.Extensions.Add(LanguageProcessesModule.CreateDefault());
+
+			var semanticNetwork = new SemanticNetwork(language);
+
+			var question = new ProcessesQuestion(1.CreateConcept(), 2.CreateConcept());
+
+			// act
+			var answer = question.Ask(semanticNetwork.Context);
+			var description = textRender.RenderText(answer.Description, language).ToString();
+
+			// assert
+			Assert.IsTrue(answer.IsEmpty);
+			Assert.IsTrue(description.Contains(language.Questions.Answers.Unknown));
+			Assert.AreEqual(0, answer.Explanation.Statements.Count);
+		}
+
 		[Test]
 		[TestCaseSource(nameof(GetAllValidCombinations))]
 		public void GivenValidCombination_WhenBeingAsked_ThenReturnResult(IConcept signAI, IConcept signIB, IConcept resultSign)
