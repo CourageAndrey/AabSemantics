@@ -80,11 +80,6 @@ namespace AabSemantics.Serialization.Xml
 			type.DefineTypeOverrides(new[] { propertyOverride });
 		}
 
-		public static void DefineTypeOverride<T>(PropertyTypes propertyOverride)
-		{
-			typeof(T).DefineTypeOverride(propertyOverride);
-		}
-
 		public class PropertyTypes
 		{
 			public String PropertyName
