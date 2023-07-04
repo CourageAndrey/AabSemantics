@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 
 using NUnit.Framework;
@@ -16,6 +17,31 @@ namespace AabSemantics.Modules.Set.Tests.Questions
 	[TestFixture]
 	public class FindSubjectAreaQuestionTest
 	{
+		[Test]
+		public void GivenNullArguments_WhenCreateQuestion_ThenFail()
+		{
+			// act && assert
+			Assert.Throws<ArgumentNullException>(() => new FindSubjectAreaQuestion(null));
+		}
+
+		[Test]
+		public void GivenToWhichSubjectAreasBelongs_WhenBeingAsked_ThenBuildAndAskQuestion()
+		{
+			// arrange
+			var language = Language.Default;
+			var semanticNetwork = new SemanticNetwork(language).CreateSetTestData();
+
+			// act
+			var questionRegular = new FindSubjectAreaQuestion(semanticNetwork.Vehicle_Car);
+			var answerRegular = (ConceptsAnswer) questionRegular.Ask(semanticNetwork.SemanticNetwork.Context);
+
+			var answerBuilder = (ConceptsAnswer) semanticNetwork.SemanticNetwork.Ask().ToWhichSubjectAreasBelongs(semanticNetwork.Vehicle_Car);
+
+			// assert
+			Assert.IsTrue(answerRegular.Result.SequenceEqual(answerBuilder.Result));
+			Assert.IsTrue(answerRegular.Explanation.Statements.SequenceEqual(answerBuilder.Explanation.Statements));
+		}
+
 		[Test]
 		public void GivenNoInformation_WhenBeingAsked_ThenReturnEmpty()
 		{

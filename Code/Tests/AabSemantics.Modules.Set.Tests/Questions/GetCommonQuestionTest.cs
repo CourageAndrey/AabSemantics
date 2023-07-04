@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 
 using NUnit.Framework;
 
@@ -19,6 +20,17 @@ namespace AabSemantics.Modules.Set.Tests.Questions
 	[TestFixture]
 	public class GetCommonQuestionTest
 	{
+		[Test]
+		public void GivenNullArguments_WhenCreateQuestion_ThenFail()
+		{
+			// arrange
+			IConcept concept = "test".CreateConcept();
+
+			// act && assert
+			Assert.Throws<ArgumentNullException>(() => new GetCommonQuestion(null, concept));
+			Assert.Throws<ArgumentNullException>(() => new GetCommonQuestion(concept, null));
+		}
+
 		[Test]
 		public void GivenConceptsCanNotBeCompared_WhenBeingAsked_ThenReturnEmpty()
 		{

@@ -1,8 +1,10 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 
 using NUnit.Framework;
 
 using AabSemantics.Answers;
+using AabSemantics.Concepts;
 using AabSemantics.Localization;
 using AabSemantics.Modules.Set.Questions;
 using AabSemantics.Modules.Set.Statements;
@@ -13,6 +15,35 @@ namespace AabSemantics.Modules.Set.Tests.Questions
 	[TestFixture]
 	public class IsPartOfQuestionTest
 	{
+		[Test]
+		public void GivenNullArguments_WhenCreateQuestion_ThenFail()
+		{
+			// arrange
+			IConcept concept = "test".CreateConcept();
+
+			// act && assert
+			Assert.Throws<ArgumentNullException>(() => new IsPartOfQuestion(null, concept));
+			Assert.Throws<ArgumentNullException>(() => new IsPartOfQuestion(concept, null));
+		}
+
+		[Test]
+		public void GivenIfIsPartOf_WhenBeingAsked_ThenBuildAndAskQuestion()
+		{
+			// arrange
+			var language = Language.Default;
+			var semanticNetwork = new SemanticNetwork(language).CreateSetTestData();
+
+			// act
+			var questionRegular = new IsPartOfQuestion(semanticNetwork.Part_Engine, semanticNetwork.Vehicle_Car);
+			var answerRegular = (BooleanAnswer) questionRegular.Ask(semanticNetwork.SemanticNetwork.Context);
+
+			var answerBuilder = (BooleanAnswer) semanticNetwork.SemanticNetwork.Ask().IfIsPartOf(semanticNetwork.Part_Engine, semanticNetwork.Vehicle_Car);
+
+			// assert
+			Assert.AreEqual(answerRegular.Result, answerBuilder.Result);
+			Assert.IsTrue(answerRegular.Explanation.Statements.SequenceEqual(answerBuilder.Explanation.Statements));
+		}
+
 		[Test]
 		public void GivenNoInformation_WhenBeingAsked_ThenReturnFalse()
 		{
