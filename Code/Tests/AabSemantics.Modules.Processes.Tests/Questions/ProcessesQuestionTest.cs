@@ -23,7 +23,7 @@ namespace AabSemantics.Modules.Processes.Tests.Questions
 	public class ProcessesQuestionTest
 	{
 		[Test]
-		public void GivenNullArguments_WhenCreateQuestion_ThenFail()
+		public void GivenNullArguments_WhenTryToCreateQuestion_ThenFail()
 		{
 			// arrange
 			IConcept concept = "test".CreateConcept();
