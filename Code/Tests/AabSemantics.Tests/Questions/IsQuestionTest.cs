@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 
 using NUnit.Framework;
 
@@ -16,6 +17,35 @@ namespace AabSemantics.Tests.Questions
 	[TestFixture]
 	public class IsQuestionTest
 	{
+		[Test]
+		public void GivenNullArguments_WhenCreateQuestion_ThenFail()
+		{
+			// arrange
+			IConcept concept = "test".CreateConcept();
+
+			// act && assert
+			Assert.Throws<ArgumentNullException>(() => new IsQuestion(null, concept));
+			Assert.Throws<ArgumentNullException>(() => new IsQuestion(concept, null));
+		}
+
+		[Test]
+		public void GivenIfIs_WhenBeingAsked_ThenBuildAndAskQuestion()
+		{
+			// arrange
+			var language = Language.Default;
+			var semanticNetwork = new SemanticNetwork(language).CreateSetTestData();
+
+			// act
+			var questionRegular = new IsQuestion(semanticNetwork.Vehicle_Car, semanticNetwork.Base_Vehicle);
+			var answerRegular = (BooleanAnswer) questionRegular.Ask(semanticNetwork.SemanticNetwork.Context);
+
+			var answerBuilder = (BooleanAnswer) semanticNetwork.SemanticNetwork.Ask().IfIs(semanticNetwork.Vehicle_Car, semanticNetwork.Base_Vehicle);
+
+			// assert
+			Assert.AreEqual(answerRegular.Result, answerBuilder.Result);
+			Assert.IsTrue(answerRegular.Explanation.Statements.SequenceEqual(answerBuilder.Explanation.Statements));
+		}
+
 		[Test]
 		public void GivenNoStatements_WhenBeingAsked_ThenEmptyResult()
 		{
