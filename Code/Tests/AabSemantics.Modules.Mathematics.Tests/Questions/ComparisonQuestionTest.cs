@@ -5,9 +5,13 @@ using System.Linq;
 using NUnit.Framework;
 
 using AabSemantics.Answers;
+using AabSemantics.Concepts;
 using AabSemantics.Localization;
 using AabSemantics.Modules.Boolean.Concepts;
+using AabSemantics.Modules.Boolean.Localization;
+using AabSemantics.Modules.Classification.Localization;
 using AabSemantics.Modules.Mathematics.Concepts;
+using AabSemantics.Modules.Mathematics.Localization;
 using AabSemantics.Modules.Mathematics.Questions;
 using AabSemantics.Modules.Mathematics.Statements;
 using AabSemantics.Questions;
@@ -17,6 +21,60 @@ namespace AabSemantics.Modules.Mathematics.Tests.Questions
 	[TestFixture]
 	public class ComparisonQuestionTest
 	{
+		[Test]
+		public void GivenNullArguments_WhenCreateQuestion_ThenFail()
+		{
+			// arrange
+			IConcept concept = "test".CreateConcept();
+
+			// act && assert
+			Assert.Throws<ArgumentNullException>(() => new ComparisonQuestion(null, concept));
+			Assert.Throws<ArgumentNullException>(() => new ComparisonQuestion(concept, null));
+		}
+
+		[Test]
+		public void GivenHowCompared_WhenBeingAsked_ThenBuildAndAskQuestion()
+		{
+			// arrange
+			var language = Language.Default;
+			var semanticNetwork = new SemanticNetwork(language).CreateMathematicsTestData();
+
+			// act
+			var questionRegular = new ComparisonQuestion(semanticNetwork.Number0, semanticNetwork.Number2);
+			var answerRegular = (StatementAnswer) questionRegular.Ask(semanticNetwork.SemanticNetwork.Context);
+
+			var answerBuilder = (StatementAnswer) semanticNetwork.SemanticNetwork.Ask().HowCompared(semanticNetwork.Number0, semanticNetwork.Number2);
+
+			// assert
+			Assert.AreEqual(answerRegular.Result, answerBuilder.Result);
+			Assert.IsTrue(answerRegular.Explanation.Statements.SequenceEqual(answerBuilder.Explanation.Statements));
+		}
+
+		[Test]
+		public void GivenNoInformation_WhenBeingAsked_ThenReturnEmpty()
+		{
+			// arrange
+			var textRender = TextRenders.PlainString;
+
+			var language = Language.Default;
+			language.Extensions.Add(LanguageBooleanModule.CreateDefault());
+			language.Extensions.Add(LanguageClassificationModule.CreateDefault());
+			language.Extensions.Add(LanguageMathematicsModule.CreateDefault());
+
+			var semanticNetwork = new SemanticNetwork(language);
+
+			var question = new ComparisonQuestion(1.CreateConcept(), 2.CreateConcept());
+
+			// act
+			var answer = question.Ask(semanticNetwork.Context);
+			var description = textRender.RenderText(answer.Description, language).ToString();
+
+			// assert
+			Assert.IsTrue(answer.IsEmpty);
+			Assert.IsTrue(description.Contains(language.Questions.Answers.Unknown));
+			Assert.AreEqual(0, answer.Explanation.Statements.Count);
+		}
+
 		[Test]
 		public void GivenIncomparableValues_WhenBeingAsked_ThenReturnEmpty()
 		{
