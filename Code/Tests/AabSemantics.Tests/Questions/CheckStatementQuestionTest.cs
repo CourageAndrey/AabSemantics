@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 
 using NUnit.Framework;
@@ -7,6 +8,7 @@ using AabSemantics.Answers;
 using AabSemantics.Concepts;
 using AabSemantics.Localization;
 using AabSemantics.Modules.Boolean.Questions;
+using AabSemantics.Modules.Set.Tests;
 using AabSemantics.Questions;
 using AabSemantics.Statements;
 
@@ -15,6 +17,33 @@ namespace AabSemantics.Tests.Questions
 	[TestFixture]
 	public class CheckStatementQuestionTest
 	{
+		[Test]
+		public void GivenNullArguments_WhenCreateQuestion_ThenFail()
+		{
+			// act && assert
+			Assert.Throws<ArgumentNullException>(() => new CheckStatementQuestion(null));
+		}
+
+		[Test]
+		public void GivenIsTrueThat_WhenBeingAsked_ThenBuildAndAskQuestion()
+		{
+			// arrange
+			var language = Language.Default;
+			var semanticNetwork = new SemanticNetwork(language).CreateSetTestData();
+
+			var checkedStatement = semanticNetwork.SemanticNetwork.Statements.First();
+
+			// act
+			var questionRegular = new CheckStatementQuestion(checkedStatement);
+			var answerRegular = (BooleanAnswer) questionRegular.Ask(semanticNetwork.SemanticNetwork.Context);
+
+			var answerBuilder = (BooleanAnswer) semanticNetwork.SemanticNetwork.Ask().IsTrueThat(checkedStatement);
+
+			// assert
+			Assert.AreEqual(answerRegular.Result, answerBuilder.Result);
+			Assert.IsTrue(answerRegular.Explanation.Statements.SequenceEqual(answerBuilder.Explanation.Statements));
+		}
+
 		[Test]
 		public void GivenNoMatchingStatementsFound_WhenAsk_ThenReturnEmptyAnswer()
 		{

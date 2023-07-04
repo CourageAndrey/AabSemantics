@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 
 using NUnit.Framework;
 
@@ -7,6 +8,7 @@ using AabSemantics.Concepts;
 using AabSemantics.Localization;
 using AabSemantics.Modules.Classification.Questions;
 using AabSemantics.Modules.Classification.Statements;
+using AabSemantics.Modules.Set.Tests;
 using AabSemantics.Questions;
 using AabSemantics.Statements;
 
@@ -15,6 +17,31 @@ namespace AabSemantics.Tests.Questions
 	[TestFixture]
 	public class EnumerateAncestorsQuestionTest
 	{
+		[Test]
+		public void GivenNullArguments_WhenCreateQuestion_ThenFail()
+		{
+			// act && assert
+			Assert.Throws<ArgumentNullException>(() => new EnumerateAncestorsQuestion(null));
+		}
+
+		[Test]
+		public void GivenWhichAncestorsHas_WhenBeingAsked_ThenBuildAndAskQuestion()
+		{
+			// arrange
+			var language = Language.Default;
+			var semanticNetwork = new SemanticNetwork(language).CreateSetTestData();
+
+			// act
+			var questionRegular = new EnumerateAncestorsQuestion(semanticNetwork.Vehicle_Car);
+			var answerRegular = (ConceptsAnswer) questionRegular.Ask(semanticNetwork.SemanticNetwork.Context);
+
+			var answerBuilder = (ConceptsAnswer) semanticNetwork.SemanticNetwork.Ask().WhichAncestorsHas(semanticNetwork.Vehicle_Car);
+
+			// assert
+			Assert.IsTrue(answerRegular.Result.SequenceEqual(answerBuilder.Result));
+			Assert.IsTrue(answerRegular.Explanation.Statements.SequenceEqual(answerBuilder.Explanation.Statements));
+		}
+
 		[Test]
 		public void GivenNoInformation_WhenBeingAsked_ThenReturnEmpty()
 		{

@@ -1,12 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
 
 using NUnit.Framework;
 
 using AabSemantics.Answers;
 using AabSemantics.Concepts;
 using AabSemantics.Localization;
-using AabSemantics.Modules.Boolean.Questions;
 using AabSemantics.Modules.Classification.Questions;
 using AabSemantics.Modules.Classification.Statements;
 using AabSemantics.Questions;
@@ -48,24 +46,6 @@ namespace AabSemantics.Tests.Questions
 			Assert.AreEqual(2, answerWithPreconditions.Explanation.Statements.Count);
 			Assert.IsTrue(answerWithPreconditions.Explanation.Statements.Contains(initialStatement));
 			Assert.IsTrue(answerWithPreconditions.Explanation.Statements.Contains(preconditionStatement));
-		}
-
-		[Test]
-		[TestCaseSource(nameof(CreateQuestionsArgumentNullException))]
-		public void GivenNullArguments_WhenCreateQuestions_ThenFail(Func<IQuestion> constructor)
-		{
-			Assert.Throws<ArgumentNullException>(() => constructor());
-		}
-
-		private static IEnumerable<object[]> CreateQuestionsArgumentNullException()
-		{
-			IConcept concept = "test".CreateConcept();
-
-			yield return new object[] { new Func<IQuestion>(() => new CheckStatementQuestion(null)) };
-			yield return new object[] { new Func<IQuestion>(() => new EnumerateAncestorsQuestion(null)) };
-			yield return new object[] { new Func<IQuestion>(() => new EnumerateDescendantsQuestion(null)) };
-			yield return new object[] { new Func<IQuestion>(() => new IsQuestion(null, concept)) };
-			yield return new object[] { new Func<IQuestion>(() => new IsQuestion(concept, null)) };
 		}
 
 		[Test]
