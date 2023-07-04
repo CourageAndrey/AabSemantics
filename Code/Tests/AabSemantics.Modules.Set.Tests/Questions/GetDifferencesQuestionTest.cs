@@ -27,6 +27,16 @@ namespace AabSemantics.Modules.Set.Tests.Questions
 		}
 
 		[Test]
+		public void GivenSameArguments_WhenCreateQuestion_ThenFail()
+		{
+			// arrange
+			IConcept concept = "test".CreateConcept();
+
+			// act && assert
+			Assert.Throws<ArgumentException>(() => new GetDifferencesQuestion(concept, concept));
+		}
+
+		[Test]
 		public void GivenGetDifferences_WhenBeingAsked_ThenBuildAndAskQuestion()
 		{
 			// arrange
@@ -40,6 +50,8 @@ namespace AabSemantics.Modules.Set.Tests.Questions
 			var answerBuilder = (ConceptsAnswer) semanticNetwork.SemanticNetwork.Ask().WhatIsTheDifference(semanticNetwork.Vehicle_Car, semanticNetwork.Vehicle_Airbus);
 
 			// assert
+			Assert.AreSame(semanticNetwork.Vehicle_Car, questionRegular.Concept1);
+			Assert.AreSame(semanticNetwork.Vehicle_Airbus, questionRegular.Concept2);
 			Assert.IsTrue(answerRegular.Result.SequenceEqual(answerBuilder.Result));
 			Assert.IsTrue(answerRegular.Explanation.Statements.SequenceEqual(answerBuilder.Explanation.Statements));
 		}
