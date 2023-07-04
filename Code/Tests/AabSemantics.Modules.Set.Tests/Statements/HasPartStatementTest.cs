@@ -19,5 +19,18 @@ namespace AabSemantics.Modules.Set.Tests.Statements
 			// act && assert
 			Assert.IsFalse(statement.Equals(null));
 		}
+
+		[Test]
+		public void GivenHasPartStatement_WhenGetParentAndChild_ThenEqualToWholeAndPart()
+		{
+			// arrange
+			IConcept	whole = 1.CreateConcept(),
+						part = 2.CreateConcept();
+			var statement = new HasPartStatement(null, whole, part);
+
+			// act && assert
+			Assert.AreSame(whole, statement.Parent);
+			Assert.AreSame(part, statement.Child);
+		}
 	}
 }
