@@ -1,15 +1,10 @@
-﻿using System.Linq;
-using System.Reflection;
-
-using NUnit.Framework;
+﻿using NUnit.Framework;
 
 using AabSemantics.Modules.Boolean.Json;
 using AabSemantics.Modules.Classification.Json;
-using AabSemantics.Modules.Mathematics.Json;
-using AabSemantics.Modules.Processes.Json;
-using AabSemantics.Modules.Set.Json;
 using AabSemantics.Serialization.Json;
 using AabSemantics.Serialization.Json.Answers;
+using AabSemantics.TestCore;
 
 namespace AabSemantics.Tests.Serialization.Json
 {
@@ -55,77 +50,22 @@ namespace AabSemantics.Tests.Serialization.Json
 		[Test]
 		public void GivenStatements_WhenCreateWithoutParameters_ThenSucceed()
 		{
-			var statementsToCheck = new Statement[]
+			new Statement[]
 			{
-				new ComparisonStatement(),
-				new GroupStatement(),
-				new HasPartStatement(),
-				new HasSignStatement(),
 				new IsStatement(),
-				new ProcessesStatement(),
-				new SignValueStatement(),
-			};
-
-			// assert
-			foreach (var statement in statementsToCheck)
-			{
-				var propertiesToCheck = statement.GetType().GetProperties(BindingFlags.GetProperty | BindingFlags.Public | BindingFlags.Instance).ToList();
-				foreach (var property in propertiesToCheck)
-				{
-					var value = property.GetValue(statement, null);
-					Assert.IsNull(value);
-				}
-			}
+			}.TestParameterlessConstructors();
 		}
 
 		[Test]
 		public void GivenQuestions_WhenCreateWithoutParameters_ThenSucceed()
 		{
-			// arrange
-			var questionsToCheck = new Question[]
+			new Question[]
 			{
 				new CheckStatementQuestion(),
 				new EnumerateAncestorsQuestion(),
 				new EnumerateDescendantsQuestion(),
 				new IsQuestion(),
-				new ComparisonQuestion(),
-				new ProcessesQuestion(),
-				new DescribeSubjectAreaQuestion(),
-				new EnumerateContainersQuestion(),
-				new EnumeratePartsQuestion(),
-				new EnumerateSignsQuestion(),
-				new FindSubjectAreaQuestion(),
-				new GetCommonQuestion(),
-				new GetDifferencesQuestion(),
-				new HasSignQuestion(),
-				new HasSignsQuestion(),
-				new IsPartOfQuestion(),
-				new IsSignQuestion(),
-				new IsSubjectAreaQuestion(),
-				new IsValueQuestion(),
-				new SignValueQuestion(),
-				new WhatQuestion(),
-			};
-
-			// assert
-			foreach (var question in questionsToCheck)
-			{
-				Assert.AreEqual(0, question.Preconditions.Count);
-				var propertiesToCheck = question.GetType().GetProperties(BindingFlags.GetProperty | BindingFlags.Public | BindingFlags.Instance).ToList();
-				propertiesToCheck.Remove(propertiesToCheck.First(p => p.Name == nameof(Question.Preconditions)));
-				foreach (var property in propertiesToCheck)
-				{
-					var value = property.GetValue(question, null);
-					if (property.PropertyType == typeof(bool))
-					{
-						Assert.AreEqual(false, value);
-					}
-					else
-					{
-						Assert.IsNull(value);
-					}
-				}
-			}
+			}.TestParameterlessConstructors();
 		}
 
 		[Test]
