@@ -14,7 +14,7 @@
 
   <ItemGroup>
     <Folder Include="Attributes\" />
-    <Folder Include="Xml\" />
+    <Folder Include="Serialization\Xml\" />
   </ItemGroup>
 
   <ItemGroup>
