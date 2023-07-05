@@ -1,12 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 
 using NUnit.Framework;
 
 using AabSemantics.Concepts;
+using AabSemantics.Modules.Mathematics.Attributes;
 
-namespace AabSemantics.Tests.Serialization.Xml
+namespace AabSemantics.Modules.Mathematics.Tests.Serialization.Xml
 {
 	[TestFixture]
 	public class AttributesTest
@@ -14,8 +14,9 @@ namespace AabSemantics.Tests.Serialization.Xml
 		[OneTimeSetUp]
 		public void InitializeModules()
 		{
-			new Modules.Boolean.BooleanModule().RegisterMetadata();
-			new Modules.Classification.ClassificationModule().RegisterMetadata();
+			new Boolean.BooleanModule().RegisterMetadata();
+			new Classification.ClassificationModule().RegisterMetadata();
+			new MathematicsModule().RegisterMetadata();
 		}
 
 		[Test]
@@ -52,24 +53,9 @@ namespace AabSemantics.Tests.Serialization.Xml
 			Assert.IsTrue(restored.Attributes.SequenceEqual(concept.Attributes));
 		}
 
-		[Test]
-		public void GivenUnknownAttribute_WhenTryToSerialize_ThenFail()
-		{
-			// arrange
-			var concept = new Concept();
-			concept.WithAttribute(new WrongAttribute());
-
-			// act & assert
-			Assert.Throws<NotSupportedException>(() => new AabSemantics.Serialization.Xml.Concept(concept));
-		}
-
 		private static IEnumerable<IAttribute> GetAllAttributes()
 		{
-			yield return Modules.Boolean.Attributes.IsBooleanAttribute.Value;
-			yield return Modules.Boolean.Attributes.IsValueAttribute.Value;
+			yield return IsComparisonSignAttribute.Value;
 		}
-
-		private class WrongAttribute : IAttribute
-		{ }
 	}
 }
