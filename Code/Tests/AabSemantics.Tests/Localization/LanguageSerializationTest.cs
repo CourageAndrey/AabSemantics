@@ -10,7 +10,6 @@ using AabSemantics.Localization;
 using AabSemantics.Metadata;
 using AabSemantics.Modules.Boolean.Localization;
 using AabSemantics.Modules.Classification.Localization;
-using AabSemantics.Modules.Set.Localization;
 using AabSemantics.Serialization.Xml;
 
 namespace AabSemantics.Tests.Localization
@@ -60,7 +59,7 @@ namespace AabSemantics.Tests.Localization
 			var language = Language.Default;
 			string testFileName = Path.GetTempFileName();
 
-			language.Extensions.Add(LanguageSetModule.CreateDefault());
+			language.Extensions.Add(LanguageClassificationModule.CreateDefault());
 
 			// act
 			var serializationError = Assert.Throws<InvalidOperationException>(() => { language.SerializeToXmlFile(testFileName); });
@@ -85,7 +84,6 @@ namespace AabSemantics.Tests.Localization
 
 			language.Extensions.Add(LanguageBooleanModule.CreateDefault());
 			language.Extensions.Add(LanguageClassificationModule.CreateDefault());
-			language.Extensions.Add(LanguageSetModule.CreateDefault());
 
 			Language.PrepareModulesToSerialization<Language>();
 
