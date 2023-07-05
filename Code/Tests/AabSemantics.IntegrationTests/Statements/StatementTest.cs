@@ -1,11 +1,8 @@
 ﻿using NUnit.Framework;
 
 using AabSemantics.Localization;
-using AabSemantics.Modules.Mathematics.Tests;
-using AabSemantics.Modules.Processes.Tests;
-using AabSemantics.Modules.Set.Tests;
 
-namespace AabSemantics.Tests.Statements
+namespace AabSemantics.IntegrationTests.Statements
 {
 	[TestFixture]
 	public class StatementTest
@@ -15,9 +12,7 @@ namespace AabSemantics.Tests.Statements
 		{
 			// arrange
 			var semanticNetwork = new SemanticNetwork(Language.Default);
-			semanticNetwork.CreateSetTestData();
-			semanticNetwork.CreateMathematicsTestData();
-			semanticNetwork.CreateProcessesTestData();
+			semanticNetwork.CreateCombinedTestData();
 
 			// act & assert
 			foreach (var statement in semanticNetwork.Statements)
@@ -35,9 +30,7 @@ namespace AabSemantics.Tests.Statements
 			// arrange
 			var language = Language.Default;
 			var semanticNetwork = new SemanticNetwork(Language.Default);
-			semanticNetwork.CreateSetTestData();
-			semanticNetwork.CreateMathematicsTestData();
-			semanticNetwork.CreateProcessesTestData();
+			semanticNetwork.CreateCombinedTestData();
 
 			var render = TextRenders.PlainString;
 
