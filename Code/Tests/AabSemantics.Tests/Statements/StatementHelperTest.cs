@@ -7,8 +7,7 @@ using AabSemantics.Concepts;
 using AabSemantics.Contexts;
 using AabSemantics.Localization;
 using AabSemantics.Modules.Boolean.Attributes;
-using AabSemantics.Modules.Mathematics.Concepts;
-using AabSemantics.Modules.Mathematics.Statements;
+using AabSemantics.Modules.Classification.Statements;
 
 namespace AabSemantics.Tests.Statements
 {
@@ -23,11 +22,11 @@ namespace AabSemantics.Tests.Statements
 
 			// act
 			var filtered = semanticNetwork.Statements.Enumerate().ToList();
-			var filteredT = semanticNetwork.Statements.Enumerate<ComparisonStatement>().ToList();
+			var filteredT = semanticNetwork.Statements.Enumerate<IsStatement>().ToList();
 
 			// assert
 			Assert.IsTrue(semanticNetwork.Statements.SequenceEqual(filtered));
-			Assert.IsTrue(semanticNetwork.Statements.OfType<ComparisonStatement>().SequenceEqual(filteredT));
+			Assert.IsTrue(semanticNetwork.Statements.OfType<IsStatement>().SequenceEqual(filteredT));
 		}
 
 		[Test]
@@ -40,7 +39,7 @@ namespace AabSemantics.Tests.Statements
 			{
 				// act
 				var filtered = semanticNetwork.Statements.Enumerate(statement.Context).ToList();
-				var filteredT = semanticNetwork.Statements.Enumerate<ComparisonStatement>(statement.Context).ToList();
+				var filteredT = semanticNetwork.Statements.Enumerate<IsStatement>(statement.Context).ToList();
 
 				// assert
 				Assert.AreSame(filtered.Single(), statement);
@@ -59,7 +58,7 @@ namespace AabSemantics.Tests.Statements
 			{
 				// act
 				var filtered = semanticNetwork.Statements.Enumerate(context.ActiveContexts).ToList();
-				var filteredT = semanticNetwork.Statements.Enumerate<ComparisonStatement>(context.ActiveContexts).ToList();
+				var filteredT = semanticNetwork.Statements.Enumerate<IsStatement>(context.ActiveContexts).ToList();
 
 				// assert
 				Assert.AreEqual(context.ActiveContexts.Count - 1, filtered.Count);
@@ -77,7 +76,7 @@ namespace AabSemantics.Tests.Statements
 
 			// act
 			var filtered = semanticNetwork.Statements.Enumerate(context => (context as TestContext)?.Name.EndsWith("odd") == true).ToList();
-			var filteredT = semanticNetwork.Statements.Enumerate<ComparisonStatement>(context => (context as TestContext)?.Name.EndsWith("odd") == true).ToList();
+			var filteredT = semanticNetwork.Statements.Enumerate<IsStatement>(context => (context as TestContext)?.Name.EndsWith("odd") == true).ToList();
 
 			// assert
 			Assert.AreEqual(4, filtered.Count);
@@ -106,11 +105,10 @@ namespace AabSemantics.Tests.Statements
 			var statements = new Dictionary<int, IStatement>();
 			for (int i = 1; i < _numbersCount; i++)
 			{
-				var statement = new ComparisonStatement(
+				var statement = new IsStatement(
 					$"{i} < {i+1}",
 					semanticNetwork.Concepts[i.ToString()],
-					semanticNetwork.Concepts[(i + 1).ToString()],
-					ComparisonSigns.IsLessThan);
+					semanticNetwork.Concepts[(i + 1).ToString()]);
 				semanticNetwork.Statements.Add(statement);
 				statements[i] = statement;
 			}
