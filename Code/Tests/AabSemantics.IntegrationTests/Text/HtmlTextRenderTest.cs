@@ -3,11 +3,8 @@
 using NUnit.Framework;
 
 using AabSemantics.Localization;
-using AabSemantics.Modules.Mathematics.Tests;
-using AabSemantics.Modules.Processes.Tests;
-using AabSemantics.Modules.Set.Tests;
 
-namespace AabSemantics.Tests.Text
+namespace AabSemantics.IntegrationTests.Text
 {
 	[TestFixture]
 	public class HtmlTextRenderTest
@@ -20,9 +17,7 @@ namespace AabSemantics.Tests.Text
 			// arrange
 			var language = Language.Default;
 			var semanticNetwork = new SemanticNetwork(language);
-			semanticNetwork.CreateSetTestData();
-			semanticNetwork.CreateMathematicsTestData();
-			semanticNetwork.CreateProcessesTestData();
+			semanticNetwork.CreateCombinedTestData();
 
 			var text = semanticNetwork.DescribeRules();
 
