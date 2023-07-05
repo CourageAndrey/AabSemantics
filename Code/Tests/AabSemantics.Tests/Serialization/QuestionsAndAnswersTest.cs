@@ -138,7 +138,7 @@ namespace AabSemantics.Tests.Serialization
 				new Dictionary<string, IKnowledge>{ { "A", _semanticNetwork.Concepts.First() } });
 			var explanation = new Explanation(_semanticNetwork.Statements);
 
-			yield return new AabSemantics.Answers.Answer(text, explanation, true);
+			yield return new Answer(text, explanation, true);
 			yield return new BooleanAnswer(true, text, explanation);
 			yield return new ConceptAnswer(_semanticNetwork.Concepts.First(), text, explanation);
 			yield return new ConceptsAnswer(_semanticNetwork.Concepts, text, explanation);

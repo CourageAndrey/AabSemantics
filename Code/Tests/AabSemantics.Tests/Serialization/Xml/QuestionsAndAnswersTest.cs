@@ -54,16 +54,16 @@ namespace AabSemantics.Tests.Serialization.Xml
 				.GetProperties(BindingFlags.GetProperty | BindingFlags.Instance | BindingFlags.Public);
 
 			// act
-			var xmlAnswer = AabSemantics.Serialization.Xml.Answer.Load(answer, Language);
+			var xmlAnswer = Answer.Load(answer, Language);
 			var xml = xmlAnswer.SerializeToXmlString();
 
 			var serializer = xmlAnswer.GetType().AcquireXmlSerializer();
-			AabSemantics.Serialization.Xml.Answer restoredXml;
+			Answer restoredXml;
 			using (var stringReader = new StringReader(xml))
 			{
 				using (var xmlStringReader = new XmlTextReader(stringReader))
 				{
-					restoredXml = (AabSemantics.Serialization.Xml.Answer) serializer.Deserialize(xmlStringReader);
+					restoredXml = (Answer) serializer.Deserialize(xmlStringReader);
 				}
 			}
 

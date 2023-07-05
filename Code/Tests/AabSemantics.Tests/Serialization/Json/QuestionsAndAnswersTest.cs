@@ -51,14 +51,14 @@ namespace AabSemantics.Tests.Serialization.Json
 				.GetProperties(BindingFlags.GetProperty | BindingFlags.Instance | BindingFlags.Public);
 
 			// act
-			var jsonAnswer = AabSemantics.Serialization.Json.Answer.Load(answer, Language);
+			var jsonAnswer = Answer.Load(answer, Language);
 			var json = jsonAnswer.SerializeToJsonString();
 
 			var serializer = jsonAnswer.GetType().AcquireJsonSerializer();
-			AabSemantics.Serialization.Json.Answer restoredJson;
+			Answer restoredJson;
 			using (var stream = new MemoryStream(Encoding.UTF8.GetBytes(json)))
 			{
-				restoredJson = (AabSemantics.Serialization.Json.Answer) serializer.ReadObject(stream);
+				restoredJson = (Answer) serializer.ReadObject(stream);
 			}
 
 			var restored = restoredJson.Save(ConceptIdResolver, StatementIdResolver);
