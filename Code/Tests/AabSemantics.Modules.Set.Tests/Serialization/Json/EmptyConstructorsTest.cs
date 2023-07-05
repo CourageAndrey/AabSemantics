@@ -4,7 +4,7 @@ using AabSemantics.Modules.Set.Json;
 using AabSemantics.Serialization.Json;
 using AabSemantics.TestCore;
 
-namespace AabSemantics.Modules.Set.Tests.Json
+namespace AabSemantics.Modules.Set.Tests.Serialization.Json
 {
 	[TestFixture]
 	public class EmptyConstructorsTest
