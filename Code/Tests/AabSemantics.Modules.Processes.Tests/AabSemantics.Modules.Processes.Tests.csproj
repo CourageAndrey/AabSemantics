@@ -15,7 +15,6 @@
   <ItemGroup>
     <Folder Include="Attributes\" />
     <Folder Include="Questions\" />
-    <Folder Include="Serialization\Xml\" />
   </ItemGroup>
 
   <ItemGroup>
