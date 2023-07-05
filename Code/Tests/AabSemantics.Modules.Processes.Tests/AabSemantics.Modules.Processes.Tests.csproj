@@ -14,7 +14,6 @@
 
   <ItemGroup>
     <Folder Include="Attributes\" />
-    <Folder Include="Json\" />
     <Folder Include="Questions\" />
     <Folder Include="Xml\" />
   </ItemGroup>
@@ -22,6 +21,7 @@
   <ItemGroup>
     <ProjectReference Include="..\..\Core\AabSemantics\AabSemantics.csproj" />
     <ProjectReference Include="..\..\Modules\AabSemantics.Modules.Processes\AabSemantics.Modules.Processes.csproj" />
+    <ProjectReference Include="..\AabSemantics.TestCore\AabSemantics.TestCore.csproj" />
   </ItemGroup>
 
 </Project>

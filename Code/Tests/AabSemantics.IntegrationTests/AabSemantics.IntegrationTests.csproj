@@ -20,6 +20,7 @@
     <ProjectReference Include="..\AabSemantics.Modules.Mathematics.Tests\AabSemantics.Modules.Mathematics.Tests.csproj" />
     <ProjectReference Include="..\AabSemantics.Modules.Processes.Tests\AabSemantics.Modules.Processes.Tests.csproj" />
     <ProjectReference Include="..\AabSemantics.Modules.Set.Tests\AabSemantics.Modules.Set.Tests.csproj" />
+    <ProjectReference Include="..\AabSemantics.TestCore\AabSemantics.TestCore.csproj" />
   </ItemGroup>
 
 </Project>
