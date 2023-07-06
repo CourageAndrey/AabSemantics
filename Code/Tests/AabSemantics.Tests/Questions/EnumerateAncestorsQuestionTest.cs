@@ -6,9 +6,10 @@ using NUnit.Framework;
 using AabSemantics.Answers;
 using AabSemantics.Concepts;
 using AabSemantics.Localization;
+using AabSemantics.Modules.Boolean;
+using AabSemantics.Modules.Classification;
 using AabSemantics.Modules.Classification.Questions;
 using AabSemantics.Modules.Classification.Statements;
-using AabSemantics.Modules.Set.Tests;
 using AabSemantics.Questions;
 using AabSemantics.Statements;
 
@@ -17,6 +18,12 @@ namespace AabSemantics.Tests.Questions
 	[TestFixture]
 	public class EnumerateAncestorsQuestionTest
 	{
+		static EnumerateAncestorsQuestionTest()
+		{
+			new BooleanModule().RegisterMetadata();
+			new ClassificationModule().RegisterMetadata();
+		}
+
 		[Test]
 		public void GivenNullArguments_WhenTryToCreateQuestion_ThenFail()
 		{
@@ -29,13 +36,20 @@ namespace AabSemantics.Tests.Questions
 		{
 			// arrange
 			var language = Language.Default;
-			var semanticNetwork = new SemanticNetwork(language).CreateSetTestData();
+			var semanticNetwork = new SemanticNetwork(language)
+				.WithModule<BooleanModule>()
+				.WithModule<ClassificationModule>();
+
+			IConcept vehicle, car;
+			semanticNetwork.Concepts.Add(vehicle = "vehicle".CreateConcept());
+			semanticNetwork.Concepts.Add(car = "car".CreateConcept());
+			semanticNetwork.DeclareThat(car).IsDescendantOf(vehicle);
 
 			// act
-			var questionRegular = new EnumerateAncestorsQuestion(semanticNetwork.Vehicle_Car);
-			var answerRegular = (ConceptsAnswer) questionRegular.Ask(semanticNetwork.SemanticNetwork.Context);
+			var questionRegular = new EnumerateAncestorsQuestion(car);
+			var answerRegular = (ConceptsAnswer) questionRegular.Ask(semanticNetwork.Context);
 
-			var answerBuilder = (ConceptsAnswer) semanticNetwork.SemanticNetwork.Ask().WhichAncestorsHas(semanticNetwork.Vehicle_Car);
+			var answerBuilder = (ConceptsAnswer) semanticNetwork.Ask().WhichAncestorsHas(car);
 
 			// assert
 			Assert.IsTrue(answerRegular.Result.SequenceEqual(answerBuilder.Result));
