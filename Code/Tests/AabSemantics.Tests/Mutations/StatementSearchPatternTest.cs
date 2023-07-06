@@ -1,15 +1,17 @@
-﻿using System.Linq;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+
+using AabSemantics.Concepts;
 
 using NUnit.Framework;
 
 using AabSemantics.Localization;
-using AabSemantics.Modules.Mathematics.Concepts;
-using AabSemantics.Modules.Mathematics.Statements;
-using AabSemantics.Modules.Mathematics.Tests;
-using AabSemantics.Modules.Processes.Tests;
-using AabSemantics.Modules.Set.Statements;
-using AabSemantics.Modules.Set.Tests;
+using AabSemantics.Modules.Boolean;
+using AabSemantics.Modules.Classification;
+using AabSemantics.Modules.Classification.Statements;
 using AabSemantics.Mutations;
+using AabSemantics.Statements;
 
 namespace AabSemantics.Tests.Mutations
 {
@@ -20,96 +22,173 @@ namespace AabSemantics.Tests.Mutations
 		public void GivenStatementFilter_WhenFindMatches_ThenFilter()
 		{
 			// arrange
-			var semanticNetwork = new SemanticNetwork(Language.Default).CreateMathematicsTestData();
+			var semanticNetwork = new SemanticNetwork(Language.Default)
+				.WithModule<BooleanModule>()
+				.WithModule<ClassificationModule>();
 
-			var statementFilter = new StatementFilter<ComparisonStatement>(comparison => comparison.ComparisonSign == ComparisonSigns.IsGreaterThanOrEqualTo);
-			var statementSearchPattern = new StatementSearchPattern<ComparisonStatement>(statementFilter);
+			IConcept a, b, c, d;
+			semanticNetwork.Concepts.Add(a = "a".CreateConcept());
+			semanticNetwork.Concepts.Add(b = "b".CreateConcept());
+			semanticNetwork.Concepts.Add(c = "c".CreateConcept());
+			semanticNetwork.Concepts.Add(d = "d".CreateConcept());
+			semanticNetwork.DeclareThat(a).IsAncestorOf(b);
+			semanticNetwork.DeclareThat(a).IsAncestorOf(c);
+			semanticNetwork.DeclareThat(a).IsAncestorOf(d);
+
+			var statementFilter = new StatementFilter<IsStatement>(statement => statement.Ancestor == a);
+			var statementSearchPattern = new StatementSearchPattern<IsStatement>(statementFilter);
 
 			// act
-			var matches = statementSearchPattern.FindMatches(semanticNetwork.SemanticNetwork).ToList();
+			var matches = statementSearchPattern.FindMatches(semanticNetwork).ToList();
 
 			// assert
 			Assert.AreEqual(3, matches.Count);
 			Assert.IsTrue(matches.All(m =>
 				m.SearchPattern == statementSearchPattern &&
-				m.SemanticNetwork == semanticNetwork.SemanticNetwork &&
+				m.SemanticNetwork == semanticNetwork &&
 				m.Knowledge.Count == 1 &&
-				((ComparisonStatement) m.Knowledge[statementSearchPattern]).ComparisonSign == ComparisonSigns.IsGreaterThanOrEqualTo));
+				((IsStatement) m.Knowledge[statementSearchPattern]).Ancestor == a));
 		}
 
 		[Test]
 		public void GivenConceptFilter_WhenFindMatches_ThenFilter()
 		{
 			// arrange
-			var semanticNetwork = new SemanticNetwork(Language.Default).CreateMathematicsTestData();
+			var semanticNetwork = new SemanticNetwork(Language.Default)
+				.WithModule<BooleanModule>()
+				.WithModule<ClassificationModule>();
 
-			var conceptSearchPattern = new ConceptSearchPattern(number => number.ID.Contains("3"));
-			var conceptFilters = new[] { new StatementConceptFilter<ComparisonStatement>(comparison => comparison.LeftValue, conceptSearchPattern) };
-			var statementSearchPattern = new StatementSearchPattern<ComparisonStatement>(conceptFilters : conceptFilters);
+			IConcept a, b, c, d;
+			semanticNetwork.Concepts.Add(a = "a".CreateConcept());
+			semanticNetwork.Concepts.Add(b = "b".CreateConcept());
+			semanticNetwork.Concepts.Add(c = "c".CreateConcept());
+			semanticNetwork.Concepts.Add(d = "d".CreateConcept());
+			semanticNetwork.DeclareThat(a).IsAncestorOf(b);
+			semanticNetwork.DeclareThat(a).IsAncestorOf(c);
+			semanticNetwork.DeclareThat(a).IsAncestorOf(d);
+
+			var conceptSearchPattern = new ConceptSearchPattern(concept => concept.ID == "a");
+			var conceptFilters = new[] { new StatementConceptFilter<IsStatement>(statement => statement.Ancestor, conceptSearchPattern) };
+			var statementSearchPattern = new StatementSearchPattern<IsStatement>(conceptFilters : conceptFilters);
 
 			// act
-			var matches = statementSearchPattern.FindMatches(semanticNetwork.SemanticNetwork).ToList();
+			var matches = statementSearchPattern.FindMatches(semanticNetwork).ToList();
 
 			// assert
 			Assert.AreEqual(3, matches.Count);
 			Assert.IsTrue(matches.All(m =>
 				m.SearchPattern == statementSearchPattern &&
-				m.SemanticNetwork == semanticNetwork.SemanticNetwork &&
+				m.SemanticNetwork == semanticNetwork &&
 				m.Knowledge.Count == 2 &&
-				m.Knowledge[statementSearchPattern] is ComparisonStatement &&
-				(m.Knowledge[conceptSearchPattern] == semanticNetwork.Number3 || m.Knowledge[conceptSearchPattern] == semanticNetwork.Number3or4)));
+				m.Knowledge[statementSearchPattern] is IsStatement &&
+				m.Knowledge[conceptSearchPattern] == semanticNetwork.Concepts["a"]));
 		}
 
 		[Test]
 		public void GivenFiltersStructure_WhenFindMatches_ThenFilter()
 		{
 			// arrange
-			var semanticNetwork = new SemanticNetwork(Language.Default).CreateMathematicsTestData();
+			var semanticNetwork = new SemanticNetwork(Language.Default)
+				.WithModule<BooleanModule>()
+				.WithModule<ClassificationModule>();
 
-			var statementFilter = new StatementFilter<ComparisonStatement>(comparison => comparison.ComparisonSign == ComparisonSigns.IsGreaterThanOrEqualTo);
-			var conceptSearchPattern = new ConceptSearchPattern(number => number.ID.Contains("3"));
-			var conceptFilters = new[] { new StatementConceptFilter<ComparisonStatement>(comparison => comparison.LeftValue, conceptSearchPattern) };
-			var statementSearchPattern = new StatementSearchPattern<ComparisonStatement>(statementFilter, conceptFilters);
+			IConcept a, b, c, d;
+			semanticNetwork.Concepts.Add(a = "a".CreateConcept());
+			semanticNetwork.Concepts.Add(b = "b".CreateConcept());
+			semanticNetwork.Concepts.Add(c = "c".CreateConcept());
+			semanticNetwork.Concepts.Add(d = "d".CreateConcept());
+			semanticNetwork.DeclareThat(a).IsAncestorOf(b);
+			semanticNetwork.DeclareThat(a).IsAncestorOf(c);
+			semanticNetwork.DeclareThat(a).IsAncestorOf(d);
+
+			var statementFilter = new StatementFilter<IsStatement>(statement => statement.Descendant.ID == "b" || statement.Descendant.ID == "d");
+			var conceptSearchPattern = new ConceptSearchPattern(concept => concept.ID == "a");
+			var conceptFilters = new[] { new StatementConceptFilter<IsStatement>(statement => statement.Ancestor, conceptSearchPattern) };
+			var statementSearchPattern = new StatementSearchPattern<IsStatement>(statementFilter, conceptFilters);
 
 			// act
-			var matches = statementSearchPattern.FindMatches(semanticNetwork.SemanticNetwork).ToList();
+			var matches = statementSearchPattern.FindMatches(semanticNetwork).ToList();
 
 			// assert
 			Assert.AreEqual(2, matches.Count);
 			Assert.IsTrue(matches.All(m =>
 				m.SearchPattern == statementSearchPattern &&
-				m.SemanticNetwork == semanticNetwork.SemanticNetwork &&
-				m.Knowledge.Count == 2));
-			Assert.AreEqual(1, matches.Count(m =>
-				m.Knowledge[statementSearchPattern] is ComparisonStatement &&
-				m.Knowledge[conceptSearchPattern] == semanticNetwork.Number3));
-			Assert.AreEqual(1, matches.Count(m =>
-				m.Knowledge[statementSearchPattern] is ComparisonStatement &&
-				m.Knowledge[conceptSearchPattern] == semanticNetwork.Number3or4));
+				m.SemanticNetwork == semanticNetwork &&
+				m.Knowledge.Count == 2 &&
+				m.Knowledge[statementSearchPattern] is IsStatement &&
+				m.Knowledge[conceptSearchPattern].ID == "a"));
 		}
 
 		[Test]
-		public void GivenAllFilter_WhenFindMatches_Then()
+		public void GivenAllFilter_WhenFindMatches_ThenFilter()
 		{
 			// arrange
-			var semanticNetwork = new SemanticNetwork(Language.Default);
-			semanticNetwork.CreateSetTestData();
-			semanticNetwork.CreateMathematicsTestData();
-			semanticNetwork.CreateProcessesTestData();
-			var groupStatements = semanticNetwork.Statements.OfType<GroupStatement>().ToList();
+			var semanticNetwork = new SemanticNetwork(Language.Default)
+				.WithModule<BooleanModule>()
+				.WithModule<ClassificationModule>();
 
-			var searchPattern = StatementSearchPattern<GroupStatement>.All;
+			var allTypedStatements = new List<TestStatement>
+			{
+				new TestStatement(),
+				new TestStatement(),
+				new TestStatement(),
+				new TestStatement(),
+				new TestStatement(),
+			};
+			foreach (var statement in allTypedStatements)
+			{
+				semanticNetwork.Statements.Add(statement);
+			}
+
+			var searchPattern = StatementSearchPattern<TestStatement>.All;
 
 			// act
 			var matches = searchPattern.FindMatches(semanticNetwork).ToList();
 
 			// assert
-			Assert.AreEqual(groupStatements.Count, matches.Count);
+			Assert.AreEqual(allTypedStatements.Count, matches.Count);
 			Assert.IsTrue(matches.All(m =>
 				m.SemanticNetwork == semanticNetwork &&
 				m.SearchPattern == searchPattern &&
 				m.Knowledge.Keys.Single() == searchPattern &&
-				groupStatements.Contains(m.Knowledge.Values.Single())));
+				allTypedStatements.Contains(m.Knowledge.Values.Single())));
+		}
+
+		private class TestStatement : Statement<TestStatement>
+		{
+			public TestStatement()
+				: base(null, LocalizedString.Empty, LocalizedString.Empty)
+			{ }
+
+			public override IEnumerable<IConcept> GetChildConcepts()
+			{
+				return Array.Empty<IConcept>();
+			}
+
+			protected override string GetDescriptionTrueText(ILanguage language)
+			{
+				throw new NotImplementedException();
+			}
+
+			protected override string GetDescriptionFalseText(ILanguage language)
+			{
+				throw new NotImplementedException();
+			}
+
+			protected override string GetDescriptionQuestionText(ILanguage language)
+			{
+				throw new NotImplementedException();
+			}
+
+			protected override IDictionary<string, IKnowledge> GetDescriptionParameters()
+			{
+				throw new NotImplementedException();
+			}
+
+			public override bool Equals(TestStatement other)
+			{
+				return ReferenceEquals(this, other);
+			}
 		}
 	}
 }
