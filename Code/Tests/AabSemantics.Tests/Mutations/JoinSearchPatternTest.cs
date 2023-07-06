@@ -6,9 +6,7 @@ using NUnit.Framework;
 
 using AabSemantics.Concepts;
 using AabSemantics.Localization;
-using AabSemantics.Modules.Boolean.Attributes;
 using AabSemantics.Modules.Classification.Statements;
-using AabSemantics.Modules.Mathematics.Statements;
 using AabSemantics.Mutations;
 using AabSemantics.Statements;
 
@@ -117,9 +115,9 @@ namespace AabSemantics.Tests.Mutations
 				m.SearchPattern == joinSearchPattern &&
 				m.SemanticNetwork == semanticNetwork &&
 				m.Knowledge.Count == 3 &&
-				m.Knowledge[joinSearchPattern] == semanticNetwork.Concepts["10"] &&
-				((ComparisonStatement) m.Knowledge[joinSearchPattern.Left])?.LeftValue == semanticNetwork.Concepts["9"] &&
-				((ComparisonStatement) m.Knowledge[joinSearchPattern.Right])?.RightValue == null));
+				m.Knowledge[joinSearchPattern] == semanticNetwork.Concepts["1"] &&
+				((IsStatement) m.Knowledge[joinSearchPattern.Left])?.Ancestor == semanticNetwork.Concepts["1"] &&
+				((IsStatement) m.Knowledge[joinSearchPattern.Right])?.Descendant == null));
 		}
 
 		[Test]
@@ -139,9 +137,9 @@ namespace AabSemantics.Tests.Mutations
 				m.SearchPattern == joinSearchPattern &&
 				m.SemanticNetwork == semanticNetwork &&
 				m.Knowledge.Count == 3 &&
-				m.Knowledge[joinSearchPattern] == semanticNetwork.Concepts["1"] &&
-				((ComparisonStatement) m.Knowledge[joinSearchPattern.Left])?.LeftValue == null &&
-				((ComparisonStatement) m.Knowledge[joinSearchPattern.Right])?.RightValue == semanticNetwork.Concepts["2"]));
+				m.Knowledge[joinSearchPattern] == semanticNetwork.Concepts["10"] &&
+				((IsStatement) m.Knowledge[joinSearchPattern.Left])?.Ancestor == null &&
+				((IsStatement) m.Knowledge[joinSearchPattern.Right])?.Descendant == semanticNetwork.Concepts["10"]));
 		}
 
 		[Test]
@@ -156,21 +154,21 @@ namespace AabSemantics.Tests.Mutations
 
 			// assert
 			Assert.AreEqual(10, matches.Count);
-			Assert.AreEqual(1, matches.Count(m =>
-				m.SearchPattern == joinSearchPattern &&
-				m.SemanticNetwork == semanticNetwork &&
-				m.Knowledge.Count == 3 &&
-				m.Knowledge[joinSearchPattern] == semanticNetwork.Concepts["10"] &&
-				((ComparisonStatement) m.Knowledge[joinSearchPattern.Left])?.LeftValue == semanticNetwork.Concepts["9"] &&
-				((ComparisonStatement) m.Knowledge[joinSearchPattern.Right])?.RightValue == null));
 			ValidateInnerJoins(semanticNetwork, matches, joinSearchPattern);
 			Assert.AreEqual(1, matches.Count(m =>
 				m.SearchPattern == joinSearchPattern &&
 				m.SemanticNetwork == semanticNetwork &&
 				m.Knowledge.Count == 3 &&
 				m.Knowledge[joinSearchPattern] == semanticNetwork.Concepts["1"] &&
-				((ComparisonStatement) m.Knowledge[joinSearchPattern.Left])?.LeftValue == null &&
-				((ComparisonStatement) m.Knowledge[joinSearchPattern.Right])?.RightValue == semanticNetwork.Concepts["2"]));
+				((IsStatement) m.Knowledge[joinSearchPattern.Left])?.Ancestor == semanticNetwork.Concepts["1"] &&
+				((IsStatement) m.Knowledge[joinSearchPattern.Right])?.Descendant == null));
+			Assert.AreEqual(1, matches.Count(m =>
+				m.SearchPattern == joinSearchPattern &&
+				m.SemanticNetwork == semanticNetwork &&
+				m.Knowledge.Count == 3 &&
+				m.Knowledge[joinSearchPattern] == semanticNetwork.Concepts["10"] &&
+				((IsStatement) m.Knowledge[joinSearchPattern.Left])?.Ancestor == null &&
+				((IsStatement) m.Knowledge[joinSearchPattern.Right])?.Descendant == semanticNetwork.Concepts["10"]));
 		}
 
 		private const int _numbersCount = 10;
@@ -181,57 +179,42 @@ namespace AabSemantics.Tests.Mutations
 
 			for (int i = 1; i <= _numbersCount; i++)
 			{
-				IConcept concept;
-				semanticNetwork.Concepts.Add(concept = i.CreateConcept());
-				concept.WithAttribute(IsValueAttribute.Value);
+				semanticNetwork.Concepts.Add(i.CreateConcept());
 			}
 
 			for (int i = 1; i < _numbersCount; i++)
 			{
-				semanticNetwork.DeclareThat(semanticNetwork.Concepts[i.ToString()]).IsLessThan(semanticNetwork.Concepts[(i+1).ToString()]);
+				semanticNetwork.DeclareThat(semanticNetwork.Concepts[i.ToString()]).IsAncestorOf(semanticNetwork.Concepts[(i+1).ToString()]);
 			}
 
 			return semanticNetwork;
 		}
 
-		private static JoinSearchPattern<ComparisonStatement, ComparisonStatement> CreateTestSearchPattern(JoinType joinType)
+		private static JoinSearchPattern<IsStatement, IsStatement> CreateTestSearchPattern(JoinType joinType)
 		{
-			return new JoinSearchPattern<ComparisonStatement, ComparisonStatement>(
-				new StatementSearchPattern<ComparisonStatement>(),
-				new StatementSearchPattern<ComparisonStatement>(),
+			return new JoinSearchPattern<IsStatement, IsStatement>(
+				new StatementSearchPattern<IsStatement>(),
+				new StatementSearchPattern<IsStatement>(),
 				joinType,
-				comparison => comparison.RightValue,
-				comparison => comparison.LeftValue);
+				comparison => comparison.Ancestor,
+				comparison => comparison.Descendant);
 		}
 
-		private static void ValidateInnerJoins(ISemanticNetwork semanticNetwork, List<KnowledgeStructure> matches, JoinSearchPattern<ComparisonStatement, ComparisonStatement> joinSearchPattern)
+		private static void ValidateInnerJoins(ISemanticNetwork semanticNetwork, List<KnowledgeStructure> matches, JoinSearchPattern<IsStatement, IsStatement> joinSearchPattern)
 		{
-			for (int i = 1; i <= 8; i++)
+			Assert.IsTrue(matches.All(m =>
 			{
-				Assert.AreEqual(1, matches.Count(m => ValidateJoin(
-					semanticNetwork,
-					joinSearchPattern,
-					m,
-					semanticNetwork.Concepts[i.ToString()],
-					semanticNetwork.Concepts[(i + 1).ToString()],
-					semanticNetwork.Concepts[(i + 2).ToString()])));
-			}
-		}
+				var left = m.Knowledge[joinSearchPattern.Left] as IsStatement;
+				var right = m.Knowledge[joinSearchPattern.Right] as IsStatement;
+				if (left == null || right == null) return true;
 
-		private static bool ValidateJoin(
-			ISemanticNetwork semanticNetwork,
-			JoinSearchPattern<ComparisonStatement, ComparisonStatement> joinSearchPattern,
-			KnowledgeStructure knowledgeStructure,
-			IConcept leftConcept,
-			IConcept joinConcept,
-			IConcept rightConcept)
-		{
-			return	knowledgeStructure.SearchPattern == joinSearchPattern &&
-					knowledgeStructure.SemanticNetwork == semanticNetwork &&
-					knowledgeStructure.Knowledge.Count == 3 &&
-					knowledgeStructure.Knowledge[joinSearchPattern] == joinConcept &&
-					((ComparisonStatement) knowledgeStructure.Knowledge[joinSearchPattern.Left]).LeftValue == leftConcept &&
-					((ComparisonStatement) knowledgeStructure.Knowledge[joinSearchPattern.Right]).RightValue == rightConcept;
+				return	m.SearchPattern == joinSearchPattern &&
+						m.SemanticNetwork == semanticNetwork &&
+						m.Knowledge.Count == 3 &&
+						m.Knowledge.ContainsKey(joinSearchPattern) &&
+						left.Ancestor == right.Descendant &&
+						int.Parse(left.Descendant.ID) - int.Parse(right.Ancestor.ID) == 2;
+			}));
 		}
 	}
 }
