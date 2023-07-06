@@ -7,9 +7,11 @@ using NUnit.Framework;
 using AabSemantics.Answers;
 using AabSemantics.Concepts;
 using AabSemantics.Localization;
+using AabSemantics.Modules.Boolean;
 using AabSemantics.Modules.Boolean.Localization;
 using AabSemantics.Modules.Boolean.Questions;
-using AabSemantics.Modules.Set.Tests;
+using AabSemantics.Modules.Classification;
+using AabSemantics.Modules.Classification.Statements;
 using AabSemantics.Questions;
 using AabSemantics.Statements;
 using AabSemantics.Text.Primitives;
@@ -19,6 +21,12 @@ namespace AabSemantics.Tests.Questions
 	[TestFixture]
 	public class CheckStatementQuestionTest
 	{
+		static CheckStatementQuestionTest()
+		{
+			new BooleanModule().RegisterMetadata();
+			new ClassificationModule().RegisterMetadata();
+		}
+
 		[Test]
 		public void GivenNullArguments_WhenTryToCreateQuestion_ThenFail()
 		{
@@ -31,15 +39,22 @@ namespace AabSemantics.Tests.Questions
 		{
 			// arrange
 			var language = Language.Default;
-			var semanticNetwork = new SemanticNetwork(language).CreateSetTestData();
+			var semanticNetwork = new SemanticNetwork(language)
+				.WithModule<BooleanModule>()
+				.WithModule<ClassificationModule>();
 
-			var checkedStatement = semanticNetwork.SemanticNetwork.Statements.First();
+			IConcept vehicle, car;
+			semanticNetwork.Concepts.Add(vehicle = "vehicle".CreateConcept());
+			semanticNetwork.Concepts.Add(car = "car".CreateConcept());
+			semanticNetwork.DeclareThat(car).IsDescendantOf(vehicle);
+
+			var checkedStatement = semanticNetwork.Statements.First();
 
 			// act
 			var questionRegular = new CheckStatementQuestion(checkedStatement);
-			var answerRegular = (BooleanAnswer) questionRegular.Ask(semanticNetwork.SemanticNetwork.Context);
+			var answerRegular = (BooleanAnswer) questionRegular.Ask(semanticNetwork.Context);
 
-			var answerBuilder = (BooleanAnswer) semanticNetwork.SemanticNetwork.Ask().IsTrueThat(checkedStatement);
+			var answerBuilder = (BooleanAnswer) semanticNetwork.Ask().IsTrueThat(checkedStatement);
 
 			// assert
 			Assert.AreEqual(answerRegular.Result, answerBuilder.Result);

@@ -6,9 +6,10 @@ using NUnit.Framework;
 using AabSemantics.Answers;
 using AabSemantics.Concepts;
 using AabSemantics.Localization;
+using AabSemantics.Modules.Boolean;
+using AabSemantics.Modules.Classification;
 using AabSemantics.Modules.Classification.Questions;
 using AabSemantics.Modules.Classification.Statements;
-using AabSemantics.Modules.Set.Tests;
 using AabSemantics.Questions;
 using AabSemantics.Statements;
 
@@ -33,13 +34,20 @@ namespace AabSemantics.Tests.Questions
 		{
 			// arrange
 			var language = Language.Default;
-			var semanticNetwork = new SemanticNetwork(language).CreateSetTestData();
+			var semanticNetwork = new SemanticNetwork(language)
+				.WithModule<BooleanModule>()
+				.WithModule<ClassificationModule>();
+
+			IConcept vehicle, car;
+			semanticNetwork.Concepts.Add(vehicle = "vehicle".CreateConcept());
+			semanticNetwork.Concepts.Add(car = "car".CreateConcept());
+			semanticNetwork.DeclareThat(car).IsDescendantOf(vehicle);
 
 			// act
-			var questionRegular = new IsQuestion(semanticNetwork.Vehicle_Car, semanticNetwork.Base_Vehicle);
-			var answerRegular = (BooleanAnswer) questionRegular.Ask(semanticNetwork.SemanticNetwork.Context);
+			var questionRegular = new IsQuestion(car, vehicle);
+			var answerRegular = (BooleanAnswer) questionRegular.Ask(semanticNetwork.Context);
 
-			var answerBuilder = (BooleanAnswer) semanticNetwork.SemanticNetwork.Ask().IfIs(semanticNetwork.Vehicle_Car, semanticNetwork.Base_Vehicle);
+			var answerBuilder = (BooleanAnswer) semanticNetwork.Ask().IfIs(car, vehicle);
 
 			// assert
 			Assert.AreEqual(answerRegular.Result, answerBuilder.Result);
@@ -51,10 +59,17 @@ namespace AabSemantics.Tests.Questions
 		{
 			// arrange
 			var language = Language.Default;
-			var semanticNetwork = new SemanticNetwork(language).CreateSetTestData();
+			var semanticNetwork = new SemanticNetwork(language)
+				.WithModule<BooleanModule>()
+				.WithModule<ClassificationModule>();
+
+			IConcept vehicle, car;
+			semanticNetwork.Concepts.Add(vehicle = "vehicle".CreateConcept());
+			semanticNetwork.Concepts.Add(car = "car".CreateConcept());
+			semanticNetwork.DeclareThat(car).IsDescendantOf(vehicle);
 
 			// act
-			var answer = semanticNetwork.SemanticNetwork.Ask().IfIs(semanticNetwork.Sign_AreaType, semanticNetwork.Base_Vehicle);
+			var answer = semanticNetwork.Ask().IfIs(vehicle, car);
 
 			// assert
 			Assert.IsFalse(answer.IsEmpty);
@@ -68,18 +83,25 @@ namespace AabSemantics.Tests.Questions
 		{
 			// arrange
 			var language = Language.Default;
-			var semanticNetwork = new SemanticNetwork(language).CreateSetTestData();
+			var semanticNetwork = new SemanticNetwork(language)
+				.WithModule<BooleanModule>()
+				.WithModule<ClassificationModule>();
+
+			IConcept vehicle, car;
+			semanticNetwork.Concepts.Add(vehicle = "vehicle".CreateConcept());
+			semanticNetwork.Concepts.Add(car = "car".CreateConcept());
+			semanticNetwork.DeclareThat(car).IsDescendantOf(vehicle);
 
 			// act
-			var answer = semanticNetwork.SemanticNetwork.Ask().IfIs(semanticNetwork.Vehicle_Airbus, semanticNetwork.Base_Vehicle);
+			var answer = semanticNetwork.Ask().IfIs(car, vehicle);
 
 			//assert
 			Assert.IsFalse(answer.IsEmpty);
 			Assert.IsTrue(((BooleanAnswer) answer).Result);
 
 			var classification = (IsStatement) answer.Explanation.Statements.Single();
-			Assert.AreSame(semanticNetwork.Base_Vehicle, classification.Ancestor);
-			Assert.AreSame(semanticNetwork.Vehicle_Airbus, classification.Descendant);
+			Assert.AreSame(vehicle, classification.Ancestor);
+			Assert.AreSame(car, classification.Descendant);
 			Assert.IsTrue(answer.Description.ToString().StartsWith("Yes, "));
 		}
 
@@ -88,15 +110,21 @@ namespace AabSemantics.Tests.Questions
 		{
 			// arrange
 			var language = Language.Default;
-			var semanticNetwork = new SemanticNetwork(language).CreateSetTestData();
+			var semanticNetwork = new SemanticNetwork(language)
+				.WithModule<BooleanModule>()
+				.WithModule<ClassificationModule>();
 
-			var hugeAirbus = ConceptCreationHelper.CreateConcept();
-			semanticNetwork.SemanticNetwork.Concepts.Add(hugeAirbus);
+			IConcept vehicle, car;
+			semanticNetwork.Concepts.Add(vehicle = "vehicle".CreateConcept());
+			semanticNetwork.Concepts.Add(car = "car".CreateConcept());
+			semanticNetwork.DeclareThat(car).IsDescendantOf(vehicle);
 
-			var classification = semanticNetwork.SemanticNetwork.DeclareThat(hugeAirbus).IsDescendantOf(semanticNetwork.Vehicle_Airbus);
+			IConcept sportcar;
+			semanticNetwork.Concepts.Add(sportcar = "sportcar".CreateConcept());
+			var classification = semanticNetwork.DeclareThat(sportcar).IsDescendantOf(car);
 
 			// act
-			var answer = semanticNetwork.SemanticNetwork.Ask().IfIs(hugeAirbus, semanticNetwork.Base_Vehicle);
+			var answer = semanticNetwork.Ask().IfIs(sportcar, vehicle);
 
 			//assert
 			Assert.IsFalse(answer.IsEmpty);
