@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 
 using AabSemantics.Concepts;
@@ -12,6 +11,7 @@ using AabSemantics.Modules.Classification;
 using AabSemantics.Modules.Classification.Statements;
 using AabSemantics.Mutations;
 using AabSemantics.Statements;
+using AabSemantics.TestCore;
 
 namespace AabSemantics.Tests.Mutations
 {
@@ -152,43 +152,6 @@ namespace AabSemantics.Tests.Mutations
 				m.SearchPattern == searchPattern &&
 				m.Knowledge.Keys.Single() == searchPattern &&
 				allTypedStatements.Contains(m.Knowledge.Values.Single())));
-		}
-
-		private class TestStatement : Statement<TestStatement>
-		{
-			public TestStatement()
-				: base(null, LocalizedString.Empty, LocalizedString.Empty)
-			{ }
-
-			public override IEnumerable<IConcept> GetChildConcepts()
-			{
-				return Array.Empty<IConcept>();
-			}
-
-			protected override string GetDescriptionTrueText(ILanguage language)
-			{
-				throw new NotImplementedException();
-			}
-
-			protected override string GetDescriptionFalseText(ILanguage language)
-			{
-				throw new NotImplementedException();
-			}
-
-			protected override string GetDescriptionQuestionText(ILanguage language)
-			{
-				throw new NotImplementedException();
-			}
-
-			protected override IDictionary<string, IKnowledge> GetDescriptionParameters()
-			{
-				throw new NotImplementedException();
-			}
-
-			public override bool Equals(TestStatement other)
-			{
-				return ReferenceEquals(this, other);
-			}
 		}
 	}
 }
