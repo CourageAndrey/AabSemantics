@@ -3,11 +3,15 @@ using System.Linq;
 
 using NUnit.Framework;
 
+using AabSemantics.Concepts;
 using AabSemantics.Localization;
+using AabSemantics.Modules.Boolean;
 using AabSemantics.Modules.Boolean.Questions;
+using AabSemantics.Modules.Classification;
 using AabSemantics.Modules.Classification.Questions;
-using AabSemantics.Modules.Set.Tests;
+using AabSemantics.Modules.Classification.Statements;
 using AabSemantics.Serialization;
+using AabSemantics.Statements;
 using AabSemantics.TestCore;
 
 namespace AabSemantics.Tests.Serialization
@@ -24,8 +28,15 @@ namespace AabSemantics.Tests.Serialization
 		{
 			_language = Language.Default;
 
-			_semanticNetwork = new SemanticNetwork(_language);
-			_semanticNetwork.CreateSetTestData();
+			new BooleanModule().RegisterMetadata();
+			new ClassificationModule().RegisterMetadata();
+			_semanticNetwork = new SemanticNetwork(_language)
+				.WithModule<BooleanModule>()
+				.WithModule<ClassificationModule>();
+			IConcept a, d;
+			_semanticNetwork.Concepts.Add(a = "a".CreateConcept());
+			_semanticNetwork.Concepts.Add(d = "d".CreateConcept());
+			_semanticNetwork.DeclareThat(a).IsAncestorOf(d);
 
 			_conceptIdResolver = new ConceptIdResolver(_semanticNetwork.Concepts.ToDictionary(
 				concept => concept.ID,

@@ -10,7 +10,6 @@ using AabSemantics.Modules.Boolean;
 using AabSemantics.Modules.Boolean.Concepts;
 using AabSemantics.Modules.Classification;
 using AabSemantics.Modules.Classification.Statements;
-using AabSemantics.Modules.Set;
 using AabSemantics.Statements;
 
 namespace AabSemantics.Tests.Statements
@@ -577,7 +576,6 @@ namespace AabSemantics.Tests.Statements
 			{
 				new BooleanModule(),
 				new ClassificationModule(),
-				new SetModule(),
 			};
 			foreach (var module in modules)
 			{
