@@ -5,9 +5,7 @@ using NUnit.Framework;
 
 using AabSemantics.Answers;
 using AabSemantics.Concepts;
-using AabSemantics.Localization;
 using AabSemantics.Modules.Classification.Statements;
-using AabSemantics.Statements;
 using AabSemantics.Text.Containers;
 
 namespace AabSemantics.Tests.Answers
@@ -53,12 +51,12 @@ namespace AabSemantics.Tests.Answers
 			Assert.IsTrue(untypedAnswer.Explanation.Statements.SequenceEqual(genericAnswer.Explanation.Statements));
 		}
 
-		private class TestStatement : Statement<TestStatement>
+		private class TestStatement : TestCore.TestStatement
 		{
 			private readonly IConcept _concept1, _concept2;
 
 			public TestStatement(IConcept concept1, IConcept concept2)
-				: base(null, new LocalizedStringConstant(l => null), new LocalizedStringConstant(l => null))
+				: base()
 			{
 				_concept1 = concept1;
 				_concept2 = concept2;
@@ -66,32 +64,14 @@ namespace AabSemantics.Tests.Answers
 
 			public override IEnumerable<IConcept> GetChildConcepts()
 			{
-				throw new System.NotImplementedException();
+				yield return _concept1;
+				yield return _concept2;
 			}
 
-			protected override string GetDescriptionTrueText(ILanguage language)
+			public override bool Equals(TestCore.TestStatement other)
 			{
-				throw new System.NotImplementedException();
-			}
-
-			protected override string GetDescriptionFalseText(ILanguage language)
-			{
-				throw new System.NotImplementedException();
-			}
-
-			protected override string GetDescriptionQuestionText(ILanguage language)
-			{
-				throw new System.NotImplementedException();
-			}
-
-			protected override IDictionary<string, IKnowledge> GetDescriptionParameters()
-			{
-				throw new System.NotImplementedException();
-			}
-
-			public override bool Equals(TestStatement other)
-			{
-				return _concept1 == other._concept1 && _concept2 == other._concept2;
+				var typed = (TestStatement) other;
+				return _concept1 == typed._concept1 && _concept2 == typed._concept2;
 			}
 		}
 	}

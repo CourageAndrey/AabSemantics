@@ -152,49 +152,24 @@ namespace AabSemantics.Tests.Questions
 			Assert.IsTrue(answer.Explanation.Statements.Contains(statementIC));
 		}
 
-		private class TestStatement : Statement<TestStatement>
+		private class TestStatement : TestCore.TestStatement
 		{
 			public int Number
 			{ get; }
 
 			public TestStatement(int number)
-				: base(number.ToString(), new LocalizedStringConstant(l => number.ToString()), new LocalizedStringConstant(l => number.ToString()))
+				: base(number.ToString(), LocalizedString.Empty, LocalizedString.Empty)
 			{
 				Number = number;
 			}
 
-			public override IEnumerable<IConcept> GetChildConcepts()
+			public override bool Equals(TestCore.TestStatement other)
 			{
-				yield break;
-			}
-
-			protected override string GetDescriptionTrueText(ILanguage language)
-			{
-				return string.Empty;
-			}
-
-			protected override string GetDescriptionFalseText(ILanguage language)
-			{
-				return string.Empty;
-			}
-
-			protected override string GetDescriptionQuestionText(ILanguage language)
-			{
-				return string.Empty;
-			}
-
-			protected override IDictionary<string, IKnowledge> GetDescriptionParameters()
-			{
-				return new Dictionary<string, IKnowledge>();
-			}
-
-			public override bool Equals(TestStatement other)
-			{
-				return Number == other.Number;
+				return Number == ((TestStatement) other).Number;
 			}
 		}
 
-		private class TransitiveTestStatement : Statement<TransitiveTestStatement>, IParentChild<IConcept>
+		private class TransitiveTestStatement : TestCore.TestStatement, IParentChild<IConcept>
 		{
 			public IConcept Parent
 			{ get; }
@@ -209,35 +184,16 @@ namespace AabSemantics.Tests.Questions
 				Child = child;
 			}
 
-			public override bool Equals(TransitiveTestStatement other)
+			public override bool Equals(TestCore.TestStatement other)
 			{
-				return Parent == other.Parent && Child == other.Child;
+				var typed = (TransitiveTestStatement) other;
+				return Parent == typed.Parent && Child == typed.Child;
 			}
 
 			public override IEnumerable<IConcept> GetChildConcepts()
 			{
 				yield return Parent;
 				yield return Child;
-			}
-
-			protected override string GetDescriptionTrueText(ILanguage language)
-			{
-				return string.Empty;
-			}
-
-			protected override string GetDescriptionFalseText(ILanguage language)
-			{
-				return string.Empty;
-			}
-
-			protected override string GetDescriptionQuestionText(ILanguage language)
-			{
-				return string.Empty;
-			}
-
-			protected override IDictionary<string, IKnowledge> GetDescriptionParameters()
-			{
-				return new Dictionary<string, IKnowledge>();
 			}
 		}
 	}

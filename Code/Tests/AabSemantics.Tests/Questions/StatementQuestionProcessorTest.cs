@@ -13,6 +13,7 @@ using AabSemantics.Modules.Classification.Questions;
 using AabSemantics.Modules.Classification.Statements;
 using AabSemantics.Questions;
 using AabSemantics.Statements;
+using AabSemantics.TestCore;
 
 namespace AabSemantics.Tests.Questions
 {
@@ -141,43 +142,6 @@ namespace AabSemantics.Tests.Questions
 			public Boolean IsItNecessaryToAggregateTransitivesToStatements()
 			{
 				return NeedToAggregateTransitivesToStatements;
-			}
-		}
-
-		private class TestStatement : Statement<TestStatement>
-		{
-			public TestStatement()
-				: base(null, LocalizedString.Empty, LocalizedString.Empty)
-			{ }
-
-			public override IEnumerable<IConcept> GetChildConcepts()
-			{
-				return Array.Empty<IConcept>();
-			}
-
-			protected override string GetDescriptionTrueText(ILanguage language)
-			{
-				throw new NotImplementedException();
-			}
-
-			protected override string GetDescriptionFalseText(ILanguage language)
-			{
-				throw new NotImplementedException();
-			}
-
-			protected override string GetDescriptionQuestionText(ILanguage language)
-			{
-				throw new NotImplementedException();
-			}
-
-			protected override IDictionary<string, IKnowledge> GetDescriptionParameters()
-			{
-				throw new NotImplementedException();
-			}
-
-			public override bool Equals(TestStatement other)
-			{
-				return ReferenceEquals(this, other);
 			}
 		}
 	}

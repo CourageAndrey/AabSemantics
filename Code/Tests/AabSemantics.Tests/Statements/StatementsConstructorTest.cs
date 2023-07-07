@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 
 using NUnit.Framework;
 
@@ -9,7 +8,7 @@ using AabSemantics.Modules.Boolean;
 using AabSemantics.Modules.Boolean.Attributes;
 using AabSemantics.Modules.Classification;
 using AabSemantics.Modules.Classification.Statements;
-using AabSemantics.Statements;
+using AabSemantics.TestCore;
 
 namespace AabSemantics.Tests.Statements
 {
@@ -111,47 +110,5 @@ namespace AabSemantics.Tests.Statements
 		}
 
 		#endregion
-
-		private class TestStatement : Statement
-		{
-			public TestStatement(string id, ILocalizedString name, ILocalizedString hint)
-				: base(id, name, hint)
-			{ }
-
-			public override IEnumerable<IConcept> GetChildConcepts()
-			{
-				throw new NotImplementedException();
-			}
-
-			protected override String GetDescriptionTrueText(ILanguage language)
-			{
-				throw new NotImplementedException();
-			}
-
-			protected override String GetDescriptionFalseText(ILanguage language)
-			{
-				throw new NotImplementedException();
-			}
-
-			protected override String GetDescriptionQuestionText(ILanguage language)
-			{
-				throw new NotImplementedException();
-			}
-
-			protected override IDictionary<string, IKnowledge> GetDescriptionParameters()
-			{
-				throw new NotImplementedException();
-			}
-
-			public override bool CheckUnique(IEnumerable<IStatement> statements)
-			{
-				throw new NotImplementedException();
-			}
-
-			public override bool Equals(object obj)
-			{
-				throw new NotImplementedException();
-			}
-		}
 	}
 }
