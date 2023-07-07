@@ -5,12 +5,11 @@ using System.Linq;
 
 using NUnit.Framework;
 
-using AabSemantics.IntegrationTests;
 using AabSemantics.Localization;
 using AabSemantics.Serialization.Json;
 using AabSemantics.Serialization.Xml;
 
-namespace AabSemantics.Tests.Serialization
+namespace AabSemantics.IntegrationTests.Serialization
 {
 	[TestFixture]
 	public class SemanticNetworkSerializationTest

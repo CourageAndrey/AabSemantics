@@ -13,7 +13,7 @@ using AabSemantics.Modules.Set;
 using AabSemantics.Modules.Set.Tests;
 using AabSemantics.Statements;
 
-namespace AabSemantics.Tests
+namespace AabSemantics.IntegrationTests
 {
 	[TestFixture]
 	public class SemanticNetworkTest
