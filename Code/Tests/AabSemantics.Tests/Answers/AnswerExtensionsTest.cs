@@ -8,8 +8,6 @@ using AabSemantics.Localization;
 using AabSemantics.Modules.Boolean.Localization;
 using AabSemantics.Modules.Classification.Localization;
 using AabSemantics.Modules.Classification.Statements;
-using AabSemantics.Modules.Set.Localization;
-using AabSemantics.Modules.Set.Statements;
 using AabSemantics.Text.Primitives;
 using AabSemantics.Text.Renders;
 
@@ -25,7 +23,6 @@ namespace AabSemantics.Tests.Answers
 			var language = Language.Default;
 			language.Extensions.Add(LanguageBooleanModule.CreateDefault());
 			language.Extensions.Add(LanguageClassificationModule.CreateDefault());
-			language.Extensions.Add(LanguageSetModule.CreateDefault());
 
 			var render = new PlainStringTextRender();
 
@@ -48,19 +45,21 @@ namespace AabSemantics.Tests.Answers
 			var language = Language.Default;
 			language.Extensions.Add(LanguageBooleanModule.CreateDefault());
 			language.Extensions.Add(LanguageClassificationModule.CreateDefault());
-			language.Extensions.Add(LanguageSetModule.CreateDefault());
 
 			var render = new PlainStringTextRender();
 
 			var text = new FormattedText(l => "Some answer, which required detailed explanation.");
 			string initialText = render.Render(text, language).ToString();
 
-			var concept = new Concept("CONCEPT", new LocalizedStringConstant(l => "CoNcEpT"));
+			var concept1 = 1.CreateConcept();
+			var concept2 = 2.CreateConcept();
+			var concept3 = 3.CreateConcept();
+			var concept4 = 4.CreateConcept();
 			var statements = new IStatement[]
 			{
-				new HasPartStatement("HasPartStatement", concept, concept),
-				new IsStatement("IsStatement", concept, concept),
-				new GroupStatement("GroupStatement", concept, concept),
+				new IsStatement("12", concept1, concept2),
+				new IsStatement("23", concept2, concept3),
+				new IsStatement("34", concept3, concept4),
 			};
 
 			// act

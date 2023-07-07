@@ -80,7 +80,6 @@ namespace AabSemantics.Tests.Localization
 
 			new Modules.Boolean.BooleanModule().RegisterMetadata();
 			new Modules.Classification.ClassificationModule().RegisterMetadata();
-			new Modules.Set.SetModule().RegisterMetadata();
 
 			language.Extensions.Add(LanguageBooleanModule.CreateDefault());
 			language.Extensions.Add(LanguageClassificationModule.CreateDefault());
