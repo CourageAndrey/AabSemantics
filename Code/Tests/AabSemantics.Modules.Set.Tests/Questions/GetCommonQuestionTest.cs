@@ -6,10 +6,13 @@ using NUnit.Framework;
 using AabSemantics.Answers;
 using AabSemantics.Concepts;
 using AabSemantics.Localization;
+using AabSemantics.Modules.Boolean.Attributes;
 using AabSemantics.Modules.Boolean.Concepts;
+using AabSemantics.Modules.Boolean.Localization;
+using AabSemantics.Modules.Classification.Localization;
 using AabSemantics.Modules.Classification.Statements;
-using AabSemantics.Modules.Processes.Attributes;
 using AabSemantics.Modules.Set.Attributes;
+using AabSemantics.Modules.Set.Localization;
 using AabSemantics.Modules.Set.Questions;
 using AabSemantics.Modules.Set.Statements;
 using AabSemantics.Questions;
@@ -131,8 +134,8 @@ namespace AabSemantics.Modules.Set.Tests.Questions
 
 			// act
 			var answer = semanticNetwork.Ask().WhatInCommon(
-				semanticNetwork.Concepts.First(c => c.HasAttribute<IsProcessAttribute>()),
-				semanticNetwork.Concepts.Last(c => c.HasAttribute<IsProcessAttribute>()));
+				semanticNetwork.Concepts["Concept 1"],
+				semanticNetwork.Concepts["Concept 2"]);
 			var text = render.RenderText(answer.Description, language).ToString();
 
 			// assert
@@ -160,13 +163,17 @@ namespace AabSemantics.Modules.Set.Tests.Questions
 
 		internal static void CreateCompareConceptsTest(ISemanticNetwork semanticNetwork)
 		{
+			semanticNetwork.Context.Language.Extensions.Add(LanguageBooleanModule.CreateDefault());
+			semanticNetwork.Context.Language.Extensions.Add(LanguageClassificationModule.CreateDefault());
+			semanticNetwork.Context.Language.Extensions.Add(LanguageSetModule.CreateDefault());
+
 			var parent = "Parent 1".CreateConcept();
 			var parentOfParent = "Parent 2".CreateConcept();
 			var differentParent = "Different Parent".CreateConcept();
 			var concept1 = "Concept 1".CreateConcept();
 			var concept2 = "Concept 2".CreateConcept();
-			concept1.WithAttribute(IsProcessAttribute.Value);
-			concept2.WithAttribute(IsProcessAttribute.Value);
+			concept1.WithAttribute(IsValueAttribute.Value);
+			concept2.WithAttribute(IsValueAttribute.Value);
 			semanticNetwork.Concepts.Add(parent);
 			semanticNetwork.Concepts.Add(parentOfParent);
 			semanticNetwork.Concepts.Add(differentParent);

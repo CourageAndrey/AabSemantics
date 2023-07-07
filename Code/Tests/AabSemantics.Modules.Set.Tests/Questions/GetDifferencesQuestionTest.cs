@@ -7,7 +7,6 @@ using AabSemantics.Answers;
 using AabSemantics.Concepts;
 using AabSemantics.Localization;
 using AabSemantics.Modules.Classification.Statements;
-using AabSemantics.Modules.Processes.Attributes;
 using AabSemantics.Modules.Set.Questions;
 using AabSemantics.Questions;
 using AabSemantics.Statements;
@@ -131,8 +130,8 @@ namespace AabSemantics.Modules.Set.Tests.Questions
 
 			// act
 			var answer = semanticNetwork.Ask().WhatIsTheDifference(
-				semanticNetwork.Concepts.First(c => c.HasAttribute<IsProcessAttribute>()),
-				semanticNetwork.Concepts.Last(c => c.HasAttribute<IsProcessAttribute>()));
+				semanticNetwork.Concepts["Concept 1"],
+				semanticNetwork.Concepts["Concept 2"]);
 			var text = render.RenderText(answer.Description, language).ToString();
 
 			// assert
