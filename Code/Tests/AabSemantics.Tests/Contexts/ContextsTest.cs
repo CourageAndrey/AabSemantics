@@ -88,27 +88,6 @@ namespace AabSemantics.Tests.Contexts
 			}
 		}
 
-#warning This test partially duplicates previous one.
-		[Test]
-		public void ImpossibleToDisposeContextWithActiveChildren()
-		{
-			// arrange
-			var language = Language.Default;
-			var semanticNetwork = new SemanticNetwork(language);
-			var questionContext = semanticNetwork.Context.CreateQuestionContext(new TestQuestionCreateContextKnowledge());
-			var child1Context = questionContext.CreateQuestionContext(new TestQuestionCreateNestedContext());
-			var child2Context = questionContext.CreateQuestionContext(new TestQuestionCreateNestedContext());
-
-			// act & assert
-			Assert.Throws<InvalidOperationException>(() => questionContext.Dispose());
-
-			child1Context.Dispose();
-			Assert.Throws<InvalidOperationException>(() => questionContext.Dispose());
-
-			child2Context.Dispose();
-			Assert.DoesNotThrow(() => questionContext.Dispose());
-		}
-
 		[Test]
 		public void GivenContextStatements_WhenDispose_ThenRemoveThemFromSemanticsNetwork()
 		{
