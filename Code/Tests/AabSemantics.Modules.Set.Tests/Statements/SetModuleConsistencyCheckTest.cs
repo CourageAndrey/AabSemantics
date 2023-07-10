@@ -39,9 +39,8 @@ namespace AabSemantics.Modules.Set.Tests.Statements
 			}
 		}
 
-#warning Revise SetModule.checkMultiValues method logic
-		/*[Test]
-		public void GivenManyValuesForTheSameSignWhenCheckMultiValuesThenFail()
+		[Test]
+		public void GivenManyValuesForTheSameSign_WhenCheckMultiValues_ThenFail()
 		{
 			// arrange
 			var statementDefinition = Repositories.Statements.Definitions[typeof(SignValueStatement)];
@@ -69,7 +68,7 @@ namespace AabSemantics.Modules.Set.Tests.Statements
 
 			// assert
 			Assert.Greater(result.Items.Count, 0);
-		}*/
+		}
 
 		[Test]
 		public void GivenNoSign_WhenCheckValuesWithoutSign_ThenFail()
