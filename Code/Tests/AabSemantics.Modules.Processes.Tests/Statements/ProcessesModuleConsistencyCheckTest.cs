@@ -7,6 +7,7 @@ using AabSemantics.Modules.Processes.Attributes;
 using AabSemantics.Modules.Processes.Statements;
 using AabSemantics.Statements;
 using AabSemantics.Text.Containers;
+using System.Linq;
 
 namespace AabSemantics.Modules.Processes.Tests.Statements
 {
@@ -46,6 +47,7 @@ namespace AabSemantics.Modules.Processes.Tests.Statements
 
 			// assert
 			Assert.Greater(result.Items.Count, 0);
+			Assert.IsTrue(result.Items.Any(line => line.ToString().StartsWith("Impossible to detect sequence between ")));
 		}
 
 		[Test]
