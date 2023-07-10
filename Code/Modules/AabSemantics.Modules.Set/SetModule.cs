@@ -147,6 +147,33 @@ namespace AabSemantics.Modules.Set
 			ITextContainer result,
 			ISemanticNetwork semanticNetwork)
 		{
+			var conceptValues = new Dictionary<IConcept, ICollection<IConcept>>();
+			foreach (var statement in statements)
+			{
+				ICollection<IConcept> valuedSigns;
+				if (!conceptValues.TryGetValue(statement.Concept, out valuedSigns))
+				{
+					conceptValues[statement.Concept] = new HashSet<IConcept> { statement.Sign };
+				}
+				else
+				{
+					if (valuedSigns.Contains(statement.Sign))
+					{
+						result.Append(
+							language => language.GetExtension<ILanguageSetModule>().Statements.Consistency.ErrorMultipleSignValue,
+							new Dictionary<String, IKnowledge>
+							{
+								{ AabSemantics.Localization.Strings.ParamConcept, statement.Concept },
+								{ Strings.ParamSign, statement.Sign },
+							});
+					}
+					else
+					{
+						valuedSigns.Add(statement.Sign);
+					}
+				}
+			}
+
 			var classifications = semanticNetwork.Statements.OfType<IsStatement>().ToList();
 
 			foreach (var concept in semanticNetwork.Concepts)
