@@ -69,5 +69,30 @@ namespace AabSemantics.Modules.Set.Tests.Localization
 			Assert.IsNotNull(setExtension.Statements.QuestionFormatStrings);
 			Assert.IsNotNull(setExtension.Statements.TrueFormatStrings);
 		}
+
+		[Test]
+		public void GivenLanguageQuestionParameters_WhenUse_ThenAreUsed()
+		{
+			// arrange
+			var modules = new IExtensionModule[]
+			{
+				new BooleanModule(),
+				new ClassificationModule(),
+				new SetModule(),
+			};
+			foreach (var module in modules)
+			{
+				module.RegisterMetadata();
+			}
+
+			var language = Language.Default;
+			var lang = language.GetExtension<ILanguageSetModule>().Questions.Parameters;
+
+			// assert
+			Assert.AreEqual("SIGN", lang.Sign);
+			Assert.AreEqual("SUBJECT_AREA", lang.Area);
+			Assert.AreEqual("CONCEPT 1", lang.Concept1);
+			Assert.AreEqual("CONCEPT 2", lang.Concept2);
+		}
 	}
 }
