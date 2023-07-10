@@ -11,6 +11,9 @@ namespace AabSemantics.Modules.Set.Localization
 		String ErrorMultipleSignValue
 		{ get; }
 
+		String ErrorMultipleSignValueParents
+		{ get; }
+
 		String ErrorSignWithoutValue
 		{ get; }
 	}
@@ -29,6 +32,10 @@ namespace AabSemantics.Modules.Set.Localization
 		{ get; set; }
 
 		[XmlElement]
+		public String ErrorMultipleSignValueParents
+		{ get; set; }
+
+		[XmlElement]
 		public String ErrorSignWithoutValue
 		{ get; set; }
 
@@ -39,7 +46,8 @@ namespace AabSemantics.Modules.Set.Localization
 			return new LanguageConsistency
 			{
 				ErrorMultipleSign = $"Statement {AabSemantics.Localization.Strings.ParamStatement} cause sign value overload.",
-				ErrorMultipleSignValue = $"Value of {Strings.ParamSign} sign of {AabSemantics.Localization.Strings.ParamConcept} concept is uncertain, because many ancestors define their own values.",
+				ErrorMultipleSignValue = $"Value of {Strings.ParamSign} sign of {AabSemantics.Localization.Strings.ParamConcept} concept is uncertain, because its value set multiple times.",
+				ErrorMultipleSignValueParents = $"Value of {Strings.ParamSign} sign of {AabSemantics.Localization.Strings.ParamConcept} concept is uncertain, because many ancestors define their own values.",
 				ErrorSignWithoutValue = $"{AabSemantics.Localization.Strings.ParamStatement} defines value of sign, which does not belong to concept.",
 			};
 		}

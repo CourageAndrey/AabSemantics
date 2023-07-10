@@ -185,7 +185,7 @@ namespace AabSemantics.Modules.Set
 						parents.Select(p => SignValueStatement.GetSignValue(semanticNetwork.Statements, p, sign.Sign)).Count(r => r != null) > 1)
 					{
 						result.Append(
-							language => language.GetExtension<ILanguageSetModule>().Statements.Consistency.ErrorMultipleSignValue,
+							language => language.GetExtension<ILanguageSetModule>().Statements.Consistency.ErrorMultipleSignValueParents,
 							new Dictionary<String, IKnowledge>
 							{
 								{ AabSemantics.Localization.Strings.ParamConcept, concept },

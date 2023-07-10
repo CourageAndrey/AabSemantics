@@ -40,7 +40,7 @@ namespace AabSemantics.Modules.Set.Tests.Statements
 		}
 
 		[Test]
-		public void GivenManyValuesForTheSameSign_WhenCheckMultiValues_ThenFail()
+		public void GivenMultipleValuesOnTheSameLevel_WhenCheckMultiValues_ThenFail()
 		{
 			// arrange
 			var statementDefinition = Repositories.Statements.Definitions[typeof(SignValueStatement)];
@@ -60,6 +60,48 @@ namespace AabSemantics.Modules.Set.Tests.Statements
 			semanticNetwork.DeclareThat(concept).HasSign(sign);
 			semanticNetwork.DeclareThat(concept).HasSignValue(sign, value1);
 			semanticNetwork.DeclareThat(concept).HasSignValue(sign, value2);
+
+			var result = new UnstructuredContainer();
+
+			var render = TextRenders.PlainString;
+
+			// act
+			statementDefinition.CheckConsistency(semanticNetwork, result);
+			var text = render.RenderText(result, language).ToString();
+
+			// assert
+			Assert.Greater(result.Items.Count, 0);
+			Assert.IsTrue(text.Contains(" concept is uncertain, because its value set multiple times."));
+		}
+
+		[Test]
+		public void GivenMultipleValuesOnPreviousLevels_WhenCheckMultiValues_ThenFail()
+		{
+			// arrange
+			var statementDefinition = Repositories.Statements.Definitions[typeof(SignValueStatement)];
+
+			var language = Language.Default; 
+			var semanticNetwork = new SemanticNetwork(language)
+				.WithModules(_modules);
+
+			var concept = ConceptCreationHelper.CreateConcept();
+			var parent1 = ConceptCreationHelper.CreateConcept();
+			var parent2 = ConceptCreationHelper.CreateConcept();
+			var sign = ConceptCreationHelper.CreateConcept().WithAttribute(IsSignAttribute.Value);
+			var value1 = ConceptCreationHelper.CreateConcept().WithAttribute(IsValueAttribute.Value);
+			var value2 = ConceptCreationHelper.CreateConcept().WithAttribute(IsValueAttribute.Value);
+			semanticNetwork.Concepts.Add(concept);
+			semanticNetwork.Concepts.Add(parent1);
+			semanticNetwork.Concepts.Add(parent2);
+			semanticNetwork.Concepts.Add(sign);
+			semanticNetwork.Concepts.Add(value1);
+			semanticNetwork.Concepts.Add(value2);
+			semanticNetwork.DeclareThat(parent1).HasSign(sign);
+			semanticNetwork.DeclareThat(parent2).HasSign(sign);
+			semanticNetwork.DeclareThat(concept).IsDescendantOf(parent1);
+			semanticNetwork.DeclareThat(concept).IsDescendantOf(parent2);
+			semanticNetwork.DeclareThat(parent1).HasSignValue(sign, value1);
+			semanticNetwork.DeclareThat(parent2).HasSignValue(sign, value2);
 
 			var result = new UnstructuredContainer();
 
