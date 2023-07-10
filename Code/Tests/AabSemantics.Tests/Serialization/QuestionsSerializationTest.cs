@@ -38,6 +38,11 @@ namespace AabSemantics.Tests.Serialization
 			_semanticNetwork.Concepts.Add(d = "d".CreateConcept());
 			_semanticNetwork.DeclareThat(a).IsAncestorOf(d);
 
+			IConcept aa, dd;
+			_semanticNetwork.Concepts.Add(aa = "aa".CreateConcept());
+			_semanticNetwork.Concepts.Add(dd = "dd".CreateConcept());
+			_semanticNetwork.DeclareThat(aa).IsAncestorOf(dd);
+
 			_conceptIdResolver = new ConceptIdResolver(_semanticNetwork.Concepts.ToDictionary(
 				concept => concept.ID,
 				concept => concept));
@@ -61,8 +66,8 @@ namespace AabSemantics.Tests.Serialization
 		public static IEnumerable<IQuestion> CreateQuestions()
 		{
 			var testStatement = _semanticNetwork.Statements.First();
-			var testConcept1 = _semanticNetwork.Concepts.First();
-			var testConcept2 = _semanticNetwork.Concepts.Last();
+			var testConcept1 = _semanticNetwork.Concepts["a"];
+			var testConcept2 = _semanticNetwork.Concepts["d"];
 
 			yield return new CheckStatementQuestion(testStatement, _semanticNetwork.Statements.Except(new[] { testStatement }));
 			yield return new EnumerateAncestorsQuestion(testConcept1);
