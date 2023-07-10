@@ -5,12 +5,6 @@ namespace AabSemantics.Modules.Set.Localization
 {
 	public interface ILanguageAnswers
 	{
-		String IsTrue
-		{ get; }
-
-		String IsFalse
-		{ get; }
-
 		String IsSubjectAreaTrue
 		{ get; }
 
@@ -115,14 +109,6 @@ namespace AabSemantics.Modules.Set.Localization
 	public class LanguageAnswers : ILanguageAnswers
 	{
 		#region Properties
-
-		[XmlElement]
-		public String IsTrue
-		{ get; set; }
-
-		[XmlElement]
-		public String IsFalse
-		{ get; set; }
 
 		[XmlElement]
 		public String IsSubjectAreaTrue
@@ -262,8 +248,6 @@ namespace AabSemantics.Modules.Set.Localization
 		{
 			return new LanguageAnswers
 			{
-				IsTrue = $"Yes, {AabSemantics.Localization.Strings.ParamChild} is {AabSemantics.Localization.Strings.ParamParent}.",
-				IsFalse = $"No, {AabSemantics.Localization.Strings.ParamChild} is not {AabSemantics.Localization.Strings.ParamParent}.",
 				IsSubjectAreaTrue = $"Yes, {AabSemantics.Localization.Strings.ParamConcept} concept belongs to {Strings.ParamArea} subject area.",
 				IsSubjectAreaFalse = $"No, {AabSemantics.Localization.Strings.ParamConcept} concept does not belong to {Strings.ParamArea} subject area.",
 				IsDescription = $"{AabSemantics.Localization.Strings.ParamChild} is {AabSemantics.Localization.Strings.ParamParent}.",
