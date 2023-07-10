@@ -63,11 +63,15 @@ namespace AabSemantics.Modules.Set.Tests.Statements
 
 			var result = new UnstructuredContainer();
 
+			var render = TextRenders.PlainString;
+
 			// act
 			statementDefinition.CheckConsistency(semanticNetwork, result);
+			var text = render.RenderText(result, language).ToString();
 
 			// assert
 			Assert.Greater(result.Items.Count, 0);
+			Assert.IsTrue(text.Contains(" concept is uncertain, because many ancestors define their own values."));
 		}
 
 		[Test]
@@ -90,11 +94,15 @@ namespace AabSemantics.Modules.Set.Tests.Statements
 
 			var result = new UnstructuredContainer();
 
+			var render = TextRenders.PlainString;
+
 			// act
 			statementDefinition.CheckConsistency(semanticNetwork, result);
+			var text = render.RenderText(result, language).ToString();
 
 			// assert
 			Assert.Greater(result.Items.Count, 0);
+			Assert.IsTrue(text.Contains(" defines value of sign, which does not belong to concept."));
 		}
 
 		[Test]
@@ -147,11 +155,15 @@ namespace AabSemantics.Modules.Set.Tests.Statements
 
 			var result = new UnstructuredContainer();
 
+			var render = TextRenders.PlainString;
+
 			// act
 			statementDefinition.CheckConsistency(semanticNetwork, result);
+			var text = render.RenderText(result, language).ToString();
 
 			// assert
 			Assert.Greater(result.Items.Count, 0);
+			Assert.IsTrue(text.Contains(" cause sign value overload."));
 		}
 
 		[Test]
