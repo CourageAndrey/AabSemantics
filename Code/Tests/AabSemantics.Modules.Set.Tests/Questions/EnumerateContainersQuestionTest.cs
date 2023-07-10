@@ -6,6 +6,8 @@ using NUnit.Framework;
 using AabSemantics.Answers;
 using AabSemantics.Concepts;
 using AabSemantics.Localization;
+using AabSemantics.Modules.Boolean;
+using AabSemantics.Modules.Classification;
 using AabSemantics.Modules.Set.Questions;
 using AabSemantics.Modules.Set.Statements;
 using AabSemantics.Questions;
@@ -74,7 +76,10 @@ namespace AabSemantics.Modules.Set.Tests.Questions
 		{
 			// arrange
 			var language = Language.Default;
-			var semanticNetwork = new SemanticNetwork(language);
+			var semanticNetwork = new SemanticNetwork(language)
+				.WithModule<BooleanModule>()
+				.WithModule<ClassificationModule>()
+				.WithModule<SetModule>();
 
 			var partConcept = ConceptCreationHelper.CreateConcept();
 			semanticNetwork.Concepts.Add(partConcept);
