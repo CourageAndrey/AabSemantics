@@ -68,15 +68,12 @@ namespace AabSemantics.Statements
 		{
 			Dictionary<IConcept, HashSet<IConcept>> combinationsRow;
 			HashSet<IConcept> signsRow;
-			if (AllSigns.TryGetValue(row, out combinationsRow) && combinationsRow.TryGetValue(column, out signsRow)) // if value in current cell is set
-			{
-				Dictionary<IConcept, HashSet<IConcept>> combinationsColumn;
-				if (AllSigns.TryGetValue(column, out combinationsColumn)) // if current value has comparisons with other values
-				{
-					return updateAllInferredCombinationsWithinCell(row, combinationsColumn, signsRow);
-				}
-			}
-			return false;
+			Dictionary<IConcept, HashSet<IConcept>> combinationsColumn;
+
+			return	AllSigns.TryGetValue(row, out combinationsRow) &&
+					combinationsRow.TryGetValue(column, out signsRow) && // if value in current cell is set
+					AllSigns.TryGetValue(column, out combinationsColumn) && // if current value has comparisons with other values
+					updateAllInferredCombinationsWithinCell(row, combinationsColumn, signsRow);
 		}
 
 		private Boolean updateAllInferredCombinationsWithinCell(
