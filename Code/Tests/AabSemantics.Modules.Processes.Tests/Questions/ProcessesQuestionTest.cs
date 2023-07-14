@@ -34,6 +34,23 @@ namespace AabSemantics.Modules.Processes.Tests.Questions
 		}
 
 		[Test]
+		[TestCaseSource(nameof(GetSimpleStatements))]
+		public void GivenSingleStatement_WhenAskProcessQuestion_ThenFindId(ProcessesStatement statement)
+		{
+			// arrange
+			var language = Language.Default;
+			var semanticNetwork = new SemanticNetwork(language);
+
+			// act
+			var answer = (StatementsAnswer<ProcessesStatement>) semanticNetwork.Supposing(new IStatement[] { statement }).Ask().WhatIsMutualSequenceOfProcesses(statement.ProcessA, statement.ProcessB);
+
+			// assert
+			Assert.IsFalse(answer.IsEmpty);
+			Assert.IsTrue(answer.Result.Contains(statement));
+			Assert.IsTrue(answer.Explanation.Statements.Contains(statement));
+		}
+
+		[Test]
 		public void GivenWhatIsMutualSequenceOfProcesses_WhenBeingAsked_ThenBuildAndAskQuestion()
 		{
 			// arrange
@@ -212,6 +229,20 @@ namespace AabSemantics.Modules.Processes.Tests.Questions
 					var expectedResultSign = combination.Value;
 					yield return new object[] { transitiveSign, childSign, expectedResultSign };
 				}
+			}
+		}
+
+		private static IEnumerable<object[]> GetSimpleStatements()
+		{
+			var processA = ConceptCreationHelper.CreateConcept();
+			processA.WithAttribute(IsProcessAttribute.Value);
+
+			var processB = ConceptCreationHelper.CreateConcept();
+			processB.WithAttribute(IsProcessAttribute.Value);
+
+			foreach (var sign in SequenceSigns.All)
+			{
+				yield return new object[] { new ProcessesStatement(null, processA, processB, sign) };
 			}
 		}
 	}
