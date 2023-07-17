@@ -3,6 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 
 using AabSemantics.Answers;
+using AabSemantics.Concepts;
+using AabSemantics.Localization;
+using AabSemantics.Modules.Boolean.Attributes;
+using AabSemantics.Modules.Mathematics.Concepts;
+using AabSemantics.Modules.Mathematics.Questions;
+using AabSemantics.Modules.Mathematics.Statements;
 using AabSemantics.Modules.Processes.Concepts;
 using AabSemantics.Modules.Processes.Statements;
 using AabSemantics.Questions;
@@ -30,7 +36,7 @@ namespace AabSemantics.Modules.Processes.Questions
 			ProcessB = processB.EnsureNotNull(nameof(processB));
 		}
 
-		public override IAnswer Process(IQuestionProcessingContext context)
+		/*public override IAnswer Process(IQuestionProcessingContext context)
 		{
 			return context
 				.From<ProcessesQuestion, ProcessesStatement>()
@@ -44,6 +50,134 @@ namespace AabSemantics.Modules.Processes.Questions
 			return statements.Count > 0
 				? createAnswer(statements, context)
 				: ProcessChildAnswers(context, childAnswers);
+		}*/
+
+		public override IAnswer Process(IQuestionProcessingContext context)
+		{
+			var processesQuestionContext = (IQuestionProcessingContext<ProcessesQuestion>) context;
+			(IConcept processAStart, IConcept processAEnd, IConcept processBStart, IConcept processBEnd) = PrepareTemporaryComparisons(processesQuestionContext);
+
+			var startToStart = new ComparisonQuestion(processAStart, processBStart).Ask(context) as StatementAnswer;
+			var endToEnd = new ComparisonQuestion(processAEnd, processBEnd).Ask(context) as StatementAnswer;
+			var startToEnd = new ComparisonQuestion(processAStart, processBEnd).Ask(context) as StatementAnswer;
+			var endToStart = new ComparisonQuestion(processAEnd, processBStart).Ask(context) as StatementAnswer;
+
+			return CreateAnswer(
+				processesQuestionContext,
+				startToStart?.Result as ComparisonStatement,
+				endToEnd?.Result as ComparisonStatement,
+				startToEnd?.Result as ComparisonStatement,
+				endToStart?.Result as ComparisonStatement);
+		}
+
+		private static (IConcept, IConcept, IConcept, IConcept) PrepareTemporaryComparisons(IQuestionProcessingContext<ProcessesQuestion> context)
+		{
+			IConcept processAStart = null, processAEnd = null, processBStart = null, processBEnd = null;
+			var startPoints = new Dictionary<IConcept, IConcept>();
+			var endPoints = new Dictionary<IConcept, IConcept>();
+
+			(IConcept, IConcept) getPoints(IConcept process)
+			{
+				IConcept start, end;
+				if (startPoints.TryGetValue(process, out start))
+				{
+					end = endPoints[process];
+				}
+				else
+				{
+					startPoints[process] = start = new Concept(null, LocalizedString.Empty, LocalizedString.Empty).WithAttribute(IsValueAttribute.Value);
+					endPoints[process] = end = new Concept(null, LocalizedString.Empty, LocalizedString.Empty).WithAttribute(IsValueAttribute.Value);
+
+					if (process == context.Question.ProcessA)
+					{
+						processAStart = start;
+						processAEnd = end;
+					}
+					else if (process == context.Question.ProcessB)
+					{
+						processBStart = start;
+						processBEnd = end;
+					}
+
+					context.SemanticNetwork.Statements.Add(new ComparisonStatement(null, start, end, ComparisonSigns.IsGreaterThanOrEqualTo)
+					{
+						Context = context
+					});
+				}
+
+				return (start, end);
+			}
+
+			foreach (var processStatement in context.SemanticNetwork.Statements.Enumerate<ProcessesStatement>(context.ActiveContexts).ToList())
+			{
+				var (startA, endA) = getPoints(processStatement.ProcessA);
+				var (startB, endB) = getPoints(processStatement.ProcessB);
+
+				var comparisons = new List<ComparisonStatement>();
+
+				if (processStatement.SequenceSign == SequenceSigns.StartsAfterOtherStarted)
+				{
+					comparisons.Add(new ComparisonStatement(null, startA, startB, ComparisonSigns.IsGreaterThan));
+				}
+				else if (processStatement.SequenceSign == SequenceSigns.StartsBeforeOtherStarted)
+				{
+					comparisons.Add(new ComparisonStatement(null, startA, startB, ComparisonSigns.IsLessThan));
+				}
+				else if (processStatement.SequenceSign == SequenceSigns.FinishesAfterOtherStarted)
+				{
+					comparisons.Add(new ComparisonStatement(null, endA, startB, ComparisonSigns.IsGreaterThan));
+				}
+				else if (processStatement.SequenceSign == SequenceSigns.FinishesWhenOtherStarted)
+				{
+					comparisons.Add(new ComparisonStatement(null, endA, startB, ComparisonSigns.IsEqualTo));
+				}
+				else if (processStatement.SequenceSign == SequenceSigns.FinishesBeforeOtherStarted)
+				{
+					comparisons.Add(new ComparisonStatement(null, endA, startB, ComparisonSigns.IsLessThan));
+				}
+				else if (processStatement.SequenceSign == SequenceSigns.StartsAfterOtherFinished)
+				{
+					comparisons.Add(new ComparisonStatement(null, startA, endB, ComparisonSigns.IsGreaterThan));
+				}
+				else if (processStatement.SequenceSign == SequenceSigns.StartsWhenOtherFinished)
+				{
+					comparisons.Add(new ComparisonStatement(null, startA, endB, ComparisonSigns.IsEqualTo));
+				}
+				else if (processStatement.SequenceSign == SequenceSigns.StartsBeforeOtherFinished)
+				{
+					comparisons.Add(new ComparisonStatement(null, startA, endB, ComparisonSigns.IsLessThan));
+				}
+				else if (processStatement.SequenceSign == SequenceSigns.FinishesAfterOtherFinished)
+				{
+					comparisons.Add(new ComparisonStatement(null, endA, endB, ComparisonSigns.IsGreaterThan));
+				}
+				else if (processStatement.SequenceSign == SequenceSigns.FinishesBeforeOtherFinished)
+				{
+					comparisons.Add(new ComparisonStatement(null, endA, endB, ComparisonSigns.IsLessThan));
+				}
+
+				foreach (var comparison in comparisons)
+				{
+					comparison.Context = context;
+					context.SemanticNetwork.Statements.Add(comparison);
+				}
+			}
+
+			return (processAStart, processAEnd, processBStart, processBEnd);
+		}
+
+		private IAnswer CreateAnswer(
+			IQuestionProcessingContext<ProcessesQuestion> context,
+			ComparisonStatement startToStart,
+			ComparisonStatement endToEnd,
+			ComparisonStatement startToEnd,
+			ComparisonStatement endToStart)
+		{
+			var statements = new List<ProcessesStatement>();
+
+			//	...
+
+			return createAnswer(statements, context);
 		}
 
 		private static StatementsAnswer<ProcessesStatement> createAnswer(ICollection<ProcessesStatement> statements, IQuestionProcessingContext<ProcessesQuestion> context, ICollection<IStatement> transitiveStatements = null)
