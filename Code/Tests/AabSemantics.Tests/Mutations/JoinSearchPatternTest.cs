@@ -179,7 +179,7 @@ namespace AabSemantics.Tests.Mutations
 
 			for (int i = 1; i <= _numbersCount; i++)
 			{
-				semanticNetwork.Concepts.Add(i.CreateConcept());
+				semanticNetwork.Concepts.Add(i.CreateConceptByObject());
 			}
 
 			for (int i = 1; i < _numbersCount; i++)

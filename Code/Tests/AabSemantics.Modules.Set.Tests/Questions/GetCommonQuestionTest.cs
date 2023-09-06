@@ -27,7 +27,7 @@ namespace AabSemantics.Modules.Set.Tests.Questions
 		public void GivenNullArguments_WhenTryToCreateQuestion_ThenFail()
 		{
 			// arrange
-			IConcept concept = "test".CreateConcept();
+			IConcept concept = "test".CreateConceptByName();
 
 			// act && assert
 			Assert.Throws<ArgumentNullException>(() => new GetCommonQuestion(null, concept));
@@ -38,7 +38,7 @@ namespace AabSemantics.Modules.Set.Tests.Questions
 		public void GivenSameArguments_WhenTryToCreateQuestion_ThenFail()
 		{
 			// arrange
-			IConcept concept = "test".CreateConcept();
+			IConcept concept = "test".CreateConceptByName();
 
 			// act && assert
 			Assert.Throws<ArgumentException>(() => new GetCommonQuestion(concept, concept));
@@ -167,11 +167,11 @@ namespace AabSemantics.Modules.Set.Tests.Questions
 			semanticNetwork.Context.Language.Extensions.Add(LanguageClassificationModule.CreateDefault());
 			semanticNetwork.Context.Language.Extensions.Add(LanguageSetModule.CreateDefault());
 
-			var parent = "Parent 1".CreateConcept();
-			var parentOfParent = "Parent 2".CreateConcept();
-			var differentParent = "Different Parent".CreateConcept();
-			var concept1 = "Concept 1".CreateConcept();
-			var concept2 = "Concept 2".CreateConcept();
+			var parent = "Parent 1".CreateConceptByName();
+			var parentOfParent = "Parent 2".CreateConceptByName();
+			var differentParent = "Different Parent".CreateConceptByName();
+			var concept1 = "Concept 1".CreateConceptByName();
+			var concept2 = "Concept 2".CreateConceptByName();
 			concept1.WithAttribute(IsValueAttribute.Value);
 			concept2.WithAttribute(IsValueAttribute.Value);
 			semanticNetwork.Concepts.Add(parent);
@@ -186,13 +186,13 @@ namespace AabSemantics.Modules.Set.Tests.Questions
 			semanticNetwork.DeclareThat(differentParent).IsAncestorOf(concept1);
 			semanticNetwork.DeclareThat(differentParent).IsAncestorOf(concept2);
 
-			var signSameValues = SignSameValues.CreateConcept();
-			var signBothNotSet = SignBothNotSet.CreateConcept();
-			var signDifferentValues = SignDifferentValues.CreateConcept();
-			var signFirstNotSet = SignFirstNotSet.CreateConcept();
-			var signSecondNotSet = SignSecondNotSet.CreateConcept();
-			var signPseudoCommon = SignPseudoCommon.CreateConcept();
-			var signPseudoDifference = SignPseudoDifference.CreateConcept();
+			var signSameValues = SignSameValues.CreateConceptByName();
+			var signBothNotSet = SignBothNotSet.CreateConceptByName();
+			var signDifferentValues = SignDifferentValues.CreateConceptByName();
+			var signFirstNotSet = SignFirstNotSet.CreateConceptByName();
+			var signSecondNotSet = SignSecondNotSet.CreateConceptByName();
+			var signPseudoCommon = SignPseudoCommon.CreateConceptByName();
+			var signPseudoDifference = SignPseudoDifference.CreateConceptByName();
 			foreach (var sign in new[]
 			{
 				signSameValues,
@@ -236,7 +236,7 @@ namespace AabSemantics.Modules.Set.Tests.Questions
 			GetCommonQuestionTest.CreateCompareConceptsTest(semanticNetwork);
 
 			const string sideBranchId = "SIDE_BRANCH";
-			var sideBranch = sideBranchId.CreateConcept();
+			var sideBranch = sideBranchId.CreateConceptByName();
 			semanticNetwork.Concepts.Add(sideBranch);
 			semanticNetwork.DeclareThat(sideBranch).IsDescendantOf(semanticNetwork.Concepts["Parent 2"]);
 

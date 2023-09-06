@@ -205,7 +205,7 @@ namespace AabSemantics.Modules.Processes.Tests.Statements
 
 		private static IConcept CreateProcessConcept(string name)
 		{
-			var concept = name.CreateConcept();
+			var concept = name.CreateConceptByName();
 			concept.WithAttribute(IsProcessAttribute.Value);
 			return concept;
 		}

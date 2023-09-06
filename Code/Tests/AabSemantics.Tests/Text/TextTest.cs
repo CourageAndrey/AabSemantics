@@ -23,7 +23,7 @@ namespace AabSemantics.Tests.Text
 				language => $"Selected random number: #NUMBER#.",
 				new Dictionary<string, IKnowledge>
 				{
-					{ "#NUMBER#", seed.Next(1000, 9999).ToString().CreateConcept() },
+					{ "#NUMBER#", seed.Next(1000, 9999).ToString().CreateConceptByName() },
 				});
 
 			// act
@@ -119,7 +119,7 @@ namespace AabSemantics.Tests.Text
 		{
 			var createDecorated = new Func<IText>(() => new FormattedText(
 				l => "Carpe diem.",
-				new Dictionary<string, IKnowledge> { { "1", "ANY".CreateConcept() } }));
+				new Dictionary<string, IKnowledge> { { "1", "ANY".CreateConceptByName() } }));
 
 			yield return createDecorated().MakeBold();
 			yield return createDecorated().MakeItalic();
@@ -142,13 +142,13 @@ namespace AabSemantics.Tests.Text
 				{
 					new FormattedText(
 						l => "A",
-						new Dictionary<string, IKnowledge> { { "A", "A".CreateConcept() } }),
+						new Dictionary<string, IKnowledge> { { "A", "A".CreateConceptByName() } }),
 					new FormattedText(
 						l => "B",
-						new Dictionary<string, IKnowledge> { { "B", "B".CreateConcept() } }),
+						new Dictionary<string, IKnowledge> { { "B", "B".CreateConceptByName() } }),
 					new FormattedText(
 						l => "C",
-						new Dictionary<string, IKnowledge> { { "C", "C".CreateConcept() } }),
+						new Dictionary<string, IKnowledge> { { "C", "C".CreateConceptByName() } }),
 				};
 			});
 

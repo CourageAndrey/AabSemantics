@@ -13,8 +13,8 @@ namespace AabSemantics.Modules.Set.Tests.Statements
 		public void GivenNullOther_WhenEquals_ThenReturnFalse()
 		{
 			// arrange
-			IConcept	concept = 1.CreateConcept(),
-						sign = 2.CreateConcept().WithAttribute(IsSignAttribute.Value);
+			IConcept	concept = 1.CreateConceptByObject(),
+						sign = 2.CreateConceptByObject().WithAttribute(IsSignAttribute.Value);
 			var statement = new HasSignStatement(null, concept, sign);
 
 			// act && assert

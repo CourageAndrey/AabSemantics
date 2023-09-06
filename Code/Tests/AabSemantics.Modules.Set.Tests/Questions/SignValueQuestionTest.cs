@@ -21,7 +21,7 @@ namespace AabSemantics.Modules.Set.Tests.Questions
 		public void GivenNullArguments_WhenTryToCreateQuestion_ThenFail()
 		{
 			// arrange
-			IConcept concept = "test".CreateConcept();
+			IConcept concept = "test".CreateConceptByName();
 
 			// act && assert
 			Assert.Throws<ArgumentNullException>(() => new SignValueQuestion(null, concept));
@@ -84,7 +84,7 @@ namespace AabSemantics.Modules.Set.Tests.Questions
 			var language = Language.Default;
 			var semanticNetwork = new SemanticNetwork(language).CreateSetTestData();
 
-			var truck = ConceptCreationHelper.CreateConcept();
+			var truck = ConceptCreationHelper.CreateEmptyConcept();
 			semanticNetwork.SemanticNetwork.Concepts.Add(truck);
 
 			var classification = semanticNetwork.SemanticNetwork.DeclareThat(truck).IsDescendantOf(semanticNetwork.Vehicle_Car);
@@ -107,7 +107,7 @@ namespace AabSemantics.Modules.Set.Tests.Questions
 			var language = Language.Default;
 			var semanticNetwork = new SemanticNetwork(language).CreateSetTestData();
 
-			var flyingCar = ConceptCreationHelper.CreateConcept();
+			var flyingCar = ConceptCreationHelper.CreateEmptyConcept();
 			semanticNetwork.SemanticNetwork.Concepts.Add(flyingCar);
 
 			semanticNetwork.SemanticNetwork.DeclareThat(flyingCar).IsDescendantOf(semanticNetwork.Vehicle_Car);

@@ -50,9 +50,9 @@ namespace AabSemantics.Modules.Set.Tests.Questions
 			var language = Language.Default;
 			var semanticNetwork = new SemanticNetwork(language);
 
-			var conceptToCheck = ConceptCreationHelper.CreateConcept();
-			var wholeConcept = ConceptCreationHelper.CreateConcept();
-			var partConcept = ConceptCreationHelper.CreateConcept();
+			var conceptToCheck = ConceptCreationHelper.CreateEmptyConcept();
+			var wholeConcept = ConceptCreationHelper.CreateEmptyConcept();
+			var partConcept = ConceptCreationHelper.CreateEmptyConcept();
 			semanticNetwork.Concepts.Add(conceptToCheck);
 			semanticNetwork.Concepts.Add(wholeConcept);
 			semanticNetwork.Concepts.Add(partConcept);
@@ -81,7 +81,7 @@ namespace AabSemantics.Modules.Set.Tests.Questions
 				.WithModule<ClassificationModule>()
 				.WithModule<SetModule>();
 
-			var partConcept = ConceptCreationHelper.CreateConcept();
+			var partConcept = ConceptCreationHelper.CreateEmptyConcept();
 			semanticNetwork.Concepts.Add(partConcept);
 
 			var render = TextRenders.PlainString;
@@ -91,7 +91,7 @@ namespace AabSemantics.Modules.Set.Tests.Questions
 			for (int i = 1; i <= containerCount; i++)
 			{
 				// act
-				var wholeConcept = ConceptCreationHelper.CreateConcept();
+				var wholeConcept = ConceptCreationHelper.CreateEmptyConcept();
 				semanticNetwork.Concepts.Add(wholeConcept);
 				semanticNetwork.DeclareThat(partConcept).IsPartOf(wholeConcept);
 

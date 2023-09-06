@@ -23,9 +23,9 @@ namespace AabSemantics.Modules.Processes.Tests.Statements
 		public void GivenNoProcessA_WhenTryToCreateProcessesStatement_ThenFail()
 		{
 			// arrange
-			var processB = ConceptCreationHelper.CreateConcept();
+			var processB = ConceptCreationHelper.CreateEmptyConcept();
 			processB.WithAttribute(IsProcessAttribute.Value);
-			var sign = ConceptCreationHelper.CreateConcept();
+			var sign = ConceptCreationHelper.CreateEmptyConcept();
 			sign.WithAttribute(IsSequenceSignAttribute.Value);
 
 			// act && assert
@@ -36,9 +36,9 @@ namespace AabSemantics.Modules.Processes.Tests.Statements
 		public void GivenNoProcessB_WhenTryToCreateProcessesStatement_ThenFail()
 		{
 			// arrange
-			var processA = ConceptCreationHelper.CreateConcept();
+			var processA = ConceptCreationHelper.CreateEmptyConcept();
 			processA.WithAttribute(IsProcessAttribute.Value);
-			var sign = ConceptCreationHelper.CreateConcept();
+			var sign = ConceptCreationHelper.CreateEmptyConcept();
 			sign.WithAttribute(IsSequenceSignAttribute.Value);
 
 			// act && assert
@@ -49,9 +49,9 @@ namespace AabSemantics.Modules.Processes.Tests.Statements
 		public void GivenNoSign_WhenTryToCreateProcessesStatement_ThenFail()
 		{
 			// arrange
-			var processA = ConceptCreationHelper.CreateConcept();
+			var processA = ConceptCreationHelper.CreateEmptyConcept();
 			processA.WithAttribute(IsProcessAttribute.Value);
-			var processB = ConceptCreationHelper.CreateConcept();
+			var processB = ConceptCreationHelper.CreateEmptyConcept();
 			processB.WithAttribute(IsProcessAttribute.Value);
 
 			// act && assert
@@ -62,10 +62,10 @@ namespace AabSemantics.Modules.Processes.Tests.Statements
 		public void GivenProcessAWithoutAttribute_WhenTryToCreateProcessesStatement_ThenFail()
 		{
 			// arrange
-			var processA = ConceptCreationHelper.CreateConcept();
-			var processB = ConceptCreationHelper.CreateConcept();
+			var processA = ConceptCreationHelper.CreateEmptyConcept();
+			var processB = ConceptCreationHelper.CreateEmptyConcept();
 			processB.WithAttribute(IsProcessAttribute.Value);
-			var sign = ConceptCreationHelper.CreateConcept();
+			var sign = ConceptCreationHelper.CreateEmptyConcept();
 			sign.WithAttribute(IsSequenceSignAttribute.Value);
 
 			// act && assert
@@ -76,10 +76,10 @@ namespace AabSemantics.Modules.Processes.Tests.Statements
 		public void GivenProcessBWithoutAttribute_WhenTryToCreateProcessesStatement_ThenFail()
 		{
 			// arrange
-			var processA = ConceptCreationHelper.CreateConcept();
+			var processA = ConceptCreationHelper.CreateEmptyConcept();
 			processA.WithAttribute(IsProcessAttribute.Value);
-			var processB = ConceptCreationHelper.CreateConcept();
-			var sign = ConceptCreationHelper.CreateConcept();
+			var processB = ConceptCreationHelper.CreateEmptyConcept();
+			var sign = ConceptCreationHelper.CreateEmptyConcept();
 			sign.WithAttribute(IsSequenceSignAttribute.Value);
 
 			// act && assert
@@ -90,11 +90,11 @@ namespace AabSemantics.Modules.Processes.Tests.Statements
 		public void GivenSignWithoutAttribute_WhenTryToCreateProcessesStatement_ThenFail()
 		{
 			// arrange
-			var processA = ConceptCreationHelper.CreateConcept();
+			var processA = ConceptCreationHelper.CreateEmptyConcept();
 			processA.WithAttribute(IsProcessAttribute.Value);
-			var processB = ConceptCreationHelper.CreateConcept();
+			var processB = ConceptCreationHelper.CreateEmptyConcept();
 			processB.WithAttribute(IsProcessAttribute.Value);
-			var sign = ConceptCreationHelper.CreateConcept();
+			var sign = ConceptCreationHelper.CreateEmptyConcept();
 
 			// act && assert
 			Assert.Throws<ArgumentException>(() => new ProcessesStatement(TestStatementId, processA, processB, sign));
@@ -119,9 +119,9 @@ namespace AabSemantics.Modules.Processes.Tests.Statements
 				module.RegisterMetadata();
 			}
 
-			var concept1 = 1.CreateConcept().WithAttributes(new IAttribute[] { IsValueAttribute.Value, IsProcessAttribute.Value });
-			var concept2 = 2.CreateConcept().WithAttributes(new IAttribute[] { IsValueAttribute.Value, IsProcessAttribute.Value });
-			var concept3 = 3.CreateConcept().WithAttributes(new IAttribute[] { IsValueAttribute.Value, IsSequenceSignAttribute.Value });
+			var concept1 = 1.CreateConceptByObject().WithAttributes(new IAttribute[] { IsValueAttribute.Value, IsProcessAttribute.Value });
+			var concept2 = 2.CreateConceptByObject().WithAttributes(new IAttribute[] { IsValueAttribute.Value, IsProcessAttribute.Value });
+			var concept3 = 3.CreateConceptByObject().WithAttributes(new IAttribute[] { IsValueAttribute.Value, IsSequenceSignAttribute.Value });
 
 			var language = Language.Default;
 

@@ -33,8 +33,8 @@ namespace AabSemantics.Modules.Processes.Tests.Statements
 			var semanticNetwork = new SemanticNetwork(language)
 				.WithModule<ProcessesModule>();
 
-			var concept1 = ConceptCreationHelper.CreateConcept().WithAttribute(IsProcessAttribute.Value);
-			var concept2 = ConceptCreationHelper.CreateConcept().WithAttribute(IsProcessAttribute.Value);
+			var concept1 = ConceptCreationHelper.CreateEmptyConcept().WithAttribute(IsProcessAttribute.Value);
+			var concept2 = ConceptCreationHelper.CreateEmptyConcept().WithAttribute(IsProcessAttribute.Value);
 			semanticNetwork.Concepts.Add(concept1);
 			semanticNetwork.Concepts.Add(concept2);
 			semanticNetwork.DeclareThat(concept1).StartsAfterOtherFinished(concept2);
@@ -60,8 +60,8 @@ namespace AabSemantics.Modules.Processes.Tests.Statements
 			var semanticNetwork = new SemanticNetwork(language)
 				.WithModule<ProcessesModule>();
 
-			var concept1 = ConceptCreationHelper.CreateConcept().WithAttribute(IsProcessAttribute.Value);
-			var concept2 = ConceptCreationHelper.CreateConcept().WithAttribute(IsProcessAttribute.Value);
+			var concept1 = ConceptCreationHelper.CreateEmptyConcept().WithAttribute(IsProcessAttribute.Value);
+			var concept2 = ConceptCreationHelper.CreateEmptyConcept().WithAttribute(IsProcessAttribute.Value);
 			semanticNetwork.Concepts.Add(concept1);
 			semanticNetwork.Concepts.Add(concept2);
 			semanticNetwork.DeclareThat(concept1).SimultaneousWith(concept2);

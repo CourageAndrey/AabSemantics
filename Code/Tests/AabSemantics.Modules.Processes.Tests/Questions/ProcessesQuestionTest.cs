@@ -26,7 +26,7 @@ namespace AabSemantics.Modules.Processes.Tests.Questions
 		public void GivenNullArguments_WhenTryToCreateQuestion_ThenFail()
 		{
 			// arrange
-			IConcept concept = "test".CreateConcept();
+			IConcept concept = "test".CreateConceptByName();
 
 			// act && assert
 			Assert.Throws<ArgumentNullException>(() => new ProcessesQuestion(null, concept));
@@ -58,9 +58,9 @@ namespace AabSemantics.Modules.Processes.Tests.Questions
 			var semanticNetwork = new SemanticNetwork(language);
 			semanticNetwork.CreateProcessesTestData();
 
-			var processA = ConceptCreationHelper.CreateConcept();
+			var processA = ConceptCreationHelper.CreateEmptyConcept();
 			processA.WithAttribute(IsProcessAttribute.Value);
-			var processB = ConceptCreationHelper.CreateConcept();
+			var processB = ConceptCreationHelper.CreateEmptyConcept();
 			processB.WithAttribute(IsProcessAttribute.Value);
 			semanticNetwork.DeclareThat(processA).StartsBeforeOtherStarted(processB);
 			semanticNetwork.DeclareThat(processA).FinishesAfterOtherFinished(processB);
@@ -89,7 +89,7 @@ namespace AabSemantics.Modules.Processes.Tests.Questions
 
 			var semanticNetwork = new SemanticNetwork(language);
 
-			var question = new ProcessesQuestion(1.CreateConcept(), 2.CreateConcept());
+			var question = new ProcessesQuestion(1.CreateConceptByObject(), 2.CreateConceptByObject());
 
 			// act
 			var answer = question.Ask(semanticNetwork.Context);
@@ -213,7 +213,7 @@ namespace AabSemantics.Modules.Processes.Tests.Questions
 
 		private static IConcept CreateProcess(string name)
 		{
-			var process = name.CreateConcept();
+			var process = name.CreateConceptByName();
 			process.WithAttribute(IsProcessAttribute.Value);
 			return process;
 		}
@@ -234,10 +234,10 @@ namespace AabSemantics.Modules.Processes.Tests.Questions
 
 		private static IEnumerable<object[]> GetSimpleStatements()
 		{
-			var processA = ConceptCreationHelper.CreateConcept();
+			var processA = ConceptCreationHelper.CreateEmptyConcept();
 			processA.WithAttribute(IsProcessAttribute.Value);
 
-			var processB = ConceptCreationHelper.CreateConcept();
+			var processB = ConceptCreationHelper.CreateEmptyConcept();
 			processB.WithAttribute(IsProcessAttribute.Value);
 
 			foreach (var sign in SequenceSigns.All)

@@ -29,11 +29,11 @@ namespace AabSemantics.Sample05.CustomStatement
 
 			IConcept Alice, Bob, Charlie, Dave, Eve;
 
-			semanticNetwork.Concepts.Add(Alice = "Alice".CreateConcept());
-			semanticNetwork.Concepts.Add(Bob = "Bob".CreateConcept());
-			semanticNetwork.Concepts.Add(Charlie = "Charlie".CreateConcept());
-			semanticNetwork.Concepts.Add(Dave = "Dave".CreateConcept());
-			semanticNetwork.Concepts.Add(Eve = "Eve".CreateConcept());
+			semanticNetwork.Concepts.Add(Alice = "Alice".CreateConceptByName());
+			semanticNetwork.Concepts.Add(Bob = "Bob".CreateConceptByName());
+			semanticNetwork.Concepts.Add(Charlie = "Charlie".CreateConceptByName());
+			semanticNetwork.Concepts.Add(Dave = "Dave".CreateConceptByName());
+			semanticNetwork.Concepts.Add(Eve = "Eve".CreateConceptByName());
 
 			#endregion
 

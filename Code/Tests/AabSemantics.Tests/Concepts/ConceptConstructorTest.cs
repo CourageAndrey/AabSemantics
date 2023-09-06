@@ -56,10 +56,10 @@ namespace AabSemantics.Tests.Concepts
 		public void GivenDifferentIdAndName_WhenCreateConcept_ThenSucceed()
 		{
 			// arrange && act
-			var concept = TestConceptId.CreateConcept(new string(TestConceptId.Reverse().ToArray()));
+			var concept = TestConceptId.CreateConceptById(new string(TestConceptId.Reverse().ToArray()));
 
 			// assert
-			Assert.AreNotEqual(concept.ID, concept.Hint);
+			Assert.AreNotEqual(concept.ID, concept.Name.GetValue(Language.Default));
 		}
 	}
 }

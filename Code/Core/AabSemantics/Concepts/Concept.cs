@@ -48,22 +48,27 @@ namespace AabSemantics.Concepts
 
 	public static class ConceptCreationHelper
 	{
-		public static IConcept CreateConcept()
+		public static IConcept CreateEmptyConcept()
 		{
-			return String.Empty.CreateConcept();
+			return new Concept(String.Empty, new LocalizedStringConstant(language => String.Empty));
 		}
 
-		public static IConcept CreateConcept(this Object @object)
+		public static IConcept CreateConceptByObject(this Object @object)
 		{
-			return @object.ToString().CreateConcept();
+			String text = @object.ToString();
+			return new Concept(text, new LocalizedStringConstant(language => text));
 		}
 
-		public static IConcept CreateConcept(this String name)
+		public static IConcept CreateConceptByName(this String name, String id = null)
 		{
-			return name.CreateConcept(name);
+			if (String.IsNullOrEmpty(id))
+			{
+				id = name;
+			}
+			return new Concept(id, new LocalizedStringConstant(language => name));
 		}
 
-		public static IConcept CreateConcept(this String id, String name)
+		public static IConcept CreateConceptById(this String id, String name = null)
 		{
 			return new Concept(id, new LocalizedStringConstant(language => name));
 		}

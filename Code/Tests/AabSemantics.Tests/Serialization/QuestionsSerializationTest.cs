@@ -34,13 +34,13 @@ namespace AabSemantics.Tests.Serialization
 				.WithModule<BooleanModule>()
 				.WithModule<ClassificationModule>();
 			IConcept a, d;
-			_semanticNetwork.Concepts.Add(a = "a".CreateConcept());
-			_semanticNetwork.Concepts.Add(d = "d".CreateConcept());
+			_semanticNetwork.Concepts.Add(a = "a".CreateConceptByName());
+			_semanticNetwork.Concepts.Add(d = "d".CreateConceptByName());
 			_semanticNetwork.DeclareThat(a).IsAncestorOf(d);
 
 			IConcept aa, dd;
-			_semanticNetwork.Concepts.Add(aa = "aa".CreateConcept());
-			_semanticNetwork.Concepts.Add(dd = "dd".CreateConcept());
+			_semanticNetwork.Concepts.Add(aa = "aa".CreateConceptByName());
+			_semanticNetwork.Concepts.Add(dd = "dd".CreateConceptByName());
 			_semanticNetwork.DeclareThat(aa).IsAncestorOf(dd);
 
 			_conceptIdResolver = new ConceptIdResolver(_semanticNetwork.Concepts.ToDictionary(

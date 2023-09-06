@@ -15,10 +15,10 @@ namespace AabSemantics.Tests.Text
 			// arrange
 			var knowledge = new IKnowledge[]
 			{
-				"Abc".CreateConcept(),
-				"Def".CreateConcept(),
-				"Uvw".CreateConcept(),
-				"Xyz".CreateConcept(),
+				"Abc".CreateConceptByName(),
+				"Def".CreateConceptByName(),
+				"Uvw".CreateConceptByName(),
+				"Xyz".CreateConceptByName(),
 			};
 
 			var language = Language.Default;
@@ -42,10 +42,10 @@ namespace AabSemantics.Tests.Text
 			// arrange
 			var knowledge = new IKnowledge[]
 			{
-				"Abc".CreateConcept(),
-				"Def".CreateConcept(),
-				"Uvw".CreateConcept(),
-				"Xyz".CreateConcept(),
+				"Abc".CreateConceptByName(),
+				"Def".CreateConceptByName(),
+				"Uvw".CreateConceptByName(),
+				"Xyz".CreateConceptByName(),
 			};
 
 			var language = Language.Default;

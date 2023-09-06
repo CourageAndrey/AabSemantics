@@ -25,7 +25,7 @@ namespace AabSemantics.Tests.Questions
 		{
 			// arrange
 			var semanticNetwork = new SemanticNetwork(Language.Default);
-			var question = new IsQuestion(1.CreateConcept(), 2.CreateConcept());
+			var question = new IsQuestion(1.CreateConceptByObject(), 2.CreateConceptByObject());
 			var questionContext = new QuestionProcessingContext<IsQuestion>(semanticNetwork.Context, question);
 			var processor = new TestQuestionProcessor(questionContext, null);
 
@@ -49,9 +49,9 @@ namespace AabSemantics.Tests.Questions
 				.WithModule<ClassificationModule>();
 
 			IConcept vehicle, steamLocomotive, thomasTheTrain;
-			semanticNetwork.Concepts.Add(vehicle = "vehicle".CreateConcept());
-			semanticNetwork.Concepts.Add(steamLocomotive = "steamLocomotive".CreateConcept());
-			semanticNetwork.Concepts.Add(thomasTheTrain = "thomasTheTrain".CreateConcept());
+			semanticNetwork.Concepts.Add(vehicle = "vehicle".CreateConceptByName());
+			semanticNetwork.Concepts.Add(steamLocomotive = "steamLocomotive".CreateConceptByName());
+			semanticNetwork.Concepts.Add(thomasTheTrain = "thomasTheTrain".CreateConceptByName());
 			semanticNetwork.DeclareThat(steamLocomotive).IsDescendantOf(vehicle);
 			var testIs = semanticNetwork.DeclareThat(thomasTheTrain).IsDescendantOf(steamLocomotive);
 

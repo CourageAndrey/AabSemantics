@@ -14,8 +14,8 @@ namespace AabSemantics.Modules.Mathematics.Tests.Statements
 		public void GivenNullOther_WhenEquals_ThenReturnFalse()
 		{
 			// arrange
-			IConcept	left = 1.CreateConcept().WithAttribute(IsValueAttribute.Value),
-						right = 2.CreateConcept().WithAttribute(IsValueAttribute.Value);
+			IConcept	left = 1.CreateConceptByObject().WithAttribute(IsValueAttribute.Value),
+						right = 2.CreateConceptByObject().WithAttribute(IsValueAttribute.Value);
 			var statement = new ComparisonStatement(null, left, right, ComparisonSigns.IsLessThan);
 
 			// act && assert

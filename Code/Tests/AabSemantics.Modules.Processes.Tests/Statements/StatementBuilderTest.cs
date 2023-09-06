@@ -23,9 +23,9 @@ namespace AabSemantics.Modules.Processes.Tests.Statements
 			var language = Language.Default;
 			var semanticNetwork = new SemanticNetwork(language);
 
-			var processA = ConceptCreationHelper.CreateConcept();
+			var processA = ConceptCreationHelper.CreateEmptyConcept();
 			processA.WithAttribute(IsProcessAttribute.Value);
-			var processB = ConceptCreationHelper.CreateConcept();
+			var processB = ConceptCreationHelper.CreateEmptyConcept();
 			processB.WithAttribute(IsProcessAttribute.Value);
 
 			var statementsByConstructor = new List<ProcessesStatement>();
@@ -91,13 +91,13 @@ namespace AabSemantics.Modules.Processes.Tests.Statements
 			var language = Language.Default;
 			var semanticNetwork = new SemanticNetwork(language);
 
-			var processA = ConceptCreationHelper.CreateConcept();
+			var processA = ConceptCreationHelper.CreateEmptyConcept();
 			processA.WithAttribute(IsProcessAttribute.Value);
 			var processesB = new[]
 			{
-				ConceptCreationHelper.CreateConcept(),
-				ConceptCreationHelper.CreateConcept(),
-				ConceptCreationHelper.CreateConcept(),
+				ConceptCreationHelper.CreateEmptyConcept(),
+				ConceptCreationHelper.CreateEmptyConcept(),
+				ConceptCreationHelper.CreateEmptyConcept(),
 			};
 			foreach (var processB in processesB)
 			{

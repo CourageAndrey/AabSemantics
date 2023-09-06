@@ -27,10 +27,10 @@ namespace AabSemantics.Tests.Mutations
 				.WithModule<ClassificationModule>();
 
 			IConcept a, b, c, d;
-			semanticNetwork.Concepts.Add(a = "a".CreateConcept());
-			semanticNetwork.Concepts.Add(b = "b".CreateConcept());
-			semanticNetwork.Concepts.Add(c = "c".CreateConcept());
-			semanticNetwork.Concepts.Add(d = "d".CreateConcept());
+			semanticNetwork.Concepts.Add(a = "a".CreateConceptByName());
+			semanticNetwork.Concepts.Add(b = "b".CreateConceptByName());
+			semanticNetwork.Concepts.Add(c = "c".CreateConceptByName());
+			semanticNetwork.Concepts.Add(d = "d".CreateConceptByName());
 			semanticNetwork.DeclareThat(a).IsAncestorOf(b);
 			semanticNetwork.DeclareThat(a).IsAncestorOf(c);
 			semanticNetwork.DeclareThat(a).IsAncestorOf(d);
@@ -59,10 +59,10 @@ namespace AabSemantics.Tests.Mutations
 				.WithModule<ClassificationModule>();
 
 			IConcept a, b, c, d;
-			semanticNetwork.Concepts.Add(a = "a".CreateConcept());
-			semanticNetwork.Concepts.Add(b = "b".CreateConcept());
-			semanticNetwork.Concepts.Add(c = "c".CreateConcept());
-			semanticNetwork.Concepts.Add(d = "d".CreateConcept());
+			semanticNetwork.Concepts.Add(a = "a".CreateConceptByName());
+			semanticNetwork.Concepts.Add(b = "b".CreateConceptByName());
+			semanticNetwork.Concepts.Add(c = "c".CreateConceptByName());
+			semanticNetwork.Concepts.Add(d = "d".CreateConceptByName());
 			semanticNetwork.DeclareThat(a).IsAncestorOf(b);
 			semanticNetwork.DeclareThat(a).IsAncestorOf(c);
 			semanticNetwork.DeclareThat(a).IsAncestorOf(d);
@@ -93,10 +93,10 @@ namespace AabSemantics.Tests.Mutations
 				.WithModule<ClassificationModule>();
 
 			IConcept a, b, c, d;
-			semanticNetwork.Concepts.Add(a = "a".CreateConcept());
-			semanticNetwork.Concepts.Add(b = "b".CreateConcept());
-			semanticNetwork.Concepts.Add(c = "c".CreateConcept());
-			semanticNetwork.Concepts.Add(d = "d".CreateConcept());
+			semanticNetwork.Concepts.Add(a = "a".CreateConceptByName());
+			semanticNetwork.Concepts.Add(b = "b".CreateConceptByName());
+			semanticNetwork.Concepts.Add(c = "c".CreateConceptByName());
+			semanticNetwork.Concepts.Add(d = "d".CreateConceptByName());
 			semanticNetwork.DeclareThat(a).IsAncestorOf(b);
 			semanticNetwork.DeclareThat(a).IsAncestorOf(c);
 			semanticNetwork.DeclareThat(a).IsAncestorOf(d);

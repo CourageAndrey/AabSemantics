@@ -51,10 +51,10 @@ namespace AabSemantics.Tests.Answers
 			var text = new FormattedText(l => "Some answer, which required detailed explanation.");
 			string initialText = render.Render(text, language).ToString();
 
-			var concept1 = 1.CreateConcept();
-			var concept2 = 2.CreateConcept();
-			var concept3 = 3.CreateConcept();
-			var concept4 = 4.CreateConcept();
+			var concept1 = 1.CreateConceptByObject();
+			var concept2 = 2.CreateConceptByObject();
+			var concept3 = 3.CreateConceptByObject();
+			var concept4 = 4.CreateConceptByObject();
 			var statements = new IStatement[]
 			{
 				new IsStatement("12", concept1, concept2),

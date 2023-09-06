@@ -23,9 +23,9 @@ namespace AabSemantics.Tests.Questions
 			var semanticNetwork = new SemanticNetwork(language);
 
 			IConcept parentConcept, middleConcept, childConcept;
-			semanticNetwork.Concepts.Add(parentConcept = ConceptCreationHelper.CreateConcept());
-			semanticNetwork.Concepts.Add(middleConcept = ConceptCreationHelper.CreateConcept());
-			semanticNetwork.Concepts.Add(childConcept = ConceptCreationHelper.CreateConcept());
+			semanticNetwork.Concepts.Add(parentConcept = ConceptCreationHelper.CreateEmptyConcept());
+			semanticNetwork.Concepts.Add(middleConcept = ConceptCreationHelper.CreateEmptyConcept());
+			semanticNetwork.Concepts.Add(childConcept = ConceptCreationHelper.CreateEmptyConcept());
 
 			var initialStatement = semanticNetwork.DeclareThat(parentConcept).IsAncestorOf(middleConcept);
 
@@ -52,8 +52,8 @@ namespace AabSemantics.Tests.Questions
 		public void GivenAllParameterSet_WhenCreateChildAnswer_ThenSucceed()
 		{
 			// arrange
-			var childConcept = "child".CreateConcept();
-			var parentConcept = "parent".CreateConcept();
+			var childConcept = "child".CreateConceptByName();
+			var parentConcept = "parent".CreateConceptByName();
 			var question = new IsQuestion(childConcept, parentConcept);
 			var answer = Answer.CreateUnknown();
 			var transitives = Array.Empty<IStatement>();

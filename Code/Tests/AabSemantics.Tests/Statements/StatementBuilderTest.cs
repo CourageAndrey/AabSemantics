@@ -20,8 +20,8 @@ namespace AabSemantics.Tests.Statements
 			var language = Language.Default;
 			var semanticNetwork = new SemanticNetwork(language);
 
-			var ancestor = ConceptCreationHelper.CreateConcept();
-			var descendant = ConceptCreationHelper.CreateConcept();
+			var ancestor = ConceptCreationHelper.CreateEmptyConcept();
+			var descendant = ConceptCreationHelper.CreateEmptyConcept();
 
 			// act
 			var statementByConstructor = new IsStatement(null, ancestor, descendant);
@@ -40,14 +40,14 @@ namespace AabSemantics.Tests.Statements
 			var language = Language.Default;
 			var semanticNetwork = new SemanticNetwork(language);
 
-			var ancestor = ConceptCreationHelper.CreateConcept();
-			var ancestor1 = ConceptCreationHelper.CreateConcept();
-			var ancestor2 = ConceptCreationHelper.CreateConcept();
-			var ancestor3 = ConceptCreationHelper.CreateConcept();
-			var descendant = ConceptCreationHelper.CreateConcept();
-			var descendant1 = ConceptCreationHelper.CreateConcept();
-			var descendant2 = ConceptCreationHelper.CreateConcept();
-			var descendant3 = ConceptCreationHelper.CreateConcept();
+			var ancestor = ConceptCreationHelper.CreateEmptyConcept();
+			var ancestor1 = ConceptCreationHelper.CreateEmptyConcept();
+			var ancestor2 = ConceptCreationHelper.CreateEmptyConcept();
+			var ancestor3 = ConceptCreationHelper.CreateEmptyConcept();
+			var descendant = ConceptCreationHelper.CreateEmptyConcept();
+			var descendant1 = ConceptCreationHelper.CreateEmptyConcept();
+			var descendant2 = ConceptCreationHelper.CreateEmptyConcept();
+			var descendant3 = ConceptCreationHelper.CreateEmptyConcept();
 
 			// act
 			var statementsByBuilderFromAncestor = semanticNetwork.DeclareThat(ancestor).IsAncestorOf(new[] { descendant1, descendant2, descendant3 });
@@ -66,7 +66,7 @@ namespace AabSemantics.Tests.Statements
 		public void GivenNoSemanticNetwork_WhenTryToCreateStatementBuilder_ThenFail()
 		{
 			// act & assert
-			Assert.Throws<ArgumentNullException>(() => new StatementBuilder(null, 1.CreateConcept()));
+			Assert.Throws<ArgumentNullException>(() => new StatementBuilder(null, 1.CreateConceptByObject()));
 		}
 
 		[Test]

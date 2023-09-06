@@ -12,8 +12,8 @@ namespace AabSemantics.Modules.Set.Tests.Statements
 		public void GivenGroupStatement_WhenGetParentAndChild_ThenEqualToWholeAndPart()
 		{
 			// arrange
-			IConcept	area = 1.CreateConcept(),
-						concept = 2.CreateConcept();
+			IConcept	area = 1.CreateConceptByObject(),
+						concept = 2.CreateConceptByObject();
 			var statement = new GroupStatement(null, area, concept);
 
 			// act && assert
@@ -25,8 +25,8 @@ namespace AabSemantics.Modules.Set.Tests.Statements
 		public void GivenNullOther_WhenEquals_ThenReturnFalse()
 		{
 			// arrange
-			IConcept	area = 1.CreateConcept(),
-						concept = 2.CreateConcept();
+			IConcept	area = 1.CreateConceptByObject(),
+						concept = 2.CreateConceptByObject();
 			var statement = new GroupStatement(null, area, concept);
 
 			// act && assert

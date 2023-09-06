@@ -99,7 +99,7 @@ namespace AabSemantics.Tests.Statements
 
 			for (int i = 1; i <= _numbersCount; i++)
 			{
-				semanticNetwork.Concepts.Add(i.CreateConcept().WithAttribute(IsValueAttribute.Value));
+				semanticNetwork.Concepts.Add(i.CreateConceptByObject().WithAttribute(IsValueAttribute.Value));
 			}
 
 			var statements = new Dictionary<int, IStatement>();

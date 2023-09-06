@@ -155,25 +155,25 @@ namespace AabSemantics.Modules.Set.Tests.Statements
 		{
 			var semanticNetwork = new SemanticNetwork(language);
 
-			var topLevelConcept = ConceptId_TopLevel.CreateConcept();
-			var middleLevelConcept = ConceptId_MiddleLevel.CreateConcept();
-			var downLevelConcept = ConceptId_DownLevel.CreateConcept();
+			var topLevelConcept = ConceptId_TopLevel.CreateConceptByName();
+			var middleLevelConcept = ConceptId_MiddleLevel.CreateConceptByName();
+			var downLevelConcept = ConceptId_DownLevel.CreateConceptByName();
 			semanticNetwork.Concepts.Add(topLevelConcept);
 			semanticNetwork.Concepts.Add(middleLevelConcept);
 			semanticNetwork.Concepts.Add(downLevelConcept);
 
-			var sign1 = ConceptId_Sign1.CreateConcept().WithAttribute(IsSignAttribute.Value);
-			var sign2 = ConceptId_Sign2.CreateConcept().WithAttribute(IsSignAttribute.Value);
-			var sign3 = ConceptId_Sign3.CreateConcept().WithAttribute(IsSignAttribute.Value);
+			var sign1 = ConceptId_Sign1.CreateConceptByName().WithAttribute(IsSignAttribute.Value);
+			var sign2 = ConceptId_Sign2.CreateConceptByName().WithAttribute(IsSignAttribute.Value);
+			var sign3 = ConceptId_Sign3.CreateConceptByName().WithAttribute(IsSignAttribute.Value);
 			semanticNetwork.Concepts.Add(sign1);
 			semanticNetwork.Concepts.Add(sign2);
 			semanticNetwork.Concepts.Add(sign3);
 
-			var valueA = ConceptId_ValueA.CreateConcept().WithAttribute(IsValueAttribute.Value);
-			var valueB = ConceptId_ValueB.CreateConcept().WithAttribute(IsValueAttribute.Value);
-			var valueC = ConceptId_ValueC.CreateConcept().WithAttribute(IsValueAttribute.Value);
-			var valueD = ConceptId_ValueD.CreateConcept().WithAttribute(IsValueAttribute.Value);
-			var valueE = ConceptId_ValueE.CreateConcept().WithAttribute(IsValueAttribute.Value);
+			var valueA = ConceptId_ValueA.CreateConceptByName().WithAttribute(IsValueAttribute.Value);
+			var valueB = ConceptId_ValueB.CreateConceptByName().WithAttribute(IsValueAttribute.Value);
+			var valueC = ConceptId_ValueC.CreateConceptByName().WithAttribute(IsValueAttribute.Value);
+			var valueD = ConceptId_ValueD.CreateConceptByName().WithAttribute(IsValueAttribute.Value);
+			var valueE = ConceptId_ValueE.CreateConceptByName().WithAttribute(IsValueAttribute.Value);
 			semanticNetwork.Concepts.Add(valueA);
 			semanticNetwork.Concepts.Add(valueB);
 			semanticNetwork.Concepts.Add(valueC);

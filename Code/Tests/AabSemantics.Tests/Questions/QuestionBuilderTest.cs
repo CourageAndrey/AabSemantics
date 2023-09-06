@@ -23,9 +23,9 @@ namespace AabSemantics.Tests.Questions
 			var semanticNetwork = new SemanticNetwork(language);
 
 			IConcept ancestor, middle, descendant;
-			semanticNetwork.Concepts.Add(ancestor = "ancestor".CreateConcept());
-			semanticNetwork.Concepts.Add(middle = "middle".CreateConcept());
-			semanticNetwork.Concepts.Add(descendant = "descendant".CreateConcept());
+			semanticNetwork.Concepts.Add(ancestor = "ancestor".CreateConceptByName());
+			semanticNetwork.Concepts.Add(middle = "middle".CreateConceptByName());
+			semanticNetwork.Concepts.Add(descendant = "descendant".CreateConceptByName());
 
 			var existingStatement = semanticNetwork.DeclareThat(ancestor).IsAncestorOf(middle);
 			var precondition = new IsStatement(null, middle, descendant);

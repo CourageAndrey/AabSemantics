@@ -23,7 +23,7 @@ namespace AabSemantics.Tests.Statements
 		public void GivenNoAncestor_WhenTryToCreateIsStatement_ThenFail()
 		{
 			// arrange
-			var concept = ConceptCreationHelper.CreateConcept();
+			var concept = ConceptCreationHelper.CreateEmptyConcept();
 
 			// act && assert
 			Assert.Throws<ArgumentNullException>(() => new IsStatement(TestStatementId, null, concept));
@@ -33,7 +33,7 @@ namespace AabSemantics.Tests.Statements
 		public void GivenNoDescendant_WhenTryToCreateIsStatement_ThenFail()
 		{
 			// arrange
-			var concept = ConceptCreationHelper.CreateConcept();
+			var concept = ConceptCreationHelper.CreateEmptyConcept();
 
 			// act && assert
 			Assert.Throws<ArgumentNullException>(() => new IsStatement(TestStatementId, concept, null));
@@ -93,8 +93,8 @@ namespace AabSemantics.Tests.Statements
 				module.RegisterMetadata();
 			}
 
-			var concept1 = 1.CreateConcept().WithAttributes(new IAttribute[] { IsValueAttribute.Value });
-			var concept2 = 2.CreateConcept().WithAttributes(new IAttribute[] { IsValueAttribute.Value });
+			var concept1 = 1.CreateConceptByObject().WithAttributes(new IAttribute[] { IsValueAttribute.Value });
+			var concept2 = 2.CreateConceptByObject().WithAttributes(new IAttribute[] { IsValueAttribute.Value });
 
 			var language = Language.Default;
 

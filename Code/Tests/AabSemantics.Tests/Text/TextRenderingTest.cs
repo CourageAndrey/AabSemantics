@@ -67,7 +67,7 @@ namespace AabSemantics.Tests.Text
 				.Append(GetFormattedText(3)) // call ITextContainer extension
 				.Append(language => $"{GetID(4)}", new Dictionary<string, IKnowledge>
 				{
-					{ GetID(4), GetText(4).CreateConcept() },
+					{ GetID(4), GetText(4).CreateConceptByName() },
 				})
 				.AppendLineBreak()
 				.AppendSpace()
@@ -102,7 +102,7 @@ namespace AabSemantics.Tests.Text
 				language => $"+++ {GetID(number)} +++",
 				new Dictionary<string, IKnowledge>
 				{
-					{ GetID(number), GetText(number).CreateConcept() },
+					{ GetID(number), GetText(number).CreateConceptByName() },
 				});
 		}
 

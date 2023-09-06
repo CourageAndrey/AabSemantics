@@ -17,8 +17,8 @@ namespace AabSemantics.Tests.Answers
 		public void GivenStatementsAnswer_WhenUpcastAndDowncast_ThenAnswerLooksTheSame()
 		{
 			// arrange
-			var concept1 = 1.CreateConcept();
-			var concept2 = 2.CreateConcept();
+			var concept1 = 1.CreateConceptByObject();
+			var concept2 = 2.CreateConceptByObject();
 
 			var resultStatementsTyped = new IsStatement[]
 			{

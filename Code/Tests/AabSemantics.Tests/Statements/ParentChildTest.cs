@@ -334,20 +334,20 @@ namespace AabSemantics.Tests.Statements
 		[Test]
 		public void GivenValidStructure_WhenFindPath_ThenFindAny()
 		{
-			var parent1 = ConceptCreationHelper.CreateConcept();
-			var topMedium1 = ConceptCreationHelper.CreateConcept();
-			var bottomMedium1 = ConceptCreationHelper.CreateConcept();
-			var child1 = ConceptCreationHelper.CreateConcept();
-			var parent2 = ConceptCreationHelper.CreateConcept();
-			var topMedium2 = ConceptCreationHelper.CreateConcept();
-			var bottomMedium2 = ConceptCreationHelper.CreateConcept();
-			var child2 = ConceptCreationHelper.CreateConcept();
-			var parentNoConnection = ConceptCreationHelper.CreateConcept();
-			var childNoConnection = ConceptCreationHelper.CreateConcept();
-			var parent2Path = ConceptCreationHelper.CreateConcept();
-			var medium2Path1 = ConceptCreationHelper.CreateConcept();
-			var medium2Path2 = ConceptCreationHelper.CreateConcept();
-			var child2Path = ConceptCreationHelper.CreateConcept();
+			var parent1 = ConceptCreationHelper.CreateEmptyConcept();
+			var topMedium1 = ConceptCreationHelper.CreateEmptyConcept();
+			var bottomMedium1 = ConceptCreationHelper.CreateEmptyConcept();
+			var child1 = ConceptCreationHelper.CreateEmptyConcept();
+			var parent2 = ConceptCreationHelper.CreateEmptyConcept();
+			var topMedium2 = ConceptCreationHelper.CreateEmptyConcept();
+			var bottomMedium2 = ConceptCreationHelper.CreateEmptyConcept();
+			var child2 = ConceptCreationHelper.CreateEmptyConcept();
+			var parentNoConnection = ConceptCreationHelper.CreateEmptyConcept();
+			var childNoConnection = ConceptCreationHelper.CreateEmptyConcept();
+			var parent2Path = ConceptCreationHelper.CreateEmptyConcept();
+			var medium2Path1 = ConceptCreationHelper.CreateEmptyConcept();
+			var medium2Path2 = ConceptCreationHelper.CreateEmptyConcept();
+			var child2Path = ConceptCreationHelper.CreateEmptyConcept();
 
 			var statements = new IStatement[]
 			{
@@ -386,9 +386,9 @@ namespace AabSemantics.Tests.Statements
 		[Test]
 		public void GivenRecursiveLoops_WhenFindPath_ThenNotFail()
 		{
-			var a = ConceptCreationHelper.CreateConcept();
-			var b = ConceptCreationHelper.CreateConcept();
-			var c = ConceptCreationHelper.CreateConcept();
+			var a = ConceptCreationHelper.CreateEmptyConcept();
+			var b = ConceptCreationHelper.CreateEmptyConcept();
+			var c = ConceptCreationHelper.CreateEmptyConcept();
 
 			var statementsValid1 = new IStatement[]
 			{
@@ -429,28 +429,28 @@ namespace AabSemantics.Tests.Statements
 		public void GivenValidTree_WhenGetChildrenTree_ThenReturnIt()
 		{
 			// arrange
-			var concept1 =    1.CreateConcept();
-			var concept11 =   11.CreateConcept();
-			var concept12 =   12.CreateConcept();
-			var concept13 =   13.CreateConcept();
-			var concept111 =  111.CreateConcept();
-			var concept112 =  112.CreateConcept();
-			var concept113 =  113.CreateConcept();
-			var concept121 =  121.CreateConcept();
-			var concept122 =  122.CreateConcept();
-			var concept123 =  123.CreateConcept();
-			var concept131 =  131.CreateConcept();
-			var concept132 =  132.CreateConcept();
-			var concept133 =  133.CreateConcept();
-			var concept1111 = 1111.CreateConcept();
-			var concept1112 = 1112.CreateConcept();
-			var concept1113 = 1113.CreateConcept();
-			var concept1121 = 1121.CreateConcept();
-			var concept1122 = 1122.CreateConcept();
-			var concept1123 = 1123.CreateConcept();
-			var concept1131 = 1131.CreateConcept();
-			var concept1132 = 1132.CreateConcept();
-			var concept1133 = 1133.CreateConcept();
+			var concept1 =    1.CreateConceptByObject();
+			var concept11 =   11.CreateConceptByObject();
+			var concept12 =   12.CreateConceptByObject();
+			var concept13 =   13.CreateConceptByObject();
+			var concept111 =  111.CreateConceptByObject();
+			var concept112 =  112.CreateConceptByObject();
+			var concept113 =  113.CreateConceptByObject();
+			var concept121 =  121.CreateConceptByObject();
+			var concept122 =  122.CreateConceptByObject();
+			var concept123 =  123.CreateConceptByObject();
+			var concept131 =  131.CreateConceptByObject();
+			var concept132 =  132.CreateConceptByObject();
+			var concept133 =  133.CreateConceptByObject();
+			var concept1111 = 1111.CreateConceptByObject();
+			var concept1112 = 1112.CreateConceptByObject();
+			var concept1113 = 1113.CreateConceptByObject();
+			var concept1121 = 1121.CreateConceptByObject();
+			var concept1122 = 1122.CreateConceptByObject();
+			var concept1123 = 1123.CreateConceptByObject();
+			var concept1131 = 1131.CreateConceptByObject();
+			var concept1132 = 1132.CreateConceptByObject();
+			var concept1133 = 1133.CreateConceptByObject();
 
 			var statements = new List<IStatement>
 			{
@@ -584,16 +584,16 @@ namespace AabSemantics.Tests.Statements
 
 			ISemanticNetwork semanticNetwork = new SemanticNetwork(Language.Default).WithModules(modules);
 
-			IConcept animal = "Kingdom: Animalia".CreateConcept("Animal");
-			IConcept chordate = "Phylum: Chordata".CreateConcept("Chordate");
-			IConcept mammal = "Class: Mammalia".CreateConcept("Mammal");
-			IConcept carnivor = "Order: Carnivora".CreateConcept("Carnivor");
+			IConcept animal = "Kingdom: Animalia".CreateConceptById("Animal");
+			IConcept chordate = "Phylum: Chordata".CreateConceptById("Chordate");
+			IConcept mammal = "Class: Mammalia".CreateConceptById("Mammal");
+			IConcept carnivor = "Order: Carnivora".CreateConceptById("Carnivor");
 			// Just skip Ursidae, Ursinae and Ursini for short.
-			IConcept bear = "Genus: Ursus".CreateConcept("Bear");
-			IConcept americanBlackBear = "Ursus americanus".CreateConcept("American black bear");
-			IConcept brownBear = "Ursus arctos".CreateConcept("Brown bear");
-			IConcept polarBear = "Ursus maritimus".CreateConcept("Polar bear");
-			IConcept asianBlackBear = "Ursus thibetanuss".CreateConcept("Asian black bear");
+			IConcept bear = "Genus: Ursus".CreateConceptById("Bear");
+			IConcept americanBlackBear = "Ursus americanus".CreateConceptById("American black bear");
+			IConcept brownBear = "Ursus arctos".CreateConceptById("Brown bear");
+			IConcept polarBear = "Ursus maritimus".CreateConceptById("Polar bear");
+			IConcept asianBlackBear = "Ursus thibetanuss".CreateConceptById("Asian black bear");
 
 			semanticNetwork.Concepts.Add(animal);
 			semanticNetwork.Concepts.Add(chordate);

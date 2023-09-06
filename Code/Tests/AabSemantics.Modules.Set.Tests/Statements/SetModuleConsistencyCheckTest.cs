@@ -49,10 +49,10 @@ namespace AabSemantics.Modules.Set.Tests.Statements
 			var semanticNetwork = new SemanticNetwork(language)
 				.WithModules(_modules);
 
-			var concept = ConceptCreationHelper.CreateConcept();
-			var sign = ConceptCreationHelper.CreateConcept().WithAttribute(IsSignAttribute.Value);
-			var value1 = ConceptCreationHelper.CreateConcept().WithAttribute(IsValueAttribute.Value);
-			var value2 = ConceptCreationHelper.CreateConcept().WithAttribute(IsValueAttribute.Value);
+			var concept = ConceptCreationHelper.CreateEmptyConcept();
+			var sign = ConceptCreationHelper.CreateEmptyConcept().WithAttribute(IsSignAttribute.Value);
+			var value1 = ConceptCreationHelper.CreateEmptyConcept().WithAttribute(IsValueAttribute.Value);
+			var value2 = ConceptCreationHelper.CreateEmptyConcept().WithAttribute(IsValueAttribute.Value);
 			semanticNetwork.Concepts.Add(concept);
 			semanticNetwork.Concepts.Add(sign);
 			semanticNetwork.Concepts.Add(value1);
@@ -84,12 +84,12 @@ namespace AabSemantics.Modules.Set.Tests.Statements
 			var semanticNetwork = new SemanticNetwork(language)
 				.WithModules(_modules);
 
-			var concept = ConceptCreationHelper.CreateConcept();
-			var parent1 = ConceptCreationHelper.CreateConcept();
-			var parent2 = ConceptCreationHelper.CreateConcept();
-			var sign = ConceptCreationHelper.CreateConcept().WithAttribute(IsSignAttribute.Value);
-			var value1 = ConceptCreationHelper.CreateConcept().WithAttribute(IsValueAttribute.Value);
-			var value2 = ConceptCreationHelper.CreateConcept().WithAttribute(IsValueAttribute.Value);
+			var concept = ConceptCreationHelper.CreateEmptyConcept();
+			var parent1 = ConceptCreationHelper.CreateEmptyConcept();
+			var parent2 = ConceptCreationHelper.CreateEmptyConcept();
+			var sign = ConceptCreationHelper.CreateEmptyConcept().WithAttribute(IsSignAttribute.Value);
+			var value1 = ConceptCreationHelper.CreateEmptyConcept().WithAttribute(IsValueAttribute.Value);
+			var value2 = ConceptCreationHelper.CreateEmptyConcept().WithAttribute(IsValueAttribute.Value);
 			semanticNetwork.Concepts.Add(concept);
 			semanticNetwork.Concepts.Add(parent1);
 			semanticNetwork.Concepts.Add(parent2);
@@ -126,9 +126,9 @@ namespace AabSemantics.Modules.Set.Tests.Statements
 			var semanticNetwork = new SemanticNetwork(language)
 				.WithModules(_modules);
 
-			var concept = ConceptCreationHelper.CreateConcept();
-			var sign = ConceptCreationHelper.CreateConcept().WithAttribute(IsSignAttribute.Value);
-			var value = ConceptCreationHelper.CreateConcept().WithAttribute(IsValueAttribute.Value);
+			var concept = ConceptCreationHelper.CreateEmptyConcept();
+			var sign = ConceptCreationHelper.CreateEmptyConcept().WithAttribute(IsSignAttribute.Value);
+			var value = ConceptCreationHelper.CreateEmptyConcept().WithAttribute(IsValueAttribute.Value);
 			semanticNetwork.Concepts.Add(concept);
 			semanticNetwork.Concepts.Add(sign);
 			semanticNetwork.Concepts.Add(value);
@@ -157,9 +157,9 @@ namespace AabSemantics.Modules.Set.Tests.Statements
 			var semanticNetwork = new SemanticNetwork(language)
 				.WithModules(_modules);
 
-			var concept = ConceptCreationHelper.CreateConcept();
-			var sign = ConceptCreationHelper.CreateConcept().WithAttribute(IsSignAttribute.Value);
-			var value = ConceptCreationHelper.CreateConcept().WithAttribute(IsValueAttribute.Value);
+			var concept = ConceptCreationHelper.CreateEmptyConcept();
+			var sign = ConceptCreationHelper.CreateEmptyConcept().WithAttribute(IsSignAttribute.Value);
+			var value = ConceptCreationHelper.CreateEmptyConcept().WithAttribute(IsValueAttribute.Value);
 			semanticNetwork.Concepts.Add(concept);
 			semanticNetwork.Concepts.Add(sign);
 			semanticNetwork.Concepts.Add(value);
@@ -185,9 +185,9 @@ namespace AabSemantics.Modules.Set.Tests.Statements
 			var semanticNetwork = new SemanticNetwork(language)
 				.WithModules(_modules);
 
-			var child = ConceptCreationHelper.CreateConcept();
-			var parent = ConceptCreationHelper.CreateConcept();
-			var childSign = ConceptCreationHelper.CreateConcept().WithAttribute(IsSignAttribute.Value);
+			var child = ConceptCreationHelper.CreateEmptyConcept();
+			var parent = ConceptCreationHelper.CreateEmptyConcept();
+			var childSign = ConceptCreationHelper.CreateEmptyConcept().WithAttribute(IsSignAttribute.Value);
 			semanticNetwork.Concepts.Add(child);
 			semanticNetwork.Concepts.Add(parent);
 			semanticNetwork.Concepts.Add(childSign);
@@ -218,10 +218,10 @@ namespace AabSemantics.Modules.Set.Tests.Statements
 			var semanticNetwork = new SemanticNetwork(language)
 				.WithModules(_modules);
 
-			var child = ConceptCreationHelper.CreateConcept();
-			var parent = ConceptCreationHelper.CreateConcept();
-			var childSign = ConceptCreationHelper.CreateConcept().WithAttribute(IsSignAttribute.Value);
-			var parentSign = ConceptCreationHelper.CreateConcept().WithAttribute(IsSignAttribute.Value);
+			var child = ConceptCreationHelper.CreateEmptyConcept();
+			var parent = ConceptCreationHelper.CreateEmptyConcept();
+			var childSign = ConceptCreationHelper.CreateEmptyConcept().WithAttribute(IsSignAttribute.Value);
+			var parentSign = ConceptCreationHelper.CreateEmptyConcept().WithAttribute(IsSignAttribute.Value);
 			semanticNetwork.Concepts.Add(child);
 			semanticNetwork.Concepts.Add(parent);
 			semanticNetwork.Concepts.Add(childSign);

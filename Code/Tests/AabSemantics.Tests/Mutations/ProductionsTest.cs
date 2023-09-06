@@ -53,9 +53,9 @@ namespace AabSemantics.Tests.Mutations
 			// arrange
 			var language = Language.Default;
 			var semanticNetwork = new SemanticNetwork(language);
-			semanticNetwork.Concepts.Add(1.CreateConcept());
-			semanticNetwork.Concepts.Add(2.CreateConcept());
-			semanticNetwork.Concepts.Add(3.CreateConcept());
+			semanticNetwork.Concepts.Add(1.CreateConceptByObject());
+			semanticNetwork.Concepts.Add(2.CreateConceptByObject());
+			semanticNetwork.Concepts.Add(3.CreateConceptByObject());
 
 			var conceptSearchPattern = new ConceptSearchPattern(concept => true);
 			var production = new Production(

@@ -38,7 +38,7 @@ namespace AabSemantics.Sample08.Productions
 			var unsorted = new[] { 1, 3, 7, 8, 4, 9, 5, 2, 6 };
 			foreach (int digit in unsorted)
 			{
-				semanticNetwork.Concepts.Add(digit.CreateConcept().WithAttribute(IsValueAttribute.Value));
+				semanticNetwork.Concepts.Add(digit.CreateConceptByObject().WithAttribute(IsValueAttribute.Value));
 			}
 			Console.WriteLine($"Initial statements count: {semanticNetwork.Statements.Count}");
 

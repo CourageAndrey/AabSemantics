@@ -14,7 +14,7 @@ namespace AabSemantics.Tests.Concepts
 		public void GivenNonLogicalValues_WhenTryToCallLogicalValueExtensions_ThenFail()
 		{
 			// arrange
-			var concept = "test".CreateConcept();
+			var concept = "test".CreateConceptByName();
 
 			// act && assert
 			Assert.Throws<InvalidOperationException>(() => { concept.ToBoolean(); });
@@ -48,7 +48,7 @@ namespace AabSemantics.Tests.Concepts
 		public void GivenFakeLogicalValue_WhenTryInvert_ThenReturnTheSame()
 		{
 			// arrange
-			var testConcept = "test".CreateConcept();
+			var testConcept = "test".CreateConceptByName();
 			LogicalValues.All.Add(testConcept);
 
 			// act && assert
@@ -66,7 +66,7 @@ namespace AabSemantics.Tests.Concepts
 		public void GivenFakeLogicalValue_WhenTryConvertToBoolean_ThenFail()
 		{
 			// arrange
-			var testConcept = "test".CreateConcept();
+			var testConcept = "test".CreateConceptByName();
 			LogicalValues.All.Add(testConcept);
 
 			// act && assert

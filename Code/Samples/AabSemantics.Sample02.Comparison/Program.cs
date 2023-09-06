@@ -35,7 +35,7 @@ namespace AabSemantics.Sample02.Comparison
 			for (int i = 0; i <= 10; i++)
 			{
 				string n = i.ToString();
-				IConcept number = n.CreateConcept().WithAttribute(IsValueAttribute.Value);
+				IConcept number = n.CreateConceptByName().WithAttribute(IsValueAttribute.Value);
 				numbers.Add(number);
 				semanticNetwork.Concepts.Add(number);
 			}

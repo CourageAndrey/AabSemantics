@@ -22,7 +22,7 @@ namespace AabSemantics.Tests.Questions
 		public void GivenNullArguments_WhenTryToCreateQuestion_ThenFail()
 		{
 			// arrange
-			IConcept concept = "test".CreateConcept();
+			IConcept concept = "test".CreateConceptByName();
 
 			// act && assert
 			Assert.Throws<ArgumentNullException>(() => new IsQuestion(null, concept));
@@ -39,8 +39,8 @@ namespace AabSemantics.Tests.Questions
 				.WithModule<ClassificationModule>();
 
 			IConcept vehicle, car;
-			semanticNetwork.Concepts.Add(vehicle = "vehicle".CreateConcept());
-			semanticNetwork.Concepts.Add(car = "car".CreateConcept());
+			semanticNetwork.Concepts.Add(vehicle = "vehicle".CreateConceptByName());
+			semanticNetwork.Concepts.Add(car = "car".CreateConceptByName());
 			semanticNetwork.DeclareThat(car).IsDescendantOf(vehicle);
 
 			// act
@@ -64,8 +64,8 @@ namespace AabSemantics.Tests.Questions
 				.WithModule<ClassificationModule>();
 
 			IConcept vehicle, car;
-			semanticNetwork.Concepts.Add(vehicle = "vehicle".CreateConcept());
-			semanticNetwork.Concepts.Add(car = "car".CreateConcept());
+			semanticNetwork.Concepts.Add(vehicle = "vehicle".CreateConceptByName());
+			semanticNetwork.Concepts.Add(car = "car".CreateConceptByName());
 			semanticNetwork.DeclareThat(car).IsDescendantOf(vehicle);
 
 			// act
@@ -88,8 +88,8 @@ namespace AabSemantics.Tests.Questions
 				.WithModule<ClassificationModule>();
 
 			IConcept vehicle, car;
-			semanticNetwork.Concepts.Add(vehicle = "vehicle".CreateConcept());
-			semanticNetwork.Concepts.Add(car = "car".CreateConcept());
+			semanticNetwork.Concepts.Add(vehicle = "vehicle".CreateConceptByName());
+			semanticNetwork.Concepts.Add(car = "car".CreateConceptByName());
 			semanticNetwork.DeclareThat(car).IsDescendantOf(vehicle);
 
 			// act
@@ -115,12 +115,12 @@ namespace AabSemantics.Tests.Questions
 				.WithModule<ClassificationModule>();
 
 			IConcept vehicle, car;
-			semanticNetwork.Concepts.Add(vehicle = "vehicle".CreateConcept());
-			semanticNetwork.Concepts.Add(car = "car".CreateConcept());
+			semanticNetwork.Concepts.Add(vehicle = "vehicle".CreateConceptByName());
+			semanticNetwork.Concepts.Add(car = "car".CreateConceptByName());
 			semanticNetwork.DeclareThat(car).IsDescendantOf(vehicle);
 
 			IConcept sportcar;
-			semanticNetwork.Concepts.Add(sportcar = "sportcar".CreateConcept());
+			semanticNetwork.Concepts.Add(sportcar = "sportcar".CreateConceptByName());
 			var classification = semanticNetwork.DeclareThat(sportcar).IsDescendantOf(car);
 
 			// act

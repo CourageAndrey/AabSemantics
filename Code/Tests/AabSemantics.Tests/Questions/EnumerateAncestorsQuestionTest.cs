@@ -41,8 +41,8 @@ namespace AabSemantics.Tests.Questions
 				.WithModule<ClassificationModule>();
 
 			IConcept vehicle, car;
-			semanticNetwork.Concepts.Add(vehicle = "vehicle".CreateConcept());
-			semanticNetwork.Concepts.Add(car = "car".CreateConcept());
+			semanticNetwork.Concepts.Add(vehicle = "vehicle".CreateConceptByName());
+			semanticNetwork.Concepts.Add(car = "car".CreateConceptByName());
 			semanticNetwork.DeclareThat(car).IsDescendantOf(vehicle);
 
 			// act
@@ -63,9 +63,9 @@ namespace AabSemantics.Tests.Questions
 			var language = Language.Default;
 			var semanticNetwork = new SemanticNetwork(language);
 
-			var conceptToCheck = ConceptCreationHelper.CreateConcept();
-			var parentConcept = ConceptCreationHelper.CreateConcept();
-			var childConcept = ConceptCreationHelper.CreateConcept();
+			var conceptToCheck = ConceptCreationHelper.CreateEmptyConcept();
+			var parentConcept = ConceptCreationHelper.CreateEmptyConcept();
+			var childConcept = ConceptCreationHelper.CreateEmptyConcept();
 			semanticNetwork.Concepts.Add(conceptToCheck);
 			semanticNetwork.Concepts.Add(parentConcept);
 			semanticNetwork.Concepts.Add(childConcept);
@@ -91,7 +91,7 @@ namespace AabSemantics.Tests.Questions
 			var language = Language.Default;
 			var semanticNetwork = new SemanticNetwork(language);
 
-			var childConcept = ConceptCreationHelper.CreateConcept();
+			var childConcept = ConceptCreationHelper.CreateEmptyConcept();
 			semanticNetwork.Concepts.Add(childConcept);
 
 			const int parentCount = 4;
@@ -99,7 +99,7 @@ namespace AabSemantics.Tests.Questions
 			for (int i = 1; i <= parentCount; i++)
 			{
 				// act
-				var parentConcept = ConceptCreationHelper.CreateConcept();
+				var parentConcept = ConceptCreationHelper.CreateEmptyConcept();
 				semanticNetwork.Concepts.Add(parentConcept);
 				semanticNetwork.DeclareThat(parentConcept).IsAncestorOf(childConcept);
 

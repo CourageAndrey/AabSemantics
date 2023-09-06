@@ -44,8 +44,8 @@ namespace AabSemantics.Tests.Questions
 				.WithModule<ClassificationModule>();
 
 			IConcept vehicle, car;
-			semanticNetwork.Concepts.Add(vehicle = "vehicle".CreateConcept());
-			semanticNetwork.Concepts.Add(car = "car".CreateConcept());
+			semanticNetwork.Concepts.Add(vehicle = "vehicle".CreateConceptByName());
+			semanticNetwork.Concepts.Add(car = "car".CreateConceptByName());
 			semanticNetwork.DeclareThat(car).IsDescendantOf(vehicle);
 
 			var checkedStatement = semanticNetwork.Statements.First();
@@ -127,9 +127,9 @@ namespace AabSemantics.Tests.Questions
 			var language = Language.Default;
 
 			var semanticNetwork = new SemanticNetwork(language);
-			var conceptParent = "parent".CreateConcept();
-			var conceptIntermediate = "intermediate".CreateConcept();
-			var conceptChild = "child".CreateConcept();
+			var conceptParent = "parent".CreateConceptByName();
+			var conceptIntermediate = "intermediate".CreateConceptByName();
+			var conceptChild = "child".CreateConceptByName();
 			semanticNetwork.Concepts.Add(conceptParent);
 			semanticNetwork.Concepts.Add(conceptIntermediate);
 			semanticNetwork.Concepts.Add(conceptChild);

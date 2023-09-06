@@ -22,8 +22,8 @@ namespace AabSemantics.Modules.Set.Tests.Statements
 			var language = Language.Default;
 			var semanticNetwork = new SemanticNetwork(language);
 
-			var whole = ConceptCreationHelper.CreateConcept();
-			var part = ConceptCreationHelper.CreateConcept();
+			var whole = ConceptCreationHelper.CreateEmptyConcept();
+			var part = ConceptCreationHelper.CreateEmptyConcept();
 
 			// act
 			var statementByConstructor = new HasPartStatement(null, whole, part);
@@ -42,10 +42,10 @@ namespace AabSemantics.Modules.Set.Tests.Statements
 			var language = Language.Default;
 			var semanticNetwork = new SemanticNetwork(language);
 
-			var whole1 = ConceptCreationHelper.CreateConcept();
-			var whole2 = ConceptCreationHelper.CreateConcept();
-			var part1 = ConceptCreationHelper.CreateConcept();
-			var part2 = ConceptCreationHelper.CreateConcept();
+			var whole1 = ConceptCreationHelper.CreateEmptyConcept();
+			var whole2 = ConceptCreationHelper.CreateEmptyConcept();
+			var part1 = ConceptCreationHelper.CreateEmptyConcept();
+			var part2 = ConceptCreationHelper.CreateEmptyConcept();
 
 			// act
 			var statementsByConstructorFromWhole = new List<HasPartStatement>
@@ -73,8 +73,8 @@ namespace AabSemantics.Modules.Set.Tests.Statements
 			var language = Language.Default;
 			var semanticNetwork = new SemanticNetwork(language);
 
-			var area = ConceptCreationHelper.CreateConcept();
-			var concept = ConceptCreationHelper.CreateConcept();
+			var area = ConceptCreationHelper.CreateEmptyConcept();
+			var concept = ConceptCreationHelper.CreateEmptyConcept();
 
 			// act
 			var statementByConstructor = new GroupStatement(null, area, concept);
@@ -93,10 +93,10 @@ namespace AabSemantics.Modules.Set.Tests.Statements
 			var language = Language.Default;
 			var semanticNetwork = new SemanticNetwork(language);
 
-			var area1 = ConceptCreationHelper.CreateConcept();
-			var area2 = ConceptCreationHelper.CreateConcept();
-			var concept1 = ConceptCreationHelper.CreateConcept();
-			var concept2 = ConceptCreationHelper.CreateConcept();
+			var area1 = ConceptCreationHelper.CreateEmptyConcept();
+			var area2 = ConceptCreationHelper.CreateEmptyConcept();
+			var concept1 = ConceptCreationHelper.CreateEmptyConcept();
+			var concept2 = ConceptCreationHelper.CreateEmptyConcept();
 
 			// act
 			var statementsByConstructorFromArea = new List<GroupStatement>
@@ -124,8 +124,8 @@ namespace AabSemantics.Modules.Set.Tests.Statements
 			var language = Language.Default;
 			var semanticNetwork = new SemanticNetwork(language);
 
-			var concept = ConceptCreationHelper.CreateConcept();
-			var sign = ConceptCreationHelper.CreateConcept();
+			var concept = ConceptCreationHelper.CreateEmptyConcept();
+			var sign = ConceptCreationHelper.CreateEmptyConcept();
 			sign.WithAttribute(IsSignAttribute.Value);
 
 			// act
@@ -145,11 +145,11 @@ namespace AabSemantics.Modules.Set.Tests.Statements
 			var language = Language.Default;
 			var semanticNetwork = new SemanticNetwork(language);
 
-			var concept1 = ConceptCreationHelper.CreateConcept();
-			var concept2 = ConceptCreationHelper.CreateConcept();
-			var sign1 = ConceptCreationHelper.CreateConcept();
+			var concept1 = ConceptCreationHelper.CreateEmptyConcept();
+			var concept2 = ConceptCreationHelper.CreateEmptyConcept();
+			var sign1 = ConceptCreationHelper.CreateEmptyConcept();
 			sign1.WithAttribute(IsSignAttribute.Value);
-			var sign2 = ConceptCreationHelper.CreateConcept();
+			var sign2 = ConceptCreationHelper.CreateEmptyConcept();
 			sign2.WithAttribute(IsSignAttribute.Value);
 
 			// act
@@ -178,10 +178,10 @@ namespace AabSemantics.Modules.Set.Tests.Statements
 			var language = Language.Default;
 			var semanticNetwork = new SemanticNetwork(language);
 
-			var concept = ConceptCreationHelper.CreateConcept();
-			var sign = ConceptCreationHelper.CreateConcept();
+			var concept = ConceptCreationHelper.CreateEmptyConcept();
+			var sign = ConceptCreationHelper.CreateEmptyConcept();
 			sign.WithAttribute(IsSignAttribute.Value);
-			var value = ConceptCreationHelper.CreateConcept();
+			var value = ConceptCreationHelper.CreateEmptyConcept();
 			value.WithAttribute(IsValueAttribute.Value);
 
 			// act

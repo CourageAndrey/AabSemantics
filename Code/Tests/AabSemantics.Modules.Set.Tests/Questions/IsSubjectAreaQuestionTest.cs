@@ -20,7 +20,7 @@ namespace AabSemantics.Modules.Set.Tests.Questions
 		public void GivenNullArguments_WhenTryToCreateQuestion_ThenFail()
 		{
 			// arrange
-			IConcept concept = "test".CreateConcept();
+			IConcept concept = "test".CreateConceptByName();
 
 			// act && assert
 			Assert.Throws<ArgumentNullException>(() => new IsSubjectAreaQuestion(null, concept));

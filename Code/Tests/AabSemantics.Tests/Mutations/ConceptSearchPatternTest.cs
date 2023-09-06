@@ -26,7 +26,7 @@ namespace AabSemantics.Tests.Mutations
 			var concepts = new List<IConcept>();
 			for (int i = 0; i < 10; i++)
 			{
-				concepts.Add(i.CreateConcept());
+				concepts.Add(i.CreateConceptByObject());
 			}
 
 			// act

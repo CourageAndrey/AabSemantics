@@ -23,7 +23,7 @@ namespace AabSemantics.Modules.Set.Tests.Questions
 		public void GivenNullArguments_WhenTryToCreateQuestion_ThenFail()
 		{
 			// arrange
-			IConcept concept = "test".CreateConcept();
+			IConcept concept = "test".CreateConceptByName();
 
 			// act && assert
 			Assert.Throws<ArgumentNullException>(() => new HasSignQuestion(null, concept, false));
@@ -96,7 +96,7 @@ namespace AabSemantics.Modules.Set.Tests.Questions
 			var language = Language.Default;
 			var semanticNetwork = new SemanticNetwork(language).CreateSetTestData();
 
-			var ownSign = ConceptCreationHelper.CreateConcept();
+			var ownSign = ConceptCreationHelper.CreateEmptyConcept();
 			ownSign.WithAttribute(IsSignAttribute.Value);
 			semanticNetwork.SemanticNetwork.Concepts.Add(ownSign);
 
@@ -133,7 +133,7 @@ namespace AabSemantics.Modules.Set.Tests.Questions
 			var language = Language.Default;
 			var semanticNetwork = new SemanticNetwork(language).CreateSetTestData();
 
-			var ownSign = ConceptCreationHelper.CreateConcept();
+			var ownSign = ConceptCreationHelper.CreateEmptyConcept();
 			ownSign.WithAttribute(IsSignAttribute.Value);
 			semanticNetwork.SemanticNetwork.Concepts.Add(ownSign);
 

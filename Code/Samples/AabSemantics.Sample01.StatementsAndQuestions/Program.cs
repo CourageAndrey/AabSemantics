@@ -60,24 +60,24 @@ namespace AabSemantics.Sample01.StatementsAndQuestions
 			#region Define concepts
 
 			// Need to define our own concepts to work with ...
-			IConcept animal = "Kingdom: Animalia".CreateConcept("Animal");
-			IConcept chordate = "Phylum: Chordata".CreateConcept("Chordate");
-			IConcept mammal = "Class: Mammalia".CreateConcept("Mammal");
-			IConcept carnivor = "Order: Carnivora".CreateConcept("Carnivor");
+			IConcept animal = "Kingdom: Animalia".CreateConceptById("Animal");
+			IConcept chordate = "Phylum: Chordata".CreateConceptById("Chordate");
+			IConcept mammal = "Class: Mammalia".CreateConceptById("Mammal");
+			IConcept carnivor = "Order: Carnivora".CreateConceptById("Carnivor");
 			// Just skip Ursidae, Ursinae and Ursini for short.
-			IConcept bear = "Genus: Ursus".CreateConcept("Bear");
-			IConcept americanBlackBear = "Ursus americanus".CreateConcept("American black bear");
-			IConcept brownBear = "Ursus arctos".CreateConcept("Brown bear");
-			IConcept polarBear = "Ursus maritimus".CreateConcept("Polar bear");
-			IConcept asianBlackBear = "Ursus thibetanuss".CreateConcept("Asian black bear");
-			IConcept pandaBear = "Ailuropoda melanoleuca".CreateConcept("Panda bear");
+			IConcept bear = "Genus: Ursus".CreateConceptById("Bear");
+			IConcept americanBlackBear = "Ursus americanus".CreateConceptById("American black bear");
+			IConcept brownBear = "Ursus arctos".CreateConceptById("Brown bear");
+			IConcept polarBear = "Ursus maritimus".CreateConceptById("Polar bear");
+			IConcept asianBlackBear = "Ursus thibetanuss".CreateConceptById("Asian black bear");
+			IConcept pandaBear = "Ailuropoda melanoleuca".CreateConceptById("Panda bear");
 
 			// Pay attention to attributes of concepts below.
-			IConcept hairColor = "Hair color".CreateConcept("Hair color").WithAttribute(IsSignAttribute.Value);
-			IConcept black = "Color: Black".CreateConcept("Black").WithAttribute(IsValueAttribute.Value);
-			IConcept brown = "Color: Brown".CreateConcept("Brown").WithAttribute(IsValueAttribute.Value);
-			IConcept white = "Color: White".CreateConcept("White").WithAttribute(IsValueAttribute.Value);
-			IConcept blackAndWhite = "Color: Mixed (black and white)".CreateConcept("Mixed (black and white)").WithAttribute(IsValueAttribute.Value);
+			IConcept hairColor = "Hair color".CreateConceptById("Hair color").WithAttribute(IsSignAttribute.Value);
+			IConcept black = "Color: Black".CreateConceptById("Black").WithAttribute(IsValueAttribute.Value);
+			IConcept brown = "Color: Brown".CreateConceptById("Brown").WithAttribute(IsValueAttribute.Value);
+			IConcept white = "Color: White".CreateConceptById("White").WithAttribute(IsValueAttribute.Value);
+			IConcept blackAndWhite = "Color: Mixed (black and white)".CreateConceptById("Mixed (black and white)").WithAttribute(IsValueAttribute.Value);
 
 			// ... and add them to our semantic network.
 			semanticNetwork.Concepts.Add(animal);

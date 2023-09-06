@@ -24,7 +24,7 @@ namespace AabSemantics.Modules.Set.Tests.Statements
 		public void GivenNoWhole_WhenTryToCreateHasPartStatement_ThenFail()
 		{
 			// arrange
-			var concept = ConceptCreationHelper.CreateConcept();
+			var concept = ConceptCreationHelper.CreateEmptyConcept();
 
 			// act && assert
 			Assert.Throws<ArgumentNullException>(() => new HasPartStatement(TestStatementId, null, concept));
@@ -34,7 +34,7 @@ namespace AabSemantics.Modules.Set.Tests.Statements
 		public void GivenNoPart_WhenTryToCreateHasPartStatement_ThenFail()
 		{
 			// arrange
-			var concept = ConceptCreationHelper.CreateConcept();
+			var concept = ConceptCreationHelper.CreateEmptyConcept();
 
 			// act && assert
 			Assert.Throws<ArgumentNullException>(() => new HasPartStatement(TestStatementId, concept, null));
@@ -48,7 +48,7 @@ namespace AabSemantics.Modules.Set.Tests.Statements
 		public void GivenNoArea_WhenTryToCreateGroupStatement_ThenFail()
 		{
 			// arrange
-			var concept = ConceptCreationHelper.CreateConcept();
+			var concept = ConceptCreationHelper.CreateEmptyConcept();
 
 			// act && assert
 			Assert.Throws<ArgumentNullException>(() => new GroupStatement(TestStatementId, null, concept));
@@ -58,7 +58,7 @@ namespace AabSemantics.Modules.Set.Tests.Statements
 		public void GivenNoConcept_WhenTryToCreateGroupStatement_ThenFail()
 		{
 			// arrange
-			var concept = ConceptCreationHelper.CreateConcept();
+			var concept = ConceptCreationHelper.CreateEmptyConcept();
 
 			// act && assert
 			Assert.Throws<ArgumentNullException>(() => new GroupStatement(TestStatementId, concept, null));
@@ -72,7 +72,7 @@ namespace AabSemantics.Modules.Set.Tests.Statements
 		public void GivenNoConcept_WhenTryToCreateHasSignStatement_ThenFail()
 		{
 			// arrange
-			var sign = ConceptCreationHelper.CreateConcept();
+			var sign = ConceptCreationHelper.CreateEmptyConcept();
 			sign.WithAttribute(IsSignAttribute.Value);
 
 			// act && assert
@@ -83,7 +83,7 @@ namespace AabSemantics.Modules.Set.Tests.Statements
 		public void GivenNoSign_WhenTryToCreateHasSignStatement_ThenFail()
 		{
 			// arrange
-			var concept = ConceptCreationHelper.CreateConcept();
+			var concept = ConceptCreationHelper.CreateEmptyConcept();
 
 			// act && assert
 			Assert.Throws<ArgumentNullException>(() => new HasSignStatement(TestStatementId, concept, null));
@@ -93,8 +93,8 @@ namespace AabSemantics.Modules.Set.Tests.Statements
 		public void GivenSignWithoutAttribute_WhenTryToCreateHasSignStatement_ThenFail()
 		{
 			// arrange
-			var concept = ConceptCreationHelper.CreateConcept();
-			var sign = ConceptCreationHelper.CreateConcept();
+			var concept = ConceptCreationHelper.CreateEmptyConcept();
+			var sign = ConceptCreationHelper.CreateEmptyConcept();
 
 			// act && assert
 			Assert.Throws<ArgumentException>(() => new HasSignStatement(TestStatementId, concept, sign));
@@ -108,7 +108,7 @@ namespace AabSemantics.Modules.Set.Tests.Statements
 		public void GivenNoAncestor_WhenTryToCreateIsStatement_ThenFail()
 		{
 			// arrange
-			var concept = ConceptCreationHelper.CreateConcept();
+			var concept = ConceptCreationHelper.CreateEmptyConcept();
 
 			// act && assert
 			Assert.Throws<ArgumentNullException>(() => new IsStatement(TestStatementId, null, concept));
@@ -118,7 +118,7 @@ namespace AabSemantics.Modules.Set.Tests.Statements
 		public void GivenNoDescendant_WhenTryToCreateIsStatement_ThenFail()
 		{
 			// arrange
-			var concept = ConceptCreationHelper.CreateConcept();
+			var concept = ConceptCreationHelper.CreateEmptyConcept();
 
 			// act && assert
 			Assert.Throws<ArgumentNullException>(() => new IsStatement(TestStatementId, concept, null));
@@ -132,9 +132,9 @@ namespace AabSemantics.Modules.Set.Tests.Statements
 		public void GivenNoConcept_WhenTryToCreateSignValueStatement_ThenFail()
 		{
 			// arrange
-			var sign = ConceptCreationHelper.CreateConcept();
+			var sign = ConceptCreationHelper.CreateEmptyConcept();
 			sign.WithAttribute(IsSignAttribute.Value);
-			var value = ConceptCreationHelper.CreateConcept();
+			var value = ConceptCreationHelper.CreateEmptyConcept();
 			value.WithAttribute(IsValueAttribute.Value);
 
 			// act && assert
@@ -145,10 +145,10 @@ namespace AabSemantics.Modules.Set.Tests.Statements
 		public void GivenNoSign_WhenTryToCreateSignValueStatement_ThenFail()
 		{
 			// arrange
-			var concept = ConceptCreationHelper.CreateConcept();
-			var sign = ConceptCreationHelper.CreateConcept();
+			var concept = ConceptCreationHelper.CreateEmptyConcept();
+			var sign = ConceptCreationHelper.CreateEmptyConcept();
 			sign.WithAttribute(IsSignAttribute.Value);
-			var value = ConceptCreationHelper.CreateConcept();
+			var value = ConceptCreationHelper.CreateEmptyConcept();
 			value.WithAttribute(IsValueAttribute.Value);
 
 			// act && assert
@@ -159,10 +159,10 @@ namespace AabSemantics.Modules.Set.Tests.Statements
 		public void GivenNoValue_WhenTryToCreateSignValueStatement_ThenFail()
 		{
 			// arrange
-			var concept = ConceptCreationHelper.CreateConcept();
-			var sign = ConceptCreationHelper.CreateConcept();
+			var concept = ConceptCreationHelper.CreateEmptyConcept();
+			var sign = ConceptCreationHelper.CreateEmptyConcept();
 			sign.WithAttribute(IsSignAttribute.Value);
-			var value = ConceptCreationHelper.CreateConcept();
+			var value = ConceptCreationHelper.CreateEmptyConcept();
 			value.WithAttribute(IsValueAttribute.Value);
 
 			// act && assert
@@ -173,9 +173,9 @@ namespace AabSemantics.Modules.Set.Tests.Statements
 		public void GivenSignWithoutAttribute_WhenTryToCreateSignValueStatement_ThenFail()
 		{
 			// arrange
-			var concept = ConceptCreationHelper.CreateConcept();
-			var sign = ConceptCreationHelper.CreateConcept();
-			var value = ConceptCreationHelper.CreateConcept();
+			var concept = ConceptCreationHelper.CreateEmptyConcept();
+			var sign = ConceptCreationHelper.CreateEmptyConcept();
+			var value = ConceptCreationHelper.CreateEmptyConcept();
 			value.WithAttribute(IsValueAttribute.Value);
 
 			// act && assert
@@ -186,10 +186,10 @@ namespace AabSemantics.Modules.Set.Tests.Statements
 		public void GivenValueWithoutAttribute_WhenTryToCreateSignValueStatement_ThenFail()
 		{
 			// arrange
-			var concept = ConceptCreationHelper.CreateConcept();
-			var sign = ConceptCreationHelper.CreateConcept();
+			var concept = ConceptCreationHelper.CreateEmptyConcept();
+			var sign = ConceptCreationHelper.CreateEmptyConcept();
 			sign.WithAttribute(IsSignAttribute.Value);
-			var value = ConceptCreationHelper.CreateConcept();
+			var value = ConceptCreationHelper.CreateEmptyConcept();
 
 			// act && assert
 			Assert.Throws<ArgumentException>(() => new SignValueStatement(TestStatementId, concept, sign, value));
@@ -214,9 +214,9 @@ namespace AabSemantics.Modules.Set.Tests.Statements
 				module.RegisterMetadata();
 			}
 
-			var concept1 = 1.CreateConcept().WithAttributes(new IAttribute[] { IsValueAttribute.Value });
-			var concept2 = 2.CreateConcept().WithAttributes(new IAttribute[] { IsValueAttribute.Value, IsSignAttribute.Value });
-			var concept3 = 3.CreateConcept().WithAttributes(new IAttribute[] { IsValueAttribute.Value });
+			var concept1 = 1.CreateConceptByObject().WithAttributes(new IAttribute[] { IsValueAttribute.Value });
+			var concept2 = 2.CreateConceptByObject().WithAttributes(new IAttribute[] { IsValueAttribute.Value, IsSignAttribute.Value });
+			var concept3 = 3.CreateConceptByObject().WithAttributes(new IAttribute[] { IsValueAttribute.Value });
 
 			var language = Language.Default;
 

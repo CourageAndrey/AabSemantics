@@ -30,18 +30,18 @@ namespace AabSemantics.Sample03.Processes
 
 			#region Define concepts
 
-			IConcept january = "January".CreateConcept();
-			IConcept february = "February".CreateConcept();
-			IConcept march = "March".CreateConcept();
-			IConcept april = "April".CreateConcept();
-			IConcept may = "May".CreateConcept();
-			IConcept june = "June".CreateConcept();
-			IConcept july = "July".CreateConcept();
-			IConcept august = "August".CreateConcept();
-			IConcept september = "September".CreateConcept();
-			IConcept october = "October".CreateConcept();
-			IConcept november = "November".CreateConcept();
-			IConcept december = "December".CreateConcept();
+			IConcept january = "January".CreateConceptByName();
+			IConcept february = "February".CreateConceptByName();
+			IConcept march = "March".CreateConceptByName();
+			IConcept april = "April".CreateConceptByName();
+			IConcept may = "May".CreateConceptByName();
+			IConcept june = "June".CreateConceptByName();
+			IConcept july = "July".CreateConceptByName();
+			IConcept august = "August".CreateConceptByName();
+			IConcept september = "September".CreateConceptByName();
+			IConcept october = "October".CreateConceptByName();
+			IConcept november = "November".CreateConceptByName();
+			IConcept december = "December".CreateConceptByName();
 
 			var months = new[]
 			{

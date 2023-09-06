@@ -76,8 +76,8 @@ namespace AabSemantics.Modules.Set.Tests.Questions
 				.WithModule<SetModule>();
 
 			IConcept child, parent;
-			semanticNetwork.Concepts.Add(child = "child".CreateConcept());
-			semanticNetwork.Concepts.Add(parent = "parent".CreateConcept());
+			semanticNetwork.Concepts.Add(child = "child".CreateConceptByName());
+			semanticNetwork.Concepts.Add(parent = "parent".CreateConceptByName());
 			semanticNetwork.DeclareThat(child).IsDescendantOf(parent);
 
 			var render = TextRenders.PlainString;

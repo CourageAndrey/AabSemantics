@@ -20,7 +20,7 @@ namespace AabSemantics.Modules.Set.Tests.Questions
 		public void GivenNullArguments_WhenTryToCreateQuestion_ThenFail()
 		{
 			// arrange
-			IConcept concept = "test".CreateConcept();
+			IConcept concept = "test".CreateConceptByName();
 
 			// act && assert
 			Assert.Throws<ArgumentNullException>(() => new GetDifferencesQuestion(null, concept));
@@ -31,7 +31,7 @@ namespace AabSemantics.Modules.Set.Tests.Questions
 		public void GivenSameArguments_WhenTryToCreateQuestion_ThenFail()
 		{
 			// arrange
-			IConcept concept = "test".CreateConcept();
+			IConcept concept = "test".CreateConceptByName();
 
 			// act && assert
 			Assert.Throws<ArgumentException>(() => new GetDifferencesQuestion(concept, concept));
@@ -161,7 +161,7 @@ namespace AabSemantics.Modules.Set.Tests.Questions
 			GetCommonQuestionTest.CreateCompareConceptsTest(semanticNetwork);
 
 			const string sideBranchId = "SIDE_BRANCH";
-			var sideBranch = sideBranchId.CreateConcept();
+			var sideBranch = sideBranchId.CreateConceptByName();
 			semanticNetwork.Concepts.Add(sideBranch);
 			semanticNetwork.DeclareThat(sideBranch).IsDescendantOf(semanticNetwork.Concepts["Parent 2"]);
 

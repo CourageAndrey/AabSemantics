@@ -12,8 +12,8 @@ namespace AabSemantics.Modules.Set.Tests.Statements
 		public void GivenNullOther_WhenEquals_ThenReturnFalse()
 		{
 			// arrange
-			IConcept	concept1 = 1.CreateConcept(),
-						concept2 = 2.CreateConcept();
+			IConcept	concept1 = 1.CreateConceptByObject(),
+						concept2 = 2.CreateConceptByObject();
 			var statement = new HasPartStatement(null, concept1, concept2);
 
 			// act && assert
@@ -24,8 +24,8 @@ namespace AabSemantics.Modules.Set.Tests.Statements
 		public void GivenHasPartStatement_WhenGetParentAndChild_ThenEqualToWholeAndPart()
 		{
 			// arrange
-			IConcept	whole = 1.CreateConcept(),
-						part = 2.CreateConcept();
+			IConcept	whole = 1.CreateConceptByObject(),
+						part = 2.CreateConceptByObject();
 			var statement = new HasPartStatement(null, whole, part);
 
 			// act && assert

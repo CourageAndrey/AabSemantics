@@ -290,8 +290,8 @@ namespace AabSemantics.Tests.Metadata
 			var language = Language.Default;
 			var semanticNetwork = new SemanticNetwork(language);
 
-			var concept1 = 1.CreateConcept();
-			var concept2 = 2.CreateConcept();
+			var concept1 = 1.CreateConceptByObject();
+			var concept2 = 2.CreateConceptByObject();
 			semanticNetwork.Concepts.Add(concept1);
 			semanticNetwork.Concepts.Add(concept2);
 

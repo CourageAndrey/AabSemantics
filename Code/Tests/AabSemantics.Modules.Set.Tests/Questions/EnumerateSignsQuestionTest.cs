@@ -89,7 +89,7 @@ namespace AabSemantics.Modules.Set.Tests.Questions
 			var language = Language.Default;
 			var semanticNetwork = new SemanticNetwork(language).CreateSetTestData();
 
-			var ownSign = ConceptCreationHelper.CreateConcept();
+			var ownSign = ConceptCreationHelper.CreateEmptyConcept();
 			ownSign.WithAttribute(IsSignAttribute.Value);
 			semanticNetwork.SemanticNetwork.Concepts.Add(ownSign);
 
@@ -132,7 +132,7 @@ namespace AabSemantics.Modules.Set.Tests.Questions
 			var language = Language.Default;
 			var semanticNetwork = new SemanticNetwork(language).CreateSetTestData();
 
-			var ownSign = ConceptCreationHelper.CreateConcept();
+			var ownSign = ConceptCreationHelper.CreateEmptyConcept();
 			ownSign.WithAttribute(IsSignAttribute.Value);
 			semanticNetwork.SemanticNetwork.Concepts.Add(ownSign);
 

@@ -23,9 +23,9 @@ namespace AabSemantics.Modules.Mathematics.Tests.Statements
 		public void GivenNoLeftValue_WhenTryToCreateComparisonStatement_ThenFail()
 		{
 			// arrange
-			var right = ConceptCreationHelper.CreateConcept();
+			var right = ConceptCreationHelper.CreateEmptyConcept();
 			right.WithAttribute(IsValueAttribute.Value);
-			var sign = ConceptCreationHelper.CreateConcept();
+			var sign = ConceptCreationHelper.CreateEmptyConcept();
 			sign.WithAttribute(IsComparisonSignAttribute.Value);
 
 			// act && assert
@@ -36,9 +36,9 @@ namespace AabSemantics.Modules.Mathematics.Tests.Statements
 		public void GivenNoRightValue_WhenTryToCreateComparisonStatement_ThenFail()
 		{
 			// arrange
-			var left = ConceptCreationHelper.CreateConcept();
+			var left = ConceptCreationHelper.CreateEmptyConcept();
 			left.WithAttribute(IsValueAttribute.Value);
-			var sign = ConceptCreationHelper.CreateConcept();
+			var sign = ConceptCreationHelper.CreateEmptyConcept();
 			sign.WithAttribute(IsComparisonSignAttribute.Value);
 
 			// act && assert
@@ -49,9 +49,9 @@ namespace AabSemantics.Modules.Mathematics.Tests.Statements
 		public void GivenNoSign_WhenTryToCreateComparisonStatement_ThenFail()
 		{
 			// arrange
-			var left = ConceptCreationHelper.CreateConcept();
+			var left = ConceptCreationHelper.CreateEmptyConcept();
 			left.WithAttribute(IsValueAttribute.Value);
-			var right = ConceptCreationHelper.CreateConcept();
+			var right = ConceptCreationHelper.CreateEmptyConcept();
 			right.WithAttribute(IsValueAttribute.Value);
 
 			// act && assert
@@ -62,10 +62,10 @@ namespace AabSemantics.Modules.Mathematics.Tests.Statements
 		public void GivenLeftWithoutAttribute_WhenTryToCreateComparisonStatement_ThenFail()
 		{
 			// arrange
-			var left = ConceptCreationHelper.CreateConcept();
-			var right = ConceptCreationHelper.CreateConcept();
+			var left = ConceptCreationHelper.CreateEmptyConcept();
+			var right = ConceptCreationHelper.CreateEmptyConcept();
 			right.WithAttribute(IsValueAttribute.Value);
-			var sign = ConceptCreationHelper.CreateConcept();
+			var sign = ConceptCreationHelper.CreateEmptyConcept();
 			sign.WithAttribute(IsComparisonSignAttribute.Value);
 
 			// act && assert
@@ -76,10 +76,10 @@ namespace AabSemantics.Modules.Mathematics.Tests.Statements
 		public void GivenRightWithoutAttribute_WhenTryToCreateComparisonStatement_ThenFail()
 		{
 			// arrange
-			var left = ConceptCreationHelper.CreateConcept();
+			var left = ConceptCreationHelper.CreateEmptyConcept();
 			left.WithAttribute(IsValueAttribute.Value);
-			var right = ConceptCreationHelper.CreateConcept();
-			var sign = ConceptCreationHelper.CreateConcept();
+			var right = ConceptCreationHelper.CreateEmptyConcept();
+			var sign = ConceptCreationHelper.CreateEmptyConcept();
 			sign.WithAttribute(IsComparisonSignAttribute.Value);
 
 			// act && assert
@@ -90,11 +90,11 @@ namespace AabSemantics.Modules.Mathematics.Tests.Statements
 		public void GivenSignWithoutAttribute_WhenTryToCreateComparisonStatement_ThenFail()
 		{
 			// arrange
-			var left = ConceptCreationHelper.CreateConcept();
+			var left = ConceptCreationHelper.CreateEmptyConcept();
 			left.WithAttribute(IsValueAttribute.Value);
-			var right = ConceptCreationHelper.CreateConcept();
+			var right = ConceptCreationHelper.CreateEmptyConcept();
 			right.WithAttribute(IsValueAttribute.Value);
-			var sign = ConceptCreationHelper.CreateConcept();
+			var sign = ConceptCreationHelper.CreateEmptyConcept();
 
 			// act && assert
 			Assert.Throws<ArgumentException>(() => new ComparisonStatement(TestStatementId, left, right, sign));
@@ -119,9 +119,9 @@ namespace AabSemantics.Modules.Mathematics.Tests.Statements
 				module.RegisterMetadata();
 			}
 
-			var concept1 = 1.CreateConcept().WithAttributes(new IAttribute[] { IsValueAttribute.Value });
-			var concept2 = 2.CreateConcept().WithAttributes(new IAttribute[] { IsValueAttribute.Value });
-			var concept3 = 3.CreateConcept().WithAttributes(new IAttribute[] { IsValueAttribute.Value, IsComparisonSignAttribute.Value });
+			var concept1 = 1.CreateConceptByObject().WithAttributes(new IAttribute[] { IsValueAttribute.Value });
+			var concept2 = 2.CreateConceptByObject().WithAttributes(new IAttribute[] { IsValueAttribute.Value });
+			var concept3 = 3.CreateConceptByObject().WithAttributes(new IAttribute[] { IsValueAttribute.Value, IsComparisonSignAttribute.Value });
 
 			var language = Language.Default;
 

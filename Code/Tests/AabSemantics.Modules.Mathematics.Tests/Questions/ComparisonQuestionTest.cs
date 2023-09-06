@@ -25,7 +25,7 @@ namespace AabSemantics.Modules.Mathematics.Tests.Questions
 		public void GivenNullArguments_WhenTryToCreateQuestion_ThenFail()
 		{
 			// arrange
-			IConcept concept = "test".CreateConcept();
+			IConcept concept = "test".CreateConceptByName();
 
 			// act && assert
 			Assert.Throws<ArgumentNullException>(() => new ComparisonQuestion(null, concept));
@@ -63,7 +63,7 @@ namespace AabSemantics.Modules.Mathematics.Tests.Questions
 
 			var semanticNetwork = new SemanticNetwork(language);
 
-			var question = new ComparisonQuestion(1.CreateConcept(), 2.CreateConcept());
+			var question = new ComparisonQuestion(1.CreateConceptByObject(), 2.CreateConceptByObject());
 
 			// act
 			var answer = question.Ask(semanticNetwork.Context);

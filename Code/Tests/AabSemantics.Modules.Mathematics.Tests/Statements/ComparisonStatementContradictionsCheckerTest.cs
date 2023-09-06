@@ -206,7 +206,7 @@ namespace AabSemantics.Modules.Mathematics.Tests.Statements
 
 		private static IConcept CreateValueConcept(int number)
 		{
-			var concept = number.CreateConcept();
+			var concept = number.CreateConceptByObject();
 			concept.WithAttribute(IsValueAttribute.Value);
 			return concept;
 		}

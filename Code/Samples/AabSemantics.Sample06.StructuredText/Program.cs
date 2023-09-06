@@ -17,7 +17,7 @@ namespace AabSemantics.Sample06.StructuredText
 				.Append(new LineBreakText())
 				.Append(new FormattedText(language => "This text supports #0x0000# (this one does not work in standard web browsers - check Inventor.Client project instead).", new Dictionary<string, IKnowledge>
 				{
-					{ "#0x0000#", "hyperlinks".CreateConcept() },
+					{ "#0x0000#", "hyperlinks".CreateConceptByName() },
 				}))
 				.Append(language => "Bulletin list:")
 				.AppendBulletsList(new IText[]

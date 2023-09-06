@@ -34,8 +34,8 @@ namespace AabSemantics.Modules.Mathematics.Tests.Statements
 			var semanticNetwork = new SemanticNetwork(language)
 				.WithModules(new IExtensionModule[] { _module });
 
-			var concept1 = ConceptCreationHelper.CreateConcept().WithAttribute(IsValueAttribute.Value);
-			var concept2 = ConceptCreationHelper.CreateConcept().WithAttribute(IsValueAttribute.Value);
+			var concept1 = ConceptCreationHelper.CreateEmptyConcept().WithAttribute(IsValueAttribute.Value);
+			var concept2 = ConceptCreationHelper.CreateEmptyConcept().WithAttribute(IsValueAttribute.Value);
 			semanticNetwork.Concepts.Add(concept1);
 			semanticNetwork.Concepts.Add(concept2);
 			semanticNetwork.DeclareThat(concept1).IsGreaterThan(concept2);
@@ -64,8 +64,8 @@ namespace AabSemantics.Modules.Mathematics.Tests.Statements
 			var semanticNetwork = new SemanticNetwork(language)
 				.WithModules(new IExtensionModule[] { _module });
 
-			var concept1 = ConceptCreationHelper.CreateConcept().WithAttribute(IsValueAttribute.Value);
-			var concept2 = ConceptCreationHelper.CreateConcept().WithAttribute(IsValueAttribute.Value);
+			var concept1 = ConceptCreationHelper.CreateEmptyConcept().WithAttribute(IsValueAttribute.Value);
+			var concept2 = ConceptCreationHelper.CreateEmptyConcept().WithAttribute(IsValueAttribute.Value);
 			semanticNetwork.Concepts.Add(concept1);
 			semanticNetwork.Concepts.Add(concept2);
 			semanticNetwork.DeclareThat(concept1).IsGreaterThan(concept2);

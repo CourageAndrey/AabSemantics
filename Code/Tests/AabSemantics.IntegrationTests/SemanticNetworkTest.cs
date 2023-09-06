@@ -53,8 +53,8 @@ namespace AabSemantics.IntegrationTests
 			var semanticNetwork = new SemanticNetwork(language);
 
 			IConcept concept1, concept2;
-			semanticNetwork.Concepts.Add(concept1 = 1.CreateConcept());
-			semanticNetwork.Concepts.Add(concept2 = 2.CreateConcept());
+			semanticNetwork.Concepts.Add(concept1 = 1.CreateConceptByObject());
+			semanticNetwork.Concepts.Add(concept2 = 2.CreateConceptByObject());
 
 			semanticNetwork.DeclareThat(concept1).IsAncestorOf(concept2);
 			semanticNetwork.DeclareThat(concept1).IsAncestorOf(concept2);
@@ -91,8 +91,8 @@ namespace AabSemantics.IntegrationTests
 			var semanticNetwork = new SemanticNetwork(language);
 
 			IConcept concept1, concept2;
-			semanticNetwork.Concepts.Add(concept1 = 1.CreateConcept().WithAttribute(IsValueAttribute.Value));
-			semanticNetwork.Concepts.Add(concept2 = 2.CreateConcept().WithAttribute(IsValueAttribute.Value));
+			semanticNetwork.Concepts.Add(concept1 = 1.CreateConceptByObject().WithAttribute(IsValueAttribute.Value));
+			semanticNetwork.Concepts.Add(concept2 = 2.CreateConceptByObject().WithAttribute(IsValueAttribute.Value));
 
 			const int statementsCount = 10;
 			for (int i = 0; i < statementsCount; i++)
@@ -114,8 +114,8 @@ namespace AabSemantics.IntegrationTests
 			var semanticNetwork = new SemanticNetwork(language);
 
 			IConcept concept1, concept2;
-			semanticNetwork.Concepts.Add(concept1 = 1.CreateConcept().WithAttribute(IsValueAttribute.Value));
-			semanticNetwork.Concepts.Add(concept2 = 2.CreateConcept().WithAttribute(IsValueAttribute.Value));
+			semanticNetwork.Concepts.Add(concept1 = 1.CreateConceptByObject().WithAttribute(IsValueAttribute.Value));
+			semanticNetwork.Concepts.Add(concept2 = 2.CreateConceptByObject().WithAttribute(IsValueAttribute.Value));
 
 			var comparison = semanticNetwork.DeclareThat(concept1).IsLessThan(concept2);
 			comparison.Context = semanticNetwork.Context.Parent;

@@ -14,8 +14,8 @@ namespace AabSemantics.Modules.Processes.Tests.Statements
 		public void GivenNullOther_WhenEquals_ThenReturnFalse()
 		{
 			// arrange
-			IConcept	process1 = 1.CreateConcept().WithAttribute(IsProcessAttribute.Value),
-						process2 = 2.CreateConcept().WithAttribute(IsProcessAttribute.Value);
+			IConcept	process1 = 1.CreateConceptByObject().WithAttribute(IsProcessAttribute.Value),
+						process2 = 2.CreateConceptByObject().WithAttribute(IsProcessAttribute.Value);
 			var statement = new ProcessesStatement(null, process1, process2, SequenceSigns.Causes);
 
 			// act && assert

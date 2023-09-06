@@ -26,9 +26,9 @@ namespace AabSemantics.Modules.Mathematics.Tests.Statements
 			var language = Language.Default;
 			var semanticNetwork = new SemanticNetwork(language);
 
-			var leftValue = ConceptCreationHelper.CreateConcept();
+			var leftValue = ConceptCreationHelper.CreateEmptyConcept();
 			leftValue.WithAttribute(IsValueAttribute.Value);
-			var rightValue = ConceptCreationHelper.CreateConcept();
+			var rightValue = ConceptCreationHelper.CreateEmptyConcept();
 			rightValue.WithAttribute(IsValueAttribute.Value);
 
 			var statementsByConstructor = new List<ComparisonStatement>();
@@ -67,13 +67,13 @@ namespace AabSemantics.Modules.Mathematics.Tests.Statements
 			var language = Language.Default;
 			var semanticNetwork = new SemanticNetwork(language);
 
-			var leftValue = ConceptCreationHelper.CreateConcept();
+			var leftValue = ConceptCreationHelper.CreateEmptyConcept();
 			leftValue.WithAttribute(IsValueAttribute.Value);
 			var rightValues = new[]
 			{
-				ConceptCreationHelper.CreateConcept(),
-				ConceptCreationHelper.CreateConcept(),
-				ConceptCreationHelper.CreateConcept(),
+				ConceptCreationHelper.CreateEmptyConcept(),
+				ConceptCreationHelper.CreateEmptyConcept(),
+				ConceptCreationHelper.CreateEmptyConcept(),
 			};
 			foreach (var rightValue in rightValues)
 			{
@@ -122,7 +122,7 @@ namespace AabSemantics.Modules.Mathematics.Tests.Statements
 			for (int i = 1; i <= count; i++)
 			{
 				string n = i.ToString();
-				IConcept number = n.CreateConcept().WithAttribute(IsValueAttribute.Value);
+				IConcept number = n.CreateConceptByName().WithAttribute(IsValueAttribute.Value);
 				numbers.Add(number);
 				semanticNetwork.Concepts.Add(number);
 			}
