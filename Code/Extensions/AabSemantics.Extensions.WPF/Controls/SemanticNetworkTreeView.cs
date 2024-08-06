@@ -13,15 +13,8 @@ namespace AabSemantics.Extensions.WPF.Controls
 	{
 		public SemanticNetworkTreeView()
 		{
-			Resources.Add("language", AabSemantics.Localization.Language.Default);
-
 			_contextMenu = new ContextMenu();
 			_contextMenu.ContextMenuOpening += knowledgeContextMenuOpening;
-
-			_renameKnowledgeItem = createMenuItem("_renameKnowledgeItem", "Ui.MainForm.ContextMenuRename", renameKnowledgeClick);
-			_addKnowledgeItem = createMenuItem("_addKnowledgeItem", "Ui.MainForm.ContextMenuKnowledgeAdd", addKnowledgeClick);
-			_editKnowledgeItem = createMenuItem("_editKnowledgeItem", "Ui.MainForm.ContextMenuKnowledgeEdit", editKnowledgeClick);
-			_deleteKnowledgeItem = createMenuItem("_deleteKnowledgeItem", "Ui.MainForm.ContextMenuKnowledgeDelete", deleteKnowledgeClick);
 
 			IsReadOnly = false;
 		}
@@ -32,7 +25,6 @@ namespace AabSemantics.Extensions.WPF.Controls
 
 			menuItem.SetBinding(HeaderedItemsControl.HeaderProperty, new Binding(headerLocalizationKey)
 			{
-				Source = new StaticResourceExtension("language"),
 				Mode = BindingMode.OneTime,
 			});
 
@@ -56,6 +48,13 @@ namespace AabSemantics.Extensions.WPF.Controls
 			_viewModelFactory = viewModelFactory;
 			_commandsFactory = commandsFactory;
 			_owner = application.MainForm as Window;
+
+			_contextMenu.DataContext = _owner.Resources["language"];
+
+			_renameKnowledgeItem = createMenuItem("_renameKnowledgeItem", "Ui.MainForm.ContextMenuRename", renameKnowledgeClick);
+			_addKnowledgeItem = createMenuItem("_addKnowledgeItem", "Ui.MainForm.ContextMenuKnowledgeAdd", addKnowledgeClick);
+			_editKnowledgeItem = createMenuItem("_editKnowledgeItem", "Ui.MainForm.ContextMenuKnowledgeEdit", editKnowledgeClick);
+			_deleteKnowledgeItem = createMenuItem("_deleteKnowledgeItem", "Ui.MainForm.ContextMenuKnowledgeDelete", deleteKnowledgeClick);
 
 			Reload();
 		}
@@ -83,8 +82,6 @@ namespace AabSemantics.Extensions.WPF.Controls
 		{
 			Items.Clear();
 
-			Resources["language"] = _application.CurrentLanguage;
-
 			Items.Add(_semanticNetworkNode = new SemanticNetworkNode(_application));
 			_semanticNetworkNode.IsExpanded = true;
 		}
@@ -96,10 +93,10 @@ namespace AabSemantics.Extensions.WPF.Controls
 		#region Context Menu
 
 		private readonly ContextMenu _contextMenu;
-		private readonly MenuItem _renameKnowledgeItem;
-		private readonly MenuItem _addKnowledgeItem;
-		private readonly MenuItem _editKnowledgeItem;
-		private readonly MenuItem _deleteKnowledgeItem;
+		private MenuItem _renameKnowledgeItem;
+		private MenuItem _addKnowledgeItem;
+		private MenuItem _editKnowledgeItem;
+		private MenuItem _deleteKnowledgeItem;
 
 		private void renameKnowledgeClick(object sender, RoutedEventArgs e)
 		{
