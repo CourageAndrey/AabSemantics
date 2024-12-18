@@ -41,10 +41,10 @@ namespace AabSemantics.Modules.Processes.Tests.Metadata
 		public void GivenCorrectModules_WhenRegisterMetadata_ThenSucceed()
 		{
 			// 0-assert
-			Assert.AreEqual(0, Repositories.Attributes.Definitions.Count);
-			Assert.AreEqual(0, Repositories.Statements.Definitions.Count);
-			Assert.AreEqual(0, Repositories.Questions.Definitions.Count);
-			Assert.AreEqual(0, Repositories.Modules.Count);
+			Assert.That(Repositories.Attributes.Definitions.Count, Is.EqualTo(0));
+			Assert.That(Repositories.Statements.Definitions.Count, Is.EqualTo(0));
+			Assert.That(Repositories.Questions.Definitions.Count, Is.EqualTo(0));
+			Assert.That(Repositories.Modules.Count, Is.EqualTo(0));
 
 			// arrange & act
 			var modules = new IExtensionModule[]
@@ -61,55 +61,55 @@ namespace AabSemantics.Modules.Processes.Tests.Metadata
 			var language = Language.Default;
 
 			// assert modules
-			Assert.AreEqual(modules.Length, Repositories.Modules.Count);
+			Assert.That(Repositories.Modules.Count, Is.EqualTo(modules.Length));
 			foreach (var module in modules)
 			{
-				Assert.AreSame(module, Repositories.Modules[module.Name]);
+				Assert.That(Repositories.Modules[module.Name], Is.SameAs(module));
 			}
 
 			// assert attributes
 			var attributeTypes = GetAllAttributeTypes();
-			Assert.AreEqual(Repositories.Attributes.Definitions.Count, GetAllAttributeTypes().Count);
+			Assert.That(GetAllAttributeTypes().Count, Is.EqualTo(Repositories.Attributes.Definitions.Count));
 			foreach (var type in attributeTypes)
 			{
 				var definition = Repositories.Attributes.Definitions[type];
-				Assert.IsFalse(string.IsNullOrEmpty(definition.GetName(language)));
+				Assert.That(definition.GetName(language), Is.Not.Null.Or.Empty);
 			}
 
 			// assert concepts
 			var semanticNetwork = new SemanticNetwork(Language.Default).WithModules(modules);
 			var systemConcepts = GetSystemConcepts();
-			Assert.AreEqual(semanticNetwork.Concepts.Count, systemConcepts.Count);
+			Assert.That(systemConcepts.Count, Is.EqualTo(semanticNetwork.Concepts.Count));
 			foreach (var concept in systemConcepts)
 			{
-				Assert.IsTrue(semanticNetwork.Concepts.Contains(concept));
+				Assert.That(semanticNetwork.Concepts.Contains(concept), Is.True);
 			}
 
 			// assert statements
 			var statementTypes = GetAllStatementTypes();
-			Assert.AreEqual(Repositories.Statements.Definitions.Count, statementTypes.Count);
+			Assert.That(statementTypes.Count, Is.EqualTo(Repositories.Statements.Definitions.Count));
 			foreach (var type in statementTypes)
 			{
 				var definition = Repositories.Statements.Definitions[type];
-				Assert.IsFalse(string.IsNullOrEmpty(definition.GetName(language)));
+				Assert.That(definition.GetName(language), Is.Not.Null.Or.Empty);
 			}
 
 			// assert questions
 			var questionTypes = GetAllQuestionsTypes();
-			Assert.AreEqual(Repositories.Questions.Definitions.Count, questionTypes.Count);
+			Assert.That(questionTypes.Count, Is.EqualTo(Repositories.Questions.Definitions.Count));
 			foreach (var type in questionTypes)
 			{
 				var definition = Repositories.Questions.Definitions[type];
-				Assert.IsFalse(string.IsNullOrEmpty(definition.GetName(language)));
+				Assert.That(definition.GetName(language), Is.Not.Null.Or.Empty);
 			}
 
 			// assert answers
 			var answerTypes = GetAllAnswersTypes();
-			Assert.AreEqual(Repositories.Answers.Definitions.Count, answerTypes.Count);
+			Assert.That(answerTypes.Count, Is.EqualTo(Repositories.Answers.Definitions.Count));
 			foreach (var type in answerTypes)
 			{
 				var definition = Repositories.Answers.Definitions[type];
-				Assert.AreSame(definition.Type, type);
+				Assert.That(definition.Type, Is.SameAs(type));
 			}
 		}
 
@@ -134,10 +134,10 @@ namespace AabSemantics.Modules.Processes.Tests.Metadata
 			int totalExtensionCount = modules.Sum(m => m.GetLanguageExtensions().Count);
 
 			// assert
-			Assert.AreEqual(totalExtensionCount, language.Extensions.Count);
-			Assert.IsNotNull(language.GetExtension<ILanguageBooleanModule>());
-			Assert.IsNotNull(language.GetExtension<ILanguageClassificationModule>());
-			Assert.IsNotNull(language.GetExtension<ILanguageProcessesModule>());
+			Assert.That(totalExtensionCount, Is.EqualTo(language.Extensions.Count));
+			Assert.That(language.GetExtension<ILanguageBooleanModule>(), Is.Not.Null);
+			Assert.That(language.GetExtension<ILanguageClassificationModule>(), Is.Not.Null);
+			Assert.That(language.GetExtension<ILanguageProcessesModule>(), Is.Not.Null);
 		}
 
 		private static List<Type> GetAllAttributeTypes()

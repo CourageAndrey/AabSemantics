@@ -31,7 +31,7 @@ namespace AabSemantics.Tests.Localization
 			var foundLanguage = languages.FindAppropriate(defaultLanguage);
 
 			// assert
-			Assert.AreEqual(searchedLanguage, foundLanguage);
+			Assert.That(foundLanguage, Is.EqualTo(searchedLanguage));
 		}
 
 		[Test]
@@ -53,7 +53,7 @@ namespace AabSemantics.Tests.Localization
 			var foundLanguage = languages.FindAppropriate(defaultLanguage);
 
 			// assert
-			Assert.AreEqual(defaultLanguage, foundLanguage);
+			Assert.That(foundLanguage, Is.EqualTo(defaultLanguage));
 		}
 
 		[Test]
@@ -66,7 +66,7 @@ namespace AabSemantics.Tests.Localization
 			string text = language.GetBoundText("Attributes.None");
 
 			// assert
-			Assert.AreEqual(language.Attributes.None, text);
+			Assert.That(text, Is.EqualTo(language.Attributes.None));
 		}
 
 		[Test]
@@ -81,7 +81,7 @@ namespace AabSemantics.Tests.Localization
 			string text = language.GetBoundText("Boolean\\Attributes.IsBoolean");
 
 			// assert
-			Assert.AreEqual(language.GetExtension<ILanguageBooleanModule>().Attributes.IsBoolean, text);
+			Assert.That(text, Is.EqualTo(language.GetExtension<ILanguageBooleanModule>().Attributes.IsBoolean));
 		}
 
 		[Test]
@@ -94,7 +94,7 @@ namespace AabSemantics.Tests.Localization
 			string text = language.GetBoundText("Attributes.None");
 
 			// assert
-			Assert.IsNull(text);
+			Assert.That(text, Is.Null);
 		}
 	}
 }

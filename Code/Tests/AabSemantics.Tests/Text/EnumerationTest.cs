@@ -31,8 +31,8 @@ namespace AabSemantics.Tests.Text
 			// assert
 			foreach (var concept in knowledge)
 			{
-				Assert.IsTrue(@string.Contains(concept.Name.GetValue(language)));
-				Assert.IsTrue(text.GetParameters().ContainsKey(concept.ID));
+				Assert.That(@string.Contains(concept.Name.GetValue(language)), Is.True);
+				Assert.That(text.GetParameters().ContainsKey(concept.ID), Is.True);
 			}
 		}
 
@@ -58,8 +58,8 @@ namespace AabSemantics.Tests.Text
 			// assert
 			foreach (var concept in knowledge)
 			{
-				Assert.IsTrue(@string.Contains(concept.Name.GetValue(language)));
-				Assert.IsTrue(text.GetParameters().ContainsKey(concept.GetAnchor()));
+				Assert.That(@string.Contains(concept.Name.GetValue(language)), Is.True);
+				Assert.That(text.GetParameters().ContainsKey(concept.GetAnchor()), Is.True);
 			}
 		}
 	}

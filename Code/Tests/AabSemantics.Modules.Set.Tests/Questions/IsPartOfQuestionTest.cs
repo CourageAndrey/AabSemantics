@@ -40,8 +40,8 @@ namespace AabSemantics.Modules.Set.Tests.Questions
 			var answerBuilder = (BooleanAnswer) semanticNetwork.SemanticNetwork.Ask().IfIsPartOf(semanticNetwork.Part_Engine, semanticNetwork.Vehicle_Car);
 
 			// assert
-			Assert.AreEqual(answerRegular.Result, answerBuilder.Result);
-			Assert.IsTrue(answerRegular.Explanation.Statements.SequenceEqual(answerBuilder.Explanation.Statements));
+			Assert.That(answerBuilder.Result, Is.EqualTo(answerRegular.Result));
+			Assert.That(answerRegular.Explanation.Statements.SequenceEqual(answerBuilder.Explanation.Statements), Is.True);
 		}
 
 		[Test]
@@ -58,11 +58,11 @@ namespace AabSemantics.Modules.Set.Tests.Questions
 			var text = render.RenderText(answer.Description, language).ToString();
 
 			// assert
-			Assert.IsFalse(answer.IsEmpty);
-			Assert.IsFalse(((BooleanAnswer) answer).Result);
-			Assert.AreEqual(0, answer.Explanation.Statements.Count);
+			Assert.That(answer.IsEmpty, Is.False);
+			Assert.That(((BooleanAnswer) answer).Result, Is.False);
+			Assert.That(answer.Explanation.Statements.Count, Is.EqualTo(0));
 
-			Assert.IsTrue(text.Contains(" is not part of "));
+			Assert.That(text.Contains(" is not part of "), Is.True);
 		}
 
 		[Test]
@@ -79,13 +79,13 @@ namespace AabSemantics.Modules.Set.Tests.Questions
 			var text = render.RenderText(answer.Description, language).ToString();
 
 			// assert
-			Assert.IsFalse(answer.IsEmpty);
-			Assert.IsTrue(((BooleanAnswer) answer).Result);
+			Assert.That(answer.IsEmpty, Is.False);
+			Assert.That(((BooleanAnswer) answer).Result, Is.True);
 
 			var statement = (HasPartStatement) answer.Explanation.Statements.Single();
-			Assert.IsTrue(statement.Whole == semanticNetwork.Vehicle_Car && statement.Part == semanticNetwork.Part_Engine);
+			Assert.That(statement.Whole == semanticNetwork.Vehicle_Car && statement.Part == semanticNetwork.Part_Engine, Is.True);
 
-			Assert.IsTrue(text.Contains(" is part of "));
+			Assert.That(text.Contains(" is part of "), Is.True);
 		}
 	}
 }

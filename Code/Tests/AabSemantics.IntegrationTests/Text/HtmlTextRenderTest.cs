@@ -25,7 +25,7 @@ namespace AabSemantics.IntegrationTests.Text
 			var html = TextRenders.Html.RenderText(text, language).ToString();
 
 			// assert
-			Assert.IsTrue(Regex.IsMatch(html, ValidHtmRegex));
+			Assert.That(Regex.IsMatch(html, ValidHtmRegex), Is.True);
 		}
 	}
 }

@@ -98,7 +98,7 @@ namespace AabSemantics.Tests.Contexts
 			new TestQuestionCreateContextKnowledge().Ask(semanticNetwork.Context);
 
 			// as context has been disposed after previous line, ensure, that added test statement(s) was (were) also deleted
-			Assert.IsFalse(semanticNetwork.Statements.Enumerate<TestStatement>().Any());
+			Assert.That(semanticNetwork.Statements.Enumerate<TestStatement>().Any(), Is.False);
 		}
 
 		[Test]
@@ -108,13 +108,13 @@ namespace AabSemantics.Tests.Contexts
 
 			var semanticNetwork = new SemanticNetwork(language);
 			var semanticNetworkContext = (SemanticNetworkContext) semanticNetwork.Context;
-			Assert.IsFalse(semanticNetworkContext.IsSystem);
+			Assert.That(semanticNetworkContext.IsSystem, Is.False);
 
 			var systemContext = (SystemContext) semanticNetworkContext.Parent;
-			Assert.IsTrue(systemContext.IsSystem);
+			Assert.That(systemContext.IsSystem, Is.True);
 
 			var questionContext = semanticNetworkContext.CreateQuestionContext(new TestQuestionCreateContextKnowledge());
-			Assert.IsFalse(questionContext.IsSystem);
+			Assert.That(questionContext.IsSystem, Is.False);
 		}
 
 		[Test]
@@ -131,8 +131,8 @@ namespace AabSemantics.Tests.Contexts
 			// assert
 			var contextQuestion = questionContext.Question;
 			var typedContextQuestion = ((IQuestionProcessingContext<TestQuestionCreateContextKnowledge>) questionContext).Question;
-			Assert.AreSame(question, contextQuestion);
-			Assert.AreSame(question, typedContextQuestion);
+			Assert.That(contextQuestion, Is.SameAs(question));
+			Assert.That(typedContextQuestion, Is.SameAs(question));
 		}
 
 		[Test]
@@ -223,9 +223,9 @@ namespace AabSemantics.Tests.Contexts
 			var contextWithChangedLanguage = new QuestionProcessingContext<CheckStatementQuestion>(semanticNetwork.Context, question, language2);
 
 			// assert
-			Assert.AreSame(language1, contextWithoutLanguage.Language);
-			Assert.AreSame(language1, contextWithNullLanguage.Language);
-			Assert.AreSame(language2, contextWithChangedLanguage.Language);
+			Assert.That(contextWithoutLanguage.Language, Is.SameAs(language1));
+			Assert.That(contextWithNullLanguage.Language, Is.SameAs(language1));
+			Assert.That(contextWithChangedLanguage.Language, Is.SameAs(language2));
 		}
 
 		private static DisposableProcessingContext CreateChildDisposableContext(ISemanticNetworkContext parent)
@@ -330,7 +330,7 @@ namespace AabSemantics.Tests.Contexts
 				testStatement.Context = context;
 				context.Scope.Add(testStatement);
 
-				Assert.IsTrue(context.SemanticNetwork.Statements.Enumerate<TestStatement>(context).Any());
+				Assert.That(context.SemanticNetwork.Statements.Enumerate<TestStatement>(context).Any(), Is.True);
 
 				return null;
 			}

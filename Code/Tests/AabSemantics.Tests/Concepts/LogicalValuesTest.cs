@@ -26,7 +26,7 @@ namespace AabSemantics.Tests.Concepts
 		{
 			foreach (var value in LogicalValues.All)
 			{
-				Assert.AreSame(value, value.Invert().Invert());
+				Assert.That(value.Invert().Invert(), Is.SameAs(value));
 			}
 		}
 
@@ -35,12 +35,12 @@ namespace AabSemantics.Tests.Concepts
 		{
 			foreach (var value in LogicalValues.All)
 			{
-				Assert.AreSame(value, value.ToBoolean().ToLogicalValue());
+				Assert.That(value.ToBoolean().ToLogicalValue(), Is.SameAs(value));
 			}
 
 			foreach (var value in new[] { true, false })
 			{
-				Assert.AreEqual(value, value.ToLogicalValue().ToBoolean());
+				Assert.That(value.ToLogicalValue().ToBoolean(), Is.EqualTo(value));
 			}
 		}
 
@@ -54,7 +54,7 @@ namespace AabSemantics.Tests.Concepts
 			// act && assert
 			try
 			{
-				Assert.AreSame(testConcept, testConcept.Invert());
+				Assert.That(testConcept.Invert(), Is.SameAs(testConcept));
 			}
 			finally
 			{

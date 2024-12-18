@@ -40,8 +40,8 @@ namespace AabSemantics.Modules.Set.Tests.Statements
 			var withRecursion = SignValueStatement.GetSignValues(semanticNetwork.Statements, semanticNetwork.Concepts.First(), true);
 
 			// assert
-			Assert.AreEqual(0, withoutRecursion.Count);
-			Assert.AreEqual(0, withRecursion.Count);
+			Assert.That(withoutRecursion.Count, Is.EqualTo(0));
+			Assert.That(withRecursion.Count, Is.EqualTo(0));
 		}
 
 		[Test]
@@ -65,8 +65,8 @@ namespace AabSemantics.Modules.Set.Tests.Statements
 			var withRecursion = SignValueStatement.GetSignValues(semanticNetwork.Statements, concept, true).OrderBy(s => s.ID).ToList();
 
 			// assert
-			Assert.IsTrue(withoutRecursion.SequenceEqual(statements));
-			Assert.IsTrue(withRecursion.SequenceEqual(statements));
+			Assert.That(withoutRecursion.SequenceEqual(statements), Is.True);
+			Assert.That(withRecursion.SequenceEqual(statements), Is.True);
 		}
 
 		[Test]
@@ -91,8 +91,8 @@ namespace AabSemantics.Modules.Set.Tests.Statements
 			var withRecursion = SignValueStatement.GetSignValues(semanticNetwork.Statements, concept, true).OrderBy(s => s.ID).ToList();
 
 			// assert
-			Assert.AreEqual(0, withoutRecursion.Count);
-			Assert.IsTrue(withRecursion.SequenceEqual(statements));
+			Assert.That(withoutRecursion.Count, Is.EqualTo(0));
+			Assert.That(withRecursion.SequenceEqual(statements), Is.True);
 		}
 
 		[Test]
@@ -118,8 +118,8 @@ namespace AabSemantics.Modules.Set.Tests.Statements
 			var withRecursion = SignValueStatement.GetSignValues(semanticNetwork.Statements, concept, true).OrderBy(s => s.ID).ToList();
 
 			// assert
-			Assert.AreSame(semanticNetwork.Concepts[ConceptId_ValueC], withoutRecursion.Single().Value);
-			Assert.IsTrue(withRecursion.SequenceEqual(statements));
+			Assert.That(withoutRecursion.Single().Value, Is.SameAs(semanticNetwork.Concepts[ConceptId_ValueC]));
+			Assert.That(withRecursion.SequenceEqual(statements), Is.True);
 		}
 
 		[Test]
@@ -147,8 +147,8 @@ namespace AabSemantics.Modules.Set.Tests.Statements
 			var withRecursion = SignValueStatement.GetSignValues(semanticNetwork.Statements, concept, true).OrderBy(s => s.ID).ToList();
 
 			// assert
-			Assert.IsTrue(withoutRecursion.SequenceEqual(statements));
-			Assert.IsTrue(withRecursion.SequenceEqual(statements));
+			Assert.That(withoutRecursion.SequenceEqual(statements), Is.True);
+			Assert.That(withRecursion.SequenceEqual(statements), Is.True);
 		}
 
 		private static ISemanticNetwork CreateTest(ILanguage language)

@@ -17,8 +17,8 @@ namespace AabSemantics.Modules.Set.Tests.Statements
 			var statement = new GroupStatement(null, area, concept);
 
 			// act && assert
-			Assert.AreSame(area, statement.Parent);
-			Assert.AreSame(concept, statement.Child);
+			Assert.That(statement.Parent, Is.SameAs(area));
+			Assert.That(statement.Child, Is.SameAs(concept));
 		}
 
 		[Test]
@@ -30,7 +30,7 @@ namespace AabSemantics.Modules.Set.Tests.Statements
 			var statement = new GroupStatement(null, area, concept);
 
 			// act && assert
-			Assert.IsFalse(statement.Equals(null));
+			Assert.That(statement.Equals(null), Is.False);
 		}
 	}
 }

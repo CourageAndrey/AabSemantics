@@ -50,8 +50,8 @@ namespace AabSemantics.Tests.Questions
 			var answerBuilder = (BooleanAnswer) semanticNetwork.Ask().IfIs(car, vehicle);
 
 			// assert
-			Assert.AreEqual(answerRegular.Result, answerBuilder.Result);
-			Assert.IsTrue(answerRegular.Explanation.Statements.SequenceEqual(answerBuilder.Explanation.Statements));
+			Assert.That(answerBuilder.Result, Is.EqualTo(answerRegular.Result));
+			Assert.That(answerRegular.Explanation.Statements.SequenceEqual(answerBuilder.Explanation.Statements), Is.True);
 		}
 
 		[Test]
@@ -72,10 +72,10 @@ namespace AabSemantics.Tests.Questions
 			var answer = semanticNetwork.Ask().IfIs(vehicle, car);
 
 			// assert
-			Assert.IsFalse(answer.IsEmpty);
-			Assert.IsFalse(((BooleanAnswer) answer).Result);
-			Assert.AreEqual(0, answer.Explanation.Statements.Count);
-			Assert.IsTrue(answer.Description.ToString().StartsWith("No, "));
+			Assert.That(answer.IsEmpty, Is.False);
+			Assert.That(((BooleanAnswer) answer).Result, Is.False);
+			Assert.That(answer.Explanation.Statements.Count, Is.EqualTo(0));
+			Assert.That(answer.Description.ToString().StartsWith("No, "), Is.True);
 		}
 
 		[Test]
@@ -96,13 +96,13 @@ namespace AabSemantics.Tests.Questions
 			var answer = semanticNetwork.Ask().IfIs(car, vehicle);
 
 			//assert
-			Assert.IsFalse(answer.IsEmpty);
-			Assert.IsTrue(((BooleanAnswer) answer).Result);
+			Assert.That(answer.IsEmpty, Is.False);
+			Assert.That(((BooleanAnswer) answer).Result, Is.True);
 
 			var classification = (IsStatement) answer.Explanation.Statements.Single();
-			Assert.AreSame(vehicle, classification.Ancestor);
-			Assert.AreSame(car, classification.Descendant);
-			Assert.IsTrue(answer.Description.ToString().StartsWith("Yes, "));
+			Assert.That(classification.Ancestor, Is.SameAs(vehicle));
+			Assert.That(classification.Descendant, Is.SameAs(car));
+			Assert.That(answer.Description.ToString().StartsWith("Yes, "), Is.True);
 		}
 
 		[Test]
@@ -127,12 +127,12 @@ namespace AabSemantics.Tests.Questions
 			var answer = semanticNetwork.Ask().IfIs(sportcar, vehicle);
 
 			//assert
-			Assert.IsFalse(answer.IsEmpty);
-			Assert.IsTrue(((BooleanAnswer) answer).Result);
+			Assert.That(answer.IsEmpty, Is.False);
+			Assert.That(((BooleanAnswer) answer).Result, Is.True);
 
-			Assert.AreEqual(2, answer.Explanation.Statements.Count);
-			Assert.AreEqual(2, answer.Explanation.Statements.OfType<IsStatement>().Count());
-			Assert.IsTrue(answer.Explanation.Statements.Contains(classification));
+			Assert.That(answer.Explanation.Statements.Count, Is.EqualTo(2));
+			Assert.That(answer.Explanation.Statements.OfType<IsStatement>().Count(), Is.EqualTo(2));
+			Assert.That(answer.Explanation.Statements.Contains(classification), Is.True);
 		}
 	}
 }

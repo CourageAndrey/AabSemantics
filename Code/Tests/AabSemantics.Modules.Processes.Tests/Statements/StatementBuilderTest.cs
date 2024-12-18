@@ -80,7 +80,7 @@ namespace AabSemantics.Modules.Processes.Tests.Statements
 			// assert
 			for (int s = 0; s < SequenceSigns.All.Count; s++)
 			{
-				Assert.AreEqual(statementsByConstructor[s], statementsByBuilder[s]);
+				Assert.That(statementsByConstructor[s], Is.EqualTo(statementsByBuilder[s]));
 			}
 		}
 
@@ -163,10 +163,10 @@ namespace AabSemantics.Modules.Processes.Tests.Statements
 		private static void AssertAreEqual<T>(ICollection<T> sequence1, ICollection<T> sequence2)
 			where T : IEquatable<T>
 		{
-			Assert.AreEqual(sequence1.Count, sequence1.Count);
+			Assert.That(sequence1.Count, Is.EqualTo(sequence2.Count));
 			foreach (var item in sequence1)
 			{
-				Assert.IsTrue(sequence2.Contains(item));
+				Assert.That(sequence2.Contains(item), Is.True);
 			}
 		}
 	}

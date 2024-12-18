@@ -32,7 +32,7 @@ namespace AabSemantics.Modules.Mathematics.Tests.Concepts
 		{
 			foreach (var sign in ComparisonSigns.All)
 			{
-				Assert.AreSame(sign, sign.Revert().Revert());
+				Assert.That(sign.Revert().Revert(), Is.SameAs(sign));
 			}
 		}
 	}

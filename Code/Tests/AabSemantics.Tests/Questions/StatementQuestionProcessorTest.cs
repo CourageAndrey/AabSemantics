@@ -30,12 +30,12 @@ namespace AabSemantics.Tests.Questions
 			var processor = new TestQuestionProcessor(questionContext, null);
 
 			// act & assert
-			Assert.AreSame(questionContext, processor.GetContext());
-			Assert.IsNotNull(processor.GetStatements());
-			Assert.IsNotNull(processor.GetChildAnswers());
-			Assert.IsNotNull(processor.GetAdditionalTransitives());
-			Assert.IsNotNull(processor.IsItNecessaryToProcessTransitives(Array.Empty<IsStatement>()));
-			Assert.IsNotNull(processor.EnumerateTransitiveQuestions(questionContext));
+			Assert.That(processor.GetContext(), Is.SameAs(questionContext));
+			Assert.That(processor.GetStatements(), Is.Not.Null);
+			Assert.That(processor.GetChildAnswers(), Is.Not.Null);
+			Assert.That(processor.GetAdditionalTransitives(), Is.Not.Null);
+			Assert.That(processor.IsItNecessaryToProcessTransitives(Array.Empty<IsStatement>()), Is.Not.Null);
+			Assert.That(processor.EnumerateTransitiveQuestions(questionContext), Is.Not.Null);
 			Assert.DoesNotThrow(() => processor.IsItNecessaryToAggregateTransitivesToStatements());
 		}
 
@@ -80,10 +80,10 @@ namespace AabSemantics.Tests.Questions
 					new Dictionary<String, IKnowledge>());
 
 			// assert
-			Assert.IsTrue(answer.Explanation.Statements.Count >= 3);
-			Assert.IsTrue(answer.Explanation.Statements.Any(s => (s as IsStatement)?.Parent == vehicle && (s as IsStatement)?.Child == steamLocomotive));
-			Assert.IsTrue(answer.Explanation.Statements.Contains(testIs));
-			Assert.IsTrue(answer.Explanation.Statements.Contains(additionalStatement));
+			Assert.That(answer.Explanation.Statements.Count >= 3, Is.True);
+			Assert.That(answer.Explanation.Statements.Any(s => (s as IsStatement)?.Parent == vehicle && (s as IsStatement)?.Child == steamLocomotive), Is.True);
+			Assert.That(answer.Explanation.Statements.Contains(testIs), Is.True);
+			Assert.That(answer.Explanation.Statements.Contains(additionalStatement), Is.True);
 		}
 
 		public class TestQuestionProcessor : StatementQuestionProcessor<IsQuestion, IsStatement>

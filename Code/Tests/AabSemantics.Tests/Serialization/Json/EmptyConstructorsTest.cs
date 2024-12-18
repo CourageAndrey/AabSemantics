@@ -18,10 +18,10 @@ namespace AabSemantics.Tests.Serialization.Json
 			var semanticNetwork = new AabSemantics.Serialization.Json.SemanticNetwork();
 
 			// assert
-			Assert.AreEqual(0, semanticNetwork.Name.Values.Count);
-			Assert.AreEqual(0, semanticNetwork.Concepts.Count);
-			Assert.AreEqual(0, semanticNetwork.Statements.Count);
-			Assert.AreEqual(0, semanticNetwork.Modules.Count);
+			Assert.That(semanticNetwork.Name.Values.Count, Is.EqualTo(0));
+			Assert.That(semanticNetwork.Concepts.Count, Is.EqualTo(0));
+			Assert.That(semanticNetwork.Statements.Count, Is.EqualTo(0));
+			Assert.That(semanticNetwork.Modules.Count, Is.EqualTo(0));
 		}
 
 		[Test]
@@ -31,7 +31,7 @@ namespace AabSemantics.Tests.Serialization.Json
 			var localizedString = new LocalizedString();
 
 			// assert
-			Assert.AreEqual(0, localizedString.Values.Count);
+			Assert.That(localizedString.Values.Count, Is.EqualTo(0));
 		}
 
 		[Test]
@@ -41,10 +41,10 @@ namespace AabSemantics.Tests.Serialization.Json
 			var concept = new Concept();
 
 			// assert
-			Assert.IsNull(concept.ID);
-			Assert.IsNull(concept.Name);
-			Assert.IsNull(concept.Hint);
-			Assert.AreEqual(0, concept.Attributes.Count);
+			Assert.That(concept.ID, Is.Null);
+			Assert.That(concept.Name, Is.Null);
+			Assert.That(concept.Hint, Is.Null);
+			Assert.That(concept.Attributes.Count, Is.EqualTo(0));
 		}
 
 		[Test]
@@ -89,16 +89,16 @@ namespace AabSemantics.Tests.Serialization.Json
 			};
 
 			// assert
-			Assert.IsFalse(emptyBooleanAnswer.Result);
-			Assert.IsNull(emptyConceptAnswer.Concept);
-			Assert.AreEqual(0, emptyConceptsAnswer.Concepts.Count);
-			Assert.IsNull(emptyStatementAnswer.Statement);
-			Assert.AreEqual(0, emptyStatementsAnswer.Statements.Count);
+			Assert.That(emptyBooleanAnswer.Result, Is.False);
+			Assert.That(emptyConceptAnswer.Concept, Is.Null);
+			Assert.That(emptyConceptsAnswer.Concepts.Count, Is.EqualTo(0));
+			Assert.That(emptyStatementAnswer.Statement, Is.Null);
+			Assert.That(emptyStatementsAnswer.Statements.Count, Is.EqualTo(0));
 			foreach (var answer in emptyAnswers)
 			{
-				Assert.AreEqual(true, answer.IsEmpty);
-				Assert.IsTrue(string.IsNullOrEmpty(answer.Description));
-				Assert.AreEqual(0, answer.Explanation.Count);
+				Assert.That(answer.IsEmpty, Is.True);
+				Assert.That(string.IsNullOrEmpty(answer.Description), Is.True);
+				Assert.That(answer.Explanation.Count, Is.EqualTo(0));
 			}
 		}
 	}

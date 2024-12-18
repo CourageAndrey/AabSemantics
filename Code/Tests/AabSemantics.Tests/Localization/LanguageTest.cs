@@ -18,7 +18,7 @@ namespace AabSemantics.Tests.Localization
 			var language = Language.Default;
 
 			// assert
-			Assert.AreEqual(language.Name, language.ToString());
+			Assert.That(language.ToString(), Is.EqualTo(language.Name));
 		}
 
 		[Test]
@@ -38,31 +38,31 @@ namespace AabSemantics.Tests.Localization
 			var language = Language.Default;
 
 			// assert
-			Assert.IsNotNull(language);
-			Assert.IsNotNull(language.Attributes);
-			Assert.IsNotNull(language.Questions);
-			Assert.IsNotNull(language.Questions.Answers);
-			Assert.IsNotNull(language.Questions.Parameters);
-			Assert.IsNotNull(language.Statements);
-			Assert.IsNotNull(language.Statements.Consistency);
+			Assert.That(language, Is.Not.Null);
+			Assert.That(language.Attributes, Is.Not.Null);
+			Assert.That(language.Questions, Is.Not.Null);
+			Assert.That(language.Questions.Answers, Is.Not.Null);
+			Assert.That(language.Questions.Parameters, Is.Not.Null);
+			Assert.That(language.Statements, Is.Not.Null);
+			Assert.That(language.Statements.Consistency, Is.Not.Null);
 
 			var booleanExtension = language.GetExtension<ILanguageBooleanModule>();
-			Assert.IsNotNull(booleanExtension.Attributes);
-			Assert.IsNotNull(booleanExtension.Concepts);
-			Assert.IsNotNull(booleanExtension.Questions);
-			Assert.IsNotNull(booleanExtension.Questions.Names);
-			Assert.IsNotNull(booleanExtension.Questions.Parameters);
+			Assert.That(booleanExtension.Attributes, Is.Not.Null);
+			Assert.That(booleanExtension.Concepts, Is.Not.Null);
+			Assert.That(booleanExtension.Questions, Is.Not.Null);
+			Assert.That(booleanExtension.Questions.Names, Is.Not.Null);
+			Assert.That(booleanExtension.Questions.Parameters, Is.Not.Null);
 
 			var classificationExtension = language.GetExtension<ILanguageClassificationModule>();
-			Assert.IsNotNull(classificationExtension.Questions);
-			Assert.IsNotNull(classificationExtension.Questions.Answers);
-			Assert.IsNotNull(classificationExtension.Statements);
-			Assert.IsNotNull(classificationExtension.Statements.Consistency);
-			Assert.IsNotNull(classificationExtension.Statements.FalseFormatStrings);
-			Assert.IsNotNull(classificationExtension.Statements.Hints);
-			Assert.IsNotNull(classificationExtension.Statements.Names);
-			Assert.IsNotNull(classificationExtension.Statements.QuestionFormatStrings);
-			Assert.IsNotNull(classificationExtension.Statements.TrueFormatStrings);
+			Assert.That(classificationExtension.Questions, Is.Not.Null);
+			Assert.That(classificationExtension.Questions.Answers, Is.Not.Null);
+			Assert.That(classificationExtension.Statements, Is.Not.Null);
+			Assert.That(classificationExtension.Statements.Consistency, Is.Not.Null);
+			Assert.That(classificationExtension.Statements.FalseFormatStrings, Is.Not.Null);
+			Assert.That(classificationExtension.Statements.Hints, Is.Not.Null);
+			Assert.That(classificationExtension.Statements.Names, Is.Not.Null);
+			Assert.That(classificationExtension.Statements.QuestionFormatStrings, Is.Not.Null);
+			Assert.That(classificationExtension.Statements.TrueFormatStrings, Is.Not.Null);
 		}
 	}
 }

@@ -31,7 +31,7 @@ namespace AabSemantics.Tests.Text
 			string representation = TextRenders.PlainString.RenderText(text, Language.Default).ToString();
 
 			// assert
-			Assert.AreEqual(representation, toString);
+			Assert.That(toString, Is.EqualTo(representation));
 		}
 
 		[Test]
@@ -41,7 +41,7 @@ namespace AabSemantics.Tests.Text
 			var text = new LineBreakText();
 
 			// assert
-			Assert.AreEqual(0, text.GetParameters().Count);
+			Assert.That(text.GetParameters().Count, Is.EqualTo(0));
 		}
 
 		[Test]
@@ -51,7 +51,7 @@ namespace AabSemantics.Tests.Text
 			var text = new SpaceText();
 
 			// assert
-			Assert.AreEqual(0, text.GetParameters().Count);
+			Assert.That(text.GetParameters().Count, Is.EqualTo(0));
 		}
 
 		[Test]
@@ -63,7 +63,7 @@ namespace AabSemantics.Tests.Text
 			var original = decorator.InnerText.GetParameters();
 
 			// assert
-			Assert.IsTrue(decorated.SequenceEqual(original));
+			Assert.That(decorated.SequenceEqual(original), Is.True);
 		}
 
 		[Test]
@@ -75,8 +75,8 @@ namespace AabSemantics.Tests.Text
 			string original = TextRenders.PlainString.RenderText(decorator.InnerText, Language.Default).ToString();
 
 			// assert
-			Assert.IsTrue(decorated.Contains(original));
-			Assert.Greater(decorated.Length, original.Length);
+			Assert.That(decorated.Contains(original), Is.True);
+			Assert.That(original.Length, Is.LessThan(decorated.Length));
 		}
 
 		[Test]
@@ -96,7 +96,7 @@ namespace AabSemantics.Tests.Text
 			}
 
 			// assert
-			Assert.IsTrue(containerParameters.SequenceEqual(originalParameters));
+			Assert.That(containerParameters.SequenceEqual(originalParameters), Is.True);
 		}
 
 		[Test]
@@ -111,7 +111,7 @@ namespace AabSemantics.Tests.Text
 				string itemText = TextRenders.PlainString.RenderText(text, Language.Default).ToString();
 
 				// assert
-				Assert.IsTrue(containerText.Contains(itemText));
+				Assert.That(containerText.Contains(itemText), Is.True);
 			}
 		}
 

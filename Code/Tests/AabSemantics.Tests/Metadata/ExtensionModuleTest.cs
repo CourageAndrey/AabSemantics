@@ -45,10 +45,10 @@ namespace AabSemantics.Tests.Metadata
 			module.RegisterMetadata();
 
 			// assert
-			Assert.IsTrue(module.AreAttributesRegistered);
-			Assert.IsTrue(module.AreStatementsRegistered);
-			Assert.IsTrue(module.AreQuestionsRegistered);
-			Assert.IsTrue(module.AreAnswersRegistered);
+			Assert.That(module.AreAttributesRegistered, Is.True);
+			Assert.That(module.AreStatementsRegistered, Is.True);
+			Assert.That(module.AreQuestionsRegistered, Is.True);
+			Assert.That(module.AreAnswersRegistered, Is.True);
 		}
 
 		[Test]
@@ -63,9 +63,9 @@ namespace AabSemantics.Tests.Metadata
 			module.RegisterMetadata();
 
 			// assert
-			Assert.IsFalse(module.AreAttributesRegistered);
-			Assert.IsFalse(module.AreStatementsRegistered);
-			Assert.IsFalse(module.AreQuestionsRegistered);
+			Assert.That(module.AreAttributesRegistered, Is.False);
+			Assert.That(module.AreStatementsRegistered, Is.False);
+			Assert.That(module.AreQuestionsRegistered, Is.False);
 		}
 
 		[Test]
@@ -82,7 +82,7 @@ namespace AabSemantics.Tests.Metadata
 			module.AttachTo(semanticNetwork);
 
 			// assert
-			Assert.IsFalse(module.IsSemanticNetworkAttached);
+			Assert.That(module.IsSemanticNetworkAttached, Is.False);
 		}
 
 		[Test]
@@ -97,7 +97,7 @@ namespace AabSemantics.Tests.Metadata
 			// act && assert
 			var error = Assert.Throws<ModuleException>(() => module.AttachTo(semanticNetwork));
 
-			Assert.AreEqual(module.Name, error.ModuleName);
+			Assert.That(error.ModuleName, Is.EqualTo(module.Name));
 		}
 
 		[Test]
@@ -124,8 +124,8 @@ namespace AabSemantics.Tests.Metadata
 			var expectedModules = modules.Select(m => m.Name).ToList();
 
 			// assert
-			Assert.AreEqual(expectedModules.Count, appliedModules.Count);
-			Assert.IsFalse(expectedModules.Except(appliedModules).Any());
+			Assert.That(appliedModules.Count, Is.EqualTo(expectedModules.Count));
+			Assert.That(expectedModules.Except(appliedModules).Any(), Is.False);
 		}
 
 		[Test]
@@ -146,7 +146,7 @@ namespace AabSemantics.Tests.Metadata
 
 			foreach (var module in modules)
 			{
-				Assert.AreEqual("2", error.ModuleName);
+				Assert.That(error.ModuleName, Is.EqualTo("2"));
 			}
 		}
 
@@ -169,7 +169,7 @@ namespace AabSemantics.Tests.Metadata
 
 			foreach (var module in modules)
 			{
-				Assert.IsTrue(error.ModuleName.Contains(module.Name));
+				Assert.That(error.ModuleName.Contains(module.Name), Is.True);
 			}
 		}
 
@@ -180,17 +180,17 @@ namespace AabSemantics.Tests.Metadata
 			var module = new TestModule("test");
 
 			// act & assert
-			Assert.AreEqual(0, module.GetLanguageExtensions().Count);
+			Assert.That(module.GetLanguageExtensions().Count, Is.EqualTo(0));
 		}
 
 		[Test]
 		public void GivenCorrectModules_WhenRegisterMetadata_ThenSucceed()
 		{
 			// 0-assert
-			Assert.AreEqual(0, Repositories.Attributes.Definitions.Count);
-			Assert.AreEqual(0, Repositories.Statements.Definitions.Count);
-			Assert.AreEqual(0, Repositories.Questions.Definitions.Count);
-			Assert.AreEqual(0, Repositories.Modules.Count);
+			Assert.That(Repositories.Attributes.Definitions.Count, Is.EqualTo(0));
+			Assert.That(Repositories.Statements.Definitions.Count, Is.EqualTo(0));
+			Assert.That(Repositories.Questions.Definitions.Count, Is.EqualTo(0));
+			Assert.That(Repositories.Modules.Count, Is.EqualTo(0));
 
 			// arrange & act
 			var modules = new IExtensionModule[]
@@ -206,55 +206,55 @@ namespace AabSemantics.Tests.Metadata
 			var language = Language.Default;
 
 			// assert modules
-			Assert.AreEqual(modules.Length, Repositories.Modules.Count);
+			Assert.That(Repositories.Modules.Count, Is.EqualTo(modules.Length));
 			foreach (var module in modules)
 			{
-				Assert.AreSame(module, Repositories.Modules[module.Name]);
+				Assert.That(Repositories.Modules[module.Name], Is.SameAs(module));
 			}
 
 			// assert attributes
 			var attributeTypes = GetAllAttributeTypes();
-			Assert.AreEqual(Repositories.Attributes.Definitions.Count, GetAllAttributeTypes().Count);
+			Assert.That(GetAllAttributeTypes().Count, Is.EqualTo(Repositories.Attributes.Definitions.Count));
 			foreach (var type in attributeTypes)
 			{
 				var definition = Repositories.Attributes.Definitions[type];
-				Assert.IsFalse(string.IsNullOrEmpty(definition.GetName(language)));
+				Assert.That(string.IsNullOrEmpty(definition.GetName(language)), Is.False);
 			}
 
 			// assert concepts
 			var semanticNetwork = new SemanticNetwork(Language.Default).WithModules(modules);
 			var systemConcepts = GetSystemConcepts();
-			Assert.AreEqual(semanticNetwork.Concepts.Count, systemConcepts.Count);
+			Assert.That(systemConcepts.Count, Is.EqualTo(semanticNetwork.Concepts.Count));
 			foreach (var concept in systemConcepts)
 			{
-				Assert.IsTrue(semanticNetwork.Concepts.Contains(concept));
+				Assert.That(semanticNetwork.Concepts.Contains(concept), Is.True);
 			}
 
 			// assert statements
 			var statementTypes = GetAllStatementTypes();
-			Assert.AreEqual(Repositories.Statements.Definitions.Count, statementTypes.Count);
+			Assert.That(statementTypes.Count, Is.EqualTo(Repositories.Statements.Definitions.Count));
 			foreach (var type in statementTypes)
 			{
 				var definition = Repositories.Statements.Definitions[type];
-				Assert.IsFalse(string.IsNullOrEmpty(definition.GetName(language)));
+				Assert.That(string.IsNullOrEmpty(definition.GetName(language)), Is.False);
 			}
 
 			// assert questions
 			var questionTypes = GetAllQuestionsTypes();
-			Assert.AreEqual(Repositories.Questions.Definitions.Count, questionTypes.Count);
+			Assert.That(questionTypes.Count, Is.EqualTo(Repositories.Questions.Definitions.Count));
 			foreach (var type in questionTypes)
 			{
 				var definition = Repositories.Questions.Definitions[type];
-				Assert.IsFalse(string.IsNullOrEmpty(definition.GetName(language)));
+				Assert.That(string.IsNullOrEmpty(definition.GetName(language)), Is.False);
 			}
 
 			// assert answers
 			var answerTypes = GetAllAnswersTypes();
-			Assert.AreEqual(Repositories.Answers.Definitions.Count, answerTypes.Count);
+			Assert.That(answerTypes.Count, Is.EqualTo(Repositories.Answers.Definitions.Count));
 			foreach (var type in answerTypes)
 			{
 				var definition = Repositories.Answers.Definitions[type];
-				Assert.AreSame(definition.Type, type);
+				Assert.That(type, Is.SameAs(definition.Type));
 			}
 		}
 
@@ -278,9 +278,9 @@ namespace AabSemantics.Tests.Metadata
 			int totalExtensionCount = modules.Sum(m => m.GetLanguageExtensions().Count);
 
 			// assert
-			Assert.AreEqual(totalExtensionCount, language.Extensions.Count);
-			Assert.IsNotNull(language.GetExtension<ILanguageBooleanModule>());
-			Assert.IsNotNull(language.GetExtension<ILanguageClassificationModule>());
+			Assert.That(language.Extensions.Count, Is.EqualTo(totalExtensionCount));
+			Assert.That(language.GetExtension<ILanguageBooleanModule>(), Is.Not.Null);
+			Assert.That(language.GetExtension<ILanguageClassificationModule>(), Is.Not.Null);
 		}
 
 		[Test]
@@ -306,7 +306,7 @@ namespace AabSemantics.Tests.Metadata
 			isDefinition.CheckConsistency(semanticNetwork, validationResult);
 
 			// assert correct
-			Assert.AreEqual(0, validationResult.Items.Count);
+			Assert.That(validationResult.Items.Count, Is.EqualTo(0));
 
 			// arrange error
 			semanticNetwork.DeclareThat(concept2).IsAncestorOf(concept1);
@@ -316,10 +316,10 @@ namespace AabSemantics.Tests.Metadata
 
 			// assert error
 			var error = validationResult.Items.First();
-			Assert.IsTrue(error.GetParameters().ContainsKey(Strings.ParamStatement));
+			Assert.That(error.GetParameters().ContainsKey(Strings.ParamStatement), Is.True);
 
 			var text = TextRenders.PlainString.Render(error, language).ToString();
-			Assert.IsTrue(text.Contains("causes cyclic references"));
+			Assert.That(text.Contains("causes cyclic references"), Is.True);
 		}
 
 		private static List<Type> GetAllAttributeTypes()

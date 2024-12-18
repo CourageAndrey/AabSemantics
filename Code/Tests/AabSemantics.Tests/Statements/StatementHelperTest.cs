@@ -25,8 +25,8 @@ namespace AabSemantics.Tests.Statements
 			var filteredT = semanticNetwork.Statements.Enumerate<IsStatement>().ToList();
 
 			// assert
-			Assert.IsTrue(semanticNetwork.Statements.SequenceEqual(filtered));
-			Assert.IsTrue(semanticNetwork.Statements.OfType<IsStatement>().SequenceEqual(filteredT));
+			Assert.That(semanticNetwork.Statements.SequenceEqual(filtered), Is.True);
+			Assert.That(semanticNetwork.Statements.OfType<IsStatement>().SequenceEqual(filteredT), Is.True);
 		}
 
 		[Test]
@@ -42,8 +42,8 @@ namespace AabSemantics.Tests.Statements
 				var filteredT = semanticNetwork.Statements.Enumerate<IsStatement>(statement.Context).ToList();
 
 				// assert
-				Assert.AreSame(filtered.Single(), statement);
-				Assert.AreSame(filteredT.Single(), statement);
+				Assert.That(filtered.Single(), Is.SameAs(statement));
+				Assert.That(filteredT.Single(), Is.SameAs(statement));
 			}
 		}
 
@@ -61,8 +61,8 @@ namespace AabSemantics.Tests.Statements
 				var filteredT = semanticNetwork.Statements.Enumerate<IsStatement>(context.ActiveContexts).ToList();
 
 				// assert
-				Assert.AreEqual(context.ActiveContexts.Count - 1, filtered.Count);
-				Assert.AreEqual(context.ActiveContexts.Count - 1, filteredT.Count);
+				Assert.That(filtered.Count, Is.EqualTo(context.ActiveContexts.Count - 1));
+				Assert.That(filteredT.Count, Is.EqualTo(context.ActiveContexts.Count - 1));
 
 				context = context.Parent as ISemanticNetworkContext;
 			}
@@ -79,16 +79,16 @@ namespace AabSemantics.Tests.Statements
 			var filteredT = semanticNetwork.Statements.Enumerate<IsStatement>(context => (context as TestContext)?.Name.EndsWith("odd") == true).ToList();
 
 			// assert
-			Assert.AreEqual(4, filtered.Count);
-			Assert.IsTrue(filtered.Contains(semanticNetwork.Statements["3 < 4"]));
-			Assert.IsTrue(filtered.Contains(semanticNetwork.Statements["5 < 6"]));
-			Assert.IsTrue(filtered.Contains(semanticNetwork.Statements["7 < 8"]));
-			Assert.IsTrue(filtered.Contains(semanticNetwork.Statements["9 < 10"]));
-			Assert.AreEqual(4, filteredT.Count);
-			Assert.IsTrue(filteredT.Contains(semanticNetwork.Statements["3 < 4"]));
-			Assert.IsTrue(filteredT.Contains(semanticNetwork.Statements["5 < 6"]));
-			Assert.IsTrue(filteredT.Contains(semanticNetwork.Statements["7 < 8"]));
-			Assert.IsTrue(filteredT.Contains(semanticNetwork.Statements["9 < 10"]));
+			Assert.That(filtered.Count, Is.EqualTo(4));
+			Assert.That(filtered.Contains(semanticNetwork.Statements["3 < 4"]), Is.True);
+			Assert.That(filtered.Contains(semanticNetwork.Statements["5 < 6"]), Is.True);
+			Assert.That(filtered.Contains(semanticNetwork.Statements["7 < 8"]), Is.True);
+			Assert.That(filtered.Contains(semanticNetwork.Statements["9 < 10"]), Is.True);
+			Assert.That(filteredT.Count, Is.EqualTo(4));
+			Assert.That(filteredT.Contains(semanticNetwork.Statements["3 < 4"]), Is.True);
+			Assert.That(filteredT.Contains(semanticNetwork.Statements["5 < 6"]), Is.True);
+			Assert.That(filteredT.Contains(semanticNetwork.Statements["7 < 8"]), Is.True);
+			Assert.That(filteredT.Contains(semanticNetwork.Statements["9 < 10"]), Is.True);
 		}
 
 		private const int _numbersCount = 10;

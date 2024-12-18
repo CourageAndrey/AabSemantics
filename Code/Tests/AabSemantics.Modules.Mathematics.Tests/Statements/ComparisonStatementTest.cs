@@ -19,7 +19,7 @@ namespace AabSemantics.Modules.Mathematics.Tests.Statements
 			var statement = new ComparisonStatement(null, left, right, ComparisonSigns.IsLessThan);
 
 			// act && assert
-			Assert.IsFalse(statement.Equals(null));
+			Assert.That(statement.Equals(null), Is.False);
 		}
 	}
 }

@@ -31,8 +31,8 @@ namespace AabSemantics.Modules.Set.Tests.Statements
 			var statementByBuilderFromPart = semanticNetwork.DeclareThat(part).IsPartOf(whole);
 
 			// assert
-			Assert.AreEqual(statementByConstructor, statementByBuilderFromWhole);
-			Assert.AreEqual(statementByConstructor, statementByBuilderFromPart);
+			Assert.That(statementByBuilderFromWhole, Is.EqualTo(statementByConstructor));
+			Assert.That(statementByBuilderFromPart, Is.EqualTo(statementByConstructor));
 		}
 
 		[Test]
@@ -82,8 +82,8 @@ namespace AabSemantics.Modules.Set.Tests.Statements
 			var statementByBuilderFromConcept = semanticNetwork.DeclareThat(concept).BelongsToSubjectArea(area);
 
 			// assert
-			Assert.AreEqual(statementByConstructor, statementByBuilderFromArea);
-			Assert.AreEqual(statementByConstructor, statementByBuilderFromConcept);
+			Assert.That(statementByBuilderFromArea, Is.EqualTo(statementByConstructor));
+			Assert.That(statementByBuilderFromConcept, Is.EqualTo(statementByConstructor));
 		}
 
 		[Test]
@@ -134,8 +134,8 @@ namespace AabSemantics.Modules.Set.Tests.Statements
 			var statementByBuilderFromSign = semanticNetwork.DeclareThat(sign).IsSignOf(concept);
 
 			// assert
-			Assert.AreEqual(statementByConstructor, statementByBuilderFromConcept);
-			Assert.AreEqual(statementByConstructor, statementByBuilderFromSign);
+			Assert.That(statementByBuilderFromConcept, Is.EqualTo(statementByConstructor));
+			Assert.That(statementByBuilderFromSign, Is.EqualTo(statementByConstructor));
 		}
 
 		[Test]
@@ -190,17 +190,17 @@ namespace AabSemantics.Modules.Set.Tests.Statements
 			var statementByBuilderFromValue = semanticNetwork.DeclareThat(value).IsSignValue(concept, sign);
 
 			// assert
-			Assert.AreEqual(statementByConstructor, statementByBuilderFromConcept);
-			Assert.AreEqual(statementByConstructor, statementByBuilderFromValue);
+			Assert.That(statementByBuilderFromConcept, Is.EqualTo(statementByConstructor));
+			Assert.That(statementByBuilderFromValue, Is.EqualTo(statementByConstructor));
 		}
 
 		private static void AssertAreEqual<T>(ICollection<T> sequence1, ICollection<T> sequence2)
 			where T : IEquatable<T>
 		{
-			Assert.AreEqual(sequence1.Count, sequence1.Count);
+			Assert.That(sequence1.Count, Is.EqualTo(sequence2.Count));
 			foreach (var item in sequence1)
 			{
-				Assert.IsTrue(sequence2.Contains(item));
+				Assert.That(sequence2.Contains(item), Is.True);
 			}
 		}
 	}

@@ -39,8 +39,8 @@ namespace AabSemantics.Modules.Set.Tests.Questions
 			var answerBuilder = (ConceptsAnswer) semanticNetwork.SemanticNetwork.Ask().WhichPartsHas(semanticNetwork.Vehicle_Car);
 
 			// assert
-			Assert.IsTrue(answerRegular.Result.SequenceEqual(answerBuilder.Result));
-			Assert.IsTrue(answerRegular.Explanation.Statements.SequenceEqual(answerBuilder.Explanation.Statements));
+			Assert.That(answerRegular.Result.SequenceEqual(answerBuilder.Result), Is.True);
+			Assert.That(answerRegular.Explanation.Statements.SequenceEqual(answerBuilder.Explanation.Statements), Is.True);
 		}
 
 		[Test]
@@ -64,11 +64,11 @@ namespace AabSemantics.Modules.Set.Tests.Questions
 			var answerPart = semanticNetwork.Ask().WhichPartsHas(partConcept);
 
 			// assert
-			Assert.IsTrue(answerToCheck.IsEmpty);
-			Assert.AreEqual(0, answerToCheck.Explanation.Statements.Count);
+			Assert.That(answerToCheck.IsEmpty, Is.True);
+			Assert.That(answerToCheck.Explanation.Statements.Count, Is.EqualTo(0));
 
-			Assert.IsTrue(answerPart.IsEmpty);
-			Assert.AreEqual(0, answerPart.Explanation.Statements.Count);
+			Assert.That(answerPart.IsEmpty, Is.True);
+			Assert.That(answerPart.Explanation.Statements.Count, Is.EqualTo(0));
 		}
 
 		[Test]
@@ -99,14 +99,14 @@ namespace AabSemantics.Modules.Set.Tests.Questions
 				var text = render.RenderText(answer.Description, language).ToString();
 
 				// assert
-				Assert.IsFalse(answer.IsEmpty);
+				Assert.That(answer.IsEmpty, Is.False);
 				var partConcepts = ((ConceptsAnswer) answer).Result;
-				Assert.AreEqual(i, partConcepts.Count);
-				Assert.IsTrue(partConcepts.All(semanticNetwork.Concepts.Contains));
-				Assert.AreEqual(i, answer.Explanation.Statements.Count);
-				Assert.IsFalse(semanticNetwork.Statements.Except(answer.Explanation.Statements).Any());
+				Assert.That(partConcepts.Count, Is.EqualTo(i));
+				Assert.That(partConcepts.All(semanticNetwork.Concepts.Contains), Is.True);
+				Assert.That(answer.Explanation.Statements.Count, Is.EqualTo(i));
+				Assert.That(semanticNetwork.Statements.Except(answer.Explanation.Statements).Any(), Is.False);
 
-				Assert.IsTrue(text.Contains(" consists of:"));
+				Assert.That(text.Contains(" consists of:"), Is.True);
 			}
 		}
 	}

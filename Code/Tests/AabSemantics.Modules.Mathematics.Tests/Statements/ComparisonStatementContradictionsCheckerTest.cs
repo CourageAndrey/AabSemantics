@@ -31,7 +31,7 @@ namespace AabSemantics.Modules.Mathematics.Tests.Statements
 				var contradictions = statements.CheckForContradictions();
 
 				// assert
-				Assert.AreEqual(0, contradictions.Count);
+				Assert.That(contradictions.Count, Is.EqualTo(0));
 			}
 		}
 
@@ -59,7 +59,7 @@ namespace AabSemantics.Modules.Mathematics.Tests.Statements
 					var contradictions = statements.CheckForContradictions();
 
 					// assert
-					Assert.AreEqual(0, contradictions.Count);
+					Assert.That(contradictions.Count, Is.EqualTo(0));
 				}
 			}
 		}
@@ -83,7 +83,7 @@ namespace AabSemantics.Modules.Mathematics.Tests.Statements
 				var contradictions = statements.CheckForContradictions();
 
 				// assert
-				Assert.AreEqual(0, contradictions.Count);
+				Assert.That(contradictions.Count, Is.EqualTo(0));
 			}
 		}
 
@@ -107,11 +107,11 @@ namespace AabSemantics.Modules.Mathematics.Tests.Statements
 
 				// assert
 				var contradiction = contradictions.First(c => c.Value1 != c.Value2);
-				Assert.IsTrue(contradiction.Value1 == concept1 || contradiction.Value1 == concept2);
-				Assert.IsTrue(contradiction.Value2 == concept1 || contradiction.Value2 == concept2);
-				Assert.LessOrEqual(2, contradiction.Signs.Count);
-				Assert.IsTrue(contradiction.Signs.Contains(contradictedPair.Item1));
-				Assert.IsTrue(contradiction.Signs.Contains(contradictedPair.Item2));
+				Assert.That(contradiction.Value1 == concept1 || contradiction.Value1 == concept2, Is.True);
+				Assert.That(contradiction.Value2 == concept1 || contradiction.Value2 == concept2, Is.True);
+				Assert.That(contradiction.Signs.Count, Is.GreaterThanOrEqualTo(2));
+				Assert.That(contradiction.Signs.Contains(contradictedPair.Item1), Is.True);
+				Assert.That(contradiction.Signs.Contains(contradictedPair.Item2), Is.True);
 			}
 		}
 
@@ -139,7 +139,7 @@ namespace AabSemantics.Modules.Mathematics.Tests.Statements
 					var contradictions = statements.CheckForContradictions();
 
 					// assert
-					Assert.AreNotEqual(0, contradictions.Count);
+					Assert.That(contradictions.Count, Is.Not.EqualTo(0));
 				}
 			}
 		}
@@ -170,7 +170,7 @@ namespace AabSemantics.Modules.Mathematics.Tests.Statements
 				var contradictions = statements.CheckForContradictions();
 
 				// assert
-				Assert.AreNotEqual(0, contradictions.Count);
+				Assert.That(contradictions.Count, Is.Not.EqualTo(0));
 			}
 		}
 
@@ -197,10 +197,10 @@ namespace AabSemantics.Modules.Mathematics.Tests.Statements
 
 				// assert
 				var contradiction = contradictions.Single();
-				Assert.AreSame(value, contradiction.Value1);
-				Assert.AreSame(value, contradiction.Value2);
-				Assert.IsTrue(contradiction.Signs.Contains(ComparisonSigns.IsEqualTo));
-				Assert.Less(1, contradiction.Signs.Count);
+				Assert.That(contradiction.Value1, Is.SameAs(value));
+				Assert.That(contradiction.Value2, Is.SameAs(value));
+				Assert.That(contradiction.Signs.Contains(ComparisonSigns.IsEqualTo), Is.True);
+				Assert.That(contradiction.Signs.Count, Is.GreaterThan(1));
 			}
 		}
 

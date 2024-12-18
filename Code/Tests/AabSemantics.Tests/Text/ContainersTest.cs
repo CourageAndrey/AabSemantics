@@ -18,7 +18,7 @@ namespace AabSemantics.Tests.Text
 			var container = new BulletsContainer();
 
 			// assert
-			Assert.AreEqual(0, container.Items.Count);
+			Assert.That(container.Items.Count, Is.EqualTo(0));
 		}
 
 		[Test]
@@ -31,7 +31,7 @@ namespace AabSemantics.Tests.Text
 			var container = new BulletsContainer(item);
 
 			// assert
-			Assert.AreSame(item, container.Items.Single());
+			Assert.That(container.Items.Single(), Is.SameAs(item));
 		}
 
 		[Test]
@@ -49,7 +49,7 @@ namespace AabSemantics.Tests.Text
 			var container = new BulletsContainer(items);
 
 			// assert
-			Assert.IsTrue(items.SequenceEqual(container.Items));
+			Assert.That(items.SequenceEqual(container.Items), Is.True);
 		}
 
 		[Test]
@@ -59,7 +59,7 @@ namespace AabSemantics.Tests.Text
 			var container = new NumberingContainer();
 
 			// assert
-			Assert.AreEqual(0, container.Items.Count);
+			Assert.That(container.Items.Count, Is.EqualTo(0));
 		}
 
 		[Test]
@@ -72,7 +72,7 @@ namespace AabSemantics.Tests.Text
 			var container = new NumberingContainer(item);
 
 			// assert
-			Assert.AreSame(item, container.Items.Single());
+			Assert.That(container.Items.Single(), Is.SameAs(item));
 		}
 
 		[Test]
@@ -90,7 +90,7 @@ namespace AabSemantics.Tests.Text
 			var container = new NumberingContainer(items);
 
 			// assert
-			Assert.IsTrue(items.SequenceEqual(container.Items));
+			Assert.That(items.SequenceEqual(container.Items), Is.True);
 		}
 
 		[Test]
@@ -100,7 +100,7 @@ namespace AabSemantics.Tests.Text
 			var container = new UnstructuredContainer();
 
 			// assert
-			Assert.AreEqual(0, container.Items.Count);
+			Assert.That(container.Items.Count, Is.EqualTo(0));
 		}
 
 		[Test]
@@ -113,7 +113,7 @@ namespace AabSemantics.Tests.Text
 			var container = new UnstructuredContainer(item);
 
 			// assert
-			Assert.AreSame(item, container.Items.Single());
+			Assert.That(container.Items.Single(), Is.SameAs(item));
 		}
 
 		[Test]
@@ -131,7 +131,7 @@ namespace AabSemantics.Tests.Text
 			var container = new UnstructuredContainer(items);
 
 			// assert
-			Assert.IsTrue(items.SequenceEqual(container.Items));
+			Assert.That(items.SequenceEqual(container.Items), Is.True);
 		}
 	}
 }

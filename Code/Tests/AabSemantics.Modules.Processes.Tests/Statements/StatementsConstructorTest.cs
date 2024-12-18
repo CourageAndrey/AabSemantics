@@ -131,8 +131,8 @@ namespace AabSemantics.Modules.Processes.Tests.Statements
 				new ProcessesStatement(null, concept1, concept2, concept3),
 			})
 			{
-				Assert.IsNotNull(statement.Hint);
-				Assert.IsNotNull(statement.Hint.GetValue(language));
+				Assert.That(statement.Hint, Is.Not.Null);
+				Assert.That(statement.Hint.GetValue(language), Is.Not.Null);
 			}
 		}
 

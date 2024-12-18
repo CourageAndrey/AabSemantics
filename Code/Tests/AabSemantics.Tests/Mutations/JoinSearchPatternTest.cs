@@ -94,7 +94,7 @@ namespace AabSemantics.Tests.Mutations
 			var matches = joinSearchPattern.FindMatches(semanticNetwork).ToList();
 
 			// assert
-			Assert.AreEqual(8, matches.Count);
+			Assert.That(matches.Count, Is.EqualTo(8));
 			ValidateInnerJoins(semanticNetwork, matches, joinSearchPattern);
 		}
 
@@ -109,15 +109,15 @@ namespace AabSemantics.Tests.Mutations
 			var matches = joinSearchPattern.FindMatches(semanticNetwork).ToList();
 
 			// assert
-			Assert.AreEqual(9, matches.Count);
+			Assert.That(matches.Count, Is.EqualTo(9));
 			ValidateInnerJoins(semanticNetwork, matches, joinSearchPattern);
-			Assert.AreEqual(1, matches.Count(m =>
+			Assert.That(matches.Count(m =>
 				m.SearchPattern == joinSearchPattern &&
 				m.SemanticNetwork == semanticNetwork &&
 				m.Knowledge.Count == 3 &&
 				m.Knowledge[joinSearchPattern] == semanticNetwork.Concepts["1"] &&
 				((IsStatement) m.Knowledge[joinSearchPattern.Left])?.Ancestor == semanticNetwork.Concepts["1"] &&
-				((IsStatement) m.Knowledge[joinSearchPattern.Right])?.Descendant == null));
+				((IsStatement) m.Knowledge[joinSearchPattern.Right])?.Descendant == null), Is.EqualTo(1));
 		}
 
 		[Test]
@@ -131,15 +131,15 @@ namespace AabSemantics.Tests.Mutations
 			var matches = joinSearchPattern.FindMatches(semanticNetwork).ToList();
 
 			// assert
-			Assert.AreEqual(9, matches.Count);
+			Assert.That(matches.Count, Is.EqualTo(9));
 			ValidateInnerJoins(semanticNetwork, matches, joinSearchPattern);
-			Assert.AreEqual(1, matches.Count(m =>
+			Assert.That(matches.Count(m =>
 				m.SearchPattern == joinSearchPattern &&
 				m.SemanticNetwork == semanticNetwork &&
 				m.Knowledge.Count == 3 &&
 				m.Knowledge[joinSearchPattern] == semanticNetwork.Concepts["10"] &&
 				((IsStatement) m.Knowledge[joinSearchPattern.Left])?.Ancestor == null &&
-				((IsStatement) m.Knowledge[joinSearchPattern.Right])?.Descendant == semanticNetwork.Concepts["10"]));
+				((IsStatement) m.Knowledge[joinSearchPattern.Right])?.Descendant == semanticNetwork.Concepts["10"]), Is.EqualTo(1));
 		}
 
 		[Test]
@@ -153,22 +153,22 @@ namespace AabSemantics.Tests.Mutations
 			var matches = joinSearchPattern.FindMatches(semanticNetwork).ToList();
 
 			// assert
-			Assert.AreEqual(10, matches.Count);
+			Assert.That(matches.Count, Is.EqualTo(10));
 			ValidateInnerJoins(semanticNetwork, matches, joinSearchPattern);
-			Assert.AreEqual(1, matches.Count(m =>
+			Assert.That(matches.Count(m =>
 				m.SearchPattern == joinSearchPattern &&
 				m.SemanticNetwork == semanticNetwork &&
 				m.Knowledge.Count == 3 &&
 				m.Knowledge[joinSearchPattern] == semanticNetwork.Concepts["1"] &&
 				((IsStatement) m.Knowledge[joinSearchPattern.Left])?.Ancestor == semanticNetwork.Concepts["1"] &&
-				((IsStatement) m.Knowledge[joinSearchPattern.Right])?.Descendant == null));
-			Assert.AreEqual(1, matches.Count(m =>
+				((IsStatement) m.Knowledge[joinSearchPattern.Right])?.Descendant == null), Is.EqualTo(1));
+			Assert.That(matches.Count(m =>
 				m.SearchPattern == joinSearchPattern &&
 				m.SemanticNetwork == semanticNetwork &&
 				m.Knowledge.Count == 3 &&
 				m.Knowledge[joinSearchPattern] == semanticNetwork.Concepts["10"] &&
 				((IsStatement) m.Knowledge[joinSearchPattern.Left])?.Ancestor == null &&
-				((IsStatement) m.Knowledge[joinSearchPattern.Right])?.Descendant == semanticNetwork.Concepts["10"]));
+				((IsStatement) m.Knowledge[joinSearchPattern.Right])?.Descendant == semanticNetwork.Concepts["10"]), Is.EqualTo(1));
 		}
 
 		private const int _numbersCount = 10;
@@ -202,7 +202,7 @@ namespace AabSemantics.Tests.Mutations
 
 		private static void ValidateInnerJoins(ISemanticNetwork semanticNetwork, List<KnowledgeStructure> matches, JoinSearchPattern<IsStatement, IsStatement> joinSearchPattern)
 		{
-			Assert.IsTrue(matches.All(m =>
+			Assert.That(matches.All(m =>
 			{
 				var left = m.Knowledge[joinSearchPattern.Left] as IsStatement;
 				var right = m.Knowledge[joinSearchPattern.Right] as IsStatement;
@@ -214,7 +214,7 @@ namespace AabSemantics.Tests.Mutations
 						m.Knowledge.ContainsKey(joinSearchPattern) &&
 						left.Ancestor == right.Descendant &&
 						int.Parse(left.Descendant.ID) - int.Parse(right.Ancestor.ID) == 2;
-			}));
+			}), Is.True);
 		}
 	}
 }

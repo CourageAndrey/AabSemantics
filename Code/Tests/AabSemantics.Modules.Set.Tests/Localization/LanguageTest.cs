@@ -30,44 +30,44 @@ namespace AabSemantics.Modules.Set.Tests.Localization
 			var language = Language.Default;
 
 			// assert
-			Assert.IsNotNull(language);
-			Assert.IsNotNull(language.Attributes);
-			Assert.IsNotNull(language.Questions);
-			Assert.IsNotNull(language.Questions.Answers);
-			Assert.IsNotNull(language.Questions.Parameters);
-			Assert.IsNotNull(language.Statements);
-			Assert.IsNotNull(language.Statements.Consistency);
+			Assert.That(language, Is.Not.Null);
+			Assert.That(language.Attributes, Is.Not.Null);
+			Assert.That(language.Questions, Is.Not.Null);
+			Assert.That(language.Questions.Answers, Is.Not.Null);
+			Assert.That(language.Questions.Parameters, Is.Not.Null);
+			Assert.That(language.Statements, Is.Not.Null);
+			Assert.That(language.Statements.Consistency, Is.Not.Null);
 
 			var booleanExtension = language.GetExtension<ILanguageBooleanModule>();
-			Assert.IsNotNull(booleanExtension.Attributes);
-			Assert.IsNotNull(booleanExtension.Concepts);
-			Assert.IsNotNull(booleanExtension.Questions);
-			Assert.IsNotNull(booleanExtension.Questions.Names);
-			Assert.IsNotNull(booleanExtension.Questions.Parameters);
+			Assert.That(booleanExtension.Attributes, Is.Not.Null);
+			Assert.That(booleanExtension.Concepts, Is.Not.Null);
+			Assert.That(booleanExtension.Questions, Is.Not.Null);
+			Assert.That(booleanExtension.Questions.Names, Is.Not.Null);
+			Assert.That(booleanExtension.Questions.Parameters, Is.Not.Null);
 
 			var classificationExtension = language.GetExtension<ILanguageClassificationModule>();
-			Assert.IsNotNull(classificationExtension.Questions);
-			Assert.IsNotNull(classificationExtension.Questions.Answers);
-			Assert.IsNotNull(classificationExtension.Statements);
-			Assert.IsNotNull(classificationExtension.Statements.Consistency);
-			Assert.IsNotNull(classificationExtension.Statements.FalseFormatStrings);
-			Assert.IsNotNull(classificationExtension.Statements.Hints);
-			Assert.IsNotNull(classificationExtension.Statements.Names);
-			Assert.IsNotNull(classificationExtension.Statements.QuestionFormatStrings);
-			Assert.IsNotNull(classificationExtension.Statements.TrueFormatStrings);
+			Assert.That(classificationExtension.Questions, Is.Not.Null);
+			Assert.That(classificationExtension.Questions.Answers, Is.Not.Null);
+			Assert.That(classificationExtension.Statements, Is.Not.Null);
+			Assert.That(classificationExtension.Statements.Consistency, Is.Not.Null);
+			Assert.That(classificationExtension.Statements.FalseFormatStrings, Is.Not.Null);
+			Assert.That(classificationExtension.Statements.Hints, Is.Not.Null);
+			Assert.That(classificationExtension.Statements.Names, Is.Not.Null);
+			Assert.That(classificationExtension.Statements.QuestionFormatStrings, Is.Not.Null);
+			Assert.That(classificationExtension.Statements.TrueFormatStrings, Is.Not.Null);
 
 			var setExtension = language.GetExtension<ILanguageSetModule>();
-			Assert.IsNotNull(setExtension.Attributes);
-			Assert.IsNotNull(setExtension.Questions);
-			Assert.IsNotNull(setExtension.Questions.Answers);
-			Assert.IsNotNull(setExtension.Questions.Parameters);
-			Assert.IsNotNull(setExtension.Statements);
-			Assert.IsNotNull(setExtension.Statements.Consistency);
-			Assert.IsNotNull(setExtension.Statements.FalseFormatStrings);
-			Assert.IsNotNull(setExtension.Statements.Hints);
-			Assert.IsNotNull(setExtension.Statements.Names);
-			Assert.IsNotNull(setExtension.Statements.QuestionFormatStrings);
-			Assert.IsNotNull(setExtension.Statements.TrueFormatStrings);
+			Assert.That(setExtension.Attributes, Is.Not.Null);
+			Assert.That(setExtension.Questions, Is.Not.Null);
+			Assert.That(setExtension.Questions.Answers, Is.Not.Null);
+			Assert.That(setExtension.Questions.Parameters, Is.Not.Null);
+			Assert.That(setExtension.Statements, Is.Not.Null);
+			Assert.That(setExtension.Statements.Consistency, Is.Not.Null);
+			Assert.That(setExtension.Statements.FalseFormatStrings, Is.Not.Null);
+			Assert.That(setExtension.Statements.Hints, Is.Not.Null);
+			Assert.That(setExtension.Statements.Names, Is.Not.Null);
+			Assert.That(setExtension.Statements.QuestionFormatStrings, Is.Not.Null);
+			Assert.That(setExtension.Statements.TrueFormatStrings, Is.Not.Null);
 		}
 
 		[Test]
@@ -89,10 +89,10 @@ namespace AabSemantics.Modules.Set.Tests.Localization
 			var lang = language.GetExtension<ILanguageSetModule>().Questions.Parameters;
 
 			// assert
-			Assert.AreEqual("SIGN", lang.Sign);
-			Assert.AreEqual("SUBJECT_AREA", lang.Area);
-			Assert.AreEqual("CONCEPT 1", lang.Concept1);
-			Assert.AreEqual("CONCEPT 2", lang.Concept2);
+			Assert.That(lang.Sign, Is.EqualTo("SIGN"));
+			Assert.That(lang.Area, Is.EqualTo("SUBJECT_AREA"));
+			Assert.That(lang.Concept1, Is.EqualTo("CONCEPT 1"));
+			Assert.That(lang.Concept2, Is.EqualTo("CONCEPT 2"));
 		}
 	}
 }

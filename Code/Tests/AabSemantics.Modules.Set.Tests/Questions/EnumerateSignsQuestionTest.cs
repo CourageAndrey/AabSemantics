@@ -40,8 +40,8 @@ namespace AabSemantics.Modules.Set.Tests.Questions
 			var answerBuilder = (ConceptsAnswer) semanticNetwork.SemanticNetwork.Ask().WhichSignsHas(semanticNetwork.Vehicle_Car);
 
 			// assert
-			Assert.IsTrue(answerRegular.Result.SequenceEqual(answerBuilder.Result));
-			Assert.IsTrue(answerRegular.Explanation.Statements.SequenceEqual(answerBuilder.Explanation.Statements));
+			Assert.That(answerRegular.Result.SequenceEqual(answerBuilder.Result), Is.True);
+			Assert.That(answerRegular.Explanation.Statements.SequenceEqual(answerBuilder.Explanation.Statements), Is.True);
 		}
 
 		[Test]
@@ -58,11 +58,11 @@ namespace AabSemantics.Modules.Set.Tests.Questions
 			var answerWithRecursion = semanticNetwork.Ask().WhichSignsHas(LogicalValues.True);
 
 			// assert
-			Assert.IsTrue(answerWithoutRecursion.IsEmpty);
-			Assert.AreEqual(0, answerWithoutRecursion.Explanation.Statements.Count);
+			Assert.That(answerWithoutRecursion.IsEmpty, Is.True);
+			Assert.That(answerWithoutRecursion.Explanation.Statements.Count, Is.EqualTo(0));
 
-			Assert.IsTrue(answerWithRecursion.IsEmpty);
-			Assert.AreEqual(0, answerWithRecursion.Explanation.Statements.Count);
+			Assert.That(answerWithRecursion.IsEmpty, Is.True);
+			Assert.That(answerWithRecursion.Explanation.Statements.Count, Is.EqualTo(0));
 		}
 
 		[Test]
@@ -78,8 +78,8 @@ namespace AabSemantics.Modules.Set.Tests.Questions
 			var answer = question.Ask(semanticNetwork.SemanticNetwork.Context);
 
 			// assert
-			Assert.IsTrue(answer.IsEmpty);
-			Assert.AreEqual(0, answer.Explanation.Statements.Count);
+			Assert.That(answer.IsEmpty, Is.True);
+			Assert.That(answer.Explanation.Statements.Count, Is.EqualTo(0));
 		}
 
 		[Test]
@@ -101,9 +101,9 @@ namespace AabSemantics.Modules.Set.Tests.Questions
 			var answer = (ConceptsAnswer) question.Ask(semanticNetwork.SemanticNetwork.Context);
 
 			// assert
-			Assert.IsFalse(answer.IsEmpty);
-			Assert.AreSame(ownSign, answer.Result.Single());
-			Assert.AreSame(ownSignStatement, answer.Explanation.Statements.Single());
+			Assert.That(answer.IsEmpty, Is.False);
+			Assert.That(answer.Result.Single(), Is.SameAs(ownSign));
+			Assert.That(answer.Explanation.Statements.Single(), Is.SameAs(ownSignStatement));
 		}
 
 		[Test]
@@ -119,10 +119,10 @@ namespace AabSemantics.Modules.Set.Tests.Questions
 			var answer = (ConceptsAnswer) question.Ask(semanticNetwork.SemanticNetwork.Context);
 
 			// assert
-			Assert.IsFalse(answer.IsEmpty);
-			Assert.AreEqual(2, answer.Result.Count);
-			Assert.AreEqual(1, answer.Explanation.Statements.OfType<IsStatement>().Count());
-			Assert.AreEqual(2, answer.Explanation.Statements.OfType<HasSignStatement>().Count());
+			Assert.That(answer.IsEmpty, Is.False);
+			Assert.That(answer.Result.Count, Is.EqualTo(2));
+			Assert.That(answer.Explanation.Statements.OfType<IsStatement>().Count(), Is.EqualTo(1));
+			Assert.That(answer.Explanation.Statements.OfType<HasSignStatement>().Count(), Is.EqualTo(2));
 		}
 
 		[Test]
@@ -145,14 +145,14 @@ namespace AabSemantics.Modules.Set.Tests.Questions
 			var text = render.RenderText(answer.Description, language).ToString();
 
 			// assert
-			Assert.IsFalse(answer.IsEmpty);
-			Assert.AreEqual(3, answer.Result.Count);
-			Assert.IsTrue(answer.Result.Contains(ownSign));
-			Assert.IsTrue(answer.Explanation.Statements.Contains(ownSignStatement));
-			Assert.AreEqual(1, answer.Explanation.Statements.OfType<IsStatement>().Count());
-			Assert.AreEqual(3, answer.Explanation.Statements.OfType<HasSignStatement>().Count());
+			Assert.That(answer.IsEmpty, Is.False);
+			Assert.That(answer.Result.Count, Is.EqualTo(3));
+			Assert.That(answer.Result.Contains(ownSign), Is.True);
+			Assert.That(answer.Explanation.Statements.Contains(ownSignStatement), Is.True);
+			Assert.That(answer.Explanation.Statements.OfType<IsStatement>().Count(), Is.EqualTo(1));
+			Assert.That(answer.Explanation.Statements.OfType<HasSignStatement>().Count(), Is.EqualTo(3));
 
-			Assert.IsTrue(text.Contains(" concept has following signs"));
+			Assert.That(text.Contains(" concept has following signs"), Is.True);
 		}
 	}
 }

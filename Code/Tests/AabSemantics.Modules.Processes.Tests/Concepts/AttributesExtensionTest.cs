@@ -15,27 +15,27 @@ namespace AabSemantics.Modules.Processes.Tests.Concepts
 			var concept = new Concept();
 
 			// 0. no attributes added
-			Assert.AreEqual(0, concept.Attributes.Count);
-			Assert.IsFalse(concept.HasAttribute<IsValueAttribute>());
-			Assert.IsFalse(concept.HasAttribute<IsSequenceSignAttribute>());
+			Assert.That(concept.Attributes.Count, Is.EqualTo(0));
+			Assert.That(concept.HasAttribute<IsValueAttribute>(), Is.False);
+			Assert.That(concept.HasAttribute<IsSequenceSignAttribute>(), Is.False);
 
 			// 1. add IsValueAttribute
 			concept.WithAttribute(IsValueAttribute.Value);
-			Assert.AreEqual(1, concept.Attributes.Count);
-			Assert.IsTrue(concept.HasAttribute<IsValueAttribute>());
-			Assert.IsFalse(concept.HasAttribute<IsSequenceSignAttribute>());
+			Assert.That(concept.Attributes.Count, Is.EqualTo(1));
+			Assert.That(concept.HasAttribute<IsValueAttribute>(), Is.True);
+			Assert.That(concept.HasAttribute<IsSequenceSignAttribute>(), Is.False);
 
 			// 2. add IsSequenceSignAttribute
 			concept.WithAttribute(IsSequenceSignAttribute.Value);
-			Assert.AreEqual(2, concept.Attributes.Count);
-			Assert.IsTrue(concept.HasAttribute<IsValueAttribute>());
-			Assert.IsTrue(concept.HasAttribute<IsSequenceSignAttribute>());
+			Assert.That(concept.Attributes.Count, Is.EqualTo(2));
+			Assert.That(concept.HasAttribute<IsValueAttribute>(), Is.True);
+			Assert.That(concept.HasAttribute<IsSequenceSignAttribute>(), Is.True);
 
 			// 3. remove all attributes
 			concept.WithoutAttributes();
-			Assert.AreEqual(0, concept.Attributes.Count);
-			Assert.IsFalse(concept.HasAttribute<IsValueAttribute>());
-			Assert.IsFalse(concept.HasAttribute<IsSequenceSignAttribute>());
+			Assert.That(concept.Attributes.Count, Is.EqualTo(0));
+			Assert.That(concept.HasAttribute<IsValueAttribute>(), Is.False);
+			Assert.That(concept.HasAttribute<IsSequenceSignAttribute>(), Is.False);
 		}
 	}
 }

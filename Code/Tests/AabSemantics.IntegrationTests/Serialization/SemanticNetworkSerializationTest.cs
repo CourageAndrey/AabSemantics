@@ -59,14 +59,14 @@ namespace AabSemantics.IntegrationTests.Serialization
 
 			// assert
 			var restoredName = (LocalizedStringVariable) restored.Name;
-			Assert.IsTrue(locales.SequenceEqual(restoredName.Locales));
+			Assert.That(locales.SequenceEqual(restoredName.Locales), Is.True);
 			foreach (string locale in locales)
 			{
-				Assert.AreEqual(name.GetValue(locale), restoredName.GetValue(locale));
+				Assert.That(restoredName.GetValue(locale), Is.EqualTo(name.GetValue(locale)));
 			}
 
 			var conceptMapping = new Dictionary<IConcept, IConcept>();
-			Assert.AreEqual(semanticNetwork.Concepts.Count, restored.Concepts.Count);
+			Assert.That(restored.Concepts.Count, Is.EqualTo(semanticNetwork.Concepts.Count));
 			foreach (var concept in semanticNetwork.Concepts/*.Except(systemConcepts)*/)
 			{
 				var restoredConcept = restored.Concepts.Single(c =>
@@ -80,15 +80,15 @@ namespace AabSemantics.IntegrationTests.Serialization
 			{
 				if (systemConcepts.Contains(mapping.Key))
 				{
-					Assert.AreSame(mapping.Key, mapping.Value);
+					Assert.That(mapping.Value, Is.SameAs(mapping.Key));
 				}
 				else
 				{
-					Assert.AreNotSame(mapping.Key, mapping.Value);
+					Assert.That(mapping.Value, Is.Not.SameAs(mapping.Key));
 				}
 			}
 
-			Assert.AreEqual(semanticNetwork.Statements.Count, restored.Statements.Count);
+			Assert.That(restored.Statements.Count, Is.EqualTo(semanticNetwork.Statements.Count));
 			foreach (var statement in semanticNetwork.Statements)
 			{
 				var statementType = statement.GetType();

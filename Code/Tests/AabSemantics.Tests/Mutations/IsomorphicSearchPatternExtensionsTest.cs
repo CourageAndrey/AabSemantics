@@ -24,7 +24,7 @@ namespace AabSemantics.Tests.Mutations
 			bool result = semanticNetwork.DoesMatch(searchPattern);
 
 			// assert
-			Assert.IsFalse(result);
+			Assert.That(result, Is.False);
 		}
 
 		[Test]
@@ -43,7 +43,7 @@ namespace AabSemantics.Tests.Mutations
 			bool result = semanticNetwork.DoesMatch(searchPattern);
 
 			// assert
-			Assert.IsTrue(result);
+			Assert.That(result, Is.True);
 		}
 
 		[Test]
@@ -60,7 +60,7 @@ namespace AabSemantics.Tests.Mutations
 			var result = semanticNetwork.FindFirstMatch(searchPattern);
 
 			// assert
-			Assert.IsNull(result);
+			Assert.That(result, Is.Null);
 		}
 
 		[Test]
@@ -79,7 +79,7 @@ namespace AabSemantics.Tests.Mutations
 			var result = semanticNetwork.FindFirstMatch(searchPattern);
 
 			// assert
-			Assert.AreSame(matches[0], result);
+			Assert.That(matches[0], Is.SameAs(result));
 		}
 
 		private class TestIsomorphicSearchPattern : IsomorphicSearchPattern

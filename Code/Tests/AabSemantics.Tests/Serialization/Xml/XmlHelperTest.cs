@@ -28,13 +28,13 @@ namespace AabSemantics.Tests.Serialization.Xml
 			typeof(SerializableClass3).AcquireXmlSerializer();
 			typeof(SerializableClass4).AcquireXmlSerializer();
 			typeof(SerializableClass5).AcquireXmlSerializer();
-			Assert.Less(0, serializers.Count);
+			Assert.That(serializers.Count, Is.GreaterThan(0));
 
 			// act
 			XmlHelper.ResetCache();
 
 			// assert
-			Assert.AreEqual(0, serializers.Count);
+			Assert.That(serializers.Count, Is.EqualTo(0));
 		}
 
 		[Test]
@@ -48,14 +48,14 @@ namespace AabSemantics.Tests.Serialization.Xml
 			var acquiredSerializer = typeof(SerializableCustom).AcquireXmlSerializer();
 
 			// assert
-			Assert.AreSame(customSerializer, acquiredSerializer);
+			Assert.That(acquiredSerializer, Is.SameAs(customSerializer));
 		}
 
 		[Test]
 		public void GivenTypedAndUntypedOverloads_WhenAcquireSerializer_ThenWorkTheSame()
 		{
 			// act & assert
-			Assert.AreSame(XmlHelper.AcquireXmlSerializer(typeof(SerializableClass1)), XmlHelper.AcquireXmlSerializer<SerializableClass1>());
+			Assert.That(XmlHelper.AcquireXmlSerializer<SerializableClass1>(), Is.SameAs(XmlHelper.AcquireXmlSerializer(typeof(SerializableClass1))));
 		}
 
 		[Test]
@@ -82,7 +82,7 @@ namespace AabSemantics.Tests.Serialization.Xml
 			// act & assert
 			Parallel.ForEach(threadTypes, type =>
 			{
-				Assert.IsNotNull(XmlHelper.AcquireXmlSerializer(type));
+				Assert.That(XmlHelper.AcquireXmlSerializer(type), Is.Not.Null);
 			});
 		}
 
@@ -123,12 +123,12 @@ namespace AabSemantics.Tests.Serialization.Xml
 			}
 
 			// assert
-			Assert.AreEqual(serializedDocument.DocumentElement.OuterXml, serializedElement.OuterXml);
-			Assert.AreEqual(test, deserializedFromStream);
-			Assert.AreEqual(test, deserializedFromBytes);
-			Assert.AreEqual(test, deserializedFromFile);
-			Assert.AreEqual(test, deserializedFromDocument);
-			Assert.AreEqual(test, deserializedFromString);
+			Assert.That(serializedElement.OuterXml, Is.EqualTo(serializedDocument.DocumentElement.OuterXml));
+			Assert.That(deserializedFromStream, Is.EqualTo(test));
+			Assert.That(deserializedFromBytes, Is.EqualTo(test));
+			Assert.That(deserializedFromFile, Is.EqualTo(test));
+			Assert.That(deserializedFromDocument, Is.EqualTo(test));
+			Assert.That(deserializedFromString, Is.EqualTo(test));
 		}
 
 		[Test]
@@ -170,7 +170,7 @@ namespace AabSemantics.Tests.Serialization.Xml
 			// act & assert before
 			var error = Assert.Throws<InvalidOperationException>(() => test.SerializeToXmlDocument());
 			var innerError = (InvalidOperationException) error.InnerException;
-			Assert.IsTrue(innerError.Message.Contains("XmlInclude"));
+			Assert.That(innerError.Message.Contains("XmlInclude"), Is.True);
 
 			// act as extension & assert
 			typeof(SerializationParent).DefineTypeOverrides(overrides);
@@ -178,14 +178,14 @@ namespace AabSemantics.Tests.Serialization.Xml
 			string xml = test.SerializeToXmlString();
 			var deserialized = xml.DeserializeFromXmlString<SerializationParent>();
 
-			Assert.IsTrue(deserialized.Equals(test));
+			Assert.That(deserialized.Equals(test), Is.True);
 
 			// clear & try to assert again
 			XmlHelper.DefineCustomXmlSerializer<SerializationParent>(new XmlSerializer(typeof(SerializationParent)));
 
 			error = Assert.Throws<InvalidOperationException>(() => test.SerializeToXmlDocument());
 			innerError = (InvalidOperationException)error.InnerException;
-			Assert.IsTrue(innerError.Message.Contains("XmlInclude"));
+			Assert.That(innerError.Message.Contains("XmlInclude"), Is.True);
 
 			// act and assert by type
 			XmlHelper.DefineTypeOverrides<SerializationParent>(overrides);
@@ -193,7 +193,7 @@ namespace AabSemantics.Tests.Serialization.Xml
 			xml = test.SerializeToXmlString();
 			deserialized = xml.DeserializeFromXmlString<SerializationParent>();
 
-			Assert.IsTrue(deserialized.Equals(test));
+			Assert.That(deserialized.Equals(test), Is.True);
 		}
 
 		#region Serializable classes

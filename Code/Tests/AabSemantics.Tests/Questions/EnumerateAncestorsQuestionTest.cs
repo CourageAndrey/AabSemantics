@@ -52,8 +52,8 @@ namespace AabSemantics.Tests.Questions
 			var answerBuilder = (ConceptsAnswer) semanticNetwork.Ask().WhichAncestorsHas(car);
 
 			// assert
-			Assert.IsTrue(answerRegular.Result.SequenceEqual(answerBuilder.Result));
-			Assert.IsTrue(answerRegular.Explanation.Statements.SequenceEqual(answerBuilder.Explanation.Statements));
+			Assert.That(answerRegular.Result.SequenceEqual(answerBuilder.Result), Is.True);
+			Assert.That(answerRegular.Explanation.Statements.SequenceEqual(answerBuilder.Explanation.Statements), Is.True);
 		}
 
 		[Test]
@@ -77,11 +77,11 @@ namespace AabSemantics.Tests.Questions
 			var answerChild = semanticNetwork.Ask().WhichAncestorsHas(parentConcept);
 
 			// assert
-			Assert.IsTrue(answerToCheck.IsEmpty);
-			Assert.AreEqual(0, answerToCheck.Explanation.Statements.Count);
+			Assert.That(answerToCheck.IsEmpty, Is.True);
+			Assert.That(answerToCheck.Explanation.Statements.Count, Is.EqualTo(0));
 
-			Assert.IsTrue(answerChild.IsEmpty);
-			Assert.AreEqual(0, answerChild.Explanation.Statements.Count);
+			Assert.That(answerChild.IsEmpty, Is.True);
+			Assert.That(answerChild.Explanation.Statements.Count, Is.EqualTo(0));
 		}
 
 		[Test]
@@ -106,13 +106,13 @@ namespace AabSemantics.Tests.Questions
 				var answer = semanticNetwork.Ask().WhichAncestorsHas(childConcept);
 
 				// assert
-				Assert.IsFalse(answer.IsEmpty);
+				Assert.That(answer.IsEmpty, Is.False);
 				var parentConcepts = ((ConceptsAnswer) answer).Result;
-				Assert.AreEqual(i, parentConcepts.Count);
-				Assert.IsTrue(parentConcepts.All(semanticNetwork.Concepts.Contains));
-				Assert.AreEqual(i, answer.Explanation.Statements.Count);
-				Assert.IsFalse(semanticNetwork.Statements.Except(answer.Explanation.Statements).Any());
-				Assert.IsTrue(answer.Description.ToString().Contains("is:"));
+				Assert.That(parentConcepts.Count, Is.EqualTo(i));
+				Assert.That(parentConcepts.All(semanticNetwork.Concepts.Contains), Is.True);
+				Assert.That(answer.Explanation.Statements.Count, Is.EqualTo(i));
+				Assert.That(semanticNetwork.Statements.Except(answer.Explanation.Statements).Any(), Is.False);
+				Assert.That(answer.Description.ToString().Contains("is:"), Is.True);
 			}
 		}
 	}

@@ -18,7 +18,7 @@ namespace AabSemantics.Modules.Set.Tests.Statements
 			var statement = new HasSignStatement(null, concept, sign);
 
 			// act && assert
-			Assert.IsFalse(statement.Equals(null));
+			Assert.That(statement.Equals(null), Is.False);
 		}
 	}
 }

@@ -43,18 +43,18 @@ namespace AabSemantics.Tests.Questions
 			var answerBuilderWithPreconditions = (BooleanAnswer) semanticNetwork.Supposing(preconditions).Ask().IfIs(descendant, ancestor);
 
 			// assert
-			Assert.IsFalse(answerRegularWithoutPreconditions.Result);
-			Assert.AreEqual(0, answerRegularWithoutPreconditions.Explanation.Statements.Count);
-			Assert.IsFalse(answerBuilderWithoutPreconditions.Result);
-			Assert.AreEqual(0, answerBuilderWithoutPreconditions.Explanation.Statements.Count);
-			Assert.IsTrue(answerRegularWithPreconditions.Result);
-			Assert.AreEqual(2, answerRegularWithPreconditions.Explanation.Statements.Count);
-			Assert.IsTrue(answerRegularWithPreconditions.Result);
-			Assert.IsTrue(answerRegularWithPreconditions.Explanation.Statements.Contains(existingStatement));
-			Assert.IsTrue(answerRegularWithPreconditions.Explanation.Statements.Contains(precondition));
-			Assert.AreEqual(2, answerBuilderWithPreconditions.Explanation.Statements.Count);
-			Assert.IsTrue(answerBuilderWithPreconditions.Explanation.Statements.Contains(existingStatement));
-			Assert.IsTrue(answerBuilderWithPreconditions.Explanation.Statements.Contains(precondition));
+			Assert.That(answerRegularWithoutPreconditions.Result, Is.False);
+			Assert.That(answerRegularWithoutPreconditions.Explanation.Statements.Count, Is.EqualTo(0));
+			Assert.That(answerBuilderWithoutPreconditions.Result, Is.False);
+			Assert.That(answerBuilderWithoutPreconditions.Explanation.Statements.Count, Is.EqualTo(0));
+			Assert.That(answerRegularWithPreconditions.Result, Is.True);
+			Assert.That(answerRegularWithPreconditions.Explanation.Statements.Count, Is.EqualTo(2));
+			Assert.That(answerRegularWithPreconditions.Result, Is.True);
+			Assert.That(answerRegularWithPreconditions.Explanation.Statements.Contains(existingStatement), Is.True);
+			Assert.That(answerRegularWithPreconditions.Explanation.Statements.Contains(precondition), Is.True);
+			Assert.That(answerBuilderWithPreconditions.Explanation.Statements.Count, Is.EqualTo(2));
+			Assert.That(answerBuilderWithPreconditions.Explanation.Statements.Contains(existingStatement), Is.True);
+			Assert.That(answerBuilderWithPreconditions.Explanation.Statements.Contains(precondition), Is.True);
 		}
 
 		[Test]

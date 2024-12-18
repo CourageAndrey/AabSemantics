@@ -58,10 +58,10 @@ namespace AabSemantics.Modules.Set.Tests.Questions
 			var answerBuilder = (ConceptsAnswer) semanticNetwork.SemanticNetwork.Ask().WhatInCommon(semanticNetwork.Vehicle_Car, semanticNetwork.Vehicle_Airbus);
 
 			// assert
-			Assert.AreSame(semanticNetwork.Vehicle_Car, questionRegular.Concept1);
-			Assert.AreSame(semanticNetwork.Vehicle_Airbus, questionRegular.Concept2);
-			Assert.IsTrue(answerRegular.Result.SequenceEqual(answerBuilder.Result));
-			Assert.IsTrue(answerRegular.Explanation.Statements.SequenceEqual(answerBuilder.Explanation.Statements));
+			Assert.That(questionRegular.Concept1, Is.SameAs(semanticNetwork.Vehicle_Car));
+			Assert.That(questionRegular.Concept2, Is.SameAs(semanticNetwork.Vehicle_Airbus));
+			Assert.That(answerRegular.Result.SequenceEqual(answerBuilder.Result), Is.True);
+			Assert.That(answerRegular.Explanation.Statements.SequenceEqual(answerBuilder.Explanation.Statements), Is.True);
 		}
 
 		[Test]
@@ -78,10 +78,10 @@ namespace AabSemantics.Modules.Set.Tests.Questions
 			var text = render.RenderText(answer.Description, language).ToString();
 
 			// assert
-			Assert.IsTrue(answer.IsEmpty);
-			Assert.AreEqual(0, answer.Explanation.Statements.Count);
+			Assert.That(answer.IsEmpty, Is.True);
+			Assert.That(answer.Explanation.Statements.Count, Is.EqualTo(0));
 
-			Assert.IsTrue(text.Contains("have no common ancestors and can not be compared."));
+			Assert.That(text.Contains("have no common ancestors and can not be compared."), Is.True);
 		}
 
 		[Test]
@@ -98,10 +98,10 @@ namespace AabSemantics.Modules.Set.Tests.Questions
 			var text = render.RenderText(answer.Description, language).ToString();
 
 			// assert
-			Assert.IsTrue(answer.IsEmpty);
-			Assert.Greater(answer.Explanation.Statements.Count, 0);
+			Assert.That(answer.IsEmpty, Is.True);
+			Assert.That(answer.Explanation.Statements.Count, Is.GreaterThan(0));
 
-			Assert.IsTrue(text.Contains("No common found according to existing information."));
+			Assert.That(text.Contains("No common found according to existing information."), Is.True);
 		}
 
 		[Test]
@@ -115,11 +115,11 @@ namespace AabSemantics.Modules.Set.Tests.Questions
 			var answer = semanticNetwork.SemanticNetwork.Ask().WhatInCommon(semanticNetwork.Vehicle_Steamboat, semanticNetwork.Vehicle_SteamLocomotive);
 
 			// assert
-			Assert.IsFalse(answer.IsEmpty);
+			Assert.That(answer.IsEmpty, Is.False);
 
-			Assert.AreSame(semanticNetwork.Sign_MotorType, (((ConceptsAnswer) answer).Result).Single());
+			Assert.That((((ConceptsAnswer) answer).Result).Single(), Is.SameAs(semanticNetwork.Sign_MotorType));
 
-			Assert.Greater(answer.Explanation.Statements.Count, 0);
+			Assert.That(answer.Explanation.Statements.Count, Is.GreaterThan(0));
 		}
 
 		[Test]
@@ -139,18 +139,16 @@ namespace AabSemantics.Modules.Set.Tests.Questions
 			var text = render.RenderText(answer.Description, language).ToString();
 
 			// assert
-			Assert.IsFalse(answer.IsEmpty);
+			Assert.That(answer.IsEmpty, Is.False);
 
 			var signs = (((ConceptsAnswer) answer).Result).Select(c => c.Name.GetValue(language)).ToList();
-			Assert.AreEqual(2, signs.Count);
-			Assert.IsTrue(signs.Contains(SignSameValues));
-			Assert.IsTrue(signs.Contains(SignBothNotSet));
+			Assert.That(signs.Count, Is.EqualTo(2));
+			Assert.That(signs.Contains(SignSameValues), Is.True);
+			Assert.That(signs.Contains(SignBothNotSet), Is.True);
 
-			Assert.Greater(answer.Explanation.Statements.Count, 0);
+			Assert.That(answer.Explanation.Statements.Count, Is.GreaterThan(0));
 
-			Assert.IsTrue(
-				text.Contains("Both have ") &&
-				text.Contains(" sign value equal to "));
+			Assert.That(text.Contains("Both have ") && text.Contains(" sign value equal to "), Is.True);
 		}
 
 		internal const string SignSameValues = "Same values";
@@ -254,14 +252,14 @@ namespace AabSemantics.Modules.Set.Tests.Questions
 			var textSecond = render.RenderText(answerSecond.Description, language).ToString();
 
 			// assert
-			Assert.IsFalse(answerFirst.IsEmpty);
-			Assert.IsFalse(answerSecond.IsEmpty);
+			Assert.That(answerFirst.IsEmpty, Is.False);
+			Assert.That(answerSecond.IsEmpty, Is.False);
 
-			Assert.Greater(answerFirst.Explanation.Statements.Count, 0);
-			Assert.Greater(answerSecond.Explanation.Statements.Count, 0);
+			Assert.That(answerFirst.Explanation.Statements.Count, Is.GreaterThan(0));
+			Assert.That(answerSecond.Explanation.Statements.Count, Is.GreaterThan(0));
 
-			Assert.IsTrue(textFirst.Contains("First is also:"));
-			Assert.IsTrue(textSecond.Contains("Second is also:"));
+			Assert.That(textFirst.Contains("First is also:"), Is.True);
+			Assert.That(textSecond.Contains("Second is also:"), Is.True);
 		}
 	}
 }

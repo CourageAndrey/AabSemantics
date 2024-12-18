@@ -58,7 +58,7 @@ namespace Inventor.Algorithms.Test
 			double maxFlow = arcs.FindMaximumFlow(source, destination);
 
 			// assert
-			Assert.AreEqual(123, maxFlow);
+			Assert.That(maxFlow, Is.EqualTo(123));
 		}
 
 		[Test]
@@ -81,7 +81,7 @@ namespace Inventor.Algorithms.Test
 			double maxFlow = arcs.FindMaximumFlow(a, d);
 
 			// assert
-			Assert.AreEqual(123, maxFlow);
+			Assert.That(maxFlow, Is.EqualTo(123));
 		}
 
 		[Test]
@@ -102,7 +102,7 @@ namespace Inventor.Algorithms.Test
 			double maxFlow = arcs.FindMaximumFlow(source, destination);
 
 			// assert
-			Assert.AreEqual(123 + 456 + 789, maxFlow);
+			Assert.That(maxFlow, Is.EqualTo(123 + 456 + 789));
 		}
 
 		[Test]
@@ -133,7 +133,7 @@ namespace Inventor.Algorithms.Test
 			double maxFlow = arcs.FindMaximumFlow(a, f);
 
 			// assert
-			Assert.AreEqual(10, maxFlow);
+			Assert.That(maxFlow, Is.EqualTo(10));
 		}
 
 		/*[Test]
@@ -152,7 +152,7 @@ namespace Inventor.Algorithms.Test
 			double maxFlow = arcs.FindMaximumFlow(source, destination);
 
 			// assert
-			Assert.AreEqual(, maxFlow);
+			Assert.That(maxFlow, Is.EqualTo());
 		}*/
 
 		[Test]

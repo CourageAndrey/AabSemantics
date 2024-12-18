@@ -38,8 +38,8 @@ namespace AabSemantics.Modules.Set.Tests.Questions
 			var answerBuilder = (ConceptsAnswer) semanticNetwork.SemanticNetwork.Ask().ToWhichSubjectAreasBelongs(semanticNetwork.Vehicle_Car);
 
 			// assert
-			Assert.IsTrue(answerRegular.Result.SequenceEqual(answerBuilder.Result));
-			Assert.IsTrue(answerRegular.Explanation.Statements.SequenceEqual(answerBuilder.Explanation.Statements));
+			Assert.That(answerRegular.Result.SequenceEqual(answerBuilder.Result), Is.True);
+			Assert.That(answerRegular.Explanation.Statements.SequenceEqual(answerBuilder.Explanation.Statements), Is.True);
 		}
 
 		[Test]
@@ -56,8 +56,8 @@ namespace AabSemantics.Modules.Set.Tests.Questions
 				var answer = semanticNetwork.SemanticNetwork.Ask().ToWhichSubjectAreasBelongs(concept);
 
 				// assert
-				Assert.IsTrue(answer.IsEmpty);
-				Assert.AreEqual(0, answer.Explanation.Statements.Count);
+				Assert.That(answer.IsEmpty, Is.True);
+				Assert.That(answer.Explanation.Statements.Count, Is.EqualTo(0));
 			}
 		}
 
@@ -82,14 +82,14 @@ namespace AabSemantics.Modules.Set.Tests.Questions
 				var answer = semanticNetwork.SemanticNetwork.Ask().ToWhichSubjectAreasBelongs(concept);
 
 				// assert
-				Assert.IsFalse(answer.IsEmpty);
+				Assert.That(answer.IsEmpty, Is.False);
 
 				var groupStatement = (GroupStatement) answer.Explanation.Statements.Single();
-				Assert.IsTrue(subjectAreas.Contains(groupStatement.Area));
-				Assert.AreSame(concept, groupStatement.Concept);
+				Assert.That(subjectAreas.Contains(groupStatement.Area), Is.True);
+				Assert.That(groupStatement.Concept, Is.SameAs(concept));
 
 				var conceptsAnswer = (ConceptsAnswer) answer;
-				Assert.AreSame(groupStatement.Area, conceptsAnswer.Result.Single());
+				Assert.That(conceptsAnswer.Result.Single(), Is.SameAs(groupStatement.Area));
 			}
 		}
 
@@ -111,16 +111,16 @@ namespace AabSemantics.Modules.Set.Tests.Questions
 			var text = render.RenderText(answer.Description, language).ToString();
 
 			// assert
-			Assert.IsFalse(answer.IsEmpty);
+			Assert.That(answer.IsEmpty, Is.False);
 
-			Assert.AreEqual(2, answer.Explanation.Statements.Count);
-			Assert.IsTrue(answer.Explanation.Statements.OfType<GroupStatement>().Any(s => s.Area == semanticNetwork.SubjectArea_Transport && s.Concept == concept));
-			Assert.IsTrue(answer.Explanation.Statements.OfType<GroupStatement>().Any(s => s.Area == secondSubjectArea && s.Concept == concept));
+			Assert.That(answer.Explanation.Statements.Count, Is.EqualTo(2));
+			Assert.That(answer.Explanation.Statements.OfType<GroupStatement>().Any(s => s.Area == semanticNetwork.SubjectArea_Transport && s.Concept == concept), Is.True);
+			Assert.That(answer.Explanation.Statements.OfType<GroupStatement>().Any(s => s.Area == secondSubjectArea && s.Concept == concept), Is.True);
 			var conceptsAnswer = (ConceptsAnswer) answer;
-			Assert.IsTrue(conceptsAnswer.Result.Contains(semanticNetwork.SubjectArea_Transport));
-			Assert.IsTrue(conceptsAnswer.Result.Contains(secondSubjectArea));
+			Assert.That(conceptsAnswer.Result.Contains(semanticNetwork.SubjectArea_Transport), Is.True);
+			Assert.That(conceptsAnswer.Result.Contains(secondSubjectArea), Is.True);
 
-			Assert.IsTrue(text.Contains(" belongs to following subject areas:"));
+			Assert.That(text.Contains(" belongs to following subject areas:"), Is.True);
 		}
 	}
 }

@@ -26,14 +26,14 @@ namespace AabSemantics.Tests.Serialization.Json
 			var acquiredSerializer = typeof(SerializableCustom).AcquireJsonSerializer();
 
 			// assert
-			Assert.AreSame(customSerializer, acquiredSerializer);
+			Assert.That(acquiredSerializer, Is.SameAs(customSerializer));
 		}
 
 		[Test]
 		public void GivenTypedAndUntypedOverloads_WhenAcquireSerializer_ThenWorkTheSame()
 		{
 			// act & assert
-			Assert.AreSame(JsonHelper.AcquireJsonSerializer(typeof(SerializableClass1)), JsonHelper.AcquireJsonSerializer<SerializableClass1>());
+			Assert.That(JsonHelper.AcquireJsonSerializer<SerializableClass1>(), Is.SameAs(JsonHelper.AcquireJsonSerializer(typeof(SerializableClass1))));
 		}
 
 		[Test]
@@ -60,7 +60,7 @@ namespace AabSemantics.Tests.Serialization.Json
 			// act & assert
 			Parallel.ForEach(threadTypes, type =>
 			{
-				Assert.IsNotNull(JsonHelper.AcquireJsonSerializer(type));
+				Assert.That(JsonHelper.AcquireJsonSerializer(type), Is.Not.Null);
 			});
 		}
 
@@ -96,10 +96,10 @@ namespace AabSemantics.Tests.Serialization.Json
 			}
 
 			// assert
-			Assert.AreEqual(test, deserializedFromStream);
-			Assert.AreEqual(test, deserializedFromBytes);
-			Assert.AreEqual(test, deserializedFromFile);
-			Assert.AreEqual(test, deserializedFromText);
+			Assert.That(deserializedFromStream, Is.EqualTo(test));
+			Assert.That(deserializedFromBytes, Is.EqualTo(test));
+			Assert.That(deserializedFromFile, Is.EqualTo(test));
+			Assert.That(deserializedFromText, Is.EqualTo(test));
 		}
 
 		#region Serializable classes

@@ -57,8 +57,8 @@ namespace AabSemantics.Tests.Questions
 			var answerBuilder = (BooleanAnswer) semanticNetwork.Ask().IsTrueThat(checkedStatement);
 
 			// assert
-			Assert.AreEqual(answerRegular.Result, answerBuilder.Result);
-			Assert.IsTrue(answerRegular.Explanation.Statements.SequenceEqual(answerBuilder.Explanation.Statements));
+			Assert.That(answerBuilder.Result, Is.EqualTo(answerRegular.Result));
+			Assert.That(answerRegular.Explanation.Statements.SequenceEqual(answerBuilder.Explanation.Statements), Is.True);
 		}
 
 		[Test]
@@ -78,14 +78,14 @@ namespace AabSemantics.Tests.Questions
 
 			// assert
 			var answer = (BooleanAnswer) answerNoStatements;
-			Assert.IsFalse(answer.IsEmpty);
-			Assert.IsFalse(answer.Result);
-			Assert.AreEqual(0, answer.Explanation.Statements.Count);
+			Assert.That(answer.IsEmpty, Is.False);
+			Assert.That(answer.Result, Is.False);
+			Assert.That(answer.Explanation.Statements.Count, Is.EqualTo(0));
 
 			answer = (BooleanAnswer) answerWrongStatement;
-			Assert.IsFalse(answer.IsEmpty);
-			Assert.IsFalse(answer.Result);
-			Assert.AreEqual(0, answer.Explanation.Statements.Count);
+			Assert.That(answer.IsEmpty, Is.False);
+			Assert.That(answer.Result, Is.False);
+			Assert.That(answer.Explanation.Statements.Count, Is.EqualTo(0));
 		}
 
 		[Test]
@@ -109,15 +109,15 @@ namespace AabSemantics.Tests.Questions
 			var textRight = (FormattedText) ((ITextContainer) answerRight.Description).Items.First();
 
 			// assert
-			Assert.IsFalse(answerToCheck.IsEmpty);
-			Assert.IsTrue(((BooleanAnswer) answerToCheck).Result);
-			Assert.AreSame(statementRight, answerToCheck.Explanation.Statements.Single());
-			Assert.AreEqual($"\"true\"", textToCheck.ToString());
+			Assert.That(answerToCheck.IsEmpty, Is.False);
+			Assert.That(((BooleanAnswer) answerToCheck).Result, Is.True);
+			Assert.That(answerToCheck.Explanation.Statements.Single(), Is.SameAs(statementRight));
+			Assert.That(textToCheck.ToString(), Is.EqualTo($"\"true\""));
 
-			Assert.IsFalse(answerRight.IsEmpty);
-			Assert.IsTrue(((BooleanAnswer) answerRight).Result);
-			Assert.AreSame(statementRight, answerRight.Explanation.Statements.Single());
-			Assert.AreEqual($"\"true\"", textRight.ToString());
+			Assert.That(answerRight.IsEmpty, Is.False);
+			Assert.That(((BooleanAnswer) answerRight).Result, Is.True);
+			Assert.That(answerRight.Explanation.Statements.Single(), Is.SameAs(statementRight));
+			Assert.That(textRight.ToString(), Is.EqualTo($"\"true\""));
 		}
 
 		[Test]
@@ -145,11 +145,11 @@ namespace AabSemantics.Tests.Questions
 			var answer = semanticNetwork.Ask().IsTrueThat(statementToCheck);
 
 			// assert
-			Assert.IsFalse(answer.IsEmpty);
-			Assert.IsTrue(((BooleanAnswer) answer).Result);
-			Assert.AreEqual(2, answer.Explanation.Statements.Count);
-			Assert.IsTrue(answer.Explanation.Statements.Contains(statementPI));
-			Assert.IsTrue(answer.Explanation.Statements.Contains(statementIC));
+			Assert.That(answer.IsEmpty, Is.False);
+			Assert.That(((BooleanAnswer) answer).Result, Is.True);
+			Assert.That(answer.Explanation.Statements.Count, Is.EqualTo(2));
+			Assert.That(answer.Explanation.Statements.Contains(statementPI), Is.True);
+			Assert.That(answer.Explanation.Statements.Contains(statementIC), Is.True);
 		}
 
 		private class TestStatement : TestCore.TestStatement

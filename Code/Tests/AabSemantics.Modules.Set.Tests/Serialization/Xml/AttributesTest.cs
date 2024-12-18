@@ -32,7 +32,7 @@ namespace AabSemantics.Modules.Set.Tests.Serialization.Xml
 			var restored = xml.Load();
 
 			// assert
-			Assert.AreSame(attribute, restored.Attributes.Single());
+			Assert.That(restored.Attributes.Single(), Is.SameAs(attribute));
 		}
 
 		[Test]
@@ -50,7 +50,7 @@ namespace AabSemantics.Modules.Set.Tests.Serialization.Xml
 			var restored = xml.Load();
 
 			// assert
-			Assert.IsTrue(restored.Attributes.SequenceEqual(concept.Attributes));
+			Assert.That(restored.Attributes.SequenceEqual(concept.Attributes), Is.True);
 		}
 
 		private static IEnumerable<IAttribute> GetAllAttributes()

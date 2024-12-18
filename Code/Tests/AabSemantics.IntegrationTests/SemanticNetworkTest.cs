@@ -42,7 +42,7 @@ namespace AabSemantics.IntegrationTests
 			var result = semanticNetwork.CheckConsistency();
 
 			// assert
-			Assert.IsTrue(result.ToString().Contains(language.Statements.Consistency.CheckOk));
+			Assert.That(result.ToString().Contains(language.Statements.Consistency.CheckOk), Is.True);
 		}
 
 		[Test]
@@ -63,7 +63,7 @@ namespace AabSemantics.IntegrationTests
 			var result = semanticNetwork.CheckConsistency().ToString();
 
 			// assert
-			Assert.Less(language.Statements.Consistency.ErrorDuplicate.Length, result.Length);
+			Assert.That(result.Length, Is.GreaterThan(language.Statements.Consistency.ErrorDuplicate.Length));
 		}
 
 		[Test]
@@ -80,7 +80,7 @@ namespace AabSemantics.IntegrationTests
 			var result = semanticNetwork.DescribeRules().ToString();
 
 			// assert
-			Assert.Less(4000, result.Length);
+			Assert.That(result.Length, Is.GreaterThan(4000));
 		}
 
 		[Test]
@@ -101,9 +101,9 @@ namespace AabSemantics.IntegrationTests
 			}
 
 			// act & assert
-			Assert.AreEqual(statementsCount, semanticNetwork.Statements.Count);
+			Assert.That(semanticNetwork.Statements.Count, Is.EqualTo(statementsCount));
 			semanticNetwork.Concepts.Remove(concept1);
-			Assert.AreEqual(0, semanticNetwork.Statements.Count);
+			Assert.That(semanticNetwork.Statements.Count, Is.EqualTo(0));
 		}
 
 		[Test]
@@ -121,13 +121,13 @@ namespace AabSemantics.IntegrationTests
 			comparison.Context = semanticNetwork.Context.Parent;
 
 			// act & assert
-			Assert.IsTrue(semanticNetwork.Statements.Contains(comparison));
+			Assert.That(semanticNetwork.Statements.Contains(comparison), Is.True);
 			semanticNetwork.Statements.Remove(comparison);
-			Assert.IsTrue(semanticNetwork.Statements.Contains(comparison));
+			Assert.That(semanticNetwork.Statements.Contains(comparison), Is.True);
 
 			comparison.Context = semanticNetwork.Context;
 			semanticNetwork.Statements.Remove(comparison);
-			Assert.IsFalse(semanticNetwork.Statements.Contains(comparison));
+			Assert.That(semanticNetwork.Statements.Contains(comparison), Is.False);
 		}
 
 		[Test]
@@ -140,7 +140,7 @@ namespace AabSemantics.IntegrationTests
 			string toString = semanticNetwork.ToString();
 
 			// assert
-			Assert.IsTrue(toString.Contains(semanticNetwork.Name.GetValue(Language.Default)));
+			Assert.That(toString.Contains(semanticNetwork.Name.GetValue(Language.Default)), Is.True);
 		}
 	}
 }

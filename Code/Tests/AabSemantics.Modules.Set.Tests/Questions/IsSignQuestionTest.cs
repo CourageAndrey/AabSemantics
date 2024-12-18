@@ -37,8 +37,8 @@ namespace AabSemantics.Modules.Set.Tests.Questions
 			var answerBuilder = (BooleanAnswer) semanticNetwork.SemanticNetwork.Ask().IfIsSign(semanticNetwork.Sign_AreaType);
 
 			// assert
-			Assert.AreEqual(answerRegular.Result, answerBuilder.Result);
-			Assert.IsTrue(answerRegular.Explanation.Statements.SequenceEqual(answerBuilder.Explanation.Statements));
+			Assert.That(answerBuilder.Result, Is.EqualTo(answerRegular.Result));
+			Assert.That(answerRegular.Explanation.Statements.SequenceEqual(answerBuilder.Explanation.Statements), Is.True);
 		}
 
 		[Test]
@@ -58,11 +58,11 @@ namespace AabSemantics.Modules.Set.Tests.Questions
 			var text = render.RenderText(answer.Description, language).ToString();
 
 			// assert
-			Assert.IsFalse(answer.IsEmpty);
-			Assert.IsFalse(((BooleanAnswer) answer).Result);
-			Assert.AreEqual(0, answer.Explanation.Statements.Count);
+			Assert.That(answer.IsEmpty, Is.False);
+			Assert.That(((BooleanAnswer) answer).Result, Is.False);
+			Assert.That(answer.Explanation.Statements.Count, Is.EqualTo(0));
 
-			Assert.IsTrue(text.Contains(" is not sign."));
+			Assert.That(text.Contains(" is not sign."), Is.True);
 		}
 
 		[Test]
@@ -80,9 +80,9 @@ namespace AabSemantics.Modules.Set.Tests.Questions
 			var answer = semanticNetwork.Ask().IfIsSign(concept);
 
 			// assert
-			Assert.IsFalse(answer.IsEmpty);
-			Assert.IsTrue(((BooleanAnswer) answer).Result);
-			Assert.AreEqual(0, answer.Explanation.Statements.Count);
+			Assert.That(answer.IsEmpty, Is.False);
+			Assert.That(((BooleanAnswer) answer).Result, Is.True);
+			Assert.That(answer.Explanation.Statements.Count, Is.EqualTo(0));
 		}
 
 		[Test]
@@ -99,11 +99,11 @@ namespace AabSemantics.Modules.Set.Tests.Questions
 			var text = render.RenderText(answer.Description, language).ToString();
 
 			// assert
-			Assert.IsFalse(answer.IsEmpty);
-			Assert.IsTrue(((BooleanAnswer) answer).Result);
-			Assert.IsTrue(answer.Explanation.Statements.OfType<HasSignStatement>().Any());
+			Assert.That(answer.IsEmpty, Is.False);
+			Assert.That(((BooleanAnswer) answer).Result, Is.True);
+			Assert.That(answer.Explanation.Statements.OfType<HasSignStatement>().Any(), Is.True);
 
-			Assert.IsTrue(text.Contains(" is sign."));
+			Assert.That(text.Contains(" is sign."), Is.True);
 		}
 	}
 }

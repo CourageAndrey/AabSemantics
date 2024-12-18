@@ -56,7 +56,7 @@ namespace Inventor.Algorithms.Test
 			var foundPaths = arcs.FindShortestPaths(start);
 
 			// assert
-			Assert.AreEqual(0, foundPaths.Count);
+			Assert.That(foundPaths.Count, Is.EqualTo(0));
 		}
 
 		[Test]
@@ -76,7 +76,7 @@ namespace Inventor.Algorithms.Test
 			var foundPaths = arcs.FindShortestPaths(start);
 
 			// assert
-			Assert.AreEqual(0, foundPaths.Count);
+			Assert.That(foundPaths.Count, Is.EqualTo(0));
 		}
 
 		[Test]
@@ -99,11 +99,11 @@ namespace Inventor.Algorithms.Test
 			var foundPaths = arcs.FindShortestPaths(start);
 
 			// assert
-			Assert.AreEqual(3, foundPaths.Count);
-			Assert.IsTrue(foundPaths.All(p => p.From == start && p.Path.Count == 1));
-			Assert.AreEqual(1, foundPaths.First(p => p.To == a).Lenght);
-			Assert.AreEqual(2, foundPaths.First(p => p.To == b).Lenght);
-			Assert.AreEqual(3, foundPaths.First(p => p.To == c).Lenght);
+			Assert.That(foundPaths.Count, Is.EqualTo(3));
+			Assert.That(foundPaths.All(p => p.From == start && p.Path.Count == 1), Is.True);
+			Assert.That(foundPaths.First(p => p.To == a).Lenght, Is.EqualTo(1));
+			Assert.That(foundPaths.First(p => p.To == b).Lenght, Is.EqualTo(2));
+			Assert.That(foundPaths.First(p => p.To == c).Lenght, Is.EqualTo(3));
 		}
 
 		[Test]
@@ -126,10 +126,10 @@ namespace Inventor.Algorithms.Test
 			var foundPaths = arcs.FindShortestPaths(start);
 
 			// assert
-			Assert.AreEqual(3, foundPaths.Count);
-			Assert.AreEqual(1, foundPaths.First(p => p.To == a).Lenght);
-			Assert.AreEqual(3, foundPaths.First(p => p.To == b).Lenght);
-			Assert.AreEqual(6, foundPaths.First(p => p.To == c).Lenght);
+			Assert.That(foundPaths.Count, Is.EqualTo(3));
+			Assert.That(foundPaths.First(p => p.To == a).Lenght, Is.EqualTo(1));
+			Assert.That(foundPaths.First(p => p.To == b).Lenght, Is.EqualTo(3));
+			Assert.That(foundPaths.First(p => p.To == c).Lenght, Is.EqualTo(6));
 		}
 
 		[Test]
@@ -158,10 +158,10 @@ namespace Inventor.Algorithms.Test
 			var foundPaths = arcs.FindShortestPaths(start);
 
 			// assert
-			Assert.AreEqual(3, foundPaths.Count);
-			Assert.AreEqual(1, foundPaths.First(p => p.To == a).Lenght);
-			Assert.AreEqual(2, foundPaths.First(p => p.To == b).Lenght);
-			Assert.AreEqual(3, foundPaths.First(p => p.To == c).Lenght);
+			Assert.That(foundPaths.Count, Is.EqualTo(3));
+			Assert.That(foundPaths.First(p => p.To == a).Lenght, Is.EqualTo(1));
+			Assert.That(foundPaths.First(p => p.To == b).Lenght, Is.EqualTo(2));
+			Assert.That(foundPaths.First(p => p.To == c).Lenght, Is.EqualTo(3));
 		}
 
 		[Test]
@@ -186,10 +186,10 @@ namespace Inventor.Algorithms.Test
 			var foundPaths = arcs.FindShortestPaths(start);
 
 			// assert
-			Assert.AreEqual(3, foundPaths.Count);
-			Assert.AreEqual(1, foundPaths.First(p => p.To == a).Lenght);
-			Assert.AreEqual(2, foundPaths.First(p => p.To == b).Lenght);
-			Assert.AreEqual(3, foundPaths.First(p => p.To == c).Lenght);
+			Assert.That(foundPaths.Count, Is.EqualTo(3));
+			Assert.That(foundPaths.First(p => p.To == a).Lenght, Is.EqualTo(1));
+			Assert.That(foundPaths.First(p => p.To == b).Lenght, Is.EqualTo(2));
+			Assert.That(foundPaths.First(p => p.To == c).Lenght, Is.EqualTo(3));
 		}
 	}
 }

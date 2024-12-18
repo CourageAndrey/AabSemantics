@@ -29,7 +29,7 @@ namespace AabSemantics.Modules.Processes.Tests.Concepts
 		{
 			foreach (var sign in SequenceSigns.All)
 			{
-				Assert.AreSame(sign, sign.Revert().Revert());
+				Assert.That(sign.Revert().Revert(), Is.SameAs(sign));
 			}
 		}
 	}

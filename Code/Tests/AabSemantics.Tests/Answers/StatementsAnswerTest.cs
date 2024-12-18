@@ -44,11 +44,11 @@ namespace AabSemantics.Tests.Answers
 			var explicitAnswer = untypedAnswer.MakeExplicit<IsStatement>();
 
 			// assert
-			Assert.IsTrue(typedAnswer.Result.SequenceEqual(explicitAnswer.Result));
-			Assert.IsTrue(typedAnswer.Explanation.Statements.SequenceEqual(explicitAnswer.Explanation.Statements));
+			Assert.That(typedAnswer.Result.SequenceEqual(explicitAnswer.Result), Is.True);
+			Assert.That(typedAnswer.Explanation.Statements.SequenceEqual(explicitAnswer.Explanation.Statements), Is.True);
 
-			Assert.IsTrue(untypedAnswer.Result.SequenceEqual(genericAnswer.Result));
-			Assert.IsTrue(untypedAnswer.Explanation.Statements.SequenceEqual(genericAnswer.Explanation.Statements));
+			Assert.That(untypedAnswer.Result.SequenceEqual(genericAnswer.Result), Is.True);
+			Assert.That(untypedAnswer.Explanation.Statements.SequenceEqual(genericAnswer.Explanation.Statements), Is.True);
 		}
 
 		private class TestStatement : TestCore.TestStatement

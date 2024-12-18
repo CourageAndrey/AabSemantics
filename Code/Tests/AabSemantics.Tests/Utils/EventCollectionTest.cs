@@ -23,11 +23,11 @@ namespace AabSemantics.Tests.Utils
 			collection.Add("B");
 			collection.Add("C");
 
-			Assert.AreEqual(3, collection.Count);
-			Assert.IsTrue(collection.Contains("A"));
-			Assert.IsTrue(collection.Contains("B"));
-			Assert.IsTrue(collection.Contains("C"));
-			Assert.AreEqual("ABC", string.Join(string.Empty, collection));
+			Assert.That(collection.Count, Is.EqualTo(3));
+			Assert.That(collection.Contains("A"), Is.True);
+			Assert.That(collection.Contains("B"), Is.True);
+			Assert.That(collection.Contains("C"), Is.True);
+			Assert.That(string.Join(string.Empty, collection), Is.EqualTo("ABC"));
 		}
 
 		[Test]
@@ -35,13 +35,13 @@ namespace AabSemantics.Tests.Utils
 		{
 			var collection = new SimpleEventCollection { "A", "B", "C" };
 
-			Assert.IsTrue(collection.Remove("B"));
-			Assert.IsFalse(collection.Remove("D"));
-			Assert.AreEqual(2, collection.Count);
-			Assert.IsTrue(collection.Contains("A"));
-			Assert.IsFalse(collection.Contains("B"));
-			Assert.IsTrue(collection.Contains("C"));
-			Assert.AreEqual("AC", string.Join(string.Empty, collection));
+			Assert.That(collection.Remove("B"), Is.True);
+			Assert.That(collection.Remove("D"), Is.False);
+			Assert.That(collection.Count, Is.EqualTo(2));
+			Assert.That(collection.Contains("A"), Is.True);
+			Assert.That(collection.Contains("B"), Is.False);
+			Assert.That(collection.Contains("C"), Is.True);
+			Assert.That(string.Join(string.Empty, collection), Is.EqualTo("AC"));
 		}
 
 		[Test]
@@ -51,11 +51,11 @@ namespace AabSemantics.Tests.Utils
 
 			collection.Clear();
 
-			Assert.AreEqual(0, collection.Count);
-			Assert.IsFalse(collection.Contains("A"));
-			Assert.IsFalse(collection.Contains("B"));
-			Assert.IsFalse(collection.Contains("C"));
-			Assert.AreEqual(string.Empty, string.Join(string.Empty, collection));
+			Assert.That(collection.Count, Is.EqualTo(0));
+			Assert.That(collection.Contains("A"), Is.False);
+			Assert.That(collection.Contains("B"), Is.False);
+			Assert.That(collection.Contains("C"), Is.False);
+			Assert.That(string.Join(string.Empty, collection), Is.Empty);
 		}
 
 		[Test]
@@ -70,11 +70,11 @@ namespace AabSemantics.Tests.Utils
 			collection.Add("B");
 			collection.Add("C");
 
-			Assert.AreEqual(2, collection.Count);
-			Assert.IsTrue(collection.Contains("A"));
-			Assert.IsFalse(collection.Contains("B"));
-			Assert.IsTrue(collection.Contains("C"));
-			Assert.AreEqual("AC", result);
+			Assert.That(collection.Count, Is.EqualTo(2));
+			Assert.That(collection.Contains("A"), Is.True);
+			Assert.That(collection.Contains("B"), Is.False);
+			Assert.That(collection.Contains("C"), Is.True);
+			Assert.That(result, Is.EqualTo("AC"));
 		}
 
 		[Test]
@@ -85,14 +85,14 @@ namespace AabSemantics.Tests.Utils
 			collection.ItemRemoving += (sender, args) => { args.IsCanceled = args.Item == "B"; };
 			collection.ItemRemoved += (sender, args) => { result += args.Item; };
 
-			Assert.IsTrue(collection.Remove("A"));
-			Assert.IsFalse(collection.Remove("B"));
-			Assert.IsTrue(collection.Remove("C"));
-			Assert.AreEqual(1, collection.Count);
-			Assert.IsFalse(collection.Contains("A"));
-			Assert.IsTrue(collection.Contains("B"));
-			Assert.IsFalse(collection.Contains("C"));
-			Assert.AreEqual("AC", result);
+			Assert.That(collection.Remove("A"), Is.True);
+			Assert.That(collection.Remove("B"), Is.False);
+			Assert.That(collection.Remove("C"), Is.True);
+			Assert.That(collection.Count, Is.EqualTo(1));
+			Assert.That(collection.Contains("A"), Is.False);
+			Assert.That(collection.Contains("B"), Is.True);
+			Assert.That(collection.Contains("C"), Is.False);
+			Assert.That(result, Is.EqualTo("AC"));
 		}
 
 		[Test]
@@ -105,8 +105,8 @@ namespace AabSemantics.Tests.Utils
 
 			collection.Clear();
 
-			Assert.AreEqual(0, collection.Count);
-			Assert.AreEqual("ABC", result);
+			Assert.That(collection.Count, Is.EqualTo(0));
+			Assert.That(result, Is.EqualTo("ABC"));
 		}
 
 		[Test]
@@ -119,19 +119,19 @@ namespace AabSemantics.Tests.Utils
 
 			var error = Assert.Throws<ItemsCantBeRemovedException<string>>(() => collection.Clear());
 
-			Assert.AreEqual(3, collection.Count);
-			Assert.IsTrue(string.IsNullOrEmpty(result));
-			Assert.AreEqual("B", error.Items.Single());
+			Assert.That(collection.Count, Is.EqualTo(3));
+			Assert.That(string.IsNullOrEmpty(result), Is.True);
+			Assert.That(error.Items.Single(), Is.EqualTo("B"));
 		}
 
 		[Test]
 		public void GivenEventCollection_WhenCheckIsReadOnly_ThenReturnFalse()
 		{
-			Assert.IsFalse(new SimpleEventCollection().IsReadOnly);
+			Assert.That(new SimpleEventCollection().IsReadOnly, Is.False);
 
-			Assert.IsFalse(new SimpleEventCollection { "A", "B", "C" }.IsReadOnly);
+			Assert.That(new SimpleEventCollection { "A", "B", "C" }.IsReadOnly, Is.False);
 
-			Assert.IsFalse(new SimpleEventCollection(new[] { "A", "B", "C" }).IsReadOnly);
+			Assert.That(new SimpleEventCollection(new[] { "A", "B", "C" }).IsReadOnly, Is.False);
 		}
 
 		[Test]
@@ -142,10 +142,10 @@ namespace AabSemantics.Tests.Utils
 			var array = new string[3];
 
 			// act & assert
-			Assert.IsFalse(collection.SequenceEqual(array));
+			Assert.That(collection.SequenceEqual(array), Is.False);
 
 			collection.CopyTo(array, 0);
-			Assert.IsTrue(collection.SequenceEqual(array));
+			Assert.That(collection.SequenceEqual(array), Is.True);
 		}
 
 		private class SimpleEventCollection : EventCollectionBase<string>
@@ -224,36 +224,36 @@ namespace AabSemantics.Tests.Utils
 			});
 
 			// this[]
-			Assert.AreSame(concept1, collection["1"]);
-			Assert.AreSame(concept2, collection["2"]);
-			Assert.AreSame(concept3, collection["3"]);
+			Assert.That(collection["1"], Is.SameAs(concept1));
+			Assert.That(collection["2"], Is.SameAs(concept2));
+			Assert.That(collection["3"], Is.SameAs(concept3));
 			Assert.Throws<KeyNotFoundException>(() => { var _ = collection["4"]; });
 
 			// Keys
-			Assert.IsTrue(collection.Keys.SequenceEqual(new[] { "1", "2", "3" }));
+			Assert.That(collection.Keys.SequenceEqual(new[] { "1", "2", "3" }), Is.True);
 
 			// CopyTo()
 			var array = new IConcept[5];
 			collection.CopyTo(array, 1);
-			Assert.AreSame(null, array[0]);
-			Assert.AreSame(collection["1"], array[1]);
-			Assert.AreSame(collection["2"], array[2]);
-			Assert.AreSame(collection["3"], array[3]);
-			Assert.AreSame(null, array[4]);
+			Assert.That(array[0], Is.Null);
+			Assert.That(array[1], Is.SameAs(collection["1"]));
+			Assert.That(array[2], Is.SameAs(collection["2"]));
+			Assert.That(array[3], Is.SameAs(collection["3"]));
+			Assert.That(array[4], Is.Null);
 
 			// TryGetValue()
 			IConcept concept;
-			Assert.IsTrue(collection.TryGetValue("1", out concept));
-			Assert.AreSame(concept1, concept);
-			Assert.IsTrue(collection.TryGetValue("2", out concept));
-			Assert.AreSame(concept2, concept);
-			Assert.IsTrue(collection.TryGetValue("3", out concept));
-			Assert.AreSame(concept3, concept);
-			Assert.IsFalse(collection.TryGetValue("4", out concept));
+			Assert.That(collection.TryGetValue("1", out concept), Is.True);
+			Assert.That(concept, Is.SameAs(concept1));
+			Assert.That(collection.TryGetValue("2", out concept), Is.True);
+			Assert.That(concept, Is.SameAs(concept2));
+			Assert.That(collection.TryGetValue("3", out concept), Is.True);
+			Assert.That(concept, Is.SameAs(concept3));
+			Assert.That(collection.TryGetValue("4", out concept), Is.False);
 
 			// Clear()
 			collection.Clear();
-			Assert.AreEqual(0, collection.Count);
+			Assert.That(collection.Count, Is.EqualTo(0));
 		}
 
 		[Test]
@@ -281,7 +281,7 @@ namespace AabSemantics.Tests.Utils
 				var deserialized = (ItemsCantBeRemovedException<int>) formatter.Deserialize(stream);
 
 				// assert
-				Assert.IsTrue(exception.Items.SequenceEqual(deserialized.Items));
+				Assert.That(exception.Items.SequenceEqual(deserialized.Items), Is.True);
 			}
 		}
 	}

@@ -19,7 +19,7 @@ namespace AabSemantics.TestCore
 				foreach (var property in propertiesToCheck)
 				{
 					var value = property.GetValue(statement, null);
-					Assert.IsNull(value);
+					Assert.That(value, Is.Null);
 				}
 			}
 		}
@@ -29,7 +29,7 @@ namespace AabSemantics.TestCore
 			// assert
 			foreach (var question in questionsToCheck)
 			{
-				Assert.AreEqual(0, question.Preconditions.Count);
+				Assert.That(question.Preconditions.Count, Is.EqualTo(0));
 				var propertiesToCheck = question.GetType().GetProperties(BindingFlags.GetProperty | BindingFlags.Public | BindingFlags.Instance).ToList();
 				propertiesToCheck.Remove(propertiesToCheck.First(p => p.Name == nameof(Question.Preconditions)));
 				foreach (var property in propertiesToCheck)
@@ -37,11 +37,11 @@ namespace AabSemantics.TestCore
 					var value = property.GetValue(question, null);
 					if (property.PropertyType == typeof(bool))
 					{
-						Assert.AreEqual(false, value);
+						Assert.That(value, Is.False);
 					}
 					else
 					{
-						Assert.IsNull(value);
+						Assert.That(value, Is.Null);
 					}
 				}
 			}

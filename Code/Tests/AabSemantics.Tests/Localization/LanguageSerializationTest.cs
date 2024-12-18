@@ -48,7 +48,7 @@ namespace AabSemantics.Tests.Localization
 			}
 
 			// assert
-			Assert.IsNull(restored.FileName);
+			Assert.That(restored.FileName, Is.Null);
 			AssertLanguagesAreEqual(language, restored);
 		}
 
@@ -65,10 +65,10 @@ namespace AabSemantics.Tests.Localization
 			var serializationError = Assert.Throws<InvalidOperationException>(() => { language.SerializeToXmlFile(testFileName); });
 
 			// assert
-			Assert.IsTrue(serializationError.Message.Contains("XML"));
+			Assert.That(serializationError.Message.Contains("XML"), Is.True);
 
 			string serializationErrorDetails = serializationError.InnerException.Message;
-			Assert.IsTrue(serializationErrorDetails.Contains(typeof(XmlIncludeAttribute).Name.Replace("Attribute", string.Empty)));
+			Assert.That(serializationErrorDetails.Contains(typeof(XmlIncludeAttribute).Name.Replace("Attribute", string.Empty)), Is.True);
 		}
 
 		[Test]
@@ -102,21 +102,21 @@ namespace AabSemantics.Tests.Localization
 			}
 
 			// assert
-			Assert.IsNull(restored.FileName);
+			Assert.That(restored.FileName, Is.Null);
 			AssertLanguagesAreEqual(language, restored);
 		}
 
 		private static void AssertLanguagesAreEqual(Language language, Language restored)
 		{
-			Assert.IsNull(restored.FileName);
-			Assert.AreEqual(language.Culture, restored.Culture);
-			Assert.AreEqual(language.Name, restored.Name);
+			Assert.That(restored.FileName, Is.Null);
+			Assert.That(restored.Culture, Is.EqualTo(language.Culture));
+			Assert.That(restored.Name, Is.EqualTo(language.Name));
 
 			language.Attributes.AssertPropertiesAreEqual(restored.Attributes);
 			language.Statements.AssertPropertiesAreEqual(restored.Statements);
 			language.Questions.AssertPropertiesAreEqual(restored.Questions);
 
-			Assert.AreEqual(language.Extensions.Count, restored.Extensions.Count);
+			Assert.That(restored.Extensions.Count, Is.EqualTo(language.Extensions.Count));
 			foreach (var extension in language.Extensions)
 			{
 				var extensionType = extension.GetType();
@@ -156,7 +156,7 @@ namespace AabSemantics.Tests.Localization
 				var deserializedDictionary = deserialized.OrderBy(l => l.Culture).ToDictionary(l => l.Culture, l => l.Name);
 
 				// assert
-				Assert.IsTrue(languagesDictionary.SequenceEqual(deserializedDictionary));
+				Assert.That(languagesDictionary.SequenceEqual(deserializedDictionary), Is.True);
 			}
 			finally
 			{
@@ -181,7 +181,7 @@ namespace AabSemantics.Tests.Localization
 				tempFolder.LoadAdditionalLanguages();
 
 				// assert
-				Assert.IsTrue(Directory.Exists(Path.Combine(tempFolder, LanguagesExtensions.DefaultFolderPath)));
+				Assert.That(Directory.Exists(Path.Combine(tempFolder, LanguagesExtensions.DefaultFolderPath)), Is.True);
 			}
 			finally
 			{

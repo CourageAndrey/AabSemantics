@@ -37,15 +37,15 @@ namespace AabSemantics.Tests.Questions
 			var answerWithPreconditions = (BooleanAnswer) semanticNetwork.Supposing(new IStatement[] { preconditionStatement }).Ask().IfIs(childConcept, parentConcept);
 
 			// assert
-			Assert.IsFalse(answerWithoutPreconditions.IsEmpty);
-			Assert.IsFalse(answerWithoutPreconditions.Result);
-			Assert.AreEqual(0, answerWithoutPreconditions.Explanation.Statements.Count);
+			Assert.That(answerWithoutPreconditions.IsEmpty, Is.False);
+			Assert.That(answerWithoutPreconditions.Result, Is.False);
+			Assert.That(answerWithoutPreconditions.Explanation.Statements.Count, Is.EqualTo(0));
 
-			Assert.IsFalse(answerWithPreconditions.IsEmpty);
-			Assert.IsTrue(answerWithPreconditions.Result);
-			Assert.AreEqual(2, answerWithPreconditions.Explanation.Statements.Count);
-			Assert.IsTrue(answerWithPreconditions.Explanation.Statements.Contains(initialStatement));
-			Assert.IsTrue(answerWithPreconditions.Explanation.Statements.Contains(preconditionStatement));
+			Assert.That(answerWithPreconditions.IsEmpty, Is.False);
+			Assert.That(answerWithPreconditions.Result, Is.True);
+			Assert.That(answerWithPreconditions.Explanation.Statements.Count, Is.EqualTo(2));
+			Assert.That(answerWithPreconditions.Explanation.Statements.Contains(initialStatement), Is.True);
+			Assert.That(answerWithPreconditions.Explanation.Statements.Contains(preconditionStatement), Is.True);
 		}
 
 		[Test]
@@ -62,9 +62,9 @@ namespace AabSemantics.Tests.Questions
 			var childAnswer = new ChildAnswer(question, answer, transitives);
 
 			// assert
-			Assert.AreSame(question, childAnswer.Question);
-			Assert.AreSame(answer, childAnswer.Answer);
-			Assert.AreSame(transitives, childAnswer.TransitiveStatements);
+			Assert.That(childAnswer.Question, Is.SameAs(question));
+			Assert.That(childAnswer.Answer, Is.SameAs(answer));
+			Assert.That(childAnswer.TransitiveStatements, Is.SameAs(transitives));
 		}
 	}
 }

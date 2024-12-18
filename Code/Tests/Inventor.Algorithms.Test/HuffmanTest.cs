@@ -56,7 +56,7 @@ namespace Inventor.Algorithms.Test
 			var codes = items.HuffmanEncode(getWeight, string.Empty, appendLeft, appendRight);
 
 			// assert
-			Assert.AreEqual(0, codes.Count);
+			Assert.That(codes.Count, Is.EqualTo(0));
 		}
 
 		[Test]
@@ -69,7 +69,7 @@ namespace Inventor.Algorithms.Test
 			var codes = items.HuffmanEncode(getWeight, string.Empty, appendLeft, appendRight);
 
 			// assert
-			Assert.AreSame(items[0], codes.Keys.Single());
+			Assert.That(codes.Keys.Single(), Is.SameAs(items[0]));
 		}
 
 		[Test]
@@ -86,10 +86,10 @@ namespace Inventor.Algorithms.Test
 			var codes = items.HuffmanEncode(getWeight, string.Empty, appendLeft, appendRight);
 
 			// assert
-			Assert.AreEqual(2, codes.Count);
+			Assert.That(codes.Count, Is.EqualTo(2));
 			foreach (var item in items)
 			{
-				Assert.AreEqual(item.Name, codes[item]);
+				Assert.That(codes[item], Is.EqualTo(item.Name));
 			}
 		}
 
@@ -107,10 +107,10 @@ namespace Inventor.Algorithms.Test
 			var codes = items.HuffmanEncode(getWeight, string.Empty, appendLeft, appendRight);
 
 			// assert
-			Assert.AreEqual(2, codes.Count);
+			Assert.That(codes.Count, Is.EqualTo(2));
 			foreach (var item in items)
 			{
-				Assert.AreEqual(item.Name, codes[item]);
+				Assert.That(codes[item], Is.EqualTo(item.Name));
 			}
 		}
 
@@ -134,10 +134,10 @@ namespace Inventor.Algorithms.Test
 			var codes = items.HuffmanEncode(getWeight, string.Empty, appendLeft, appendRight);
 
 			// assert
-			Assert.AreEqual(8, codes.Count);
+			Assert.That(codes.Count, Is.EqualTo(8));
 			foreach (var item in items)
 			{
-				Assert.AreEqual(item.Name, codes[item]);
+				Assert.That(codes[item], Is.EqualTo(item.Name));
 			}
 		}
 
@@ -157,10 +157,10 @@ namespace Inventor.Algorithms.Test
 			var codes = items.HuffmanEncode(getWeight, string.Empty, appendLeft, appendRight);
 
 			// assert
-			Assert.AreEqual(4, codes.Count);
+			Assert.That(codes.Count, Is.EqualTo(4));
 			foreach (var item in items)
 			{
-				Assert.AreEqual(item.Name, codes[item]);
+				Assert.That(codes[item], Is.EqualTo(item.Name));
 			}
 		}
 

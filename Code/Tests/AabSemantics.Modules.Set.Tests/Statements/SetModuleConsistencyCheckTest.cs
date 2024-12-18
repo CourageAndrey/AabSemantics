@@ -70,8 +70,8 @@ namespace AabSemantics.Modules.Set.Tests.Statements
 			var text = render.RenderText(result, language).ToString();
 
 			// assert
-			Assert.Greater(result.Items.Count, 0);
-			Assert.IsTrue(text.Contains(" concept is uncertain, because its value set multiple times."));
+			Assert.That(result.Items.Count, Is.GreaterThan(0));
+			Assert.That(text.Contains(" concept is uncertain, because its value set multiple times."), Is.True);
 		}
 
 		[Test]
@@ -112,8 +112,8 @@ namespace AabSemantics.Modules.Set.Tests.Statements
 			var text = render.RenderText(result, language).ToString();
 
 			// assert
-			Assert.Greater(result.Items.Count, 0);
-			Assert.IsTrue(text.Contains(" concept is uncertain, because many ancestors define their own values."));
+			Assert.That(result.Items.Count, Is.GreaterThan(0));
+			Assert.That(text.Contains(" concept is uncertain, because many ancestors define their own values."), Is.True);
 		}
 
 		[Test]
@@ -143,8 +143,8 @@ namespace AabSemantics.Modules.Set.Tests.Statements
 			var text = render.RenderText(result, language).ToString();
 
 			// assert
-			Assert.Greater(result.Items.Count, 0);
-			Assert.IsTrue(text.Contains(" defines value of sign, which does not belong to concept."));
+			Assert.That(result.Items.Count, Is.GreaterThan(0));
+			Assert.That(text.Contains(" defines value of sign, which does not belong to concept."), Is.True);
 		}
 
 		[Test]
@@ -172,7 +172,7 @@ namespace AabSemantics.Modules.Set.Tests.Statements
 			statementDefinition.CheckConsistency(semanticNetwork, result);
 
 			// assert
-			Assert.AreEqual(0, result.Items.Count);
+			Assert.That(result.Items.Count, Is.EqualTo(0));
 		}
 
 		[Test]
@@ -204,8 +204,8 @@ namespace AabSemantics.Modules.Set.Tests.Statements
 			var text = render.RenderText(result, language).ToString();
 
 			// assert
-			Assert.Greater(result.Items.Count, 0);
-			Assert.IsTrue(text.Contains(" cause sign value overload."));
+			Assert.That(result.Items.Count, Is.GreaterThan(0));
+			Assert.That(text.Contains(" cause sign value overload."), Is.True);
 		}
 
 		[Test]
@@ -236,7 +236,7 @@ namespace AabSemantics.Modules.Set.Tests.Statements
 			statementDefinition.CheckConsistency(semanticNetwork, result);
 
 			// assert
-			Assert.AreEqual(0, result.Items.Count);
+			Assert.That(result.Items.Count, Is.EqualTo(0));
 		}
 	}
 }

@@ -14,18 +14,18 @@ namespace AabSemantics.Tests.Concepts
 			var concept = new Concept();
 
 			// 0. no attributes added
-			Assert.AreEqual(0, concept.Attributes.Count);
-			Assert.IsFalse(concept.HasAttribute<IsValueAttribute>());
+			Assert.That(concept.Attributes.Count, Is.EqualTo(0));
+			Assert.That(concept.HasAttribute<IsValueAttribute>(), Is.False);
 
 			// 1. add IsValueAttribute
 			concept.WithAttribute(IsValueAttribute.Value);
-			Assert.AreEqual(1, concept.Attributes.Count);
-			Assert.IsTrue(concept.HasAttribute<IsValueAttribute>());
+			Assert.That(concept.Attributes.Count, Is.EqualTo(1));
+			Assert.That(concept.HasAttribute<IsValueAttribute>(), Is.True);
 
 			// 2. remove all attributes
 			concept.WithoutAttributes();
-			Assert.AreEqual(0, concept.Attributes.Count);
-			Assert.IsFalse(concept.HasAttribute<IsValueAttribute>());
+			Assert.That(concept.Attributes.Count, Is.EqualTo(0));
+			Assert.That(concept.HasAttribute<IsValueAttribute>(), Is.False);
 		}
 	}
 }

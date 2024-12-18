@@ -51,10 +51,10 @@ namespace AabSemantics.Modules.Set.Tests.Questions
 			var answerBuilder = (ConceptsAnswer) semanticNetwork.SemanticNetwork.Ask().WhatIsTheDifference(semanticNetwork.Vehicle_Car, semanticNetwork.Vehicle_Airbus);
 
 			// assert
-			Assert.AreSame(semanticNetwork.Vehicle_Car, questionRegular.Concept1);
-			Assert.AreSame(semanticNetwork.Vehicle_Airbus, questionRegular.Concept2);
-			Assert.IsTrue(answerRegular.Result.SequenceEqual(answerBuilder.Result));
-			Assert.IsTrue(answerRegular.Explanation.Statements.SequenceEqual(answerBuilder.Explanation.Statements));
+			Assert.That(questionRegular.Concept1, Is.SameAs(semanticNetwork.Vehicle_Car));
+			Assert.That(questionRegular.Concept2, Is.SameAs(semanticNetwork.Vehicle_Airbus));
+			Assert.That(answerRegular.Result.SequenceEqual(answerBuilder.Result), Is.True);
+			Assert.That(answerRegular.Explanation.Statements.SequenceEqual(answerBuilder.Explanation.Statements), Is.True);
 		}
 
 		[Test]
@@ -71,10 +71,10 @@ namespace AabSemantics.Modules.Set.Tests.Questions
 			var text = render.RenderText(answer.Description, language).ToString();
 
 			// assert
-			Assert.IsTrue(answer.IsEmpty);
-			Assert.AreEqual(0, answer.Explanation.Statements.Count);
+			Assert.That(answer.IsEmpty, Is.True);
+			Assert.That(answer.Explanation.Statements.Count, Is.EqualTo(0));
 
-			Assert.IsTrue(text.Contains("have no common ancestors and can not be compared."));
+			Assert.That(text.Contains("have no common ancestors and can not be compared."), Is.True);
 		}
 
 		[Test]
@@ -91,10 +91,10 @@ namespace AabSemantics.Modules.Set.Tests.Questions
 			var text = render.RenderText(answer.Description, language).ToString();
 
 			// assert
-			Assert.IsTrue(answer.IsEmpty);
-			Assert.Greater(answer.Explanation.Statements.Count, 0);
+			Assert.That(answer.IsEmpty, Is.True);
+			Assert.That(answer.Explanation.Statements.Count, Is.GreaterThan(0));
 
-			Assert.IsTrue(text.Contains("No differences found according to existing information."));
+			Assert.That(text.Contains("No differences found according to existing information."), Is.True);
 		}
 
 		[Test]
@@ -108,14 +108,14 @@ namespace AabSemantics.Modules.Set.Tests.Questions
 			var answer = semanticNetwork.SemanticNetwork.Ask().WhatIsTheDifference(semanticNetwork.Vehicle_Car, semanticNetwork.Vehicle_JetFighter);
 
 			// assert
-			Assert.IsFalse(answer.IsEmpty);
+			Assert.That(answer.IsEmpty, Is.False);
 
 			var signs = ((ConceptsAnswer) answer).Result;
-			Assert.AreEqual(2, signs.Count);
-			Assert.IsTrue(signs.Contains(semanticNetwork.Sign_AreaType));
-			Assert.IsTrue(signs.Contains(semanticNetwork.Sign_MotorType));
+			Assert.That(signs.Count, Is.EqualTo(2));
+			Assert.That(signs.Contains(semanticNetwork.Sign_AreaType), Is.True);
+			Assert.That(signs.Contains(semanticNetwork.Sign_MotorType), Is.True);
 
-			Assert.Greater(answer.Explanation.Statements.Count, 0);
+			Assert.That(answer.Explanation.Statements.Count, Is.GreaterThan(0));
 		}
 
 		[Test]
@@ -135,21 +135,21 @@ namespace AabSemantics.Modules.Set.Tests.Questions
 			var text = render.RenderText(answer.Description, language).ToString();
 
 			// assert
-			Assert.IsFalse(answer.IsEmpty);
+			Assert.That(answer.IsEmpty, Is.False);
 
 			var signs = (((ConceptsAnswer) answer).Result).Select(c => c.Name.GetValue(language)).ToList();
-			Assert.AreEqual(3, signs.Count);
-			Assert.IsTrue(signs.Contains(GetCommonQuestionTest.SignDifferentValues));
-			Assert.IsTrue(signs.Contains(GetCommonQuestionTest.SignFirstNotSet));
-			Assert.IsTrue(signs.Contains(GetCommonQuestionTest.SignSecondNotSet));
+			Assert.That(signs.Count, Is.EqualTo(3));
+			Assert.That(signs.Contains(GetCommonQuestionTest.SignDifferentValues), Is.True);
+			Assert.That(signs.Contains(GetCommonQuestionTest.SignFirstNotSet), Is.True);
+			Assert.That(signs.Contains(GetCommonQuestionTest.SignSecondNotSet), Is.True);
 
-			Assert.Greater(answer.Explanation.Statements.Count, 0);
+			Assert.That(answer.Explanation.Statements.Count, Is.GreaterThan(0));
 
-			Assert.IsTrue(
+			Assert.That(
 				text.Contains("Result of ") &&
 				text.Contains(" comparison:") &&
 				text.Contains("sign value equal") &&
-				text.Contains(", and second one equal to "));
+				text.Contains(", and second one equal to "), Is.True);
 		}
 
 		[Test]
@@ -179,14 +179,14 @@ namespace AabSemantics.Modules.Set.Tests.Questions
 			var textSecond = render.RenderText(answerSecond.Description, language).ToString();
 
 			// assert
-			Assert.IsFalse(answerFirst.IsEmpty);
-			Assert.IsFalse(answerSecond.IsEmpty);
+			Assert.That(answerFirst.IsEmpty, Is.False);
+			Assert.That(answerSecond.IsEmpty, Is.False);
 
-			Assert.Greater(answerFirst.Explanation.Statements.Count, 0);
-			Assert.Greater(answerSecond.Explanation.Statements.Count, 0);
+			Assert.That(answerFirst.Explanation.Statements.Count, Is.GreaterThan(0));
+			Assert.That(answerSecond.Explanation.Statements.Count, Is.GreaterThan(0));
 
-			Assert.IsTrue(textFirst.Contains("First is also:"));
-			Assert.IsTrue(textSecond.Contains("Second is also:"));
+			Assert.That(textFirst.Contains("First is also:"), Is.True);
+			Assert.That(textSecond.Contains("Second is also:"), Is.True);
 		}
 	}
 }

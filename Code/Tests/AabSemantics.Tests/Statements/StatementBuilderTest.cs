@@ -29,8 +29,8 @@ namespace AabSemantics.Tests.Statements
 			var statementByBuilderFromDescendant = semanticNetwork.DeclareThat(descendant).IsDescendantOf(ancestor);
 
 			// assert
-			Assert.AreEqual(statementByConstructor, statementByBuilderFromAncestor);
-			Assert.AreEqual(statementByConstructor, statementByBuilderFromDescendant);
+			Assert.That(statementByBuilderFromAncestor, Is.EqualTo(statementByConstructor));
+			Assert.That(statementByBuilderFromDescendant, Is.EqualTo(statementByConstructor));
 		}
 
 		[Test]
@@ -54,12 +54,12 @@ namespace AabSemantics.Tests.Statements
 			var statementsByBuilderFromDescendant = semanticNetwork.DeclareThat(descendant).IsDescendantOf(new[] { ancestor1, ancestor2, ancestor3 });
 
 			// assert
-			Assert.AreEqual(6, semanticNetwork.Statements.Count);
-			Assert.IsTrue(semanticNetwork.Statements.All(s => s is IsStatement));
-			Assert.AreEqual(3, statementsByBuilderFromAncestor.Count);
-			Assert.IsTrue(statementsByBuilderFromAncestor.All(s => s.Ancestor == ancestor));
-			Assert.AreEqual(3, statementsByBuilderFromDescendant.Count);
-			Assert.IsTrue(statementsByBuilderFromDescendant.All(s => s.Descendant == descendant));
+			Assert.That(semanticNetwork.Statements.Count, Is.EqualTo(6));
+			Assert.That(semanticNetwork.Statements.All(s => s is IsStatement), Is.True);
+			Assert.That(statementsByBuilderFromAncestor.Count, Is.EqualTo(3));
+			Assert.That(statementsByBuilderFromAncestor.All(s => s.Ancestor == ancestor), Is.True);
+			Assert.That(statementsByBuilderFromDescendant.Count, Is.EqualTo(3));
+			Assert.That(statementsByBuilderFromDescendant.All(s => s.Descendant == descendant), Is.True);
 		}
 
 		[Test]

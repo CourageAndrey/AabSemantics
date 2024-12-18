@@ -46,8 +46,8 @@ namespace AabSemantics.Modules.Mathematics.Tests.Questions
 			var answerBuilder = (StatementAnswer) semanticNetwork.SemanticNetwork.Ask().HowCompared(semanticNetwork.Number0, semanticNetwork.Number2);
 
 			// assert
-			Assert.AreEqual(answerRegular.Result, answerBuilder.Result);
-			Assert.IsTrue(answerRegular.Explanation.Statements.SequenceEqual(answerBuilder.Explanation.Statements));
+			Assert.That(answerBuilder.Result, Is.EqualTo(answerRegular.Result));
+			Assert.That(answerRegular.Explanation.Statements.SequenceEqual(answerBuilder.Explanation.Statements), Is.True);
 		}
 
 		[Test]
@@ -70,9 +70,9 @@ namespace AabSemantics.Modules.Mathematics.Tests.Questions
 			var description = textRender.RenderText(answer.Description, language).ToString();
 
 			// assert
-			Assert.IsTrue(answer.IsEmpty);
-			Assert.IsTrue(description.Contains(language.Questions.Answers.Unknown));
-			Assert.AreEqual(0, answer.Explanation.Statements.Count);
+			Assert.That(answer.IsEmpty, Is.True);
+			Assert.That(description.Contains(language.Questions.Answers.Unknown), Is.True);
+			Assert.That(answer.Explanation.Statements.Count, Is.EqualTo(0));
 		}
 
 		[Test]
@@ -86,8 +86,8 @@ namespace AabSemantics.Modules.Mathematics.Tests.Questions
 			var answer = semanticNetwork.SemanticNetwork.Ask().HowCompared(ComparisonSigns.IsNotEqualTo, LogicalValues.False);
 
 			// assert
-			Assert.IsTrue(answer.IsEmpty);
-			Assert.AreEqual(0, answer.Explanation.Statements.Count);
+			Assert.That(answer.IsEmpty, Is.True);
+			Assert.That(answer.Explanation.Statements.Count, Is.EqualTo(0));
 		}
 
 		[Test]
@@ -105,20 +105,20 @@ namespace AabSemantics.Modules.Mathematics.Tests.Questions
 			// assert
 			var explanation1 = (ComparisonStatement) answer1.Explanation.Statements.Single();
 			var explanation2 = (ComparisonStatement) answer2.Explanation.Statements.Single();
-			Assert.AreSame(explanation1, explanation2);
-			Assert.IsTrue(explanation1.GetChildConcepts().Contains(semanticNetwork.Number0));
-			Assert.IsTrue(explanation1.GetChildConcepts().Contains(semanticNetwork.NumberZero));
-			Assert.IsTrue(explanation1.GetChildConcepts().Contains(ComparisonSigns.IsEqualTo));
+			Assert.That(explanation2, Is.SameAs(explanation1));
+			Assert.That(explanation1.GetChildConcepts().Contains(semanticNetwork.Number0), Is.True);
+			Assert.That(explanation1.GetChildConcepts().Contains(semanticNetwork.NumberZero), Is.True);
+			Assert.That(explanation1.GetChildConcepts().Contains(ComparisonSigns.IsEqualTo), Is.True);
 
 			var statement1 = (ComparisonStatement) ((StatementAnswer) answer1).Result;
-			Assert.AreSame(semanticNetwork.Number0, statement1.LeftValue);
-			Assert.AreSame(semanticNetwork.NumberZero, statement1.RightValue);
-			Assert.AreSame(ComparisonSigns.IsEqualTo, statement1.ComparisonSign);
+			Assert.That(statement1.LeftValue, Is.SameAs(semanticNetwork.Number0));
+			Assert.That(statement1.RightValue, Is.SameAs(semanticNetwork.NumberZero));
+			Assert.That(statement1.ComparisonSign, Is.SameAs(ComparisonSigns.IsEqualTo));
 
 			var statement2 = (ComparisonStatement) ((StatementAnswer) answer2).Result;
-			Assert.AreSame(semanticNetwork.NumberZero, statement2.LeftValue);
-			Assert.AreSame(semanticNetwork.Number0, statement2.RightValue);
-			Assert.AreSame(ComparisonSigns.IsEqualTo, statement2.ComparisonSign);
+			Assert.That(statement2.LeftValue, Is.SameAs(semanticNetwork.NumberZero));
+			Assert.That(statement2.RightValue, Is.SameAs(semanticNetwork.Number0));
+			Assert.That(statement2.ComparisonSign, Is.SameAs(ComparisonSigns.IsEqualTo));
 		}
 
 		[Test]
@@ -164,13 +164,13 @@ namespace AabSemantics.Modules.Mathematics.Tests.Questions
 							{
 								expectedExplanationStatementsCount++;
 							}
-							Assert.AreEqual(expectedExplanationStatementsCount, explanation.Count);
-							Assert.AreEqual(explanation.Count, explanation.OfType<ComparisonStatement>().Count());
+							Assert.That(explanation.Count, Is.EqualTo(expectedExplanationStatementsCount));
+							Assert.That(explanation.OfType<ComparisonStatement>().Count(), Is.EqualTo(explanation.Count));
 
 							var statement = (ComparisonStatement)((StatementAnswer)answer).Result;
-							Assert.AreSame(orderedNumbers[l], statement.LeftValue);
-							Assert.AreSame(orderedNumbers[r], statement.RightValue);
-							Assert.AreSame(l > r ? ComparisonSigns.IsGreaterThan : ComparisonSigns.IsLessThan, statement.ComparisonSign);
+							Assert.That(statement.LeftValue, Is.SameAs(orderedNumbers[l]));
+							Assert.That(statement.RightValue, Is.SameAs(orderedNumbers[r]));
+							Assert.That(statement.ComparisonSign, Is.SameAs(l > r ? ComparisonSigns.IsGreaterThan : ComparisonSigns.IsLessThan));
 						}
 					}
 				}
@@ -219,13 +219,13 @@ namespace AabSemantics.Modules.Mathematics.Tests.Questions
 				var statement2 = (ComparisonStatement) ((StatementAnswer) answer2).Result;
 
 				// assert
-				Assert.AreSame(comparison.Item1, statement1.LeftValue);
-				Assert.AreSame(comparison.Item2, statement1.RightValue);
-				Assert.AreSame(comparison.Item3, statement1.ComparisonSign);
+				Assert.That(statement1.LeftValue, Is.SameAs(comparison.Item1));
+				Assert.That(statement1.RightValue, Is.SameAs(comparison.Item2));
+				Assert.That(statement1.ComparisonSign, Is.SameAs(comparison.Item3));
 
-				Assert.AreSame(comparison.Item2, statement2.LeftValue);
-				Assert.AreSame(comparison.Item1, statement2.RightValue);
-				Assert.AreSame(ComparisonSigns.Revert(comparison.Item3), statement2.ComparisonSign);
+				Assert.That(statement2.LeftValue, Is.SameAs(comparison.Item2));
+				Assert.That(statement2.RightValue, Is.SameAs(comparison.Item1));
+				Assert.That(statement2.ComparisonSign, Is.SameAs(ComparisonSigns.Revert(comparison.Item3)));
 			}
 		}
 	}

@@ -20,7 +20,7 @@ namespace AabSemantics.Tests.Utils
 			int index = sequence.IndexOf(new TestItem(int.MinValue));
 
 			// assert
-			Assert.Less(index, 0);
+			Assert.That(index, Is.LessThan(0));
 		}
 
 		[Test]
@@ -36,7 +36,7 @@ namespace AabSemantics.Tests.Utils
 				int index = sequence.IndexOf(list[i]);
 
 				// assert
-				Assert.AreEqual(index, i);
+				Assert.That(index, Is.EqualTo(i));
 			}
 		}
 
