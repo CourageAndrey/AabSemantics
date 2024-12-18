@@ -81,18 +81,26 @@ namespace AabSemantics.Extensions.WPF.Dialogs
 			Question = question;
 			textBoxQuestion.Text = comboBoxQuestion.Text;
 
-			int gridRow = 1;
-			foreach (var property in Question.GetType().GetProperties())
+			if (Question != null)
 			{
-				var propertyDescriptor = property.GetCustomAttribute<PropertyDescriptorAttribute>();
-				if (propertyDescriptor != null)
+				int gridRow = 1;
+				foreach (var property in Question.GetType().GetProperties())
 				{
-					panelQuestionParams.RowDefinitions.Insert(gridRow, new RowDefinition { Height = GridLength.Auto });
-					_propertySelectorCreators[property.PropertyType](propertyDescriptor, property, gridRow);
-					gridRow++;
+					var propertyDescriptor = property.GetCustomAttribute<PropertyDescriptorAttribute>();
+					if (propertyDescriptor != null)
+					{
+						panelQuestionParams.RowDefinitions.Insert(gridRow, new RowDefinition { Height = GridLength.Auto });
+						_propertySelectorCreators[property.PropertyType](propertyDescriptor, property, gridRow);
+						gridRow++;
+					}
 				}
+
+				buttonOk.IsEnabled = _requiredFieldSelectors.TrueForAll(cb => cb.SelectedValue != null);
 			}
-			buttonOk.IsEnabled = Question != null && _requiredFieldSelectors.TrueForAll(cb => cb.SelectedValue != null);
+			else
+			{
+				buttonOk.IsEnabled = false;
+			}
 		}
 
 		#region Property selectors
