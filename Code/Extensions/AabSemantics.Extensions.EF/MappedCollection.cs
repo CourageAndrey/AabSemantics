@@ -12,7 +12,7 @@ namespace AabSemantics.Extensions.EF
 		where ItemT : IIdentifiable;
 
 	internal class MappedCollection<ItemT> : IKeyedCollection<ItemT>
-		where ItemT : IIdentifiable
+		where ItemT : class, IIdentifiable
 	{
 		#region Properties
 
