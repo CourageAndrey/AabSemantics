@@ -41,8 +41,8 @@ namespace AabSemantics.Modules.Set.Tests.Questions
 			var answerBuilder = (BooleanAnswer) semanticNetwork.SemanticNetwork.Ask().IfConceptBelongsToSubjectArea(semanticNetwork.Vehicle_Car, semanticNetwork.SubjectArea_Transport);
 
 			// assert
-			Assert.AreEqual(answerRegular.Result, answerBuilder.Result);
-			Assert.IsTrue(answerRegular.Explanation.Statements.SequenceEqual(answerBuilder.Explanation.Statements));
+			Assert.That(answerBuilder.Result, Is.EqualTo(answerRegular.Result));
+			Assert.That(answerRegular.Explanation.Statements.SequenceEqual(answerBuilder.Explanation.Statements), Is.True);
 		}
 
 		[Test]
@@ -59,11 +59,11 @@ namespace AabSemantics.Modules.Set.Tests.Questions
 			var text = render.RenderText(answer.Description, language).ToString();
 
 			// assert
-			Assert.IsFalse(answer.IsEmpty);
-			Assert.IsFalse(((BooleanAnswer) answer).Result);
-			Assert.AreEqual(0, answer.Explanation.Statements.Count);
+			Assert.That(answer.IsEmpty, Is.False);
+			Assert.That(((BooleanAnswer) answer).Result, Is.False);
+			Assert.That(answer.Explanation.Statements.Count, Is.EqualTo(0));
 
-			Assert.IsTrue(text.Contains(" concept does not belong to "));
+			Assert.That(text.Contains(" concept does not belong to "), Is.True);
 		}
 
 		[Test]
@@ -80,13 +80,13 @@ namespace AabSemantics.Modules.Set.Tests.Questions
 			var text = render.RenderText(answer.Description, language).ToString();
 
 			// assert
-			Assert.IsFalse(answer.IsEmpty);
-			Assert.IsTrue(((BooleanAnswer) answer).Result);
+			Assert.That(answer.IsEmpty, Is.False);
+			Assert.That(((BooleanAnswer) answer).Result, Is.True);
 
 			var statement = (GroupStatement) answer.Explanation.Statements.Single();
-			Assert.IsTrue(statement.Concept == semanticNetwork.Base_Vehicle && statement.Area == semanticNetwork.SubjectArea_Transport);
+			Assert.That(statement.Concept == semanticNetwork.Base_Vehicle && statement.Area == semanticNetwork.SubjectArea_Transport, Is.True);
 
-			Assert.IsTrue(text.Contains(" concept belongs to "));
+			Assert.That(text.Contains(" concept belongs to "), Is.True);
 		}
 	}
 }

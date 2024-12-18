@@ -66,8 +66,8 @@ namespace AabSemantics.Tests.Mutations
 			var appliedMutations = semanticNetwork.Mutate(new IMutation[] { production });
 
 			// assert
-			Assert.AreEqual(3, appliedMutations.Count);
-			Assert.IsTrue(appliedMutations.All(mutation => mutation == production));
+			Assert.That(appliedMutations.Count, Is.EqualTo(3));
+			Assert.That(appliedMutations.All(mutation => mutation == production), Is.True);
 		}
 	}
 }

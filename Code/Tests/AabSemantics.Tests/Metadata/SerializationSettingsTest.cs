@@ -238,14 +238,14 @@ namespace AabSemantics.Tests.Metadata
 			var questionJsonSettings = new QuestionJsonSerializationSettings(arg => null, questionJsonType);
 
 			// assert
-			Assert.AreSame(answerXmlType, answerXmlSettings.XmlType);
-			Assert.AreSame(answerJsonType, answerJsonSettings.JsonType);
-			Assert.AreSame(attributeXmlType, attributeXmlSettings.XmlType);
-			Assert.IsNull(attributeJsonSettings.JsonType);
-			Assert.AreSame(statementXmlType, statementXmlSettings.XmlType);
-			Assert.AreSame(statementJsonType, statementJsonSettings.JsonType);
-			Assert.AreSame(questionXmlType, questionXmlSettings.XmlType);
-			Assert.AreSame(questionJsonType, questionJsonSettings.JsonType);
+			Assert.That(answerXmlType, Is.SameAs(answerXmlSettings.XmlType));
+			Assert.That(answerJsonType, Is.SameAs(answerJsonSettings.JsonType));
+			Assert.That(attributeXmlType, Is.SameAs(attributeXmlSettings.XmlType));
+			Assert.That(attributeJsonSettings.JsonType, Is.Null);
+			Assert.That(statementXmlType, Is.SameAs(statementXmlSettings.XmlType));
+			Assert.That(statementJsonType, Is.SameAs(statementJsonSettings.JsonType));
+			Assert.That(questionXmlType, Is.SameAs(questionXmlSettings.XmlType));
+			Assert.That(questionJsonType, Is.SameAs(questionJsonSettings.JsonType));
 		}
 
 		[Test]
@@ -272,15 +272,15 @@ namespace AabSemantics.Tests.Metadata
 			var questionJsonSerializationSettings = questionDefinition.GetJsonSerializationSettings();
 
 			// assert
-			Assert.AreSame(answerDefinition.GetSerializationSettings<AnswerXmlSerializationSettings>(), answerXmlSerializationSettings);
-			Assert.AreSame(attributeDefinition.GetSerializationSettings<AttributeXmlSerializationSettings>(), attributeXmlSerializationSettings);
-			Assert.AreSame(statementDefinition.GetSerializationSettings<StatementXmlSerializationSettings>(), statementXmlSerializationSettings);
-			Assert.AreSame(questionDefinition.GetSerializationSettings<QuestionXmlSerializationSettings>(), questionXmlSerializationSettings);
+			Assert.That(answerDefinition.GetSerializationSettings<AnswerXmlSerializationSettings>(), Is.SameAs(answerXmlSerializationSettings));
+			Assert.That(attributeDefinition.GetSerializationSettings<AttributeXmlSerializationSettings>(), Is.SameAs(attributeXmlSerializationSettings));
+			Assert.That(statementDefinition.GetSerializationSettings<StatementXmlSerializationSettings>(), Is.SameAs(statementXmlSerializationSettings));
+			Assert.That(questionDefinition.GetSerializationSettings<QuestionXmlSerializationSettings>(), Is.SameAs(questionXmlSerializationSettings));
 
-			Assert.AreSame(answerDefinition.GetSerializationSettings<AnswerJsonSerializationSettings>(), answerJsonSerializationSettings);
-			Assert.AreSame(attributeDefinition.GetSerializationSettings<AttributeJsonSerializationSettings>(), attributeJsonSerializationSettings);
-			Assert.AreSame(statementDefinition.GetSerializationSettings<StatementJsonSerializationSettings>(), statementJsonSerializationSettings);
-			Assert.AreSame(questionDefinition.GetSerializationSettings<QuestionJsonSerializationSettings>(), questionJsonSerializationSettings);
+			Assert.That(answerDefinition.GetSerializationSettings<AnswerJsonSerializationSettings>(), Is.SameAs(answerJsonSerializationSettings));
+			Assert.That(attributeDefinition.GetSerializationSettings<AttributeJsonSerializationSettings>(), Is.SameAs(attributeJsonSerializationSettings));
+			Assert.That(statementDefinition.GetSerializationSettings<StatementJsonSerializationSettings>(), Is.SameAs(statementJsonSerializationSettings));
+			Assert.That(questionDefinition.GetSerializationSettings<QuestionJsonSerializationSettings>(), Is.SameAs(questionJsonSerializationSettings));
 		}
 
 		#region Abstract classes

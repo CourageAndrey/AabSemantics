@@ -42,12 +42,12 @@ namespace AabSemantics.Modules.Set.Tests.Questions
 			var textBuilder = render.RenderText(answerBuilder.Description, language).ToString();
 
 			// assert
-			Assert.AreEqual(textRegular, textBuilder);
-			Assert.IsTrue(answerRegular.Explanation.Statements.SequenceEqual(answerBuilder.Explanation.Statements));
+			Assert.That(textBuilder, Is.EqualTo(textRegular));
+			Assert.That(answerRegular.Explanation.Statements.SequenceEqual(answerBuilder.Explanation.Statements), Is.True);
 
-			Assert.IsTrue(	textRegular.Contains("\" is \"") &&
-							textRegular.Contains(" with following sign values (properties):") &&
-							textRegular.Contains(" sign value is equal to "));
+			Assert.That(textRegular.Contains("\" is \"") &&
+						textRegular.Contains(" with following sign values (properties):") &&
+						textRegular.Contains(" sign value is equal to "), Is.True);
 		}
 
 		[Test]
@@ -61,8 +61,8 @@ namespace AabSemantics.Modules.Set.Tests.Questions
 			var answer = semanticNetwork.SemanticNetwork.Ask().WhatIs(LogicalValues.True);
 
 			// assert
-			Assert.IsTrue(answer.IsEmpty);
-			Assert.AreEqual(0, answer.Explanation.Statements.Count);
+			Assert.That(answer.IsEmpty, Is.True);
+			Assert.That(answer.Explanation.Statements.Count, Is.EqualTo(0));
 		}
 
 		[Test]
@@ -87,10 +87,9 @@ namespace AabSemantics.Modules.Set.Tests.Questions
 			var text = render.RenderText(answer.Description, language).ToString();
 
 			// assert
-			Assert.IsFalse(answer.IsEmpty);
-			Assert.AreEqual(0, answer.Explanation.Statements.Count);
-			Assert.IsTrue(	text.Contains(" is ") &&
-							text.Contains("."));
+			Assert.That(answer.IsEmpty, Is.False);
+			Assert.That(answer.Explanation.Statements.Count, Is.EqualTo(0));
+			Assert.That(text.Contains(" is ") && text.Contains("."), Is.True);
 		}
 	}
 }

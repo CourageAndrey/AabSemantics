@@ -19,7 +19,7 @@ namespace AabSemantics.Tests.Concepts
 			var concept = new Concept(TestConceptId, new LocalizedStringVariable(), new LocalizedStringVariable());
 
 			// assert
-			Assert.AreEqual(TestConceptId, concept.ID);
+			Assert.That(concept.ID, Is.EqualTo(TestConceptId));
 		}
 
 		[Test]
@@ -29,7 +29,7 @@ namespace AabSemantics.Tests.Concepts
 			var concept = new Concept(null, new LocalizedStringVariable(), new LocalizedStringVariable());
 
 			// assert
-			Assert.IsFalse(string.IsNullOrEmpty(concept.ID));
+			Assert.That(string.IsNullOrEmpty(concept.ID), Is.False);
 		}
 
 		[Test]
@@ -39,7 +39,7 @@ namespace AabSemantics.Tests.Concepts
 			var concept = new Concept(TestConceptId, null, new LocalizedStringVariable());
 
 			// assert
-			Assert.IsNotNull(concept.Name);
+			Assert.That(concept.Name, Is.Not.Null);
 		}
 
 		[Test]
@@ -49,7 +49,7 @@ namespace AabSemantics.Tests.Concepts
 			var concept = new Concept(TestConceptId, new LocalizedStringVariable(), null);
 
 			// assert
-			Assert.IsNotNull(concept.Hint);
+			Assert.That(concept.Hint, Is.Not.Null);
 		}
 
 		[Test]
@@ -59,7 +59,7 @@ namespace AabSemantics.Tests.Concepts
 			var concept = TestConceptId.CreateConceptById(new string(TestConceptId.Reverse().ToArray()));
 
 			// assert
-			Assert.AreNotEqual(concept.ID, concept.Name.GetValue(Language.Default));
+			Assert.That(concept.Name.GetValue(Language.Default), Is.Not.EqualTo(concept.ID));
 		}
 	}
 }

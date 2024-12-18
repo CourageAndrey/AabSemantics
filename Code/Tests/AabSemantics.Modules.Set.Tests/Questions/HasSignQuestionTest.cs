@@ -44,8 +44,8 @@ namespace AabSemantics.Modules.Set.Tests.Questions
 			var answerBuilder = (BooleanAnswer) semanticNetwork.SemanticNetwork.Ask().IfHasSign(semanticNetwork.Vehicle_Car, semanticNetwork.Sign_MotorType);
 
 			// assert
-			Assert.AreEqual(answerRegular.Result, answerBuilder.Result);
-			Assert.IsTrue(answerRegular.Explanation.Statements.SequenceEqual(answerBuilder.Explanation.Statements));
+			Assert.That(answerBuilder.Result, Is.EqualTo(answerRegular.Result));
+			Assert.That(answerRegular.Explanation.Statements.SequenceEqual(answerBuilder.Explanation.Statements));
 		}
 
 		[Test]
@@ -62,13 +62,13 @@ namespace AabSemantics.Modules.Set.Tests.Questions
 			var answerWithRecursion = semanticNetwork.Ask().IfHasSign(LogicalValues.True, LogicalValues.False);
 
 			// assert
-			Assert.IsFalse(answerWithoutRecursion.IsEmpty);
-			Assert.IsFalse(((BooleanAnswer) answerWithoutRecursion).Result);
-			Assert.AreEqual(0, answerWithoutRecursion.Explanation.Statements.Count);
+			Assert.That(answerWithoutRecursion.IsEmpty, Is.False);
+			Assert.That(((BooleanAnswer) answerWithoutRecursion).Result, Is.False);
+			Assert.That(answerWithoutRecursion.Explanation.Statements.Count, Is.EqualTo(0));
 
-			Assert.IsFalse(answerWithRecursion.IsEmpty);
-			Assert.IsFalse(((BooleanAnswer) answerWithRecursion).Result);
-			Assert.AreEqual(0, answerWithRecursion.Explanation.Statements.Count);
+			Assert.That(answerWithRecursion.IsEmpty, Is.False);
+			Assert.That(((BooleanAnswer) answerWithRecursion).Result, Is.False);
+			Assert.That(answerWithRecursion.Explanation.Statements.Count, Is.EqualTo(0));
 		}
 
 		[Test]
@@ -84,9 +84,9 @@ namespace AabSemantics.Modules.Set.Tests.Questions
 			var answer = question.Ask(semanticNetwork.SemanticNetwork.Context);
 
 			// assert
-			Assert.IsFalse(answer.IsEmpty);
-			Assert.IsFalse(((BooleanAnswer) answer).Result);
-			Assert.AreEqual(0, answer.Explanation.Statements.Count);
+			Assert.That(answer.IsEmpty, Is.False);
+			Assert.That(((BooleanAnswer) answer).Result, Is.False);
+			Assert.That(answer.Explanation.Statements.Count, Is.EqualTo(0));
 		}
 
 		[Test]
@@ -114,16 +114,16 @@ namespace AabSemantics.Modules.Set.Tests.Questions
 			var textInheritedSign = render.RenderText(answerInheritedSign.Description, language).ToString();
 
 			// assert
-			Assert.IsFalse(answerOwnSign.IsEmpty);
-			Assert.IsTrue(((BooleanAnswer) answerOwnSign).Result);
-			Assert.AreSame(ownSignStatement, answerOwnSign.Explanation.Statements.Single());
+			Assert.That(answerOwnSign.IsEmpty, Is.False);
+			Assert.That(((BooleanAnswer) answerOwnSign).Result, Is.True);
+			Assert.That(answerOwnSign.Explanation.Statements.Single(), Is.SameAs(ownSignStatement));
 
-			Assert.IsFalse(answerInheritedSign.IsEmpty);
-			Assert.IsFalse(((BooleanAnswer) answerInheritedSign).Result);
-			Assert.AreEqual(0, answerInheritedSign.Explanation.Statements.Count);
+			Assert.That(answerInheritedSign.IsEmpty, Is.False);
+			Assert.That(((BooleanAnswer) answerInheritedSign).Result, Is.False);
+			Assert.That(answerInheritedSign.Explanation.Statements.Count, Is.EqualTo(0));
 
-			Assert.IsTrue(textOwnSign.Contains(" has got "));
-			Assert.IsTrue(textInheritedSign.Contains(" has not got "));
+			Assert.That(textOwnSign.Contains(" has got "), Is.True);
+			Assert.That(textInheritedSign.Contains(" has not got "), Is.True);
 		}
 
 		[Test]
@@ -144,15 +144,15 @@ namespace AabSemantics.Modules.Set.Tests.Questions
 			var answerInheritedSign = semanticNetwork.SemanticNetwork.Ask().IfHasSign(semanticNetwork.Vehicle_Motorcycle, semanticNetwork.Sign_AreaType);
 
 			// assert
-			Assert.IsFalse(answerOwnSign.IsEmpty);
-			Assert.IsTrue(((BooleanAnswer) answerOwnSign).Result);
-			Assert.AreSame(ownSignStatement, answerOwnSign.Explanation.Statements.Single());
+			Assert.That(answerOwnSign.IsEmpty, Is.False);
+			Assert.That(((BooleanAnswer) answerOwnSign).Result, Is.True);
+			Assert.That(answerOwnSign.Explanation.Statements.Single(), Is.SameAs(ownSignStatement));
 
-			Assert.IsFalse(answerInheritedSign.IsEmpty);
-			Assert.IsTrue(((BooleanAnswer) answerInheritedSign).Result);
-			Assert.AreEqual(2, answerInheritedSign.Explanation.Statements.Count);
-			Assert.AreEqual(1, answerInheritedSign.Explanation.Statements.OfType<HasSignStatement>().Count());
-			Assert.AreEqual(1, answerInheritedSign.Explanation.Statements.OfType<IsStatement>().Count());
+			Assert.That(answerInheritedSign.IsEmpty, Is.False);
+			Assert.That(((BooleanAnswer) answerInheritedSign).Result, Is.True);
+			Assert.That(answerInheritedSign.Explanation.Statements.Count, Is.EqualTo(2));
+			Assert.That(answerInheritedSign.Explanation.Statements.OfType<HasSignStatement>().Count(), Is.EqualTo(1));
+			Assert.That(answerInheritedSign.Explanation.Statements.OfType<IsStatement>().Count(), Is.EqualTo(1));
 		}
 	}
 }

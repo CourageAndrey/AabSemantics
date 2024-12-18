@@ -20,9 +20,9 @@ namespace AabSemantics.Tests.Answers
 			string representation = render.Render(emptyAnswer.Description, language).ToString();
 
 			// assert
-			Assert.IsTrue(emptyAnswer.IsEmpty);
-			Assert.IsTrue(representation.Contains(language.Questions.Answers.Unknown));
-			Assert.AreEqual(0, emptyAnswer.Explanation.Statements.Count);
+			Assert.That(emptyAnswer.IsEmpty, Is.True);
+			Assert.That(representation.Contains(language.Questions.Answers.Unknown), Is.True);
+			Assert.That(emptyAnswer.Explanation.Statements.Count, Is.EqualTo(0));
 		}
 	}
 }

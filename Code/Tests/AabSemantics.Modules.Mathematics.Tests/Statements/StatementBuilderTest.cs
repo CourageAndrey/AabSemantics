@@ -56,7 +56,7 @@ namespace AabSemantics.Modules.Mathematics.Tests.Statements
 			// assert
 			for (int s = 0; s < ComparisonSigns.All.Count; s++)
 			{
-				Assert.AreEqual(statementsByConstructor[s], statementsByBuilder[s]);
+				Assert.That(statementsByConstructor[s], Is.EqualTo(statementsByBuilder[s]));
 			}
 		}
 
@@ -128,16 +128,16 @@ namespace AabSemantics.Modules.Mathematics.Tests.Statements
 			}
 
 			// smoke assert
-			Assert.AreEqual(0, semanticNetwork.Statements.Count);
+			Assert.That(semanticNetwork.Statements.Count, Is.EqualTo(0));
 
 			// act
 			definitionMethod(semanticNetwork, numbers);
 			var answer = (StatementAnswer) semanticNetwork.Ask().HowCompared(numbers.First(), numbers.Last());
 
 			// assert
-			Assert.AreEqual(count - 1, semanticNetwork.Statements.Count);
-			Assert.AreEqual(count - 1, semanticNetwork.Statements.OfType<ComparisonStatement>().Count(comparison => comparison.ComparisonSign == comparisonSign));
-			Assert.AreSame(comparisonSign, ((ComparisonStatement) answer.Result).ComparisonSign);
+			Assert.That(semanticNetwork.Statements.Count, Is.EqualTo(count - 1));
+			Assert.That(semanticNetwork.Statements.OfType<ComparisonStatement>().Count(comparison => comparison.ComparisonSign == comparisonSign), Is.EqualTo(count - 1));
+			Assert.That(((ComparisonStatement) answer.Result).ComparisonSign, Is.SameAs(comparisonSign));
 		}
 
 		private static IEnumerable<object[]> GetChainComparisons()
@@ -151,10 +151,10 @@ namespace AabSemantics.Modules.Mathematics.Tests.Statements
 		private static void AssertAreEqual<T>(ICollection<T> sequence1, ICollection<T> sequence2)
 			where T : IEquatable<T>
 		{
-			Assert.AreEqual(sequence1.Count, sequence1.Count);
+			Assert.That(sequence1.Count, Is.EqualTo(sequence2.Count));
 			foreach (var item in sequence1)
 			{
-				Assert.IsTrue(sequence2.Contains(item));
+				Assert.That(sequence2.Contains(item), Is.True);
 			}
 		}
 	}

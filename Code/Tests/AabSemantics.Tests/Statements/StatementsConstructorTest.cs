@@ -50,7 +50,7 @@ namespace AabSemantics.Tests.Statements
 			var statement = new TestStatement(TestStatementId, new LocalizedStringVariable(), new LocalizedStringVariable());
 
 			// assert
-			Assert.AreEqual(TestStatementId, statement.ID);
+			Assert.That(statement.ID, Is.EqualTo(TestStatementId));
 		}
 
 		[Test]
@@ -60,7 +60,7 @@ namespace AabSemantics.Tests.Statements
 			var statement = new TestStatement(null, new LocalizedStringVariable(), new LocalizedStringVariable());
 
 			// assert
-			Assert.IsFalse(string.IsNullOrEmpty(statement.ID));
+			Assert.That(string.IsNullOrEmpty(statement.ID), Is.False);
 		}
 
 		[Test]
@@ -76,7 +76,7 @@ namespace AabSemantics.Tests.Statements
 			var statement = new TestStatement(TestStatementId, new LocalizedStringVariable(), null);
 
 			// assert
-			Assert.IsNotNull(statement.Hint);
+			Assert.That(statement.Hint, Is.Not.NaN);
 		}
 
 		[Test]
@@ -104,8 +104,8 @@ namespace AabSemantics.Tests.Statements
 				new IsStatement(null, concept1, concept2),
 			})
 			{
-				Assert.IsNotNull(statement.Hint);
-				Assert.IsNotNull(statement.Hint.GetValue(language));
+				Assert.That(statement.Hint, Is.Not.Null);
+				Assert.That(statement.Hint.GetValue(language), Is.Not.Null);
 			}
 		}
 

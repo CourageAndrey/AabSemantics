@@ -15,27 +15,27 @@ namespace AabSemantics.Modules.Mathematics.Tests.Concepts
 			var concept = new Concept();
 
 			// 0. no attributes added
-			Assert.AreEqual(0, concept.Attributes.Count);
-			Assert.IsFalse(concept.HasAttribute<IsValueAttribute>());
-			Assert.IsFalse(concept.HasAttribute<IsComparisonSignAttribute>());
+			Assert.That(concept.Attributes.Count, Is.EqualTo(0));
+			Assert.That(concept.HasAttribute<IsValueAttribute>(), Is.False);
+			Assert.That(concept.HasAttribute<IsComparisonSignAttribute>(), Is.False);
 
 			// 1. add IsValueAttribute
 			concept.WithAttribute(IsValueAttribute.Value);
-			Assert.AreEqual(1, concept.Attributes.Count);
-			Assert.IsTrue(concept.HasAttribute<IsValueAttribute>());
-			Assert.IsFalse(concept.HasAttribute<IsComparisonSignAttribute>());
+			Assert.That(concept.Attributes.Count, Is.EqualTo(1));
+			Assert.That(concept.HasAttribute<IsValueAttribute>(), Is.True);
+			Assert.That(concept.HasAttribute<IsComparisonSignAttribute>(), Is.False);
 
 			// 2. add IsComparisonSignAttribute
 			concept.WithAttribute(IsComparisonSignAttribute.Value);
-			Assert.AreEqual(2, concept.Attributes.Count);
-			Assert.IsTrue(concept.HasAttribute<IsValueAttribute>());
-			Assert.IsTrue(concept.HasAttribute<IsComparisonSignAttribute>());
+			Assert.That(concept.Attributes.Count, Is.EqualTo(2));
+			Assert.That(concept.HasAttribute<IsValueAttribute>(), Is.True);
+			Assert.That(concept.HasAttribute<IsComparisonSignAttribute>(), Is.True);
 
 			// 3. remove all attributes
 			concept.WithoutAttributes();
-			Assert.AreEqual(0, concept.Attributes.Count);
-			Assert.IsFalse(concept.HasAttribute<IsValueAttribute>());
-			Assert.IsFalse(concept.HasAttribute<IsComparisonSignAttribute>());
+			Assert.That(concept.Attributes.Count, Is.EqualTo(0));
+			Assert.That(concept.HasAttribute<IsValueAttribute>(), Is.False);
+			Assert.That(concept.HasAttribute<IsComparisonSignAttribute>(), Is.False);
 		}
 	}
 }

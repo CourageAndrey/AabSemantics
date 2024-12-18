@@ -19,8 +19,8 @@ namespace AabSemantics.IntegrationTests.Statements
 			{
 				string info = statement.ToString();
 
-				Assert.IsTrue(info.Contains(statement.GetType().Name));
-				Assert.IsTrue(info.Contains(statement.ID));
+				Assert.That(info.Contains(statement.GetType().Name), Is.True);
+				Assert.That(info.Contains(statement.ID), Is.True);
 			}
 		}
 
@@ -39,8 +39,8 @@ namespace AabSemantics.IntegrationTests.Statements
 			{
 				foreach (var text in new[] { statement.DescribeTrue(), statement.DescribeFalse(), statement.DescribeQuestion() })
 				{
-					Assert.IsNotNull(text);
-					Assert.False(string.IsNullOrEmpty(render.Render(text, language).ToString()));
+					Assert.That(text, Is.Not.Null);
+					Assert.That(string.IsNullOrEmpty(render.Render(text, language).ToString()), Is.False);
 				}
 			}
 		}

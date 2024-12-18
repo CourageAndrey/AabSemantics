@@ -41,8 +41,8 @@ namespace AabSemantics.Tests.Mutations
 			var filter = new StatementConceptFilter<IsStatement>(conceptSelector, conceptFilter);
 
 			// assert
-			Assert.AreSame(conceptFilter, filter.ConceptFilter);
-			Assert.AreSame(conceptSelector, filter.ConceptSelector);
+			Assert.That(filter.ConceptFilter, Is.SameAs(conceptFilter));
+			Assert.That(filter.ConceptSelector, Is.SameAs(conceptSelector));
 		}
 	}
 }

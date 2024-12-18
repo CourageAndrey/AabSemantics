@@ -45,9 +45,9 @@ namespace AabSemantics.Modules.Processes.Tests.Questions
 			var answer = (StatementsAnswer<ProcessesStatement>) semanticNetwork.Supposing(new IStatement[] { statement }).Ask().WhatIsMutualSequenceOfProcesses(statement.ProcessA, statement.ProcessB);
 
 			// assert
-			Assert.IsFalse(answer.IsEmpty);
-			Assert.IsTrue(answer.Result.Contains(statement));
-			Assert.IsTrue(answer.Explanation.Statements.Contains(statement));
+			Assert.That(answer.IsEmpty, Is.False);
+			Assert.That(answer.Result.Contains(statement), Is.True);
+			Assert.That(answer.Explanation.Statements.Contains(statement), Is.True);
 		}
 
 		[Test]
@@ -72,8 +72,8 @@ namespace AabSemantics.Modules.Processes.Tests.Questions
 			var answerBuilder = (StatementsAnswer<ProcessesStatement>) semanticNetwork.Ask().WhatIsMutualSequenceOfProcesses(processA, processB);
 
 			// assert
-			Assert.IsTrue(answerRegular.Result.SequenceEqual(answerBuilder.Result));
-			Assert.IsTrue(answerRegular.Explanation.Statements.SequenceEqual(answerBuilder.Explanation.Statements));
+			Assert.That(answerRegular.Result.SequenceEqual(answerBuilder.Result), Is.True);
+			Assert.That(answerRegular.Explanation.Statements.SequenceEqual(answerBuilder.Explanation.Statements), Is.True);
 		}
 
 		[Test]
@@ -96,9 +96,9 @@ namespace AabSemantics.Modules.Processes.Tests.Questions
 			var description = textRender.RenderText(answer.Description, language).ToString();
 
 			// assert
-			Assert.IsTrue(answer.IsEmpty);
-			Assert.IsTrue(description.Contains(language.Questions.Answers.Unknown));
-			Assert.AreEqual(0, answer.Explanation.Statements.Count);
+			Assert.That(answer.IsEmpty, Is.True);
+			Assert.That(description.Contains(language.Questions.Answers.Unknown), Is.True);
+			Assert.That(answer.Explanation.Statements.Count, Is.EqualTo(0));
 		}
 
 		[Test]
@@ -136,16 +136,16 @@ namespace AabSemantics.Modules.Processes.Tests.Questions
 					var answer = semanticNetwork.Ask().WhatIsMutualSequenceOfProcesses(processA, processB);
 
 					// assert
-					Assert.IsFalse(answer.IsEmpty);
+					Assert.That(answer.IsEmpty, Is.False);
 					var processesAnswer = (StatementsAnswer<ProcessesStatement>) answer;
 
-					Assert.Greater(processesAnswer.Result.Count, 0);
-					Assert.IsTrue(processesAnswer.Result.All(s => s.ProcessA == processA));
-					Assert.IsTrue(processesAnswer.Result.All(s => s.ProcessB == processB));
-					Assert.IsTrue(processesAnswer.Result.Any(s => s.SequenceSign == resultSign));
+					Assert.That(processesAnswer.Result.Count, Is.GreaterThan(0));
+					Assert.That(processesAnswer.Result.All(s => s.ProcessA == processA), Is.True);
+					Assert.That(processesAnswer.Result.All(s => s.ProcessB == processB), Is.True);
+					Assert.That(processesAnswer.Result.Any(s => s.SequenceSign == resultSign), Is.True);
 
-					Assert.IsTrue(answer.Explanation.Statements.Contains(statementCombination.Item1));
-					Assert.IsTrue(answer.Explanation.Statements.Contains(statementCombination.Item2));
+					Assert.That(answer.Explanation.Statements.Contains(statementCombination.Item1), Is.True);
+					Assert.That(answer.Explanation.Statements.Contains(statementCombination.Item2), Is.True);
 				}
 				finally
 				{
@@ -197,8 +197,8 @@ namespace AabSemantics.Modules.Processes.Tests.Questions
 								var answer = semanticNetwork.Ask().WhatIsMutualSequenceOfProcesses(processA, processB);
 
 								// assert
-								Assert.IsTrue(answer.IsEmpty);
-								Assert.AreEqual(0, answer.Explanation.Statements.Count);
+								Assert.That(answer.IsEmpty, Is.True);
+								Assert.That(answer.Explanation.Statements.Count, Is.EqualTo(0));
 							}
 							finally
 							{

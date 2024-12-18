@@ -26,7 +26,7 @@ namespace AabSemantics.Tests.Text
 			// assert
 			for (int i = 1; i <= 21; i++) // count of used blocks within CreateAllFeaturesText() method
 			{
-				Assert.IsTrue(renderedText.Contains(GetText(i)));
+				Assert.That(renderedText.Contains(GetText(i)), Is.True);
 			}
 		}
 
@@ -45,7 +45,7 @@ namespace AabSemantics.Tests.Text
 				string representation = render.Render(text, Language.Default).ToString();
 
 				// assert
-				Assert.IsTrue(representation.Contains(searchingToken));
+				Assert.That(representation.Contains(searchingToken), Is.True);
 			}
 		}
 

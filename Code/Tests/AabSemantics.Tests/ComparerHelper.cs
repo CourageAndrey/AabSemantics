@@ -11,15 +11,15 @@ namespace AabSemantics.Tests
 	{
 		public static void AssertPropertiesAreEqual(this object a, object b)
 		{
-			Assert.NotNull(a);
-			Assert.NotNull(b);
+			Assert.That(a, Is.Not.Null);
+			Assert.That(b, Is.Not.Null);
 
 			var type = a.GetType();
-			Assert.AreSame(type, b.GetType());
+			Assert.That(b.GetType(), Is.SameAs(type));
 
 			foreach (var property in type.GetElementaryProperties())
 			{
-				Assert.AreEqual(property.GetValue(a), property.GetValue(b));
+				Assert.That(property.GetValue(b), Is.EqualTo(property.GetValue(a)));
 			}
 		}
 

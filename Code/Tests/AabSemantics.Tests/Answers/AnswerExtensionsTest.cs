@@ -35,7 +35,7 @@ namespace AabSemantics.Tests.Answers
 			string explainedText = render.Render(explainedAnswer, language).ToString();
 
 			// assert
-			Assert.AreEqual(initialText, explainedText);
+			Assert.That(explainedText, Is.EqualTo(initialText));
 		}
 
 		[Test]
@@ -68,12 +68,12 @@ namespace AabSemantics.Tests.Answers
 			string explainedText = render.Render(explainedAnswer, language).ToString();
 
 			// assert
-			Assert.IsTrue(explainedText.Contains(initialText));
-			Assert.IsTrue(explainedText.Contains(language.Questions.Answers.Explanation));
+			Assert.That(explainedText.Contains(initialText), Is.True);
+			Assert.That(explainedText.Contains(language.Questions.Answers.Explanation), Is.True);
 			foreach (var statement in statements)
 			{
 				string statementText = render.Render(statement.DescribeTrue(), language).ToString();
-				Assert.IsTrue(explainedText.Contains(statementText));
+				Assert.That(explainedText.Contains(statementText), Is.True);
 			}
 		}
 	}

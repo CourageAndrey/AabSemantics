@@ -42,12 +42,12 @@ namespace AabSemantics.Tests.Mutations
 			var matches = statementSearchPattern.FindMatches(semanticNetwork).ToList();
 
 			// assert
-			Assert.AreEqual(3, matches.Count);
-			Assert.IsTrue(matches.All(m =>
+			Assert.That(matches.Count, Is.EqualTo(3));
+			Assert.That(matches.All(m =>
 				m.SearchPattern == statementSearchPattern &&
 				m.SemanticNetwork == semanticNetwork &&
 				m.Knowledge.Count == 1 &&
-				((IsStatement) m.Knowledge[statementSearchPattern]).Ancestor == a));
+				((IsStatement) m.Knowledge[statementSearchPattern]).Ancestor == a), Is.True);
 		}
 
 		[Test]
@@ -75,13 +75,13 @@ namespace AabSemantics.Tests.Mutations
 			var matches = statementSearchPattern.FindMatches(semanticNetwork).ToList();
 
 			// assert
-			Assert.AreEqual(3, matches.Count);
-			Assert.IsTrue(matches.All(m =>
+			Assert.That(matches.Count, Is.EqualTo(3));
+			Assert.That(matches.All(m =>
 				m.SearchPattern == statementSearchPattern &&
 				m.SemanticNetwork == semanticNetwork &&
 				m.Knowledge.Count == 2 &&
 				m.Knowledge[statementSearchPattern] is IsStatement &&
-				m.Knowledge[conceptSearchPattern] == semanticNetwork.Concepts["a"]));
+				m.Knowledge[conceptSearchPattern] == semanticNetwork.Concepts["a"]), Is.True);
 		}
 
 		[Test]
@@ -110,13 +110,13 @@ namespace AabSemantics.Tests.Mutations
 			var matches = statementSearchPattern.FindMatches(semanticNetwork).ToList();
 
 			// assert
-			Assert.AreEqual(2, matches.Count);
-			Assert.IsTrue(matches.All(m =>
+			Assert.That(matches.Count, Is.EqualTo(2));
+			Assert.That(matches.All(m =>
 				m.SearchPattern == statementSearchPattern &&
 				m.SemanticNetwork == semanticNetwork &&
 				m.Knowledge.Count == 2 &&
 				m.Knowledge[statementSearchPattern] is IsStatement &&
-				m.Knowledge[conceptSearchPattern].ID == "a"));
+				m.Knowledge[conceptSearchPattern].ID == "a"), Is.True);
 		}
 
 		[Test]
@@ -146,12 +146,12 @@ namespace AabSemantics.Tests.Mutations
 			var matches = searchPattern.FindMatches(semanticNetwork).ToList();
 
 			// assert
-			Assert.AreEqual(allTypedStatements.Count, matches.Count);
-			Assert.IsTrue(matches.All(m =>
+			Assert.That(matches.Count, Is.EqualTo(allTypedStatements.Count));
+			Assert.That(matches.All(m =>
 				m.SemanticNetwork == semanticNetwork &&
 				m.SearchPattern == searchPattern &&
 				m.Knowledge.Keys.Single() == searchPattern &&
-				allTypedStatements.Contains(m.Knowledge.Values.Single())));
+				allTypedStatements.Contains(m.Knowledge.Values.Single())), Is.True);
 		}
 	}
 }

@@ -39,8 +39,8 @@ namespace AabSemantics.Modules.Set.Tests.Questions
 			var answerBuilder = (ConceptsAnswer) semanticNetwork.SemanticNetwork.Ask().WhichContainersInclude(semanticNetwork.Part_Engine);
 
 			// assert
-			Assert.IsTrue(answerRegular.Result.SequenceEqual(answerBuilder.Result));
-			Assert.IsTrue(answerRegular.Explanation.Statements.SequenceEqual(answerBuilder.Explanation.Statements));
+			Assert.That(answerRegular.Result.SequenceEqual(answerBuilder.Result), Is.True);
+			Assert.That(answerRegular.Explanation.Statements.SequenceEqual(answerBuilder.Explanation.Statements), Is.True);
 		}
 
 		[Test]
@@ -64,11 +64,11 @@ namespace AabSemantics.Modules.Set.Tests.Questions
 			var answerWhole = semanticNetwork.Ask().WhichContainersInclude(wholeConcept);
 
 			// assert
-			Assert.IsTrue(answerToCheck.IsEmpty);
-			Assert.AreEqual(0, answerToCheck.Explanation.Statements.Count);
+			Assert.That(answerToCheck.IsEmpty, Is.True);
+			Assert.That(answerToCheck.Explanation.Statements.Count, Is.EqualTo(0));
 
-			Assert.IsTrue(answerWhole.IsEmpty);
-			Assert.AreEqual(0, answerWhole.Explanation.Statements.Count);
+			Assert.That(answerWhole.IsEmpty, Is.True);
+			Assert.That(answerWhole.Explanation.Statements.Count, Is.EqualTo(0));
 		}
 
 		[Test]
@@ -99,14 +99,14 @@ namespace AabSemantics.Modules.Set.Tests.Questions
 				var text = render.RenderText(answer.Description, language).ToString();
 
 				// assert
-				Assert.IsFalse(answer.IsEmpty);
+				Assert.That(answer.IsEmpty, Is.False);
 				var containerConcepts = ((ConceptsAnswer) answer).Result;
-				Assert.AreEqual(i, containerConcepts.Count);
-				Assert.IsTrue(containerConcepts.All(semanticNetwork.Concepts.Contains));
-				Assert.AreEqual(i, answer.Explanation.Statements.Count);
-				Assert.IsFalse(semanticNetwork.Statements.Except(answer.Explanation.Statements).Any());
+				Assert.That(containerConcepts.Count, Is.EqualTo(i));
+				Assert.That(containerConcepts.All(semanticNetwork.Concepts.Contains), Is.True);
+				Assert.That(answer.Explanation.Statements.Count, Is.EqualTo(i));
+				Assert.That(semanticNetwork.Statements.Except(answer.Explanation.Statements).Any(), Is.False);
 
-				Assert.IsTrue(text.Contains(" is part of:"));
+				Assert.That(text.Contains(" is part of:"), Is.True);
 			}
 		}
 	}

@@ -17,7 +17,7 @@ namespace AabSemantics.Modules.Set.Tests.Statements
 			var statement = new HasPartStatement(null, concept1, concept2);
 
 			// act && assert
-			Assert.IsFalse(statement.Equals(null));
+			Assert.That(statement.Equals(null), Is.False);
 		}
 
 		[Test]
@@ -29,8 +29,8 @@ namespace AabSemantics.Modules.Set.Tests.Statements
 			var statement = new HasPartStatement(null, whole, part);
 
 			// act && assert
-			Assert.AreSame(whole, statement.Parent);
-			Assert.AreSame(part, statement.Child);
+			Assert.That(statement.Parent, Is.SameAs(whole));
+			Assert.That(statement.Child, Is.SameAs(part));
 		}
 	}
 }

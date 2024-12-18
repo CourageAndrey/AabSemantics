@@ -31,7 +31,7 @@ namespace AabSemantics.Modules.Processes.Tests.Statements
 				var contradictions = statements.CheckForContradictions();
 
 				// assert
-				Assert.AreEqual(0, contradictions.Count);
+				Assert.That(contradictions.Count, Is.EqualTo(0));
 			}
 		}
 
@@ -58,7 +58,7 @@ namespace AabSemantics.Modules.Processes.Tests.Statements
 					var contradictions = statements.CheckForContradictions();
 
 					// assert
-					Assert.AreEqual(0, contradictions.Count);
+					Assert.That(contradictions.Count, Is.EqualTo(0));
 				}
 			}
 		}
@@ -89,7 +89,7 @@ namespace AabSemantics.Modules.Processes.Tests.Statements
 					var contradictions = statements.CheckForContradictions();
 
 					// assert
-					Assert.AreEqual(0, contradictions.Count);
+					Assert.That(contradictions.Count, Is.EqualTo(0));
 				}
 			}
 		}
@@ -113,7 +113,7 @@ namespace AabSemantics.Modules.Processes.Tests.Statements
 				var contradictions = statements.CheckForContradictions();
 
 				// assert
-				Assert.AreEqual(0, contradictions.Count);
+				Assert.That(contradictions.Count, Is.EqualTo(0));
 			}
 		}
 
@@ -141,11 +141,11 @@ namespace AabSemantics.Modules.Processes.Tests.Statements
 
 						// assert
 						var contradiction = contradictions.First(c => c.Value1 != c.Value2);
-						Assert.IsTrue(contradiction.Value1 == conceptA || contradiction.Value1 == conceptB);
-						Assert.IsTrue(contradiction.Value2 == conceptA || contradiction.Value2 == conceptB);
-						Assert.LessOrEqual(2, contradiction.Signs.Count);
-						Assert.IsTrue(contradiction.Signs.Contains(sign));
-						Assert.IsTrue(contradiction.Signs.Contains(contradictedSign));
+						Assert.That(contradiction.Value1 == conceptA || contradiction.Value1 == conceptB, Is.True);
+						Assert.That(contradiction.Value2 == conceptA || contradiction.Value2 == conceptB, Is.True);
+						Assert.That(contradiction.Signs.Count, Is.GreaterThanOrEqualTo(2));
+						Assert.That(contradiction.Signs.Contains(sign), Is.True);
+						Assert.That(contradiction.Signs.Contains(contradictedSign), Is.True);
 					}
 				}
 			}
@@ -173,7 +173,7 @@ namespace AabSemantics.Modules.Processes.Tests.Statements
 					var contradictions = statements.CheckForContradictions();
 
 					// assert
-					Assert.AreNotEqual(0, contradictions.Count);
+					Assert.That(contradictions.Count, Is.Not.EqualTo(0));
 				}
 			}
 		}
@@ -194,11 +194,11 @@ namespace AabSemantics.Modules.Processes.Tests.Statements
 				// assert
 				if (SequenceSigns.SelfInvalidSigns.Contains(sign))
 				{
-					Assert.IsTrue(contradictions.Single().Signs.Contains(sign));
+					Assert.That(contradictions.Single().Signs.Contains(sign), Is.True);
 				}
 				else
 				{
-					Assert.AreEqual(0, contradictions.Count);
+					Assert.That(contradictions.Count, Is.EqualTo(0));
 				}
 			}
 		}

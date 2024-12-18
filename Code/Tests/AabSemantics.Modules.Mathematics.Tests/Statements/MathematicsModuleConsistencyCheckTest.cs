@@ -47,11 +47,11 @@ namespace AabSemantics.Modules.Mathematics.Tests.Statements
 			statementDefinition.CheckConsistency(semanticNetwork, result);
 
 			// assert
-			Assert.Greater(result.Items.Count, 0);
-			Assert.IsTrue(result.Items.Any(line =>
+			Assert.That(result.Items.Count, Is.GreaterThan(0));
+			Assert.That(result.Items.Any(line =>
 				line.ToString().StartsWith("Impossible to compare") &&
 				line.GetParameters().ContainsKey("#LEFTVALUE#") &&
-				line.GetParameters().ContainsKey("#RIGHTVALUE#")));
+				line.GetParameters().ContainsKey("#RIGHTVALUE#")), Is.True);
 		}
 
 		[Test]
@@ -76,7 +76,7 @@ namespace AabSemantics.Modules.Mathematics.Tests.Statements
 			statementDefinition.CheckConsistency(semanticNetwork, result);
 
 			// assert
-			Assert.AreEqual(0, result.Items.Count);
+			Assert.That(result.Items.Count, Is.EqualTo(0));
 		}
 	}
 }

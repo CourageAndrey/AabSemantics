@@ -42,8 +42,8 @@ namespace AabSemantics.Modules.Set.Tests.Questions
 			var answerBuilder = (ConceptAnswer) semanticNetwork.SemanticNetwork.Ask().WhatIsSignValue(semanticNetwork.Vehicle_Car, semanticNetwork.Sign_MotorType);
 
 			// assert
-			Assert.AreSame(answerRegular.Result, answerBuilder.Result);
-			Assert.IsTrue(answerRegular.Explanation.Statements.SequenceEqual(answerBuilder.Explanation.Statements));
+			Assert.That(answerBuilder.Result, Is.SameAs(answerRegular.Result));
+			Assert.That(answerRegular.Explanation.Statements.SequenceEqual(answerBuilder.Explanation.Statements), Is.True);
 		}
 
 		[Test]
@@ -57,8 +57,8 @@ namespace AabSemantics.Modules.Set.Tests.Questions
 			var answer = semanticNetwork.SemanticNetwork.Ask().WhatIsSignValue(semanticNetwork.Base_Vehicle, semanticNetwork.Sign_AreaType);
 
 			// assert
-			Assert.IsTrue(answer.IsEmpty);
-			Assert.AreEqual(0, answer.Explanation.Statements.Count);
+			Assert.That(answer.IsEmpty, Is.True);
+			Assert.That(answer.Explanation.Statements.Count, Is.EqualTo(0));
 		}
 
 		[Test]
@@ -72,9 +72,9 @@ namespace AabSemantics.Modules.Set.Tests.Questions
 			var answer = semanticNetwork.SemanticNetwork.Ask().WhatIsSignValue(semanticNetwork.Vehicle_Car, semanticNetwork.Sign_AreaType);
 
 			// assert
-			Assert.IsFalse(answer.IsEmpty);
-			Assert.AreSame(semanticNetwork.AreaType_Ground, ((ConceptAnswer) answer).Result);
-			Assert.AreSame(typeof(SignValueStatement), answer.Explanation.Statements.Single().GetType());
+			Assert.That(answer.IsEmpty, Is.False);
+			Assert.That(((ConceptAnswer) answer).Result, Is.SameAs(semanticNetwork.AreaType_Ground));
+			Assert.That(answer.Explanation.Statements.Single().GetType(), Is.SameAs(typeof(SignValueStatement)));
 		}
 
 		[Test]
@@ -93,11 +93,11 @@ namespace AabSemantics.Modules.Set.Tests.Questions
 			var answer = semanticNetwork.SemanticNetwork.Ask().WhatIsSignValue(truck, semanticNetwork.Sign_AreaType);
 
 			// assert
-			Assert.IsFalse(answer.IsEmpty);
-			Assert.AreSame(semanticNetwork.AreaType_Ground, ((ConceptAnswer) answer).Result);
-			Assert.AreEqual(2, answer.Explanation.Statements.Count);
-			Assert.IsTrue(answer.Explanation.Statements.Contains(classification));
-			Assert.AreEqual(1, answer.Explanation.Statements.OfType<SignValueStatement>().Count());
+			Assert.That(answer.IsEmpty, Is.False);
+			Assert.That(((ConceptAnswer) answer).Result, Is.SameAs(semanticNetwork.AreaType_Ground));
+			Assert.That(answer.Explanation.Statements.Count, Is.EqualTo(2));
+			Assert.That(answer.Explanation.Statements.Contains(classification), Is.True);
+			Assert.That(answer.Explanation.Statements.OfType<SignValueStatement>().Count(), Is.EqualTo(1));
 		}
 
 		[Test]
@@ -121,11 +121,11 @@ namespace AabSemantics.Modules.Set.Tests.Questions
 			var text = render.RenderText(answer.Description, language).ToString();
 
 			// assert
-			Assert.IsFalse(answer.IsEmpty);
-			Assert.AreSame(semanticNetwork.AreaType_Air, ((ConceptAnswer) answer).Result);
-			Assert.AreSame(newValue, answer.Explanation.Statements.Single());
+			Assert.That(answer.IsEmpty, Is.False);
+			Assert.That(((ConceptAnswer) answer).Result, Is.SameAs(semanticNetwork.AreaType_Air));
+			Assert.That(answer.Explanation.Statements.Single(), Is.SameAs(newValue));
 
-			Assert.IsTrue(text.Contains(" concept has "));
+			Assert.That(text.Contains(" concept has "), Is.True);
 		}
 	}
 }

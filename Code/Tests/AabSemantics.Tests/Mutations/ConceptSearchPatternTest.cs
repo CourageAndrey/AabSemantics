@@ -33,7 +33,7 @@ namespace AabSemantics.Tests.Mutations
 			var filteredConcepts = ConceptSearchPattern.All.FindConcepts(concepts).ToList();
 
 			// assert
-			Assert.IsTrue(filteredConcepts.SequenceEqual(concepts));
+			Assert.That(filteredConcepts.SequenceEqual(concepts), Is.True);
 		}
 	}
 }

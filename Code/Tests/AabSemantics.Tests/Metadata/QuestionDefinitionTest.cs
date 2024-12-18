@@ -126,7 +126,7 @@ namespace AabSemantics.Tests.Metadata
 			string name = definition.GetName(Language.Default);
 
 			// assert
-			Assert.AreEqual(Language.Default.Culture, name);
+			Assert.That(name, Is.EqualTo(Language.Default.Culture));
 		}
 
 		private static QuestionDefinition CreateQuestionDefinition(

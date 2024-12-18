@@ -19,7 +19,7 @@ namespace AabSemantics.Modules.Processes.Tests.Statements
 			var statement = new ProcessesStatement(null, process1, process2, SequenceSigns.Causes);
 
 			// act && assert
-			Assert.IsFalse(statement.Equals(null));
+			Assert.That(statement.Equals(null), Is.False);
 		}
 	}
 }

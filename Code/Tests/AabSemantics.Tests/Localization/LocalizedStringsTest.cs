@@ -24,8 +24,8 @@ namespace AabSemantics.Tests.Localization
 			string name2 = test.GetValue(language2);
 
 			// assert
-			Assert.AreEqual("Language 1", name1);
-			Assert.AreEqual("Language 2", name2);
+			Assert.That(name1, Is.EqualTo("Language 1"));
+			Assert.That(name2, Is.EqualTo("Language 2"));
 		}
 
 		[Test]
@@ -47,10 +47,10 @@ namespace AabSemantics.Tests.Localization
 			string value2culture = test.GetValue(language2.Culture);
 
 			// assert
-			Assert.AreEqual("Value 1", value1language);
-			Assert.AreEqual("Value 2", value2language);
-			Assert.AreEqual("Value 1", value1culture);
-			Assert.AreEqual("Value 2", value2culture);
+			Assert.That(value1language, Is.EqualTo("Value 1"));
+			Assert.That(value2language, Is.EqualTo("Value 2"));
+			Assert.That(value1culture, Is.EqualTo("Value 1"));
+			Assert.That(value2culture, Is.EqualTo("Value 2"));
 		}
 
 		[Test]
@@ -66,9 +66,9 @@ namespace AabSemantics.Tests.Localization
 
 			// act & assert
 			var error = Assert.Throws<AbsentLocaleException>(() => { test.GetValue(language); });
-			Assert.AreEqual("c0", error.Locale);
+			Assert.That(error.Locale, Is.EqualTo("c0"));
 			error = Assert.Throws<AbsentLocaleException>(() => { test.GetValue(language.Culture); });
-			Assert.AreEqual("c0", error.Locale);
+			Assert.That(error.Locale, Is.EqualTo("c0"));
 		}
 
 		[Test]
@@ -96,7 +96,7 @@ namespace AabSemantics.Tests.Localization
 			// act & assert
 			foreach (var localizedString in localizedStrings)
 			{
-				Assert.IsTrue(localizedString.ToString().Contains(Strings.TostringLocalized));
+				Assert.That(localizedString.ToString().Contains(Strings.TostringLocalized), Is.True);
 			}
 		}
 
@@ -114,7 +114,7 @@ namespace AabSemantics.Tests.Localization
 			// act && assert
 			foreach (var language in languages)
 			{
-				Assert.AreEqual(string.Empty, LocalizedString.Empty.GetValue(language));
+				Assert.That(LocalizedString.Empty.GetValue(language), Is.EqualTo(string.Empty));
 			}
 		}
 
@@ -127,17 +127,17 @@ namespace AabSemantics.Tests.Localization
 			s.SetLocale("fr-FR", "fr-FR");
 
 			// assert before act
-			Assert.AreEqual("en-US", s.GetValue("en-US"));
-			Assert.AreEqual("ru-RU", s.GetValue("ru-RU"));
-			Assert.AreEqual("fr-FR", s.GetValue("fr-FR"));
+			Assert.That(s.GetValue("en-US"), Is.EqualTo("en-US"));
+			Assert.That(s.GetValue("ru-RU"), Is.EqualTo("ru-RU"));
+			Assert.That(s.GetValue("fr-FR"), Is.EqualTo("fr-FR"));
 
 			// act
 			s.RemoveLocale("ru-RU");
 
 			// assert after act
-			Assert.AreEqual("en-US", s.GetValue("en-US"));
+			Assert.That(s.GetValue("en-US"), Is.EqualTo("en-US"));
 			Assert.Throws<AbsentLocaleException>(() => s.GetValue("ru-RU"));
-			Assert.AreEqual("fr-FR", s.GetValue("fr-FR"));
+			Assert.That(s.GetValue("fr-FR"), Is.EqualTo("fr-FR"));
 		}
 
 		[Test]
@@ -174,7 +174,7 @@ namespace AabSemantics.Tests.Localization
 			var result = localizedString.AsDictionary();
 
 			// assert
-			Assert.IsTrue(values.OrderBy(kvp => kvp.Key).SequenceEqual(result.OrderBy(kvp => kvp.Key)));
+			Assert.That(values.OrderBy(kvp => kvp.Key).SequenceEqual(result.OrderBy(kvp => kvp.Key)), Is.True);
 		}
 
 		[Test]
@@ -194,7 +194,7 @@ namespace AabSemantics.Tests.Localization
 			var result = localizedString.AsDictionary();
 
 			// assert
-			Assert.AreEqual(values[Language.Default.Culture], result[result.Keys.Single()]);
+			Assert.That(result[result.Keys.Single()], Is.EqualTo(values[Language.Default.Culture]));
 		}
 
 		private static ILanguage CreateTestLanguage(int number)

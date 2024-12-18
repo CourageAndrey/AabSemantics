@@ -80,10 +80,10 @@ namespace AabSemantics.Tests.Metadata
 			var answerDefinitionT = Repositories.RegisterAnswer<BooleanAnswer>();
 
 			// assert
-			Assert.AreSame(attributeDefinition.Type, attributeDefinitionT.Type);
-			Assert.AreSame(statementDefinition.Type, statementDefinitionT.Type);
-			Assert.AreSame(questionDefinitionT.Type, questionDefinition.Type);
-			Assert.AreSame(answerDefinition.Type, answerDefinitionT.Type);
+			Assert.That(attributeDefinitionT.Type, Is.SameAs(attributeDefinition.Type));
+			Assert.That(statementDefinition.Type, Is.SameAs(statementDefinitionT.Type));
+			Assert.That(questionDefinitionT.Type, Is.SameAs(questionDefinition.Type));
+			Assert.That(answerDefinition.Type, Is.SameAs(answerDefinitionT.Type));
 		}
 	}
 }

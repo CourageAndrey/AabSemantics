@@ -58,9 +58,9 @@ namespace AabSemantics.Tests.Mutations
 			// act && assert
 			KnowledgeStructure knowledgeStructure = null;
 			Assert.DoesNotThrow(() => knowledgeStructure = new KnowledgeStructure(semanticNetwork, searchPattern, knowledge));
-			Assert.AreSame(semanticNetwork, knowledgeStructure.SemanticNetwork);
-			Assert.AreSame(searchPattern, knowledgeStructure.SearchPattern);
-			Assert.AreSame(knowledge, knowledgeStructure.Knowledge);
+			Assert.That(knowledgeStructure.SemanticNetwork, Is.SameAs(semanticNetwork));
+			Assert.That(knowledgeStructure.SearchPattern, Is.SameAs(searchPattern));
+			Assert.That(knowledgeStructure.Knowledge, Is.SameAs(knowledge));
 		}
 	}
 }

@@ -34,13 +34,13 @@ namespace AabSemantics.Tests.Statements
 			var test = new ParentChild<int>(10, root, children);
 
 			// assert
-			Assert.IsNull(root.Parent);
-			Assert.AreSame(test, root.Children.Single());
+			Assert.That(root.Parent, Is.Null);
+			Assert.That(root.Children.Single(), Is.SameAs(test));
 
-			Assert.AreSame(root, test.Parent);
-			Assert.IsTrue(test.Children.SequenceEqual(children));
+			Assert.That(test.Parent, Is.SameAs(root));
+			Assert.That(test.Children.SequenceEqual(children), Is.True);
 
-			Assert.IsTrue(children.All(child => child.Parent == test && child.Children.Count == 0));
+			Assert.That(children.All(child => child.Parent == test && child.Children.Count == 0), Is.True);
 		}
 
 		[Test]
@@ -48,13 +48,13 @@ namespace AabSemantics.Tests.Statements
 		{
 			foreach (string node in All)
 			{
-				Assert.AreEqual(0, Array.Empty<TestParentChild>().GetParentsOneLevel(node).Count);
-				Assert.AreEqual(0, Array.Empty<TestParentChild>().GetParentsAllLevels(node).Count);
+				Assert.That(Array.Empty<TestParentChild>().GetParentsOneLevel(node).Count, Is.EqualTo(0));
+				Assert.That(Array.Empty<TestParentChild>().GetParentsAllLevels(node).Count, Is.EqualTo(0));
 			}
 
 			var allRelationships = CreateTestSet();
-			Assert.AreEqual(0, allRelationships.GetParentsOneLevel("Absent").Count);
-			Assert.AreEqual(0, allRelationships.GetParentsAllLevels("Absent").Count);
+			Assert.That(allRelationships.GetParentsOneLevel("Absent").Count, Is.EqualTo(0));
+			Assert.That(allRelationships.GetParentsAllLevels("Absent").Count, Is.EqualTo(0));
 		}
 
 		[Test]
@@ -62,13 +62,13 @@ namespace AabSemantics.Tests.Statements
 		{
 			foreach (string node in All)
 			{
-				Assert.AreEqual(0, Array.Empty<TestParentChild>().GetChildrenOneLevel(node).Count);
-				Assert.AreEqual(0, Array.Empty<TestParentChild>().GetChildrenAllLevels(node).Count);
+				Assert.That(Array.Empty<TestParentChild>().GetChildrenOneLevel(node).Count, Is.EqualTo(0));
+				Assert.That(Array.Empty<TestParentChild>().GetChildrenAllLevels(node).Count, Is.EqualTo(0));
 			}
 
 			var allRelationships = CreateTestSet();
-			Assert.AreEqual(0, allRelationships.GetChildrenOneLevel("Absent").Count);
-			Assert.AreEqual(0, allRelationships.GetChildrenAllLevels("Absent").Count);
+			Assert.That(allRelationships.GetChildrenOneLevel("Absent").Count, Is.EqualTo(0));
+			Assert.That(allRelationships.GetChildrenAllLevels("Absent").Count, Is.EqualTo(0));
 		}
 
 		[Test]
@@ -77,38 +77,38 @@ namespace AabSemantics.Tests.Statements
 			var allRelationships = CreateTestSet();
 
 			var relationships = allRelationships.GetParentsOneLevel(Parent1);
-			Assert.AreEqual(0, relationships.Count);
+			Assert.That(relationships.Count, Is.EqualTo(0));
 
 			relationships = allRelationships.GetParentsOneLevel(Parent2);
-			Assert.AreEqual(0, relationships.Count);
+			Assert.That(relationships.Count, Is.EqualTo(0));
 
 			relationships = allRelationships.GetParentsOneLevel(Child1);
-			Assert.AreEqual(3, relationships.Count);
-			Assert.IsTrue(relationships.Contains(Medium1));
-			Assert.IsTrue(relationships.Contains(Medium2));
-			Assert.IsTrue(relationships.Contains(Single1));
+			Assert.That(relationships.Count, Is.EqualTo(3));
+			Assert.That(relationships.Contains(Medium1), Is.True);
+			Assert.That(relationships.Contains(Medium2), Is.True);
+			Assert.That(relationships.Contains(Single1), Is.True);
 
 			relationships = allRelationships.GetParentsOneLevel(Child2);
-			Assert.AreEqual(3, relationships.Count);
-			Assert.IsTrue(relationships.Contains(Medium1));
-			Assert.IsTrue(relationships.Contains(Medium2));
-			Assert.IsTrue(relationships.Contains(Single2));
+			Assert.That(relationships.Count, Is.EqualTo(3));
+			Assert.That(relationships.Contains(Medium1), Is.True);
+			Assert.That(relationships.Contains(Medium2), Is.True);
+			Assert.That(relationships.Contains(Single2), Is.True);
 
 			relationships = allRelationships.GetParentsOneLevel(Medium1);
-			Assert.AreEqual(2, relationships.Count);
-			Assert.IsTrue(relationships.Contains(Parent1));
-			Assert.IsTrue(relationships.Contains(Parent2));
+			Assert.That(relationships.Count, Is.EqualTo(2));
+			Assert.That(relationships.Contains(Parent1), Is.True);
+			Assert.That(relationships.Contains(Parent2), Is.True);
 
 			relationships = allRelationships.GetParentsOneLevel(Medium2);
-			Assert.AreEqual(2, relationships.Count);
-			Assert.IsTrue(relationships.Contains(Parent1));
-			Assert.IsTrue(relationships.Contains(Parent2));
+			Assert.That(relationships.Count, Is.EqualTo(2));
+			Assert.That(relationships.Contains(Parent1), Is.True);
+			Assert.That(relationships.Contains(Parent2), Is.True);
 
 			relationships = allRelationships.GetParentsOneLevel(Single1);
-			Assert.AreEqual(Parent1, relationships.Single());
+			Assert.That(relationships.Single(), Is.EqualTo(Parent1));
 
 			relationships = allRelationships.GetParentsOneLevel(Single2);
-			Assert.AreEqual(Parent2, relationships.Single());
+			Assert.That(relationships.Single(), Is.EqualTo(Parent2));
 		}
 
 		[Test]
@@ -117,38 +117,38 @@ namespace AabSemantics.Tests.Statements
 			var allRelationships = CreateTestSet();
 
 			var relationships = allRelationships.GetChildrenOneLevel(Parent1);
-			Assert.AreEqual(3, relationships.Count);
-			Assert.IsTrue(relationships.Contains(Medium1));
-			Assert.IsTrue(relationships.Contains(Medium2));
-			Assert.IsTrue(relationships.Contains(Single1));
+			Assert.That(relationships.Count, Is.EqualTo(3));
+			Assert.That(relationships.Contains(Medium1), Is.True);
+			Assert.That(relationships.Contains(Medium2), Is.True);
+			Assert.That(relationships.Contains(Single1), Is.True);
 
 			relationships = allRelationships.GetChildrenOneLevel(Parent2);
-			Assert.AreEqual(3, relationships.Count);
-			Assert.IsTrue(relationships.Contains(Medium1));
-			Assert.IsTrue(relationships.Contains(Medium2));
-			Assert.IsTrue(relationships.Contains(Single2));
+			Assert.That(relationships.Count, Is.EqualTo(3));
+			Assert.That(relationships.Contains(Medium1), Is.True);
+			Assert.That(relationships.Contains(Medium2), Is.True);
+			Assert.That(relationships.Contains(Single2), Is.True);
 
 			relationships = allRelationships.GetChildrenOneLevel(Child1);
-			Assert.AreEqual(0, relationships.Count);
+			Assert.That(relationships.Count, Is.EqualTo(0));
 
 			relationships = allRelationships.GetChildrenOneLevel(Child2);
-			Assert.AreEqual(0, relationships.Count);
+			Assert.That(relationships.Count, Is.EqualTo(0));
 
 			relationships = allRelationships.GetChildrenOneLevel(Medium1);
-			Assert.AreEqual(2, relationships.Count);
-			Assert.IsTrue(relationships.Contains(Child1));
-			Assert.IsTrue(relationships.Contains(Child2));
+			Assert.That(relationships.Count, Is.EqualTo(2));
+			Assert.That(relationships.Contains(Child1), Is.True);
+			Assert.That(relationships.Contains(Child2), Is.True);
 
 			relationships = allRelationships.GetChildrenOneLevel(Medium2);
-			Assert.AreEqual(2, relationships.Count);
-			Assert.IsTrue(relationships.Contains(Child1));
-			Assert.IsTrue(relationships.Contains(Child2));
+			Assert.That(relationships.Count, Is.EqualTo(2));
+			Assert.That(relationships.Contains(Child1), Is.True);
+			Assert.That(relationships.Contains(Child2), Is.True);
 
 			relationships = allRelationships.GetChildrenOneLevel(Single1);
-			Assert.AreEqual(Child1, relationships.Single());
+			Assert.That(relationships.Single(), Is.EqualTo(Child1));
 
 			relationships = allRelationships.GetChildrenOneLevel(Single2);
-			Assert.AreEqual(Child2, relationships.Single());
+			Assert.That(relationships.Single(), Is.EqualTo(Child2));
 		}
 
 		[Test]
@@ -157,42 +157,42 @@ namespace AabSemantics.Tests.Statements
 			var allRelationships = CreateTestSet();
 
 			var relationships = allRelationships.GetParentsAllLevels(Parent1);
-			Assert.AreEqual(0, relationships.Count);
+			Assert.That(relationships.Count, Is.EqualTo(0));
 
 			relationships = allRelationships.GetParentsAllLevels(Parent2);
-			Assert.AreEqual(0, relationships.Count);
+			Assert.That(relationships.Count, Is.EqualTo(0));
 
 			relationships = allRelationships.GetParentsAllLevels(Child1);
-			Assert.AreEqual(5, relationships.Count);
-			Assert.IsTrue(relationships.Contains(Parent1));
-			Assert.IsTrue(relationships.Contains(Parent2));
-			Assert.IsTrue(relationships.Contains(Medium1));
-			Assert.IsTrue(relationships.Contains(Medium2));
-			Assert.IsTrue(relationships.Contains(Single1));
+			Assert.That(relationships.Count, Is.EqualTo(5));
+			Assert.That(relationships.Contains(Parent1), Is.True);
+			Assert.That(relationships.Contains(Parent2), Is.True);
+			Assert.That(relationships.Contains(Medium1), Is.True);
+			Assert.That(relationships.Contains(Medium2), Is.True);
+			Assert.That(relationships.Contains(Single1), Is.True);
 
 			relationships = allRelationships.GetParentsAllLevels(Child2);
-			Assert.AreEqual(5, relationships.Count);
-			Assert.IsTrue(relationships.Contains(Parent1));
-			Assert.IsTrue(relationships.Contains(Parent2));
-			Assert.IsTrue(relationships.Contains(Medium1));
-			Assert.IsTrue(relationships.Contains(Medium2));
-			Assert.IsTrue(relationships.Contains(Single2));
+			Assert.That(relationships.Count, Is.EqualTo(5));
+			Assert.That(relationships.Contains(Parent1), Is.True);
+			Assert.That(relationships.Contains(Parent2), Is.True);
+			Assert.That(relationships.Contains(Medium1), Is.True);
+			Assert.That(relationships.Contains(Medium2), Is.True);
+			Assert.That(relationships.Contains(Single2), Is.True);
 
 			relationships = allRelationships.GetParentsAllLevels(Medium1);
-			Assert.AreEqual(2, relationships.Count);
-			Assert.IsTrue(relationships.Contains(Parent1));
-			Assert.IsTrue(relationships.Contains(Parent2));
+			Assert.That(relationships.Count, Is.EqualTo(2));
+			Assert.That(relationships.Contains(Parent1), Is.True);
+			Assert.That(relationships.Contains(Parent2), Is.True);
 
 			relationships = allRelationships.GetParentsAllLevels(Medium2);
-			Assert.AreEqual(2, relationships.Count);
-			Assert.IsTrue(relationships.Contains(Parent1));
-			Assert.IsTrue(relationships.Contains(Parent2));
+			Assert.That(relationships.Count, Is.EqualTo(2));
+			Assert.That(relationships.Contains(Parent1), Is.True);
+			Assert.That(relationships.Contains(Parent2), Is.True);
 
 			relationships = allRelationships.GetParentsAllLevels(Single1);
-			Assert.AreEqual(Parent1, relationships.Single());
+			Assert.That(relationships.Single(), Is.EqualTo(Parent1));
 
 			relationships = allRelationships.GetParentsAllLevels(Single2);
-			Assert.AreEqual(Parent2, relationships.Single());
+			Assert.That(relationships.Single(), Is.EqualTo(Parent2));
 		}
 
 		[Test]
@@ -201,42 +201,42 @@ namespace AabSemantics.Tests.Statements
 			var allRelationships = CreateTestSet();
 
 			var relationships = allRelationships.GetChildrenAllLevels(Parent1);
-			Assert.AreEqual(5, relationships.Count);
-			Assert.IsTrue(relationships.Contains(Medium1));
-			Assert.IsTrue(relationships.Contains(Medium2));
-			Assert.IsTrue(relationships.Contains(Single1));
-			Assert.IsTrue(relationships.Contains(Child1));
-			Assert.IsTrue(relationships.Contains(Child2));
+			Assert.That(relationships.Count, Is.EqualTo(5));
+			Assert.That(relationships.Contains(Medium1), Is.True);
+			Assert.That(relationships.Contains(Medium2), Is.True);
+			Assert.That(relationships.Contains(Single1), Is.True);
+			Assert.That(relationships.Contains(Child1), Is.True);
+			Assert.That(relationships.Contains(Child2), Is.True);
 
 			relationships = allRelationships.GetChildrenAllLevels(Parent2);
-			Assert.AreEqual(5, relationships.Count);
-			Assert.IsTrue(relationships.Contains(Medium1));
-			Assert.IsTrue(relationships.Contains(Medium2));
-			Assert.IsTrue(relationships.Contains(Single2));
-			Assert.IsTrue(relationships.Contains(Child1));
-			Assert.IsTrue(relationships.Contains(Child2));
+			Assert.That(relationships.Count, Is.EqualTo(5));
+			Assert.That(relationships.Contains(Medium1), Is.True);
+			Assert.That(relationships.Contains(Medium2), Is.True);
+			Assert.That(relationships.Contains(Single2), Is.True);
+			Assert.That(relationships.Contains(Child1), Is.True);
+			Assert.That(relationships.Contains(Child2), Is.True);
 
 			relationships = allRelationships.GetChildrenAllLevels(Child1);
-			Assert.AreEqual(0, relationships.Count);
+			Assert.That(relationships.Count, Is.EqualTo(0));
 
 			relationships = allRelationships.GetChildrenAllLevels(Child2);
-			Assert.AreEqual(0, relationships.Count);
+			Assert.That(relationships.Count, Is.EqualTo(0));
 
 			relationships = allRelationships.GetChildrenAllLevels(Medium1);
-			Assert.AreEqual(2, relationships.Count);
-			Assert.IsTrue(relationships.Contains(Child1));
-			Assert.IsTrue(relationships.Contains(Child2));
+			Assert.That(relationships.Count, Is.EqualTo(2));
+			Assert.That(relationships.Contains(Child1), Is.True);
+			Assert.That(relationships.Contains(Child2), Is.True);
 
 			relationships = allRelationships.GetChildrenAllLevels(Medium2);
-			Assert.AreEqual(2, relationships.Count);
-			Assert.IsTrue(relationships.Contains(Child1));
-			Assert.IsTrue(relationships.Contains(Child2));
+			Assert.That(relationships.Count, Is.EqualTo(2));
+			Assert.That(relationships.Contains(Child1), Is.True);
+			Assert.That(relationships.Contains(Child2), Is.True);
 
 			relationships = allRelationships.GetChildrenAllLevels(Single1);
-			Assert.AreEqual(Child1, relationships.Single());
+			Assert.That(relationships.Single(), Is.EqualTo(Child1));
 
 			relationships = allRelationships.GetChildrenAllLevels(Single2);
-			Assert.AreEqual(Child2, relationships.Single());
+			Assert.That(relationships.Single(), Is.EqualTo(Child2));
 		}
 
 		[Test]
@@ -251,7 +251,7 @@ namespace AabSemantics.Tests.Statements
 				relationshipsLoop1.GetParentsAllLevels(x),
 			})
 			{
-				Assert.AreEqual(x, list1.Single());
+				Assert.That(list1.Single(), Is.EqualTo(x));
 			}
 
 			// 2 variables loop
@@ -263,9 +263,9 @@ namespace AabSemantics.Tests.Statements
 				relationshipsLoop2.GetParentsAllLevels(x),
 			})
 			{
-				Assert.AreEqual(2, list2.Count);
-				Assert.AreEqual(y, list2[0]);
-				Assert.AreEqual(x, list2[1]);
+				Assert.That(list2.Count, Is.EqualTo(2));
+				Assert.That(list2[0], Is.EqualTo(y));
+				Assert.That(list2[1], Is.EqualTo(x));
 			}
 			foreach (var list2 in new[]
 			{
@@ -273,44 +273,44 @@ namespace AabSemantics.Tests.Statements
 				relationshipsLoop2.GetParentsAllLevels(y),
 			})
 			{
-				Assert.AreEqual(2, list2.Count);
-				Assert.AreEqual(x, list2[0]);
-				Assert.AreEqual(y, list2[1]);
+				Assert.That(list2.Count, Is.EqualTo(2));
+				Assert.That(list2[0], Is.EqualTo(x));
+				Assert.That(list2[1], Is.EqualTo(y));
 			}
 
 			// 3 variables loop
 			const string z = "z";
 			var relationshipsLoop3 = new[] { new TestParentChild(x, y), new TestParentChild(y, z), new TestParentChild(z, x) };
 			var list3 = relationshipsLoop3.GetChildrenAllLevels(x);
-			Assert.AreEqual(3, list3.Count);
-			Assert.AreEqual(y, list3[0]);
-			Assert.AreEqual(z, list3[1]);
-			Assert.AreEqual(x, list3[2]);
+			Assert.That(list3.Count, Is.EqualTo(3));
+			Assert.That(list3[0], Is.EqualTo(y));
+			Assert.That(list3[1], Is.EqualTo(z));
+			Assert.That(list3[2], Is.EqualTo(x));
 			list3 = relationshipsLoop3.GetParentsAllLevels(x);
-			Assert.AreEqual(3, list3.Count);
-			Assert.AreEqual(z, list3[0]);
-			Assert.AreEqual(y, list3[1]);
-			Assert.AreEqual(x, list3[2]);
+			Assert.That(list3.Count, Is.EqualTo(3));
+			Assert.That(list3[0], Is.EqualTo(z));
+			Assert.That(list3[1], Is.EqualTo(y));
+			Assert.That(list3[2], Is.EqualTo(x));
 			list3 = relationshipsLoop3.GetChildrenAllLevels(y);
-			Assert.AreEqual(3, list3.Count);
-			Assert.AreEqual(z, list3[0]);
-			Assert.AreEqual(x, list3[1]);
-			Assert.AreEqual(y, list3[2]);
+			Assert.That(list3.Count, Is.EqualTo(3));
+			Assert.That(list3[0], Is.EqualTo(z));
+			Assert.That(list3[1], Is.EqualTo(x));
+			Assert.That(list3[2], Is.EqualTo(y));
 			list3 = relationshipsLoop3.GetParentsAllLevels(y);
-			Assert.AreEqual(3, list3.Count);
-			Assert.AreEqual(x, list3[0]);
-			Assert.AreEqual(z, list3[1]);
-			Assert.AreEqual(y, list3[2]);
+			Assert.That(list3.Count, Is.EqualTo(3));
+			Assert.That(list3[0], Is.EqualTo(x));
+			Assert.That(list3[1], Is.EqualTo(z));
+			Assert.That(list3[2], Is.EqualTo(y));
 			list3 = relationshipsLoop3.GetChildrenAllLevels(z);
-			Assert.AreEqual(3, list3.Count);
-			Assert.AreEqual(x, list3[0]);
-			Assert.AreEqual(y, list3[1]);
-			Assert.AreEqual(z, list3[2]);
+			Assert.That(list3.Count, Is.EqualTo(3));
+			Assert.That(list3[0], Is.EqualTo(x));
+			Assert.That(list3[1], Is.EqualTo(y));
+			Assert.That(list3[2], Is.EqualTo(z));
 			list3 = relationshipsLoop3.GetParentsAllLevels(z);
-			Assert.AreEqual(3, list3.Count);
-			Assert.AreEqual(y, list3[0]);
-			Assert.AreEqual(x, list3[1]);
-			Assert.AreEqual(z, list3[2]);
+			Assert.That(list3.Count, Is.EqualTo(3));
+			Assert.That(list3[0], Is.EqualTo(y));
+			Assert.That(list3[1], Is.EqualTo(x));
+			Assert.That(list3[2], Is.EqualTo(z));
 		}
 
 		[Test]
@@ -320,15 +320,15 @@ namespace AabSemantics.Tests.Statements
 			var explanation = new List<TestParentChild>();
 
 			allRelationships.GetParentsAllLevels(Child1, explanation);
-			Assert.AreEqual(8, explanation.Count);
-			Assert.IsTrue(explanation.Any(relationship => relationship.Parent == Medium1 && relationship.Child == Child1));
-			Assert.IsTrue(explanation.Any(relationship => relationship.Parent == Medium2 && relationship.Child == Child1));
-			Assert.IsTrue(explanation.Any(relationship => relationship.Parent == Single1 && relationship.Child == Child1));
-			Assert.IsTrue(explanation.Any(relationship => relationship.Parent == Parent1 && relationship.Child == Medium1));
-			Assert.IsTrue(explanation.Any(relationship => relationship.Parent == Parent2 && relationship.Child == Medium1));
-			Assert.IsTrue(explanation.Any(relationship => relationship.Parent == Parent1 && relationship.Child == Medium2));
-			Assert.IsTrue(explanation.Any(relationship => relationship.Parent == Parent2 && relationship.Child == Medium2));
-			Assert.IsTrue(explanation.Any(relationship => relationship.Parent == Parent1 && relationship.Child == Single1));
+			Assert.That(explanation.Count, Is.EqualTo(8));
+			Assert.That(explanation.Any(relationship => relationship.Parent == Medium1 && relationship.Child == Child1), Is.True);
+			Assert.That(explanation.Any(relationship => relationship.Parent == Medium2 && relationship.Child == Child1), Is.True);
+			Assert.That(explanation.Any(relationship => relationship.Parent == Single1 && relationship.Child == Child1), Is.True);
+			Assert.That(explanation.Any(relationship => relationship.Parent == Parent1 && relationship.Child == Medium1), Is.True);
+			Assert.That(explanation.Any(relationship => relationship.Parent == Parent2 && relationship.Child == Medium1), Is.True);
+			Assert.That(explanation.Any(relationship => relationship.Parent == Parent1 && relationship.Child == Medium2), Is.True);
+			Assert.That(explanation.Any(relationship => relationship.Parent == Parent2 && relationship.Child == Medium2), Is.True);
+			Assert.That(explanation.Any(relationship => relationship.Parent == Parent1 && relationship.Child == Single1), Is.True);
 		}
 
 		[Test]
@@ -365,22 +365,22 @@ namespace AabSemantics.Tests.Statements
 			};
 
 			// valid direct paths
-			Assert.IsTrue(statements.FindPath<IConcept>(typeof(TestPath), parent1, child1).Any());
-			Assert.IsTrue(statements.FindPath<IConcept>(typeof(TestPath), parent2, child2).Any());
+			Assert.That(statements.FindPath<IConcept>(typeof(TestPath), parent1, child1).Any(), Is.True);
+			Assert.That(statements.FindPath<IConcept>(typeof(TestPath), parent2, child2).Any(), Is.True);
 			// invalid direct paths
-			Assert.IsFalse(statements.FindPath<IConcept>(typeof(TestPath), parent1, child2).Any());
-			Assert.IsFalse(statements.FindPath<IConcept>(typeof(TestPath), parent2, child1).Any());
+			Assert.That(statements.FindPath<IConcept>(typeof(TestPath), parent1, child2).Any(), Is.False);
+			Assert.That(statements.FindPath<IConcept>(typeof(TestPath), parent2, child1).Any(), Is.False);
 			// invalid reverted paths
-			Assert.IsFalse(statements.FindPath<IConcept>(typeof(TestPath), child1, parent1).Any());
-			Assert.IsFalse(statements.FindPath<IConcept>(typeof(TestPath), child2, parent2).Any());
-			Assert.IsFalse(statements.FindPath<IConcept>(typeof(TestPath), child1, parent2).Any());
-			Assert.IsFalse(statements.FindPath<IConcept>(typeof(TestPath), child2, parent1).Any());
+			Assert.That(statements.FindPath<IConcept>(typeof(TestPath), child1, parent1).Any(), Is.False);
+			Assert.That(statements.FindPath<IConcept>(typeof(TestPath), child2, parent2).Any(), Is.False);
+			Assert.That(statements.FindPath<IConcept>(typeof(TestPath), child1, parent2).Any(), Is.False);
+			Assert.That(statements.FindPath<IConcept>(typeof(TestPath), child2, parent1).Any(), Is.False);
 			// other type path
-			Assert.IsFalse(statements.FindPath<IConcept>(typeof(TestPath), parentNoConnection, childNoConnection).Any());
-			Assert.IsTrue(statements.FindPath<IConcept>(typeof(IsStatement), parentNoConnection, childNoConnection).Any());
+			Assert.That(statements.FindPath<IConcept>(typeof(TestPath), parentNoConnection, childNoConnection).Any(), Is.False);
+			Assert.That(statements.FindPath<IConcept>(typeof(IsStatement), parentNoConnection, childNoConnection).Any(), Is.True);
 			// 2 paths
-			Assert.IsTrue(statements.FindPath<IConcept>(typeof(TestPath), parent2Path, child2Path).Any());
-			Assert.IsFalse(statements.FindPath<IConcept>(typeof(TestPath), child2Path, parent2Path).Any());
+			Assert.That(statements.FindPath<IConcept>(typeof(TestPath), parent2Path, child2Path).Any(), Is.True);
+			Assert.That(statements.FindPath<IConcept>(typeof(TestPath), child2Path, parent2Path).Any(), Is.False);
 		}
 
 		[Test]
@@ -419,10 +419,10 @@ namespace AabSemantics.Tests.Statements
 
 			foreach (var statements in new[] { statementsValid1, statementsValid2, statementsValid3, statementsValid4 })
 			{
-				Assert.IsTrue(statements.FindPath<IConcept>(typeof(TestPath), a, a).Any());
+				Assert.That(statements.FindPath<IConcept>(typeof(TestPath), a, a).Any(), Is.True);
 			}
 
-			Assert.IsFalse(statementsInvalid.FindPath<IConcept>(typeof(TestPath), a, a).Any());
+			Assert.That(statementsInvalid.FindPath<IConcept>(typeof(TestPath), a, a).Any(), Is.False);
 		}
 
 		[Test]
@@ -488,39 +488,39 @@ namespace AabSemantics.Tests.Statements
 			var resultTree = statements.GetChildrenTree(concept11, involvedStatements);
 
 			// assert
-			Assert.IsNotNull(resultTree);
-			Assert.AreSame(concept11, resultTree.Value);
-			Assert.AreEqual(3, resultTree.Children.Count);
+			Assert.That(resultTree, Is.Not.Null);
+			Assert.That(resultTree.Value, Is.SameAs(concept11));
+			Assert.That(resultTree.Children.Count, Is.EqualTo(3));
 
 			var result111 = resultTree.Children.Single(node => node.Value == concept111);
-			Assert.AreSame(concept111, result111.Value);
+			Assert.That(result111.Value, Is.SameAs(concept111));
 			var result112 = resultTree.Children.Single(node => node.Value == concept112);
-			Assert.AreSame(concept112, result112.Value);
+			Assert.That(result112.Value, Is.SameAs(concept112));
 			var result113 = resultTree.Children.Single(node => node.Value == concept113);
-			Assert.AreSame(concept113, result113.Value);
+			Assert.That(result113.Value, Is.SameAs(concept113));
 
 			var result1111 = result111.Children.Single(node => node.Value == concept1111);
-			Assert.AreSame(concept1111, result1111.Value);
+			Assert.That(result1111.Value, Is.SameAs(concept1111));
 			var result1112 = result111.Children.Single(node => node.Value == concept1112);
-			Assert.AreSame(concept1112, result1112.Value);
+			Assert.That( result1112.Value, Is.SameAs(concept1112));
 			var result1113 = result111.Children.Single(node => node.Value == concept1113);
-			Assert.AreSame(concept1113, result1113.Value);
+			Assert.That(result1113.Value, Is.SameAs(concept1113));
 
 			var result1121 = result112.Children.Single(node => node.Value == concept1121);
-			Assert.AreSame(concept1121, result1121.Value);
+			Assert.That(result1121.Value, Is.SameAs(concept1121));
 			var result1122 = result112.Children.Single(node => node.Value == concept1122);
-			Assert.AreSame(concept1122, result1122.Value);
+			Assert.That(result1122.Value, Is.SameAs(concept1122));
 			var result1123 = result112.Children.Single(node => node.Value == concept1123);
-			Assert.AreSame(concept1123, result1123.Value);
+			Assert.That(result1123.Value, Is.SameAs(concept1123));
 
 			var result1131 = result113.Children.Single(node => node.Value == concept1131);
-			Assert.AreSame(concept1131, result1131.Value);
+			Assert.That(result1131.Value, Is.SameAs(concept1131));
 			var result1132 = result113.Children.Single(node => node.Value == concept1132);
-			Assert.AreSame(concept1132, result1132.Value);
+			Assert.That(result1132.Value, Is.SameAs(concept1132));
 			var result1133 = result113.Children.Single(node => node.Value == concept1133);
-			Assert.AreSame(concept1133, result1133.Value);
+			Assert.That(result1133.Value, Is.SameAs(concept1133));
 
-			Assert.AreEqual(statements.Count - 3 - 6, involvedStatements.Count);
+			Assert.That(involvedStatements.Count, Is.EqualTo(statements.Count - 3 - 6));
 		}
 
 		[Test]
@@ -535,13 +535,13 @@ namespace AabSemantics.Tests.Statements
 			var bears = semanticNetwork.Statements.GetChildrenOneLevel<IConcept, IsStatement>(semanticNetwork.Concepts["Genus: Ursus"]).Select(concept => concept.ID).ToList();
 
 			// assert
-			Assert.AreEqual("Phylum: Chordata", animals.Single());
+			Assert.That(animals.Single(), Is.EqualTo("Phylum: Chordata"));
 
-			Assert.AreEqual(4, bears.Count);
-			Assert.IsTrue(bears.Contains("Ursus americanus"));
-			Assert.IsTrue(bears.Contains("Ursus arctos"));
-			Assert.IsTrue(bears.Contains("Ursus maritimus"));
-			Assert.IsTrue(bears.Contains("Ursus thibetanuss"));
+			Assert.That(bears.Count, Is.EqualTo(4));
+			Assert.That(bears.Contains("Ursus americanus"), Is.True);
+			Assert.That(bears.Contains("Ursus arctos"), Is.True);
+			Assert.That(bears.Contains("Ursus maritimus"), Is.True);
+			Assert.That(bears.Contains("Ursus thibetanuss"), Is.True);
 		}
 
 		[Test]
@@ -557,17 +557,17 @@ namespace AabSemantics.Tests.Statements
 			var bears = semanticNetwork.Statements.GetChildrenAllLevels<IConcept, IsStatement>(semanticNetwork.Concepts["Genus: Ursus"]).Select(concept => concept.ID).ToList();
 
 			// assert
-			Assert.AreEqual(semanticNetwork.Concepts.Count - ignoredConcepts.Length, animals.Count);
+			Assert.That(animals.Count, Is.EqualTo(semanticNetwork.Concepts.Count - ignoredConcepts.Length));
 			foreach (var animal in semanticNetwork.Concepts.Except(ignoredConcepts))
 			{
-				Assert.IsTrue(animals.Contains(animal.ID));
+				Assert.That(animals.Contains(animal.ID), Is.True);
 			}
 
-			Assert.AreEqual(4, bears.Count);
-			Assert.IsTrue(bears.Contains("Ursus americanus"));
-			Assert.IsTrue(bears.Contains("Ursus arctos"));
-			Assert.IsTrue(bears.Contains("Ursus maritimus"));
-			Assert.IsTrue(bears.Contains("Ursus thibetanuss"));
+			Assert.That(bears.Count, Is.EqualTo(4));
+			Assert.That(bears.Contains("Ursus americanus"), Is.True);
+			Assert.That(bears.Contains("Ursus arctos"), Is.True);
+			Assert.That(bears.Contains("Ursus maritimus"), Is.True);
+			Assert.That(bears.Contains("Ursus thibetanuss"), Is.True);
 		}
 
 		private static ISemanticNetwork CreateBearsSample()

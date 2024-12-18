@@ -17,7 +17,7 @@ namespace AabSemantics.Tests.Concepts
 			concept.UpdateIdIfAllowed("Modified_ID");
 
 			// assert
-			Assert.AreEqual("Modified_ID", concept.ID);
+			Assert.That(concept.ID, Is.EqualTo("Modified_ID"));
 		}
 
 		[Test]
@@ -30,8 +30,8 @@ namespace AabSemantics.Tests.Concepts
 			concept.UpdateIdIfAllowed(string.Empty);
 
 			// assert
-			Assert.IsFalse(string.IsNullOrEmpty(concept.ID));
-			Assert.AreNotEqual("Initial_ID", concept.ID);
+			Assert.That(string.IsNullOrEmpty(concept.ID), Is.False);
+			Assert.That(concept.ID, Is.Not.EqualTo("Initial_ID"));
 		}
 
 		[Test]
@@ -44,8 +44,8 @@ namespace AabSemantics.Tests.Concepts
 			concept.UpdateIdIfAllowed(null);
 
 			// assert
-			Assert.IsFalse(string.IsNullOrEmpty(concept.ID));
-			Assert.AreNotEqual("Initial_ID", concept.ID);
+			Assert.That(string.IsNullOrEmpty(concept.ID), Is.False);
+			Assert.That(concept.ID, Is.Not.EqualTo("Initial_ID"));
 		}
 	}
 }

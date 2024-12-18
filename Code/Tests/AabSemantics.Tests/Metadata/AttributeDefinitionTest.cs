@@ -69,7 +69,7 @@ namespace AabSemantics.Tests.Metadata
 			string name = definition.GetName(Language.Default);
 
 			// assert
-			Assert.AreEqual(Language.Default.Culture, name);
+			Assert.That(name, Is.EqualTo(Language.Default.Culture));
 		}
 
 		[Test]
@@ -79,7 +79,7 @@ namespace AabSemantics.Tests.Metadata
 			var language = Language.Default;
 
 			// act & assert
-			Assert.AreEqual(language.Attributes.None, AttributeDefinition.None.GetName(language));
+			Assert.That(AttributeDefinition.None.GetName(language), Is.EqualTo(language.Attributes.None));
 		}
 
 		[Test]
@@ -106,9 +106,9 @@ namespace AabSemantics.Tests.Metadata
 			var attribute = new AttributeDefinition(type, value, nameGetter);
 
 			// assert
-			Assert.AreSame(type, attribute.Type);
-			Assert.AreSame(value, attribute.Value);
-			Assert.AreEqual(_attributeName, attribute.GetName(null));
+			Assert.That(attribute.Type, Is.SameAs(type));
+			Assert.That(attribute.Value, Is.SameAs(value));
+			Assert.That(attribute.GetName(null), Is.EqualTo(_attributeName));
 		}
 
 		[Test]
@@ -123,9 +123,9 @@ namespace AabSemantics.Tests.Metadata
 			var attribute = new AttributeDefinition(type, value, nameGetter);
 
 			// assert
-			Assert.AreSame(type, attribute.Type);
-			Assert.AreSame(value, attribute.Value);
-			Assert.AreEqual(_attributeName, attribute.GetName(null));
+			Assert.That(attribute.Type, Is.SameAs(type));
+			Assert.That(attribute.Value, Is.SameAs(value));
+			Assert.That(attribute.GetName(null), Is.EqualTo(_attributeName));
 		}
 
 		private const string _attributeName = "TeStAtTrIbUtE";

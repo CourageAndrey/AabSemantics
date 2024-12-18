@@ -46,8 +46,8 @@ namespace AabSemantics.Modules.Processes.Tests.Statements
 			statementDefinition.CheckConsistency(semanticNetwork, result);
 
 			// assert
-			Assert.Greater(result.Items.Count, 0);
-			Assert.IsTrue(result.Items.Any(line => line.ToString().StartsWith("Impossible to detect sequence between ")));
+			Assert.That(result.Items.Count, Is.GreaterThan(0));
+			Assert.That(result.Items.Any(line => line.ToString().StartsWith("Impossible to detect sequence between ")), Is.True);
 		}
 
 		[Test]
@@ -72,7 +72,7 @@ namespace AabSemantics.Modules.Processes.Tests.Statements
 			statementDefinition.CheckConsistency(semanticNetwork, result);
 
 			// assert
-			Assert.AreEqual(0, result.Items.Count);
+			Assert.That(result.Items.Count, Is.EqualTo(0));
 		}
 	}
 }

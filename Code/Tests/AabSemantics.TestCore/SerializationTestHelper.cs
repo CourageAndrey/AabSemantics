@@ -40,7 +40,7 @@ namespace AabSemantics.TestCore
 			var restored = snapshotToItem(restoredSnapshot);
 
 			// assert
-			Assert.AreSame(item.GetType(), restored.GetType());
+			Assert.That(restored.GetType(), Is.SameAs(item.GetType()));
 			foreach (var property in propertiesToCompare)
 			{
 				property.AssertEqual(item, restored);
@@ -62,24 +62,24 @@ namespace AabSemantics.TestCore
 
 			if (propertyType == typeof(bool))
 			{
-				Assert.AreEqual(leftValue, rightValue);
+				Assert.That(leftValue, Is.EqualTo(rightValue));
 			}
 			else if (typeof(IConcept).IsAssignableFrom(propertyType) ||
 					typeof(IStatement).IsAssignableFrom(propertyType))
 			{
-				Assert.AreSame(leftValue, rightValue);
+				Assert.That(leftValue, Is.SameAs(rightValue));
 			}
 			else if (typeof(IEnumerable<IConcept>).IsAssignableFrom(propertyType))
 			{
 				var leftCollection = (IEnumerable<IConcept>) leftValue;
 				var rightCollection = (IEnumerable<IConcept>) rightValue;
-				Assert.IsTrue(leftCollection.SequenceEqual(rightCollection));
+				Assert.That(leftCollection.SequenceEqual(rightCollection), Is.True);
 			}
 			else if (typeof(IEnumerable<IStatement>).IsAssignableFrom(propertyType))
 			{
 				var leftCollection = (IEnumerable<IStatement>) leftValue;
 				var rightCollection = (IEnumerable<IStatement>) rightValue;
-				Assert.IsTrue(leftCollection.SequenceEqual(rightCollection));
+				Assert.That(leftCollection.SequenceEqual(rightCollection), Is.True);
 			}
 			else if (typeof(IText).IsAssignableFrom(propertyType))
 			{
@@ -87,7 +87,7 @@ namespace AabSemantics.TestCore
 				var rightText = (IText) rightValue;
 				var leftString = _textRender.RenderText(leftText, _language).ToString();
 				var rightString = _textRender.RenderText(rightText, _language).ToString();
-				Assert.AreEqual(leftString, rightString);
+				Assert.That(leftString, Is.EqualTo(rightString));
 			}
 			else
 			{
