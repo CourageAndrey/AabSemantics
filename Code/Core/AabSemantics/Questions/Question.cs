@@ -32,7 +32,7 @@ namespace AabSemantics.Questions
 	{
 		public static StatementQuestionProcessor<QuestionT, StatementT> From<QuestionT, StatementT>(this IQuestionProcessingContext context)
 			where QuestionT : IQuestion
-			where StatementT : IStatement
+			where StatementT : class, IStatement
 		{
 			return new StatementQuestionProcessor<QuestionT, StatementT>(context);
 		}

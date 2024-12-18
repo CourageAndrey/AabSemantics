@@ -5,6 +5,7 @@ namespace AabSemantics.Utils
 	public static class Validation
 	{
 		public static T EnsureNotNull<T>(this T parameter, String parameterName)
+			where T : class
 		{
 			if (parameter == null)
 			{

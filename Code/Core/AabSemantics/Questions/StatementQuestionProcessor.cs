@@ -10,7 +10,7 @@ namespace AabSemantics.Questions
 {
 	public class StatementQuestionProcessor<QuestionT, StatementT>
 		where QuestionT : IQuestion
-		where StatementT : IStatement
+		where StatementT : class, IStatement
 	{
 		#region Properties
 
