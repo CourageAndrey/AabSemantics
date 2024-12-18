@@ -75,7 +75,7 @@ namespace AabSemantics
 
 				propertyPath = pathParts[0].Split('.');
 			}
-			else if (pathParts.Length >= 2)
+			else // if (pathParts.Length >= 2) because this expression is always true (zero is impossible)
 			{
 				String moduleName = pathParts[0];
 				languageObject = language.Extensions.FirstOrDefault(e => e.GetType().Name == $"Language{moduleName}Module");
