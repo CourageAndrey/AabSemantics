@@ -49,4 +49,20 @@
     <CodeCurrent>532420</CodeCurrent>
     <CodeNext>184721480</CodeNext>
   </AabSemantics.Sample07.CustomModule>
+  <AabSemantics.Sample07.CustomModule>
+    <FileName>Program.cs</FileName>
+    <ErrorCode>V3137</ErrorCode>
+    <Message>The 'correct' variable is assigned but is not used by the end of the function.</Message>
+    <CodePrev>4219034611</CodePrev>
+    <CodeCurrent>3995451205</CodeCurrent>
+    <CodeNext>4193751289</CodeNext>
+  </AabSemantics.Sample07.CustomModule>
+  <AabSemantics.Sample07.CustomModule>
+    <FileName>Program.cs</FileName>
+    <ErrorCode>V3137</ErrorCode>
+    <Message>The 'wrong' variable is assigned but is not used by the end of the function.</Message>
+    <CodePrev>3995451205</CodePrev>
+    <CodeCurrent>4193751289</CodeCurrent>
+    <CodeNext>0</CodeNext>
+  </AabSemantics.Sample07.CustomModule>
 </NewDataSet>
