@@ -93,5 +93,19 @@ namespace AabSemantics.Extensions.WPF
 			}
 			return (InnerException == null) || InnerException.Equals(other.InnerException);
 		}
+
+		public override int GetHashCode()
+		{
+			int hash =	Class.GetHashCode() ^
+						Message.GetHashCode() ^
+						StackTrace.GetHashCode();
+
+			if (InnerException != null)
+			{
+				hash ^= InnerException.GetHashCode();
+			}
+
+			return hash;
+		}
 	}
 }

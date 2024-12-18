@@ -1,0 +1,60 @@
+<?xml version="1.0" standalone="yes"?>
+<NewDataSet>
+  <xs:schema id="NewDataSet" xmlns="" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xs:element name="NewDataSet" msdata:IsDataSet="true" msdata:UseCurrentLocale="true">
+      <xs:complexType>
+        <xs:choice minOccurs="0" maxOccurs="unbounded">
+          <xs:element name="SuppressVersion">
+            <xs:complexType>
+              <xs:sequence>
+                <xs:element name="CurrentVersion" type="xs:int" minOccurs="0" />
+                <xs:element name="IsPrimary" type="xs:boolean" minOccurs="0" />
+              </xs:sequence>
+            </xs:complexType>
+          </xs:element>
+          <xs:element name="AabSemantics.Tests" msdata:CaseSensitive="False">
+            <xs:complexType>
+              <xs:sequence>
+                <xs:element name="FileName" type="xs:string" default="" />
+                <xs:element name="ErrorCode" type="xs:string" default="" />
+                <xs:element name="Message" type="xs:string" default="" />
+                <xs:element name="CodePrev" type="xs:unsignedInt" default="0" />
+                <xs:element name="CodeCurrent" type="xs:unsignedInt" default="0" />
+                <xs:element name="CodeNext" type="xs:unsignedInt" default="0" />
+              </xs:sequence>
+            </xs:complexType>
+          </xs:element>
+        </xs:choice>
+      </xs:complexType>
+      <xs:unique name="Constraint1" msdata:PrimaryKey="true">
+        <xs:selector xpath=".//AabSemantics.Tests" />
+        <xs:field xpath="FileName" />
+        <xs:field xpath="ErrorCode" />
+        <xs:field xpath="Message" />
+        <xs:field xpath="CodePrev" />
+        <xs:field xpath="CodeCurrent" />
+        <xs:field xpath="CodeNext" />
+      </xs:unique>
+    </xs:element>
+  </xs:schema>
+  <SuppressVersion>
+    <CurrentVersion>3</CurrentVersion>
+    <IsPrimary>false</IsPrimary>
+  </SuppressVersion>
+  <AabSemantics.Tests>
+    <FileName>JsonHelperTest.cs</FileName>
+    <ErrorCode>V3126</ErrorCode>
+    <Message>Type 'Test' implementing IEquatable&lt;T&gt; interface does not override 'GetHashCode' method.</Message>
+    <CodePrev>876177</CodePrev>
+    <CodeCurrent>2338908063</CodeCurrent>
+    <CodeNext>123</CodeNext>
+  </AabSemantics.Tests>
+  <AabSemantics.Tests>
+    <FileName>XmlHelperTest.cs</FileName>
+    <ErrorCode>V3126</ErrorCode>
+    <Message>Type 'Test' implementing IEquatable&lt;T&gt; interface does not override 'GetHashCode' method.</Message>
+    <CodePrev>26143</CodePrev>
+    <CodeCurrent>2338908063</CodeCurrent>
+    <CodeNext>123</CodeNext>
+  </AabSemantics.Tests>
+</NewDataSet>
