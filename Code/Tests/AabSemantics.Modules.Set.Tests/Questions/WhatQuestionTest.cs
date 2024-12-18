@@ -45,7 +45,7 @@ namespace AabSemantics.Modules.Set.Tests.Questions
 			Assert.AreEqual(textRegular, textBuilder);
 			Assert.IsTrue(answerRegular.Explanation.Statements.SequenceEqual(answerBuilder.Explanation.Statements));
 
-			Assert.IsTrue(	textRegular.Contains(" is ") &&
+			Assert.IsTrue(	textRegular.Contains("\" is \"") &&
 							textRegular.Contains(" with following sign values (properties):") &&
 							textRegular.Contains(" sign value is equal to "));
 		}
