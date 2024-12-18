@@ -47,7 +47,7 @@ namespace AabSemantics.Extensions.WPF.Controls
 			_changeController = changeController;
 			_viewModelFactory = viewModelFactory;
 			_commandsFactory = commandsFactory;
-			_owner = application.MainForm as Window;
+			_owner = (Window) application.MainForm;
 
 			_contextMenu.DataContext = _owner.Resources["language"];
 
