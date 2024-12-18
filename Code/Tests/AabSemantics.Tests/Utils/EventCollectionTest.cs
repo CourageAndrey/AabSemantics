@@ -260,7 +260,7 @@ namespace AabSemantics.Tests.Utils
 		public void GivenNoItems_WhenTryToCreateItemsCantBeRemovedException_ThenFail()
 		{
 			// act & assert
-			Assert.Throws<ArgumentNullException>(() => new ItemsCantBeRemovedException<int>(null));
+			Assert.Throws<ArgumentNullException>(() => throw new ItemsCantBeRemovedException<int>(null));
 		}
 
 		[Test]
