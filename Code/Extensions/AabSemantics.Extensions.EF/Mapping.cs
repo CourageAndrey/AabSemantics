@@ -107,8 +107,8 @@ namespace AabSemantics.Extensions.EF
 				if (_getKey(entity) == item.ID)
 				{
 					DbSet.Remove(entity);
+					return true;
 				}
-				return true;
 			}
 
 			return false;
