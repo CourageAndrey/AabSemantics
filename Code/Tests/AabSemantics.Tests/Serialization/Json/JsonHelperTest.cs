@@ -200,7 +200,7 @@ namespace AabSemantics.Tests.Serialization.Json
 				return	String == other.String &&
 						Int == other.Int &&
 						(DateTime - other.DateTime).TotalSeconds < 1 && // because of JSON precision problems
-						(SingleChildObject == null && other.SingleChildObject == null || SingleChildObject.Equals(other.SingleChildObject)) &&
+						(SingleChildObject == null && other.SingleChildObject == null || SingleChildObject != null && other.SingleChildObject != null && SingleChildObject.Equals(other.SingleChildObject)) &&
 						ChildElements.SequenceEqual(other.ChildElements) &&
 						Children.SequenceEqual(other.Children);
 			}
