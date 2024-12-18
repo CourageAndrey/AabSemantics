@@ -29,7 +29,7 @@ namespace AabSemantics.Modules.Boolean.Xml
 		{
 			var statementType = question.Statement.GetType();
 			var statementDefinition = Repositories.Statements.Definitions[statementType];
-			var xmlSettings = statementDefinition.GetXmlSerializationSettings<StatementXmlSerializationSettings>();
+			var xmlSettings = statementDefinition.GetSerializationSettings<StatementXmlSerializationSettings>();
 			Statement = xmlSettings.GetXml(question.Statement);
 		}
 
@@ -47,8 +47,8 @@ namespace AabSemantics.Modules.Boolean.Xml
 			typeof(CheckStatementQuestion).DefineTypeOverrides(new[]
 			{
 				new XmlHelper.PropertyTypes(nameof(Statement), typeof(CheckStatementQuestion), Repositories.Statements.Definitions.Values.ToDictionary(
-					definition => definition.GetXmlSerializationSettings<StatementXmlSerializationSettings>().XmlElementName,
-					definition => definition.GetXmlSerializationSettings<StatementXmlSerializationSettings>().XmlType)),
+					definition => definition.GetSerializationSettings<StatementXmlSerializationSettings>().XmlElementName,
+					definition => definition.GetSerializationSettings<StatementXmlSerializationSettings>().XmlType)),
 			});
 		}
 	}

@@ -54,7 +54,7 @@ namespace AabSemantics.Serialization.Json
 		public static Answer Load(IAnswer answer, ILanguage language)
 		{
 			var definition = Repositories.Answers.Definitions.GetSuitable(answer);
-			return definition.GetJsonSerializationSettings<AnswerJsonSerializationSettings>().GetJson(answer, language);
+			return definition.GetSerializationSettings<AnswerJsonSerializationSettings>().GetJson(answer, language);
 		}
 
 		public virtual IAnswer Save(ConceptIdResolver conceptIdResolver, StatementIdResolver statementIdResolver)

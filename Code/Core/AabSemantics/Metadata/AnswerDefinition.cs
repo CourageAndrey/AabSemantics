@@ -65,24 +65,12 @@ namespace AabSemantics.Metadata
 	{
 		public static IXmlSerializationSettings GetXmlSerializationSettings(this AnswerDefinition metadataDefinition)
 		{
-			return metadataDefinition.GetXmlSerializationSettings<AnswerXmlSerializationSettings>();
-		}
-
-		public static SettingsT GetXmlSerializationSettings<SettingsT>(this AnswerDefinition metadataDefinition)
-			where SettingsT : IXmlSerializationSettings, IAnswerSerializationSettings
-		{
-			return metadataDefinition.GetSerializationSettings<SettingsT>();
+			return metadataDefinition.GetSerializationSettings<AnswerXmlSerializationSettings>();
 		}
 
 		public static IJsonSerializationSettings GetJsonSerializationSettings(this AnswerDefinition metadataDefinition)
 		{
-			return metadataDefinition.GetJsonSerializationSettings<AnswerJsonSerializationSettings>();
-		}
-
-		public static SettingsT GetJsonSerializationSettings<SettingsT>(this AnswerDefinition metadataDefinition)
-			where SettingsT : IJsonSerializationSettings, IAnswerSerializationSettings
-		{
-			return metadataDefinition.GetSerializationSettings<SettingsT>();
+			return metadataDefinition.GetSerializationSettings<AnswerJsonSerializationSettings>();
 		}
 
 		public static AnswerDefinition<AnswerT> SerializeToXml<AnswerT>(

@@ -97,24 +97,12 @@ namespace AabSemantics.Metadata
 	{
 		public static IXmlSerializationSettings GetXmlSerializationSettings(this AttributeDefinition metadataDefinition)
 		{
-			return metadataDefinition.GetXmlSerializationSettings<AttributeXmlSerializationSettings>();
-		}
-
-		public static SettingsT GetXmlSerializationSettings<SettingsT>(this AttributeDefinition metadataDefinition)
-			where SettingsT : IXmlSerializationSettings, IAttributeSerializationSettings
-		{
-			return metadataDefinition.GetSerializationSettings<SettingsT>();
+			return metadataDefinition.GetSerializationSettings<AttributeXmlSerializationSettings>();
 		}
 
 		public static IJsonSerializationSettings GetJsonSerializationSettings(this AttributeDefinition metadataDefinition)
 		{
-			return metadataDefinition.GetJsonSerializationSettings<AttributeJsonSerializationSettings>();
-		}
-
-		public static SettingsT GetJsonSerializationSettings<SettingsT>(this AttributeDefinition metadataDefinition)
-			where SettingsT : IJsonSerializationSettings, IAttributeSerializationSettings
-		{
-			return metadataDefinition.GetSerializationSettings<SettingsT>();
+			return metadataDefinition.GetSerializationSettings<AttributeJsonSerializationSettings>();
 		}
 
 		public static AttributeDefinition SerializeToXml(

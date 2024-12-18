@@ -31,7 +31,7 @@ namespace AabSemantics.Serialization.Json
 		public static Statement Load(IStatement statement)
 		{
 			var definition = Repositories.Statements.Definitions.GetSuitable(statement);
-			return definition.GetJsonSerializationSettings<StatementJsonSerializationSettings>().GetJson(statement);
+			return definition.GetSerializationSettings<StatementJsonSerializationSettings>().GetJson(statement);
 		}
 
 		public abstract IStatement Save(ConceptIdResolver conceptIdResolver);

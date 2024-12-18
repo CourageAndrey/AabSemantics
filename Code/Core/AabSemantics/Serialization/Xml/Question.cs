@@ -36,7 +36,7 @@ namespace AabSemantics.Serialization.Xml
 		public static Question Load(IQuestion question)
 		{
 			var definition = Repositories.Questions.Definitions.GetSuitable(question);
-			return definition.GetXmlSerializationSettings<QuestionXmlSerializationSettings>().GetXml(question);
+			return definition.GetSerializationSettings<QuestionXmlSerializationSettings>().GetXml(question);
 		}
 
 		public abstract IQuestion Save(ConceptIdResolver conceptIdResolver, StatementIdResolver statementIdResolver);
@@ -46,8 +46,8 @@ namespace AabSemantics.Serialization.Xml
 			typeof(Question).DefineTypeOverrides(new[]
 			{
 				new XmlHelper.PropertyTypes(nameof(Preconditions), typeof(Question), Repositories.Statements.Definitions.Values.ToDictionary(
-					definition => definition.GetXmlSerializationSettings<StatementXmlSerializationSettings>().XmlElementName,
-					definition => definition.GetXmlSerializationSettings<StatementXmlSerializationSettings>().XmlType)),
+					definition => definition.GetSerializationSettings<StatementXmlSerializationSettings>().XmlElementName,
+					definition => definition.GetSerializationSettings<StatementXmlSerializationSettings>().XmlType)),
 			});
 		}
 	}

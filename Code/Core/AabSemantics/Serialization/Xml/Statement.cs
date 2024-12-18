@@ -15,7 +15,7 @@ namespace AabSemantics.Serialization.Xml
 		public static Statement Load(IStatement statement)
 		{
 			var definition = Repositories.Statements.Definitions.GetSuitable(statement);
-			return definition.GetXmlSerializationSettings<StatementXmlSerializationSettings>().GetXml(statement);
+			return definition.GetSerializationSettings<StatementXmlSerializationSettings>().GetXml(statement);
 		}
 
 		public abstract IStatement Save(ConceptIdResolver conceptIdResolver);

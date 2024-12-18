@@ -52,7 +52,7 @@ namespace AabSemantics.Serialization.Xml
 		public static Answer Load(IAnswer answer, ILanguage language)
 		{
 			var definition = Repositories.Answers.Definitions.GetSuitable(answer);
-			return definition.GetXmlSerializationSettings<AnswerXmlSerializationSettings>().GetXml(answer, language);
+			return definition.GetSerializationSettings<AnswerXmlSerializationSettings>().GetXml(answer, language);
 		}
 
 		public virtual IAnswer Save(ConceptIdResolver conceptIdResolver, StatementIdResolver statementIdResolver)
@@ -66,8 +66,8 @@ namespace AabSemantics.Serialization.Xml
 		static Answer()
 		{
 			var statementOverrides = Repositories.Statements.Definitions.Values.ToDictionary(
-				definition => definition.GetXmlSerializationSettings<StatementXmlSerializationSettings>().XmlElementName,
-				definition => definition.GetXmlSerializationSettings<StatementXmlSerializationSettings>().XmlType);
+				definition => definition.GetSerializationSettings<StatementXmlSerializationSettings>().XmlElementName,
+				definition => definition.GetSerializationSettings<StatementXmlSerializationSettings>().XmlType);
 
 			typeof(Answer).DefineTypeOverride(new XmlHelper.PropertyTypes(nameof(Explanation), typeof(Answer), statementOverrides));
 			typeof(BooleanAnswer).DefineTypeOverride(new XmlHelper.PropertyTypes(nameof(Explanation), typeof(Answer), statementOverrides));

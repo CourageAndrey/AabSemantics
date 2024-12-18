@@ -79,11 +79,11 @@ namespace AabSemantics.Serialization.Xml
 			typeof(SemanticNetwork).DefineTypeOverrides(new[]
 			{
 				new XmlHelper.PropertyTypes(nameof(Concept.Attributes), typeof(Concept), Repositories.Attributes.Definitions.Values.ToDictionary(
-					definition => definition.GetXmlSerializationSettings<AttributeXmlSerializationSettings>().XmlElementName,
-					definition => definition.GetXmlSerializationSettings<AttributeXmlSerializationSettings>().XmlType)),
+					definition => definition.GetSerializationSettings<AttributeXmlSerializationSettings>().XmlElementName,
+					definition => definition.GetSerializationSettings<AttributeXmlSerializationSettings>().XmlType)),
 				new XmlHelper.PropertyTypes(nameof(Statements), typeof(SemanticNetwork), Repositories.Statements.Definitions.Values.ToDictionary(
-					definition => definition.GetXmlSerializationSettings<StatementXmlSerializationSettings>().XmlElementName,
-					definition => definition.GetXmlSerializationSettings<StatementXmlSerializationSettings>().XmlType)),
+					definition => definition.GetSerializationSettings<StatementXmlSerializationSettings>().XmlElementName,
+					definition => definition.GetSerializationSettings<StatementXmlSerializationSettings>().XmlType)),
 			});
 		}
 	}
