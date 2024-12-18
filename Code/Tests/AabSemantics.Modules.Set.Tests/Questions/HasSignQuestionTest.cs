@@ -68,7 +68,7 @@ namespace AabSemantics.Modules.Set.Tests.Questions
 
 			Assert.IsFalse(answerWithRecursion.IsEmpty);
 			Assert.IsFalse(((BooleanAnswer) answerWithRecursion).Result);
-			Assert.AreEqual(0, answerWithoutRecursion.Explanation.Statements.Count);
+			Assert.AreEqual(0, answerWithRecursion.Explanation.Statements.Count);
 		}
 
 		[Test]
