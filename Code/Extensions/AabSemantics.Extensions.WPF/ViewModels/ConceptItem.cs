@@ -27,5 +27,10 @@ namespace AabSemantics.Extensions.WPF.ViewModels
 		{
 			return Concept == other?.Concept;
 		}
+
+		public override int GetHashCode()
+		{
+			return Concept.GetHashCode();
+		}
 	}
 }
