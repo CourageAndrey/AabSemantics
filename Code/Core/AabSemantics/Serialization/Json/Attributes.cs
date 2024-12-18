@@ -11,13 +11,13 @@ namespace AabSemantics.Serialization.Json
 		public static List<String> ToJson(this IEnumerable<IAttribute> attributes)
 		{
 			var attributeDefinitions = Repositories.Attributes.Definitions;
-			return attributes.Select(a => attributeDefinitions[a.GetType()].GetJsonSerializationSettings<AttributeJsonSerializationSettings>().JsonElementName).ToList();
+			return attributes.Select(a => attributeDefinitions[a.GetType()].GetSerializationSettings<AttributeJsonSerializationSettings>().JsonElementName).ToList();
 		}
 
 		public static IEnumerable<IAttribute> ToAttributes(this IEnumerable<String> attributes)
 		{
 			var attributeDefinitions = Repositories.Attributes.Definitions.Values;
-			return attributes.Select(a => attributeDefinitions.First(d => d.GetJsonSerializationSettings<AttributeJsonSerializationSettings>().JsonElementName == a).Value);
+			return attributes.Select(a => attributeDefinitions.First(d => d.GetSerializationSettings<AttributeJsonSerializationSettings>().JsonElementName == a).Value);
 		}
 	}
 }

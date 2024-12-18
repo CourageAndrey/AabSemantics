@@ -12,7 +12,7 @@ namespace AabSemantics.Serialization.Xml
 		public static Attribute Save(IAttribute attribute)
 		{
 			var definition = Repositories.Attributes.Definitions.GetSuitable(attribute);
-			return definition.GetXmlSerializationSettings<AttributeXmlSerializationSettings>().Xml;
+			return definition.GetSerializationSettings<AttributeXmlSerializationSettings>().Xml;
 		}
 	}
 
