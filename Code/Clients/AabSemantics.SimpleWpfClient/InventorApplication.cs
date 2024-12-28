@@ -7,9 +7,9 @@ using System.Windows.Threading;
 
 using AabSemantics.Extensions.WPF;
 using AabSemantics.Extensions.WPF.Dialogs;
-using AabSemantics.IntegrationTests;
 using AabSemantics.Localization;
 using AabSemantics.Modules.Mathematics;
+using AabSemantics.Modules.NaturalScience;
 using AabSemantics.Modules.Processes;
 using AabSemantics.Modules.Set;
 using AabSemantics.Serialization.Xml;
@@ -150,7 +150,7 @@ namespace AabSemantics.SimpleWpfClient
 			registerModules();
 
 			var application = new InventorApplication();
-			application.initializeSemanticNetwork();
+			application.SemanticNetwork = new SemanticNetwork(application.CurrentLanguage).WithModules(_extensionModules);
 
 			application.MainForm.Initialize(application);
 			application.MainWindow.Show();
@@ -161,25 +161,31 @@ namespace AabSemantics.SimpleWpfClient
 
 		private static void registerModules()
 		{
-			new Modules.Boolean.BooleanModule().RegisterMetadata();
-			new Modules.Classification.ClassificationModule().RegisterMetadata();
-			new SetModule().RegisterMetadata();
-			new MathematicsModule().RegisterMetadata();
-			new ProcessesModule().RegisterMetadata();
-			new WpfUiModule().RegisterMetadata();
+			foreach (var module in _extensionModules)
+			{
+				module.RegisterMetadata();
+			}
+			_wpfUiModule.RegisterMetadata();
 
 			Language.PrepareModulesToSerialization<Language>();
 		}
 
-		private void initializeSemanticNetwork()
+		private static readonly IExtensionModule _booleanModule = new Modules.Boolean.BooleanModule();
+		private static readonly IExtensionModule _classificationModule = new Modules.Classification.ClassificationModule();
+		private static readonly IExtensionModule _setModule = new SetModule();
+		private static readonly IExtensionModule _mathematicsModule = new MathematicsModule();
+		private static readonly IExtensionModule _processesModule = new ProcessesModule();
+		private static readonly IExtensionModule _naturalScienceModule = new NaturalScienceModule();
+		private static readonly IExtensionModule[] _extensionModules = new[]
 		{
-#if DEBUG
-			SemanticNetwork = new SemanticNetwork(CurrentLanguage);
-			SemanticNetwork.CreateCombinedTestData();
-#else
-			SemanticNetwork = new SemanticNetwork(CurrentLanguage);
-#endif
-		}
+			_booleanModule,
+			_classificationModule,
+			_setModule,
+			_mathematicsModule,
+			_processesModule,
+			_naturalScienceModule,
+		};
+		private static readonly IExtensionModule _wpfUiModule = new WpfUiModule();
 
 		#endregion
 	}

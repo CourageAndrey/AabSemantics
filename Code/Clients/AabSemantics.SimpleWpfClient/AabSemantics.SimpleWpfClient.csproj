@@ -180,6 +180,10 @@
       <Project>{edd2a80f-14db-4a28-8113-ef78115afa63}</Project>
       <Name>AabSemantics.Modules.Mathematics</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\Modules\AabSemantics.Modules.NaturalScience\AabSemantics.Modules.NaturalScience.csproj">
+      <Project>{762563ad-acf6-4ae9-8c6b-cb41cd2c289d}</Project>
+      <Name>AabSemantics.Modules.NaturalScience</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\Modules\AabSemantics.Modules.Processes\AabSemantics.Modules.Processes.csproj">
       <Project>{efc2327c-f586-477e-8699-114fc31940ac}</Project>
       <Name>AabSemantics.Modules.Processes</Name>
@@ -188,9 +192,9 @@
       <Project>{f6c2b97b-68c8-415c-98de-663ba4c45eca}</Project>
       <Name>AabSemantics.Modules.Set</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\Tests\AabSemantics.IntegrationTests\AabSemantics.IntegrationTests.csproj">
-      <Project>{a0c261b6-cfdd-4df6-8d80-aa5997dda63a}</Project>
-      <Name>AabSemantics.IntegrationTests</Name>
+    <ProjectReference Include="..\..\Tests\AabSemantics.Modules.Mathematics.Tests\AabSemantics.Modules.Mathematics.Tests.csproj">
+      <Project>{397edaa8-b8b4-4020-8d6b-10e48d3494b3}</Project>
+      <Name>AabSemantics.Modules.Mathematics.Tests</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -1,0 +1,29 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net472</TargetFramework>
+
+    <IsPackable>false</IsPackable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="NUnit" Version="4.3.0" />
+    <PackageReference Include="NUnit3TestAdapter" Version="4.6.0" />
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.12.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Attributes\" />
+    <Folder Include="Concepts\" />
+    <Folder Include="Localization\" />
+    <Folder Include="Serialization\Json\" />
+    <Folder Include="Statements\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\Core\AabSemantics\AabSemantics.csproj" />
+    <ProjectReference Include="..\..\Modules\AabSemantics.Modules.NaturalScience\AabSemantics.Modules.NaturalScience.csproj" />
+    <ProjectReference Include="..\AabSemantics.TestCore\AabSemantics.TestCore.csproj" />
+  </ItemGroup>
+
+</Project>

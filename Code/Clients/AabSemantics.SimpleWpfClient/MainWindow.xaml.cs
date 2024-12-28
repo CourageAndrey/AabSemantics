@@ -11,7 +11,6 @@ using AabSemantics.Extensions.WPF.Commands;
 using AabSemantics.Extensions.WPF.Dialogs;
 using AabSemantics.Extensions.WPF.Localization;
 using AabSemantics.Extensions.WPF.ViewModels;
-using AabSemantics.IntegrationTests;
 using AabSemantics.Serialization.Xml;
 
 namespace AabSemantics.SimpleWpfClient
@@ -207,7 +206,7 @@ namespace AabSemantics.SimpleWpfClient
 			if (canProceedAfterSave())
 			{
 				var sample = new SemanticNetwork(_application.CurrentLanguage);
-				sample.CreateCombinedTestData();
+#warning sample.CreateCombinedTestData();
 				setModel(sample, string.Empty);
 			}
 		}
