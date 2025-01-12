@@ -34,6 +34,7 @@ namespace AabSemantics.SimpleWpfClient
 
 		public void Initialize(IInventorApplication application)
 		{
+			new ChemicalElements(application.SemanticNetwork);
 			dockPanelMain.DataContext = _application = application;
 			treeViewSemanticNetwork.Initialize(application, _changeController, _viewModelFactory, _commandsFactory);
 			setModel(application.SemanticNetwork, string.Empty);
