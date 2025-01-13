@@ -206,7 +206,7 @@ namespace AabSemantics.SimpleWpfClient
 			if (canProceedAfterSave())
 			{
 				var sample = new SemanticNetwork(_application.CurrentLanguage);
-				new ChemicalElements(sample);
+				new NaturalScience(sample);
 				setModel(sample, string.Empty);
 			}
 		}

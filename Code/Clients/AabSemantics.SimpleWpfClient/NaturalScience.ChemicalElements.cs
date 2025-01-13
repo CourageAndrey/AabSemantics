@@ -15,7 +15,7 @@ namespace AabSemantics.SimpleWpfClient
 	{
 		#region Properties
 
-		public readonly IConcept ChemicalElement;
+		public readonly IConcept ChemicalElement, ChemicalCompound;
 
 		public readonly IConcept Group, Period, Block;
 

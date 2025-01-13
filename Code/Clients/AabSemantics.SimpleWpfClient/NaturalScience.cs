@@ -30,7 +30,7 @@ namespace AabSemantics.SimpleWpfClient
 
 			#region Chemistry
 
-			semanticNetwork.Concepts.Add(ChemicalElement = "ChemicalElement".CreateConceptByName());
+			semanticNetwork.Concepts.Add(ChemicalElement = "Chemical Element".CreateConceptByName());
 			semanticNetwork.DeclareThat(Science).HasPart(Chemistry);
 			semanticNetwork.DeclareThat(Science).IsAncestorOf(Chemistry);
 			semanticNetwork.DeclareThat(ChemicalElement).BelongsToSubjectArea(Chemistry);
@@ -170,6 +170,9 @@ namespace AabSemantics.SimpleWpfClient
 			ByNumber = byNumber.ToArray();
 			BySymbol = new ReadOnlyDictionary<String, IConcept>(bySymbol);
 			ByName = new ReadOnlyDictionary<String, IConcept>(byName);
+
+			semanticNetwork.Concepts.Add(ChemicalCompound = "Chemical Compound".CreateConceptByName());
+			semanticNetwork.DeclareThat(ChemicalCompound).BelongsToSubjectArea(Chemistry);
 
 			#endregion
 		}

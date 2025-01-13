@@ -174,7 +174,7 @@ namespace AabSemantics.SimpleWpfClient
 		{
 #if DEBUG
 			SemanticNetwork = new SemanticNetwork(CurrentLanguage);
-			new ChemicalElements(SemanticNetwork);
+			new NaturalScience(SemanticNetwork);
 #else
 			SemanticNetwork = new SemanticNetwork(CurrentLanguage);
 #endif
