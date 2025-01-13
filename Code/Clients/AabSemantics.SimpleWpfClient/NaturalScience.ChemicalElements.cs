@@ -187,6 +187,7 @@ namespace AabSemantics.SimpleWpfClient
 
 			sign.WithAttribute(IsSignAttribute.Value);
 			SemanticNetwork.Concepts.Add(sign);
+			SemanticNetwork.DeclareThat(ChemicalElement).HasSign(sign);
 
 			foreach (var concept in concepts.Values)
 			{
