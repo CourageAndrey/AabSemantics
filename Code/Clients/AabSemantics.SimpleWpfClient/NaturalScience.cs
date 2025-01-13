@@ -174,6 +174,11 @@ namespace AabSemantics.SimpleWpfClient
 			semanticNetwork.Concepts.Add(ChemicalCompound = "Chemical Compound".CreateConceptByName());
 			semanticNetwork.DeclareThat(ChemicalCompound).BelongsToSubjectArea(Chemistry);
 
+			var water = "Water".CreateConceptByName();
+			semanticNetwork.Concepts.Add(water);
+			semanticNetwork.DeclareThat(water).IsDescendantOf(ChemicalCompound);
+			semanticNetwork.DeclareThat(water).HasParts(new[] { Hydrogen, Oxygen });
+
 			#endregion
 		}
 	}
