@@ -7,7 +7,6 @@ using System.Windows.Threading;
 
 using AabSemantics.Extensions.WPF;
 using AabSemantics.Extensions.WPF.Dialogs;
-using AabSemantics.IntegrationTests;
 using AabSemantics.Localization;
 using AabSemantics.Modules.Mathematics;
 using AabSemantics.Modules.Processes;
@@ -175,7 +174,7 @@ namespace AabSemantics.SimpleWpfClient
 		{
 #if DEBUG
 			SemanticNetwork = new SemanticNetwork(CurrentLanguage);
-			SemanticNetwork.CreateCombinedTestData();
+			new ChemicalElements(SemanticNetwork);
 #else
 			SemanticNetwork = new SemanticNetwork(CurrentLanguage);
 #endif

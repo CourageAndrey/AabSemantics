@@ -11,7 +11,6 @@ using AabSemantics.Extensions.WPF.Commands;
 using AabSemantics.Extensions.WPF.Dialogs;
 using AabSemantics.Extensions.WPF.Localization;
 using AabSemantics.Extensions.WPF.ViewModels;
-using AabSemantics.IntegrationTests;
 using AabSemantics.Serialization.Xml;
 
 namespace AabSemantics.SimpleWpfClient
@@ -34,7 +33,6 @@ namespace AabSemantics.SimpleWpfClient
 
 		public void Initialize(IInventorApplication application)
 		{
-			new ChemicalElements(application.SemanticNetwork);
 			dockPanelMain.DataContext = _application = application;
 			treeViewSemanticNetwork.Initialize(application, _changeController, _viewModelFactory, _commandsFactory);
 			setModel(application.SemanticNetwork, string.Empty);
@@ -208,7 +206,7 @@ namespace AabSemantics.SimpleWpfClient
 			if (canProceedAfterSave())
 			{
 				var sample = new SemanticNetwork(_application.CurrentLanguage);
-				sample.CreateCombinedTestData();
+				new ChemicalElements(sample);
 				setModel(sample, string.Empty);
 			}
 		}
