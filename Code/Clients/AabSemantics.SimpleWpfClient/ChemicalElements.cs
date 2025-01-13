@@ -1,5 +1,4 @@
 ﻿using System;
-
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
@@ -230,15 +229,15 @@ namespace AabSemantics.SimpleWpfClient
 			var byNumber = new List<IConcept> { null };
 			var byName = new Dictionary<String, IConcept>();
 
-			Hydrogen		= DeclareElement(1,	"H",	nameof(Hydrogen),		1,	1, "s", byNumber, bySymbol, byName);
-			Helium			= DeclareElement(2,	"He",	nameof(Helium),			18,	1, "s", byNumber, bySymbol, byName);
-			Lithium			= DeclareElement(3,	"Li",	nameof(Lithium),		1,	2, "s", byNumber, bySymbol, byName);
-			Beryllium		= DeclareElement(4,	"Be",	nameof(Beryllium),		2,	2, "s", byNumber, bySymbol, byName);
-			Boron			= DeclareElement(5,	"B",	nameof(Boron),			13,	2, "p", byNumber, bySymbol, byName);
-			Carbon			= DeclareElement(6,	"C",	nameof(Carbon),			14,	2, "p", byNumber, bySymbol, byName);
-			Nitrogen		= DeclareElement(7,	"N",	nameof(Nitrogen),		15,	2, "p", byNumber, bySymbol, byName);
-			Oxygen			= DeclareElement(8,	"O",	nameof(Oxygen),			16,	2, "p", byNumber, bySymbol, byName);
-			Fluorine		= DeclareElement(9,	"F",	nameof(Fluorine),		17,	2, "p", byNumber, bySymbol, byName);
+			Hydrogen		= DeclareElement(1,		"H",	nameof(Hydrogen),		1,	1, "s", byNumber, bySymbol, byName);
+			Helium			= DeclareElement(2,		"He",	nameof(Helium),			18,	1, "s", byNumber, bySymbol, byName);
+			Lithium			= DeclareElement(3,		"Li",	nameof(Lithium),		1,	2, "s", byNumber, bySymbol, byName);
+			Beryllium		= DeclareElement(4,		"Be",	nameof(Beryllium),		2,	2, "s", byNumber, bySymbol, byName);
+			Boron			= DeclareElement(5,		"B",	nameof(Boron),			13,	2, "p", byNumber, bySymbol, byName);
+			Carbon			= DeclareElement(6,		"C",	nameof(Carbon),			14,	2, "p", byNumber, bySymbol, byName);
+			Nitrogen		= DeclareElement(7,		"N",	nameof(Nitrogen),		15,	2, "p", byNumber, bySymbol, byName);
+			Oxygen			= DeclareElement(8,		"O",	nameof(Oxygen),			16,	2, "p", byNumber, bySymbol, byName);
+			Fluorine		= DeclareElement(9,		"F",	nameof(Fluorine),		17,	2, "p", byNumber, bySymbol, byName);
 			Neon			= DeclareElement(10,	"Ne",	nameof(Neon),			18,	2, "p", byNumber, bySymbol, byName);
 			Sodium			= DeclareElement(11,	"Na",	nameof(Sodium),			1,	3, "s", byNumber, bySymbol, byName);
 			Magnesium		= DeclareElement(12,	"Mg",	nameof(Magnesium),		2,	3, "s", byNumber, bySymbol, byName);
