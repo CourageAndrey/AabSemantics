@@ -1,7 +1,14 @@
-﻿using System.Xml.Serialization;
+﻿using System;
+using System.Xml.Serialization;
 
 namespace AabSemantics.Localization
 {
+	public interface ILanguageStatements : ILanguageExtensionStatements
+	{
+		String CustomStatementName
+		{ get; }
+	}
+
 	[XmlType("CommonStatements")]
 	public class LanguageStatements : LanguageExtensionStatements
 	{
@@ -9,6 +16,10 @@ namespace AabSemantics.Localization
 
 		[XmlElement(nameof(Consistency))]
 		public LanguageConsistency ConsistencyXml
+		{ get; set; }
+
+		[XmlElement(nameof(CustomStatementName))]
+		public String CustomStatementName
 		{ get; set; }
 
 		#endregion
@@ -26,6 +37,7 @@ namespace AabSemantics.Localization
 			return new LanguageStatements
 			{
 				ConsistencyXml = LanguageConsistency.CreateDefault(),
+				CustomStatementName = "CustomStatement",
 			};
 		}
 	}

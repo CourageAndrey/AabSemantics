@@ -228,6 +228,15 @@ namespace AabSemantics.Questions
 			return answer;
 		}
 
+		public StatementsAnswer<StatementT> SelectStatements()
+		{
+			return new StatementsAnswer<StatementT>(
+				Statements,
+#warning ADD CORRESPONDING TEXT TO LANGUAGE
+				null,
+				new Explanation(Statements));
+		}
+
 		protected virtual void ProcessChildrenIfNeed()
 		{
 			if (NeedToProcessTransitives(Statements))

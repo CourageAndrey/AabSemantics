@@ -93,6 +93,34 @@ namespace AabSemantics.IntegrationTests
 				Processes.ProcessA,
 				Processes.ProcessB,
 			});
+
+			SemanticNetwork.Statements.Add(new CustomStatement(
+				null,
+				"custom_type",
+				l => "true",
+				l => "false",
+				l => "question",
+				new LocalizedStringConstant(l => "name"),
+				new LocalizedStringConstant(l => "hint"),
+				new Dictionary<string, IConcept>
+				{
+					{ "param1", Mathematics.Number1 },
+					{ "param2", Mathematics.Number2 },
+				}));
+
+			SemanticNetwork.Statements.Add(new CustomStatement(
+				null,
+				"custom_type",
+				"true",
+				"false",
+				"question",
+				new LocalizedStringConstant(l => "name"),
+				new LocalizedStringConstant(l => "hint"),
+				new Dictionary<string, IConcept>
+				{
+					{ "param1", Processes.ProcessA },
+					{ "param2", Processes.ProcessB },
+				}));
 		}
 	}
 

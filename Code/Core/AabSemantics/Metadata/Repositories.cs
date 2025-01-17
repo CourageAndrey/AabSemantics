@@ -1,5 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+
+using AabSemantics.Questions;
+using AabSemantics.Statements;
+
 using AabSemantics.Utils;
 
 namespace AabSemantics.Metadata
@@ -135,6 +139,32 @@ namespace AabSemantics.Metadata
 			var definition = new AnswerDefinition<AnswerT>();
 			Answers.Definitions[definition.Type] = definition;
 			return definition;
+		}
+
+		static Repositories()
+		{
+			InitializeCustomStatement();
+			InitializeCustomStatementQuestion();
+		}
+
+		public static void InitializeCustomStatement()
+		{
+			RegisterStatement<CustomStatement>(
+					language => language.Statements.CustomStatementName,
+					language => ,
+					language => ,
+					language => ,
+					statement => ,
+					StatementDefinition<CustomStatement>.NoConsistencyCheck)
+				.SerializeToXml(statement => new Xml.CustomStatement(statement))
+				.SerializeToJson(statement => new Json.CustomStatement(statement));
+		}
+
+		public static void InitializeCustomStatementQuestion()
+		{
+			RegisterQuestion<CustomStatementQuestion>(language => language.Questions.CustomStatementQuestionName)
+				.SerializeToXml(question => new Xml.CustomStatementQuestion(question))
+				.SerializeToJson(question => new Json.CustomStatementQuestion(question));
 		}
 	}
 }
