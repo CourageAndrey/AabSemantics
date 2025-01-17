@@ -82,6 +82,9 @@
     <Compile Include="Controls\LocalizedStringVariableControl.xaml.cs">
       <DependentUpon>LocalizedStringVariableControl.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Controls\CustomStatementControl.xaml.cs">
+      <DependentUpon>CustomStatementControl.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Controls\ProcessesStatementControl.xaml.cs">
       <DependentUpon>ProcessesStatementControl.xaml</DependentUpon>
     </Compile>
@@ -153,6 +156,7 @@
     <Compile Include="ViewModels\ConceptAttribute.cs" />
     <Compile Include="ViewModels\ConceptDecorator.cs" />
     <Compile Include="ViewModels\ConceptItem.cs" />
+    <Compile Include="ViewModels\ConceptWithKey.cs" />
     <Compile Include="ViewModels\LocalizedString.cs" />
     <Compile Include="ViewModels\LocalizedStringValue.cs" />
     <Compile Include="ViewModels\Questions\CheckStatementQuestion.cs" />
@@ -182,6 +186,7 @@
     <Compile Include="ViewModels\Statements\GroupStatement.cs" />
     <Compile Include="ViewModels\Statements\HasPartStatement.cs" />
     <Compile Include="ViewModels\Statements\HasSignStatement.cs" />
+    <Compile Include="ViewModels\Statements\CustomStatement.cs" />
     <Compile Include="ViewModels\Statements\IsStatement.cs" />
     <Compile Include="ViewModels\Statements\ProcessesStatement.cs" />
     <Compile Include="ViewModels\Statements\SignValueStatement.cs" />
@@ -223,6 +228,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Controls\LocalizedStringVariableControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Controls\CustomStatementControl.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

@@ -57,6 +57,10 @@ namespace AabSemantics.Modules.Mathematics
 					checkComparisonValueSystems)
 				.SerializeToXml(statement => new Xml.ComparisonStatement(statement))
 				.SerializeToJson(statement => new Json.ComparisonStatement(statement));
+			Repositories.RegisterCustomStatement<ComparisonStatement, ILanguageMathematicsModule, ILanguageStatements, ILanguageStatementsPart>(
+				typeof(ComparisonStatement).Name,
+				new List<String> { nameof(ComparisonStatement.LeftValue), nameof(ComparisonStatement.RightValue), nameof(ComparisonStatement.ComparisonSign) },
+				language => language.Comparison);
 		}
 
 		protected override void RegisterQuestions()

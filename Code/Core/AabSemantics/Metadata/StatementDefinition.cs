@@ -94,6 +94,8 @@ namespace AabSemantics.Metadata
 			return _nameGetter(language);
 		}
 
+// Check how custom statement is processed
+
 		public IText DescribeTrue(IStatement statement)
 		{
 			var formatter = new Func<ILanguage, String>(language => _formatTrue(language) + $" ({Strings.ParamStatement})");

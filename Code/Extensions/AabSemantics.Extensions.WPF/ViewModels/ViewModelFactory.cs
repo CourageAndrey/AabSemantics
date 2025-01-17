@@ -50,6 +50,10 @@ namespace AabSemantics.Extensions.WPF.ViewModels
 			{
 				return new ProcessesStatement(language);
 			}
+			else if (type == typeof(AabSemantics.Statements.CustomStatement))
+			{
+				return new CustomStatement(language);
+			}
 			else
 			{
 				throw new NotSupportedException(type.FullName);
@@ -86,6 +90,10 @@ namespace AabSemantics.Extensions.WPF.ViewModels
 			{
 				return new ProcessesStatement(statement as Modules.Processes.Statements.ProcessesStatement, language);
 			}
+			else if (statement is AabSemantics.Statements.CustomStatement)
+			{
+				return new CustomStatement(statement as AabSemantics.Statements.CustomStatement, language);
+			}
 			else
 			{
 				throw new NotSupportedException(statement.GetType().FullName);
@@ -99,7 +107,7 @@ namespace AabSemantics.Extensions.WPF.ViewModels
 
 			if (conceptNode != null)
 			{
-				return new Concept(conceptNode.Concept as AabSemantics.Concepts.Concept);
+				return new Concept(conceptNode.Concept as Concepts.Concept);
 			}
 			else if (statementNode != null)
 			{
@@ -130,6 +138,10 @@ namespace AabSemantics.Extensions.WPF.ViewModels
 				else if (statementNode.Statement is Modules.Processes.Statements.ProcessesStatement)
 				{
 					return new ProcessesStatement(statementNode.Statement as Modules.Processes.Statements.ProcessesStatement, language);
+				}
+				else if (statementNode.Statement is AabSemantics.Statements.CustomStatement)
+				{
+					return new CustomStatement(statementNode.Statement as AabSemantics.Statements.CustomStatement, language);
 				}
 			}
 

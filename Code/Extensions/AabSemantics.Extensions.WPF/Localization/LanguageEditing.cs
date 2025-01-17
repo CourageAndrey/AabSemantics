@@ -8,6 +8,12 @@ namespace AabSemantics.Extensions.WPF.Localization
 		String PropertyConcept
 		{ get; }
 
+		String PropertyConcepts
+		{ get; }
+
+		String PropertyType
+		{ get; }
+
 		String PropertySign
 		{ get; }
 
@@ -59,6 +65,9 @@ namespace AabSemantics.Extensions.WPF.Localization
 		String PropertyAttributes
 		{ get; }
 
+		String PropertyKey
+		{ get; }
+
 		String ColumnHeaderLanguage
 		{ get; }
 
@@ -73,6 +82,14 @@ namespace AabSemantics.Extensions.WPF.Localization
 
 		[XmlElement]
 		public String PropertyConcept
+		{ get; set; }
+
+		[XmlElement]
+		public String PropertyConcepts
+		{ get; set; }
+
+		[XmlElement]
+		public String PropertyType
 		{ get; set; }
 
 		[XmlElement]
@@ -144,6 +161,10 @@ namespace AabSemantics.Extensions.WPF.Localization
 		{ get; set; }
 
 		[XmlElement]
+		public String PropertyKey
+		{ get; set; }
+
+		[XmlElement]
 		public String ColumnHeaderLanguage
 		{ get; set; }
 
@@ -158,6 +179,8 @@ namespace AabSemantics.Extensions.WPF.Localization
 			return new LanguageEditing
 			{
 				PropertyConcept = "Concept",
+				PropertyConcepts = "Concepts",
+				PropertyType = "Kind",
 				PropertySign = "Sign",
 				PropertyValue = "Value",
 				PropertyWhole = "Whole",
@@ -175,6 +198,7 @@ namespace AabSemantics.Extensions.WPF.Localization
 				PropertyProcessB = ".Process B",
 				PropertySequenceSign = "Sequence Sign",
 				PropertyAttributes = "Attributes:",
+				PropertyKey = "Key",
 				ColumnHeaderLanguage = "Language",
 				ColumnHeaderValue = "Value",
 			};
