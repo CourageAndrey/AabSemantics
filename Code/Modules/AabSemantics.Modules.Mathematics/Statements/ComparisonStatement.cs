@@ -50,35 +50,6 @@ namespace AabSemantics.Modules.Mathematics.Statements
 			yield return ComparisonSign;
 		}
 
-		#region Description
-
-		protected override IDictionary<String, IKnowledge> GetDescriptionParameters()
-		{
-			return new Dictionary<String, IKnowledge>
-			{
-				{ Strings.ParamLeftValue, LeftValue },
-				{ Strings.ParamRightValue, RightValue },
-				{ Strings.ParamComparisonSign, ComparisonSign },
-			};
-		}
-
-		protected override String GetDescriptionTrueText(ILanguage language)
-		{
-			return language.GetExtension<ILanguageMathematicsModule>().Statements.TrueFormatStrings.Comparison;
-		}
-
-		protected override String GetDescriptionFalseText(ILanguage language)
-		{
-			return language.GetExtension<ILanguageMathematicsModule>().Statements.TrueFormatStrings.Comparison;
-		}
-
-		protected override String GetDescriptionQuestionText(ILanguage language)
-		{
-			return language.GetExtension<ILanguageMathematicsModule>().Statements.TrueFormatStrings.Comparison;
-		}
-
-		#endregion
-
 		#region Consistency checking
 
 		public override System.Boolean Equals(ComparisonStatement other)

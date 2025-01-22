@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 
+using AabSemantics.Localization;
+using AabSemantics.Text.Primitives;
 using AabSemantics.Utils;
 
 namespace AabSemantics.Metadata
@@ -57,6 +59,10 @@ namespace AabSemantics.Metadata
 		#region Properties
 
 		private readonly Func<ILanguage, String> _nameGetter;
+		private readonly Func<ILanguage, String> _formatTrue;
+		private readonly Func<ILanguage, String> _formatFalse;
+		private readonly Func<ILanguage, String> _formatQuestion;
+		private readonly Func<IStatement, IDictionary<String, IKnowledge>> _getDescriptionParameters;
 		private readonly StatementConsistencyCheckerDelegate _consistencyChecker;
 
 		#endregion
@@ -66,10 +72,18 @@ namespace AabSemantics.Metadata
 		public StatementDefinition(
 			Type type,
 			Func<ILanguage, String> nameGetter,
+			Func<ILanguage, String> formatTrue,
+			Func<ILanguage, String> formatFalse,
+			Func<ILanguage, String> formatQuestion,
+			Func<IStatement, IDictionary<String, IKnowledge>> getDescriptionParameters,
 			StatementConsistencyCheckerDelegate consistencyChecker)
 			: base(type, typeof(IStatement))
 		{
 			_nameGetter = nameGetter.EnsureNotNull(nameof(nameGetter));
+			_formatTrue = formatTrue.EnsureNotNull(nameof(formatTrue));
+			_formatFalse = formatFalse.EnsureNotNull(nameof(formatFalse));
+			_formatQuestion = formatQuestion.EnsureNotNull(nameof(formatQuestion));
+			_getDescriptionParameters = getDescriptionParameters.EnsureNotNull(nameof(getDescriptionParameters));
 			_consistencyChecker = consistencyChecker.EnsureNotNull(nameof(consistencyChecker));
 		}
 
@@ -78,6 +92,26 @@ namespace AabSemantics.Metadata
 		public String GetName(ILanguage language)
 		{
 			return _nameGetter(language);
+		}
+
+		public IText DescribeTrue(IStatement statement)
+		{
+			var formatter = new Func<ILanguage, String>(language => _formatTrue(language) + $" ({Strings.ParamStatement})");
+
+			var parameters = _getDescriptionParameters(statement);
+			parameters[Strings.ParamStatement] = statement;
+
+			return new FormattedText(formatter, parameters);
+		}
+
+		public IText DescribeFalse(IStatement statement)
+		{
+			return new FormattedText(language => _formatFalse(language), _getDescriptionParameters(statement));
+		}
+
+		public IText DescribeQuestion(IStatement statement)
+		{
+			return new FormattedText(language => _formatQuestion(language), _getDescriptionParameters(statement));
 		}
 
 		public void CheckConsistency(ISemanticNetwork semanticNetwork, ITextContainer result)
@@ -89,16 +123,25 @@ namespace AabSemantics.Metadata
 	}
 
 	public class StatementDefinition<StatementT> : StatementDefinition
-		where StatementT : IStatement
+		where StatementT : class, IStatement
 	{
 		public StatementDefinition(
 			Func<ILanguage, String> nameGetter,
+			Func<ILanguage, String> formatTrue,
+			Func<ILanguage, String> formatFalse,
+			Func<ILanguage, String> formatQuestion,
+			Func<StatementT, IDictionary<String, IKnowledge>> getDescriptionParameters,
 			StatementConsistencyCheckerDelegate<StatementT> consistencyChecker)
 			: base(
 				typeof(StatementT),
 				nameGetter,
+				formatTrue,
+				formatFalse,
+				formatQuestion,
+				statement => getDescriptionParameters(statement as StatementT),
 				(semanticNetwork, result) => consistencyChecker(semanticNetwork, result, semanticNetwork.Statements.OfType<StatementT>().ToList()))
 		{
+			getDescriptionParameters.EnsureNotNull(nameof(getDescriptionParameters));
 			consistencyChecker.EnsureNotNull(nameof(consistencyChecker));
 		}
 
@@ -143,8 +186,9 @@ namespace AabSemantics.Metadata
 			this StatementDefinition<StatementT> metadataDefinition,
 			Func<StatementT, Serialization.Xml.Statement> serializer,
 			Type xmlType)
-			where StatementT : IStatement
+			where StatementT : class, IStatement
 		{
+			serializer.EnsureNotNull(nameof(serializer));
 			metadataDefinition.SerializationSettings.Add(new StatementXmlSerializationSettings(
 				statement => serializer((StatementT) statement),
 				xmlType));
@@ -155,8 +199,9 @@ namespace AabSemantics.Metadata
 			this StatementDefinition<StatementT> metadataDefinition,
 			Func<StatementT, Serialization.Json.Statement> serializer,
 			Type jsonType)
-			where StatementT : IStatement
+			where StatementT : class, IStatement
 		{
+			serializer.EnsureNotNull(nameof(serializer));
 			metadataDefinition.SerializationSettings.Add(new StatementJsonSerializationSettings(
 				statement => serializer((StatementT) statement),
 				jsonType));
@@ -166,7 +211,7 @@ namespace AabSemantics.Metadata
 		public static StatementDefinition<StatementT> SerializeToXml<StatementT, XmlT>(
 			this StatementDefinition<StatementT> metadataDefinition,
 			Func<StatementT, XmlT> serializer)
-			where StatementT : IStatement
+			where StatementT : class, IStatement
 			where XmlT : Serialization.Xml.Statement
 		{
 			return metadataDefinition.SerializeToXml(
@@ -177,7 +222,7 @@ namespace AabSemantics.Metadata
 		public static StatementDefinition<StatementT> SerializeToJson<StatementT, JsonT>(
 			this StatementDefinition<StatementT> metadataDefinition,
 			Func<StatementT, JsonT> serializer)
-			where StatementT : IStatement
+			where StatementT : class, IStatement
 			where JsonT : Serialization.Json.Statement
 		{
 			return metadataDefinition.SerializeToJson(

@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 
-using AabSemantics.Localization;
 using AabSemantics.Modules.Classification.Localization;
 using AabSemantics.Statements;
 using AabSemantics.Utils;
@@ -48,34 +47,6 @@ namespace AabSemantics.Modules.Classification.Statements
 			yield return Ancestor;
 			yield return Descendant;
 		}
-
-		#region Description
-
-		protected override String GetDescriptionTrueText(ILanguage language)
-		{
-			return language.GetExtension<ILanguageClassificationModule>().Statements.TrueFormatStrings.Clasification;
-		}
-
-		protected override String GetDescriptionFalseText(ILanguage language)
-		{
-			return language.GetExtension<ILanguageClassificationModule>().Statements.TrueFormatStrings.Clasification;
-		}
-
-		protected override String GetDescriptionQuestionText(ILanguage language)
-		{
-			return language.GetExtension<ILanguageClassificationModule>().Statements.TrueFormatStrings.Clasification;
-		}
-
-		protected override IDictionary<String, IKnowledge> GetDescriptionParameters()
-		{
-			return new Dictionary<String, IKnowledge>
-			{
-				{ Strings.ParamParent, Ancestor },
-				{ Strings.ParamChild, Descendant },
-			};
-		}
-
-		#endregion
 
 		#region Consistency checking
 

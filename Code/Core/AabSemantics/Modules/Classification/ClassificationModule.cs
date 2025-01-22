@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
+using AabSemantics.Localization;
 using AabSemantics.Metadata;
 using AabSemantics.Modules.Classification.Localization;
 using AabSemantics.Modules.Classification.Questions;
@@ -23,7 +24,17 @@ namespace AabSemantics.Modules.Classification
 
 		protected override void RegisterStatements()
 		{
-			Repositories.RegisterStatement<IsStatement>(language => language.GetExtension<ILanguageClassificationModule>().Statements.Names.Clasification, checkCyclicParents)
+			Repositories.RegisterStatement<IsStatement>(
+					language => language.GetExtension<ILanguageClassificationModule>().Statements.Names.Clasification,
+					language => language.GetExtension<ILanguageClassificationModule>().Statements.TrueFormatStrings.Clasification,
+					language => language.GetExtension<ILanguageClassificationModule>().Statements.FalseFormatStrings.Clasification,
+					language => language.GetExtension<ILanguageClassificationModule>().Statements.QuestionFormatStrings.Clasification,
+					statement => new Dictionary<String, IKnowledge>
+					{
+						{ Strings.ParamParent, statement.Ancestor },
+						{ Strings.ParamChild, statement.Descendant },
+					},
+					checkCyclicParents)
 				.SerializeToXml(statement => new Xml.IsStatement(statement))
 				.SerializeToJson(statement => new Json.IsStatement(statement));
 		}

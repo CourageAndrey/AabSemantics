@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 using NUnit.Framework;
 
@@ -19,6 +20,10 @@ namespace AabSemantics.Tests.Metadata
 			Assert.Throws<ArgumentNullException>(() => new TestStatementDefinition(
 				null,
 				language => language.Culture,
+				language => null,
+				language => null,
+				language => null,
+				statement => new Dictionary<string, IKnowledge>(),
 				statement => null,
 				statement => null,
 				typeof(Modules.Classification.Xml.IsStatement),
@@ -33,6 +38,10 @@ namespace AabSemantics.Tests.Metadata
 			Assert.Throws<ArgumentException>(() => new TestStatementDefinition(
 				typeof(AabSemantics.Questions.Question),
 				language => language.Culture,
+				language => null,
+				language => null,
+				language => null,
+				statement => new Dictionary<string, IKnowledge>(),
 				statement => null,
 				statement => null,
 				typeof(Modules.Classification.Xml.IsStatement),
@@ -40,6 +49,10 @@ namespace AabSemantics.Tests.Metadata
 				StatementDefinition.NoConsistencyCheck));
 			Assert.Throws<ArgumentException>(() => CreateStatementDefinition<Statement>(
 				language => language.Culture,
+				language => null,
+				language => null,
+				language => null,
+				statement => new Dictionary<string, IKnowledge>(),
 				statement => null,
 				statement => null,
 				typeof(Modules.Classification.Xml.IsStatement),
@@ -53,6 +66,10 @@ namespace AabSemantics.Tests.Metadata
 			// act & assert
 			Assert.Throws<ArgumentNullException>(() => CreateStatementDefinition<IsStatement>(
 				null,
+				language => null,
+				language => null,
+				language => null,
+				statement => new Dictionary<string, IKnowledge>(),
 				statement => null,
 				statement => null,
 				typeof(Modules.Classification.Xml.IsStatement),
@@ -60,6 +77,126 @@ namespace AabSemantics.Tests.Metadata
 				StatementDefinition<IsStatement>.NoConsistencyCheck));
 			Assert.Throws<ArgumentNullException>(() => new TestStatementDefinition(
 				typeof(IsStatement),
+				null,
+				language => null,
+				language => null,
+				language => null,
+				statement => new Dictionary<string, IKnowledge>(),
+				statement => null,
+				statement => null,
+				typeof(Modules.Classification.Xml.IsStatement),
+				typeof(Modules.Classification.Json.IsStatement),
+				StatementDefinition.NoConsistencyCheck));
+		}
+
+		[Test]
+		public void GivenNoFormatTrue_WhenTryToCreate_ThenFail()
+		{
+			// act & assert
+			Assert.Throws<ArgumentNullException>(() => CreateStatementDefinition<IsStatement>(
+				language => language.Culture,
+				null,
+				language => null,
+				language => null,
+				statement => new Dictionary<string, IKnowledge>(),
+				statement => null,
+				statement => null,
+				typeof(Modules.Classification.Xml.IsStatement),
+				typeof(Modules.Classification.Json.IsStatement),
+				StatementDefinition<IsStatement>.NoConsistencyCheck));
+			Assert.Throws<ArgumentNullException>(() => new TestStatementDefinition(
+				typeof(IsStatement),
+				language => language.Culture,
+				null,
+				language => null,
+				language => null,
+				statement => new Dictionary<string, IKnowledge>(),
+				statement => null,
+				statement => null,
+				typeof(Modules.Classification.Xml.IsStatement),
+				typeof(Modules.Classification.Json.IsStatement),
+				StatementDefinition.NoConsistencyCheck));
+		}
+
+		[Test]
+		public void GivenNoFormatFalse_WhenTryToCreate_ThenFail()
+		{
+			// act & assert
+			Assert.Throws<ArgumentNullException>(() => CreateStatementDefinition<IsStatement>(
+				language => language.Culture,
+				language => null,
+				null,
+				language => null,
+				statement => new Dictionary<string, IKnowledge>(),
+				statement => null,
+				statement => null,
+				typeof(Modules.Classification.Xml.IsStatement),
+				typeof(Modules.Classification.Json.IsStatement),
+				StatementDefinition<IsStatement>.NoConsistencyCheck));
+			Assert.Throws<ArgumentNullException>(() => new TestStatementDefinition(
+				typeof(IsStatement),
+				language => language.Culture,
+				language => null,
+				null,
+				language => null,
+				statement => new Dictionary<string, IKnowledge>(),
+				statement => null,
+				statement => null,
+				typeof(Modules.Classification.Xml.IsStatement),
+				typeof(Modules.Classification.Json.IsStatement),
+				StatementDefinition.NoConsistencyCheck));
+		}
+
+		[Test]
+		public void GivenNoFormatQuestion_WhenTryToCreate_ThenFail()
+		{
+			// act & assert
+			Assert.Throws<ArgumentNullException>(() => CreateStatementDefinition<IsStatement>(
+				language => language.Culture,
+				language => null,
+				language => null,
+				null,
+				statement => new Dictionary<string, IKnowledge>(),
+				statement => null,
+				statement => null,
+				typeof(Modules.Classification.Xml.IsStatement),
+				typeof(Modules.Classification.Json.IsStatement),
+				StatementDefinition<IsStatement>.NoConsistencyCheck));
+			Assert.Throws<ArgumentNullException>(() => new TestStatementDefinition(
+				typeof(IsStatement),
+				language => language.Culture,
+				language => null,
+				language => null,
+				null,
+				statement => new Dictionary<string, IKnowledge>(),
+				statement => null,
+				statement => null,
+				typeof(Modules.Classification.Xml.IsStatement),
+				typeof(Modules.Classification.Json.IsStatement),
+				StatementDefinition.NoConsistencyCheck));
+		}
+
+		[Test]
+		public void GivenNoFormatParameters_WhenTryToCreate_ThenFail()
+		{
+			// act & assert
+			Assert.Throws<ArgumentNullException>(() => CreateStatementDefinition<IsStatement>(
+				language => language.Culture,
+				language => null,
+				language => null,
+				language => null,
+				null,
+				statement => null,
+				statement => null,
+				typeof(Modules.Classification.Xml.IsStatement),
+				typeof(Modules.Classification.Json.IsStatement),
+				StatementDefinition<IsStatement>.NoConsistencyCheck));
+			Assert.Throws<ArgumentNullException>(() => new TestStatementDefinition(
+				typeof(IsStatement),
+				language => language.Culture,
+				language => null,
+				language => null,
+				language => null,
 				null,
 				statement => null,
 				statement => null,
@@ -74,6 +211,10 @@ namespace AabSemantics.Tests.Metadata
 			// act & assert
 			Assert.Throws<ArgumentNullException>(() => CreateStatementDefinition<IsStatement>(
 				language => language.Culture,
+				language => null,
+				language => null,
+				language => null,
+				statement => new Dictionary<string, IKnowledge>(),
 				statement => null,
 				statement => null,
 				null,
@@ -82,6 +223,10 @@ namespace AabSemantics.Tests.Metadata
 			Assert.Throws<ArgumentNullException>(() => new TestStatementDefinition(
 				typeof(IsStatement),
 				language => language.Culture,
+				language => null,
+				language => null,
+				language => null,
+				statement => new Dictionary<string, IKnowledge>(),
 				statement => null,
 				statement => null,
 				null,
@@ -95,6 +240,10 @@ namespace AabSemantics.Tests.Metadata
 			// act & assert
 			Assert.Throws<ArgumentNullException>(() => CreateStatementDefinition<IsStatement>(
 				language => language.Culture,
+				language => null,
+				language => null,
+				language => null,
+				statement => new Dictionary<string, IKnowledge>(),
 				statement => null,
 				statement => null,
 				typeof(Modules.Classification.Xml.IsStatement),
@@ -103,6 +252,10 @@ namespace AabSemantics.Tests.Metadata
 			Assert.Throws<ArgumentNullException>(() => new TestStatementDefinition(
 				typeof(IsStatement),
 				language => language.Culture,
+				language => null,
+				language => null,
+				language => null,
+				statement => new Dictionary<string, IKnowledge>(),
 				statement => null,
 				statement => null,
 				typeof(Modules.Classification.Xml.IsStatement),
@@ -116,6 +269,10 @@ namespace AabSemantics.Tests.Metadata
 			// act & assert
 			Assert.Throws<ArgumentNullException>(() => CreateStatementDefinition<IsStatement>(
 				language => language.Culture,
+				language => null,
+				language => null,
+				language => null,
+				statement => new Dictionary<string, IKnowledge>(),
 				null,
 				statement => null,
 				typeof(Modules.Classification.Xml.IsStatement),
@@ -124,6 +281,10 @@ namespace AabSemantics.Tests.Metadata
 			Assert.Throws<ArgumentNullException>(() => new TestStatementDefinition(
 				typeof(IsStatement),
 				language => language.Culture,
+				language => null,
+				language => null,
+				language => null,
+				statement => new Dictionary<string, IKnowledge>(),
 				null,
 				statement => null,
 				typeof(Modules.Classification.Xml.IsStatement),
@@ -137,6 +298,10 @@ namespace AabSemantics.Tests.Metadata
 			// act & assert
 			Assert.Throws<ArgumentNullException>(() => CreateStatementDefinition<IsStatement>(
 				language => language.Culture,
+				language => null,
+				language => null,
+				language => null,
+				statement => new Dictionary<string, IKnowledge>(),
 				statement => null,
 				null,
 				typeof(Modules.Classification.Xml.IsStatement),
@@ -145,6 +310,10 @@ namespace AabSemantics.Tests.Metadata
 			Assert.Throws<ArgumentNullException>(() => new TestStatementDefinition(
 				typeof(IsStatement),
 				language => language.Culture,
+				language => null,
+				language => null,
+				language => null,
+				statement => new Dictionary<string, IKnowledge>(),
 				statement => null,
 				null,
 				typeof(Modules.Classification.Xml.IsStatement),
@@ -158,6 +327,10 @@ namespace AabSemantics.Tests.Metadata
 			// act & assert
 			Assert.Throws<ArgumentNullException>(() => CreateStatementDefinition<IsStatement>(
 				language => language.Culture,
+				language => null,
+				language => null,
+				language => null,
+				statement => new Dictionary<string, IKnowledge>(),
 				statement => null,
 				statement => null,
 				typeof(Modules.Classification.Xml.IsStatement),
@@ -166,6 +339,10 @@ namespace AabSemantics.Tests.Metadata
 			Assert.Throws<ArgumentNullException>(() => new TestStatementDefinition(
 				typeof(IsStatement),
 				language => language.Culture,
+				language => null,
+				language => null,
+				language => null,
+				statement => new Dictionary<string, IKnowledge>(),
 				statement => null,
 				statement => null,
 				typeof(Modules.Classification.Xml.IsStatement),
@@ -175,6 +352,10 @@ namespace AabSemantics.Tests.Metadata
 			var definition = new TestStatementDefinition(
 				typeof(IsStatement),
 				language => language.Culture,
+				language => null,
+				language => null,
+				language => null,
+				statement => new Dictionary<string, IKnowledge>(),
 				statement => null,
 				statement => null,
 				typeof(Modules.Classification.Xml.IsStatement),
@@ -189,6 +370,10 @@ namespace AabSemantics.Tests.Metadata
 			// arrange
 			var definition = CreateStatementDefinition<IsStatement>(
 				language => language.Culture,
+				language => null,
+				language => null,
+				language => null,
+				statement => new Dictionary<string, IKnowledge>(),
 				statement => null,
 				statement => null,
 				typeof(Modules.Classification.Xml.IsStatement),
@@ -204,16 +389,26 @@ namespace AabSemantics.Tests.Metadata
 
 		private static StatementDefinition<StatementT> CreateStatementDefinition<StatementT>(
 			Func<ILanguage, String> nameGetter,
+			Func<ILanguage, String> formatTrue,
+			Func<ILanguage, String> formatFalse,
+			Func<ILanguage, String> formatQuestion,
+			Func<StatementT, IDictionary<String, IKnowledge>> getDescriptionParameters,
 			Func<IStatement, AabSemantics.Serialization.Xml.Statement> xmlSerializer,
 			Func<IStatement, AabSemantics.Serialization.Json.Statement> jsonSerializer,
 			Type xmlType,
 			Type jsonType,
 			StatementConsistencyCheckerDelegate<StatementT> consistencyChecker)
-			where StatementT : IStatement
+			where StatementT : class, IStatement
 		{
-			var statementDefinition = new StatementDefinition<StatementT>(nameGetter, consistencyChecker);
-			statementDefinition.SerializeToXml(xmlSerializer, xmlType);
-			statementDefinition.SerializeToJson(jsonSerializer, jsonType);
+			var statementDefinition = new StatementDefinition<StatementT>(
+				nameGetter,
+				formatTrue,
+				formatFalse,
+				formatQuestion,
+				getDescriptionParameters,
+				consistencyChecker);
+			statementDefinition.SerializeToXml<StatementT>(xmlSerializer, xmlType);
+			statementDefinition.SerializeToJson<StatementT>(jsonSerializer, jsonType);
 			return statementDefinition;
 		}
 
@@ -222,12 +417,23 @@ namespace AabSemantics.Tests.Metadata
 			public TestStatementDefinition(
 				Type type,
 				Func<ILanguage, string> nameGetter,
+				Func<ILanguage, String> formatTrue,
+				Func<ILanguage, String> formatFalse,
+				Func<ILanguage, String> formatQuestion,
+				Func<IStatement, IDictionary<String, IKnowledge>> getDescriptionParameters,
 				Func<IStatement, AabSemantics.Serialization.Xml.Statement> xmlSerializer,
 				Func<IStatement, AabSemantics.Serialization.Json.Statement> jsonSerializer,
 				Type xmlType,
 				Type jsonType,
 				StatementConsistencyCheckerDelegate consistencyChecker)
-				: base(type, nameGetter, consistencyChecker)
+				: base(
+					type,
+					nameGetter,
+					formatTrue,
+					formatFalse,
+					formatQuestion,
+					getDescriptionParameters,
+					consistencyChecker)
 			{
 				this.SerializeToXml(xmlSerializer, xmlType);
 				this.SerializeToJson(jsonSerializer, jsonType);

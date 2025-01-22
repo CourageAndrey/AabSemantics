@@ -47,34 +47,6 @@ namespace AabSemantics.Modules.Set.Statements
 			yield return Part;
 		}
 
-		#region Description
-
-		protected override String GetDescriptionTrueText(ILanguage language)
-		{
-			return language.GetExtension<ILanguageSetModule>().Statements.TrueFormatStrings.Composition;
-		}
-
-		protected override String GetDescriptionFalseText(ILanguage language)
-		{
-			return language.GetExtension<ILanguageSetModule>().Statements.TrueFormatStrings.Composition;
-		}
-
-		protected override String GetDescriptionQuestionText(ILanguage language)
-		{
-			return language.GetExtension<ILanguageSetModule>().Statements.TrueFormatStrings.Composition;
-		}
-
-		protected override IDictionary<String, IKnowledge> GetDescriptionParameters()
-		{
-			return new Dictionary<String, IKnowledge>
-			{
-				{ AabSemantics.Localization.Strings.ParamParent, Whole },
-				{ AabSemantics.Localization.Strings.ParamChild, Part },
-			};
-		}
-
-		#endregion
-
 		#region Consistency checking
 
 		public override System.Boolean Equals(HasPartStatement other)

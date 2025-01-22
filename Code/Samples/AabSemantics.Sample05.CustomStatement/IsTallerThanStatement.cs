@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 
 using AabSemantics.Statements;
@@ -39,7 +38,7 @@ namespace AabSemantics.Sample05.CustomStatement
 			yield return ShorterPerson;
 		}
 
-		protected override string GetDescriptionTrueText(ILanguage language)
+		/*protected override string GetDescriptionTrueText(ILanguage language)
 		{
 			return "#TALLER# is taller than #SHORTER#.";
 		}
@@ -61,7 +60,7 @@ namespace AabSemantics.Sample05.CustomStatement
 				{ "#TALLER#", TallerPerson },
 				{ "#SHORTER#", ShorterPerson },
 			};
-		}
+		}*/
 
 		public override bool Equals(IsTallerThanStatement other)
 		{

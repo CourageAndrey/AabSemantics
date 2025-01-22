@@ -7,6 +7,7 @@ using NUnit.Framework;
 using AabSemantics.Answers;
 using AabSemantics.Concepts;
 using AabSemantics.Localization;
+using AabSemantics.Metadata;
 using AabSemantics.Modules.Boolean;
 using AabSemantics.Modules.Boolean.Localization;
 using AabSemantics.Modules.Boolean.Questions;
@@ -25,6 +26,12 @@ namespace AabSemantics.Tests.Questions
 		{
 			new BooleanModule().RegisterMetadata();
 			new ClassificationModule().RegisterMetadata();
+		}
+
+		[OneTimeTearDown]
+		public void OneTimeTearDown()
+		{
+			Repositories.Reset();
 		}
 
 		[Test]
@@ -67,6 +74,8 @@ namespace AabSemantics.Tests.Questions
 			// arrange
 			var language = Language.Default;
 			var semanticNetwork = new SemanticNetwork(language);
+			RegisterTestStatements(semanticNetwork);
+
 			var statementToCheck = new TestStatement(1);
 			var statementWrong = new TestStatement(2);
 
@@ -95,6 +104,8 @@ namespace AabSemantics.Tests.Questions
 			var language = Language.Default;
 			language.Extensions.Add(LanguageBooleanModule.CreateDefault());
 			var semanticNetwork = new SemanticNetwork(language);
+			RegisterTestStatements(semanticNetwork);
+
 			var statementToCheck = new TestStatement(1);
 			var statementRight = new TestStatement(1);
 			var statementWrong = new TestStatement(2);
@@ -127,6 +138,8 @@ namespace AabSemantics.Tests.Questions
 			var language = Language.Default;
 
 			var semanticNetwork = new SemanticNetwork(language);
+			RegisterTestStatements(semanticNetwork);
+
 			var conceptParent = "parent".CreateConceptByName();
 			var conceptIntermediate = "intermediate".CreateConceptByName();
 			var conceptChild = "child".CreateConceptByName();
@@ -150,6 +163,29 @@ namespace AabSemantics.Tests.Questions
 			Assert.That(answer.Explanation.Statements.Count, Is.EqualTo(2));
 			Assert.That(answer.Explanation.Statements.Contains(statementPI), Is.True);
 			Assert.That(answer.Explanation.Statements.Contains(statementIC), Is.True);
+		}
+
+		private static void RegisterTestStatements(ISemanticNetwork semanticNetwork)
+		{
+			semanticNetwork
+				.WithModule<BooleanModule>()
+				.WithModule<ClassificationModule>();
+
+			Repositories.RegisterStatement<TestStatement>(
+				l => string.Empty,
+				l => string.Empty,
+				l => string.Empty,
+				l => string.Empty,
+				s => new Dictionary<string, IKnowledge>(),
+				StatementDefinition<TestStatement>.NoConsistencyCheck);
+
+			Repositories.RegisterStatement<TransitiveTestStatement>(
+				l => string.Empty,
+				l => string.Empty,
+				l => string.Empty,
+				l => string.Empty,
+				s => new Dictionary<string, IKnowledge>(),
+				StatementDefinition<TransitiveTestStatement>.NoConsistencyCheck);
 		}
 
 		private class TestStatement : TestCore.TestStatement
