@@ -13,6 +13,7 @@ using AabSemantics.Modules.Classification.Statements;
 using AabSemantics.Serialization;
 using AabSemantics.Statements;
 using AabSemantics.TestCore;
+using AabSemantics.Metadata;
 
 namespace AabSemantics.Tests.Serialization
 {
@@ -28,8 +29,10 @@ namespace AabSemantics.Tests.Serialization
 		{
 			_language = Language.Default;
 
+			Repositories.Statements = new Repository<StatementDefinition>();
 			new BooleanModule().RegisterMetadata();
 			new ClassificationModule().RegisterMetadata();
+
 			_semanticNetwork = new SemanticNetwork(_language)
 				.WithModule<BooleanModule>()
 				.WithModule<ClassificationModule>();

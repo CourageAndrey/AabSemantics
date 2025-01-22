@@ -1,4 +1,5 @@
-﻿using NUnit.Framework;
+﻿using AabSemantics.Metadata;
+using NUnit.Framework;
 
 using AabSemantics.Modules.Boolean.Json;
 using AabSemantics.Modules.Classification.Json;
@@ -11,6 +12,12 @@ namespace AabSemantics.Tests.Serialization.Json
 	[TestFixture]
 	public class EmptyConstructorsTest
 	{
+		[OneTimeSetUp]
+		public void Setup()
+		{
+			Repositories.Statements = new Repository<StatementDefinition>();
+		}
+
 		[Test]
 		public void GivenSemanticNetwork_WhenCreateWithoutParameters_ThenSucceed()
 		{

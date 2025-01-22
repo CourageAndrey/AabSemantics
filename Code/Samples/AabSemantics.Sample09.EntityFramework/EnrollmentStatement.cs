@@ -51,7 +51,7 @@ namespace AabSemantics.Sample09.EntityFramework
 			yield return Student;
 		}
 
-		protected override string GetDescriptionTrueText(ILanguage language)
+		/*protected override string GetDescriptionTrueText(ILanguage language)
 		{
 			return Grade.HasValue
 				? $"{Student.Name.GetValue(language)} has {Course.Name.GetValue(language)} enrollment grade {Grade}."
@@ -75,7 +75,7 @@ namespace AabSemantics.Sample09.EntityFramework
 		protected override IDictionary<string, IKnowledge> GetDescriptionParameters()
 		{
 			return new Dictionary<string, IKnowledge>();
-		}
+		}*/
 
 		public override bool Equals(EnrollmentStatement other)
 		{

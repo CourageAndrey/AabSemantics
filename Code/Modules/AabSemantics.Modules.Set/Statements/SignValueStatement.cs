@@ -50,35 +50,6 @@ namespace AabSemantics.Modules.Set.Statements
 			yield return Value;
 		}
 
-		#region Description
-
-		protected override String GetDescriptionTrueText(ILanguage language)
-		{
-			return language.GetExtension<ILanguageSetModule>().Statements.TrueFormatStrings.SignValue;
-		}
-
-		protected override String GetDescriptionFalseText(ILanguage language)
-		{
-			return language.GetExtension<ILanguageSetModule>().Statements.TrueFormatStrings.SignValue;
-		}
-
-		protected override String GetDescriptionQuestionText(ILanguage language)
-		{
-			return language.GetExtension<ILanguageSetModule>().Statements.TrueFormatStrings.SignValue;
-		}
-
-		protected override IDictionary<String, IKnowledge> GetDescriptionParameters()
-		{
-			return new Dictionary<String, IKnowledge>
-			{
-				{ AabSemantics.Localization.Strings.ParamConcept, Concept },
-				{ Strings.ParamSign, Sign },
-				{ Strings.ParamValue, Value },
-			};
-		}
-
-		#endregion
-
 		#region Consistency checking
 
 		public override System.Boolean Equals(SignValueStatement other)

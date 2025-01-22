@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 
 using AabSemantics.Localization;
-using AabSemantics.Text.Primitives;
 using AabSemantics.Utils;
 
 namespace AabSemantics.Statements
@@ -41,38 +40,6 @@ namespace AabSemantics.Statements
 
 			Hint = hint ?? LocalizedString.Empty;
 		}
-
-		#region Description
-
-		public IText DescribeTrue()
-		{
-			var formatter = new Func<ILanguage, String>(language => GetDescriptionTrueText(language) + $" ({Strings.ParamStatement})");
-
-			var parameters = GetDescriptionParameters();
-			parameters[Strings.ParamStatement] = this;
-
-			return new FormattedText(formatter, parameters);
-		}
-
-		public IText DescribeFalse()
-		{
-			return new FormattedText(language => GetDescriptionFalseText(language), GetDescriptionParameters());
-		}
-
-		public IText DescribeQuestion()
-		{
-			return new FormattedText(language => GetDescriptionQuestionText(language), GetDescriptionParameters());
-		}
-
-		protected abstract String GetDescriptionTrueText(ILanguage language);
-
-		protected abstract String GetDescriptionFalseText(ILanguage language);
-
-		protected abstract String GetDescriptionQuestionText(ILanguage language);
-
-		protected abstract IDictionary<String, IKnowledge> GetDescriptionParameters();
-
-		#endregion
 
 		public void Update(String id)
 		{

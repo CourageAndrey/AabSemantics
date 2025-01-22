@@ -38,19 +38,60 @@ namespace AabSemantics.Modules.Set
 
 		protected override void RegisterStatements()
 		{
-			Repositories.RegisterStatement<HasPartStatement>(language => language.GetExtension<ILanguageSetModule>().Statements.Names.Composition, StatementDefinition<HasPartStatement>.NoConsistencyCheck)
+			Repositories.RegisterStatement<HasPartStatement>(
+					language => language.GetExtension<ILanguageSetModule>().Statements.Names.Composition,
+					language => language.GetExtension<ILanguageSetModule>().Statements.TrueFormatStrings.Composition,
+					language => language.GetExtension<ILanguageSetModule>().Statements.FalseFormatStrings.Composition,
+					language => language.GetExtension<ILanguageSetModule>().Statements.QuestionFormatStrings.Composition,
+					statement => new Dictionary<String, IKnowledge>
+					{
+						{ AabSemantics.Localization.Strings.ParamParent, statement.Whole },
+						{ AabSemantics.Localization.Strings.ParamChild, statement.Part },
+					},
+					StatementDefinition<HasPartStatement>.NoConsistencyCheck)
 				.SerializeToXml(statement => new Xml.HasPartStatement(statement))
 				.SerializeToJson(statement => new Json.HasPartStatement(statement));
 
-			Repositories.RegisterStatement<GroupStatement>(language => language.GetExtension<ILanguageSetModule>().Statements.Names.SubjectArea, StatementDefinition<GroupStatement>.NoConsistencyCheck)
+			Repositories.RegisterStatement<GroupStatement>(
+					language => language.GetExtension<ILanguageSetModule>().Statements.Names.SubjectArea,
+					language => language.GetExtension<ILanguageSetModule>().Statements.TrueFormatStrings.SubjectArea,
+					language => language.GetExtension<ILanguageSetModule>().Statements.FalseFormatStrings.SubjectArea,
+					language => language.GetExtension<ILanguageSetModule>().Statements.QuestionFormatStrings.SubjectArea,
+					statement => new Dictionary<String, IKnowledge>
+					{
+						{ Strings.ParamArea, statement.Area },
+						{ AabSemantics.Localization.Strings.ParamConcept, statement.Concept },
+					},
+					StatementDefinition<GroupStatement>.NoConsistencyCheck)
 				.SerializeToXml(statement => new Xml.GroupStatement(statement))
 				.SerializeToJson(statement => new Json.GroupStatement(statement));
 
-			Repositories.RegisterStatement<HasSignStatement>(language => language.GetExtension<ILanguageSetModule>().Statements.Names.HasSign, checkSignDuplications)
+			Repositories.RegisterStatement<HasSignStatement>(
+					language => language.GetExtension<ILanguageSetModule>().Statements.Names.HasSign,
+					language => language.GetExtension<ILanguageSetModule>().Statements.TrueFormatStrings.HasSign,
+					language => language.GetExtension<ILanguageSetModule>().Statements.FalseFormatStrings.HasSign,
+					language => language.GetExtension<ILanguageSetModule>().Statements.QuestionFormatStrings.HasSign,
+					statement => new Dictionary<String, IKnowledge>
+					{
+						{ AabSemantics.Localization.Strings.ParamConcept, statement.Concept },
+						{ Strings.ParamSign, statement.Sign },
+					},
+					checkSignDuplications)
 				.SerializeToXml(statement => new Xml.HasSignStatement(statement))
 				.SerializeToJson(statement => new Json.HasSignStatement(statement));
 
-			Repositories.RegisterStatement<SignValueStatement>(language => language.GetExtension<ILanguageSetModule>().Statements.Names.SignValue, checkSignValues)
+			Repositories.RegisterStatement<SignValueStatement>(
+					language => language.GetExtension<ILanguageSetModule>().Statements.Names.SignValue,
+					language => language.GetExtension<ILanguageSetModule>().Statements.TrueFormatStrings.SignValue,
+					language => language.GetExtension<ILanguageSetModule>().Statements.FalseFormatStrings.SignValue,
+					language => language.GetExtension<ILanguageSetModule>().Statements.QuestionFormatStrings.SignValue,
+					statement => new Dictionary<String, IKnowledge>
+					{
+						{ AabSemantics.Localization.Strings.ParamConcept, statement.Concept },
+						{ Strings.ParamSign, statement.Sign },
+						{ Strings.ParamValue, statement.Value },
+					},
+					checkSignValues)
 				.SerializeToXml(statement => new Xml.SignValueStatement(statement))
 				.SerializeToJson(statement => new Json.SignValueStatement(statement));
 		}
