@@ -30,9 +30,9 @@ namespace AabSemantics.Modules.Set.Xml
 		public SignValueStatement()
 		{ }
 
-		public SignValueStatement(Set.Statements.SignValueStatement statement)
+		public SignValueStatement(Statements.SignValueStatement statement)
+			: base(statement)
 		{
-			ID = statement.ID;
 			Concept = statement.Concept?.ID;
 			Sign = statement.Sign?.ID;
 			Value = statement.Value?.ID;

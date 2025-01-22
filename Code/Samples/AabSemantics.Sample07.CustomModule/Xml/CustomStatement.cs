@@ -5,7 +5,7 @@ using AabSemantics.Serialization;
 namespace AabSemantics.Sample07.CustomModule.Xml
 {
 	[XmlType("Custom")]
-	public class CustomStatement : AabSemantics.Serialization.Xml.Statement<Sample07.CustomModule.CustomStatement>
+	public class CustomStatement : Serialization.Xml.Statement<Sample07.CustomModule.CustomStatement>
 	{
 		#region Properties
 
@@ -25,8 +25,8 @@ namespace AabSemantics.Sample07.CustomModule.Xml
 		{ }
 
 		public CustomStatement(Sample07.CustomModule.CustomStatement statement)
+			: base(statement)
 		{
-			ID = statement.ID;
 			Concept1 = statement.Concept1?.ID;
 			Concept2 = statement.Concept2?.ID;
 		}

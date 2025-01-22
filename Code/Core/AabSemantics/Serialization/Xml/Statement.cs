@@ -8,9 +8,25 @@ namespace AabSemantics.Serialization.Xml
 	[XmlType]
 	public abstract class Statement
 	{
+		#region Properties
+
 		[XmlAttribute]
 		public String ID
 		{ get; set; }
+
+		#endregion
+
+		#region Constructors
+
+		protected Statement()
+		{ }
+
+		protected Statement(IStatement statement)
+		{
+			ID = statement.ID;
+		}
+
+		#endregion
 
 		public static Statement Load(IStatement statement)
 		{
@@ -33,6 +49,18 @@ namespace AabSemantics.Serialization.Xml
 	public abstract class Statement<StatementT> : Statement
 		where StatementT : IStatement
 	{
+		#region Constructors
+
+		protected Statement()
+			: base()
+		{ }
+
+		protected Statement(StatementT statement)
+			: base(statement)
+		{ }
+
+		#endregion
+
 		public override IStatement Save(ConceptIdResolver conceptIdResolver)
 		{
 			return SaveImplementation(conceptIdResolver);

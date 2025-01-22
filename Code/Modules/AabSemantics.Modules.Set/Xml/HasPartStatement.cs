@@ -26,9 +26,9 @@ namespace AabSemantics.Modules.Set.Xml
 		public HasPartStatement()
 		{ }
 
-		public HasPartStatement(Set.Statements.HasPartStatement statement)
+		public HasPartStatement(Statements.HasPartStatement statement)
+			: base(statement)
 		{
-			ID = statement.ID;
 			Whole = statement.Whole?.ID;
 			Part = statement.Part?.ID;
 		}
