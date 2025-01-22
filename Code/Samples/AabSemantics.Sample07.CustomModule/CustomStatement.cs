@@ -40,30 +40,6 @@ namespace AabSemantics.Sample07.CustomModule
 			yield return Concept2;
 		}
 
-		protected override string GetDescriptionTrueText(ILanguage language)
-		{
-			return language.GetExtension<ILanguageCustomModule>().Statements.TrueFormatStrings.Custom;
-		}
-
-		protected override string GetDescriptionFalseText(ILanguage language)
-		{
-			return language.GetExtension<ILanguageCustomModule>().Statements.TrueFormatStrings.Custom;
-		}
-
-		protected override string GetDescriptionQuestionText(ILanguage language)
-		{
-			return language.GetExtension<ILanguageCustomModule>().Statements.TrueFormatStrings.Custom;
-		}
-
-		protected override IDictionary<string, IKnowledge> GetDescriptionParameters()
-		{
-			return new Dictionary<string, IKnowledge>
-			{
-				{ ParamConcept1, Concept1 },
-				{ ParamConcept2, Concept2 },
-			};
-		}
-
 		public override bool Equals(CustomStatement other)
 		{
 			if (ReferenceEquals(this, other)) return true;

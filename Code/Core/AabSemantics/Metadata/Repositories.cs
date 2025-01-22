@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-
 using AabSemantics.Utils;
 
 namespace AabSemantics.Metadata
@@ -66,19 +65,40 @@ namespace AabSemantics.Metadata
 		public static StatementDefinition RegisterStatement(
 			Type type,
 			Func<ILanguage, String> nameGetter,
+			Func<ILanguage, String> formatTrue,
+			Func<ILanguage, String> formatFalse,
+			Func<ILanguage, String> formatQuestion,
+			Func<IStatement, IDictionary<String, IKnowledge>> getDescriptionParameters,
 			StatementConsistencyCheckerDelegate consistencyChecker)
 		{
-			var definition = new StatementDefinition(type, nameGetter, consistencyChecker);
+			var definition = new StatementDefinition(
+				type,
+				nameGetter,
+				formatTrue,
+				formatFalse,
+				formatQuestion,
+				getDescriptionParameters,
+				consistencyChecker);
 			Statements.Definitions[definition.Type] = definition;
 			return definition;
 		}
 
 		public static StatementDefinition<StatementT> RegisterStatement<StatementT>(
 			Func<ILanguage, String> nameGetter,
+			Func<ILanguage, String> formatTrue,
+			Func<ILanguage, String> formatFalse,
+			Func<ILanguage, String> formatQuestion,
+			Func<StatementT, IDictionary<String, IKnowledge>> getDescriptionParameters,
 			StatementConsistencyCheckerDelegate<StatementT> consistencyChecker)
-			where StatementT : IStatement
+			where StatementT : class, IStatement
 		{
-			var definition = new StatementDefinition<StatementT>(nameGetter, consistencyChecker);
+			var definition = new StatementDefinition<StatementT>(
+				nameGetter,
+				formatTrue,
+				formatFalse,
+				formatQuestion,
+				getDescriptionParameters,
+				consistencyChecker);
 			Statements.Definitions[definition.Type] = definition;
 			return definition;
 		}
@@ -115,6 +135,15 @@ namespace AabSemantics.Metadata
 			var definition = new AnswerDefinition<AnswerT>();
 			Answers.Definitions[definition.Type] = definition;
 			return definition;
+		}
+
+		public static void Reset()
+		{
+			_modules = new Dictionary<String, IExtensionModule>();
+			_attributes = new Repository<AttributeDefinition>();
+			_statements = new Repository<StatementDefinition>();
+			_questions = new Repository<QuestionDefinition>();
+			_answers = new Repository<AnswerDefinition>();
 		}
 	}
 }

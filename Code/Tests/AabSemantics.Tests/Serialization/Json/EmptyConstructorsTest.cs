@@ -1,4 +1,5 @@
-﻿using NUnit.Framework;
+﻿using AabSemantics.Metadata;
+using NUnit.Framework;
 
 using AabSemantics.Modules.Boolean.Json;
 using AabSemantics.Modules.Classification.Json;

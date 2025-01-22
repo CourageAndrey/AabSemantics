@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 
+using AabSemantics.Metadata;
+
 namespace AabSemantics
 {
 	public interface IStatement : IKnowledge
@@ -11,13 +13,28 @@ namespace AabSemantics
 
 		IEnumerable<IConcept> GetChildConcepts();
 
-		IText DescribeTrue();
-
-		IText DescribeFalse();
-
-		IText DescribeQuestion();
-
 		Boolean CheckUnique(IEnumerable<IStatement> statements);
+	}
+
+	public static class StatementExtensions
+	{
+		public static IText DescribeTrue(this IStatement statement)
+		{
+			var definition = Repositories.Statements.Definitions[statement.GetType()];
+			return definition.DescribeTrue(statement);
+		}
+
+		public static IText DescribeFalse(this IStatement statement)
+		{
+			var definition = Repositories.Statements.Definitions[statement.GetType()];
+			return definition.DescribeFalse(statement);
+		}
+
+		public static IText DescribeQuestion(this IStatement statement)
+		{
+			var definition = Repositories.Statements.Definitions[statement.GetType()];
+			return definition.DescribeQuestion(statement);
+		}
 	}
 
 	public static class StatementsBaseHelper

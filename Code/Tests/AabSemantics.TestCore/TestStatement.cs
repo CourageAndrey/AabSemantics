@@ -21,26 +21,6 @@ namespace AabSemantics.TestCore
 			return Array.Empty<IConcept>();
 		}
 
-		protected override string GetDescriptionTrueText(ILanguage language)
-		{
-			return string.Empty;
-		}
-
-		protected override string GetDescriptionFalseText(ILanguage language)
-		{
-			return string.Empty;
-		}
-
-		protected override string GetDescriptionQuestionText(ILanguage language)
-		{
-			return string.Empty;
-		}
-
-		protected override IDictionary<string, IKnowledge> GetDescriptionParameters()
-		{
-			return new Dictionary<string, IKnowledge>();
-		}
-
 		public override bool Equals(TestStatement other)
 		{
 			return ReferenceEquals(this, other);

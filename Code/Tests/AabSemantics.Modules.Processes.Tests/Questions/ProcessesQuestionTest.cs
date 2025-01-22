@@ -39,7 +39,8 @@ namespace AabSemantics.Modules.Processes.Tests.Questions
 		{
 			// arrange
 			var language = Language.Default;
-			var semanticNetwork = new SemanticNetwork(language);
+			var semanticNetwork = new SemanticNetwork(language)
+				.WithModule<ProcessesModule>();
 
 			// act
 			var answer = (StatementsAnswer<ProcessesStatement>) semanticNetwork.Supposing(new IStatement[] { statement }).Ask().WhatIsMutualSequenceOfProcesses(statement.ProcessA, statement.ProcessB);
@@ -107,7 +108,8 @@ namespace AabSemantics.Modules.Processes.Tests.Questions
 		{
 			// arrange
 			var language = Language.Default;
-			var semanticNetwork = new SemanticNetwork(language);
+			var semanticNetwork = new SemanticNetwork(language)
+				.WithModule<ProcessesModule>();
 
 			IConcept processA, processB, processI;
 			semanticNetwork.Concepts.Add(processA = CreateProcess("Process A"));
@@ -160,7 +162,8 @@ namespace AabSemantics.Modules.Processes.Tests.Questions
 		{
 			// arrange
 			var language = Language.Default;
-			var semanticNetwork = new SemanticNetwork(language);
+			var semanticNetwork = new SemanticNetwork(language)
+				.WithModule<ProcessesModule>();
 
 			IConcept processA, processB, processI;
 			semanticNetwork.Concepts.Add(processA = CreateProcess("Process A"));

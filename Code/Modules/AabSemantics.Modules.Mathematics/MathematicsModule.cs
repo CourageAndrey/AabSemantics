@@ -46,7 +46,18 @@ namespace AabSemantics.Modules.Mathematics
 
 		protected override void RegisterStatements()
 		{
-			Repositories.RegisterStatement<ComparisonStatement>(language => language.GetExtension<ILanguageMathematicsModule>().Statements.Names.Comparison, checkComparisonValueSystems)
+			Repositories.RegisterStatement<ComparisonStatement>(
+					language => language.GetExtension<ILanguageMathematicsModule>().Statements.Names.Comparison,
+					language => language.GetExtension<ILanguageMathematicsModule>().Statements.TrueFormatStrings.Comparison,
+					language => language.GetExtension<ILanguageMathematicsModule>().Statements.FalseFormatStrings.Comparison,
+					language => language.GetExtension<ILanguageMathematicsModule>().Statements.QuestionFormatStrings.Comparison,
+					statement => new Dictionary<String, IKnowledge>
+					{
+						{ Strings.ParamLeftValue, statement.LeftValue },
+						{ Strings.ParamRightValue, statement.RightValue },
+						{ Strings.ParamComparisonSign, statement.ComparisonSign },
+					},
+					checkComparisonValueSystems)
 				.SerializeToXml(statement => new Xml.ComparisonStatement(statement))
 				.SerializeToJson(statement => new Json.ComparisonStatement(statement));
 		}

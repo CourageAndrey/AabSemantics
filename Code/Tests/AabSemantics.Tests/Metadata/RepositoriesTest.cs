@@ -65,7 +65,14 @@ namespace AabSemantics.Tests.Metadata
 
 			// act
 			var attributeDefinition = Repositories.RegisterAttribute(typeof(IsValueAttribute), IsValueAttribute.Value, l => string.Empty);
-			var statementDefinition = Repositories.RegisterStatement(typeof(IsStatement), l => string.Empty, (semanticNetwork, result) => { });
+			var statementDefinition = Repositories.RegisterStatement(
+				typeof(IsStatement),
+				l => string.Empty,
+				l => string.Empty,
+				l => string.Empty,
+				l => string.Empty,
+				s => new Dictionary<string, IKnowledge>(),
+				(semanticNetwork, result) => { });
 			var questionDefinition = Repositories.RegisterQuestion(typeof(CheckStatementQuestion), l => string.Empty);
 			var answerDefinition = Repositories.RegisterAnswer(typeof(BooleanAnswer));
 
@@ -75,7 +82,13 @@ namespace AabSemantics.Tests.Metadata
 			Repositories.Answers.Definitions.Clear();
 
 			var attributeDefinitionT = Repositories.RegisterAttribute<IsValueAttribute>(IsValueAttribute.Value, l => string.Empty);
-			var statementDefinitionT = Repositories.RegisterStatement<IsStatement>(l => string.Empty, (statements, result, semanticNetwork) => { });
+			var statementDefinitionT = Repositories.RegisterStatement<IsStatement>(
+				l => string.Empty,
+				l => string.Empty,
+				l => string.Empty,
+				l => string.Empty,
+				s => new Dictionary<string, IKnowledge>(),
+				(statements, result, semanticNetwork) => { });
 			var questionDefinitionT = Repositories.RegisterQuestion<CheckStatementQuestion>(l => string.Empty);
 			var answerDefinitionT = Repositories.RegisterAnswer<BooleanAnswer>();
 

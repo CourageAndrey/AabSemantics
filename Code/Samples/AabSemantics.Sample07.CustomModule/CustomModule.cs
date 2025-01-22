@@ -56,7 +56,17 @@ namespace AabSemantics.Sample07.CustomModule
 
 		protected override void RegisterStatements()
 		{
-			Repositories.RegisterStatement<CustomStatement>(language => language.GetExtension<ILanguageCustomModule>().Statements.Names.Custom, checkSelfRelations)
+			Repositories.RegisterStatement<CustomStatement>(
+					language => language.GetExtension<ILanguageCustomModule>().Statements.Names.Custom,
+					language => language.GetExtension<ILanguageCustomModule>().Statements.TrueFormatStrings.Custom,
+					language => language.GetExtension<ILanguageCustomModule>().Statements.FalseFormatStrings.Custom,
+					language => language.GetExtension<ILanguageCustomModule>().Statements.QuestionFormatStrings.Custom,
+					statement => new Dictionary<string, IKnowledge>
+					{
+						{ CustomStatement.ParamConcept1, statement.Concept1 },
+						{ CustomStatement.ParamConcept2, statement.Concept2 },
+					},
+					checkSelfRelations)
 				.SerializeToXml(statement => new Xml.CustomStatement(statement))
 				.SerializeToJson(statement => new Json.CustomStatement(statement));
 		}

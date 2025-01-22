@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 
-using AabSemantics.Localization;
 using AabSemantics.Metadata;
 using AabSemantics.Modules.Processes.Attributes;
 using AabSemantics.Modules.Processes.Concepts;
@@ -30,7 +29,7 @@ namespace AabSemantics.Modules.Processes
 
 		protected override void RegisterLanguage()
 		{
-			Language.Default.Extensions.Add(LanguageProcessesModule.CreateDefault());
+			AabSemantics.Localization.Language.Default.Extensions.Add(LanguageProcessesModule.CreateDefault());
 		}
 
 		protected override void RegisterAttributes()
@@ -50,7 +49,18 @@ namespace AabSemantics.Modules.Processes
 
 		protected override void RegisterStatements()
 		{
-			Repositories.RegisterStatement<ProcessesStatement>(language => language.GetExtension<ILanguageProcessesModule>().Statements.Names.Processes, checkProcessSequenceSystems)
+			Repositories.RegisterStatement<ProcessesStatement>(
+					language => language.GetExtension<ILanguageProcessesModule>().Statements.Names.Processes,
+					language => language.GetExtension<ILanguageProcessesModule>().Statements.TrueFormatStrings.Processes,
+					language => language.GetExtension<ILanguageProcessesModule>().Statements.FalseFormatStrings.Processes,
+					language => language.GetExtension<ILanguageProcessesModule>().Statements.QuestionFormatStrings.Processes,
+					statement => new Dictionary<String, IKnowledge>
+					{
+						{ Strings.ParamProcessA, statement.ProcessA },
+						{ Strings.ParamProcessB, statement.ProcessB },
+						{ Strings.ParamSequenceSign, statement.SequenceSign },
+					},
+					checkProcessSequenceSystems)
 				.SerializeToXml(statement => new Xml.ProcessesStatement(statement))
 				.SerializeToJson(statement => new Json.ProcessesStatement(statement));
 		}

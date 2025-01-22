@@ -49,35 +49,6 @@ namespace AabSemantics.Modules.Processes.Statements
 			yield return SequenceSign;
 		}
 
-		#region Description
-
-		protected override String GetDescriptionTrueText(ILanguage language)
-		{
-			return language.GetExtension<ILanguageProcessesModule>().Statements.TrueFormatStrings.Processes;
-		}
-
-		protected override String GetDescriptionFalseText(ILanguage language)
-		{
-			return language.GetExtension<ILanguageProcessesModule>().Statements.TrueFormatStrings.Processes;
-		}
-
-		protected override String GetDescriptionQuestionText(ILanguage language)
-		{
-			return language.GetExtension<ILanguageProcessesModule>().Statements.TrueFormatStrings.Processes;
-		}
-
-		protected override IDictionary<String, IKnowledge> GetDescriptionParameters()
-		{
-			return new Dictionary<String, IKnowledge>
-			{
-				{ Strings.ParamProcessA, ProcessA },
-				{ Strings.ParamProcessB, ProcessB },
-				{ Strings.ParamSequenceSign, SequenceSign },
-			};
-		}
-
-		#endregion
-
 		#region Consistency checking
 
 		public override System.Boolean Equals(ProcessesStatement other)
