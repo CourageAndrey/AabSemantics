@@ -27,8 +27,8 @@ namespace AabSemantics.Modules.Classification.Xml
 		{ }
 
 		public IsStatement(Statements.IsStatement statement)
+			: base(statement)
 		{
-			ID = statement.ID;
 			Ancestor = statement.Ancestor?.ID;
 			Descendant = statement.Descendant?.ID;
 		}

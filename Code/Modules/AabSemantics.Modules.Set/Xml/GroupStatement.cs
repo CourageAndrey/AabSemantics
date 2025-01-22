@@ -26,9 +26,9 @@ namespace AabSemantics.Modules.Set.Xml
 		public GroupStatement()
 		{ }
 
-		public GroupStatement(Set.Statements.GroupStatement statement)
+		public GroupStatement(Statements.GroupStatement statement)
+			: base(statement)
 		{
-			ID = statement.ID;
 			Area = statement.Area?.ID;
 			Concept = statement.Concept?.ID;
 		}

@@ -31,8 +31,8 @@ namespace AabSemantics.Modules.Mathematics.Xml
 		{ }
 
 		public ComparisonStatement(Statements.ComparisonStatement statement)
+			: base(statement)
 		{
-			ID = statement.ID;
 			LeftValue = statement.LeftValue?.ID;
 			RightValue = statement.RightValue?.ID;
 			ComparisonSign = statement.ComparisonSign?.ID;
