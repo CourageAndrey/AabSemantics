@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 
-using AabSemantics.Localization;
+using AabSemantics.Metadata;
 
 namespace AabSemantics.Statements
 {
@@ -11,72 +11,33 @@ namespace AabSemantics.Statements
 		#region Properties
 
 		public String Type
-		{ get; private set; }
-
-		public Func<ILanguage, String> FormatTrue
-		{ get; private set; }
-
-		public Func<ILanguage, String> FormatFalse
-		{ get; private set; }
-
-		public Func<ILanguage, String> FormatQuestion
-		{ get; private set; }
+		{ get { return _definition.Type; } }
 
 		public IDictionary<String, IConcept> Concepts
 		{ get; private set; }
+
+		private readonly CustomStatementDefinition _definition;
 
 		#endregion
 
 		public CustomStatement(
 			String id,
 			String type,
-			Func<ILanguage, String> formatTrue,
-			Func<ILanguage, String> formatFalse,
-			Func<ILanguage, String> formatQuestion,
-			LocalizedString name,
-			LocalizedString hint = null,
 			IDictionary<String, IConcept> concepts = null)
-			: base(id, name, hint)
+			: base(
+				id,
+				Repositories.CustomStatements[type].CreateName(this),
+				Repositories.CustomStatements[type].CreateHint(this))
 		{
-			if (!String.IsNullOrEmpty(type))
-			{
-				Type = type;
-			}
-			else
-			{
-				throw new ArgumentNullException(nameof(type));
-			}
-
-			FormatTrue = formatTrue;
-			FormatFalse = formatFalse;
-			FormatQuestion = formatQuestion;
+			_definition = Repositories.CustomStatements[type];
 
 			Update(id, concepts);
 		}
 
-		public CustomStatement(
-			String id,
-			String type,
-			String formatTrue,
-			String formatFalse,
-			String formatQuestion,
-			LocalizedString name,
-			LocalizedString hint = null,
-			IDictionary<String, IConcept> concepts = null)
-			: this(
-				id,
-				type,
-				language => formatTrue,
-				language => formatFalse,
-				language => formatQuestion,
-				name,
-				hint,
-				concepts)
-		{ }
-
 		public void Update(String id, IDictionary<String, IConcept> concepts)
 		{
 			Update(id);
+
 			Concepts = new Dictionary<string, IConcept>(concepts ?? new Dictionary<String, IConcept>());
 		}
 
@@ -89,17 +50,17 @@ namespace AabSemantics.Statements
 
 		protected override String GetDescriptionTrueText(ILanguage language)
 		{
-			return FormatTrue(language);
+			return _definition.GetDescriptionTrueText(this, language);
 		}
 
 		protected override String GetDescriptionFalseText(ILanguage language)
 		{
-			return FormatFalse(language);
+			return _definition.GetDescriptionFalseText(this, language);
 		}
 
 		protected override String GetDescriptionQuestionText(ILanguage language)
 		{
-			return FormatQuestion(language);
+			return _definition.GetDescriptionQuestionText(this, language);
 		}
 
 		protected override IDictionary<String, IKnowledge> GetDescriptionParameters()

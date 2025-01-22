@@ -5,6 +5,7 @@ using System.Linq;
 using AabSemantics.Metadata;
 using AabSemantics.Modules.Boolean;
 using AabSemantics.Modules.Classification;
+using AabSemantics.Modules.Classification.Localization;
 using AabSemantics.Modules.Classification.Statements;
 using AabSemantics.Modules.Set.Attributes;
 using AabSemantics.Modules.Set.Localization;
@@ -51,6 +52,13 @@ namespace AabSemantics.Modules.Set
 					StatementDefinition<HasPartStatement>.NoConsistencyCheck)
 				.SerializeToXml(statement => new Xml.HasPartStatement(statement))
 				.SerializeToJson(statement => new Json.HasPartStatement(statement));
+			Repositories.RegisterCustomStatement(
+				typeof(HasPartStatement).Name,
+				(statement, language) => language.GetExtension<ILanguageSetModule>().Statements.TrueFormatStrings.Clasification,
+				(statement, language) => language.GetExtension<ILanguageSetModule>().Statements.FalseFormatStrings.Clasification,
+				(statement, language) => language.GetExtension<ILanguageSetModule>().Statements.QuestionFormatStrings.Clasification,
+				statement => ,
+				statement => );
 
 			Repositories.RegisterStatement<GroupStatement>(
 					language => language.GetExtension<ILanguageSetModule>().Statements.Names.SubjectArea,
@@ -65,6 +73,13 @@ namespace AabSemantics.Modules.Set
 					StatementDefinition<GroupStatement>.NoConsistencyCheck)
 				.SerializeToXml(statement => new Xml.GroupStatement(statement))
 				.SerializeToJson(statement => new Json.GroupStatement(statement));
+			Repositories.RegisterCustomStatement(
+				typeof(GroupStatement).Name,
+				(statement, language) => language.GetExtension<ILanguageSetModule>().Statements.TrueFormatStrings.Clasification,
+				(statement, language) => language.GetExtension<ILanguageSetModule>().Statements.FalseFormatStrings.Clasification,
+				(statement, language) => language.GetExtension<ILanguageSetModule>().Statements.QuestionFormatStrings.Clasification,
+				statement => ,
+				statement => );
 
 			Repositories.RegisterStatement<HasSignStatement>(
 					language => language.GetExtension<ILanguageSetModule>().Statements.Names.HasSign,
@@ -79,6 +94,13 @@ namespace AabSemantics.Modules.Set
 					checkSignDuplications)
 				.SerializeToXml(statement => new Xml.HasSignStatement(statement))
 				.SerializeToJson(statement => new Json.HasSignStatement(statement));
+			Repositories.RegisterCustomStatement(
+				typeof(HasSignStatement).Name,
+				(statement, language) => language.GetExtension<ILanguageSetModule>().Statements.TrueFormatStrings.Clasification,
+				(statement, language) => language.GetExtension<ILanguageSetModule>().Statements.FalseFormatStrings.Clasification,
+				(statement, language) => language.GetExtension<ILanguageSetModule>().Statements.QuestionFormatStrings.Clasification,
+				statement => ,
+				statement => );
 
 			Repositories.RegisterStatement<SignValueStatement>(
 					language => language.GetExtension<ILanguageSetModule>().Statements.Names.SignValue,
@@ -94,6 +116,13 @@ namespace AabSemantics.Modules.Set
 					checkSignValues)
 				.SerializeToXml(statement => new Xml.SignValueStatement(statement))
 				.SerializeToJson(statement => new Json.SignValueStatement(statement));
+			Repositories.RegisterCustomStatement(
+				typeof(SignValueStatement).Name,
+				(statement, language) => language.GetExtension<ILanguageSetModule>().Statements.TrueFormatStrings.Clasification,
+				(statement, language) => language.GetExtension<ILanguageSetModule>().Statements.FalseFormatStrings.Clasification,
+				(statement, language) => language.GetExtension<ILanguageSetModule>().Statements.QuestionFormatStrings.Clasification,
+				statement => ,
+				statement => );
 		}
 
 		protected override void RegisterQuestions()

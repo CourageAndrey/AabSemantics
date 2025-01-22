@@ -37,6 +37,13 @@ namespace AabSemantics.Modules.Classification
 					checkCyclicParents)
 				.SerializeToXml(statement => new Xml.IsStatement(statement))
 				.SerializeToJson(statement => new Json.IsStatement(statement));
+			Repositories.RegisterCustomStatement(
+				typeof(IsStatement).Name,
+				(statement, language) => language.GetExtension<ILanguageClassificationModule>().Statements.TrueFormatStrings.Clasification,
+				(statement, language) => language.GetExtension<ILanguageClassificationModule>().Statements.FalseFormatStrings.Clasification,
+				(statement, language) => language.GetExtension<ILanguageClassificationModule>().Statements.QuestionFormatStrings.Clasification,
+				statement => ,
+				statement => );
 		}
 
 		protected override void RegisterQuestions()

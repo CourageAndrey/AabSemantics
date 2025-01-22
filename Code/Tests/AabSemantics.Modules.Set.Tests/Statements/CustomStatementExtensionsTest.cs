@@ -1,6 +1,4 @@
-﻿using System;
-
-using NUnit.Framework;
+﻿using NUnit.Framework;
 
 using AabSemantics.Concepts;
 using AabSemantics.Modules.Boolean.Attributes;

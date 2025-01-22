@@ -44,16 +44,6 @@ namespace AabSemantics.Json
 			return new Statements.CustomStatement(
 				ID,
 				Type,
-				//String formatTrue
-				,
-				//String formatFalse
-				,
-				//String formatQuestion
-				,
-				//LocalizedString name
-				,
-				//LocalizedString hint = null
-				,
 				Concepts.ToDictionary(
 					c => c.Key,
 					c => conceptIdResolver.GetConceptById(c.Value)));

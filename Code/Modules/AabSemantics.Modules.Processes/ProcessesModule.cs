@@ -63,6 +63,13 @@ namespace AabSemantics.Modules.Processes
 					checkProcessSequenceSystems)
 				.SerializeToXml(statement => new Xml.ProcessesStatement(statement))
 				.SerializeToJson(statement => new Json.ProcessesStatement(statement));
+			Repositories.RegisterCustomStatement(
+				typeof(ProcessesStatement).Name,
+				(statement, language) => language.GetExtension<ILanguageProcessesModule>().Statements.TrueFormatStrings.Processes,
+				(statement, language) => language.GetExtension<ILanguageProcessesModule>().Statements.FalseFormatStrings.Processes,
+				(statement, language) => language.GetExtension<ILanguageProcessesModule>().Statements.QuestionFormatStrings.Processes,
+				statement => ,
+				statement => );
 		}
 
 		protected override void RegisterQuestions()

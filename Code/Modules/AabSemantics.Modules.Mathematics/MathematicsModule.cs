@@ -60,6 +60,13 @@ namespace AabSemantics.Modules.Mathematics
 					checkComparisonValueSystems)
 				.SerializeToXml(statement => new Xml.ComparisonStatement(statement))
 				.SerializeToJson(statement => new Json.ComparisonStatement(statement));
+			Repositories.RegisterCustomStatement(
+				typeof(ComparisonStatement).Name,
+				(statement, language) => language.GetExtension<ILanguageMathematicsModule>().Statements.TrueFormatStrings.Comparison,
+				(statement, language) => language.GetExtension<ILanguageMathematicsModule>().Statements.FalseFormatStrings.Comparison,
+				(statement, language) => language.GetExtension<ILanguageMathematicsModule>().Statements.QuestionFormatStrings.Comparison,
+				statement => ,
+				statement => );
 		}
 
 		protected override void RegisterQuestions()
