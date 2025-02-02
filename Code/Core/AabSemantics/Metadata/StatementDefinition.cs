@@ -58,10 +58,7 @@ namespace AabSemantics.Metadata
 	{
 		#region Properties
 
-		private readonly Func<ILanguage, String> _nameGetter;
-		private readonly Func<ILanguage, String> _formatTrue;
-		private readonly Func<ILanguage, String> _formatFalse;
-		private readonly Func<ILanguage, String> _formatQuestion;
+		private readonly Func<ILanguageStatementsPart, String> _partGetter;
 		private readonly Func<IStatement, IDictionary<String, IKnowledge>> _getDescriptionParameters;
 		private readonly StatementConsistencyCheckerDelegate _consistencyChecker;
 
@@ -71,18 +68,12 @@ namespace AabSemantics.Metadata
 
 		public StatementDefinition(
 			Type type,
-			Func<ILanguage, String> nameGetter,
-			Func<ILanguage, String> formatTrue,
-			Func<ILanguage, String> formatFalse,
-			Func<ILanguage, String> formatQuestion,
+			Func<ILanguageStatementsPart, String> partGetter,
 			Func<IStatement, IDictionary<String, IKnowledge>> getDescriptionParameters,
 			StatementConsistencyCheckerDelegate consistencyChecker)
 			: base(type, typeof(IStatement))
 		{
-			_nameGetter = nameGetter.EnsureNotNull(nameof(nameGetter));
-			_formatTrue = formatTrue.EnsureNotNull(nameof(formatTrue));
-			_formatFalse = formatFalse.EnsureNotNull(nameof(formatFalse));
-			_formatQuestion = formatQuestion.EnsureNotNull(nameof(formatQuestion));
+			_partGetter = partGetter.EnsureNotNull(nameof(partGetter));
 			_getDescriptionParameters = getDescriptionParameters.EnsureNotNull(nameof(getDescriptionParameters));
 			_consistencyChecker = consistencyChecker.EnsureNotNull(nameof(consistencyChecker));
 		}
@@ -91,12 +82,12 @@ namespace AabSemantics.Metadata
 
 		public String GetName(ILanguage language)
 		{
-			return _nameGetter(language);
+			return _partGetter(language.Statements.Names);
 		}
 
 		public IText DescribeTrue(IStatement statement)
 		{
-			var formatter = new Func<ILanguage, String>(language => _formatTrue(language) + $" ({Strings.ParamStatement})");
+			var formatter = new Func<ILanguage, String>(language => _partGetter(language.Statements.TrueFormatStrings) + $" ({Strings.ParamStatement})");
 
 			var parameters = _getDescriptionParameters(statement);
 			parameters[Strings.ParamStatement] = statement;
@@ -106,12 +97,12 @@ namespace AabSemantics.Metadata
 
 		public IText DescribeFalse(IStatement statement)
 		{
-			return new FormattedText(language => _formatFalse(language), _getDescriptionParameters(statement));
+			return new FormattedText(language => _partGetter(language.Statements.FalseFormatStrings), _getDescriptionParameters(statement));
 		}
 
 		public IText DescribeQuestion(IStatement statement)
 		{
-			return new FormattedText(language => _formatQuestion(language), _getDescriptionParameters(statement));
+			return new FormattedText(language => _partGetter(language.Statements.QuestionFormatStrings), _getDescriptionParameters(statement));
 		}
 
 		public void CheckConsistency(ISemanticNetwork semanticNetwork, ITextContainer result)
@@ -126,18 +117,12 @@ namespace AabSemantics.Metadata
 		where StatementT : class, IStatement
 	{
 		public StatementDefinition(
-			Func<ILanguage, String> nameGetter,
-			Func<ILanguage, String> formatTrue,
-			Func<ILanguage, String> formatFalse,
-			Func<ILanguage, String> formatQuestion,
+			Func<ILanguageStatementsPart, String> partGetter,
 			Func<StatementT, IDictionary<String, IKnowledge>> getDescriptionParameters,
 			StatementConsistencyCheckerDelegate<StatementT> consistencyChecker)
 			: base(
 				typeof(StatementT),
-				nameGetter,
-				formatTrue,
-				formatFalse,
-				formatQuestion,
+				partGetter,
 				statement => getDescriptionParameters(statement as StatementT),
 				(semanticNetwork, result) => consistencyChecker(semanticNetwork, result, semanticNetwork.Statements.OfType<StatementT>().ToList()))
 		{

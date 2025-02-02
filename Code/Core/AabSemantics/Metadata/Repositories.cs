@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
+using AabSemantics.Localization;
 using AabSemantics.Questions;
 using AabSemantics.Statements;
 
@@ -68,7 +69,7 @@ namespace AabSemantics.Metadata
 
 		public static StatementDefinition RegisterStatement(
 			Type type,
-			Func<ILanguage, String> nameGetter,
+			Func<ILanguageStatementsPart, String> partGetter,
 			Func<ILanguage, String> formatTrue,
 			Func<ILanguage, String> formatFalse,
 			Func<ILanguage, String> formatQuestion,
@@ -77,10 +78,7 @@ namespace AabSemantics.Metadata
 		{
 			var definition = new StatementDefinition(
 				type,
-				nameGetter,
-				formatTrue,
-				formatFalse,
-				formatQuestion,
+				partGetter,
 				getDescriptionParameters,
 				consistencyChecker);
 			Statements.Definitions[definition.Type] = definition;
@@ -88,19 +86,13 @@ namespace AabSemantics.Metadata
 		}
 
 		public static StatementDefinition<StatementT> RegisterStatement<StatementT>(
-			Func<ILanguage, String> nameGetter,
-			Func<ILanguage, String> formatTrue,
-			Func<ILanguage, String> formatFalse,
-			Func<ILanguage, String> formatQuestion,
+			Func<ILanguageStatementsPart, String> partGetter,
 			Func<StatementT, IDictionary<String, IKnowledge>> getDescriptionParameters,
 			StatementConsistencyCheckerDelegate<StatementT> consistencyChecker)
 			where StatementT : class, IStatement
 		{
 			var definition = new StatementDefinition<StatementT>(
-				nameGetter,
-				formatTrue,
-				formatFalse,
-				formatQuestion,
+				partGetter,
 				getDescriptionParameters,
 				consistencyChecker);
 			Statements.Definitions[definition.Type] = definition;
@@ -150,10 +142,7 @@ namespace AabSemantics.Metadata
 		public static void InitializeCustomStatement()
 		{
 			RegisterStatement<CustomStatement>(
-					language => language.Statements.CustomStatementName,
-					language => ,
-					language => ,
-					language => ,
+					languageStatements => languageStatements.,
 					statement => ,
 					StatementDefinition<CustomStatement>.NoConsistencyCheck)
 				.SerializeToXml(statement => new Xml.CustomStatement(statement))
