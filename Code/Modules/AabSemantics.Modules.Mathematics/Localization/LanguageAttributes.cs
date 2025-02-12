@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Xml.Serialization;
 
+using AabSemantics.Localization;
+
 namespace AabSemantics.Modules.Mathematics.Localization
 {
-	public interface ILanguageAttributes
+	public interface ILanguageAttributes : ILanguageExtensionAttributes
 	{
 		String IsComparisonSign
 		{ get; }

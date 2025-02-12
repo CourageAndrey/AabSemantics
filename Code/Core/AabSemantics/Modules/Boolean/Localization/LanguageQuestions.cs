@@ -1,18 +1,11 @@
 ﻿using System.Xml.Serialization;
 
+using AabSemantics.Localization;
+
 namespace AabSemantics.Modules.Boolean.Localization
 {
-	public interface ILanguageQuestions
-	{
-		ILanguageQuestionNames Names
-		{ get; }
-
-		ILanguageQuestionParameters Parameters
-		{ get; }
-	}
-
 	[XmlType("BooleanQuestions")]
-	public class LanguageQuestions : ILanguageQuestions
+	public class LanguageQuestions : ILanguageExtensionQuestions
 	{
 		#region Xml Properties
 

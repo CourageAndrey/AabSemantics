@@ -1,27 +1,11 @@
 ﻿using System.Xml.Serialization;
 
+using AabSemantics.Localization;
+
 namespace AabSemantics.Modules.Classification.Localization
 {
-	public interface ILanguageStatements
-	{
-		ILanguageStatementsPart Names
-		{ get; }
-
-		ILanguageStatementsPart Hints
-		{ get; }
-
-		ILanguageStatementsPart TrueFormatStrings
-		{ get; }
-
-		ILanguageStatementsPart FalseFormatStrings
-		{ get; }
-
-		ILanguageStatementsPart QuestionFormatStrings
-		{ get; }
-
-		ILanguageConsistency Consistency
-		{ get; }
-	}
+	public interface ILanguageStatements : ILanguageExtensionStatements
+	{ }
 
 	[XmlType("ClassificationStatements")]
 	public class LanguageStatements : ILanguageStatements

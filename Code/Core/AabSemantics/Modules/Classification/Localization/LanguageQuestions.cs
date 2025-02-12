@@ -1,15 +1,11 @@
 ﻿using System.Xml.Serialization;
 
+using AabSemantics.Localization;
+
 namespace AabSemantics.Modules.Classification.Localization
 {
-	public interface ILanguageQuestions
-	{
-		ILanguageQuestionNames Names
-		{ get; }
-
-		ILanguageAnswers Answers
-		{ get; }
-	}
+	public interface ILanguageQuestions : ILanguageExtensionQuestions
+	{ }
 
 	[XmlType("ClassificationQuestions")]
 	public class LanguageQuestions : ILanguageQuestions

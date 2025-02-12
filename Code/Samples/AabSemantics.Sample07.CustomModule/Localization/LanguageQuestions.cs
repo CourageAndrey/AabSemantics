@@ -1,21 +1,14 @@
 ﻿using System.Xml.Serialization;
 
+using AabSemantics.Localization;
+
 namespace AabSemantics.Sample07.CustomModule.Localization
 {
-	public interface ILanguageQuestions
-	{
-		ILanguageQuestionNames Names
-		{ get; }
-
-		ILanguageQuestionParameters Parameters
-		{ get; }
-
-		ILanguageAnswers Answers
-		{ get; }
-	}
+	public interface ILanguageQuestions : ILanguageExtensionQuestions
+	{ }
 
 	[XmlType("CustomQuestions")]
-	public class LanguageQuestions : ILanguageQuestions
+	public class LanguageQuestions : LanguageExtensionQuestions, ILanguageQuestions
 	{
 		#region Xml Properties
 

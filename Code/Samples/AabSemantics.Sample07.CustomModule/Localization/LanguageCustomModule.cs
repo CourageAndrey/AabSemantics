@@ -4,23 +4,8 @@ using AabSemantics.Localization;
 
 namespace AabSemantics.Sample07.CustomModule.Localization
 {
-	public interface ILanguageCustomModule
-	{
-		ILanguageAttributes Attributes
-		{ get; }
-
-		ILanguageStatements Statements
-		{ get; }
-
-		ILanguageQuestions Questions
-		{ get; }
-
-		ILanguageConcepts Concepts
-		{ get; }
-	}
-
 	[XmlType]
-	public class LanguageCustomModule : LanguageExtension, ILanguageCustomModule
+	public class LanguageCustomModule : LanguageExtension<LanguageAttributes, LanguageConcepts, LanguageStatements, LanguageQuestions>
 	{
 		#region Xml Properties
 
@@ -64,7 +49,7 @@ namespace AabSemantics.Sample07.CustomModule.Localization
 
 		public static LanguageCustomModule CreateDefault()
 		{
-			return new LanguageCustomModule()
+			return new LanguageCustomModule
 			{
 				AttributesXml = LanguageAttributes.CreateDefault(),
 				ConceptsXml = LanguageConcepts.CreateDefault(),

@@ -1,18 +1,14 @@
 ﻿using System.Xml.Serialization;
 
+using AabSemantics.Localization;
+
 namespace AabSemantics.Modules.Mathematics.Localization
 {
-	public interface ILanguageQuestions
-	{
-		ILanguageQuestionNames Names
-		{ get; }
-
-		ILanguageQuestionParameters Parameters
-		{ get; }
-	}
+	public interface ILanguageQuestions : ILanguageExtensionQuestions
+	{ }
 
 	[XmlType("MathematicsQuestions")]
-	public class LanguageQuestions : ILanguageQuestions
+	public class LanguageQuestions : LanguageExtensionQuestions, ILanguageQuestions
 	{
 		#region Xml Properties
 

@@ -1,48 +1,16 @@
 ﻿using System.Xml.Serialization;
 
 using AabSemantics.Localization;
+using AabSemantics.Modules.Boolean.Localization;
 
 namespace AabSemantics.Modules.Classification.Localization
 {
-	public interface ILanguageClassificationModule
-	{
-		ILanguageStatements Statements
-		{ get; }
-
-		ILanguageQuestions Questions
-		{ get; }
-	}
-
 	[XmlType]
-	public class LanguageClassificationModule : LanguageExtension, ILanguageClassificationModule
+	public class LanguageClassificationModule : LanguageExtension<LanguageExtensionAttributes, LanguageConcepts, LanguageStatements, LanguageQuestions>
 	{
-		#region Xml Properties
-
-		[XmlElement(nameof(Statements))]
-		public LanguageStatements StatementsXml
-		{ get; set; }
-
-		[XmlElement(nameof(Questions))]
-		public LanguageQuestions QuestionsXml
-		{ get; set; }
-
-		#endregion
-
-		#region Interface Properties
-
-		[XmlIgnore]
-		public ILanguageStatements Statements
-		{ get { return StatementsXml; } }
-
-		[XmlIgnore]
-		public ILanguageQuestions Questions
-		{ get { return QuestionsXml; } }
-
-		#endregion
-
 		public static LanguageClassificationModule CreateDefault()
 		{
-			return new LanguageClassificationModule()
+			return new LanguageClassificationModule
 			{
 				StatementsXml = LanguageStatements.CreateDefault(),
 				QuestionsXml = LanguageQuestions.CreateDefault(),

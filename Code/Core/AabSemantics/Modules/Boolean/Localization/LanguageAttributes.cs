@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Xml.Serialization;
 
+using AabSemantics.Localization;
+
 namespace AabSemantics.Modules.Boolean.Localization
 {
-	public interface ILanguageAttributes
+	public interface ILanguageAttributes : ILanguageExtensionAttributes
 	{
 		String IsValue
 		{ get; }

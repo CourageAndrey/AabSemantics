@@ -2,14 +2,8 @@
 
 namespace AabSemantics.Localization
 {
-	public interface ILanguageStatements
-	{
-		ILanguageConsistency Consistency
-		{ get; }
-	}
-
 	[XmlType("CommonStatements")]
-	public class LanguageStatements : ILanguageStatements
+	public class LanguageStatements : LanguageExtensionStatements
 	{
 		#region Xml Properties
 

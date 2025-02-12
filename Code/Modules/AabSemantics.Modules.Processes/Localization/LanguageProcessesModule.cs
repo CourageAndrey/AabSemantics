@@ -4,23 +4,8 @@ using AabSemantics.Localization;
 
 namespace AabSemantics.Modules.Processes.Localization
 {
-	public interface ILanguageProcessesModule
-	{
-		ILanguageAttributes Attributes
-		{ get; }
-
-		ILanguageStatements Statements
-		{ get; }
-
-		ILanguageQuestions Questions
-		{ get; }
-
-		ILanguageConcepts Concepts
-		{ get; }
-	}
-
 	[XmlType]
-	public class LanguageProcessesModule : LanguageExtension, ILanguageProcessesModule
+	public class LanguageProcessesModule : LanguageExtension<LanguageAttributes, LanguageConcepts, LanguageStatements, LanguageQuestions>
 	{
 		#region Xml Properties
 
@@ -64,7 +49,7 @@ namespace AabSemantics.Modules.Processes.Localization
 
 		public static LanguageProcessesModule CreateDefault()
 		{
-			return new LanguageProcessesModule()
+			return new LanguageProcessesModule
 			{
 				AttributesXml = LanguageAttributes.CreateDefault(),
 				ConceptsXml = LanguageConcepts.CreateDefault(),

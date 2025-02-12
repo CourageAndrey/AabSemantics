@@ -1,8 +1,10 @@
 ﻿using System.Xml.Serialization;
 
+using AabSemantics.Localization;
+
 namespace AabSemantics.Modules.Boolean.Localization
 {
-	public interface ILanguageConcepts
+	public interface ILanguageConcepts : ILanguageExtensionConcepts
 	{
 		ILanguageSystemConcepts SystemConceptNames
 		{ get; }

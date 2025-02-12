@@ -1,30 +1,14 @@
 ﻿using System.Xml.Serialization;
 
+using AabSemantics.Localization;
+
 namespace AabSemantics.Modules.Processes.Localization
 {
-	public interface ILanguageStatements
-	{
-		ILanguageStatementsPart Names
-		{ get; }
-
-		ILanguageStatementsPart Hints
-		{ get; }
-
-		ILanguageStatementsPart TrueFormatStrings
-		{ get; }
-
-		ILanguageStatementsPart FalseFormatStrings
-		{ get; }
-
-		ILanguageStatementsPart QuestionFormatStrings
-		{ get; }
-
-		ILanguageConsistency Consistency
-		{ get; }
-	}
+	public interface ILanguageStatements : ILanguageExtensionStatements
+	{ }
 
 	[XmlType("ProcessesStatements")]
-	public class LanguageStatements : ILanguageStatements
+	public class LanguageStatements : LanguageExtensionStatements, ILanguageStatements
 	{
 		#region Xml Properties
 
