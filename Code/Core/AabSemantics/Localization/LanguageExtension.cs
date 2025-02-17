@@ -17,6 +17,26 @@ namespace AabSemantics.Localization
 		{ get; }
 	}
 
+	[XmlType]
+	public abstract class LanguageExtension : ILanguageExtension
+	{
+		[XmlIgnore]
+		public abstract ILanguageExtensionAttributes Attributes
+		{ get; }
+
+		[XmlIgnore]
+		public abstract ILanguageExtensionConcepts Concepts
+		{ get; }
+
+		[XmlIgnore]
+		public abstract ILanguageExtensionStatements Statements
+		{ get; }
+
+		[XmlIgnore]
+		public abstract ILanguageExtensionQuestions Questions
+		{ get; }
+	}
+
 	public interface ILanguageExtension<out AttributesT, out ConceptsT, out StatementsT, out QuestionsT> : ILanguageExtension
 		where AttributesT : ILanguageExtensionAttributes
 		where ConceptsT : ILanguageExtensionConcepts
@@ -38,7 +58,7 @@ namespace AabSemantics.Localization
 
 	[XmlType]
 	public class LanguageExtension<AttributesT, ConceptsT, StatementsT, QuestionsT>
-		: ILanguageExtension<AttributesT, ConceptsT, StatementsT, QuestionsT>
+		: LanguageExtension, ILanguageExtension<AttributesT, ConceptsT, StatementsT, QuestionsT>
 		where AttributesT : ILanguageExtensionAttributes
 		where ConceptsT : ILanguageExtensionConcepts
 		where StatementsT : ILanguageExtensionStatements
@@ -46,36 +66,40 @@ namespace AabSemantics.Localization
 	{
 		#region Typed interface properties
 
-		[XmlElement]
-		public AttributesT Attributes
+		[XmlIgnore]
+		AttributesT ILanguageExtension<AttributesT, ConceptsT, StatementsT, QuestionsT>.Attributes
 		{ get { return AttributesXml; } }
 
-		[XmlElement]
-		public ConceptsT Concepts
+		[XmlIgnore]
+		ConceptsT ILanguageExtension<AttributesT, ConceptsT, StatementsT, QuestionsT>.Concepts
 		{ get { return ConceptsXml; } }
 
-		[XmlElement]
-		public StatementsT Statements
+		[XmlIgnore]
+		StatementsT ILanguageExtension<AttributesT, ConceptsT, StatementsT, QuestionsT>.Statements
 		{ get { return StatementsXml; } }
 
-		[XmlElement]
-		public QuestionsT Questions
+		[XmlIgnore]
+		QuestionsT ILanguageExtension<AttributesT, ConceptsT, StatementsT, QuestionsT>.Questions
 		{ get { return QuestionsXml; } }
 
 		#endregion
 
 		#region Untyped interface properties
 
-		ILanguageExtensionAttributes ILanguageExtension.Attributes
+		[XmlIgnore]
+		public override ILanguageExtensionAttributes Attributes
 		{ get { return AttributesXml; } }
 
-		ILanguageExtensionConcepts ILanguageExtension.Concepts
+		[XmlIgnore]
+		public override ILanguageExtensionConcepts Concepts
 		{ get { return ConceptsXml; } }
 
-		ILanguageExtensionStatements ILanguageExtension.Statements
+		[XmlIgnore]
+		public override ILanguageExtensionStatements Statements
 		{ get { return StatementsXml; } }
 
-		ILanguageExtensionQuestions ILanguageExtension.Questions
+		[XmlIgnore]
+		public override ILanguageExtensionQuestions Questions
 		{ get { return QuestionsXml; } }
 
 		#endregion
