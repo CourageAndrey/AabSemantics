@@ -10,16 +10,30 @@ using AabSemantics.Serialization.Xml;
 
 namespace AabSemantics
 {
-	public interface ILanguage : ILanguageExtension
+	public interface ILanguage
 	{
 		String Name
 		{ get; }
 
 		String Culture
 		{ get; }
+ 
+		~ILanguageAttributes Attributes
+		{ get; }
+
+		~ILanguageStatements Statements
+		{ get; }
+
+		~ILanguageQuestions Questions
+		{ get; }
 
 		ICollection<LanguageExtension> Extensions
 		{ get; }
+	}
+
+	public interface ICoreLanguageExtension
+	{
+
 	}
 
 	public static class LanguagesExtensions

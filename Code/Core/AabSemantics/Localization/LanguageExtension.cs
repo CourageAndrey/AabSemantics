@@ -2,54 +2,36 @@
 
 namespace AabSemantics.Localization
 {
-	public interface ILanguageAttributesExtension
+	public interface ILanguageExtension
 	{
 		ILanguageExtensionAttributes Attributes
 		{ get; }
-	}
 
-	public interface ILanguageConceptsExtension
-	{
 		ILanguageExtensionConcepts Concepts
 		{ get; }
-	}
 
-	public interface ILanguageStatementsExtension
-	{
 		ILanguageExtensionStatements Statements
 		{ get; }
-	}
 
-	public interface ILanguageQuestionsExtension
-	{
 		ILanguageExtensionQuestions Questions
 		{ get; }
 	}
 
-	public interface ILanguageAttributesExtension<out AttributesT> : ILanguageAttributesExtension
+	public interface ILanguageExtension<out AttributesT, out ConceptsT, out StatementsT, out QuestionsT> : ILanguageExtension
 		where AttributesT : ILanguageExtensionAttributes
+		where ConceptsT : ILanguageExtensionConcepts
+		where StatementsT : ILanguageExtensionStatements
+		where QuestionsT : ILanguageExtensionQuestions
 	{
 		new AttributesT Attributes
 		{ get; }
-	}
 
-	public interface ILanguageConceptsExtension<out ConceptsT> : ILanguageConceptsExtension
-		where ConceptsT : ILanguageExtensionConcepts
-	{
 		new ConceptsT Concepts
 		{ get; }
-	}
 
-	public interface ILanguageStatementsExtension<out StatementsT> : ILanguageStatementsExtension
-		where StatementsT : ILanguageExtensionStatements
-	{
 		new StatementsT Statements
 		{ get; }
-	}
 
-	public interface ILanguageQuestionsExtension<out QuestionsT> : ILanguageQuestionsExtension
-		where QuestionsT : ILanguageExtensionQuestions
-	{
 		new QuestionsT Questions
 		{ get; }
 	}
