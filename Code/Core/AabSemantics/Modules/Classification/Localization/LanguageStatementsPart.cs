@@ -8,7 +8,7 @@ namespace AabSemantics.Modules.Classification.Localization
 {
 	public interface ILanguageStatementsPart
 	{
-		String Clasification
+		String Classification
 		{ get; }
 	}
 
@@ -18,7 +18,7 @@ namespace AabSemantics.Modules.Classification.Localization
 		#region Properties
 
 		[XmlElement]
-		public String Clasification
+		public String Classification
 		{ get; set; }
 
 		#endregion
@@ -27,7 +27,7 @@ namespace AabSemantics.Modules.Classification.Localization
 		{
 			return new LanguageStatementsPart
 			{
-				Clasification = "Clasification",
+				Classification = "Classification",
 			};
 		}
 
@@ -35,7 +35,7 @@ namespace AabSemantics.Modules.Classification.Localization
 		{
 			return new LanguageStatementsPart
 			{
-				Clasification = "Statement declares, that one concept (descendant) is (implements, instantiates, subclass) another one (ancestor).",
+				Classification = "Statement declares, that one concept (descendant) is (implements, instantiates, subclass) another one (ancestor).",
 			};
 		}
 
@@ -43,7 +43,7 @@ namespace AabSemantics.Modules.Classification.Localization
 		{
 			return new LanguageStatementsPart
 			{
-				Clasification = String.Format(CultureInfo.InvariantCulture, "{0} is {1}.", Strings.ParamChild, Strings.ParamParent),
+				Classification = String.Format(CultureInfo.InvariantCulture, "{0} is {1}.", Strings.ParamChild, Strings.ParamParent),
 			};
 		}
 
@@ -51,7 +51,7 @@ namespace AabSemantics.Modules.Classification.Localization
 		{
 			return new LanguageStatementsPart
 			{
-				Clasification = String.Format(CultureInfo.InvariantCulture, "{0} is not {1}.", Strings.ParamChild, Strings.ParamParent),
+				Classification = String.Format(CultureInfo.InvariantCulture, "{0} is not {1}.", Strings.ParamChild, Strings.ParamParent),
 			};
 		}
 
@@ -59,7 +59,7 @@ namespace AabSemantics.Modules.Classification.Localization
 		{
 			return new LanguageStatementsPart
 			{
-				Clasification = String.Format(CultureInfo.InvariantCulture, "Is {0} a {1}?", Strings.ParamChild, Strings.ParamParent),
+				Classification = String.Format(CultureInfo.InvariantCulture, "Is {0} a {1}?", Strings.ParamChild, Strings.ParamParent),
 			};
 		}
 	}

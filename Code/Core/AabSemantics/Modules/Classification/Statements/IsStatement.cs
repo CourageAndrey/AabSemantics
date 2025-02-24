@@ -29,8 +29,8 @@ namespace AabSemantics.Modules.Classification.Statements
 		public IsStatement(String id, IConcept ancestor, IConcept descendant)
 			: base(
 				id,
-				new Func<ILanguage, String>(language => language.GetExtension<ILanguageClassificationModule>().Statements.Names.Clasification),
-				new Func<ILanguage, String>(language => language.GetExtension<ILanguageClassificationModule>().Statements.Hints.Clasification))
+				new Func<ILanguage, String>(language => language.GetExtension<ILanguageClassificationModule>().Statements.Names.Classification),
+				new Func<ILanguage, String>(language => language.GetExtension<ILanguageClassificationModule>().Statements.Hints.Classification))
 		{
 			Update(id, ancestor, descendant);
 		}

@@ -25,10 +25,10 @@ namespace AabSemantics.Modules.Classification
 		protected override void RegisterStatements()
 		{
 			Repositories.RegisterStatement<IsStatement>(
-					language => language.GetExtension<ILanguageClassificationModule>().Statements.Names.Clasification,
-					language => language.GetExtension<ILanguageClassificationModule>().Statements.TrueFormatStrings.Clasification,
-					language => language.GetExtension<ILanguageClassificationModule>().Statements.FalseFormatStrings.Clasification,
-					language => language.GetExtension<ILanguageClassificationModule>().Statements.QuestionFormatStrings.Clasification,
+					language => language.GetExtension<ILanguageClassificationModule>().Statements.Names.Classification,
+					language => language.GetExtension<ILanguageClassificationModule>().Statements.TrueFormatStrings.Classification,
+					language => language.GetExtension<ILanguageClassificationModule>().Statements.FalseFormatStrings.Classification,
+					language => language.GetExtension<ILanguageClassificationModule>().Statements.QuestionFormatStrings.Classification,
 					statement => new Dictionary<String, IKnowledge>
 					{
 						{ Strings.ParamParent, statement.Ancestor },
@@ -65,13 +65,13 @@ namespace AabSemantics.Modules.Classification
 			ITextContainer result,
 			ICollection<IsStatement> statements)
 		{
-			foreach (var clasification in statements)
+			foreach (var classification in statements)
 			{
-				if (!clasification.CheckCyclic(statements))
+				if (!classification.CheckCyclic(statements))
 				{
 					result.Append(
 						language => language.GetExtension<ILanguageClassificationModule>().Statements.Consistency.ErrorCyclic,
-						new Dictionary<String, IKnowledge> { { AabSemantics.Localization.Strings.ParamStatement, clasification } });
+						new Dictionary<String, IKnowledge> { { AabSemantics.Localization.Strings.ParamStatement, classification } });
 				}
 			}
 		}

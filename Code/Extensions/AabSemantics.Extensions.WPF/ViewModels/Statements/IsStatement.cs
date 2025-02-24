@@ -52,7 +52,7 @@ namespace AabSemantics.Extensions.WPF.ViewModels.Statements
 			{
 				Owner = owner,
 				Editor = control,
-				Title = language.GetExtension<ILanguageClassificationModule>().Statements.Names.Clasification,
+				Title = language.GetExtension<ILanguageClassificationModule>().Statements.Names.Classification,
 				SizeToContent = SizeToContent.WidthAndHeight,
 				MinWidth = 200,
 				MinHeight = 100,
