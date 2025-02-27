@@ -29,8 +29,8 @@ namespace AabSemantics.Modules.Mathematics.Statements
 		public ComparisonStatement(String id, IConcept leftValue, IConcept rightValue, IConcept comparisonSign)
 			: base(
 				id,
-				new Func<ILanguage, String>(language => language.GetExtension<ILanguageMathematicsModule>().Statements.Names.Comparison),
-				new Func<ILanguage, String>(language => language.GetExtension<ILanguageMathematicsModule>().Statements.Hints.Comparison))
+				new Func<ILanguage, String>(language => language.GetStatementsExtension<ILanguageMathematicsModule, ILanguageStatements>().Names.Comparison),
+				new Func<ILanguage, String>(language => language.GetStatementsExtension<ILanguageMathematicsModule, ILanguageStatements>().Hints.Comparison))
 		{
 			Update(id, leftValue, rightValue, comparisonSign);
 		}

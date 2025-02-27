@@ -19,8 +19,8 @@ namespace AabSemantics.Modules.Set.Questions
 		protected override void WriteOneLine(ITextContainer text, IConcept sign, IConcept value1, IConcept value2)
 		{
 			var formatString = value1 != null && value2 != null
-				? new Func<ILanguage, String>(language => language.GetExtension<ILanguageSetModule>().Questions.Answers.CompareConceptsCommon)
-				: language => language.GetExtension<ILanguageSetModule>().Questions.Answers.CompareConceptsCommonNotSet;
+				? new Func<ILanguage, String>(language => language.GetQuestionsExtension<ILanguageSetModule, ILanguageQuestions>().Answers.CompareConceptsCommon)
+				: language => language.GetQuestionsExtension<ILanguageSetModule, ILanguageQuestions>().Answers.CompareConceptsCommonNotSet;
 
 			var parameters = new Dictionary<String, IKnowledge>
 			{
@@ -36,7 +36,7 @@ namespace AabSemantics.Modules.Set.Questions
 
 		protected override void WriteNotEmptyResultWithoutData(ITextContainer text)
 		{
-			text.Append(language => language.GetExtension<ILanguageSetModule>().Questions.Answers.CompareConceptsNoCommon);
+			text.Append(language => language.GetQuestionsExtension<ILanguageSetModule, ILanguageQuestions>().Answers.CompareConceptsNoCommon);
 		}
 
 		protected override void FormatParentsDiff(
@@ -47,7 +47,7 @@ namespace AabSemantics.Modules.Set.Questions
 		{
 			if (parents1.Count == parents.Count && parents2.Count == parents.Count)
 			{
-				text.Append(language => language.GetExtension<ILanguageSetModule>().Questions.Answers.CompareConceptsSameHierarchy);
+				text.Append(language => language.GetQuestionsExtension<ILanguageSetModule, ILanguageQuestions>().Answers.CompareConceptsSameHierarchy);
 			}
 		}
 	}

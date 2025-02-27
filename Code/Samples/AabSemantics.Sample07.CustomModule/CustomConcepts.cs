@@ -8,7 +8,7 @@ namespace AabSemantics.Sample07.CustomModule
 	{
 		public static readonly IConcept Custom = new SystemConcept(
 			"{Custom.Custom}",
-			new LocalizedStringConstant(language => language.GetExtension<ILanguageCustomModule>().Concepts.CustomName),
-			new LocalizedStringConstant(language => language.GetExtension<ILanguageCustomModule>().Concepts.CustomHint));
+			new LocalizedStringConstant(language => language.GetConceptsExtension<ILanguageCustomModule, ILanguageConcepts>().CustomName),
+			new LocalizedStringConstant(language => language.GetConceptsExtension<ILanguageCustomModule, ILanguageConcepts>().CustomHint));
 	}
 }

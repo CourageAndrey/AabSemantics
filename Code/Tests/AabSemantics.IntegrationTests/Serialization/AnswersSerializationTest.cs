@@ -25,7 +25,7 @@ namespace AabSemantics.IntegrationTests.Serialization
 
 		static AnswersSerializationTest()
 		{
-			_language = Localization.Language.Default;
+			_language = AabSemantics.Localization.Language.Default;
 
 			_semanticNetwork = new SemanticNetwork(_language);
 			_semanticNetwork.CreateCombinedTestData();

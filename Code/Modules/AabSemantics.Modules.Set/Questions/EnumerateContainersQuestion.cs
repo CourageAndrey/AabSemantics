@@ -31,7 +31,7 @@ namespace AabSemantics.Modules.Set.Questions
 					statement => statement.Whole,
 					question => question.Concept,
 					AabSemantics.Localization.Strings.ParamChild,
-					language => language.GetExtension<ILanguageSetModule>().Questions.Answers.EnumerateContainers);
+					language => language.GetQuestionsExtension<ILanguageSetModule, ILanguageQuestions>().Answers.EnumerateContainers);
 		}
 	}
 }

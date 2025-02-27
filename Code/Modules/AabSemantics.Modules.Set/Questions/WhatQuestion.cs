@@ -75,7 +75,7 @@ namespace AabSemantics.Modules.Set.Questions
 
 		private void writeClassificationWithDifference(ITextContainer result, IsStatement statement, List<SignValueStatement> difference)
 		{
-			result.Append(language => language.GetExtension<ILanguageSetModule>().Questions.Answers.IsDescriptionWithSign, new Dictionary<String, IKnowledge>
+			result.Append(language => language.GetQuestionsExtension<ILanguageSetModule, ILanguageQuestions>().Answers.IsDescriptionWithSign, new Dictionary<String, IKnowledge>
 			{
 				{ AabSemantics.Localization.Strings.ParamChild, Concept },
 				{ AabSemantics.Localization.Strings.ParamParent, statement.Ancestor },
@@ -89,7 +89,7 @@ namespace AabSemantics.Modules.Set.Questions
 
 		private static void writeSignDifference(ITextContainer result, SignValueStatement diff)
 		{
-			result.Append(language => language.GetExtension<ILanguageSetModule>().Questions.Answers.IsDescriptionWithSignValue, new Dictionary<String, IKnowledge>
+			result.Append(language => language.GetQuestionsExtension<ILanguageSetModule, ILanguageQuestions>().Answers.IsDescriptionWithSignValue, new Dictionary<String, IKnowledge>
 			{
 				{ Strings.ParamSign, diff.Sign },
 				{ Strings.ParamValue, diff.Value },
@@ -98,7 +98,7 @@ namespace AabSemantics.Modules.Set.Questions
 
 		private void writeJustClassification(ITextContainer result, IsStatement statement)
 		{
-			result.Append(language => language.GetExtension<ILanguageSetModule>().Questions.Answers.IsDescription, new Dictionary<String, IKnowledge>
+			result.Append(language => language.GetQuestionsExtension<ILanguageSetModule, ILanguageQuestions>().Answers.IsDescription, new Dictionary<String, IKnowledge>
 			{
 				{ AabSemantics.Localization.Strings.ParamChild, Concept },
 				{ AabSemantics.Localization.Strings.ParamParent, statement.Ancestor },

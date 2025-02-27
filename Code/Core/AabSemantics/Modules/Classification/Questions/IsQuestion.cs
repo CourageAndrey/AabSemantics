@@ -40,8 +40,8 @@ namespace AabSemantics.Modules.Classification.Questions
 				.Where(s => s.Parent == Parent && s.Child == Child)
 				.SelectBooleanIncludingChildren(
 					statements => statements.Count > 0,
-					language => language.GetExtension<ILanguageClassificationModule>().Questions.Answers.IsTrue,
-					language => language.GetExtension<ILanguageClassificationModule>().Questions.Answers.IsFalse,
+					language => language.GetQuestionsExtension<ILanguageClassificationModule, Localization.ILanguageQuestions>().Answers.IsTrue,
+					language => language.GetQuestionsExtension<ILanguageClassificationModule, Localization.ILanguageQuestions>().Answers.IsFalse,
 					new Dictionary<String, IKnowledge>
 					{
 						{ Strings.ParamParent, Parent },

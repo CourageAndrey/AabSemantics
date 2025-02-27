@@ -28,8 +28,8 @@ namespace AabSemantics.Modules.Set.Statements
 		public GroupStatement(String id, IConcept area, IConcept concept)
 			: base(
 				id,
-				new Func<ILanguage, String>(language => language.GetExtension<ILanguageSetModule>().Statements.Names.SubjectArea),
-				new Func<ILanguage, String>(language => language.GetExtension<ILanguageSetModule>().Statements.Hints.SubjectArea))
+				new Func<ILanguage, String>(language => language.GetStatementsExtension<ILanguageSetModule, ILanguageStatements>().Names.SubjectArea),
+				new Func<ILanguage, String>(language => language.GetStatementsExtension<ILanguageSetModule, ILanguageStatements>().Hints.SubjectArea))
 		{
 			Update(id, area, concept);
 		}

@@ -1,8 +1,10 @@
 ﻿using System.Xml.Serialization;
 
+using AabSemantics.Localization;
+
 namespace AabSemantics.Modules.Classification.Localization
 {
-	public interface ILanguageStatements
+	public interface ILanguageStatements : ILanguageExtensionStatements
 	{
 		ILanguageStatementsPart Names
 		{ get; }

@@ -2,7 +2,7 @@
 
 namespace AabSemantics.Localization
 {
-	public interface ILanguageStatements
+	public interface ILanguageStatements : ILanguageExtensionStatements
 	{
 		ILanguageConsistency Consistency
 		{ get; }

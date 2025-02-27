@@ -32,7 +32,7 @@ namespace AabSemantics.Modules.Classification.Questions
 					statement => statement.Descendant,
 					question => question.Concept,
 					Strings.ParamParent,
-					language => language.GetExtension<ILanguageClassificationModule>().Questions.Answers.EnumerateDescendants);
+					language => language.GetQuestionsExtension<ILanguageClassificationModule, Localization.ILanguageQuestions>().Answers.EnumerateDescendants);
 		}
 	}
 }

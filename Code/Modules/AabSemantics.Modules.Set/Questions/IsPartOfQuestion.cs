@@ -36,8 +36,8 @@ namespace AabSemantics.Modules.Set.Questions
 				.Where(s => s.Whole == Parent && s.Part == Child)
 				.SelectBoolean(
 					statements => statements.Any(),
-					language => language.GetExtension<ILanguageSetModule>().Questions.Answers.IsPartOfTrue,
-					language => language.GetExtension<ILanguageSetModule>().Questions.Answers.IsPartOfFalse,
+					language => language.GetQuestionsExtension<ILanguageSetModule, ILanguageQuestions>().Answers.IsPartOfTrue,
+					language => language.GetQuestionsExtension<ILanguageSetModule, ILanguageQuestions>().Answers.IsPartOfFalse,
 					new Dictionary<String, IKnowledge>
 					{
 						{ AabSemantics.Localization.Strings.ParamParent, Parent },

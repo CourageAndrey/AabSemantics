@@ -21,8 +21,8 @@ namespace AabSemantics.Sample07.CustomModule
 		public CustomStatement(string id, IConcept concept1, IConcept concept2)
 			: base(
 				id,
-				new Func<ILanguage, string>(language => language.GetExtension<ILanguageCustomModule>().Statements.Names.Custom),
-				new Func<ILanguage, string>(language => language.GetExtension<ILanguageCustomModule>().Statements.Hints.Custom))
+				new Func<ILanguage, string>(language => language.GetStatementsExtension<ILanguageCustomModule, ILanguageStatements>().Names.Custom),
+				new Func<ILanguage, string>(language => language.GetStatementsExtension<ILanguageCustomModule, ILanguageStatements>().Hints.Custom))
 		{
 			Update(id, concept1, concept2);
 		}

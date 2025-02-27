@@ -31,7 +31,7 @@ namespace AabSemantics.Modules.Set
 
 		protected override void RegisterAttributes()
 		{
-			Repositories.RegisterAttribute(IsSignAttribute.Value, language => language.GetExtension<ILanguageSetModule>().Attributes.IsSign)
+			Repositories.RegisterAttribute(IsSignAttribute.Value, language => language.GetAttributesExtension<ILanguageSetModule, ILanguageAttributes>().IsSign)
 				.SerializeToXml(new Xml.IsSignAttribute())
 				.SerializeToJson(new Xml.IsSignAttribute());
 		}
@@ -39,10 +39,10 @@ namespace AabSemantics.Modules.Set
 		protected override void RegisterStatements()
 		{
 			Repositories.RegisterStatement<HasPartStatement>(
-					language => language.GetExtension<ILanguageSetModule>().Statements.Names.Composition,
-					language => language.GetExtension<ILanguageSetModule>().Statements.TrueFormatStrings.Composition,
-					language => language.GetExtension<ILanguageSetModule>().Statements.FalseFormatStrings.Composition,
-					language => language.GetExtension<ILanguageSetModule>().Statements.QuestionFormatStrings.Composition,
+					language => language.GetStatementsExtension<ILanguageSetModule, ILanguageStatements>().Names.Composition,
+					language => language.GetStatementsExtension<ILanguageSetModule, ILanguageStatements>().TrueFormatStrings.Composition,
+					language => language.GetStatementsExtension<ILanguageSetModule, ILanguageStatements>().FalseFormatStrings.Composition,
+					language => language.GetStatementsExtension<ILanguageSetModule, ILanguageStatements>().QuestionFormatStrings.Composition,
 					statement => new Dictionary<String, IKnowledge>
 					{
 						{ AabSemantics.Localization.Strings.ParamParent, statement.Whole },
@@ -53,10 +53,10 @@ namespace AabSemantics.Modules.Set
 				.SerializeToJson(statement => new Json.HasPartStatement(statement));
 
 			Repositories.RegisterStatement<GroupStatement>(
-					language => language.GetExtension<ILanguageSetModule>().Statements.Names.SubjectArea,
-					language => language.GetExtension<ILanguageSetModule>().Statements.TrueFormatStrings.SubjectArea,
-					language => language.GetExtension<ILanguageSetModule>().Statements.FalseFormatStrings.SubjectArea,
-					language => language.GetExtension<ILanguageSetModule>().Statements.QuestionFormatStrings.SubjectArea,
+					language => language.GetStatementsExtension<ILanguageSetModule, ILanguageStatements>().Names.SubjectArea,
+					language => language.GetStatementsExtension<ILanguageSetModule, ILanguageStatements>().TrueFormatStrings.SubjectArea,
+					language => language.GetStatementsExtension<ILanguageSetModule, ILanguageStatements>().FalseFormatStrings.SubjectArea,
+					language => language.GetStatementsExtension<ILanguageSetModule, ILanguageStatements>().QuestionFormatStrings.SubjectArea,
 					statement => new Dictionary<String, IKnowledge>
 					{
 						{ Strings.ParamArea, statement.Area },
@@ -67,10 +67,10 @@ namespace AabSemantics.Modules.Set
 				.SerializeToJson(statement => new Json.GroupStatement(statement));
 
 			Repositories.RegisterStatement<HasSignStatement>(
-					language => language.GetExtension<ILanguageSetModule>().Statements.Names.HasSign,
-					language => language.GetExtension<ILanguageSetModule>().Statements.TrueFormatStrings.HasSign,
-					language => language.GetExtension<ILanguageSetModule>().Statements.FalseFormatStrings.HasSign,
-					language => language.GetExtension<ILanguageSetModule>().Statements.QuestionFormatStrings.HasSign,
+					language => language.GetStatementsExtension<ILanguageSetModule, ILanguageStatements>().Names.HasSign,
+					language => language.GetStatementsExtension<ILanguageSetModule, ILanguageStatements>().TrueFormatStrings.HasSign,
+					language => language.GetStatementsExtension<ILanguageSetModule, ILanguageStatements>().FalseFormatStrings.HasSign,
+					language => language.GetStatementsExtension<ILanguageSetModule, ILanguageStatements>().QuestionFormatStrings.HasSign,
 					statement => new Dictionary<String, IKnowledge>
 					{
 						{ AabSemantics.Localization.Strings.ParamConcept, statement.Concept },
@@ -81,10 +81,10 @@ namespace AabSemantics.Modules.Set
 				.SerializeToJson(statement => new Json.HasSignStatement(statement));
 
 			Repositories.RegisterStatement<SignValueStatement>(
-					language => language.GetExtension<ILanguageSetModule>().Statements.Names.SignValue,
-					language => language.GetExtension<ILanguageSetModule>().Statements.TrueFormatStrings.SignValue,
-					language => language.GetExtension<ILanguageSetModule>().Statements.FalseFormatStrings.SignValue,
-					language => language.GetExtension<ILanguageSetModule>().Statements.QuestionFormatStrings.SignValue,
+					language => language.GetStatementsExtension<ILanguageSetModule, ILanguageStatements>().Names.SignValue,
+					language => language.GetStatementsExtension<ILanguageSetModule, ILanguageStatements>().TrueFormatStrings.SignValue,
+					language => language.GetStatementsExtension<ILanguageSetModule, ILanguageStatements>().FalseFormatStrings.SignValue,
+					language => language.GetStatementsExtension<ILanguageSetModule, ILanguageStatements>().QuestionFormatStrings.SignValue,
 					statement => new Dictionary<String, IKnowledge>
 					{
 						{ AabSemantics.Localization.Strings.ParamConcept, statement.Concept },
@@ -98,52 +98,52 @@ namespace AabSemantics.Modules.Set
 
 		protected override void RegisterQuestions()
 		{
-			Repositories.RegisterQuestion<DescribeSubjectAreaQuestion>(language => language.GetExtension<ILanguageSetModule>().Questions.Names.DescribeSubjectAreaQuestion)
+			Repositories.RegisterQuestion<DescribeSubjectAreaQuestion>(language => language.GetQuestionsExtension<ILanguageSetModule, ILanguageQuestions>().Names.DescribeSubjectAreaQuestion)
 				.SerializeToXml(question => new Xml.DescribeSubjectAreaQuestion(question))
 				.SerializeToJson(question => new Json.DescribeSubjectAreaQuestion(question));
-			Repositories.RegisterQuestion<FindSubjectAreaQuestion>(language => language.GetExtension<ILanguageSetModule>().Questions.Names.FindSubjectAreaQuestion)
+			Repositories.RegisterQuestion<FindSubjectAreaQuestion>(language => language.GetQuestionsExtension<ILanguageSetModule, ILanguageQuestions>().Names.FindSubjectAreaQuestion)
 				.SerializeToXml(question => new Xml.FindSubjectAreaQuestion(question))
 				.SerializeToJson(question => new Json.FindSubjectAreaQuestion(question));
-			Repositories.RegisterQuestion<IsSubjectAreaQuestion>(language => language.GetExtension<ILanguageSetModule>().Questions.Names.IsSubjectAreaQuestion)
+			Repositories.RegisterQuestion<IsSubjectAreaQuestion>(language => language.GetQuestionsExtension<ILanguageSetModule, ILanguageQuestions>().Names.IsSubjectAreaQuestion)
 				.SerializeToXml(question => new Xml.IsSubjectAreaQuestion(question))
 				.SerializeToJson(question => new Json.IsSubjectAreaQuestion(question));
 
-			Repositories.RegisterQuestion<EnumerateContainersQuestion>(language => language.GetExtension<ILanguageSetModule>().Questions.Names.EnumerateContainersQuestion)
+			Repositories.RegisterQuestion<EnumerateContainersQuestion>(language => language.GetQuestionsExtension<ILanguageSetModule, ILanguageQuestions>().Names.EnumerateContainersQuestion)
 				.SerializeToXml(question => new Xml.EnumerateContainersQuestion(question))
 				.SerializeToJson(question => new Json.EnumerateContainersQuestion(question));
-			Repositories.RegisterQuestion<EnumeratePartsQuestion>(language => language.GetExtension<ILanguageSetModule>().Questions.Names.EnumeratePartsQuestion)
+			Repositories.RegisterQuestion<EnumeratePartsQuestion>(language => language.GetQuestionsExtension<ILanguageSetModule, ILanguageQuestions>().Names.EnumeratePartsQuestion)
 				.SerializeToXml(question => new Xml.EnumeratePartsQuestion(question))
 				.SerializeToJson(question => new Json.EnumeratePartsQuestion(question));
-			Repositories.RegisterQuestion<IsPartOfQuestion>(language => language.GetExtension<ILanguageSetModule>().Questions.Names.IsPartOfQuestion)
+			Repositories.RegisterQuestion<IsPartOfQuestion>(language => language.GetQuestionsExtension<ILanguageSetModule, ILanguageQuestions>().Names.IsPartOfQuestion)
 				.SerializeToXml(question => new Xml.IsPartOfQuestion(question))
 				.SerializeToJson(question => new Json.IsPartOfQuestion(question));
 
-			Repositories.RegisterQuestion<EnumerateSignsQuestion>(language => language.GetExtension<ILanguageSetModule>().Questions.Names.EnumerateSignsQuestion)
+			Repositories.RegisterQuestion<EnumerateSignsQuestion>(language => language.GetQuestionsExtension<ILanguageSetModule, ILanguageQuestions>().Names.EnumerateSignsQuestion)
 				.SerializeToXml(question => new Xml.EnumerateSignsQuestion(question))
 				.SerializeToJson(question => new Json.EnumerateSignsQuestion(question));
-			Repositories.RegisterQuestion<HasSignQuestion>(language => language.GetExtension<ILanguageSetModule>().Questions.Names.HasSignQuestion)
+			Repositories.RegisterQuestion<HasSignQuestion>(language => language.GetQuestionsExtension<ILanguageSetModule, ILanguageQuestions>().Names.HasSignQuestion)
 				.SerializeToXml(question => new Xml.HasSignQuestion(question))
 				.SerializeToJson(question => new Json.HasSignQuestion(question));
-			Repositories.RegisterQuestion<HasSignsQuestion>(language => language.GetExtension<ILanguageSetModule>().Questions.Names.HasSignsQuestion)
+			Repositories.RegisterQuestion<HasSignsQuestion>(language => language.GetQuestionsExtension<ILanguageSetModule, ILanguageQuestions>().Names.HasSignsQuestion)
 				.SerializeToXml(question => new Xml.HasSignsQuestion(question))
 				.SerializeToJson(question => new Json.HasSignsQuestion(question));
-			Repositories.RegisterQuestion<IsSignQuestion>(language => language.GetExtension<ILanguageSetModule>().Questions.Names.IsSignQuestion)
+			Repositories.RegisterQuestion<IsSignQuestion>(language => language.GetQuestionsExtension<ILanguageSetModule, ILanguageQuestions>().Names.IsSignQuestion)
 				.SerializeToXml(question => new Xml.IsSignQuestion(question))
 				.SerializeToJson(question => new Json.IsSignQuestion(question));
-			Repositories.RegisterQuestion<IsValueQuestion>(language => language.GetExtension<ILanguageSetModule>().Questions.Names.IsValueQuestion)
+			Repositories.RegisterQuestion<IsValueQuestion>(language => language.GetQuestionsExtension<ILanguageSetModule, ILanguageQuestions>().Names.IsValueQuestion)
 				.SerializeToXml(question => new Xml.IsValueQuestion(question))
 				.SerializeToJson(question => new Json.IsValueQuestion(question));
-			Repositories.RegisterQuestion<SignValueQuestion>(language => language.GetExtension<ILanguageSetModule>().Questions.Names.SignValueQuestion)
+			Repositories.RegisterQuestion<SignValueQuestion>(language => language.GetQuestionsExtension<ILanguageSetModule, ILanguageQuestions>().Names.SignValueQuestion)
 				.SerializeToXml(question => new Xml.SignValueQuestion(question))
 				.SerializeToJson(question => new Json.SignValueQuestion(question));
 
-			Repositories.RegisterQuestion<GetCommonQuestion>(language => language.GetExtension<ILanguageSetModule>().Questions.Names.GetCommonQuestion)
+			Repositories.RegisterQuestion<GetCommonQuestion>(language => language.GetQuestionsExtension<ILanguageSetModule, ILanguageQuestions>().Names.GetCommonQuestion)
 				.SerializeToXml(question => new Xml.GetCommonQuestion(question))
 				.SerializeToJson(question => new Json.GetCommonQuestion(question));
-			Repositories.RegisterQuestion<GetDifferencesQuestion>(language => language.GetExtension<ILanguageSetModule>().Questions.Names.GetDifferencesQuestion)
+			Repositories.RegisterQuestion<GetDifferencesQuestion>(language => language.GetQuestionsExtension<ILanguageSetModule, ILanguageQuestions>().Names.GetDifferencesQuestion)
 				.SerializeToXml(question => new Xml.GetDifferencesQuestion(question))
 				.SerializeToJson(question => new Json.GetDifferencesQuestion(question));
-			Repositories.RegisterQuestion<WhatQuestion>(language => language.GetExtension<ILanguageSetModule>().Questions.Names.WhatQuestion)
+			Repositories.RegisterQuestion<WhatQuestion>(language => language.GetQuestionsExtension<ILanguageSetModule, ILanguageQuestions>().Names.WhatQuestion)
 				.SerializeToXml(question => new Xml.WhatQuestion(question))
 				.SerializeToJson(question => new Json.WhatQuestion(question));
 		}
@@ -168,7 +168,7 @@ namespace AabSemantics.Modules.Set
 				if (!hasSign.CheckSignDuplication(statements, classifications))
 				{
 					result.Append(
-						language => language.GetExtension<ILanguageSetModule>().Statements.Consistency.ErrorMultipleSign,
+						language => language.GetStatementsExtension<ILanguageSetModule, ILanguageStatements>().Consistency.ErrorMultipleSign,
 						new Dictionary<String, IKnowledge> { { AabSemantics.Localization.Strings.ParamStatement, hasSign } });
 				}
 			}
@@ -201,7 +201,7 @@ namespace AabSemantics.Modules.Set
 					if (valuedSigns.Contains(statement.Sign))
 					{
 						result.Append(
-							language => language.GetExtension<ILanguageSetModule>().Statements.Consistency.ErrorMultipleSignValue,
+							language => language.GetStatementsExtension<ILanguageSetModule, ILanguageStatements>().Consistency.ErrorMultipleSignValue,
 							new Dictionary<String, IKnowledge>
 							{
 								{ AabSemantics.Localization.Strings.ParamConcept, statement.Concept },
@@ -226,7 +226,7 @@ namespace AabSemantics.Modules.Set
 						parents.Select(p => SignValueStatement.GetSignValue(semanticNetwork.Statements, p, sign.Sign)).Count(r => r != null) > 1)
 					{
 						result.Append(
-							language => language.GetExtension<ILanguageSetModule>().Statements.Consistency.ErrorMultipleSignValueParents,
+							language => language.GetStatementsExtension<ILanguageSetModule, ILanguageStatements>().Consistency.ErrorMultipleSignValueParents,
 							new Dictionary<String, IKnowledge>
 							{
 								{ AabSemantics.Localization.Strings.ParamConcept, concept },
@@ -247,7 +247,7 @@ namespace AabSemantics.Modules.Set
 				if (!signValue.CheckHasSign(semanticNetwork.Statements))
 				{
 					result.Append(
-						language => language.GetExtension<ILanguageSetModule>().Statements.Consistency.ErrorSignWithoutValue,
+						language => language.GetStatementsExtension<ILanguageSetModule, ILanguageStatements>().Consistency.ErrorSignWithoutValue,
 						new Dictionary<String, IKnowledge> { { AabSemantics.Localization.Strings.ParamStatement, signValue } });
 				}
 			}

@@ -34,10 +34,10 @@ namespace AabSemantics.Modules.Processes
 
 		protected override void RegisterAttributes()
 		{
-			Repositories.RegisterAttribute(IsProcessAttribute.Value, language => language.GetExtension<ILanguageProcessesModule>().Attributes.IsProcess)
+			Repositories.RegisterAttribute(IsProcessAttribute.Value, language => language.GetAttributesExtension<ILanguageProcessesModule, ILanguageAttributes>().IsProcess)
 				.SerializeToXml(new Xml.IsProcessAttribute())
 				.SerializeToJson(new Xml.IsProcessAttribute());
-			Repositories.RegisterAttribute(IsSequenceSignAttribute.Value, language => language.GetExtension<ILanguageProcessesModule>().Attributes.IsSequenceSign)
+			Repositories.RegisterAttribute(IsSequenceSignAttribute.Value, language => language.GetAttributesExtension<ILanguageProcessesModule, ILanguageAttributes>().IsSequenceSign)
 				.SerializeToXml(new Xml.IsSequenceSignAttribute())
 				.SerializeToJson(new Xml.IsSequenceSignAttribute());
 		}
@@ -50,10 +50,10 @@ namespace AabSemantics.Modules.Processes
 		protected override void RegisterStatements()
 		{
 			Repositories.RegisterStatement<ProcessesStatement>(
-					language => language.GetExtension<ILanguageProcessesModule>().Statements.Names.Processes,
-					language => language.GetExtension<ILanguageProcessesModule>().Statements.TrueFormatStrings.Processes,
-					language => language.GetExtension<ILanguageProcessesModule>().Statements.FalseFormatStrings.Processes,
-					language => language.GetExtension<ILanguageProcessesModule>().Statements.QuestionFormatStrings.Processes,
+					language => language.GetStatementsExtension<ILanguageProcessesModule, ILanguageStatements>().Names.Processes,
+					language => language.GetStatementsExtension<ILanguageProcessesModule, ILanguageStatements>().TrueFormatStrings.Processes,
+					language => language.GetStatementsExtension<ILanguageProcessesModule, ILanguageStatements>().FalseFormatStrings.Processes,
+					language => language.GetStatementsExtension<ILanguageProcessesModule, ILanguageStatements>().QuestionFormatStrings.Processes,
 					statement => new Dictionary<String, IKnowledge>
 					{
 						{ Strings.ParamProcessA, statement.ProcessA },
@@ -67,7 +67,7 @@ namespace AabSemantics.Modules.Processes
 
 		protected override void RegisterQuestions()
 		{
-			Repositories.RegisterQuestion<ProcessesQuestion>(language => language.GetExtension<ILanguageProcessesModule>().Questions.Names.ProcessesQuestion)
+			Repositories.RegisterQuestion<ProcessesQuestion>(language => language.GetQuestionsExtension<ILanguageProcessesModule, ILanguageQuestions>().Names.ProcessesQuestion)
 				.SerializeToXml(question => new Xml.ProcessesQuestion(question))
 				.SerializeToJson(question => new Json.ProcessesQuestion(question));
 		}
@@ -89,7 +89,7 @@ namespace AabSemantics.Modules.Processes
 			{
 				result
 					.Append(
-						language => language.GetExtension<ILanguageProcessesModule>().Statements.Consistency.ErrorProcessesContradiction,
+						language => language.GetStatementsExtension<ILanguageProcessesModule, ILanguageStatements>().Consistency.ErrorProcessesContradiction,
 						new Dictionary<String, IKnowledge>
 						{
 							{ Localization.Strings.ParamProcessA, contradiction.Value1 },

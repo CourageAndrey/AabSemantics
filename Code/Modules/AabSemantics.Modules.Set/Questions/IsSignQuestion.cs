@@ -31,8 +31,8 @@ namespace AabSemantics.Modules.Set.Questions
 				.Where(s => s.Sign == Concept)
 				.SelectBoolean(
 					statement => Concept.HasAttribute<IsSignAttribute>(),
-					language => language.GetExtension<ILanguageSetModule>().Questions.Answers.SignTrue,
-					language => language.GetExtension<ILanguageSetModule>().Questions.Answers.SignFalse,
+					language => language.GetQuestionsExtension<ILanguageSetModule, ILanguageQuestions>().Answers.SignTrue,
+					language => language.GetQuestionsExtension<ILanguageSetModule, ILanguageQuestions>().Answers.SignFalse,
 					new Dictionary<String, IKnowledge>
 					{
 						{ AabSemantics.Localization.Strings.ParamConcept, Concept },

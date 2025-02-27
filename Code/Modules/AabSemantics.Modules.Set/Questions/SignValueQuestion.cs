@@ -38,7 +38,7 @@ namespace AabSemantics.Modules.Set.Questions
 				.Where(s => s.Concept == Concept && s.Sign == Sign)
 				.SelectFirstConcept(
 					statement => statement.Value,
-					language => language.GetExtension<ILanguageSetModule>().Questions.Answers.SignValue,
+					language => language.GetQuestionsExtension<ILanguageSetModule, ILanguageQuestions>().Answers.SignValue,
 					statement => new Dictionary<String, IKnowledge>
 					{
 						{ AabSemantics.Localization.Strings.ParamConcept, Concept },

@@ -28,8 +28,8 @@ namespace AabSemantics.Modules.Set.Statements
 		public HasPartStatement(String id, IConcept whole, IConcept part)
 			: base(
 				id,
-				new Func<ILanguage, String>(language => language.GetExtension<ILanguageSetModule>().Statements.Names.Composition),
-				new Func<ILanguage, String>(language => language.GetExtension<ILanguageSetModule>().Statements.Hints.Composition))
+				new Func<ILanguage, String>(language => language.GetStatementsExtension<ILanguageSetModule, ILanguageStatements>().Names.Composition),
+				new Func<ILanguage, String>(language => language.GetStatementsExtension<ILanguageSetModule, ILanguageStatements>().Hints.Composition))
 		{
 			Update(id, whole, part);
 		}

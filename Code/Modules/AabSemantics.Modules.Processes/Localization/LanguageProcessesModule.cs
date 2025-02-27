@@ -4,20 +4,8 @@ using AabSemantics.Localization;
 
 namespace AabSemantics.Modules.Processes.Localization
 {
-	public interface ILanguageProcessesModule : ILanguageExtension
-	{
-		ILanguageAttributes Attributes
-		{ get; }
-
-		ILanguageStatements Statements
-		{ get; }
-
-		ILanguageQuestions Questions
-		{ get; }
-
-		ILanguageConcepts Concepts
-		{ get; }
-	}
+	public interface ILanguageProcessesModule : ILanguageAttributesExtension<ILanguageAttributes>, ILanguageConceptsExtension<ILanguageConcepts>, ILanguageStatementsExtension<ILanguageStatements>, ILanguageQuestionsExtension<ILanguageQuestions>
+	{ }
 
 	[XmlType]
 	public class LanguageProcessesModule : LanguageExtension, ILanguageProcessesModule
@@ -43,6 +31,22 @@ namespace AabSemantics.Modules.Processes.Localization
 		#endregion
 
 		#region Interface Properties
+
+		[XmlIgnore]
+		ILanguageExtensionAttributes ILanguageAttributesExtension.Attributes
+		{ get { return AttributesXml; } }
+
+		[XmlIgnore]
+		ILanguageExtensionConcepts ILanguageConceptsExtension.Concepts
+		{ get { return ConceptsXml; } }
+
+		[XmlIgnore]
+		ILanguageExtensionStatements ILanguageStatementsExtension.Statements
+		{ get { return StatementsXml; } }
+
+		[XmlIgnore]
+		ILanguageExtensionQuestions ILanguageQuestionsExtension.Questions
+		{ get { return QuestionsXml; } }
 
 		[XmlIgnore]
 		public ILanguageAttributes Attributes
