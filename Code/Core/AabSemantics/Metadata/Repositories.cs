@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using AabSemantics.Localization;
 using AabSemantics.Utils;
 
 namespace AabSemantics.Metadata
@@ -83,20 +84,16 @@ namespace AabSemantics.Metadata
 			return definition;
 		}
 
-		public static StatementDefinition<StatementT> RegisterStatement<StatementT>(
-			Func<ILanguage, String> nameGetter,
-			Func<ILanguage, String> formatTrue,
-			Func<ILanguage, String> formatFalse,
-			Func<ILanguage, String> formatQuestion,
+		public static StatementDefinition<StatementT, ModuleT, LanguageStatementsT, PartT> RegisterStatement<StatementT, ModuleT, LanguageStatementsT, PartT>(
+			Func<PartT, String> partGetter,
 			Func<StatementT, IDictionary<String, IKnowledge>> getDescriptionParameters,
 			StatementConsistencyCheckerDelegate<StatementT> consistencyChecker)
 			where StatementT : class, IStatement
+			where ModuleT : ILanguageStatementsExtension<LanguageStatementsT>
+			where LanguageStatementsT : ILanguageExtensionStatements<PartT>
 		{
-			var definition = new StatementDefinition<StatementT>(
-				nameGetter,
-				formatTrue,
-				formatFalse,
-				formatQuestion,
+			var definition = new StatementDefinition<StatementT, ModuleT, LanguageStatementsT, PartT>(
+				partGetter,
 				getDescriptionParameters,
 				consistencyChecker);
 			Statements.Definitions[definition.Type] = definition;

@@ -24,11 +24,8 @@ namespace AabSemantics.Modules.Classification
 
 		protected override void RegisterStatements()
 		{
-			Repositories.RegisterStatement<IsStatement>(
-					language => language.GetStatementsExtension<ILanguageClassificationModule, Localization.ILanguageStatements>().Names.Classification,
-					language => language.GetStatementsExtension<ILanguageClassificationModule, Localization.ILanguageStatements>().TrueFormatStrings.Classification,
-					language => language.GetStatementsExtension<ILanguageClassificationModule, Localization.ILanguageStatements>().FalseFormatStrings.Classification,
-					language => language.GetStatementsExtension<ILanguageClassificationModule, Localization.ILanguageStatements>().QuestionFormatStrings.Classification,
+			Repositories.RegisterStatement<IsStatement, ILanguageClassificationModule, Localization.ILanguageStatements, ILanguageStatementsPart>(
+					part => part.Classification,
 					statement => new Dictionary<String, IKnowledge>
 					{
 						{ Strings.ParamParent, statement.Ancestor },

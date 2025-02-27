@@ -171,21 +171,23 @@ namespace AabSemantics.Tests.Questions
 				.WithModule<BooleanModule>()
 				.WithModule<ClassificationModule>();
 
-			Repositories.RegisterStatement<TestStatement>(
+			Repositories.RegisterStatement(
+				typeof(TestStatement),
 				l => string.Empty,
 				l => string.Empty,
 				l => string.Empty,
 				l => string.Empty,
 				s => new Dictionary<string, IKnowledge>(),
-				StatementDefinition<TestStatement>.NoConsistencyCheck);
+				StatementDefinition.NoConsistencyCheck);
 
-			Repositories.RegisterStatement<TransitiveTestStatement>(
+			Repositories.RegisterStatement(
+				typeof(TransitiveTestStatement),
 				l => string.Empty,
 				l => string.Empty,
 				l => string.Empty,
 				l => string.Empty,
 				s => new Dictionary<string, IKnowledge>(),
-				StatementDefinition<TransitiveTestStatement>.NoConsistencyCheck);
+				StatementDefinition.NoConsistencyCheck);
 		}
 
 		private class TestStatement : TestCore.TestStatement

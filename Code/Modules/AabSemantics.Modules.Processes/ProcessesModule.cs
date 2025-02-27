@@ -49,11 +49,8 @@ namespace AabSemantics.Modules.Processes
 
 		protected override void RegisterStatements()
 		{
-			Repositories.RegisterStatement<ProcessesStatement>(
-					language => language.GetStatementsExtension<ILanguageProcessesModule, ILanguageStatements>().Names.Processes,
-					language => language.GetStatementsExtension<ILanguageProcessesModule, ILanguageStatements>().TrueFormatStrings.Processes,
-					language => language.GetStatementsExtension<ILanguageProcessesModule, ILanguageStatements>().FalseFormatStrings.Processes,
-					language => language.GetStatementsExtension<ILanguageProcessesModule, ILanguageStatements>().QuestionFormatStrings.Processes,
+			Repositories.RegisterStatement<ProcessesStatement, ILanguageProcessesModule, ILanguageStatements, ILanguageStatementsPart>(
+					language => language.Processes,
 					statement => new Dictionary<String, IKnowledge>
 					{
 						{ Strings.ParamProcessA, statement.ProcessA },

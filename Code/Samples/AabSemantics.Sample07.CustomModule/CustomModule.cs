@@ -56,11 +56,8 @@ namespace AabSemantics.Sample07.CustomModule
 
 		protected override void RegisterStatements()
 		{
-			Repositories.RegisterStatement<CustomStatement>(
-					language => language.GetStatementsExtension<ILanguageCustomModule, Localization.ILanguageStatements>().Names.Custom,
-					language => language.GetStatementsExtension<ILanguageCustomModule, Localization.ILanguageStatements>().TrueFormatStrings.Custom,
-					language => language.GetStatementsExtension<ILanguageCustomModule, Localization.ILanguageStatements>().FalseFormatStrings.Custom,
-					language => language.GetStatementsExtension<ILanguageCustomModule, Localization.ILanguageStatements>().QuestionFormatStrings.Custom,
+			Repositories.RegisterStatement<CustomStatement, ILanguageCustomModule, Localization.ILanguageStatements, Localization.ILanguageStatementsPart>(
+					language => language.Custom,
 					statement => new Dictionary<string, IKnowledge>
 					{
 						{ CustomStatement.ParamConcept1, statement.Concept1 },
