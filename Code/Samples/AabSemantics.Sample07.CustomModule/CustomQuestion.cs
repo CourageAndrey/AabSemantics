@@ -32,8 +32,8 @@ namespace AabSemantics.Sample07.CustomModule
 				{
 					bool isTrue = statements.Count > 0;
 					var formatter = isTrue
-						? new Func<ILanguage, String>(language => language.GetExtension<ILanguageCustomModule>().Questions.Answers.CustomTrue)
-						: language => language.GetExtension<ILanguageCustomModule>().Questions.Answers.CustomFalse;
+						? new Func<ILanguage, String>(language => language.GetQuestionsExtension<ILanguageCustomModule, ILanguageQuestions>().Answers.CustomTrue)
+						: language => language.GetQuestionsExtension<ILanguageCustomModule, ILanguageQuestions>().Answers.CustomFalse;
 					var parameters = new Dictionary<String, IKnowledge>
 					{
 						{ CustomStatement.ParamConcept1, Concept1 },
@@ -43,8 +43,8 @@ namespace AabSemantics.Sample07.CustomModule
 				});
 				//.SelectBoolean(
 				//	statements => statements.Count > 0,
-				//	language => language.GetExtension<ILanguageCustomModule>().Questions.Answers.CustomTrue,
-				//	language => language.GetExtension<ILanguageCustomModule>().Questions.Answers.CustomFalse,
+				//	language => language.GetQuestionsExtension<ILanguageCustomModule, ILanguageQuestions>().Answers.CustomTrue,
+				//	language => language.GetQuestionsExtension<ILanguageCustomModule, ILanguageQuestions>().Answers.CustomFalse,
 				//	new Dictionary<String, IKnowledge>
 				//	{
 				//		{ CustomStatement.ParamConcept1, Concept1 },

@@ -31,8 +31,8 @@ namespace AabSemantics.Modules.Set.Questions
 				.Where(s => s.Value == Concept)
 				.SelectBoolean(
 					statements => Concept.HasAttribute<IsValueAttribute>(),
-					language => language.GetExtension<ILanguageSetModule>().Questions.Answers.ValueTrue,
-					language => language.GetExtension<ILanguageSetModule>().Questions.Answers.ValueFalse,
+					language => language.GetQuestionsExtension<ILanguageSetModule, ILanguageQuestions>().Answers.ValueTrue,
+					language => language.GetQuestionsExtension<ILanguageSetModule, ILanguageQuestions>().Answers.ValueFalse,
 					new Dictionary<String, IKnowledge>
 					{
 						{ AabSemantics.Localization.Strings.ParamConcept, Concept },

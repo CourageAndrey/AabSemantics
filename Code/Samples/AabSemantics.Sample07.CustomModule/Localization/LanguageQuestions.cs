@@ -1,8 +1,10 @@
 ﻿using System.Xml.Serialization;
 
+using AabSemantics.Localization;
+
 namespace AabSemantics.Sample07.CustomModule.Localization
 {
-	public interface ILanguageQuestions
+	public interface ILanguageQuestions : ILanguageExtensionQuestions
 	{
 		ILanguageQuestionNames Names
 		{ get; }

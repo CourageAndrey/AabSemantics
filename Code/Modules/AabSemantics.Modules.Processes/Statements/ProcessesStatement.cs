@@ -28,8 +28,8 @@ namespace AabSemantics.Modules.Processes.Statements
 		public ProcessesStatement(String id, IConcept processA, IConcept processB, IConcept sequenceSign)
 			: base(
 				id,
-				new Func<ILanguage, String>(language => language.GetExtension<ILanguageProcessesModule>().Statements.Names.Processes),
-				new Func<ILanguage, String>(language => language.GetExtension<ILanguageProcessesModule>().Statements.Hints.Processes))
+				new Func<ILanguage, String>(language => language.GetStatementsExtension<ILanguageProcessesModule, ILanguageStatements>().Names.Processes),
+				new Func<ILanguage, String>(language => language.GetStatementsExtension<ILanguageProcessesModule, ILanguageStatements>().Hints.Processes))
 		{
 			Update(id, processA, processB, sequenceSign);
 		}

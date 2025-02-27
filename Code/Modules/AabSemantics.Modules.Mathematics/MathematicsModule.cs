@@ -34,7 +34,7 @@ namespace AabSemantics.Modules.Mathematics
 
 		protected override void RegisterAttributes()
 		{
-			Repositories.RegisterAttribute(IsComparisonSignAttribute.Value, language => language.GetExtension<ILanguageMathematicsModule>().Attributes.IsComparisonSign)
+			Repositories.RegisterAttribute(IsComparisonSignAttribute.Value, language => language.GetAttributesExtension<ILanguageMathematicsModule, ILanguageAttributes>().IsComparisonSign)
 				.SerializeToXml(new Xml.IsComparisonSignAttribute())
 				.SerializeToJson(new Xml.IsComparisonSignAttribute());
 		}
@@ -47,10 +47,10 @@ namespace AabSemantics.Modules.Mathematics
 		protected override void RegisterStatements()
 		{
 			Repositories.RegisterStatement<ComparisonStatement>(
-					language => language.GetExtension<ILanguageMathematicsModule>().Statements.Names.Comparison,
-					language => language.GetExtension<ILanguageMathematicsModule>().Statements.TrueFormatStrings.Comparison,
-					language => language.GetExtension<ILanguageMathematicsModule>().Statements.FalseFormatStrings.Comparison,
-					language => language.GetExtension<ILanguageMathematicsModule>().Statements.QuestionFormatStrings.Comparison,
+					language => language.GetStatementsExtension<ILanguageMathematicsModule, ILanguageStatements>().Names.Comparison,
+					language => language.GetStatementsExtension<ILanguageMathematicsModule, ILanguageStatements>().TrueFormatStrings.Comparison,
+					language => language.GetStatementsExtension<ILanguageMathematicsModule, ILanguageStatements>().FalseFormatStrings.Comparison,
+					language => language.GetStatementsExtension<ILanguageMathematicsModule, ILanguageStatements>().QuestionFormatStrings.Comparison,
 					statement => new Dictionary<String, IKnowledge>
 					{
 						{ Strings.ParamLeftValue, statement.LeftValue },
@@ -64,7 +64,7 @@ namespace AabSemantics.Modules.Mathematics
 
 		protected override void RegisterQuestions()
 		{
-			Repositories.RegisterQuestion<ComparisonQuestion>(language => language.GetExtension<ILanguageMathematicsModule>().Questions.Names.ComparisonQuestion)
+			Repositories.RegisterQuestion<ComparisonQuestion>(language => language.GetQuestionsExtension<ILanguageMathematicsModule, ILanguageQuestions>().Names.ComparisonQuestion)
 				.SerializeToXml(question => new Xml.ComparisonQuestion(question))
 				.SerializeToJson(question => new Json.ComparisonQuestion(question));
 		}
@@ -86,7 +86,7 @@ namespace AabSemantics.Modules.Mathematics
 			{
 				result
 					.Append(
-						language => language.GetExtension<ILanguageMathematicsModule>().Statements.Consistency.ErrorComparisonContradiction,
+						language => language.GetStatementsExtension<ILanguageMathematicsModule, ILanguageStatements>().Consistency.ErrorComparisonContradiction,
 						new Dictionary<String, IKnowledge>
 						{
 							{ Strings.ParamLeftValue, contradiction.Value1 },

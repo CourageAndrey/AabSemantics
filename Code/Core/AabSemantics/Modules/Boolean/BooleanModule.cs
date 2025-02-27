@@ -33,10 +33,10 @@ namespace AabSemantics.Modules.Boolean
 
 		protected override void RegisterAttributes()
 		{
-			Repositories.RegisterAttribute(IsValueAttribute.Value, language => language.GetExtension<ILanguageBooleanModule>().Attributes.IsValue)
+			Repositories.RegisterAttribute(IsValueAttribute.Value, language => language.GetAttributesExtension<ILanguageBooleanModule, ILanguageAttributes>().IsValue)
 				.SerializeToXml(new Xml.IsValueAttribute())
 				.SerializeToJson(new Xml.IsValueAttribute());
-			Repositories.RegisterAttribute(IsBooleanAttribute.Value, language => language.GetExtension<ILanguageBooleanModule>().Attributes.IsBoolean)
+			Repositories.RegisterAttribute(IsBooleanAttribute.Value, language => language.GetAttributesExtension<ILanguageBooleanModule, ILanguageAttributes>().IsBoolean)
 				.SerializeToXml(new Xml.IsBooleanAttribute())
 				.SerializeToJson(new Xml.IsBooleanAttribute());
 		}
@@ -48,7 +48,7 @@ namespace AabSemantics.Modules.Boolean
 
 		protected override void RegisterQuestions()
 		{
-			Repositories.RegisterQuestion<CheckStatementQuestion>(language => language.GetExtension<ILanguageBooleanModule>().Questions.Names.CheckStatementQuestion)
+			Repositories.RegisterQuestion<CheckStatementQuestion>(language => language.GetQuestionsExtension<ILanguageBooleanModule, ILanguageQuestions>().Names.CheckStatementQuestion)
 				.SerializeToXml(question => new Xml.CheckStatementQuestion(question))
 				.SerializeToJson(question => new Json.CheckStatementQuestion(question));
 		}

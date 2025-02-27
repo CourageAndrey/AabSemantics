@@ -25,8 +25,8 @@ namespace AabSemantics.Modules.Set.Statements
 		public HasSignStatement(String id, IConcept concept, IConcept sign)
 			: base(
 				id,
-				new Func<ILanguage, String>(language => language.GetExtension<ILanguageSetModule>().Statements.Names.HasSign),
-				new Func<ILanguage, String>(language => language.GetExtension<ILanguageSetModule>().Statements.Hints.HasSign))
+				new Func<ILanguage, String>(language => language.GetStatementsExtension<ILanguageSetModule, ILanguageStatements>().Names.HasSign),
+				new Func<ILanguage, String>(language => language.GetStatementsExtension<ILanguageSetModule, ILanguageStatements>().Hints.HasSign))
 		{
 			Update(id, concept, sign);
 		}

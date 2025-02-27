@@ -44,7 +44,7 @@ namespace AabSemantics.Sample07.CustomModule
 
 		protected override void RegisterAttributes()
 		{
-			Repositories.RegisterAttribute(CustomAttribute.Value, language => language.GetExtension<ILanguageCustomModule>().Attributes.Custom)
+			Repositories.RegisterAttribute(CustomAttribute.Value, language => language.GetAttributesExtension<ILanguageCustomModule, Localization.ILanguageAttributes>().Custom)
 				.SerializeToXml(new Xml.CustomAttribute())
 				.SerializeToJson(new Xml.CustomAttribute());
 		}
@@ -57,10 +57,10 @@ namespace AabSemantics.Sample07.CustomModule
 		protected override void RegisterStatements()
 		{
 			Repositories.RegisterStatement<CustomStatement>(
-					language => language.GetExtension<ILanguageCustomModule>().Statements.Names.Custom,
-					language => language.GetExtension<ILanguageCustomModule>().Statements.TrueFormatStrings.Custom,
-					language => language.GetExtension<ILanguageCustomModule>().Statements.FalseFormatStrings.Custom,
-					language => language.GetExtension<ILanguageCustomModule>().Statements.QuestionFormatStrings.Custom,
+					language => language.GetStatementsExtension<ILanguageCustomModule, Localization.ILanguageStatements>().Names.Custom,
+					language => language.GetStatementsExtension<ILanguageCustomModule, Localization.ILanguageStatements>().TrueFormatStrings.Custom,
+					language => language.GetStatementsExtension<ILanguageCustomModule, Localization.ILanguageStatements>().FalseFormatStrings.Custom,
+					language => language.GetStatementsExtension<ILanguageCustomModule, Localization.ILanguageStatements>().QuestionFormatStrings.Custom,
 					statement => new Dictionary<string, IKnowledge>
 					{
 						{ CustomStatement.ParamConcept1, statement.Concept1 },
@@ -73,7 +73,7 @@ namespace AabSemantics.Sample07.CustomModule
 
 		protected override void RegisterQuestions()
 		{
-			Repositories.RegisterQuestion<CustomQuestion>(language => language.GetExtension<ILanguageCustomModule>().Questions.Names.Custom)
+			Repositories.RegisterQuestion<CustomQuestion>(language => language.GetQuestionsExtension<ILanguageCustomModule, Localization.ILanguageQuestions>().Names.Custom)
 				.SerializeToXml(question => new Xml.CustomQuestion(question))
 				.SerializeToJson(question => new Json.CustomQuestion(question));
 		}
@@ -88,7 +88,7 @@ namespace AabSemantics.Sample07.CustomModule
 				if (statement.Concept1 == statement.Concept2)
 				{
 					result.Append(
-						language => language.GetExtension<ILanguageCustomModule>().Statements.Consistency.SelfReference,
+						language => language.GetStatementsExtension<ILanguageCustomModule, Localization.ILanguageStatements>().Consistency.SelfReference,
 						new Dictionary<String, IKnowledge> { { CustomStatement.ParamConcept1, statement.Concept1 } });
 				}
 			}

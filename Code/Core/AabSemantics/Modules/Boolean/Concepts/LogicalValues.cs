@@ -14,13 +14,13 @@ namespace AabSemantics.Modules.Boolean.Concepts
 
 		public static readonly IConcept True = new SystemConcept(
 			$"{{{nameof(LogicalValues)}.{nameof(True)}}}",
-			new LocalizedStringConstant(lang => lang.GetExtension<ILanguageBooleanModule>().Concepts.SystemConceptNames.True),
-			new LocalizedStringConstant(lang => lang.GetExtension<ILanguageBooleanModule>().Concepts.SystemConceptHints.True));
+			new LocalizedStringConstant(lang => lang.GetConceptsExtension<ILanguageBooleanModule, ILanguageConcepts>().SystemConceptNames.True),
+			new LocalizedStringConstant(lang => lang.GetConceptsExtension<ILanguageBooleanModule, ILanguageConcepts>().SystemConceptHints.True));
 
 		public static readonly IConcept False = new SystemConcept(
 			$"{{{nameof(LogicalValues)}.{nameof(False)}}}",
-			new LocalizedStringConstant(lang => lang.GetExtension<ILanguageBooleanModule>().Concepts.SystemConceptNames.False),
-			new LocalizedStringConstant(lang => lang.GetExtension<ILanguageBooleanModule>().Concepts.SystemConceptHints.False));
+			new LocalizedStringConstant(lang => lang.GetConceptsExtension<ILanguageBooleanModule, ILanguageConcepts>().SystemConceptNames.False),
+			new LocalizedStringConstant(lang => lang.GetConceptsExtension<ILanguageBooleanModule, ILanguageConcepts>().SystemConceptHints.False));
 
 		public static readonly ICollection<IConcept> All = new HashSet<IConcept>
 		{

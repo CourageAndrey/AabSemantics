@@ -50,7 +50,7 @@ namespace AabSemantics.Modules.Set.Questions
 			{
 				return new Answers.Answer(
 					new FormattedText(
-						language => language.GetExtension<ILanguageSetModule>().Questions.Answers.CanNotCompareConcepts,
+						language => language.GetQuestionsExtension<ILanguageSetModule, ILanguageQuestions>().Answers.CanNotCompareConcepts,
 						new Dictionary<String, IKnowledge>
 						{
 							{ Strings.ParamConcept1, Concept1 },
@@ -120,7 +120,7 @@ namespace AabSemantics.Modules.Set.Questions
 			IDictionary<IConcept, Tuple<IConcept, IConcept>> signValueStatements)
 		{
 			var result = new UnstructuredContainer(new FormattedText(
-				language => language.GetExtension<ILanguageSetModule>().Questions.Answers.CompareConceptsResult,
+				language => language.GetQuestionsExtension<ILanguageSetModule, ILanguageQuestions>().Answers.CompareConceptsResult,
 				new Dictionary<String, IKnowledge>
 				{
 					{ Strings.ParamConcept1, Concept1 },

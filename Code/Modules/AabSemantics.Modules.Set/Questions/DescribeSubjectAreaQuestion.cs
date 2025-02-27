@@ -31,7 +31,7 @@ namespace AabSemantics.Modules.Set.Questions
 					statement => statement.Concept,
 					question => question.Concept,
 					Strings.ParamArea,
-					language => language.GetExtension<ILanguageSetModule>().Questions.Answers.SubjectAreaConcepts);
+					language => language.GetQuestionsExtension<ILanguageSetModule, ILanguageQuestions>().Answers.SubjectAreaConcepts);
 		}
 	}
 }

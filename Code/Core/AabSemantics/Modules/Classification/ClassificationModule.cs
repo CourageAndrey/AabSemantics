@@ -19,16 +19,16 @@ namespace AabSemantics.Modules.Classification
 
 		protected override void RegisterLanguage()
 		{
-			AabSemantics.Localization.Language.Default.Extensions.Add(LanguageClassificationModule.CreateDefault());
+			Language.Default.Extensions.Add(LanguageClassificationModule.CreateDefault());
 		}
 
 		protected override void RegisterStatements()
 		{
 			Repositories.RegisterStatement<IsStatement>(
-					language => language.GetExtension<ILanguageClassificationModule>().Statements.Names.Classification,
-					language => language.GetExtension<ILanguageClassificationModule>().Statements.TrueFormatStrings.Classification,
-					language => language.GetExtension<ILanguageClassificationModule>().Statements.FalseFormatStrings.Classification,
-					language => language.GetExtension<ILanguageClassificationModule>().Statements.QuestionFormatStrings.Classification,
+					language => language.GetStatementsExtension<ILanguageClassificationModule, Localization.ILanguageStatements>().Names.Classification,
+					language => language.GetStatementsExtension<ILanguageClassificationModule, Localization.ILanguageStatements>().TrueFormatStrings.Classification,
+					language => language.GetStatementsExtension<ILanguageClassificationModule, Localization.ILanguageStatements>().FalseFormatStrings.Classification,
+					language => language.GetStatementsExtension<ILanguageClassificationModule, Localization.ILanguageStatements>().QuestionFormatStrings.Classification,
 					statement => new Dictionary<String, IKnowledge>
 					{
 						{ Strings.ParamParent, statement.Ancestor },
@@ -41,13 +41,13 @@ namespace AabSemantics.Modules.Classification
 
 		protected override void RegisterQuestions()
 		{
-			Repositories.RegisterQuestion<EnumerateAncestorsQuestion>(language => language.GetExtension<ILanguageClassificationModule>().Questions.Names.EnumerateAncestorsQuestion)
+			Repositories.RegisterQuestion<EnumerateAncestorsQuestion>(language => language.GetQuestionsExtension<ILanguageClassificationModule, Localization.ILanguageQuestions>().Names.EnumerateAncestorsQuestion)
 				.SerializeToXml(question => new Xml.EnumerateAncestorsQuestion(question))
 				.SerializeToJson(question => new Json.EnumerateAncestorsQuestion(question));
-			Repositories.RegisterQuestion<EnumerateDescendantsQuestion>(language => language.GetExtension<ILanguageClassificationModule>().Questions.Names.EnumerateDescendantsQuestion)
+			Repositories.RegisterQuestion<EnumerateDescendantsQuestion>(language => language.GetQuestionsExtension<ILanguageClassificationModule, Localization.ILanguageQuestions>().Names.EnumerateDescendantsQuestion)
 				.SerializeToXml(question => new Xml.EnumerateDescendantsQuestion(question))
 				.SerializeToJson(question => new Json.EnumerateDescendantsQuestion(question));
-			Repositories.RegisterQuestion<IsQuestion>(language => language.GetExtension<ILanguageClassificationModule>().Questions.Names.IsQuestion)
+			Repositories.RegisterQuestion<IsQuestion>(language => language.GetQuestionsExtension<ILanguageClassificationModule, Localization.ILanguageQuestions>().Names.IsQuestion)
 				.SerializeToXml(question => new Xml.IsQuestion(question))
 				.SerializeToJson(question => new Json.IsQuestion(question));
 		}
@@ -70,8 +70,8 @@ namespace AabSemantics.Modules.Classification
 				if (!classification.CheckCyclic(statements))
 				{
 					result.Append(
-						language => language.GetExtension<ILanguageClassificationModule>().Statements.Consistency.ErrorCyclic,
-						new Dictionary<String, IKnowledge> { { AabSemantics.Localization.Strings.ParamStatement, classification } });
+						language => language.GetStatementsExtension<ILanguageClassificationModule, Localization.ILanguageStatements>().Consistency.ErrorCyclic,
+						new Dictionary<String, IKnowledge> { { Strings.ParamStatement, classification } });
 				}
 			}
 		}

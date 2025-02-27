@@ -16,33 +16,33 @@ namespace AabSemantics.Modules.Mathematics.Concepts
 
 		public static readonly IConcept IsEqualTo = new SystemConcept(
 			$"{{{nameof(ComparisonSigns)}.{nameof(IsEqualTo)}}}",
-			new LocalizedStringConstant(lang => lang.GetExtension<ILanguageMathematicsModule>().Concepts.SystemConceptNames.IsEqualTo),
-			new LocalizedStringConstant(lang => lang.GetExtension<ILanguageMathematicsModule>().Concepts.SystemConceptHints.IsEqualTo));
+			new LocalizedStringConstant(lang => lang.GetConceptsExtension<ILanguageMathematicsModule, ILanguageConcepts>().SystemConceptNames.IsEqualTo),
+			new LocalizedStringConstant(lang => lang.GetConceptsExtension<ILanguageMathematicsModule, ILanguageConcepts>().SystemConceptHints.IsEqualTo));
 
 		public static readonly IConcept IsNotEqualTo = new SystemConcept(
 			$"{{{nameof(ComparisonSigns)}.{nameof(IsNotEqualTo)}}}",
-			new LocalizedStringConstant(lang => lang.GetExtension<ILanguageMathematicsModule>().Concepts.SystemConceptNames.IsNotEqualTo),
-			new LocalizedStringConstant(lang => lang.GetExtension<ILanguageMathematicsModule>().Concepts.SystemConceptHints.IsNotEqualTo));
+			new LocalizedStringConstant(lang => lang.GetConceptsExtension<ILanguageMathematicsModule, ILanguageConcepts>().SystemConceptNames.IsNotEqualTo),
+			new LocalizedStringConstant(lang => lang.GetConceptsExtension<ILanguageMathematicsModule, ILanguageConcepts>().SystemConceptHints.IsNotEqualTo));
 
 		public static readonly IConcept IsGreaterThanOrEqualTo = new SystemConcept(
 			$"{{{nameof(ComparisonSigns)}.{nameof(IsGreaterThanOrEqualTo)}}}",
-			new LocalizedStringConstant(lang => lang.GetExtension<ILanguageMathematicsModule>().Concepts.SystemConceptNames.IsGreaterThanOrEqualTo),
-			new LocalizedStringConstant(lang => lang.GetExtension<ILanguageMathematicsModule>().Concepts.SystemConceptHints.IsGreaterThanOrEqualTo));
+			new LocalizedStringConstant(lang => lang.GetConceptsExtension<ILanguageMathematicsModule, ILanguageConcepts>().SystemConceptNames.IsGreaterThanOrEqualTo),
+			new LocalizedStringConstant(lang => lang.GetConceptsExtension<ILanguageMathematicsModule, ILanguageConcepts>().SystemConceptHints.IsGreaterThanOrEqualTo));
 
 		public static readonly IConcept IsGreaterThan = new SystemConcept(
 			$"{{{nameof(ComparisonSigns)}.{nameof(IsGreaterThan)}}}",
-			new LocalizedStringConstant(lang => lang.GetExtension<ILanguageMathematicsModule>().Concepts.SystemConceptNames.IsGreaterThan),
-			new LocalizedStringConstant(lang => lang.GetExtension<ILanguageMathematicsModule>().Concepts.SystemConceptHints.IsGreaterThan));
+			new LocalizedStringConstant(lang => lang.GetConceptsExtension<ILanguageMathematicsModule, ILanguageConcepts>().SystemConceptNames.IsGreaterThan),
+			new LocalizedStringConstant(lang => lang.GetConceptsExtension<ILanguageMathematicsModule, ILanguageConcepts>().SystemConceptHints.IsGreaterThan));
 
 		public static readonly IConcept IsLessThanOrEqualTo = new SystemConcept(
 			$"{{{nameof(ComparisonSigns)}.{nameof(IsLessThanOrEqualTo)}}}",
-			new LocalizedStringConstant(lang => lang.GetExtension<ILanguageMathematicsModule>().Concepts.SystemConceptNames.IsLessThanOrEqualTo),
-			new LocalizedStringConstant(lang => lang.GetExtension<ILanguageMathematicsModule>().Concepts.SystemConceptHints.IsLessThanOrEqualTo));
+			new LocalizedStringConstant(lang => lang.GetConceptsExtension<ILanguageMathematicsModule, ILanguageConcepts>().SystemConceptNames.IsLessThanOrEqualTo),
+			new LocalizedStringConstant(lang => lang.GetConceptsExtension<ILanguageMathematicsModule, ILanguageConcepts>().SystemConceptHints.IsLessThanOrEqualTo));
 
 		public static readonly IConcept IsLessThan = new SystemConcept(
 			$"{{{nameof(ComparisonSigns)}.{nameof(IsLessThan)}}}",
-			new LocalizedStringConstant(lang => lang.GetExtension<ILanguageMathematicsModule>().Concepts.SystemConceptNames.IsLessThan),
-			new LocalizedStringConstant(lang => lang.GetExtension<ILanguageMathematicsModule>().Concepts.SystemConceptHints.IsLessThan));
+			new LocalizedStringConstant(lang => lang.GetConceptsExtension<ILanguageMathematicsModule, ILanguageConcepts>().SystemConceptNames.IsLessThan),
+			new LocalizedStringConstant(lang => lang.GetConceptsExtension<ILanguageMathematicsModule, ILanguageConcepts>().SystemConceptHints.IsLessThan));
 
 		public static readonly ICollection<IConcept> All = new HashSet<IConcept>
 		{

@@ -29,8 +29,8 @@ namespace AabSemantics.Modules.Set.Statements
 		public SignValueStatement(String id, IConcept concept, IConcept sign, IConcept value)
 			: base(
 				id,
-				new Func<ILanguage, String>(language => language.GetExtension<ILanguageSetModule>().Statements.Names.SignValue),
-				new Func<ILanguage, String>(language => language.GetExtension<ILanguageSetModule>().Statements.Hints.SignValue))
+				new Func<ILanguage, String>(language => language.GetStatementsExtension<ILanguageSetModule, ILanguageStatements>().Names.SignValue),
+				new Func<ILanguage, String>(language => language.GetStatementsExtension<ILanguageSetModule, ILanguageStatements>().Hints.SignValue))
 		{
 			Update(id, concept, sign, value);
 		}

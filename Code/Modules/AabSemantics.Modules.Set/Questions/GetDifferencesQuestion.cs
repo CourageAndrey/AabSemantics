@@ -20,10 +20,10 @@ namespace AabSemantics.Modules.Set.Questions
 		protected override void WriteOneLine(ITextContainer text, IConcept sign, IConcept value1, IConcept value2)
 		{
 			var formatString = value1 != null && value2 != null
-				? new Func<ILanguage, String>(language => language.GetExtension<ILanguageSetModule>().Questions.Answers.CompareConceptsDifference)
+				? new Func<ILanguage, String>(language => language.GetQuestionsExtension<ILanguageSetModule, ILanguageQuestions>().Answers.CompareConceptsDifference)
 				: (value1 != null
-					? new Func<ILanguage, String>(language => language.GetExtension<ILanguageSetModule>().Questions.Answers.CompareConceptsFirstNotSet)
-					: language => language.GetExtension<ILanguageSetModule>().Questions.Answers.CompareConceptsSecondNotSet);
+					? new Func<ILanguage, String>(language => language.GetQuestionsExtension<ILanguageSetModule, ILanguageQuestions>().Answers.CompareConceptsFirstNotSet)
+					: language => language.GetQuestionsExtension<ILanguageSetModule, ILanguageQuestions>().Answers.CompareConceptsSecondNotSet);
 
 			var parameters = new Dictionary<String, IKnowledge>
 			{
@@ -43,7 +43,7 @@ namespace AabSemantics.Modules.Set.Questions
 
 		protected override void WriteNotEmptyResultWithoutData(ITextContainer text)
 		{
-			text.Append(language => language.GetExtension<ILanguageSetModule>().Questions.Answers.CompareConceptsNoDifference);
+			text.Append(language => language.GetQuestionsExtension<ILanguageSetModule, ILanguageQuestions>().Answers.CompareConceptsNoDifference);
 		}
 
 		protected override void FormatParentsDiff(
@@ -57,13 +57,13 @@ namespace AabSemantics.Modules.Set.Questions
 
 			if (uniqueParents1.Count > 0)
 			{
-				text.Append(language => language.GetExtension<ILanguageSetModule>().Questions.Answers.CompareConceptsDifferentHierarchyFirst)
+				text.Append(language => language.GetQuestionsExtension<ILanguageSetModule, ILanguageQuestions>().Answers.CompareConceptsDifferentHierarchyFirst)
 					.AppendBulletsList(uniqueParents1.Enumerate());
 			}
 
 			if (uniqueParents2.Count > 0)
 			{
-				text.Append(language => language.GetExtension<ILanguageSetModule>().Questions.Answers.CompareConceptsDifferentHierarchySecond)
+				text.Append(language => language.GetQuestionsExtension<ILanguageSetModule, ILanguageQuestions>().Answers.CompareConceptsDifferentHierarchySecond)
 					.AppendBulletsList(uniqueParents2.Enumerate());
 			}
 		}

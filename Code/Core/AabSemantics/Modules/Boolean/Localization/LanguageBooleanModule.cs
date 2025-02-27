@@ -4,17 +4,8 @@ using AabSemantics.Localization;
 
 namespace AabSemantics.Modules.Boolean.Localization
 {
-	public interface ILanguageBooleanModule : ILanguageExtension
-	{
-		ILanguageAttributes Attributes
-		{ get; }
-
-		ILanguageConcepts Concepts
-		{ get; }
-
-		ILanguageQuestions Questions
-		{ get; }
-	}
+	public interface ILanguageBooleanModule : ILanguageAttributesExtension<ILanguageAttributes>, ILanguageConceptsExtension<ILanguageConcepts>, ILanguageQuestionsExtension<ILanguageQuestions>
+	{ }
 
 	[XmlType]
 	public class LanguageBooleanModule : LanguageExtension, ILanguageBooleanModule
@@ -36,6 +27,18 @@ namespace AabSemantics.Modules.Boolean.Localization
 		#endregion
 
 		#region Interface Properties
+
+		[XmlIgnore]
+		ILanguageExtensionAttributes ILanguageAttributesExtension.Attributes
+		{ get { return AttributesXml; } }
+
+		[XmlIgnore]
+		ILanguageExtensionConcepts ILanguageConceptsExtension.Concepts
+		{ get { return ConceptsXml; } }
+
+		[XmlIgnore]
+		ILanguageExtensionQuestions ILanguageQuestionsExtension.Questions
+		{ get { return QuestionsXml; } }
 
 		[XmlIgnore]
 		public ILanguageAttributes Attributes

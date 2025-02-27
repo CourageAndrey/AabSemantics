@@ -4,14 +4,8 @@ using AabSemantics.Localization;
 
 namespace AabSemantics.Modules.Classification.Localization
 {
-	public interface ILanguageClassificationModule : ILanguageExtension
-	{
-		ILanguageStatements Statements
-		{ get; }
-
-		ILanguageQuestions Questions
-		{ get; }
-	}
+	public interface ILanguageClassificationModule : ILanguageStatementsExtension<ILanguageStatements>, ILanguageQuestionsExtension<ILanguageQuestions>
+	{ }
 
 	[XmlType]
 	public class LanguageClassificationModule : LanguageExtension, ILanguageClassificationModule
@@ -29,6 +23,14 @@ namespace AabSemantics.Modules.Classification.Localization
 		#endregion
 
 		#region Interface Properties
+
+		[XmlIgnore]
+		ILanguageExtensionStatements ILanguageStatementsExtension.Statements
+		{ get { return StatementsXml; } }
+
+		[XmlIgnore]
+		ILanguageExtensionQuestions ILanguageQuestionsExtension.Questions
+		{ get { return QuestionsXml; } }
 
 		[XmlIgnore]
 		public ILanguageStatements Statements

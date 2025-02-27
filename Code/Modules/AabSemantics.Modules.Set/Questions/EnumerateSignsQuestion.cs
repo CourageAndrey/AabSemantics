@@ -40,7 +40,7 @@ namespace AabSemantics.Modules.Set.Questions
 					statement => statement.Sign,
 					question => question.Concept,
 					AabSemantics.Localization.Strings.ParamConcept,
-					language => language.GetExtension<ILanguageSetModule>().Questions.Answers.ConceptSigns + (Recursive ? language.Questions.Answers.RecursiveTrue : language.Questions.Answers.RecursiveFalse) + ": ");
+					language => language.GetQuestionsExtension<ILanguageSetModule, ILanguageQuestions>().Answers.ConceptSigns + (Recursive ? language.Questions.Answers.RecursiveTrue : language.Questions.Answers.RecursiveFalse) + ": ");
 		}
 	}
 }

@@ -36,8 +36,8 @@ namespace AabSemantics.Modules.Set.Questions
 				.Where(s => s.Area == Area && s.Concept == Concept)
 				.SelectBoolean(
 					statements => statements.Any(),
-					language => language.GetExtension<ILanguageSetModule>().Questions.Answers.IsSubjectAreaTrue,
-					language => language.GetExtension<ILanguageSetModule>().Questions.Answers.IsSubjectAreaFalse,
+					language => language.GetQuestionsExtension<ILanguageSetModule, ILanguageQuestions>().Answers.IsSubjectAreaTrue,
+					language => language.GetQuestionsExtension<ILanguageSetModule, ILanguageQuestions>().Answers.IsSubjectAreaFalse,
 					new Dictionary<String, IKnowledge>
 					{
 						{ Strings.ParamArea, Area },

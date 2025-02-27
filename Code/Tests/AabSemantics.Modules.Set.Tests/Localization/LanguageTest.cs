@@ -6,6 +6,7 @@ using AabSemantics.Modules.Boolean.Localization;
 using AabSemantics.Modules.Classification;
 using AabSemantics.Modules.Classification.Localization;
 using AabSemantics.Modules.Set.Localization;
+using ILanguageQuestions = AabSemantics.Modules.Set.Localization.ILanguageQuestions;
 
 namespace AabSemantics.Modules.Set.Tests.Localization
 {
@@ -86,7 +87,7 @@ namespace AabSemantics.Modules.Set.Tests.Localization
 			}
 
 			var language = Language.Default;
-			var lang = language.GetExtension<ILanguageSetModule>().Questions.Parameters;
+			var lang = language.GetQuestionsExtension<ILanguageSetModule, ILanguageQuestions>().Parameters;
 
 			// assert
 			Assert.That(lang.Sign, Is.EqualTo("SIGN"));
