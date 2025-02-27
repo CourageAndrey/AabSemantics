@@ -4,23 +4,8 @@ using AabSemantics.Localization;
 
 namespace AabSemantics.Modules.Set.Localization
 {
-	public interface ILanguageStatements : ILanguageExtensionStatements
+	public interface ILanguageStatements : ILanguageExtensionStatements<ILanguageStatementsPart>
 	{
-		ILanguageStatementsPart Names
-		{ get; }
-
-		ILanguageStatementsPart Hints
-		{ get; }
-
-		ILanguageStatementsPart TrueFormatStrings
-		{ get; }
-
-		ILanguageStatementsPart FalseFormatStrings
-		{ get; }
-
-		ILanguageStatementsPart QuestionFormatStrings
-		{ get; }
-
 		ILanguageConsistency Consistency
 		{ get; }
 	}

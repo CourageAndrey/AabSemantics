@@ -14,6 +14,24 @@ namespace AabSemantics.Localization
 	public interface ILanguageExtensionStatements
 	{ }
 
+	public interface ILanguageExtensionStatements<out PartT> : ILanguageExtensionStatements
+	{
+		PartT Names
+		{ get; }
+
+		PartT Hints
+		{ get; }
+
+		PartT TrueFormatStrings
+		{ get; }
+
+		PartT FalseFormatStrings
+		{ get; }
+
+		PartT QuestionFormatStrings
+		{ get; }
+	}
+
 	public interface ILanguageExtensionQuestions
 	{ }
 
