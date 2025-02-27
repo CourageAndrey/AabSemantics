@@ -41,6 +41,7 @@ namespace AabSemantics
 		#endregion
 
 		public static ExtensionT GetExtension<ExtensionT>(this ILanguage language)
+			where ExtensionT : ILanguageExtension
 		{
 			return language.Extensions.OfType<ExtensionT>().First();
 		}

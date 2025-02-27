@@ -2,7 +2,10 @@
 
 namespace AabSemantics.Localization
 {
+	public interface ILanguageExtension
+	{ }
+
 	[XmlType]
-	public class LanguageExtension
+	public class LanguageExtension : ILanguageExtension
 	{ }
 }

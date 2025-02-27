@@ -4,7 +4,7 @@ using AabSemantics.Localization;
 
 namespace AabSemantics.Modules.Boolean.Localization
 {
-	public interface ILanguageBooleanModule
+	public interface ILanguageBooleanModule : ILanguageExtension
 	{
 		ILanguageAttributes Attributes
 		{ get; }
