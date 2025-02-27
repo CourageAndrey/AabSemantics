@@ -82,10 +82,7 @@ namespace AabSemantics.Tests.Metadata
 			Repositories.Answers.Definitions.Clear();
 
 			var attributeDefinitionT = Repositories.RegisterAttribute<IsValueAttribute>(IsValueAttribute.Value, l => string.Empty);
-			var statementDefinitionT = Repositories.RegisterStatement<IsStatement>(
-				l => string.Empty,
-				l => string.Empty,
-				l => string.Empty,
+			var statementDefinitionT = Repositories.RegisterStatement<IsStatement, Modules.Classification.Localization.ILanguageClassificationModule, Modules.Classification.Localization.ILanguageStatements, Modules.Classification.Localization.ILanguageStatementsPart>(
 				l => string.Empty,
 				s => new Dictionary<string, IKnowledge>(),
 				(statements, result, semanticNetwork) => { });

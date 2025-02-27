@@ -1,5 +1,4 @@
-﻿using AabSemantics.Modules.Classification.Localization;
-using System.Xml.Serialization;
+﻿using System.Xml.Serialization;
 
 namespace AabSemantics.Localization
 {

@@ -38,39 +38,30 @@ namespace AabSemantics.Modules.Set
 
 		protected override void RegisterStatements()
 		{
-			Repositories.RegisterStatement<HasPartStatement>(
-					language => language.GetStatementsExtension<ILanguageSetModule, ILanguageStatements>().Names.Composition,
-					language => language.GetStatementsExtension<ILanguageSetModule, ILanguageStatements>().TrueFormatStrings.Composition,
-					language => language.GetStatementsExtension<ILanguageSetModule, ILanguageStatements>().FalseFormatStrings.Composition,
-					language => language.GetStatementsExtension<ILanguageSetModule, ILanguageStatements>().QuestionFormatStrings.Composition,
+			Repositories.RegisterStatement<HasPartStatement, ILanguageSetModule, ILanguageStatements, ILanguageStatementsPart>(
+					language => language.Composition,
 					statement => new Dictionary<String, IKnowledge>
 					{
 						{ AabSemantics.Localization.Strings.ParamParent, statement.Whole },
 						{ AabSemantics.Localization.Strings.ParamChild, statement.Part },
 					},
-					StatementDefinition<HasPartStatement>.NoConsistencyCheck)
+					StatementDefinition<HasPartStatement, ILanguageSetModule, ILanguageStatements, ILanguageStatementsPart>.NoConsistencyCheck)
 				.SerializeToXml(statement => new Xml.HasPartStatement(statement))
 				.SerializeToJson(statement => new Json.HasPartStatement(statement));
 
-			Repositories.RegisterStatement<GroupStatement>(
-					language => language.GetStatementsExtension<ILanguageSetModule, ILanguageStatements>().Names.SubjectArea,
-					language => language.GetStatementsExtension<ILanguageSetModule, ILanguageStatements>().TrueFormatStrings.SubjectArea,
-					language => language.GetStatementsExtension<ILanguageSetModule, ILanguageStatements>().FalseFormatStrings.SubjectArea,
-					language => language.GetStatementsExtension<ILanguageSetModule, ILanguageStatements>().QuestionFormatStrings.SubjectArea,
+			Repositories.RegisterStatement<GroupStatement, ILanguageSetModule, ILanguageStatements, ILanguageStatementsPart>(
+					language => language.SubjectArea,
 					statement => new Dictionary<String, IKnowledge>
 					{
 						{ Strings.ParamArea, statement.Area },
 						{ AabSemantics.Localization.Strings.ParamConcept, statement.Concept },
 					},
-					StatementDefinition<GroupStatement>.NoConsistencyCheck)
+					StatementDefinition<GroupStatement, ILanguageSetModule, ILanguageStatements, ILanguageStatementsPart>.NoConsistencyCheck)
 				.SerializeToXml(statement => new Xml.GroupStatement(statement))
 				.SerializeToJson(statement => new Json.GroupStatement(statement));
 
-			Repositories.RegisterStatement<HasSignStatement>(
-					language => language.GetStatementsExtension<ILanguageSetModule, ILanguageStatements>().Names.HasSign,
-					language => language.GetStatementsExtension<ILanguageSetModule, ILanguageStatements>().TrueFormatStrings.HasSign,
-					language => language.GetStatementsExtension<ILanguageSetModule, ILanguageStatements>().FalseFormatStrings.HasSign,
-					language => language.GetStatementsExtension<ILanguageSetModule, ILanguageStatements>().QuestionFormatStrings.HasSign,
+			Repositories.RegisterStatement<HasSignStatement, ILanguageSetModule, ILanguageStatements, ILanguageStatementsPart>(
+					language => language.HasSign,
 					statement => new Dictionary<String, IKnowledge>
 					{
 						{ AabSemantics.Localization.Strings.ParamConcept, statement.Concept },
@@ -80,11 +71,8 @@ namespace AabSemantics.Modules.Set
 				.SerializeToXml(statement => new Xml.HasSignStatement(statement))
 				.SerializeToJson(statement => new Json.HasSignStatement(statement));
 
-			Repositories.RegisterStatement<SignValueStatement>(
-					language => language.GetStatementsExtension<ILanguageSetModule, ILanguageStatements>().Names.SignValue,
-					language => language.GetStatementsExtension<ILanguageSetModule, ILanguageStatements>().TrueFormatStrings.SignValue,
-					language => language.GetStatementsExtension<ILanguageSetModule, ILanguageStatements>().FalseFormatStrings.SignValue,
-					language => language.GetStatementsExtension<ILanguageSetModule, ILanguageStatements>().QuestionFormatStrings.SignValue,
+			Repositories.RegisterStatement<SignValueStatement, ILanguageSetModule, ILanguageStatements, ILanguageStatementsPart>(
+					language => language.SignValue,
 					statement => new Dictionary<String, IKnowledge>
 					{
 						{ AabSemantics.Localization.Strings.ParamConcept, statement.Concept },

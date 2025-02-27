@@ -46,11 +46,8 @@ namespace AabSemantics.Modules.Mathematics
 
 		protected override void RegisterStatements()
 		{
-			Repositories.RegisterStatement<ComparisonStatement>(
-					language => language.GetStatementsExtension<ILanguageMathematicsModule, ILanguageStatements>().Names.Comparison,
-					language => language.GetStatementsExtension<ILanguageMathematicsModule, ILanguageStatements>().TrueFormatStrings.Comparison,
-					language => language.GetStatementsExtension<ILanguageMathematicsModule, ILanguageStatements>().FalseFormatStrings.Comparison,
-					language => language.GetStatementsExtension<ILanguageMathematicsModule, ILanguageStatements>().QuestionFormatStrings.Comparison,
+			Repositories.RegisterStatement<ComparisonStatement, ILanguageMathematicsModule, ILanguageStatements, ILanguageStatementsPart>(
+					language => language.Comparison,
 					statement => new Dictionary<String, IKnowledge>
 					{
 						{ Strings.ParamLeftValue, statement.LeftValue },

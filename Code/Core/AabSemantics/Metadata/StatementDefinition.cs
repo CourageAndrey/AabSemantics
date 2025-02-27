@@ -122,25 +122,25 @@ namespace AabSemantics.Metadata
 		public static readonly StatementConsistencyCheckerDelegate NoConsistencyCheck = (semanticNetwork, result) => { };
 	}
 
-	public class StatementDefinition<StatementT> : StatementDefinition
+	public class StatementDefinition<StatementT, ModuleT, LanguageStatementsT, PartT> : StatementDefinition
 		where StatementT : class, IStatement
+		where ModuleT : ILanguageStatementsExtension<LanguageStatementsT>
+		where LanguageStatementsT : ILanguageExtensionStatements<PartT>
 	{
 		public StatementDefinition(
-			Func<ILanguage, String> nameGetter,
-			Func<ILanguage, String> formatTrue,
-			Func<ILanguage, String> formatFalse,
-			Func<ILanguage, String> formatQuestion,
+			Func<PartT, String> partGetter,
 			Func<StatementT, IDictionary<String, IKnowledge>> getDescriptionParameters,
 			StatementConsistencyCheckerDelegate<StatementT> consistencyChecker)
 			: base(
 				typeof(StatementT),
-				nameGetter,
-				formatTrue,
-				formatFalse,
-				formatQuestion,
+				language => partGetter(language.GetStatementsExtension<ModuleT, LanguageStatementsT>().Names),
+				language => partGetter(language.GetStatementsExtension<ModuleT, LanguageStatementsT>().TrueFormatStrings),
+				language => partGetter(language.GetStatementsExtension<ModuleT, LanguageStatementsT>().FalseFormatStrings),
+				language => partGetter(language.GetStatementsExtension<ModuleT, LanguageStatementsT>().QuestionFormatStrings),
 				statement => getDescriptionParameters(statement as StatementT),
 				(semanticNetwork, result) => consistencyChecker(semanticNetwork, result, semanticNetwork.Statements.OfType<StatementT>().ToList()))
 		{
+			partGetter.EnsureNotNull(nameof(partGetter));
 			getDescriptionParameters.EnsureNotNull(nameof(getDescriptionParameters));
 			consistencyChecker.EnsureNotNull(nameof(consistencyChecker));
 		}
@@ -182,11 +182,13 @@ namespace AabSemantics.Metadata
 			return metadataDefinition;
 		}
 
-		public static StatementDefinition<StatementT> SerializeToXml<StatementT>(
-			this StatementDefinition<StatementT> metadataDefinition,
+		public static StatementDefinition<StatementT, ModuleT, LanguageStatementsT, PartT> SerializeToXml<StatementT, ModuleT, LanguageStatementsT, PartT>(
+			this StatementDefinition<StatementT, ModuleT, LanguageStatementsT, PartT> metadataDefinition,
 			Func<StatementT, Serialization.Xml.Statement> serializer,
 			Type xmlType)
 			where StatementT : class, IStatement
+			where ModuleT : ILanguageStatementsExtension<LanguageStatementsT>
+			where LanguageStatementsT : ILanguageExtensionStatements<PartT>
 		{
 			serializer.EnsureNotNull(nameof(serializer));
 			metadataDefinition.SerializationSettings.Add(new StatementXmlSerializationSettings(
@@ -195,11 +197,13 @@ namespace AabSemantics.Metadata
 			return metadataDefinition;
 		}
 
-		public static StatementDefinition<StatementT> SerializeToJson<StatementT>(
-			this StatementDefinition<StatementT> metadataDefinition,
+		public static StatementDefinition<StatementT, ModuleT, LanguageStatementsT, PartT> SerializeToJson<StatementT, ModuleT, LanguageStatementsT, PartT>(
+			this StatementDefinition<StatementT, ModuleT, LanguageStatementsT, PartT> metadataDefinition,
 			Func<StatementT, Serialization.Json.Statement> serializer,
 			Type jsonType)
 			where StatementT : class, IStatement
+			where ModuleT : ILanguageStatementsExtension<LanguageStatementsT>
+			where LanguageStatementsT : ILanguageExtensionStatements<PartT>
 		{
 			serializer.EnsureNotNull(nameof(serializer));
 			metadataDefinition.SerializationSettings.Add(new StatementJsonSerializationSettings(
@@ -208,10 +212,12 @@ namespace AabSemantics.Metadata
 			return metadataDefinition;
 		}
 
-		public static StatementDefinition<StatementT> SerializeToXml<StatementT, XmlT>(
-			this StatementDefinition<StatementT> metadataDefinition,
+		public static StatementDefinition<StatementT, ModuleT, LanguageStatementsT, PartT> SerializeToXml<StatementT, ModuleT, LanguageStatementsT, PartT, XmlT>(
+			this StatementDefinition<StatementT, ModuleT, LanguageStatementsT, PartT> metadataDefinition,
 			Func<StatementT, XmlT> serializer)
 			where StatementT : class, IStatement
+			where ModuleT : ILanguageStatementsExtension<LanguageStatementsT>
+			where LanguageStatementsT : ILanguageExtensionStatements<PartT>
 			where XmlT : Serialization.Xml.Statement
 		{
 			return metadataDefinition.SerializeToXml(
@@ -219,10 +225,12 @@ namespace AabSemantics.Metadata
 				typeof(XmlT));
 		}
 
-		public static StatementDefinition<StatementT> SerializeToJson<StatementT, JsonT>(
-			this StatementDefinition<StatementT> metadataDefinition,
+		public static StatementDefinition<StatementT, ModuleT, LanguageStatementsT, PartT> SerializeToJson<StatementT, ModuleT, LanguageStatementsT, PartT, JsonT>(
+			this StatementDefinition<StatementT, ModuleT, LanguageStatementsT, PartT> metadataDefinition,
 			Func<StatementT, JsonT> serializer)
 			where StatementT : class, IStatement
+			where ModuleT : ILanguageStatementsExtension<LanguageStatementsT>
+			where LanguageStatementsT : ILanguageExtensionStatements<PartT>
 			where JsonT : Serialization.Json.Statement
 		{
 			return metadataDefinition.SerializeToJson(
