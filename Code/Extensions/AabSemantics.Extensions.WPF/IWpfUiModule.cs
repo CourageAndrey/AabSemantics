@@ -1,8 +1,9 @@
 ﻿using AabSemantics.Extensions.WPF.Localization;
+using AabSemantics.Localization;
 
 namespace AabSemantics.Extensions.WPF
 {
-	public interface IWpfUiModule
+	public interface IWpfUiModule : ILanguageExtension
 	{
 		ILanguageCommon Common
 		{ get; }

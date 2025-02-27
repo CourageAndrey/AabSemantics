@@ -4,7 +4,7 @@ using AabSemantics.Localization;
 
 namespace AabSemantics.Modules.Classification.Localization
 {
-	public interface ILanguageClassificationModule
+	public interface ILanguageClassificationModule : ILanguageExtension
 	{
 		ILanguageStatements Statements
 		{ get; }

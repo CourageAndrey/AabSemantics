@@ -4,7 +4,7 @@ using AabSemantics.Localization;
 
 namespace AabSemantics.Modules.Processes.Localization
 {
-	public interface ILanguageProcessesModule
+	public interface ILanguageProcessesModule : ILanguageExtension
 	{
 		ILanguageAttributes Attributes
 		{ get; }
