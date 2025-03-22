@@ -29,7 +29,7 @@ namespace Inventor.Algorithms.Test
 		}
 
 		[Test]
-		public void GivenNegaativeLenghtArcWhenTryToFindShortestPathsThenThrowError()
+		public void GivenNegativeLengthArcWhenTryToFindShortestPathsThenThrowError()
 		{
 			// arrange
 			var start = new SimpleNode("START");
