@@ -4,8 +4,6 @@ using System.Linq;
 
 using AabSemantics.Metadata;
 using AabSemantics.Modules.Boolean;
-using AabSemantics.Modules.Classification;
-using AabSemantics.Modules.Classification.Statements;
 using AabSemantics.Modules.Set.Attributes;
 using AabSemantics.Modules.Set.Localization;
 using AabSemantics.Modules.Set.Questions;
@@ -18,7 +16,7 @@ namespace AabSemantics.Modules.Set
 		public const String ModuleName = "System.Sets";
 
 		public SetModule()
-			: base(ModuleName, new[] { BooleanModule.ModuleName, ClassificationModule.ModuleName })
+			: base(ModuleName, new[] { BooleanModule.ModuleName, Classification.ClassificationModule.ModuleName })
 		{ }
 
 		protected override void Attach(ISemanticNetwork semanticNetwork)
@@ -48,6 +46,9 @@ namespace AabSemantics.Modules.Set
 					StatementDefinition<HasPartStatement, ILanguageSetModule, ILanguageStatements, ILanguageStatementsPart>.NoConsistencyCheck)
 				.SerializeToXml(statement => new Xml.HasPartStatement(statement))
 				.SerializeToJson(statement => new Json.HasPartStatement(statement));
+			Repositories.RegisterCustomStatement<HasPartStatement, ILanguageSetModule, ILanguageStatements, ILanguageStatementsPart>(
+				new List<String> { nameof(HasPartStatement.Part), nameof(HasPartStatement.Whole) },
+				language => language.Composition);
 
 			Repositories.RegisterStatement<GroupStatement, ILanguageSetModule, ILanguageStatements, ILanguageStatementsPart>(
 					language => language.SubjectArea,
@@ -59,6 +60,9 @@ namespace AabSemantics.Modules.Set
 					StatementDefinition<GroupStatement, ILanguageSetModule, ILanguageStatements, ILanguageStatementsPart>.NoConsistencyCheck)
 				.SerializeToXml(statement => new Xml.GroupStatement(statement))
 				.SerializeToJson(statement => new Json.GroupStatement(statement));
+			Repositories.RegisterCustomStatement<GroupStatement, ILanguageSetModule, ILanguageStatements, ILanguageStatementsPart>(
+				new List<String> { nameof(GroupStatement.Concept), nameof(GroupStatement.Area) },
+				language => language.SubjectArea);
 
 			Repositories.RegisterStatement<HasSignStatement, ILanguageSetModule, ILanguageStatements, ILanguageStatementsPart>(
 					language => language.HasSign,
@@ -70,6 +74,9 @@ namespace AabSemantics.Modules.Set
 					checkSignDuplications)
 				.SerializeToXml(statement => new Xml.HasSignStatement(statement))
 				.SerializeToJson(statement => new Json.HasSignStatement(statement));
+			Repositories.RegisterCustomStatement<HasSignStatement, ILanguageSetModule, ILanguageStatements, ILanguageStatementsPart>(
+				new List<String> { nameof(HasSignStatement.Concept), nameof(HasSignStatement.Sign) },
+				language => language.HasSign);
 
 			Repositories.RegisterStatement<SignValueStatement, ILanguageSetModule, ILanguageStatements, ILanguageStatementsPart>(
 					language => language.SignValue,
@@ -82,6 +89,9 @@ namespace AabSemantics.Modules.Set
 					checkSignValues)
 				.SerializeToXml(statement => new Xml.SignValueStatement(statement))
 				.SerializeToJson(statement => new Json.SignValueStatement(statement));
+			Repositories.RegisterCustomStatement<SignValueStatement, ILanguageSetModule, ILanguageStatements, ILanguageStatementsPart>(
+				new List<String> { nameof(SignValueStatement.Concept), nameof(SignValueStatement.Sign), nameof(SignValueStatement.Value) },
+				language => language.SignValue);
 		}
 
 		protected override void RegisterQuestions()
@@ -149,7 +159,7 @@ namespace AabSemantics.Modules.Set
 			ITextContainer result,
 			ICollection<HasSignStatement> statements)
 		{
-			var classifications = semanticNetwork.Statements.OfType<IsStatement>().ToList();
+			var classifications = semanticNetwork.Statements.OfType<Classification.Statements.IsStatement>().ToList();
 
 			foreach (var hasSign in statements)
 			{
@@ -203,7 +213,7 @@ namespace AabSemantics.Modules.Set
 				}
 			}
 
-			var classifications = semanticNetwork.Statements.OfType<IsStatement>().ToList();
+			var classifications = semanticNetwork.Statements.OfType<Classification.Statements.IsStatement>().ToList();
 
 			foreach (var concept in semanticNetwork.Concepts)
 			{

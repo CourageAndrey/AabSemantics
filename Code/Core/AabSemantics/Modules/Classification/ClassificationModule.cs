@@ -34,6 +34,9 @@ namespace AabSemantics.Modules.Classification
 					checkCyclicParents)
 				.SerializeToXml(statement => new Xml.IsStatement(statement))
 				.SerializeToJson(statement => new Json.IsStatement(statement));
+			Repositories.RegisterCustomStatement<IsStatement, ILanguageClassificationModule, Localization.ILanguageStatements, ILanguageStatementsPart>(
+				new List<String> { Strings.ParamParent, Strings.ParamChild },
+				part => part.Classification);
 		}
 
 		protected override void RegisterQuestions()

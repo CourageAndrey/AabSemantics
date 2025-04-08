@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 
 using AabSemantics.Metadata;
+using AabSemantics.Statements;
 
 namespace AabSemantics
 {
@@ -18,22 +19,27 @@ namespace AabSemantics
 
 	public static class StatementExtensions
 	{
+		private static StatementDefinition GetDefinition(this IStatement statement)
+		{
+			var customStatement = statement as CustomStatement;
+			return customStatement != null
+				? Repositories.CustomStatements[customStatement.Type]
+				: Repositories.Statements.Definitions[statement.GetType()];
+		}
+
 		public static IText DescribeTrue(this IStatement statement)
 		{
-			var definition = Repositories.Statements.Definitions[statement.GetType()];
-			return definition.DescribeTrue(statement);
+			return GetDefinition(statement).DescribeTrue(statement);
 		}
 
 		public static IText DescribeFalse(this IStatement statement)
 		{
-			var definition = Repositories.Statements.Definitions[statement.GetType()];
-			return definition.DescribeFalse(statement);
+			return GetDefinition(statement).DescribeFalse(statement);
 		}
 
 		public static IText DescribeQuestion(this IStatement statement)
 		{
-			var definition = Repositories.Statements.Definitions[statement.GetType()];
-			return definition.DescribeQuestion(statement);
+			return GetDefinition(statement).DescribeQuestion(statement);
 		}
 	}
 

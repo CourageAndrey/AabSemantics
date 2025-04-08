@@ -43,7 +43,7 @@ namespace AabSemantics.Utils
 		{
 			if (type.IsAbstract || !contractType.IsAssignableFrom(type))
 			{
-				throw new ArgumentException($"Type must be non-abstract and implement {contractType}.", parameterName);
+				throw new ArgumentException($"Kind must be non-abstract and implement {contractType}.", parameterName);
 			}
 			else
 			{

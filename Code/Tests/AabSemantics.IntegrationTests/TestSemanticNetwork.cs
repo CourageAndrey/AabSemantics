@@ -3,6 +3,7 @@ using System.Collections.Generic;
 
 using AabSemantics.Concepts;
 using AabSemantics.Localization;
+using AabSemantics.Metadata;
 using AabSemantics.Modules.Boolean;
 using AabSemantics.Modules.Classification;
 using AabSemantics.Modules.Mathematics.Tests;
@@ -93,6 +94,31 @@ namespace AabSemantics.IntegrationTests
 				Processes.ProcessA,
 				Processes.ProcessB,
 			});
+
+			Repositories.RegisterCustomStatement(
+				"custom_type",
+				new List<String> { "param1", "param2" },
+				language => "It's true about #param1# and #param2#.",
+				language => "It's false about #param1# and #param2#.",
+				language => "Is it true about #param1# and #param2#?");
+
+			SemanticNetwork.Statements.Add(new CustomStatement(
+				null,
+				"custom_type",
+				new Dictionary<string, IConcept>
+				{
+					{ "param1", Mathematics.Number1 },
+					{ "param2", Mathematics.Number2 },
+				}));
+
+			SemanticNetwork.Statements.Add(new CustomStatement(
+				null,
+				"custom_type",
+				new Dictionary<string, IConcept>
+				{
+					{ "param1", Processes.ProcessA },
+					{ "param2", Processes.ProcessB },
+				}));
 		}
 	}
 

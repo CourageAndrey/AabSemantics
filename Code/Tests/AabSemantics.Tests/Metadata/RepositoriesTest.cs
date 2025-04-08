@@ -55,6 +55,14 @@ namespace AabSemantics.Tests.Metadata
 		}
 
 		[Test]
+		public void GivenRepositories_WhenTryToSetNullCustomStatements_ThenFail()
+		{
+			Assert.Throws<ArgumentNullException>(() => Repositories.CustomStatements = null);
+
+			Assert.DoesNotThrow(() => Repositories.CustomStatements = new Dictionary<string, CustomStatementDefinition>());
+		}
+
+		[Test]
 		public void GivenTypedAndUntypedMethods_WhenRegisterMetadata_ThenWorksTheSame()
 		{
 			// arrange

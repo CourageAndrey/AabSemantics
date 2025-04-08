@@ -5,6 +5,7 @@ using NUnit.Framework;
 
 using AabSemantics.Concepts;
 using AabSemantics.Localization;
+using AabSemantics.Metadata;
 using AabSemantics.Modules.Boolean;
 using AabSemantics.Modules.Boolean.Questions;
 using AabSemantics.Modules.Classification;
@@ -12,6 +13,7 @@ using AabSemantics.Modules.Classification.Questions;
 using AabSemantics.Modules.Classification.Statements;
 using AabSemantics.Serialization;
 using AabSemantics.Statements;
+using AabSemantics.Questions;
 using AabSemantics.TestCore;
 
 namespace AabSemantics.Tests.Serialization
@@ -47,6 +49,24 @@ namespace AabSemantics.Tests.Serialization
 				concept => concept.ID,
 				concept => concept));
 			_statementIdResolver = new StatementIdResolver(_semanticNetwork);
+
+			Repositories.RegisterCustomStatement(
+				"type",
+				new[] { "concept1", "concept2" },
+				l => string.Empty,
+				l => string.Empty,
+				l => string.Empty);
+		}
+
+		[SetUp]
+		public void SetUp()
+		{
+			Repositories.RegisterCustomStatement(
+				"type",
+				new[] { "concept1", "concept2" },
+				l => string.Empty,
+				l => string.Empty,
+				l => string.Empty);
 		}
 
 		[Test]
@@ -70,9 +90,15 @@ namespace AabSemantics.Tests.Serialization
 			var testConcept2 = _semanticNetwork.Concepts["d"];
 
 			yield return new CheckStatementQuestion(testStatement, _semanticNetwork.Statements.Except(new[] { testStatement }));
+			yield return new CustomStatementQuestion("type", new Dictionary<string, IConcept>
+			{
+				{ "concept1", testConcept1 },
+				{ "concept2", testConcept2 },
+			});
 			yield return new EnumerateAncestorsQuestion(testConcept1);
 			yield return new EnumerateDescendantsQuestion(testConcept1);
 			yield return new IsQuestion(testConcept1, testConcept2);
+			yield return new CustomStatementQuestion("type", new Dictionary<string, IConcept>{ { "concept1", testConcept1 }, { "concept2", testConcept2 } });
 		}
 	}
 }

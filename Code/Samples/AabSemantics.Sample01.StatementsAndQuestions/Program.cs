@@ -101,7 +101,12 @@ namespace AabSemantics.Sample01.StatementsAndQuestions
 			#region Define statements
 
 			// The most important part of preparation work is definition of statements.
-			semanticNetwork.DeclareThat(chordate).IsDescendantOf(animal); // Or we can use DeclareThat(animal).IsAncestorOf(chordate) instead.
+			var r = TextRenders.PlainString;
+			IsStatement x = semanticNetwork.DeclareThat(chordate).IsDescendantOf(animal); // Or we can use DeclareThat(animal).IsAncestorOf(chordate) instead.
+			var c = x.ToCustomStatement();
+			var t = r.Render(c.DescribeTrue(), language);
+			Console.Write(t);
+
 			semanticNetwork.DeclareThat(mammal).IsDescendantOf(chordate);
 			semanticNetwork.DeclareThat(carnivor).IsDescendantOf(mammal);
 			semanticNetwork.DeclareThat(bear).IsDescendantOf(carnivor);

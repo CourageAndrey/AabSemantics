@@ -64,6 +64,16 @@ namespace AabSemantics.TestCore
 			{
 				Assert.That(leftValue, Is.EqualTo(rightValue));
 			}
+			else if(propertyType == typeof(string))
+			{
+				Assert.That(leftValue, Is.EqualTo(rightValue));
+			}
+			else if (propertyType == typeof(IDictionary<string, IConcept>))
+			{
+				var leftDictionary = (IDictionary<string, IConcept>) leftValue;
+				var rightDictionary = (IDictionary<string, IConcept>) rightValue;
+				Assert.That(leftDictionary.SequenceEqual(rightDictionary), Is.True);
+			}
 			else if (typeof(IConcept).IsAssignableFrom(propertyType) ||
 					typeof(IStatement).IsAssignableFrom(propertyType))
 			{

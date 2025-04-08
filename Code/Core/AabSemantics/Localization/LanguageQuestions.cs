@@ -1,9 +1,13 @@
-﻿using System.Xml.Serialization;
+﻿using System;
+using System.Xml.Serialization;
 
 namespace AabSemantics.Localization
 {
 	public interface ILanguageQuestions
 	{
+		String CustomStatementQuestionName
+		{ get; }
+
 		ILanguageQuestionParameters Parameters
 		{ get; }
 
@@ -15,6 +19,10 @@ namespace AabSemantics.Localization
 	public class LanguageQuestions : ILanguageQuestions
 	{
 		#region Xml Properties
+
+		[XmlElement(nameof(CustomStatementQuestionName))]
+		public String CustomStatementQuestionName
+		{ get; set; }
 
 		[XmlElement(nameof(Parameters))]
 		public LanguageQuestionParameters ParametersXml
@@ -42,6 +50,7 @@ namespace AabSemantics.Localization
 		{
 			return new LanguageQuestions
 			{
+				CustomStatementQuestionName = "CustomStatementQuestion",
 				ParametersXml = LanguageQuestionParameters.CreateDefault(),
 				AnswersXml = LanguageAnswers.CreateDefault(),
 			};

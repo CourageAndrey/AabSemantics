@@ -1,5 +1,4 @@
-﻿using AabSemantics.Metadata;
-using NUnit.Framework;
+﻿using NUnit.Framework;
 
 using AabSemantics.Modules.Boolean.Json;
 using AabSemantics.Modules.Classification.Json;
@@ -54,6 +53,7 @@ namespace AabSemantics.Tests.Serialization.Json
 			new Statement[]
 			{
 				new IsStatement(),
+				new CustomStatement(),
 			}.TestParameterlessConstructors();
 		}
 
@@ -66,6 +66,7 @@ namespace AabSemantics.Tests.Serialization.Json
 				new EnumerateAncestorsQuestion(),
 				new EnumerateDescendantsQuestion(),
 				new IsQuestion(),
+				new CustomStatementQuestion(),
 			}.TestParameterlessConstructors();
 		}
 

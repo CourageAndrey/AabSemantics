@@ -60,6 +60,9 @@ namespace AabSemantics.Modules.Processes
 					checkProcessSequenceSystems)
 				.SerializeToXml(statement => new Xml.ProcessesStatement(statement))
 				.SerializeToJson(statement => new Json.ProcessesStatement(statement));
+			Repositories.RegisterCustomStatement<ProcessesStatement, ILanguageProcessesModule, ILanguageStatements, ILanguageStatementsPart>(
+				new List<String> { nameof(ProcessesStatement.ProcessA), nameof(ProcessesStatement.ProcessB), nameof(ProcessesStatement.SequenceSign) },
+				language => language.Processes);
 		}
 
 		protected override void RegisterQuestions()
@@ -89,8 +92,8 @@ namespace AabSemantics.Modules.Processes
 						language => language.GetStatementsExtension<ILanguageProcessesModule, ILanguageStatements>().Consistency.ErrorProcessesContradiction,
 						new Dictionary<String, IKnowledge>
 						{
-							{ Localization.Strings.ParamProcessA, contradiction.Value1 },
-							{ Localization.Strings.ParamProcessB, contradiction.Value2 },
+							{ Strings.ParamProcessA, contradiction.Value1 },
+							{ Strings.ParamProcessB, contradiction.Value2 },
 						})
 					.Append(contradiction.Signs.EnumerateOneLine());
 			}

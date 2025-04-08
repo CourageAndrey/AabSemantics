@@ -228,6 +228,19 @@ namespace AabSemantics.Questions
 			return answer;
 		}
 
+		public StatementsAnswer<StatementT> SelectStatements()
+		{
+			var format = new UnstructuredContainer(new FormattedText(
+				language => language.Statements.FoundStatements,
+				new Dictionary<String, IKnowledge>()))
+				.AppendBulletsList(Statements.OfType<IKnowledge>().Enumerate());
+
+			return new StatementsAnswer<StatementT>(
+				Statements,
+				format,
+				new Explanation(Statements));
+		}
+
 		protected virtual void ProcessChildrenIfNeed()
 		{
 			if (NeedToProcessTransitives(Statements))
