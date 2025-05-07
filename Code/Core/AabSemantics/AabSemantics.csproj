@@ -12,4 +12,17 @@
     <Folder Include="Modules\Classification\Concepts\" />
   </ItemGroup>
 
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <PackageId>AabSemantics</PackageId>
+    <Version>1.1.0</Version>
+    <Authors>Andrei Bychko</Authors>
+    <Company>Andrei Bychko</Company>
+    <Description>This project represents semantic network engine written in C#. Please, see more details in project Wiki.</Description>
+    <PackageTags>AI;semantic network</PackageTags>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <RepositoryUrl>https://github.com/CourageAndrey/AabSemantics</RepositoryUrl>
+	<PackageReadmeFile>..\..\..README.md</PackageReadmeFile>
+  </PropertyGroup>
+
 </Project>
