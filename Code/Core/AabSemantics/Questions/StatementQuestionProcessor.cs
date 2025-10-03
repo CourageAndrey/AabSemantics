@@ -26,7 +26,7 @@ namespace AabSemantics.Questions
 		protected ICollection<IStatement> AdditionalTransitives
 		{ get; private set; }
 
-		protected Func<ICollection<StatementT>, Boolean> NeedToProcessTransitives
+		protected Predicate<ICollection<StatementT>> NeedToProcessTransitives
 		{ get; private set; }
 
 		protected Func<IQuestionProcessingContext<QuestionT>, IEnumerable<NestedQuestion>> GetTransitiveQuestions
@@ -59,7 +59,7 @@ namespace AabSemantics.Questions
 		}
 
 		public StatementQuestionProcessor<QuestionT, StatementT> WithTransitives(
-			Func<ICollection<StatementT>, Boolean> needToProcessTransitives,
+			Predicate<ICollection<StatementT>> needToProcessTransitives,
 			Func<IQuestionProcessingContext<QuestionT>, IEnumerable<NestedQuestion>> getTransitiveQuestions,
 			Boolean needToAggregateTransitivesToStatements = false)
 		{
@@ -71,7 +71,7 @@ namespace AabSemantics.Questions
 		}
 
 		public StatementQuestionProcessor<QuestionT, StatementT> WithTransitives(
-			Func<ICollection<StatementT>, Boolean> needToProcessTransitives,
+			Predicate<ICollection<StatementT>> needToProcessTransitives,
 			Func<QuestionT, IConcept> getQuestionSubject,
 			Func<IConcept, QuestionT> createQuestionForSubject,
 			Boolean needToAggregateTransitivesToStatements = false)
@@ -169,7 +169,7 @@ namespace AabSemantics.Questions
 		}
 
 		public BooleanAnswer SelectBoolean(
-			Func<ICollection<StatementT>, Boolean> valueGetter,
+			Predicate<ICollection<StatementT>> valueGetter,
 			Func<ILanguage, String> trueFormat,
 			Func<ILanguage, String> falseFormat,
 			IDictionary<String, IKnowledge> parameters)
@@ -191,7 +191,7 @@ namespace AabSemantics.Questions
 		}
 
 		public BooleanAnswer SelectBooleanIncludingChildren(
-			Func<ICollection<StatementT>, Boolean> valueGetter,
+			Predicate<ICollection<StatementT>> valueGetter,
 			Func<ILanguage, String> trueFormat,
 			Func<ILanguage, String> falseFormat,
 			IDictionary<String, IKnowledge> parameters)

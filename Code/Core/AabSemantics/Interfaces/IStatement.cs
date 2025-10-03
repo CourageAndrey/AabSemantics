@@ -45,7 +45,7 @@ namespace AabSemantics
 
 	public static class StatementsBaseHelper
 	{
-		public static IEnumerable<IStatement> Enumerate(this IEnumerable<IStatement> statements, Func<IContext, Boolean> contextFilter)
+		public static IEnumerable<IStatement> Enumerate(this IEnumerable<IStatement> statements, Predicate<IContext> contextFilter)
 		{
 			foreach (var statement in statements.Where(s => contextFilter(s.Context)))
 			{
@@ -68,7 +68,7 @@ namespace AabSemantics
 			return statements.Enumerate(context => validContexts.Contains(context));
 		}
 
-		public static IEnumerable<StatementT> Enumerate<StatementT>(this IEnumerable<IStatement> statements, Func<IContext, Boolean> contextFilter)
+		public static IEnumerable<StatementT> Enumerate<StatementT>(this IEnumerable<IStatement> statements, Predicate<IContext> contextFilter)
 			where StatementT : IStatement
 		{
 			foreach (var statement in statements.OfType<StatementT>().Where(s => contextFilter(s.Context)))
