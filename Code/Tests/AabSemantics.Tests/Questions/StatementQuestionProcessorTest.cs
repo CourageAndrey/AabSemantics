@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 
 using NUnit.Framework;
 
@@ -40,7 +41,7 @@ namespace AabSemantics.Tests.Questions
 		}
 
 		[Test]
-		public void GivenTransitiveStatements_WhenProcess_ThenSucceed()
+		public async Task GivenTransitiveStatements_WhenProcess_ThenSucceed()
 		{
 			// arrange
 			var semanticNetwork = new SemanticNetwork(Language.Default);
@@ -66,14 +67,14 @@ namespace AabSemantics.Tests.Questions
 
 			questionProcessor
 				.WithTransitives(
-					rr => rr.Count == 0,
+					rr => Task.FromResult(rr.Count == 0),
 					q => q.Child,
 					newSubject => new IsQuestion(newSubject, question.Parent),
 					true) // this line differs from regular IsQuestion processor
 				.Where(s => s.Parent == question.Parent && s.Child == question.Child);
 
-			var answer = questionProcessor
-				.SelectBooleanIncludingChildren(
+			var answer = await questionProcessor
+				.SelectBooleanIncludingChildrenAsync(
 					statements => statements.Count > 0,
 					language => string.Empty,
 					language => string.Empty,
@@ -131,7 +132,7 @@ namespace AabSemantics.Tests.Questions
 
 			public Boolean IsItNecessaryToProcessTransitives(ICollection<IsStatement> statements)
 			{
-				return NeedToProcessTransitives(statements);
+				return NeedToProcessTransitives(statements).Result;
 			}
 
 			public IEnumerable<NestedQuestion> EnumerateTransitiveQuestions(IQuestionProcessingContext<IsQuestion> context)

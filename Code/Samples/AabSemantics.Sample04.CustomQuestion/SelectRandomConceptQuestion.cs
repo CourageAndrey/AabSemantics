@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq;
+using System.Threading.Tasks;
 
 using AabSemantics.Answers;
 using AabSemantics.Questions;
@@ -9,7 +10,7 @@ namespace AabSemantics.Sample04.CustomQuestion
 {
 	public class SelectRandomConceptQuestion : Question
 	{
-		public override IAnswer Process(IQuestionProcessingContext context)
+		public override async Task<IAnswer> ProcessAsync(IQuestionProcessingContext context)
 		{
 			var random = new Random(DateTime.Now.Millisecond);
 			var allConcepts = context.SemanticNetwork.Concepts.ToList();

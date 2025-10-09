@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Threading.Tasks;
 
 using AabSemantics.Localization;
 using AabSemantics.Modules.Classification.Localization;
@@ -23,12 +24,12 @@ namespace AabSemantics.Modules.Classification.Questions
 			Concept = concept.EnsureNotNull(nameof(concept));
 		}
 
-		public override IAnswer Process(IQuestionProcessingContext context)
+		public override async Task<IAnswer> ProcessAsync(IQuestionProcessingContext context)
 		{
-			return context
+			return await context
 				.From<EnumerateDescendantsQuestion, IsStatement>()
 				.Where(s => s.Ancestor == Concept)
-				.SelectAllConcepts(
+				.SelectAllConceptsAsync(
 					statement => statement.Descendant,
 					question => question.Concept,
 					Strings.ParamParent,

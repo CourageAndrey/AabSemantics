@@ -1,10 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 
 using AabSemantics.Answers;
 using AabSemantics.Text.Containers;
 using AabSemantics.Text.Primitives;
+using AabSemantics.Utils;
 
 namespace AabSemantics.Questions
 {
@@ -26,7 +28,7 @@ namespace AabSemantics.Questions
 		protected ICollection<IStatement> AdditionalTransitives
 		{ get; private set; }
 
-		protected Predicate<ICollection<StatementT>> NeedToProcessTransitives
+		protected Func<ICollection<StatementT>, Task<Boolean>> NeedToProcessTransitives
 		{ get; private set; }
 
 		protected Func<IQuestionProcessingContext<QuestionT>, IEnumerable<NestedQuestion>> GetTransitiveQuestions
@@ -34,6 +36,8 @@ namespace AabSemantics.Questions
 
 		protected Boolean NeedToAggregateTransitivesToStatements
 		{ get; private set; }
+
+		private Task<List<StatementT>> _whereTask;
 
 		#endregion
 
@@ -43,23 +47,23 @@ namespace AabSemantics.Questions
 			Statements = Array.Empty<StatementT>();
 			ChildAnswers = Array.Empty<ChildAnswer>();
 			AdditionalTransitives = Array.Empty<IStatement>();
-			NeedToProcessTransitives = statements => false;
+			NeedToProcessTransitives = statements => Task.FromResult(false);
 			GetTransitiveQuestions = c => Array.Empty<NestedQuestion>();
 			NeedToAggregateTransitivesToStatements = false;
 		}
 
 		public StatementQuestionProcessor<QuestionT, StatementT> Where(Func<StatementT, Boolean> match)
 		{
-			Statements = Context.SemanticNetwork.Statements
+			_whereTask = Context.SemanticNetwork.Statements
 				.Enumerate<StatementT>(Context.ActiveContexts)
 				.Where(match)
-				.ToList();
+				.ToListAsync();
 
 			return this;
 		}
 
 		public StatementQuestionProcessor<QuestionT, StatementT> WithTransitives(
-			Predicate<ICollection<StatementT>> needToProcessTransitives,
+			Func<ICollection<StatementT>, Task<Boolean>> needToProcessTransitives,
 			Func<IQuestionProcessingContext<QuestionT>, IEnumerable<NestedQuestion>> getTransitiveQuestions,
 			Boolean needToAggregateTransitivesToStatements = false)
 		{
@@ -71,7 +75,7 @@ namespace AabSemantics.Questions
 		}
 
 		public StatementQuestionProcessor<QuestionT, StatementT> WithTransitives(
-			Predicate<ICollection<StatementT>> needToProcessTransitives,
+			Func<ICollection<StatementT>, Task<Boolean>> needToProcessTransitives,
 			Func<QuestionT, IConcept> getQuestionSubject,
 			Func<IConcept, QuestionT> createQuestionForSubject,
 			Boolean needToAggregateTransitivesToStatements = false)
@@ -82,9 +86,11 @@ namespace AabSemantics.Questions
 				needToAggregateTransitivesToStatements);
 		}
 
-		public IAnswer SelectCustom(Func<IQuestionProcessingContext<QuestionT>, ICollection<StatementT>, ICollection<ChildAnswer>, IAnswer> formatter)
+		public async Task<IAnswer> SelectCustomAsync(Func<IQuestionProcessingContext<QuestionT>, ICollection<StatementT>, ICollection<ChildAnswer>, IAnswer> formatter)
 		{
-			ProcessChildrenIfNeed();
+			Statements = await _whereTask.ConfigureAwait(false);
+
+			await ProcessChildrenIfNeedAsync().ConfigureAwait(false);
 
 			var answer = formatter(Context, Statements, ChildAnswers);
 
@@ -93,23 +99,25 @@ namespace AabSemantics.Questions
 			return answer;
 		}
 
-		public IAnswer SelectAllConcepts(
+		public async Task<IAnswer> SelectAllConceptsAsync(
 			Func<StatementT, IConcept> resultConceptSelector,
 			Func<QuestionT, IConcept> titleConceptSelector,
 			String titleConceptCaption,
 			Func<ILanguage, String> answerFormat,
 			Func<IEnumerable<IConcept>, IEnumerable<IConcept>> conceptsFilter = null)
 		{
-			ProcessChildrenIfNeed();
+			Statements = await _whereTask.ConfigureAwait(false);
 
-			if (Statements.Any())
+			await ProcessChildrenIfNeedAsync().ConfigureAwait(false);
+
+			if (await Statements.AnyAsync().ConfigureAwait(false))
 			{
 				if (conceptsFilter == null)
 				{
 					conceptsFilter = concepts => concepts;
 				}
 
-				var resultConcepts = conceptsFilter(Statements.Select(resultConceptSelector)).ToList();
+				var resultConcepts = await conceptsFilter(Statements.Select(resultConceptSelector)).ToListAsync().ConfigureAwait(false);
 
 				var format = new UnstructuredContainer(new FormattedText(
 					language => answerFormat(Context.Language),
@@ -133,16 +141,18 @@ namespace AabSemantics.Questions
 			}
 		}
 
-		public IAnswer SelectFirstConcept(
+		public async Task<IAnswer> SelectFirstConceptAsync(
 			Func<StatementT, IConcept> resultConceptSelector,
 			Func<ILanguage, String> answerFormat,
 			Func<StatementT, IDictionary<String, IKnowledge>> getParameters)
 		{
-			ProcessChildrenIfNeed();
+			Statements = await _whereTask.ConfigureAwait(false);
+
+			await ProcessChildrenIfNeedAsync().ConfigureAwait(false);
 
 			IAnswer answer = null;
 
-			var statement = Statements.FirstOrDefault();
+			var statement = await Statements.FirstOrDefaultAsync().ConfigureAwait(false);
 			if (statement != null)
 			{
 				answer = new ConceptAnswer(
@@ -157,7 +167,7 @@ namespace AabSemantics.Questions
 
 			if (answer == null)
 			{
-				var childAnswer = ChildAnswers.FirstOrDefault();
+				var childAnswer = await ChildAnswers.FirstOrDefaultAsync().ConfigureAwait(false);
 				if (childAnswer != null)
 				{
 					childAnswer.Answer.Explanation.Expand(childAnswer.TransitiveStatements);
@@ -168,13 +178,15 @@ namespace AabSemantics.Questions
 			return answer ?? Answer.CreateUnknown();
 		}
 
-		public BooleanAnswer SelectBoolean(
+		public async Task<BooleanAnswer> SelectBooleanAsync(
 			Predicate<ICollection<StatementT>> valueGetter,
 			Func<ILanguage, String> trueFormat,
 			Func<ILanguage, String> falseFormat,
 			IDictionary<String, IKnowledge> parameters)
 		{
-			ProcessChildrenIfNeed();
+			Statements = await _whereTask.ConfigureAwait(false);
+
+			await ProcessChildrenIfNeedAsync().ConfigureAwait(false);
 
 			Boolean value = valueGetter(Statements);
 
@@ -190,13 +202,15 @@ namespace AabSemantics.Questions
 			return answer;
 		}
 
-		public BooleanAnswer SelectBooleanIncludingChildren(
+		public async Task<BooleanAnswer> SelectBooleanIncludingChildrenAsync(
 			Predicate<ICollection<StatementT>> valueGetter,
 			Func<ILanguage, String> trueFormat,
 			Func<ILanguage, String> falseFormat,
 			IDictionary<String, IKnowledge> parameters)
 		{
-			ProcessChildrenIfNeed();
+			Statements = await _whereTask.ConfigureAwait(false);
+
+			await ProcessChildrenIfNeedAsync();
 
 			Boolean result = false;
 			var explanation = new List<IStatement>(Statements.OfType<IStatement>());
@@ -228,8 +242,10 @@ namespace AabSemantics.Questions
 			return answer;
 		}
 
-		public StatementsAnswer<StatementT> SelectStatements()
+		public async Task<StatementsAnswer<StatementT>> SelectStatementsAsync()
 		{
+			Statements = await _whereTask;
+
 			var format = new UnstructuredContainer(new FormattedText(
 				language => language.Statements.FoundStatements,
 				new Dictionary<String, IKnowledge>()))
@@ -241,17 +257,25 @@ namespace AabSemantics.Questions
 				new Explanation(Statements));
 		}
 
-		protected virtual void ProcessChildrenIfNeed()
+		protected virtual async Task ProcessChildrenIfNeedAsync()
 		{
-			if (NeedToProcessTransitives(Statements))
+			if (await NeedToProcessTransitives(Statements).ConfigureAwait(false))
 			{
-				ChildAnswers = new List<ChildAnswer>();
-				foreach (var nested in GetTransitiveQuestions(Context))
+				var transitives = new Dictionary<NestedQuestion, Task<IAnswer>>();
+				foreach (var transitive in GetTransitiveQuestions(Context))
 				{
-					var answer = nested.Question.Ask(Context);
+					transitives[transitive] = transitive.Question.AskAsync(Context);
+				}
+
+				await Task.WhenAll(transitives.Values).ConfigureAwait(false);
+
+				ChildAnswers = new List<ChildAnswer>();
+				foreach (var transitive in transitives)
+				{
+					var answer = transitive.Value.Await();
 					if (!answer.IsEmpty)
 					{
-						ChildAnswers.Add(new ChildAnswer(nested.Question, answer, nested.TransitiveStatements));
+						ChildAnswers.Add(new ChildAnswer(transitive.Key.Question, answer, transitive.Key.TransitiveStatements));
 					}
 				}
 
@@ -272,7 +296,7 @@ namespace AabSemantics.Questions
 		{
 			var alreadyViewedConcepts = new HashSet<IConcept>(Context.ActiveContexts
 				.OfType<IQuestionProcessingContext<QuestionT>>()
-				.Select(questionContext => getQuestionSubject(questionContext.Question)));
+				.Select(questionContext => getQuestionSubject(questionContext.Question)).ToList());
 
 			var question = Context.Question;
 			var subject = getQuestionSubject(question);

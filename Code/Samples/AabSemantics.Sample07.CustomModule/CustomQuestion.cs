@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 using AabSemantics.Questions;
 using AabSemantics.Text.Primitives;
@@ -23,12 +24,12 @@ namespace AabSemantics.Sample07.CustomModule
 			Concept2 = concept2.EnsureNotNull(nameof(concept2));
 		}
 
-		public override IAnswer Process(IQuestionProcessingContext context)
+		public override async Task<IAnswer> ProcessAsync(IQuestionProcessingContext context)
 		{
-			return context
+			return await context
 				.From<CustomQuestion, CustomStatement>()
 				.Where(s => s.Concept1 == Concept1 && s.Concept2 == Concept2)
-				.SelectCustom((questionProcessingContext, statements, childAnswers) =>
+				.SelectCustomAsync((questionProcessingContext, statements, childAnswers) =>
 				{
 					bool isTrue = statements.Count > 0;
 					var formatter = isTrue
@@ -41,7 +42,7 @@ namespace AabSemantics.Sample07.CustomModule
 					};
 					return new CustomAnswer(new FormattedText(formatter, parameters), new Explanation(statements));
 				});
-				//.SelectBoolean(
+				//.SelectBooleanAsync(
 				//	statements => statements.Count > 0,
 				//	language => language.GetQuestionsExtension<ILanguageCustomModule, ILanguageQuestions>().Answers.CustomTrue,
 				//	language => language.GetQuestionsExtension<ILanguageCustomModule, ILanguageQuestions>().Answers.CustomFalse,

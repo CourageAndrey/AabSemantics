@@ -1,13 +1,21 @@
-﻿using AabSemantics.Questions;
+﻿using System.Threading.Tasks;
+
+using AabSemantics.Questions;
+using AabSemantics.Utils;
 
 namespace AabSemantics.Modules.Boolean.Questions
 {
 	public static class SubjectQuestionExtensions
 	{
-		public static IAnswer IsTrueThat(this QuestionBuilder builder, IStatement statement)
+		public static async Task<IAnswer> IsTrueThatAsync(this QuestionBuilder builder, IStatement statement)
 		{
 			var question = new CheckStatementQuestion(statement, builder.Preconditions);
-			return question.Ask(builder.SemanticNetwork.Context);
+			return await question.AskAsync(builder.SemanticNetwork.Context);
+		}
+
+		public static IAnswer IsTrueThat(this QuestionBuilder builder, IStatement statement)
+		{
+			return builder.IsTrueThatAsync(statement).Await();
 		}
 	}
 }

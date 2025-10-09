@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 using AabSemantics.Modules.Set.Attributes;
 using AabSemantics.Modules.Set.Localization;
@@ -24,12 +25,12 @@ namespace AabSemantics.Modules.Set.Questions
 			Concept = concept.EnsureNotNull(nameof(concept));
 		}
 
-		public override IAnswer Process(IQuestionProcessingContext context)
+		public override async Task<IAnswer> ProcessAsync(IQuestionProcessingContext context)
 		{
-			return context
+			return await context
 				.From<IsSignQuestion, HasSignStatement>()
 				.Where(s => s.Sign == Concept)
-				.SelectBoolean(
+				.SelectBooleanAsync(
 					statement => Concept.HasAttribute<IsSignAttribute>(),
 					language => language.GetQuestionsExtension<ILanguageSetModule, ILanguageQuestions>().Answers.SignTrue,
 					language => language.GetQuestionsExtension<ILanguageSetModule, ILanguageQuestions>().Answers.SignFalse,

@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Threading.Tasks;
 
 using AabSemantics.Modules.Set.Localization;
 using AabSemantics.Modules.Set.Statements;
@@ -22,12 +23,12 @@ namespace AabSemantics.Modules.Set.Questions
 			Concept = concept.EnsureNotNull(nameof(concept));
 		}
 
-		public override IAnswer Process(IQuestionProcessingContext context)
+		public override async Task<IAnswer> ProcessAsync(IQuestionProcessingContext context)
 		{
-			return context
+			return await context
 				.From<EnumerateContainersQuestion, HasPartStatement>()
 				.Where(s => s.Part == Concept)
-				.SelectAllConcepts(
+				.SelectAllConceptsAsync(
 					statement => statement.Whole,
 					question => question.Concept,
 					AabSemantics.Localization.Strings.ParamChild,

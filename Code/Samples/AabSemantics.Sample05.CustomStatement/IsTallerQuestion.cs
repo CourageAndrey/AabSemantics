@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 
 using AabSemantics.Questions;
 using AabSemantics.Utils;
@@ -21,12 +22,12 @@ namespace AabSemantics.Sample05.CustomStatement
 			ShorterPerson = shorterPerson.EnsureNotNull(nameof(shorterPerson));
 		}
 
-		public override IAnswer Process(IQuestionProcessingContext context)
+		public override async Task<IAnswer> ProcessAsync(IQuestionProcessingContext context)
 		{
-			return context
+			return await context
 				.From<IsTallerQuestion, IsTallerThanStatement>()
 				.WithTransitives(
-					statements => true,
+					statements => Task.FromResult(true),
 					c => c.SemanticNetwork.Statements
 						.OfType<IsTallerThanStatement>()
 						.Where(s => s.TallerPerson == c.Question.TallerPerson)
@@ -34,7 +35,7 @@ namespace AabSemantics.Sample05.CustomStatement
 							new IsTallerQuestion(s.ShorterPerson, c.Question.ShorterPerson),
 							new IStatement[] { s })))
 				.Where(s => s.TallerPerson == TallerPerson && s.ShorterPerson == ShorterPerson)
-				.SelectBooleanIncludingChildren(
+				.SelectBooleanIncludingChildrenAsync(
 					statements => statements.Count > 0,
 					language => "Yes, #TALLER# is taller than #SHORTER#.",
 					language => "No, #SHORTER# is taller than #TALLER#.",

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace AabSemantics.Questions
 {
@@ -17,15 +18,15 @@ namespace AabSemantics.Questions
 			Preconditions = new List<IStatement>(preconditions ?? Array.Empty<IStatement>());
 		}
 
-		public IAnswer Ask(ISemanticNetworkContext context, ILanguage language = null)
+		public async Task<IAnswer> AskAsync(ISemanticNetworkContext context, ILanguage language = null)
 		{
 			using (var questionContext = context.CreateQuestionContext(this, language))
 			{
-				return Process(questionContext);
+				return await ProcessAsync(questionContext).ConfigureAwait(false);
 			}
 		}
 
-		public abstract IAnswer Process(IQuestionProcessingContext context);
+		public abstract Task<IAnswer> ProcessAsync(IQuestionProcessingContext context);
 	}
 
 	public static class QuestionProcessingExtensions

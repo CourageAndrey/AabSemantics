@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
+using System.Threading.Tasks;
 
 using AabSemantics.Answers;
 using AabSemantics.Localization;
@@ -26,7 +26,7 @@ namespace AabSemantics.Modules.Boolean.Questions
 			Statement = statement.EnsureNotNull(nameof(statement));
 		}
 
-		public override IAnswer Process(IQuestionProcessingContext context)
+		public override async Task<IAnswer> ProcessAsync(IQuestionProcessingContext context)
 		{
 			var allStatements = context.SemanticNetwork.Statements.Enumerate(context.ActiveContexts);
 
@@ -34,16 +34,16 @@ namespace AabSemantics.Modules.Boolean.Questions
 			var parentChild = Statement as IParentChild<IConcept>;
 			if (parentChild != null)
 			{
-				statements = allStatements.FindPath(Statement.GetType(), parentChild.Parent, parentChild.Child);
+				statements = await allStatements.FindPathAsync(Statement.GetType(), parentChild.Parent, parentChild.Child);
 			}
 			else
 			{
-				var statement = allStatements.FirstOrDefault(p => p.Equals(Statement));
+				var statement = await allStatements.FirstOrDefaultAsync(p => p.Equals(Statement));
 				statements = statement != null ? new[] { statement } : Array.Empty<IStatement>();
 			}
 
 			var result = new UnstructuredContainer();
-			System.Boolean isTrue = statements.Any();
+			System.Boolean isTrue = await statements.AnyAsync();
 			result.Append(
 				language => Strings.ParamAnswer,
 				new Dictionary<String, IKnowledge> { { Strings.ParamAnswer, isTrue.ToLogicalValue() } });

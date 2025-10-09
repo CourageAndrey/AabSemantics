@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 
 using AabSemantics.Modules.Set.Localization;
 using AabSemantics.Modules.Set.Statements;
@@ -29,12 +30,12 @@ namespace AabSemantics.Modules.Set.Questions
 			Area = area.EnsureNotNull(nameof(area));
 		}
 
-		public override IAnswer Process(IQuestionProcessingContext context)
+		public override async Task<IAnswer> ProcessAsync(IQuestionProcessingContext context)
 		{
-			return context
+			return await context
 				.From<IsSubjectAreaQuestion, GroupStatement>()
 				.Where(s => s.Area == Area && s.Concept == Concept)
-				.SelectBoolean(
+				.SelectBooleanAsync(
 					statements => statements.Any(),
 					language => language.GetQuestionsExtension<ILanguageSetModule, ILanguageQuestions>().Answers.IsSubjectAreaTrue,
 					language => language.GetQuestionsExtension<ILanguageSetModule, ILanguageQuestions>().Answers.IsSubjectAreaFalse,

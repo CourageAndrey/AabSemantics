@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 
 using AabSemantics.Answers;
 using AabSemantics.Modules.Mathematics.Concepts;
@@ -29,13 +30,14 @@ namespace AabSemantics.Modules.Mathematics.Questions
 			RightValue = rightValue.EnsureNotNull(nameof(rightValue));
 		}
 
-		public override IAnswer Process(IQuestionProcessingContext context)
+		public override async Task<IAnswer> ProcessAsync(IQuestionProcessingContext context)
 		{
-			return context
+			return await context
 				.From<ComparisonQuestion, ComparisonStatement>()
-				.WithTransitives(s => s.Count == 0, GetNestedQuestions)
+				.WithTransitives(s => Task.FromResult(s.Count == 0), GetNestedQuestions)
 				.Where(s => (s.LeftValue == LeftValue && s.RightValue == RightValue) || (s.RightValue == LeftValue && s.LeftValue == RightValue))
-				.SelectCustom(CreateAnswer);
+				.SelectCustomAsync(CreateAnswer)
+				.ConfigureAwait(false);
 		}
 
 		private IAnswer CreateAnswer(IQuestionProcessingContext<ComparisonQuestion> context, ICollection<ComparisonStatement> statements, ICollection<ChildAnswer> childAnswers)

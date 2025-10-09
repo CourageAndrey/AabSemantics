@@ -1,25 +1,43 @@
-﻿using AabSemantics.Questions;
+﻿using System.Threading.Tasks;
+
+using AabSemantics.Questions;
+using AabSemantics.Utils;
 
 namespace AabSemantics.Sample05.CustomStatement
 {
 	public static class SubjectQuestionExtensions
 	{
-		public static IAnswer WhoIsTallerThan(this QuestionBuilder builder, IConcept person)
+		public static async Task<IAnswer> WhoIsTallerThanAsync(this QuestionBuilder builder, IConcept person)
 		{
 			var question = new GetTallerQuestion(person);
-			return question.Ask(builder.SemanticNetwork.Context);
+			return await question.AskAsync(builder.SemanticNetwork.Context);
+		}
+
+		public static async Task<IAnswer> WhoIsShorterThanAsync(this QuestionBuilder builder, IConcept person)
+		{
+			var question = new GetShorterQuestion(person);
+			return await question.AskAsync(builder.SemanticNetwork.Context);
+		}
+
+		public static async Task<IAnswer> IsTallerThanAsync(this QuestionBuilder builder, IConcept taller, IConcept shorter)
+		{
+			var question = new IsTallerQuestion(taller, shorter);
+			return await question.AskAsync(builder.SemanticNetwork.Context);
+		}
+
+		public static IAnswer WhoIsTallerThan(this QuestionBuilder builder, IConcept person)
+		{
+			return builder.WhoIsTallerThanAsync(person).Await();
 		}
 
 		public static IAnswer WhoIsShorterThan(this QuestionBuilder builder, IConcept person)
 		{
-			var question = new GetShorterQuestion(person);
-			return question.Ask(builder.SemanticNetwork.Context);
+			return builder.WhoIsShorterThanAsync(person).Await();
 		}
 
 		public static IAnswer IsTallerThan(this QuestionBuilder builder, IConcept taller, IConcept shorter)
 		{
-			var question = new IsTallerQuestion(taller, shorter);
-			return question.Ask(builder.SemanticNetwork.Context);
+			return builder.IsTallerThanAsync(taller, shorter).Await();
 		}
 	}
 }

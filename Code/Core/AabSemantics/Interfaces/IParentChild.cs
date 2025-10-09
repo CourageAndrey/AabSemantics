@@ -1,6 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
+
+using AabSemantics.Utils;
 
 namespace AabSemantics
 {
@@ -63,44 +66,85 @@ namespace AabSemantics
 			where RelationshipT : IParentChild<T>
 			where T : class
 		{
-			return GetParentsAllLevels(statements.OfType<RelationshipT>(), item, involvedRelationships);
+			return GetParentsAllLevelsAsync<T, RelationshipT>(statements, item, involvedRelationships).Await();
+		}
+
+		public static async Task<List<T>> GetParentsAllLevelsAsync<T, RelationshipT>(this IEnumerable<IStatement> statements, T item, List<RelationshipT> involvedRelationships = null)
+			where RelationshipT : IParentChild<T>
+			where T : class
+		{
+			return await GetParentsAllLevelsAsync(statements.OfType<RelationshipT>(), item, involvedRelationships);
 		}
 
 		public static List<T> GetChildrenAllLevels<T, RelationshipT>(this IEnumerable<IStatement> statements, T item, List<RelationshipT> involvedRelationships = null)
 			where RelationshipT : IParentChild<T>
 			where T : class
 		{
-			return GetChildrenAllLevels(statements.OfType<RelationshipT>(), item, involvedRelationships);
+			return GetChildrenAllLevelsAsync<T, RelationshipT>(statements, item, involvedRelationships).Await();
+		}
+
+		public static async Task<List<T>> GetChildrenAllLevelsAsync<T, RelationshipT>(this IEnumerable<IStatement> statements, T item, List<RelationshipT> involvedRelationships = null)
+			where RelationshipT : IParentChild<T>
+			where T : class
+		{
+			return await GetChildrenAllLevelsAsync(statements.OfType<RelationshipT>(), item, involvedRelationships);
 		}
 
 		public static List<T> GetParentsOneLevel<T, RelationshipT>(this IEnumerable<IStatement> statements, T item, List<RelationshipT> involvedRelationships = null)
 			where RelationshipT : IParentChild<T>
 			where T : class
 		{
-			return GetParentsOneLevel(statements.OfType<RelationshipT>(), item, involvedRelationships);
+			return GetParentsOneLevelAsync<T, RelationshipT>(statements, item, involvedRelationships).Await();
+		}
+
+		public static async Task<List<T>> GetParentsOneLevelAsync<T, RelationshipT>(this IEnumerable<IStatement> statements, T item, List<RelationshipT> involvedRelationships = null)
+			where RelationshipT : IParentChild<T>
+			where T : class
+		{
+			return await GetParentsOneLevelAsync(statements.OfType<RelationshipT>(), item, involvedRelationships);
 		}
 
 		public static List<T> GetChildrenOneLevel<T, RelationshipT>(this IEnumerable<IStatement> statements, T item, List<RelationshipT> involvedRelationships = null)
 			where RelationshipT : IParentChild<T>
 			where T : class
 		{
-			return GetChildrenOneLevel(statements.OfType<RelationshipT>(), item, involvedRelationships);
+			return GetChildrenOneLevelAsync<T, RelationshipT>(statements, item, involvedRelationships).Await();
+		}
+
+		public static async Task<List<T>> GetChildrenOneLevelAsync<T, RelationshipT>(this IEnumerable<IStatement> statements, T item, List<RelationshipT> involvedRelationships = null)
+			where RelationshipT : IParentChild<T>
+			where T : class
+		{
+			return await GetChildrenOneLevelAsync(statements.OfType<RelationshipT>(), item, involvedRelationships);
 		}
 
 		public static ParentChild<T> GetChildrenTree<T, RelationshipT>(this IEnumerable<IStatement> statements, T item, List<RelationshipT> involvedRelationships = null)
 			where RelationshipT : IParentChild<T>
 			where T : class
 		{
-			return GetChildrenTree(statements.OfType<RelationshipT>(), item, involvedRelationships);
+			return GetChildrenTreeAsync<T, RelationshipT>(statements, item, involvedRelationships).Await();
+		}
+
+		public static async Task<ParentChild<T>> GetChildrenTreeAsync<T, RelationshipT>(this IEnumerable<IStatement> statements, T item, List<RelationshipT> involvedRelationships = null)
+			where RelationshipT : IParentChild<T>
+			where T : class
+		{
+			return await GetChildrenTreeAsync(statements.OfType<RelationshipT>(), item, involvedRelationships);
 		}
 
 		public static ICollection<IStatement> FindPath<T>(this IEnumerable<IStatement> statements, Type statementType, T parent, T child)
 			where T : class
 		{
-			var typedStatements = statements.OfType<IParentChild<T>>().Where(statement => statement.GetType() == statementType).ToList();
+			return FindPathAsync<T>(statements, statementType, parent, child).Await();
+		}
+
+		public static async Task<ICollection<IStatement>> FindPathAsync<T>(this IEnumerable<IStatement> statements, Type statementType, T parent, T child)
+			where T : class
+		{
+			var typedStatements = await statements.OfType<IParentChild<T>>().Where(statement => statement.GetType() == statementType).ToListAsync();
 
 			// search up (child > parent), because search tree has to be smaller in this case
-			var pathsToCheck = typedStatements.Where(statement => statement.Child == child).Select(statement => new List<IParentChild<T>> { statement }).ToList();
+			var pathsToCheck = await typedStatements.Where(statement => statement.Child == child).Select(statement => new List<IParentChild<T>> { statement }).ToListAsync();
 			while (pathsToCheck.Any())
 			{
 				var nextStep = new List<List<IParentChild<T>>>();
@@ -113,7 +157,7 @@ namespace AabSemantics
 					}
 					else if (!path.Select(statement => statement.Child).Contains(lastParent))
 					{
-						nextStep.AddRange(typedStatements.Where(statement => statement.Child == lastParent).Select(statement => new List<IParentChild<T>>(path) { statement }));
+						nextStep.AddRange(await typedStatements.Where(statement => statement.Child == lastParent).Select(statement => new List<IParentChild<T>>(path) { statement }).ToListAsync());
 					}
 				}
 				pathsToCheck = nextStep;
@@ -126,27 +170,41 @@ namespace AabSemantics
 			where RelationshipT : IParentChild<T>
 			where T : class
 		{
-			return GetRelatedAllLevels(relationships, item, involvedRelationships, GetParentsOneLevel);
+			return GetParentsAllLevelsAsync<T, RelationshipT>(relationships, item, involvedRelationships).Await();
+		}
+
+		public static async Task<List<T>> GetParentsAllLevelsAsync<T, RelationshipT>(this IEnumerable<RelationshipT> relationships, T item, List<RelationshipT> involvedRelationships = null)
+			where RelationshipT : IParentChild<T>
+			where T : class
+		{
+			return await GetRelatedAllLevels(relationships, item, involvedRelationships, GetParentsOneLevelAsync);
 		}
 
 		public static List<T> GetChildrenAllLevels<T, RelationshipT>(this IEnumerable<RelationshipT> relationships, T item, List<RelationshipT> involvedRelationships = null)
 			where RelationshipT : IParentChild<T>
 			where T : class
 		{
-			return GetRelatedAllLevels(relationships, item, involvedRelationships, GetChildrenOneLevel);
+			return GetChildrenAllLevelsAsync<T, RelationshipT>(relationships, item, involvedRelationships).Await();
 		}
 
-		private delegate List<T> GetRelativesDelegate<T, RelationshipT>(IEnumerable<RelationshipT> relationships, T item, List<RelationshipT> involvedRelationships = null);
+		public static async Task<List<T>> GetChildrenAllLevelsAsync<T, RelationshipT>(this IEnumerable<RelationshipT> relationships, T item, List<RelationshipT> involvedRelationships = null)
+			where RelationshipT : IParentChild<T>
+			where T : class
+		{
+			return await GetRelatedAllLevels(relationships, item, involvedRelationships, GetChildrenOneLevelAsync);
+		}
 
-		private static List<T> GetRelatedAllLevels<T, RelationshipT>(this IEnumerable<RelationshipT> relationships, T item, List<RelationshipT> involvedRelationships, GetRelativesDelegate<T, RelationshipT> getRelatives)
+		private delegate Task<List<T>> GetRelativesDelegate<T, RelationshipT>(IEnumerable<RelationshipT> relationships, T item, List<RelationshipT> involvedRelationships = null);
+
+		private static async Task<List<T>> GetRelatedAllLevels<T, RelationshipT>(this IEnumerable<RelationshipT> relationships, T item, List<RelationshipT> involvedRelationships, GetRelativesDelegate<T, RelationshipT> getRelatives)
 		{
 			var result = new List<T>();
 			var relativesToCheck = new List<T> { item };
 			while (relativesToCheck.Count > 0)
 			{
-				var nextGeneration = relativesToCheck.Aggregate(new List<T>(), (list, relative) => { list.AddRange(getRelatives(relationships, relative, involvedRelationships)); return list; });
+				var nextGeneration = relativesToCheck.Aggregate(new List<T>(), (list, relative) => { list.AddRange(getRelatives(relationships, relative, involvedRelationships).Await()); return list; });
 				nextGeneration.RemoveAll(result.Contains);
-				relativesToCheck = nextGeneration.Distinct().ToList();
+				relativesToCheck = await nextGeneration.Distinct().ToListAsync();
 				result.AddRange(relativesToCheck);
 			}
 			return result;
@@ -156,27 +214,48 @@ namespace AabSemantics
 			where RelationshipT : IParentChild<T>
 			where T : class
 		{
-			var foundRelationships = relationships.Where(c => c.Child == item).ToList();
+			return GetParentsOneLevelAsync<T, RelationshipT>(relationships, item, involvedRelationships).Await();
+		}
+
+		public static async Task<List<T>> GetParentsOneLevelAsync<T, RelationshipT>(this IEnumerable<RelationshipT> relationships, T item, List<RelationshipT> involvedRelationships = null)
+			where RelationshipT : IParentChild<T>
+			where T : class
+		{
+			var foundRelationships = await relationships.Where(c => c.Child == item).ToListAsync();
 			if (involvedRelationships != null)
 			{
 				involvedRelationships.AddRange(foundRelationships);
 			}
-			return foundRelationships.Select(c => c.Parent).ToList();
+			return await foundRelationships.Select(c => c.Parent).ToListAsync();
 		}
 
 		public static List<T> GetChildrenOneLevel<T, RelationshipT>(this IEnumerable<RelationshipT> relationships, T item, List<RelationshipT> involvedRelationships = null)
 			where RelationshipT : IParentChild<T>
 			where T : class
 		{
-			var foundRelationships = relationships.Where(c => c.Parent == item).ToList();
+			return GetChildrenOneLevelAsync<T, RelationshipT>(relationships, item, involvedRelationships).Await();
+		}
+
+		public static async Task<List<T>> GetChildrenOneLevelAsync<T, RelationshipT>(this IEnumerable<RelationshipT> relationships, T item, List<RelationshipT> involvedRelationships = null)
+			where RelationshipT : IParentChild<T>
+			where T : class
+		{
+			var foundRelationships = await relationships.Where(c => c.Parent == item).ToListAsync();
 			if (involvedRelationships != null)
 			{
 				involvedRelationships.AddRange(foundRelationships);
 			}
-			return foundRelationships.Select(c => c.Child).ToList();
+			return await foundRelationships.Select(c => c.Child).ToListAsync();
 		}
 
-		public static ParentChild<T> GetChildrenTree<T, RelationshipT>(this IEnumerable<RelationshipT> relationships, T item, List<RelationshipT> involvedRelationships = null)
+		/*public static ParentChild<T> GetChildrenTree<T, RelationshipT>(this IEnumerable<RelationshipT> relationships, T item, List<RelationshipT> involvedRelationships = null)
+			where RelationshipT : IParentChild<T>
+			where T : class
+		{
+			return GetChildrenTreeAsync<T, RelationshipT>(relationships, item, involvedRelationships).Await();
+		}*/
+
+		public static async Task<ParentChild<T>> GetChildrenTreeAsync<T, RelationshipT>(this IEnumerable<RelationshipT> relationships, T item, List<RelationshipT> involvedRelationships = null)
 			where RelationshipT : IParentChild<T>
 			where T : class
 		{
@@ -188,7 +267,7 @@ namespace AabSemantics
 			do
 			{
 				var currentItem = itemsToFill.Dequeue();
-				foreach (var child in GetChildrenOneLevel(relationships, currentItem.Value, involvedRelationships))
+				foreach (var child in await GetChildrenOneLevelAsync(relationships, currentItem.Value, involvedRelationships))
 				{
 					itemsToFill.Enqueue(new ParentChild<T>(child, currentItem));
 				}

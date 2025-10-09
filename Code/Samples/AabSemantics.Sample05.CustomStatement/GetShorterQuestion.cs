@@ -1,4 +1,5 @@
 ﻿using System.Linq;
+using System.Threading.Tasks;
 
 using AabSemantics.Questions;
 using AabSemantics.Utils;
@@ -15,12 +16,12 @@ namespace AabSemantics.Sample05.CustomStatement
 			Person = person.EnsureNotNull(nameof(person));
 		}
 
-		public override IAnswer Process(IQuestionProcessingContext context)
+		public override async Task<IAnswer> ProcessAsync(IQuestionProcessingContext context)
 		{
-			return context
+			return await context
 				.From<GetShorterQuestion, IsTallerThanStatement>()
 				.WithTransitives(
-					statements => true,
+					statements => Task.FromResult(true),
 					c => c.SemanticNetwork.Statements
 						.OfType<IsTallerThanStatement>()
 						.Where(s => s.TallerPerson == c.Question.Person)
@@ -29,7 +30,7 @@ namespace AabSemantics.Sample05.CustomStatement
 							new IStatement[] { s })),
 					true)
 				.Where(s => s.TallerPerson == Person)
-				.SelectAllConcepts(
+				.SelectAllConceptsAsync(
 					statement => statement.ShorterPerson,
 					question => question.Person,
 					"#TALLER#",

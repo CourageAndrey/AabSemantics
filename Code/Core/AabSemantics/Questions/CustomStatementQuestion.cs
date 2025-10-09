@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 using AabSemantics.Statements;
 
@@ -24,9 +25,9 @@ namespace AabSemantics.Questions
 			Concepts = concepts ?? new Dictionary<String, IConcept>();
 		}
 
-		public override IAnswer Process(IQuestionProcessingContext context)
+		public override async Task<IAnswer> ProcessAsync(IQuestionProcessingContext context)
 		{
-			return context
+			return await context
 				.From<CustomStatementQuestion, CustomStatement>()
 				.Where(statement =>
 				{
@@ -45,7 +46,7 @@ namespace AabSemantics.Questions
 
 					return true;
 				})
-				.SelectStatements();
+				.SelectStatementsAsync();
 		}
 	}
 }

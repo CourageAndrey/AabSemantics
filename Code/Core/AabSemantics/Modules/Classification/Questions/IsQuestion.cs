@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 using AabSemantics.Localization;
 using AabSemantics.Modules.Classification.Localization;
@@ -29,16 +30,16 @@ namespace AabSemantics.Modules.Classification.Questions
 			Parent = parent.EnsureNotNull(nameof(parent));
 		}
 
-		public override IAnswer Process(IQuestionProcessingContext context)
+		public override async Task<IAnswer> ProcessAsync(IQuestionProcessingContext context)
 		{
-			return context
+			return await context
 				.From<IsQuestion, IsStatement>()
 				.WithTransitives(
-					statements => statements.Count == 0,
+					async statements => await Task.FromResult(statements.Count == 0),
 					question => question.Child,
 					newSubject => new IsQuestion(newSubject, Parent))
 				.Where(s => s.Parent == Parent && s.Child == Child)
-				.SelectBooleanIncludingChildren(
+				.SelectBooleanIncludingChildrenAsync(
 					statements => statements.Count > 0,
 					language => language.GetQuestionsExtension<ILanguageClassificationModule, Localization.ILanguageQuestions>().Answers.IsTrue,
 					language => language.GetQuestionsExtension<ILanguageClassificationModule, Localization.ILanguageQuestions>().Answers.IsFalse,

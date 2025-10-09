@@ -1,15 +1,18 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 
 using NUnit.Framework;
 
+using AabSemantics.Answers;
 using AabSemantics.Concepts;
 using AabSemantics.Contexts;
 using AabSemantics.Localization;
 using AabSemantics.Modules.Boolean.Questions;
 using AabSemantics.Modules.Classification.Statements;
 using AabSemantics.Questions;
+using AabSemantics.Utils;
 
 namespace AabSemantics.Tests.Contexts
 {
@@ -61,9 +64,9 @@ namespace AabSemantics.Tests.Contexts
 			for (int i = 0; i < 10; i++)
 			{
 				disposedContexts.Add(false);
-				Assert.Throws<InvalidOperationException>(() =>
+				Assert.ThrowsAsync<InvalidOperationException>(async () =>
 				{
-					new TestQuestionCreateNestedContext(disposedContexts).Ask(semanticNetwork.Context);
+					await new TestQuestionCreateNestedContext(disposedContexts).AskAsync(semanticNetwork.Context);
 				});
 			}
 		}
@@ -80,9 +83,9 @@ namespace AabSemantics.Tests.Contexts
 			for (int i = 0; i < 10; i++)
 			{
 				disposedContexts[i] = false;
-				Assert.Throws<InvalidOperationException>(() =>
+				Assert.ThrowsAsync<InvalidOperationException>(async () =>
 				{
-					new TestQuestionCreateNestedContext(disposedContexts).Ask(semanticNetwork.Context);
+					await new TestQuestionCreateNestedContext(disposedContexts).AskAsync(semanticNetwork.Context);
 				});
 				disposedContexts[i] = true;
 			}
@@ -306,7 +309,7 @@ namespace AabSemantics.Tests.Contexts
 				: this(Array.Empty<bool>())
 			{ }
 
-			public override IAnswer Process(IQuestionProcessingContext context)
+			public override async Task<IAnswer> ProcessAsync(IQuestionProcessingContext context)
 			{
 				foreach (bool disposeNested in _disposedNestedContexts)
 				{
@@ -317,22 +320,22 @@ namespace AabSemantics.Tests.Contexts
 					}
 				}
 
-				return null;
+				return await Task.FromResult(Answer.CreateUnknown());
 			}
 		}
 
 		private class TestQuestionCreateContextKnowledge : Question
 		{
-			public override IAnswer Process(IQuestionProcessingContext context)
+			public override async Task<IAnswer> ProcessAsync(IQuestionProcessingContext context)
 			{
 				IStatement testStatement;
 				context.SemanticNetwork.Statements.Add(testStatement = new TestStatement());
 				testStatement.Context = context;
 				context.Scope.Add(testStatement);
 
-				Assert.That(context.SemanticNetwork.Statements.Enumerate<TestStatement>(context).Any(), Is.True);
+				await Assert.ThatAsync(async () => await context.SemanticNetwork.Statements.Enumerate<TestStatement>(context).AnyAsync(), Is.True);
 
-				return null;
+				return await Task.FromResult(Answer.CreateUnknown());
 			}
 		}
 	}

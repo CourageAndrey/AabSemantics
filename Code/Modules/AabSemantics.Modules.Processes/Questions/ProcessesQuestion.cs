@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 
 using AabSemantics.Answers;
 using AabSemantics.Modules.Processes.Concepts;
@@ -30,13 +31,14 @@ namespace AabSemantics.Modules.Processes.Questions
 			ProcessB = processB.EnsureNotNull(nameof(processB));
 		}
 
-		public override IAnswer Process(IQuestionProcessingContext context)
+		public override async Task<IAnswer> ProcessAsync(IQuestionProcessingContext context)
 		{
-			return context
+			return await context
 				.From<ProcessesQuestion, ProcessesStatement>()
-				.WithTransitives(s => s.Count == 0, GetNestedQuestions)
+				.WithTransitives(s => Task.FromResult(s.Count == 0), GetNestedQuestions)
 				.Where(s => (s.ProcessA == ProcessA && s.ProcessB == ProcessB) || (s.ProcessB == ProcessA && s.ProcessA == ProcessB))
-				.SelectCustom(CreateAnswer);
+				.SelectCustomAsync(CreateAnswer)
+				.ConfigureAwait(false);
 		}
 
 		private IAnswer CreateAnswer(IQuestionProcessingContext<ProcessesQuestion> context, ICollection<ProcessesStatement> statements, ICollection<ChildAnswer> childAnswers)

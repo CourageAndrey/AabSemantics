@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 using AabSemantics.Modules.Set.Localization;
 using AabSemantics.Modules.Set.Statements;
@@ -31,16 +32,16 @@ namespace AabSemantics.Modules.Set.Questions
 			Recursive = recursive;
 		}
 
-		public override IAnswer Process(IQuestionProcessingContext context)
+		public override async Task<IAnswer> ProcessAsync(IQuestionProcessingContext context)
 		{
-			return context
+			return await context
 				.From<HasSignQuestion, HasSignStatement>()
 				.WithTransitives(
-					statements => statements.Count == 0 && Recursive,
+					statements => Task.FromResult(statements.Count == 0 && Recursive),
 					question => question.Concept,
 					newSubject => new HasSignQuestion(newSubject, Sign, true))
 				.Where(s => s.Concept == Concept && s.Sign == Sign)
-				.SelectBooleanIncludingChildren(
+				.SelectBooleanIncludingChildrenAsync(
 					statements => statements.Count > 0,
 					language => language.GetQuestionsExtension<ILanguageSetModule, ILanguageQuestions>().Answers.HasSignTrue + (Recursive ? language.Questions.Answers.RecursiveTrue : language.Questions.Answers.RecursiveFalse) + ".",
 					language => language.GetQuestionsExtension<ILanguageSetModule, ILanguageQuestions>().Answers.HasSignFalse + (Recursive ? language.Questions.Answers.RecursiveTrue : language.Questions.Answers.RecursiveFalse) + ".",

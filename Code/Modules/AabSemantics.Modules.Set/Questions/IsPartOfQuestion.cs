@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 
 using AabSemantics.Modules.Set.Localization;
 using AabSemantics.Modules.Set.Statements;
@@ -29,12 +30,12 @@ namespace AabSemantics.Modules.Set.Questions
 			Parent = parent.EnsureNotNull(nameof(parent));
 		}
 
-		public override IAnswer Process(IQuestionProcessingContext context)
+		public override async Task<IAnswer> ProcessAsync(IQuestionProcessingContext context)
 		{
-			return context
+			return await context
 				.From<IsPartOfQuestion, HasPartStatement>()
 				.Where(s => s.Whole == Parent && s.Part == Child)
-				.SelectBoolean(
+				.SelectBooleanAsync(
 					statements => statements.Any(),
 					language => language.GetQuestionsExtension<ILanguageSetModule, ILanguageQuestions>().Answers.IsPartOfTrue,
 					language => language.GetQuestionsExtension<ILanguageSetModule, ILanguageQuestions>().Answers.IsPartOfFalse,

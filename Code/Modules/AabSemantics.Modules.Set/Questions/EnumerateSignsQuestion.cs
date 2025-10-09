@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Threading.Tasks;
 
 using AabSemantics.Modules.Set.Localization;
 using AabSemantics.Modules.Set.Statements;
@@ -26,17 +27,17 @@ namespace AabSemantics.Modules.Set.Questions
 			Recursive = recursive;
 		}
 
-		public override IAnswer Process(IQuestionProcessingContext context)
+		public override async Task<IAnswer> ProcessAsync(IQuestionProcessingContext context)
 		{
-			return context
+			return await context
 				.From<EnumerateSignsQuestion, HasSignStatement>()
 				.WithTransitives(
-					statements => Recursive,
+					statements => Task.FromResult(Recursive),
 					question => question.Concept,
 					newSubject => new EnumerateSignsQuestion(newSubject, true),
 					needToAggregateTransitivesToStatements: true)
 				.Where(s => s.Concept == Concept)
-				.SelectAllConcepts(
+				.SelectAllConceptsAsync(
 					statement => statement.Sign,
 					question => question.Concept,
 					AabSemantics.Localization.Strings.ParamConcept,

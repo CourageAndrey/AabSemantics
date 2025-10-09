@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 
 using AabSemantics.Answers;
 using AabSemantics.Modules.Classification.Statements;
@@ -26,7 +27,7 @@ namespace AabSemantics.Modules.Set.Questions
 			Concept = concept.EnsureNotNull(nameof(concept));
 		}
 
-		public override IAnswer Process(IQuestionProcessingContext context)
+		public override async Task<IAnswer> ProcessAsync(IQuestionProcessingContext context)
 		{
 			var allStatements = context.SemanticNetwork.Statements.Enumerate(context.ActiveContexts).ToList();
 
