@@ -167,7 +167,6 @@ namespace AabSemantics.Tests.Serialization.Xml
 				}),
 			};
 
-			// act & assert before
 			var error = Assert.Throws<InvalidOperationException>(() => test.SerializeToXmlDocument());
 			var innerError = (InvalidOperationException) error.InnerException;
 			Assert.That(innerError.Message.Contains("XmlInclude"), Is.True);
