@@ -1,8 +1,9 @@
 ﻿using System.Collections.Generic;
-using System.Linq;
+using System.Threading.Tasks;
 
 using AabSemantics.Modules.Mathematics.Concepts;
 using AabSemantics.Statements;
+using AabSemantics.Utils;
 
 namespace AabSemantics.Modules.Mathematics.Statements
 {
@@ -11,7 +12,7 @@ namespace AabSemantics.Modules.Mathematics.Statements
 		public ComparisonStatementContradictionsChecker(IEnumerable<ComparisonStatement> statements)
 			: base(statements)
 		{
-			makeAllValuesAlwaysEqualToThemselves();
+			MakeAllValuesAlwaysEqualToThemselves();
 		}
 
 		protected override IConcept GetLeftValue(ComparisonStatement statement)
@@ -39,12 +40,12 @@ namespace AabSemantics.Modules.Mathematics.Statements
 			return combinationsUpdated;
 		}
 
-		protected override System.Boolean Contradicts(HashSet<IConcept> signs, IConcept left, IConcept right)
+		protected override async Task<System.Boolean> ContradictsAsync(HashSet<IConcept> signs, IConcept left, IConcept right)
 		{
-			return doesOneOrMoreContradictedSignsPairExist(signs) || doesValueContradictToItself(signs, left, right);
+			return await DoesOneOrMoreContradictedSignsPairExistAsync(signs) || await DoesValueContradictToItselfAsync(signs, left, right);
 		}
 
-		private void makeAllValuesAlwaysEqualToThemselves()
+		private void MakeAllValuesAlwaysEqualToThemselves()
 		{
 			foreach (var value in AllValues)
 			{
@@ -52,13 +53,13 @@ namespace AabSemantics.Modules.Mathematics.Statements
 			}
 		}
 
-		private static System.Boolean doesOneOrMoreContradictedSignsPairExist(ICollection<IConcept> signs)
+		private static async Task<System.Boolean> DoesOneOrMoreContradictedSignsPairExistAsync(ICollection<IConcept> signs)
 		{
 			foreach (var sign1 in signs)
 			{
 				foreach (var sign2 in signs)
 				{
-					if (sign1.Contradicts(sign2))
+					if (await sign1.ContradictsAsync(sign2))
 					{
 						return true;
 					}
@@ -67,9 +68,9 @@ namespace AabSemantics.Modules.Mathematics.Statements
 			return false;
 		}
 
-		private static System.Boolean doesValueContradictToItself(HashSet<IConcept> signs, IConcept left, IConcept right)
+		private static async Task<System.Boolean> DoesValueContradictToItselfAsync(HashSet<IConcept> signs, IConcept left, IConcept right)
 		{
-			return left == right && signs.Any(s => s != ComparisonSigns.IsEqualTo);
+			return left == right && await signs.AnyAsync(s => s != ComparisonSigns.IsEqualTo);
 		}
 
 		protected override System.Boolean TryToUpdateCombinations(IConcept valueRow, IConcept signRow, IConcept signColumn, IConcept valueColumn)

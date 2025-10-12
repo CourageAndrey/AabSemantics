@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Threading.Tasks;
 
 using AabSemantics.Modules.Processes.Concepts;
 using AabSemantics.Statements;
@@ -37,9 +38,9 @@ namespace AabSemantics.Modules.Processes.Statements
 			return combinationsUpdated;
 		}
 
-		protected override System.Boolean Contradicts(HashSet<IConcept> signs, IConcept left, IConcept right)
+		protected override async Task<System.Boolean> ContradictsAsync(HashSet<IConcept> signs, IConcept left, IConcept right)
 		{
-			return signs.Contradicts();
+			return await signs.ContradictsAsync();
 		}
 
 		protected override System.Boolean TryToUpdateCombinations(IConcept valueRow, IConcept signRow, IConcept signColumn, IConcept valueColumn)

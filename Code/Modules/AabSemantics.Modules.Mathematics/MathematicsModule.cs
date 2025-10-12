@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 using AabSemantics.Metadata;
 using AabSemantics.Modules.Mathematics.Attributes;
@@ -54,7 +55,7 @@ namespace AabSemantics.Modules.Mathematics
 						{ Strings.ParamRightValue, statement.RightValue },
 						{ Strings.ParamComparisonSign, statement.ComparisonSign },
 					},
-					checkComparisonValueSystems)
+					CheckComparisonValueSystemsAsync)
 				.SerializeToXml(statement => new Xml.ComparisonStatement(statement))
 				.SerializeToJson(statement => new Json.ComparisonStatement(statement));
 			Repositories.RegisterCustomStatement<ComparisonStatement, ILanguageMathematicsModule, ILanguageStatements, ILanguageStatementsPart>(
@@ -77,12 +78,12 @@ namespace AabSemantics.Modules.Mathematics
 			};
 		}
 
-		private static void checkComparisonValueSystems(
+		private static async Task CheckComparisonValueSystemsAsync(
 			ISemanticNetwork semanticNetwork,
 			ITextContainer result,
 			ICollection<ComparisonStatement> statements)
 		{
-			foreach (var contradiction in statements.CheckForContradictions())
+			foreach (var contradiction in await statements.CheckForContradictionsAsync())
 			{
 				result
 					.Append(

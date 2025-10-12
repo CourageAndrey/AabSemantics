@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 using AabSemantics.Localization;
 using AabSemantics.Metadata;
@@ -31,7 +32,7 @@ namespace AabSemantics.Modules.Classification
 						{ Strings.ParamParent, statement.Ancestor },
 						{ Strings.ParamChild, statement.Descendant },
 					},
-					checkCyclicParents)
+					CheckCyclicParentsAsync)
 				.SerializeToXml(statement => new Xml.IsStatement(statement))
 				.SerializeToJson(statement => new Json.IsStatement(statement));
 			Repositories.RegisterCustomStatement<IsStatement, ILanguageClassificationModule, Localization.ILanguageStatements, ILanguageStatementsPart>(
@@ -60,14 +61,14 @@ namespace AabSemantics.Modules.Classification
 			};
 		}
 
-		private static void checkCyclicParents(
+		private static async Task CheckCyclicParentsAsync(
 			ISemanticNetwork semanticNetwork,
 			ITextContainer result,
 			ICollection<IsStatement> statements)
 		{
 			foreach (var classification in statements)
 			{
-				if (!classification.CheckCyclic(statements))
+				if (! await classification.CheckCyclicAsync(statements))
 				{
 					result.Append(
 						language => language.GetStatementsExtension<ILanguageClassificationModule, Localization.ILanguageStatements>().Consistency.ErrorCyclic,

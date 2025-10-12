@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 using AabSemantics.Localization;
 using AabSemantics.Metadata;
@@ -75,7 +76,7 @@ namespace AabSemantics.Sample07.CustomModule
 				.SerializeToJson(question => new Json.CustomQuestion(question));
 		}
 
-		private static void checkSelfRelations(
+		private static Task checkSelfRelations(
 			ISemanticNetwork semanticNetwork,
 			ITextContainer result,
 			ICollection<CustomStatement> statements)
@@ -89,6 +90,8 @@ namespace AabSemantics.Sample07.CustomModule
 						new Dictionary<String, IKnowledge> { { CustomStatement.ParamConcept1, statement.Concept1 } });
 				}
 			}
+
+			return Task.CompletedTask;
 		}
 	}
 }

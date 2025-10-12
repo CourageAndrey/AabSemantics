@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 
 using AabSemantics.Metadata;
 using AabSemantics.Modules.Boolean;
@@ -8,6 +9,7 @@ using AabSemantics.Modules.Set.Attributes;
 using AabSemantics.Modules.Set.Localization;
 using AabSemantics.Modules.Set.Questions;
 using AabSemantics.Modules.Set.Statements;
+using AabSemantics.Utils;
 
 namespace AabSemantics.Modules.Set
 {
@@ -71,7 +73,7 @@ namespace AabSemantics.Modules.Set
 						{ AabSemantics.Localization.Strings.ParamConcept, statement.Concept },
 						{ Strings.ParamSign, statement.Sign },
 					},
-					checkSignDuplications)
+					CheckSignDuplicationsAsync)
 				.SerializeToXml(statement => new Xml.HasSignStatement(statement))
 				.SerializeToJson(statement => new Json.HasSignStatement(statement));
 			Repositories.RegisterCustomStatement<HasSignStatement, ILanguageSetModule, ILanguageStatements, ILanguageStatementsPart>(
@@ -86,7 +88,7 @@ namespace AabSemantics.Modules.Set
 						{ Strings.ParamSign, statement.Sign },
 						{ Strings.ParamValue, statement.Value },
 					},
-					checkSignValues)
+					CheckSignValuesAsync)
 				.SerializeToXml(statement => new Xml.SignValueStatement(statement))
 				.SerializeToJson(statement => new Json.SignValueStatement(statement));
 			Repositories.RegisterCustomStatement<SignValueStatement, ILanguageSetModule, ILanguageStatements, ILanguageStatementsPart>(
@@ -154,16 +156,16 @@ namespace AabSemantics.Modules.Set
 			};
 		}
 
-		private static void checkSignDuplications(
+		private static async Task CheckSignDuplicationsAsync(
 			ISemanticNetwork semanticNetwork,
 			ITextContainer result,
 			ICollection<HasSignStatement> statements)
 		{
-			var classifications = semanticNetwork.Statements.OfType<Classification.Statements.IsStatement>().ToList();
+			var classifications = await semanticNetwork.Statements.OfType<Classification.Statements.IsStatement>().ToListAsync();
 
 			foreach (var hasSign in statements)
 			{
-				if (!hasSign.CheckSignDuplication(statements, classifications))
+				if (! await hasSign.CheckSignDuplicationAsync(statements, classifications))
 				{
 					result.Append(
 						language => language.GetStatementsExtension<ILanguageSetModule, ILanguageStatements>().Consistency.ErrorMultipleSign,
@@ -172,16 +174,16 @@ namespace AabSemantics.Modules.Set
 			}
 		}
 
-		private static void checkSignValues(
+		private static async Task CheckSignValuesAsync(
 			ISemanticNetwork semanticNetwork,
 			ITextContainer result,
 			ICollection<SignValueStatement> statements)
 		{
-			checkMultiValues(statements, result, semanticNetwork);
-			checkValuesWithoutSign(statements, result, semanticNetwork);
+			await CheckMultiValues(statements, result, semanticNetwork);
+			await CheckValuesWithoutSign(statements, result, semanticNetwork);
 		}
 
-		private static void checkMultiValues(
+		private static async Task CheckMultiValues(
 			ICollection<SignValueStatement> statements,
 			ITextContainer result,
 			ISemanticNetwork semanticNetwork)
@@ -213,15 +215,15 @@ namespace AabSemantics.Modules.Set
 				}
 			}
 
-			var classifications = semanticNetwork.Statements.OfType<Classification.Statements.IsStatement>().ToList();
+			var classifications = await semanticNetwork.Statements.OfType<Classification.Statements.IsStatement>().ToListAsync();
 
 			foreach (var concept in semanticNetwork.Concepts)
 			{
-				var parents = classifications.GetParentsOneLevel(concept);
-				foreach (var sign in HasSignStatement.GetSigns(semanticNetwork.Statements, concept, true))
+				var parents = await classifications.GetParentsOneLevelAsync(concept);
+				foreach (var sign in await HasSignStatement.GetSignsAsync(semanticNetwork.Statements, concept, true))
 				{
 					if (statements.FirstOrDefault(sv => sv.Concept == concept && sv.Sign == sign.Sign) == null &&
-						parents.Select(p => SignValueStatement.GetSignValue(semanticNetwork.Statements, p, sign.Sign)).Count(r => r != null) > 1)
+						parents.Select(async p => await SignValueStatement.GetSignValueAsync(semanticNetwork.Statements, p, sign.Sign)).Count(r => r != null) > 1)
 					{
 						result.Append(
 							language => language.GetStatementsExtension<ILanguageSetModule, ILanguageStatements>().Consistency.ErrorMultipleSignValueParents,
@@ -235,14 +237,14 @@ namespace AabSemantics.Modules.Set
 			}
 		}
 
-		private static void checkValuesWithoutSign(
+		private static async Task CheckValuesWithoutSign(
 			ICollection<SignValueStatement> statements,
 			ITextContainer result,
 			ISemanticNetwork semanticNetwork)
 		{
 			foreach (var signValue in statements)
 			{
-				if (!signValue.CheckHasSign(semanticNetwork.Statements))
+				if (! await signValue.CheckHasSignAsync(semanticNetwork.Statements))
 				{
 					result.Append(
 						language => language.GetStatementsExtension<ILanguageSetModule, ILanguageStatements>().Consistency.ErrorSignWithoutValue,

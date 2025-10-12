@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 using AabSemantics.Modules.Processes.Attributes;
 using AabSemantics.Modules.Processes.Concepts;
@@ -80,10 +81,15 @@ namespace AabSemantics.Modules.Processes.Statements
 
 	public static class ProcessesStatementConsistencyExtension
 	{
-		public static List<Contradiction> CheckForContradictions(this IEnumerable<ProcessesStatement> statements)
+		public static async Task<List<Contradiction>> CheckForContradictionsAsync(this IEnumerable<ProcessesStatement> statements)
 		{
 			var checker = new ProcessesStatementContradictionsChecker(statements);
-			return checker.CheckForContradictions();
+			return await checker.CheckForContradictionsAsync();
+		}
+
+		public static List<Contradiction> CheckForContradictions(this IEnumerable<ProcessesStatement> statements)
+		{
+			return CheckForContradictionsAsync(statements).Await();
 		}
 	}
 }

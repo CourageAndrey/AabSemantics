@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 using AabSemantics.Metadata;
 using AabSemantics.Modules.Processes.Attributes;
@@ -57,7 +58,7 @@ namespace AabSemantics.Modules.Processes
 						{ Strings.ParamProcessB, statement.ProcessB },
 						{ Strings.ParamSequenceSign, statement.SequenceSign },
 					},
-					checkProcessSequenceSystems)
+					CheckProcessSequenceSystemsAsync)
 				.SerializeToXml(statement => new Xml.ProcessesStatement(statement))
 				.SerializeToJson(statement => new Json.ProcessesStatement(statement));
 			Repositories.RegisterCustomStatement<ProcessesStatement, ILanguageProcessesModule, ILanguageStatements, ILanguageStatementsPart>(
@@ -80,12 +81,12 @@ namespace AabSemantics.Modules.Processes
 			};
 		}
 
-		private static void checkProcessSequenceSystems(
+		private static async Task CheckProcessSequenceSystemsAsync(
 			ISemanticNetwork semanticNetwork,
 			ITextContainer result,
 			ICollection<ProcessesStatement> statements)
 		{
-			foreach (var contradiction in statements.CheckForContradictions())
+			foreach (var contradiction in await statements.CheckForContradictionsAsync())
 			{
 				result
 					.Append(

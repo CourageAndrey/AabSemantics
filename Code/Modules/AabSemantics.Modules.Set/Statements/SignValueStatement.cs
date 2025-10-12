@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 
 using AabSemantics.Modules.Boolean.Attributes;
 using AabSemantics.Modules.Classification.Statements;
@@ -64,54 +65,73 @@ namespace AabSemantics.Modules.Set.Statements
 			else return false;
 		}
 
-		public System.Boolean CheckHasSign(IEnumerable<IStatement> statements)
+		public async Task<System.Boolean> CheckHasSignAsync(IEnumerable<IStatement> statements)
 		{
-			return HasSignStatement.GetSigns(statements, Concept, true).Select(hs => hs.Sign).Contains(Sign);
+			var signs = await HasSignStatement.GetSignsAsync(statements, Concept, true);
+			return (await signs.Select(hs => hs.Sign).ToListAsync()).Contains(Sign);
 		}
 
 		#endregion
 
-		public static SignValueStatement GetSignValue(IEnumerable<IStatement> statements, IConcept concept, IConcept sign)
+		public static async Task<SignValueStatement> GetSignValueAsync(IEnumerable<IStatement> statements, IConcept concept, IConcept sign)
 		{
-			var signValues = statements.OfType<SignValueStatement>().ToList();
-			var signValue = signValues.FirstOrDefault(sv => sv.Concept == concept && sv.Sign == sign);
+			var signValues = await statements.OfType<SignValueStatement>().ToListAsync();
+			var signValue = await signValues.FirstOrDefaultAsync(sv => sv.Concept == concept && sv.Sign == sign);
 			if (signValue != null)
 			{
 				return signValue;
 			}
 			else
 			{
-				foreach (var parent in statements.GetParentsOneLevel<IConcept, IsStatement>(concept))
+				foreach (var parent in await statements.GetParentsOneLevelAsync<IConcept, IsStatement>(concept))
 				{
-					var parentValue = GetSignValue(statements, parent, sign);
+					var parentValue = await GetSignValueAsync(statements, parent, sign);
 					if (parentValue != null)
 					{
 						return parentValue;
 					}
 				}
+
 				return null;
 			}
 		}
 
-		public static List<SignValueStatement> GetSignValues(IEnumerable<IStatement> statements, IConcept concept, System.Boolean recursive)
+		public static async Task<List<SignValueStatement>> GetSignValuesAsync(IEnumerable<IStatement> statements, IConcept concept, System.Boolean recursive)
 		{
 			var result = new List<SignValueStatement>();
-			var signValues = statements.OfType<SignValueStatement>().ToList();
+			var signValues = await statements.OfType<SignValueStatement>().ToListAsync();
 			result.AddRange(signValues.Where(sv => sv.Concept == concept));
+
 			if (recursive)
 			{
-				foreach (var parentSigns in statements.GetParentsOneLevel<IConcept, IsStatement>(concept).Select(c => GetSignValues(statements, c, true)))
+				foreach (var parent in await statements.GetParentsOneLevelAsync<IConcept, IsStatement>(concept))
 				{
-					foreach (var signValue in parentSigns)
+					var parentSignValues = await GetSignValuesAsync(statements, parent, true);
+					foreach (var signValue in parentSignValues)
 					{
-						if (result.FirstOrDefault(sv => sv.Sign == signValue.Sign) == null)
+						if (! await result.AnyAsync(sv => sv.Sign == signValue.Sign))
 						{
-							result.AddRange(parentSigns);
+							result.AddRange(parentSignValues);
 						}
 					}
 				}
 			}
 			return result;
+		}
+
+		public System.Boolean CheckHasSign(IEnumerable<IStatement> statements)
+		{
+			return CheckHasSignAsync(statements).Await();
+		}
+
+		public static SignValueStatement GetSignValue(IEnumerable<IStatement> statements, IConcept concept, IConcept sign)
+		{
+			return GetSignValueAsync(statements, concept, sign).Await();
+		}
+
+		public static List<SignValueStatement> GetSignValues(IEnumerable<IStatement> statements, IConcept concept, System.Boolean recursive)
+		{
+			return GetSignValuesAsync(statements, concept, recursive).Await();
 		}
 	}
 }

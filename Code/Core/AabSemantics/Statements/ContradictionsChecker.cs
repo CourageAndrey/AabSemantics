@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
+using System.Threading.Tasks;
+using AabSemantics.Utils;
 
 namespace AabSemantics.Statements
 {
@@ -36,35 +37,38 @@ namespace AabSemantics.Statements
 
 		protected abstract Boolean SetCombinationWithDescendants(IConcept valueRow, IConcept valueColumn, IConcept sign);
 
-		protected abstract Boolean Contradicts(HashSet<IConcept> signs, IConcept left, IConcept right);
+		protected abstract Task<Boolean> ContradictsAsync(HashSet<IConcept> signs, IConcept left, IConcept right);
 
 		protected abstract Boolean TryToUpdateCombinations(IConcept valueRow, IConcept signRow, IConcept signColumn, IConcept valueColumn);
 
-		public List<Contradiction> CheckForContradictions()
+		public async Task<List<Contradiction>> CheckForContradictionsAsync()
 		{
-			while (updateInferredCombinations())
+			while (await UpdateInferredCombinationsAsync())
 			{ }
 
-			return findContradictionsInMatrix();
+			return await FindContradictionsInMatrixAsync();
 		}
 
-		private Boolean updateInferredCombinations()
+		private async Task<Boolean> UpdateInferredCombinationsAsync()
 		{
 			Boolean combinationsUpdated = false;
-			foreach (var row in AllValues)
+			await Task.Run(async () =>
 			{
-				foreach (var column in AllValues)
+				foreach (var row in AllValues)
 				{
-					if (row != column)
+					foreach (var column in AllValues)
 					{
-						combinationsUpdated |= updateInferredCombinationsFromCell(row, column);
+						if (row != column)
+						{
+							combinationsUpdated |= await UpdateInferredCombinationsFromCellAsync(row, column);
+						}
 					}
 				}
-			}
+			});
 			return combinationsUpdated;
 		}
 
-		private Boolean updateInferredCombinationsFromCell(IConcept row, IConcept column)
+		private async Task<Boolean> UpdateInferredCombinationsFromCellAsync(IConcept row, IConcept column)
 		{
 			Dictionary<IConcept, HashSet<IConcept>> combinationsRow;
 			HashSet<IConcept> signsRow;
@@ -73,10 +77,10 @@ namespace AabSemantics.Statements
 			return	AllSigns.TryGetValue(row, out combinationsRow) &&
 					combinationsRow.TryGetValue(column, out signsRow) && // if value in current cell is set
 					AllSigns.TryGetValue(column, out combinationsColumn) && // if current value has comparisons with other values
-					updateAllInferredCombinationsWithinCell(row, combinationsColumn, signsRow);
+					await UpdateAllInferredCombinationsWithinCellAsync(row, combinationsColumn, signsRow);
 		}
 
-		private Boolean updateAllInferredCombinationsWithinCell(
+		private async Task<Boolean> UpdateAllInferredCombinationsWithinCellAsync(
 			IConcept valueRow,
 			Dictionary<IConcept, HashSet<IConcept>> combinationsColumn,
 			HashSet<IConcept> signsRow)
@@ -87,9 +91,9 @@ namespace AabSemantics.Statements
 				var valueColumn = kvp.Key;
 				var signsColumn = kvp.Value;
 
-				foreach (var signRow in signsRow.ToList())
+				foreach (var signRow in await signsRow.ToListAsync())
 				{
-					foreach (var signColumn in signsColumn.ToList())
+					foreach (var signColumn in await signsColumn.ToListAsync())
 					{
 						combinationsUpdated |= TryToUpdateCombinations(valueRow, signRow, signColumn, valueColumn);
 					}
@@ -98,9 +102,10 @@ namespace AabSemantics.Statements
 			return combinationsUpdated;
 		}
 
-		private List<Contradiction> findContradictionsInMatrix()
+		private async Task<List<Contradiction>> FindContradictionsInMatrixAsync()
 		{
 			var foundContradictions = new List<Contradiction>();
+
 			foreach (var leftCombinations in AllSigns)
 			{
 				var left = leftCombinations.Key;
@@ -108,9 +113,10 @@ namespace AabSemantics.Statements
 				{
 					var right = rightCombinations.Key;
 					var signs = rightCombinations.Value;
-					findContradictionsInCell(signs, left, right, foundContradictions);
+					await FindContradictionsInCellAsync(signs, left, right, foundContradictions);
 				}
 			}
+
 			return foundContradictions;
 		}
 
@@ -237,11 +243,11 @@ namespace AabSemantics.Statements
 			return matrix.ToString();
 		}*/
 
-		private void findContradictionsInCell(HashSet<IConcept> signs, IConcept left, IConcept right, List<Contradiction> foundContradictions)
+		private async Task FindContradictionsInCellAsync(HashSet<IConcept> signs, IConcept left, IConcept right, List<Contradiction> foundContradictions)
 		{
-			if (Contradicts(signs, left, right))
+			if (await ContradictsAsync(signs, left, right))
 			{
-				if (!foundContradictions.Any(c => c.Value1 == right && c.Value2 == left))
+				if (! await foundContradictions.AnyAsync(c => c.Value1 == right && c.Value2 == left))
 				{
 					foundContradictions.Add(new Contradiction(left, right, signs));
 				}

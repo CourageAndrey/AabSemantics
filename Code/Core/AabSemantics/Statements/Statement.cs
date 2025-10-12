@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 
 using AabSemantics.Localization;
 using AabSemantics.Utils;
@@ -27,7 +28,7 @@ namespace AabSemantics.Statements
 
 		public abstract IEnumerable<IConcept> GetChildConcepts();
 
-		public override sealed String ToString()
+		public sealed override String ToString()
 		{
 			return this.GetTypeWithId();
 		}
@@ -46,7 +47,7 @@ namespace AabSemantics.Statements
 			ID = id.EnsureIdIsSet();
 		}
 
-		public abstract Boolean CheckUnique(IEnumerable<IStatement> statements);
+		public abstract Task<Boolean> CheckUniqueAsync(IEnumerable<IStatement> statements);
 
 #pragma warning disable 659
 		public abstract override Boolean Equals(Object obj);
@@ -66,15 +67,31 @@ namespace AabSemantics.Statements
 			: base(id, name, hint)
 		{ }
 
-		public override sealed Boolean CheckUnique(IEnumerable<IStatement> statements)
+		public sealed override async Task<Boolean> CheckUniqueAsync(IEnumerable<IStatement> statements)
 		{
-			return statements.OfType<StatementT>().Count(Equals) == 1;
+			return await Task.Run(() =>
+			{
+				bool found = false;
+				foreach (var _ in statements.OfType<StatementT>().Where(s => Equals(s)))
+				{
+					if (!found)
+					{
+						found = true;
+					}
+					else
+					{
+						return Task.FromResult(false);
+					}
+				}
+
+				return Task.FromResult(true);
+			});
 		}
 
 		public abstract Boolean Equals(StatementT other);
 
 #pragma warning disable 659
-		public override sealed Boolean Equals(Object obj)
+		public sealed override Boolean Equals(Object obj)
 		{
 			return Equals(obj as StatementT);
 		}

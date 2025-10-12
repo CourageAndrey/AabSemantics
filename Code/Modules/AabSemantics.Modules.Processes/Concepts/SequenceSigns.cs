@@ -1,12 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 
 using AabSemantics.Concepts;
 using AabSemantics.Localization;
 using AabSemantics.Modules.Boolean.Attributes;
 using AabSemantics.Modules.Processes.Attributes;
 using AabSemantics.Modules.Processes.Localization;
+using AabSemantics.Utils;
 
 namespace AabSemantics.Modules.Processes.Concepts
 {
@@ -196,7 +198,7 @@ namespace AabSemantics.Modules.Processes.Concepts
 
 		#endregion
 
-		private static void ensureSuits(this IConcept sign)
+		private static void EnsureSuits(this IConcept sign)
 		{
 			if (!All.Contains(sign))
 			{
@@ -206,7 +208,7 @@ namespace AabSemantics.Modules.Processes.Concepts
 
 		public static IConcept Revert(this IConcept sign)
 		{
-			ensureSuits(sign);
+			EnsureSuits(sign);
 
 			if (sign == StartsAfterOtherStarted)
 			{
@@ -264,8 +266,8 @@ namespace AabSemantics.Modules.Processes.Concepts
 
 		public static IConcept TryToCombineMutualSequences(IConcept transitiveSign, IConcept childSign)
 		{
-			ensureSuits(transitiveSign);
-			ensureSuits(childSign);
+			EnsureSuits(transitiveSign);
+			EnsureSuits(childSign);
 
 			IDictionary<IConcept, IConcept> d;
 			IConcept resultSign;
@@ -274,28 +276,33 @@ namespace AabSemantics.Modules.Processes.Concepts
 				: null;
 		}
 
-		public static System.Boolean Contradicts(this ICollection<IConcept> signs)
+		public static async Task<System.Boolean> ContradictsAsync(this ICollection<IConcept> signs)
 		{
 			foreach (var sign in signs)
 			{
-				ensureSuits(sign);
+				EnsureSuits(sign);
 			}
 
-			var foundStartToStartSigns = signs.Where(s => StartSigns.Contains(s) &&  RelatedToStartSigns.Contains(s)).Distinct();
-			var foundStartToFinishSigns = signs.Where(s => StartSigns.Contains(s) && RelatedToFinishSigns.Contains(s)).Distinct();
-			var foundFinishToStartSigns = signs.Where(s => FinishSigns.Contains(s) && RelatedToStartSigns.Contains(s)).Distinct();
-			var foundFinishToFinishSigns = signs.Where(s => FinishSigns.Contains(s) && RelatedToFinishSigns.Contains(s)).Distinct();
+			var foundStartToStartSigns = await signs.Where(s => StartSigns.Contains(s) && RelatedToStartSigns.Contains(s)).Distinct().ToListAsync();
+			var foundStartToFinishSigns = await signs.Where(s => StartSigns.Contains(s) && RelatedToFinishSigns.Contains(s)).Distinct().ToListAsync();
+			var foundFinishToStartSigns = await signs.Where(s => FinishSigns.Contains(s) && RelatedToStartSigns.Contains(s)).Distinct().ToListAsync();
+			var foundFinishToFinishSigns = await signs.Where(s => FinishSigns.Contains(s) && RelatedToFinishSigns.Contains(s)).Distinct().ToListAsync();
 			return	(signs.Contains(StartsBeforeOtherStarted) && signs.Contains(StartsAfterOtherFinished)) ||
 					(signs.Contains(FinishesBeforeOtherStarted) && signs.Contains(FinishesAfterOtherFinished)) ||
-					foundStartToStartSigns.Count() > 1 ||
-					foundStartToFinishSigns.Count() > 1 ||
-					foundFinishToStartSigns.Count() > 1 ||
-					foundFinishToFinishSigns.Count() > 1;
+					foundStartToStartSigns.Count > 1 ||
+					foundStartToFinishSigns.Count > 1 ||
+					foundFinishToStartSigns.Count > 1 ||
+					foundFinishToFinishSigns.Count > 1;
+		}
+
+		public static System.Boolean Contradicts(this ICollection<IConcept> signs)
+		{
+			return ContradictsAsync(signs).Await();
 		}
 
 		public static ICollection<IConcept> Consequently(this IConcept sign)
 		{
-			ensureSuits(sign);
+			EnsureSuits(sign);
 
 			if (sign == StartsBeforeOtherStarted)
 			{

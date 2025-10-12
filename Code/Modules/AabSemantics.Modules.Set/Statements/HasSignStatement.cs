@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 
 using AabSemantics.Modules.Classification.Statements;
 using AabSemantics.Modules.Set.Attributes;
@@ -57,10 +58,10 @@ namespace AabSemantics.Modules.Set.Statements
 			else return false;
 		}
 
-		public System.Boolean CheckSignDuplication(IEnumerable<HasSignStatement> hasSigns, IEnumerable<IsStatement> classifications)
+		public async Task<System.Boolean> CheckSignDuplicationAsync(IEnumerable<HasSignStatement> hasSigns, IEnumerable<IsStatement> classifications)
 		{
-			var signs = hasSigns.Where(hs => hs.Concept == Concept).Select(hs => hs.Sign).ToList();
-			foreach (var parent in classifications.GetParentsAllLevels(Concept))
+			var signs = await hasSigns.Where(hs => hs.Concept == Concept).Select(hs => hs.Sign).ToListAsync();
+			foreach (var parent in await classifications.GetParentsAllLevelsAsync(Concept))
 			{
 				foreach (var parentSign in hasSigns.Where(hs => hs.Concept == parent).Select(hs => hs.Sign))
 				{
@@ -70,23 +71,26 @@ namespace AabSemantics.Modules.Set.Statements
 					}
 				}
 			}
+
 			return true;
 		}
 
 		#endregion
 
-		public static List<HasSignStatement> GetSigns(IEnumerable<IStatement> statements, IConcept concept, System.Boolean recursive)
+		public static async Task<List<HasSignStatement>> GetSignsAsync(IEnumerable<IStatement> statements, IConcept concept, System.Boolean recursive)
 		{
 			var result = new List<HasSignStatement>();
-			var hasSigns = statements.OfType<HasSignStatement>().ToList();
+			var hasSigns = await statements.OfType<HasSignStatement>().ToListAsync();
 			result.AddRange(hasSigns.Where(sv => sv.Concept == concept));
 			if (recursive)
 			{
-				foreach (var parentSigns in statements.GetParentsOneLevel<IConcept, IsStatement>(concept).Select(c => GetSigns(statements, c, true)))
+				foreach (var parent in await statements.GetParentsOneLevelAsync<IConcept, IsStatement>(concept))
 				{
+					var parentSigns = await GetSignsAsync(statements, parent, true);
 					result.AddRange(parentSigns);
 				}
 			}
+
 			return result;
 		}
 	}

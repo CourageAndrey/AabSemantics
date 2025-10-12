@@ -16,6 +16,7 @@ namespace AabSemantics.Modules.Mathematics.Tests.Concepts
 			foreach (var concept in LogicalValues.All)
 			{
 				Assert.Throws<InvalidOperationException>(() => { concept.Contradicts(ComparisonSigns.IsEqualTo); });
+
 				Assert.Throws<InvalidOperationException>(() => { ComparisonSigns.IsEqualTo.Contradicts(concept); });
 
 				Assert.Throws<InvalidOperationException>(() => { concept.Revert(); });

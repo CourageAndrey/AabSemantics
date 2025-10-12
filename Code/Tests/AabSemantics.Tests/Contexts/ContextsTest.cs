@@ -290,7 +290,7 @@ namespace AabSemantics.Tests.Contexts
 				throw new NotSupportedException();
 			}
 
-			public Boolean CheckUnique(IEnumerable<IStatement> statements)
+			public Task<bool> CheckUniqueAsync(IEnumerable<IStatement> statements)
 			{
 				throw new NotSupportedException();
 			}

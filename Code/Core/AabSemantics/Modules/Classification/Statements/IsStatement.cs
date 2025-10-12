@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 
 using AabSemantics.Modules.Classification.Localization;
 using AabSemantics.Statements;
@@ -61,11 +62,20 @@ namespace AabSemantics.Modules.Classification.Statements
 			else return false;
 		}
 
-		public System.Boolean CheckCyclic(IEnumerable<IsStatement> statements)
+		public async Task<System.Boolean> CheckCyclicAsync(IEnumerable<IsStatement> statements)
 		{
-			return !statements.FindPath(typeof(IsStatement), Child, Parent).Any();
+			var path = await statements.FindPathAsync(typeof(IsStatement), Child, Parent);
+			return !path.Any();
 		}
 
 		#endregion
+	}
+
+	public static class IsStatementExtensions
+	{
+		public static System.Boolean CheckCyclic(this IsStatement statement, IEnumerable<IsStatement> statements)
+		{
+			return statement.CheckCyclicAsync(statements).Await();
+		}
 	}
 }

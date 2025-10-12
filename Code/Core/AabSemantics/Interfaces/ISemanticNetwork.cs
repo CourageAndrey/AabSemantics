@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using AabSemantics.Localization;
 using AabSemantics.Metadata;
 using AabSemantics.Text.Containers;
+using AabSemantics.Utils;
 
 namespace AabSemantics
 {
@@ -28,10 +29,15 @@ namespace AabSemantics
 		public static async Task<IText> DescribeRulesAsync(this ISemanticNetwork semanticNetwork)
 		{
 			var result = new UnstructuredContainer();
-			foreach (var statement in semanticNetwork.Statements)
+
+			await Task.Run(() =>
 			{
-				result.Append(statement.DescribeTrue());
-			}
+				foreach (var statement in semanticNetwork.Statements)
+				{
+					result.Append(statement.DescribeTrue());
+				}
+			});
+
 			return result;
 		}
 
@@ -40,26 +46,26 @@ namespace AabSemantics
 			var result = new UnstructuredContainer();
 
 			// 1. check all duplicates
-			checkStatementDuplicates(semanticNetwork, result);
+			await CheckStatementDuplicatesAsync(semanticNetwork, result);
 
 			// 2. check specific statements
 			foreach (var statementDefinition in Repositories.Statements.Definitions.Values)
 			{
-				statementDefinition.CheckConsistency(semanticNetwork, result);
+				await statementDefinition.CheckConsistencyAsync(semanticNetwork, result);
 			}
 
 			if (result.Items.Count == 0)
 			{
 				result.Append(language => language.Statements.Consistency.CheckOk);
 			}
-			return result;
+			return await Task.FromResult(result);
 		}
 
 		private static async Task CheckStatementDuplicatesAsync(ISemanticNetwork semanticNetwork, ITextContainer result)
 		{
 			foreach (var statement in semanticNetwork.Statements)
 			{
-				if (!statement.CheckUnique(semanticNetwork.Statements))
+				if (! await statement.CheckUniqueAsync(semanticNetwork.Statements))
 				{
 					result.Append(
 						language => language.Statements.Consistency.ErrorDuplicate,
@@ -70,12 +76,12 @@ namespace AabSemantics
 		
 		public static IText DescribeRules(this ISemanticNetwork semanticNetwork)
 		{
-			return DescribeRulesAsync(semanticNetwork).Result;
+			return DescribeRulesAsync(semanticNetwork).Await();
 		}
 
 		public static IText CheckConsistency(this ISemanticNetwork semanticNetwork)
 		{
-			return CheckConsistencyAsync(semanticNetwork).Result;
+			return CheckConsistencyAsync(semanticNetwork).Await();
 		}
 	}
 }

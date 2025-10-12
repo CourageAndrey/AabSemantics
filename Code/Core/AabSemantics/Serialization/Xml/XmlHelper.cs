@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Threading.Tasks;
 using System.Xml;
 using System.Xml.Serialization;
-using System.Threading.Tasks;
+
+using AabSemantics.Utils;
 
 namespace AabSemantics.Serialization.Xml
 {
@@ -106,7 +108,8 @@ namespace AabSemantics.Serialization.Xml
 
 		public static async Task<String> SerializeToXmlStringAsync(this Object entity)
 		{
-			return entity.SerializeToXmlDocument().OuterXml;
+			var document = await entity.SerializeToXmlDocumentAsync();
+			return await Task.Run(() => document.OuterXml);
 		}
 
 		public static async Task<XmlDocument> SerializeToXmlDocumentAsync(this Object entity)
@@ -115,8 +118,8 @@ namespace AabSemantics.Serialization.Xml
 			var document = new XmlDocument();
 			using (var writer = new StringWriter())
 			{
-				serializer.Serialize(writer, entity);
-				document.LoadXml(writer.ToString());
+				await Task.Run(() => serializer.Serialize(writer, entity));
+				await Task.Run(() => document.LoadXml(writer.ToString()));
 			}
 			if (document.DocumentElement != null)
 			{
@@ -128,32 +131,34 @@ namespace AabSemantics.Serialization.Xml
 
 		public static async Task<XmlElement> SerializeToXmlElementAsync(this Object entity)
 		{
-			return entity.SerializeToXmlDocument().DocumentElement;
+			var document = await entity.SerializeToXmlDocumentAsync();
+			return document.DocumentElement;
 		}
 
 		public static async Task SerializeToXmlFileAsync(this Object entity, String fileName)
 		{
-			entity.SerializeToXmlDocument().Save(fileName);
+			var document = await entity.SerializeToXmlDocumentAsync();
+			await Task.Run(() => document.Save(fileName));
 		}
 
 		public static String SerializeToXmlString(this Object entity)
 		{
-			return SerializeToXmlStringAsync(entity).Result;
+			return SerializeToXmlStringAsync(entity).Await();
 		}
 
 		public static XmlDocument SerializeToXmlDocument(this Object entity)
 		{
-			return SerializeToXmlDocumentAsync(entity).Result;
+			return SerializeToXmlDocumentAsync(entity).Await();
 		}
 
 		public static XmlElement SerializeToXmlElement(this Object entity)
 		{
-			return SerializeToXmlElementAsync(entity).Result;
+			return SerializeToXmlElementAsync(entity).Await();
 		}
 
 		public static void SerializeToXmlFile(this Object entity, String fileName)
 		{
-			return SerializeToXmlFileAsync(entity, fileName).Wait();
+			SerializeToXmlFileAsync(entity, fileName).Await();
 		}
 
 		#endregion
@@ -162,7 +167,8 @@ namespace AabSemantics.Serialization.Xml
 
 		public static async Task<T> DeserializeFromXmlStreamAsync<T>(this XmlReader reader)
 		{
-			return (T) AcquireXmlSerializer<T>().Deserialize(reader);
+			var serializer = AcquireXmlSerializer<T>();
+			return await Task.Run(() => (T) serializer.Deserialize(reader));
 		}
 
 		public static async Task<T> DeserializeFromXmlBytesAsync<T>(this Byte[] bytes)
@@ -171,7 +177,7 @@ namespace AabSemantics.Serialization.Xml
 			{
 				using (var reader = XmlReader.Create(stream))
 				{
-					return reader.DeserializeFromXmlStream<T>();
+					return await reader.DeserializeFromXmlStreamAsync<T>();
 				}
 			}
 		}
@@ -180,7 +186,7 @@ namespace AabSemantics.Serialization.Xml
 		{
 			using (var xmlFile = new XmlTextReader(file))
 			{
-				return DeserializeFromXmlStream<T>(xmlFile);
+				return await DeserializeFromXmlStreamAsync<T>(xmlFile);
 			}
 		}
 
@@ -190,29 +196,29 @@ namespace AabSemantics.Serialization.Xml
 			{
 				using (var xmlStringReader = new XmlTextReader(stringReader))
 				{
-					return xmlStringReader.DeserializeFromXmlStream<T>();
+					return await xmlStringReader.DeserializeFromXmlStreamAsync<T>();
 				}
 			}
 		}
 
 		public static T DeserializeFromXmlStream<T>(this XmlReader reader)
 		{
-			return DeserializeFromXmlStreamAsync<T>(reader).Result;
+			return DeserializeFromXmlStreamAsync<T>(reader).Await();
 		}
 
 		public static T DeserializeFromXmlBytes<T>(this Byte[] bytes)
 		{
-			return DeserializeFromXmlBytesAsync<T>(bytes).Result;
+			return DeserializeFromXmlBytesAsync<T>(bytes).Await();
 		}
 
 		public static T DeserializeFromXmlFile<T>(this String file)
 		{
-			return DeserializeFromXmlFileAsync<T>(file).Result;
+			return DeserializeFromXmlFileAsync<T>(file).Await();
 		}
 
 		public static T DeserializeFromXmlString<T>(this String xml)
 		{
-			return DeserializeFromXmlStringAsync<T>(xml).Result;
+			return DeserializeFromXmlStringAsync<T>(xml).Await();
 		}
 
 		#endregion

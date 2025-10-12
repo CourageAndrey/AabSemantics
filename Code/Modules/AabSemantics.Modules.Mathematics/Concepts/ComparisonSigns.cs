@@ -1,12 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
+using System.Threading.Tasks;
 
 using AabSemantics.Concepts;
 using AabSemantics.Localization;
 using AabSemantics.Modules.Boolean.Attributes;
 using AabSemantics.Modules.Mathematics.Attributes;
 using AabSemantics.Modules.Mathematics.Localization;
+using AabSemantics.Utils;
 
 namespace AabSemantics.Modules.Mathematics.Concepts
 {
@@ -66,17 +67,22 @@ namespace AabSemantics.Modules.Mathematics.Concepts
 
 		#endregion
 
-		public static System.Boolean Contradicts(this IConcept sign1, IConcept sign2)
+		public static async Task<System.Boolean> ContradictsAsync(this IConcept sign1, IConcept sign2)
 		{
-			ensureSuits(sign1);
-			ensureSuits(sign2);
+			EnsureSuits(sign1);
+			EnsureSuits(sign2);
 
-			return Contradictions.Any(tuple =>
+			return await Contradictions.AnyAsync(tuple =>
 				tuple.Item1 == sign2 && tuple.Item2 == sign1 ||
 				tuple.Item1 == sign1 && tuple.Item2 == sign2);
 		}
 
-		private static void ensureSuits(this IConcept sign)
+		public static System.Boolean Contradicts(this IConcept sign1, IConcept sign2)
+		{
+			return ContradictsAsync(sign1, sign2).Await();
+		}
+
+		private static void EnsureSuits(this IConcept sign)
 		{
 			if (!All.Contains(sign))
 			{
@@ -86,7 +92,7 @@ namespace AabSemantics.Modules.Mathematics.Concepts
 
 		public static IConcept Revert(this IConcept sign)
 		{
-			ensureSuits(sign);
+			EnsureSuits(sign);
 
 			if (sign == IsGreaterThanOrEqualTo)
 			{
@@ -112,15 +118,15 @@ namespace AabSemantics.Modules.Mathematics.Concepts
 
 		public static System.Boolean CanBeReverted(this IConcept sign)
 		{
-			ensureSuits(sign);
+			EnsureSuits(sign);
 
 			return sign != IsEqualTo && sign != IsNotEqualTo;
 		}
 
 		public static IConcept CompareThreeValues(IConcept firstSign, IConcept secondSign)
 		{
-			ensureSuits(firstSign);
-			ensureSuits(secondSign);
+			EnsureSuits(firstSign);
+			EnsureSuits(secondSign);
 
 			if (firstSign == IsEqualTo)
 			{

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 
 using AabSemantics.Metadata;
 using AabSemantics.Statements;
@@ -14,7 +15,7 @@ namespace AabSemantics
 
 		IEnumerable<IConcept> GetChildConcepts();
 
-		Boolean CheckUnique(IEnumerable<IStatement> statements);
+		Task<Boolean> CheckUniqueAsync(IEnumerable<IStatement> statements);
 	}
 
 	public static class StatementExtensions

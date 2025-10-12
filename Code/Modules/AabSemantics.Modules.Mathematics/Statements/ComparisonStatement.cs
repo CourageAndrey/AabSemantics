@@ -1,13 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-
-using AabSemantics.Modules.Boolean.Attributes;
+﻿using AabSemantics.Modules.Boolean.Attributes;
 using AabSemantics.Modules.Mathematics.Attributes;
 using AabSemantics.Modules.Mathematics.Concepts;
 using AabSemantics.Modules.Mathematics.Localization;
 using AabSemantics.Modules.Mathematics.Questions;
 using AabSemantics.Statements;
 using AabSemantics.Utils;
+
+using System;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace AabSemantics.Modules.Mathematics.Statements
 {
@@ -81,10 +82,15 @@ namespace AabSemantics.Modules.Mathematics.Statements
 
 	public static class ComparisonStatementConsistencyExtension
 	{
-		public static List<Contradiction> CheckForContradictions(this IEnumerable<ComparisonStatement> statements)
+		public static async Task<List<Contradiction>> CheckForContradictionsAsync(this IEnumerable<ComparisonStatement> statements)
 		{
 			var checker = new ComparisonStatementContradictionsChecker(statements);
-			return checker.CheckForContradictions();
+			return await checker.CheckForContradictionsAsync();
+		}
+
+		public static List<Contradiction> CheckForContradictions(this IEnumerable<ComparisonStatement> statements)
+		{
+			return CheckForContradictionsAsync(statements).Await();
 		}
 	}
 }

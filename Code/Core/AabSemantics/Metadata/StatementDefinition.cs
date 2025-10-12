@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 
 using AabSemantics.Localization;
 using AabSemantics.Text.Primitives;
@@ -8,8 +9,8 @@ using AabSemantics.Utils;
 
 namespace AabSemantics.Metadata
 {
-	public delegate void StatementConsistencyCheckerDelegate(ISemanticNetwork semanticNetwork, ITextContainer result);
-	public delegate void StatementConsistencyCheckerDelegate<StatementT>(ISemanticNetwork semanticNetwork, ITextContainer result, ICollection<StatementT> statements)
+	public delegate Task StatementConsistencyCheckerDelegate(ISemanticNetwork semanticNetwork, ITextContainer result);
+	public delegate Task StatementConsistencyCheckerDelegate<StatementT>(ISemanticNetwork semanticNetwork, ITextContainer result, ICollection<StatementT> statements)
 		where StatementT : IStatement;
 
 	public class StatementJsonSerializationSettings : IStatementSerializationSettings, IJsonSerializationSettings
@@ -114,12 +115,17 @@ namespace AabSemantics.Metadata
 			return new FormattedText(language => _formatQuestion(language), _getDescriptionParameters(statement));
 		}
 
-		public void CheckConsistency(ISemanticNetwork semanticNetwork, ITextContainer result)
+		public async Task CheckConsistencyAsync(ISemanticNetwork semanticNetwork, ITextContainer result)
 		{
-			_consistencyChecker(semanticNetwork, result);
+			await _consistencyChecker(semanticNetwork, result);
 		}
 
-		public static readonly StatementConsistencyCheckerDelegate NoConsistencyCheck = (semanticNetwork, result) => { };
+		public void CheckConsistency(ISemanticNetwork semanticNetwork, ITextContainer result)
+		{
+			CheckConsistencyAsync(semanticNetwork, result).Await();
+		}
+
+		public static readonly StatementConsistencyCheckerDelegate NoConsistencyCheck = (semanticNetwork, result) => Task.CompletedTask;
 	}
 
 	public class StatementDefinition<StatementT, ModuleT, LanguageStatementsT, PartT> : StatementDefinition
@@ -145,7 +151,7 @@ namespace AabSemantics.Metadata
 			consistencyChecker.EnsureNotNull(nameof(consistencyChecker));
 		}
 
-		public static readonly StatementConsistencyCheckerDelegate<StatementT> NoConsistencyCheck = (semanticNetwork, result, statements) => { };
+		public static readonly StatementConsistencyCheckerDelegate<StatementT> NoConsistencyCheck = (semanticNetwork, result, statements) => Task.CompletedTask;
 	}
 
 	public static class StatementDefinitionExtensions

@@ -77,8 +77,8 @@ namespace AabSemantics.Modules.Set.Questions
 			var signValueStatements = new List<SignValueStatement>();
 			foreach (var sign in signs)
 			{
-				var valueStatement1 = SignValueStatement.GetSignValue(allStatements, Concept1, sign);
-				var valueStatement2 = SignValueStatement.GetSignValue(allStatements, Concept2, sign);
+				var valueStatement1 = await SignValueStatement.GetSignValueAsync(allStatements, Concept1, sign);
+				var valueStatement2 = await SignValueStatement.GetSignValueAsync(allStatements, Concept2, sign);
 				var value1 = valueStatement1?.Value;
 				var value2 = valueStatement2?.Value;
 
