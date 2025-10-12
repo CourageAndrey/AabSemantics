@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 using AabSemantics.Localization;
 using AabSemantics.Metadata;
@@ -24,7 +25,7 @@ namespace AabSemantics
 
 	public static class SemanticNetworkHelper
 	{
-		public static IText DescribeRules(this ISemanticNetwork semanticNetwork)
+		public static async Task<IText> DescribeRulesAsync(this ISemanticNetwork semanticNetwork)
 		{
 			var result = new UnstructuredContainer();
 			foreach (var statement in semanticNetwork.Statements)
@@ -34,7 +35,7 @@ namespace AabSemantics
 			return result;
 		}
 
-		public static IText CheckConsistency(this ISemanticNetwork semanticNetwork)
+		public static async Task<IText> CheckConsistencyAsync(this ISemanticNetwork semanticNetwork)
 		{
 			var result = new UnstructuredContainer();
 
@@ -54,7 +55,7 @@ namespace AabSemantics
 			return result;
 		}
 
-		private static void checkStatementDuplicates(ISemanticNetwork semanticNetwork, ITextContainer result)
+		private static async Task CheckStatementDuplicatesAsync(ISemanticNetwork semanticNetwork, ITextContainer result)
 		{
 			foreach (var statement in semanticNetwork.Statements)
 			{
@@ -65,6 +66,16 @@ namespace AabSemantics
 						new Dictionary<String, IKnowledge> { { Strings.ParamStatement, statement } });
 				}
 			}
+		}
+		
+		public static IText DescribeRules(this ISemanticNetwork semanticNetwork)
+		{
+			return DescribeRulesAsync(semanticNetwork).Result;
+		}
+
+		public static IText CheckConsistency(this ISemanticNetwork semanticNetwork)
+		{
+			return CheckConsistencyAsync(semanticNetwork).Result;
 		}
 	}
 }
