@@ -74,7 +74,7 @@ namespace AabSemantics.Extensions.WPF.ViewModels
 			return dialog;
 		}
 
-		private void updateAttributes(IRepository<AttributeDefinition> attributeRepository, ILanguage language)
+		private void updateAttributes(IMetadataRepository<AttributeDefinition> attributeRepository, ILanguage language)
 		{
 			Attributes.Clear();
 			Attributes.Add(new ConceptAttribute(AttributeDefinition.None, language, BoundObject == null || BoundObject.Attributes.Count == 0));

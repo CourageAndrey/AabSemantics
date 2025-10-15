@@ -28,7 +28,7 @@ namespace AabSemantics.Tests.Metadata
 		{
 			Assert.Throws<ArgumentNullException>(() => Repositories.Attributes = null);
 
-			Assert.DoesNotThrow(() => Repositories.Attributes = new Repository<AttributeDefinition>());
+			Assert.DoesNotThrow(() => Repositories.Attributes = new MetadataRepository<AttributeDefinition>());
 		}
 
 		[Test]
@@ -36,7 +36,7 @@ namespace AabSemantics.Tests.Metadata
 		{
 			Assert.Throws<ArgumentNullException>(() => Repositories.Statements = null);
 
-			Assert.DoesNotThrow(() => Repositories.Statements = new Repository<StatementDefinition>());
+			Assert.DoesNotThrow(() => Repositories.Statements = new MetadataRepository<StatementDefinition>());
 		}
 
 		[Test]
@@ -44,7 +44,7 @@ namespace AabSemantics.Tests.Metadata
 		{
 			Assert.Throws<ArgumentNullException>(() => Repositories.Questions = null);
 
-			Assert.DoesNotThrow(() => Repositories.Questions = new Repository<QuestionDefinition>());
+			Assert.DoesNotThrow(() => Repositories.Questions = new MetadataRepository<QuestionDefinition>());
 		}
 
 		[Test]
@@ -52,7 +52,7 @@ namespace AabSemantics.Tests.Metadata
 		{
 			Assert.Throws<ArgumentNullException>(() => Repositories.Answers = null);
 
-			Assert.DoesNotThrow(() => Repositories.Answers = new Repository<AnswerDefinition>());
+			Assert.DoesNotThrow(() => Repositories.Answers = new MetadataRepository<AnswerDefinition>());
 		}
 
 		[Test]

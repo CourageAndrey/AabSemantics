@@ -15,13 +15,13 @@ namespace AabSemantics.Metadata
 			set { _modules = value.EnsureNotNull(nameof(value)); }
 		}
 
-		public static IRepository<AttributeDefinition> Attributes
+		public static IMetadataRepository<AttributeDefinition> Attributes
 		{
 			get { return _attributes; }
 			set { _attributes = value.EnsureNotNull(nameof(value)); }
 		}
 
-		public static IRepository<StatementDefinition> Statements
+		public static IMetadataRepository<StatementDefinition> Statements
 		{
 			get { return _statements; }
 			set { _statements = value.EnsureNotNull(nameof(value)); }
@@ -33,24 +33,24 @@ namespace AabSemantics.Metadata
 			set { _customStatements = value.EnsureNotNull(nameof(value)); }
 		}
 
-		public static IRepository<QuestionDefinition> Questions
+		public static IMetadataRepository<QuestionDefinition> Questions
 		{
 			get { return _questions; }
 			set { _questions = value.EnsureNotNull(nameof(value)); }
 		}
 
-		public static IRepository<AnswerDefinition> Answers
+		public static IMetadataRepository<AnswerDefinition> Answers
 		{
 			get { return _answers; }
 			set { _answers = value.EnsureNotNull(nameof(value)); }
 		}
 
 		private static IDictionary<String, IExtensionModule> _modules;
-		private static IRepository<AttributeDefinition> _attributes;
-		private static IRepository<StatementDefinition> _statements;
+		private static IMetadataRepository<AttributeDefinition> _attributes;
+		private static IMetadataRepository<StatementDefinition> _statements;
 		private static IDictionary<String, CustomStatementDefinition> _customStatements;
-		private static IRepository<QuestionDefinition> _questions;
-		private static IRepository<AnswerDefinition> _answers;
+		private static IMetadataRepository<QuestionDefinition> _questions;
+		private static IMetadataRepository<AnswerDefinition> _answers;
 
 		public static AttributeDefinition RegisterAttribute(
 			Type type,
@@ -177,11 +177,11 @@ namespace AabSemantics.Metadata
 		public static void Reset()
 		{
 			_modules = new Dictionary<String, IExtensionModule>();
-			_attributes = new Repository<AttributeDefinition>();
-			_statements = new Repository<StatementDefinition>();
+			_attributes = new MetadataRepository<AttributeDefinition>();
+			_statements = new MetadataRepository<StatementDefinition>();
 			_customStatements = new Dictionary<String, CustomStatementDefinition>();
-			_questions = new Repository<QuestionDefinition>();
-			_answers = new Repository<AnswerDefinition>();
+			_questions = new MetadataRepository<QuestionDefinition>();
+			_answers = new MetadataRepository<AnswerDefinition>();
 			InitializeCustomStatement();
 			InitializeCustomStatementQuestion();
 		}

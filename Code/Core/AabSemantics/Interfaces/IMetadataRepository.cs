@@ -6,21 +6,21 @@ using AabSemantics.Metadata;
 
 namespace AabSemantics
 {
-	public interface IRepository<DefinitionT>
+	public interface IMetadataRepository<DefinitionT>
 		where DefinitionT : IMetadataDefinition
 	{
 		IDictionary<Type, DefinitionT> Definitions
 		{ get; }
 	}
 
-	public class Repository<DefinitionT> : IRepository<DefinitionT>
+	public class MetadataRepository<DefinitionT> : IMetadataRepository<DefinitionT>
 		where DefinitionT : IMetadataDefinition
 	{
 		public IDictionary<Type, DefinitionT> Definitions
 		{ get; } = new Dictionary<Type, DefinitionT>();
 	}
 
-	public static class RepositoryExtensions
+	public static class MetadataRepositoryExtensions
 	{
 		public static DefinitionT GetSuitable<InstanceT, DefinitionT>(this IDictionary<Type, DefinitionT> repository, InstanceT instance)
 		{
@@ -40,7 +40,7 @@ namespace AabSemantics
 			throw new NotSupportedException();
 		}
 
-		public static List<Type> GetJsonTypes<DefinitionT>(this IRepository<DefinitionT> repository)
+		public static List<Type> GetJsonTypes<DefinitionT>(this IMetadataRepository<DefinitionT> repository)
 			where DefinitionT : IMetadataDefinition
 		{
 			return repository.Definitions.Values.Select(definition => definition.GetSerializationSettings<IJsonSerializationSettings>().JsonType).ToList();
