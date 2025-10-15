@@ -51,13 +51,13 @@ namespace AabSemantics.Modules.Set.Tests.Statements
 			var language = Language.Default;
 			var semanticNetwork = CreateTest(language);
 
-			var concept = semanticNetwork.Concepts[ConceptId_DownLevel];
+			var concept = semanticNetwork.Concepts.GetItem(ConceptId_DownLevel);
 
 			var statements = semanticNetwork.DeclareThat(concept).HasSignValues(new Dictionary<IConcept, IConcept>
 			{
-				{ semanticNetwork.Concepts[ConceptId_Sign1], semanticNetwork.Concepts[ConceptId_ValueA] },
-				{ semanticNetwork.Concepts[ConceptId_Sign2], semanticNetwork.Concepts[ConceptId_ValueB] },
-				{ semanticNetwork.Concepts[ConceptId_Sign3], semanticNetwork.Concepts[ConceptId_ValueC] },
+				{ semanticNetwork.Concepts.GetItem(ConceptId_Sign1), semanticNetwork.Concepts.GetItem(ConceptId_ValueA) },
+				{ semanticNetwork.Concepts.GetItem(ConceptId_Sign2), semanticNetwork.Concepts.GetItem(ConceptId_ValueB) },
+				{ semanticNetwork.Concepts.GetItem(ConceptId_Sign3), semanticNetwork.Concepts.GetItem(ConceptId_ValueC) },
 			}).OrderBy(s => s.ID).ToList();
 
 			// act
@@ -76,14 +76,14 @@ namespace AabSemantics.Modules.Set.Tests.Statements
 			var language = Language.Default;
 			var semanticNetwork = CreateTest(language);
 
-			var conceptTop = semanticNetwork.Concepts[ConceptId_TopLevel];
-			var conceptMiddle = semanticNetwork.Concepts[ConceptId_MiddleLevel];
-			var concept = semanticNetwork.Concepts[ConceptId_DownLevel];
+			var conceptTop = semanticNetwork.Concepts.GetItem(ConceptId_TopLevel);
+			var conceptMiddle = semanticNetwork.Concepts.GetItem(ConceptId_MiddleLevel);
+			var concept = semanticNetwork.Concepts.GetItem(ConceptId_DownLevel);
 
 			var statements = new List<SignValueStatement>
 			{
-				semanticNetwork.DeclareThat(conceptTop).HasSignValue(semanticNetwork.Concepts[ConceptId_Sign1], semanticNetwork.Concepts[ConceptId_ValueA]),
-				semanticNetwork.DeclareThat(conceptMiddle).HasSignValue(semanticNetwork.Concepts[ConceptId_Sign2], semanticNetwork.Concepts[ConceptId_ValueB]),
+				semanticNetwork.DeclareThat(conceptTop).HasSignValue(semanticNetwork.Concepts.GetItem(ConceptId_Sign1), semanticNetwork.Concepts.GetItem(ConceptId_ValueA)),
+				semanticNetwork.DeclareThat(conceptMiddle).HasSignValue(semanticNetwork.Concepts.GetItem(ConceptId_Sign2), semanticNetwork.Concepts.GetItem(ConceptId_ValueB)),
 			}.OrderBy(s => s.ID).ToList();
 
 			// act
@@ -102,15 +102,15 @@ namespace AabSemantics.Modules.Set.Tests.Statements
 			var language = Language.Default;
 			var semanticNetwork = CreateTest(language);
 
-			var conceptTop = semanticNetwork.Concepts[ConceptId_TopLevel];
-			var conceptMiddle = semanticNetwork.Concepts[ConceptId_MiddleLevel];
-			var concept = semanticNetwork.Concepts[ConceptId_DownLevel];
+			var conceptTop = semanticNetwork.Concepts.GetItem(ConceptId_TopLevel);
+			var conceptMiddle = semanticNetwork.Concepts.GetItem(ConceptId_MiddleLevel);
+			var concept = semanticNetwork.Concepts.GetItem(ConceptId_DownLevel);
 
 			var statements = new List<SignValueStatement>
 			{
-				semanticNetwork.DeclareThat(conceptTop).HasSignValue(semanticNetwork.Concepts[ConceptId_Sign1], semanticNetwork.Concepts[ConceptId_ValueA]),
-				semanticNetwork.DeclareThat(conceptMiddle).HasSignValue(semanticNetwork.Concepts[ConceptId_Sign2], semanticNetwork.Concepts[ConceptId_ValueB]),
-				semanticNetwork.DeclareThat(concept).HasSignValue(semanticNetwork.Concepts[ConceptId_Sign3], semanticNetwork.Concepts[ConceptId_ValueC]),
+				semanticNetwork.DeclareThat(conceptTop).HasSignValue(semanticNetwork.Concepts.GetItem(ConceptId_Sign1), semanticNetwork.Concepts.GetItem(ConceptId_ValueA)),
+				semanticNetwork.DeclareThat(conceptMiddle).HasSignValue(semanticNetwork.Concepts.GetItem(ConceptId_Sign2), semanticNetwork.Concepts.GetItem(ConceptId_ValueB)),
+				semanticNetwork.DeclareThat(concept).HasSignValue(semanticNetwork.Concepts.GetItem(ConceptId_Sign3), semanticNetwork.Concepts.GetItem(ConceptId_ValueC)),
 			}.OrderBy(s => s.ID).ToList();
 
 			// act
@@ -118,7 +118,7 @@ namespace AabSemantics.Modules.Set.Tests.Statements
 			var withRecursion = SignValueStatement.GetSignValues(semanticNetwork.Statements, concept, true).OrderBy(s => s.ID).ToList();
 
 			// assert
-			Assert.That(withoutRecursion.Single().Value, Is.SameAs(semanticNetwork.Concepts[ConceptId_ValueC]));
+			Assert.That(withoutRecursion.Single().Value, Is.SameAs(semanticNetwork.Concepts.GetItem(ConceptId_ValueC)));
 			Assert.That(withRecursion.SequenceEqual(statements), Is.True);
 		}
 
@@ -129,17 +129,17 @@ namespace AabSemantics.Modules.Set.Tests.Statements
 			var language = Language.Default;
 			var semanticNetwork = CreateTest(language);
 
-			var conceptTop = semanticNetwork.Concepts[ConceptId_TopLevel];
-			var conceptMiddle = semanticNetwork.Concepts[ConceptId_MiddleLevel];
-			var concept = semanticNetwork.Concepts[ConceptId_DownLevel];
+			var conceptTop = semanticNetwork.Concepts.GetItem(ConceptId_TopLevel);
+			var conceptMiddle = semanticNetwork.Concepts.GetItem(ConceptId_MiddleLevel);
+			var concept = semanticNetwork.Concepts.GetItem(ConceptId_DownLevel);
 
-			semanticNetwork.DeclareThat(conceptTop).HasSignValue(semanticNetwork.Concepts[ConceptId_Sign1], semanticNetwork.Concepts[ConceptId_ValueA]);
-			semanticNetwork.DeclareThat(conceptMiddle).HasSignValue(semanticNetwork.Concepts[ConceptId_Sign2], semanticNetwork.Concepts[ConceptId_ValueB]);
+			semanticNetwork.DeclareThat(conceptTop).HasSignValue(semanticNetwork.Concepts.GetItem(ConceptId_Sign1), semanticNetwork.Concepts.GetItem(ConceptId_ValueA));
+			semanticNetwork.DeclareThat(conceptMiddle).HasSignValue(semanticNetwork.Concepts.GetItem(ConceptId_Sign2), semanticNetwork.Concepts.GetItem(ConceptId_ValueB));
 			var statements = new List<SignValueStatement>
 			{
-				semanticNetwork.DeclareThat(concept).HasSignValue(semanticNetwork.Concepts[ConceptId_Sign1], semanticNetwork.Concepts[ConceptId_ValueC]),
-				semanticNetwork.DeclareThat(concept).HasSignValue(semanticNetwork.Concepts[ConceptId_Sign2], semanticNetwork.Concepts[ConceptId_ValueD]),
-				semanticNetwork.DeclareThat(concept).HasSignValue(semanticNetwork.Concepts[ConceptId_Sign3], semanticNetwork.Concepts[ConceptId_ValueE]),
+				semanticNetwork.DeclareThat(concept).HasSignValue(semanticNetwork.Concepts.GetItem(ConceptId_Sign1), semanticNetwork.Concepts.GetItem(ConceptId_ValueC)),
+				semanticNetwork.DeclareThat(concept).HasSignValue(semanticNetwork.Concepts.GetItem(ConceptId_Sign2), semanticNetwork.Concepts.GetItem(ConceptId_ValueD)),
+				semanticNetwork.DeclareThat(concept).HasSignValue(semanticNetwork.Concepts.GetItem(ConceptId_Sign3), semanticNetwork.Concepts.GetItem(ConceptId_ValueE)),
 			}.OrderBy(s => s.ID).ToList();
 
 			// act

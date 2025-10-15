@@ -14,10 +14,10 @@ namespace AabSemantics
 		ISemanticNetworkContext Context
 		{ get; }
 
-		IKeyedCollection<IConcept> Concepts
+		IRepository<IConcept> Concepts
 		{ get; }
 
-		IKeyedCollection<IStatement> Statements
+		IRepository<IStatement> Statements
 		{ get; }
 
 		IDictionary<String, IExtensionModule> Modules

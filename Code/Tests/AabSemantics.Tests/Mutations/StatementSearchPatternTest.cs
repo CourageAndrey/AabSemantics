@@ -81,7 +81,7 @@ namespace AabSemantics.Tests.Mutations
 				m.SemanticNetwork == semanticNetwork &&
 				m.Knowledge.Count == 2 &&
 				m.Knowledge[statementSearchPattern] is IsStatement &&
-				m.Knowledge[conceptSearchPattern] == semanticNetwork.Concepts["a"]), Is.True);
+				m.Knowledge[conceptSearchPattern] == semanticNetwork.Concepts.GetItem("a")), Is.True);
 		}
 
 		[Test]

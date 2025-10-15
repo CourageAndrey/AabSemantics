@@ -66,7 +66,7 @@ namespace AabSemantics.IntegrationTests.Serialization
 			}
 
 			var conceptMapping = new Dictionary<IConcept, IConcept>();
-			Assert.That(restored.Concepts.Count, Is.EqualTo(semanticNetwork.Concepts.Count));
+			Assert.That(restored.Concepts.Count, Is.EqualTo(semanticNetwork.Concepts.GetCount()));
 			foreach (var concept in semanticNetwork.Concepts/*.Except(systemConcepts)*/)
 			{
 				var restoredConcept = restored.Concepts.Single(c =>
@@ -88,7 +88,7 @@ namespace AabSemantics.IntegrationTests.Serialization
 				}
 			}
 
-			Assert.That(restored.Statements.Count, Is.EqualTo(semanticNetwork.Statements.Count));
+			Assert.That(restored.Statements.Count, Is.EqualTo(semanticNetwork.Statements.GetCount()));
 			foreach (var statement in semanticNetwork.Statements)
 			{
 				var statementType = statement.GetType();

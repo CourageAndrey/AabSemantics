@@ -115,8 +115,8 @@ namespace AabSemantics.Tests.Mutations
 				m.SearchPattern == joinSearchPattern &&
 				m.SemanticNetwork == semanticNetwork &&
 				m.Knowledge.Count == 3 &&
-				m.Knowledge[joinSearchPattern] == semanticNetwork.Concepts["1"] &&
-				((IsStatement) m.Knowledge[joinSearchPattern.Left])?.Ancestor == semanticNetwork.Concepts["1"] &&
+				m.Knowledge[joinSearchPattern] == semanticNetwork.Concepts.GetItem("1") &&
+				((IsStatement) m.Knowledge[joinSearchPattern.Left])?.Ancestor == semanticNetwork.Concepts.GetItem("1") &&
 				((IsStatement) m.Knowledge[joinSearchPattern.Right])?.Descendant == null), Is.EqualTo(1));
 		}
 
@@ -137,9 +137,9 @@ namespace AabSemantics.Tests.Mutations
 				m.SearchPattern == joinSearchPattern &&
 				m.SemanticNetwork == semanticNetwork &&
 				m.Knowledge.Count == 3 &&
-				m.Knowledge[joinSearchPattern] == semanticNetwork.Concepts["10"] &&
+				m.Knowledge[joinSearchPattern] == semanticNetwork.Concepts.GetItem("10") &&
 				((IsStatement) m.Knowledge[joinSearchPattern.Left])?.Ancestor == null &&
-				((IsStatement) m.Knowledge[joinSearchPattern.Right])?.Descendant == semanticNetwork.Concepts["10"]), Is.EqualTo(1));
+				((IsStatement) m.Knowledge[joinSearchPattern.Right])?.Descendant == semanticNetwork.Concepts.GetItem("10")), Is.EqualTo(1));
 		}
 
 		[Test]
@@ -159,16 +159,16 @@ namespace AabSemantics.Tests.Mutations
 				m.SearchPattern == joinSearchPattern &&
 				m.SemanticNetwork == semanticNetwork &&
 				m.Knowledge.Count == 3 &&
-				m.Knowledge[joinSearchPattern] == semanticNetwork.Concepts["1"] &&
-				((IsStatement) m.Knowledge[joinSearchPattern.Left])?.Ancestor == semanticNetwork.Concepts["1"] &&
+				m.Knowledge[joinSearchPattern] == semanticNetwork.Concepts.GetItem("1") &&
+				((IsStatement) m.Knowledge[joinSearchPattern.Left])?.Ancestor == semanticNetwork.Concepts.GetItem("1") &&
 				((IsStatement) m.Knowledge[joinSearchPattern.Right])?.Descendant == null), Is.EqualTo(1));
 			Assert.That(matches.Count(m =>
 				m.SearchPattern == joinSearchPattern &&
 				m.SemanticNetwork == semanticNetwork &&
 				m.Knowledge.Count == 3 &&
-				m.Knowledge[joinSearchPattern] == semanticNetwork.Concepts["10"] &&
+				m.Knowledge[joinSearchPattern] == semanticNetwork.Concepts.GetItem("10") &&
 				((IsStatement) m.Knowledge[joinSearchPattern.Left])?.Ancestor == null &&
-				((IsStatement) m.Knowledge[joinSearchPattern.Right])?.Descendant == semanticNetwork.Concepts["10"]), Is.EqualTo(1));
+				((IsStatement) m.Knowledge[joinSearchPattern.Right])?.Descendant == semanticNetwork.Concepts.GetItem("10")), Is.EqualTo(1));
 		}
 
 		private const int _numbersCount = 10;
@@ -184,7 +184,7 @@ namespace AabSemantics.Tests.Mutations
 
 			for (int i = 1; i < _numbersCount; i++)
 			{
-				semanticNetwork.DeclareThat(semanticNetwork.Concepts[i.ToString()]).IsAncestorOf(semanticNetwork.Concepts[(i+1).ToString()]);
+				semanticNetwork.DeclareThat(semanticNetwork.Concepts.GetItem(i.ToString())).IsAncestorOf(semanticNetwork.Concepts.GetItem((i+1).ToString()));
 			}
 
 			return semanticNetwork;

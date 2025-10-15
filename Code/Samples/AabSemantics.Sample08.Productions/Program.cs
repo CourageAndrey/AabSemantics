@@ -40,20 +40,20 @@ namespace AabSemantics.Sample08.Productions
 			{
 				semanticNetwork.Concepts.Add(digit.CreateConceptByObject().WithAttribute(IsValueAttribute.Value));
 			}
-			Console.WriteLine($"Initial statements count: {semanticNetwork.Statements.Count}");
+			Console.WriteLine($"Initial statements count: {semanticNetwork.Statements.GetCount()}");
 
-			semanticNetwork.DeclareThat(semanticNetwork.Concepts["1"]).IsLessThan(semanticNetwork.Concepts["2"]);
+			semanticNetwork.DeclareThat(semanticNetwork.Concepts.GetItem("1")).IsLessThan(semanticNetwork.Concepts.GetItem("2"));
 
 			// productions
 			var lastNumberSearchPattern = new ConceptSearchPattern(concept => semanticNetwork.Statements.Count(r => r.GetChildConcepts().Contains(concept)) == 1);
 			var lastNumberFilter = new StatementConceptFilter<ComparisonStatement>(statement => statement.RightValue, lastNumberSearchPattern );
-			var nextNumberSearchPattern = new ConceptSearchPattern(concept => semanticNetwork.Concepts.Keys.Contains((int.Parse(concept.ID) + 1).ToString()));
+			var nextNumberSearchPattern = new ConceptSearchPattern(concept => semanticNetwork.Concepts.GetKeys().Contains((int.Parse(concept.ID) + 1).ToString()));
 			var nextNumberFilter = new StatementConceptFilter<ComparisonStatement>(statement => statement.RightValue, nextNumberSearchPattern );
 			var statementSearchPattern = new StatementSearchPattern<ComparisonStatement>(conceptFilters: new[] { lastNumberFilter, nextNumberFilter });
 			var production = new Production(statementSearchPattern, match =>
 			{
 				var lastNumber = (IConcept) match.Knowledge[lastNumberSearchPattern];
-				var nextNumber = semanticNetwork.Concepts[(int.Parse(lastNumber.ID) + 1).ToString()];
+				var nextNumber = semanticNetwork.Concepts.GetItem((int.Parse(lastNumber.ID) + 1).ToString());
 				semanticNetwork.DeclareThat(lastNumber).IsLessThan(nextNumber);
 
 				Console.WriteLine($"Production has applied to {lastNumber} and {nextNumber}.");

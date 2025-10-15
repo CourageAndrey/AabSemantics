@@ -86,8 +86,8 @@ namespace AabSemantics.Tests.Serialization
 		public static IEnumerable<IQuestion> CreateQuestions()
 		{
 			var testStatement = _semanticNetwork.Statements.First();
-			var testConcept1 = _semanticNetwork.Concepts["a"];
-			var testConcept2 = _semanticNetwork.Concepts["d"];
+			var testConcept1 = _semanticNetwork.Concepts.GetItem("a");
+			var testConcept2 = _semanticNetwork.Concepts.GetItem("d");
 
 			yield return new CheckStatementQuestion(testStatement, _semanticNetwork.Statements.Except(new[] { testStatement }));
 			yield return new CustomStatementQuestion("type", new Dictionary<string, IConcept>

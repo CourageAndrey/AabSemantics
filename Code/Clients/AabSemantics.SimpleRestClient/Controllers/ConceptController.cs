@@ -25,7 +25,7 @@ namespace AabSemantics.SimpleRestClient.Controllers
 
 			var concepts = string.IsNullOrEmpty(id)
 				? semanticNetwork.Concepts.Where(concept => !ConceptIdResolver.SystemConceptsById.ContainsKey(concept.ID)).ToList() as ICollection<IConcept>
-				: new[] { semanticNetwork.Concepts[id] };
+				: new[] { semanticNetwork.Concepts.GetItem(id) };
 
 			return concepts.Select(concept => new Concept(concept));
 		}
@@ -43,7 +43,7 @@ namespace AabSemantics.SimpleRestClient.Controllers
 		{
 			var semanticNetwork = _dataService.GetSemanticNetwork();
 
-			semanticNetwork.Statements.Remove(semanticNetwork.Statements[id]);
+			semanticNetwork.Statements.Remove(semanticNetwork.Statements.GetItem(id));
 		}
 	}
 }

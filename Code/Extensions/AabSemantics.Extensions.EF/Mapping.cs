@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
+using System.Threading.Tasks;
 
 using AabSemantics.Utils;
 
@@ -9,24 +10,23 @@ namespace AabSemantics.Extensions.EF
 {
 	internal interface IMapping
 	{
-		int Count
-		{ get; }
+		Task<int> GetCountAsync();
 
-		IEnumerable<string> GetKeys();
+		Task<IEnumerable<string>> GetKeysAsync();
 
-		void Clear();
+		Task ClearAsync();
 	}
 
 	internal interface IMapping<ItemT> : IMapping
 		where ItemT : IIdentifiable
 	{
-		IEnumerable<ItemT> GetAllItems();
+		Task<IEnumerable<ItemT>> GetAllItemsAsync();
 
-		bool TryGetItem(string key, out ItemT item);
+		Task<KeyValuePair<bool, ItemT>> TryGetItemAsync(string key);
 
-		bool Add(ItemT item);
+		Task<bool> AddAsync(ItemT item);
 
-		bool Remove(ItemT item);
+		Task<bool> RemoveAsync(ItemT item);
 	}
 
 	internal interface IMapping<ItemT, EntityT> : IMapping<ItemT>
@@ -41,10 +41,9 @@ namespace AabSemantics.Extensions.EF
 		where ItemT : IIdentifiable
 		where EntityT : class
 	{
-		#region Properties
+#warning Not effective way of implementation!
 
-		public int Count
-		{ get { return DbSet.Count(); } }
+		#region Properties
 
 		public DbSet<EntityT> DbSet
 		{ get; }
@@ -67,60 +66,69 @@ namespace AabSemantics.Extensions.EF
 			_getKey = getKey.EnsureNotNull(nameof(getKey));
 		}
 
-		public IEnumerable<string> GetKeys()
+		public async Task<int> GetCountAsync()
 		{
-			return DbSet.AsEnumerable().Select(item => _getKey(item));
+			return await Task.FromResult(DbSet.Count());
 		}
 
-		public IEnumerable<ItemT> GetAllItems()
+		public Task<IEnumerable<string>> GetKeysAsync()
 		{
-			return DbSet.AsEnumerable().Select(item => _map(item));
+			return Task.Run(() => DbSet.AsEnumerable().Select(item => _getKey(item)));
 		}
 
-		public bool TryGetItem(string key, out ItemT item)
+		public Task<IEnumerable<ItemT>> GetAllItemsAsync()
 		{
-#warning Not effective way of implementation!
-			var search = DbSet.AsEnumerable().Where(i => _getKey(i) == key);
-			if (search.Any())
+			return Task.Run(() => DbSet.AsEnumerable().Select(item => _map(item)));
+		}
+
+		public Task<KeyValuePair<bool, ItemT>> TryGetItemAsync(string key)
+		{
+			return Task.Run(() =>
 			{
-				item = _map(search.First());
-				return true;
-			}
-			else
-			{
-				item = default;
-				return false;
-			}
+				var search = DbSet.AsEnumerable().Where(i => _getKey(i) == key);
+				if (search.Any())
+				{
+					return new KeyValuePair<bool, ItemT>(true, _map(search.First()));
+				}
+				else
+				{
+					return new KeyValuePair<bool, ItemT>(false, default);
+				}
+			});
 		}
 
-		public bool Add(ItemT item)
+		public Task<bool> AddAsync(ItemT item)
 		{
 			DbSet.Add(_mapBack(item));
-			return true;
+			return Task.FromResult(true);
 		}
 
-		public bool Remove(ItemT item)
+		public Task<bool> RemoveAsync(ItemT item)
 		{
-#warning Not effective way of implementation!
-			foreach (var entity in DbSet)
+			return Task.Run(() =>
 			{
-				if (_getKey(entity) == item.ID)
+				foreach (var entity in DbSet)
+				{
+					if (_getKey(entity) == item.ID)
+					{
+						DbSet.Remove(entity);
+						return true;
+					}
+				}
+
+				return false;
+			});
+		}
+
+		public Task ClearAsync()
+		{
+			return Task.Run(() =>
+			{
+				foreach (var entity in DbSet.ToList())
 				{
 					DbSet.Remove(entity);
-					return true;
 				}
-			}
-
-			return false;
-		}
-
-		public void Clear()
-		{
-#warning Not effective way of implementation!
-			foreach (var entity in DbSet.ToList())
-			{
-				DbSet.Remove(entity);
-			}
+			});
 		}
 	}
 }

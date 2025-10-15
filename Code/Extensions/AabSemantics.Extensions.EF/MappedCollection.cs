@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
+using System.Threading.Tasks;
 
 using AabSemantics.Utils;
 
@@ -11,7 +12,7 @@ namespace AabSemantics.Extensions.EF
 	internal delegate IMapping<ItemT> MappingSelectorDelegate<ItemT>(ICollection<IMapping<ItemT>> mappings, ItemT forItem)
 		where ItemT : IIdentifiable;
 
-	internal class MappedCollection<ItemT> : IKeyedCollection<ItemT>
+	internal class MappedCollection<ItemT> : IRepository<ItemT>
 		where ItemT : class, IIdentifiable
 	{
 		#region Properties
@@ -43,13 +44,13 @@ namespace AabSemantics.Extensions.EF
 			_mappings.Add(new Mapping<ItemT, EntityT>(dbSet, map, mapBack, getKey));
 		}
 
-		#region Implementation of IKeyedCollection
+		#region Implementation of IRepository
 
 		public IEnumerator<ItemT> GetEnumerator()
 		{
 			foreach (var mapping in _mappings)
 			{
-				foreach (var item in mapping.GetAllItems())
+				foreach (var item in mapping.GetAllItemsAsync().Await())
 				{
 					yield return item;
 				}
@@ -61,45 +62,18 @@ namespace AabSemantics.Extensions.EF
 			return GetEnumerator();
 		}
 
-		public void Add(ItemT item)
+		public async Task AddAsync(ItemT item)
 		{
-			_mappingSelector(_mappings, item).Add(item);
+			await _mappingSelector(_mappings, item).AddAsync(item);
 		}
 
-		public void Clear()
-		{
-			foreach (var mapping in _mappings)
-			{
-				mapping.Clear();
-			}
-		}
-
-		public bool Contains(ItemT item)
-		{
-			item.EnsureNotNull(nameof(item));
-
-			ItemT temp;
-			return _mappings.Any(mapping => mapping.TryGetItem(item.ID, out temp));
-		}
-
-		public void CopyTo(ItemT[] array, int arrayIndex)
-		{
-			foreach (var mapping in _mappings)
-			{
-				foreach (var item in mapping.GetAllItems())
-				{
-					array[arrayIndex++] = item;
-				}
-			}
-		}
-
-		public bool Remove(ItemT item)
+		public async Task<bool> RemoveAsync(ItemT item)
 		{
 			item.EnsureNotNull(nameof(item));
 
 			foreach (var mapping in _mappings)
 			{
-				if (mapping.Remove(item))
+				if (await mapping.RemoveAsync(item))
 				{
 					return true;
 				}
@@ -108,55 +82,53 @@ namespace AabSemantics.Extensions.EF
 			return false;
 		}
 
-		public int Count
-		{ get { return _mappings.Sum(mapping => mapping.Count); } }
-
-		public bool IsReadOnly
-		{ get { return false; } }
-
-		public ItemT this[string key]
+		public async Task ClearAsync()
 		{
-			get
+			foreach (var mapping in _mappings)
 			{
-				ItemT result;
-				if (TryGetValue(key, out result))
-				{
-					return result;
-				}
-				else
-				{
-					throw new KeyNotFoundException();
-				}
+				await mapping.ClearAsync();
 			}
 		}
 
-		public ICollection<string> Keys
+		public async Task<int> GetCountAsync()
 		{
-			get
-			{
-				return _mappings.Aggregate(
+			return await Task.FromResult(_mappings.Sum(mapping => mapping.GetCountAsync().Await()));
+		}
+
+		public async Task<ItemT> GetItemAsync(string key)
+		{
+			return (await TryGetValueAsync(key)).Value;
+		}
+
+		public async Task<ICollection<string>> GetKeysAsync()
+		{
+			return await Task.FromResult(_mappings.Aggregate(
 					new List<string>(),
 					(list, items) =>
 					{
-						list.AddRange(items.GetKeys());
+						list.AddRange(items.GetKeysAsync().Await());
 						return list;
 					},
-					list => list);
-			}
+					list => list));
 		}
 
-		public bool TryGetValue(string key, out ItemT value)
+		public async Task<bool> ContainsAsync(string key)
+		{
+			return (await TryGetValueAsync(key)).Key;
+		}
+
+		public async Task<KeyValuePair<bool, ItemT>> TryGetValueAsync(string key)
 		{
 			foreach (var mapping in _mappings)
 			{
-				if (mapping.TryGetItem(key, out value))
+				var result = await mapping.TryGetItemAsync(key);
+				if (result.Key)
 				{
-					return true;
+					return result;
 				}
 			}
 
-			value = default;
-			return false;
+			return new KeyValuePair<bool, ItemT>(false, null);
 		}
 
 		#endregion

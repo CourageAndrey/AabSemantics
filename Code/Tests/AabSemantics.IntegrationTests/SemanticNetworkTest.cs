@@ -101,9 +101,9 @@ namespace AabSemantics.IntegrationTests
 			}
 
 			// act & assert
-			Assert.That(semanticNetwork.Statements.Count, Is.EqualTo(statementsCount));
+			Assert.That(semanticNetwork.Statements.GetCount(), Is.EqualTo(statementsCount));
 			semanticNetwork.Concepts.Remove(concept1);
-			Assert.That(semanticNetwork.Statements.Count, Is.EqualTo(0));
+			Assert.That(semanticNetwork.Statements.GetCount(), Is.EqualTo(0));
 		}
 
 		[Test]
@@ -121,13 +121,13 @@ namespace AabSemantics.IntegrationTests
 			comparison.Context = semanticNetwork.Context.Parent;
 
 			// act & assert
-			Assert.That(semanticNetwork.Statements.Contains(comparison), Is.True);
+			Assert.That(semanticNetwork.Statements.Contains(comparison.ID), Is.True);
 			semanticNetwork.Statements.Remove(comparison);
-			Assert.That(semanticNetwork.Statements.Contains(comparison), Is.True);
+			Assert.That(semanticNetwork.Statements.Contains(comparison.ID), Is.True);
 
 			comparison.Context = semanticNetwork.Context;
 			semanticNetwork.Statements.Remove(comparison);
-			Assert.That(semanticNetwork.Statements.Contains(comparison), Is.False);
+			Assert.That(semanticNetwork.Statements.Contains(comparison.ID), Is.False);
 		}
 
 		[Test]

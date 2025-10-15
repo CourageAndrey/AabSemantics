@@ -85,9 +85,9 @@ namespace AabSemantics.IntegrationTests.Serialization
 			yield return new Answers.Answer(text, explanation, true);
 			yield return new BooleanAnswer(true, text, explanation);
 			yield return new ConceptAnswer(_semanticNetwork.Concepts.First(), text, explanation);
-			yield return new ConceptsAnswer(_semanticNetwork.Concepts, text, explanation);
+			yield return new ConceptsAnswer(_semanticNetwork.Concepts.ToList(), text, explanation);
 			yield return new StatementAnswer(_semanticNetwork.Statements.First(), text, explanation);
-			yield return new StatementsAnswer(_semanticNetwork.Statements, text, explanation);
+			yield return new StatementsAnswer(_semanticNetwork.Statements.ToList(), text, explanation);
 		}
 	}
 }

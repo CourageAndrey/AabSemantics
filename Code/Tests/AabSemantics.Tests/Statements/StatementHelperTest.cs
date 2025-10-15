@@ -80,15 +80,15 @@ namespace AabSemantics.Tests.Statements
 
 			// assert
 			Assert.That(filtered.Count, Is.EqualTo(4));
-			Assert.That(filtered.Contains(semanticNetwork.Statements["3 < 4"]), Is.True);
-			Assert.That(filtered.Contains(semanticNetwork.Statements["5 < 6"]), Is.True);
-			Assert.That(filtered.Contains(semanticNetwork.Statements["7 < 8"]), Is.True);
-			Assert.That(filtered.Contains(semanticNetwork.Statements["9 < 10"]), Is.True);
+			Assert.That(filtered.Contains(semanticNetwork.Statements.GetItem("3 < 4")), Is.True);
+			Assert.That(filtered.Contains(semanticNetwork.Statements.GetItem("5 < 6")), Is.True);
+			Assert.That(filtered.Contains(semanticNetwork.Statements.GetItem("7 < 8")), Is.True);
+			Assert.That(filtered.Contains(semanticNetwork.Statements.GetItem("9 < 10")), Is.True);
 			Assert.That(filteredT.Count, Is.EqualTo(4));
-			Assert.That(filteredT.Contains(semanticNetwork.Statements["3 < 4"]), Is.True);
-			Assert.That(filteredT.Contains(semanticNetwork.Statements["5 < 6"]), Is.True);
-			Assert.That(filteredT.Contains(semanticNetwork.Statements["7 < 8"]), Is.True);
-			Assert.That(filteredT.Contains(semanticNetwork.Statements["9 < 10"]), Is.True);
+			Assert.That(filteredT.Contains(semanticNetwork.Statements.GetItem("3 < 4")), Is.True);
+			Assert.That(filteredT.Contains(semanticNetwork.Statements.GetItem("5 < 6")), Is.True);
+			Assert.That(filteredT.Contains(semanticNetwork.Statements.GetItem("7 < 8")), Is.True);
+			Assert.That(filteredT.Contains(semanticNetwork.Statements.GetItem("9 < 10")), Is.True);
 		}
 
 		private const int _numbersCount = 10;
@@ -107,8 +107,8 @@ namespace AabSemantics.Tests.Statements
 			{
 				var statement = new IsStatement(
 					$"{i} < {i+1}",
-					semanticNetwork.Concepts[i.ToString()],
-					semanticNetwork.Concepts[(i + 1).ToString()]);
+					semanticNetwork.Concepts.GetItem(i.ToString()),
+					semanticNetwork.Concepts.GetItem((i + 1).ToString()));
 				semanticNetwork.Statements.Add(statement);
 				statements[i] = statement;
 			}

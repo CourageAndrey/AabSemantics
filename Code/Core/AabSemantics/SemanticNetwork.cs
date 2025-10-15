@@ -19,10 +19,10 @@ namespace AabSemantics
 		public ISemanticNetworkContext Context
 		{ get; }
 
-		public IKeyedCollection<IConcept> Concepts
+		public IRepository<IConcept> Concepts
 		{ get; }
 
-		public IKeyedCollection<IStatement> Statements
+		public IRepository<IStatement> Statements
 		{ get; }
 
 		public IDictionary<String, IExtensionModule> Modules
@@ -40,7 +40,7 @@ namespace AabSemantics
 
 			var systemContext = new SystemContext(language);
 
-			var concepts = new EventCollection<IConcept>();
+			var concepts = new Repository<IConcept>();
 			concepts.ItemRemoved += (sender, args) =>
 			{
 				foreach (var statement in Statements.Where(r => r.GetChildConcepts().Contains(args.Item)).ToList())
@@ -50,7 +50,7 @@ namespace AabSemantics
 			};
 			Concepts = concepts;
 
-			var statements = new EventCollection<IStatement>();
+			var statements = new Repository<IStatement>();
 			statements.ItemAdded += (sender, args) =>
 			{
 				if (args.Item.Context == null)

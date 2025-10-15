@@ -130,8 +130,8 @@ namespace AabSemantics.Modules.Set.Tests.Questions
 
 			// act
 			var answer = semanticNetwork.Ask().WhatIsTheDifference(
-				semanticNetwork.Concepts["Concept 1"],
-				semanticNetwork.Concepts["Concept 2"]);
+				semanticNetwork.Concepts.GetItem("Concept 1"),
+				semanticNetwork.Concepts.GetItem("Concept 2"));
 			var text = render.RenderText(answer.Description, language).ToString();
 
 			// assert
@@ -163,19 +163,19 @@ namespace AabSemantics.Modules.Set.Tests.Questions
 			const string sideBranchId = "SIDE_BRANCH";
 			var sideBranch = sideBranchId.CreateConceptByName();
 			semanticNetwork.Concepts.Add(sideBranch);
-			semanticNetwork.DeclareThat(sideBranch).IsDescendantOf(semanticNetwork.Concepts["Parent 2"]);
+			semanticNetwork.DeclareThat(sideBranch).IsDescendantOf(semanticNetwork.Concepts.GetItem("Parent 2"));
 
 			var render = TextRenders.PlainString;
 
 			// act
 			var answerFirst = semanticNetwork.Ask().WhatIsTheDifference(
-				semanticNetwork.Concepts["Concept 1"],
-				semanticNetwork.Concepts[sideBranchId]);
+				semanticNetwork.Concepts.GetItem("Concept 1"),
+				semanticNetwork.Concepts.GetItem(sideBranchId));
 			var textFirst = render.RenderText(answerFirst.Description, language).ToString();
 
 			var answerSecond = semanticNetwork.Ask().WhatIsTheDifference(
-				semanticNetwork.Concepts[sideBranchId],
-				semanticNetwork.Concepts["Concept 1"]);
+				semanticNetwork.Concepts.GetItem(sideBranchId),
+				semanticNetwork.Concepts.GetItem("Concept 1"));
 			var textSecond = render.RenderText(answerSecond.Description, language).ToString();
 
 			// assert

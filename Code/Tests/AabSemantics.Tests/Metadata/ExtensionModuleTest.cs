@@ -224,7 +224,7 @@ namespace AabSemantics.Tests.Metadata
 			// assert concepts
 			var semanticNetwork = new SemanticNetwork(Language.Default).WithModules(modules);
 			var systemConcepts = GetSystemConcepts();
-			Assert.That(systemConcepts.Count, Is.EqualTo(semanticNetwork.Concepts.Count));
+			Assert.That(systemConcepts.Count, Is.EqualTo(semanticNetwork.Concepts.GetCount()));
 			foreach (var concept in systemConcepts)
 			{
 				Assert.That(semanticNetwork.Concepts.Contains(concept), Is.True);

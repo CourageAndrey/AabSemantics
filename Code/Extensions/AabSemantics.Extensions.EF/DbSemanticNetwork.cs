@@ -22,10 +22,10 @@ namespace AabSemantics.Extensions.EF
 		public ISemanticNetworkContext Context
 		{ get; }
 
-		public IKeyedCollection<IConcept> Concepts
+		public IRepository<IConcept> Concepts
 		{ get { return _concepts; } }
 
-		public IKeyedCollection<IStatement> Statements
+		public IRepository<IStatement> Statements
 		{ get { return _statements; } }
 
 		public IDictionary<string, IExtensionModule> Modules

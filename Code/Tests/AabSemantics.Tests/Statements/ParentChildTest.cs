@@ -529,11 +529,11 @@ namespace AabSemantics.Tests.Statements
 		{
 			// arrange
 			var semanticNetwork = CreateBearsSample();
-			var animalsConcept = semanticNetwork.Concepts["Kingdom: Animalia"];
+			var animalsConcept = semanticNetwork.Concepts.GetItem("Kingdom: Animalia");
 
 			// act
 			var animals = semanticNetwork.Statements.GetChildrenOneLevel<IConcept, IsStatement>(animalsConcept).Select(concept => concept.ID).ToList();
-			var bears = semanticNetwork.Statements.GetChildrenOneLevel<IConcept, IsStatement>(semanticNetwork.Concepts["Genus: Ursus"]).Select(concept => concept.ID).ToList();
+			var bears = semanticNetwork.Statements.GetChildrenOneLevel<IConcept, IsStatement>(semanticNetwork.Concepts.GetItem("Genus: Ursus")).Select(concept => concept.ID).ToList();
 
 			// assert
 			Assert.That(animals.Single(), Is.EqualTo("Phylum: Chordata"));
@@ -550,15 +550,15 @@ namespace AabSemantics.Tests.Statements
 		{
 			// arrange
 			var semanticNetwork = CreateBearsSample();
-			var animalsConcept = semanticNetwork.Concepts["Kingdom: Animalia"];
+			var animalsConcept = semanticNetwork.Concepts.GetItem("Kingdom: Animalia");
 			var ignoredConcepts = new[] { LogicalValues.True, LogicalValues.False, animalsConcept };
 
 			// act
-			var animals = semanticNetwork.Statements.GetChildrenAllLevels<IConcept, IsStatement>(semanticNetwork.Concepts["Kingdom: Animalia"]).Select(concept => concept.ID).ToList();
-			var bears = semanticNetwork.Statements.GetChildrenAllLevels<IConcept, IsStatement>(semanticNetwork.Concepts["Genus: Ursus"]).Select(concept => concept.ID).ToList();
+			var animals = semanticNetwork.Statements.GetChildrenAllLevels<IConcept, IsStatement>(semanticNetwork.Concepts.GetItem("Kingdom: Animalia")).Select(concept => concept.ID).ToList();
+			var bears = semanticNetwork.Statements.GetChildrenAllLevels<IConcept, IsStatement>(semanticNetwork.Concepts.GetItem("Genus: Ursus")).Select(concept => concept.ID).ToList();
 
 			// assert
-			Assert.That(animals.Count, Is.EqualTo(semanticNetwork.Concepts.Count - ignoredConcepts.Length));
+			Assert.That(animals.Count, Is.EqualTo(semanticNetwork.Concepts.GetCount() - ignoredConcepts.Length));
 			foreach (var animal in semanticNetwork.Concepts.Except(ignoredConcepts))
 			{
 				Assert.That(animals.Contains(animal.ID), Is.True);

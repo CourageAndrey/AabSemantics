@@ -52,7 +52,7 @@ namespace AabSemantics.Sample01.StatementsAndQuestions
 			Console.WriteLine("Semantic network is created...");
 
 			// Some concepts are predefined. All of them can be found using AabSemantics.SystemConcepts.GetAll() method.
-			Console.WriteLine($"Semantic network contains {semanticNetwork.Concepts.Count} concepts.");
+			Console.WriteLine($"Semantic network contains {semanticNetwork.Concepts.GetCount()} concepts.");
 			Console.WriteLine();
 
 			#endregion

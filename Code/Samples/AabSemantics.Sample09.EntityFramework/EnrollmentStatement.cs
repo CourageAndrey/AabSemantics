@@ -22,13 +22,13 @@ namespace AabSemantics.Sample09.EntityFramework
 
 		#endregion
 
-		public EnrollmentStatement(Enrollment enrollment, IKeyedCollection<IConcept> concepts)
+		public EnrollmentStatement(Enrollment enrollment, IRepository<IConcept> concepts)
 			: base(
 				enrollment.EnrollmentID.ToString(),
 				new LocalizedStringConstant(language => $"[{enrollment.EnrollmentID}] {enrollment.StudentID}[{enrollment.CourseID}]={enrollment.Grade}"))
 		{
-			Course = concepts[enrollment.CourseID.GetCourseId()];
-			Student = concepts[enrollment.StudentID.GetStudentId()];
+			Course = concepts.GetItem(enrollment.CourseID.GetCourseId());
+			Student = concepts.GetItem(enrollment.StudentID.GetStudentId());
 			Grade = enrollment.Grade;
 		}
 

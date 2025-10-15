@@ -25,7 +25,7 @@ namespace AabSemantics.SimpleRestClient.Controllers
 
 			var statements = string.IsNullOrEmpty(id)
 				? semanticNetwork.Statements as ICollection<IStatement>
-				: new[] { semanticNetwork.Statements[id] };
+				: new[] { semanticNetwork.Statements.GetItem(id) };
 
 			return statements.Select(statement => Statement.Load(statement));
 		}
@@ -50,7 +50,7 @@ namespace AabSemantics.SimpleRestClient.Controllers
 		{
 			var semanticNetwork = _dataService.GetSemanticNetwork();
 
-			semanticNetwork.Concepts.Remove(semanticNetwork.Concepts[id]);
+			semanticNetwork.Concepts.Remove(semanticNetwork.Concepts.GetItem(id));
 		}
 	}
 }

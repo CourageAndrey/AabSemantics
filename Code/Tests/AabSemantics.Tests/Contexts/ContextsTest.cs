@@ -246,10 +246,10 @@ namespace AabSemantics.Tests.Contexts
 			public ISemanticNetworkContext Context
 			{ get; set; }
 
-			public IKeyedCollection<IConcept> Concepts
+			public IRepository<IConcept> Concepts
 			{ get; set; }
 
-			public IKeyedCollection<IStatement> Statements
+			public IRepository<IStatement> Statements
 			{ get; set; }
 
 			public IDictionary<String, IExtensionModule> Modules
