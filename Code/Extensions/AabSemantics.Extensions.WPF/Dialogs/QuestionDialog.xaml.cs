@@ -62,6 +62,8 @@ namespace AabSemantics.Extensions.WPF.Dialogs
 				{ typeof(bool), createCheckBox },
 				{ typeof(StatementViewModel), createStatementEditor },
 				{ typeof(ICollection<StatementViewModel>), createStatementsList },
+				{ typeof(ObservableCollection<ConceptWithKey>), createConceptsList },
+				{ typeof(string), createCustomStatementTypeSelector },
 			};
 		}
 
@@ -329,6 +331,109 @@ namespace AabSemantics.Extensions.WPF.Dialogs
 			dockPanel.Children.Add(listBox);
 
 			groupBox.Content = dockPanel;
+		}
+
+		private void createConceptsList(PropertyDescriptorAttribute propertyDescriptor, PropertyInfo propertyInfo, int gridRow)
+		{
+			GroupBox groupBox;
+			panelQuestionParams.Children.Add(groupBox = new GroupBox
+			{
+				Header = _language.GetExtension<IWpfUiModule>().Ui.Editing.PropertyConcepts + ":",
+				Margin = new Thickness(2),
+			});
+			groupBox.SetValue(Grid.RowProperty, gridRow);
+			groupBox.SetValue(Grid.ColumnProperty, 0);
+			groupBox.SetValue(Grid.ColumnSpanProperty, 2);
+
+			var dataGrid = new DataGrid
+			{
+				AutoGenerateColumns = false,
+				IsReadOnly = false,
+				DataContext = Question,
+				CanUserAddRows = true,
+				CanUserDeleteRows = true,
+				HeadersVisibility = DataGridHeadersVisibility.Column,
+			};
+			dataGrid.SetBinding(ItemsControl.ItemsSourceProperty, new Binding
+			{
+				Path = new PropertyPath(propertyInfo.Name),
+				Mode = BindingMode.OneWay,
+			});
+
+			var keyColumn = new DataGridTextColumn
+			{
+				Header = _language.GetExtension<IWpfUiModule>().Ui.Editing.PropertyKey,
+				Binding = new Binding("Key") { Mode = BindingMode.TwoWay }
+			};
+			dataGrid.Columns.Add(keyColumn);
+
+			var conceptColumn = new DataGridComboBoxColumn
+			{
+				Header = _language.GetExtension<IWpfUiModule>().Ui.Editing.PropertyConcept,
+				SelectedItemBinding = new Binding("Concept") { Mode = BindingMode.TwoWay },
+				ItemsSource = _semanticNetwork.Concepts.Select(c => new ConceptItem(c, _language)).ToList()
+			};
+			dataGrid.Columns.Add(conceptColumn);
+
+			var dockPanel = new DockPanel
+			{
+				LastChildFill = true,
+			};
+
+			dockPanel.Children.Add(dataGrid);
+
+			groupBox.Content = dockPanel;
+		}
+
+		private void createCustomStatementTypeSelector(PropertyDescriptorAttribute propertyDescriptor, PropertyInfo propertyInfo, int gridRow)
+		{
+			GroupBox groupBox;
+			panelQuestionParams.Children.Add(groupBox = new GroupBox
+			{
+				Header = _language.GetExtension<IWpfUiModule>().Ui.Editing.PropertyType + ":",
+				Margin = new Thickness(2),
+			});
+			groupBox.SetValue(Grid.RowProperty, gridRow);
+			groupBox.SetValue(Grid.ColumnProperty, 0);
+			groupBox.SetValue(Grid.ColumnSpanProperty, 2);
+
+			var comboBox = new ComboBox
+			{
+				ItemsSource = Repositories.CustomStatements.Values.ToList(),
+				Margin = new Thickness(2),
+				MinWidth = 120,
+				DisplayMemberPath = "Kind",
+				DataContext = Question,
+			};
+			comboBox.MakeAutoComplete();
+			comboBox.SetBinding(Selector.SelectedItemProperty, new Binding
+			{
+				Path = new PropertyPath(propertyInfo.Name),
+				Mode = BindingMode.TwoWay,
+			});
+
+			groupBox.Content = comboBox;
+
+			if (propertyDescriptor.Required)
+			{
+				_requiredFieldSelectors.Add(comboBox);
+			}
+
+			comboBox.SelectionChanged += (sender, args) =>
+			{
+				if (Question is CustomStatementQuestion customQuestion)
+				{
+					customQuestion.Concepts.Clear();
+					if (comboBox.SelectedValue is CustomStatementDefinition definition)
+					{
+						foreach (var conceptKey in definition.Concepts)
+						{
+							customQuestion.Concepts.Add(new ConceptWithKey(conceptKey, null));
+						}
+					}
+				}
+				propertyValueSelected(sender, args);
+			};
 		}
 
 		#endregion

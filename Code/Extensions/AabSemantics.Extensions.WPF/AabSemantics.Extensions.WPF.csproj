@@ -159,6 +159,7 @@
     <Compile Include="ViewModels\ConceptWithKey.cs" />
     <Compile Include="ViewModels\LocalizedString.cs" />
     <Compile Include="ViewModels\LocalizedStringValue.cs" />
+    <Compile Include="ViewModels\Questions\CustomStatementQuestion.cs" />
     <Compile Include="ViewModels\Questions\CheckStatementQuestion.cs" />
     <Compile Include="ViewModels\Questions\ComparisonQuestion.cs" />
     <Compile Include="ViewModels\Questions\DescribeSubjectAreaQuestion.cs" />
