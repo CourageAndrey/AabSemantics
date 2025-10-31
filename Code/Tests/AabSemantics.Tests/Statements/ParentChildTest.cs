@@ -700,21 +700,6 @@ namespace AabSemantics.Tests.Statements
 				throw new NotSupportedException();
 			}
 
-			public IText DescribeTrue()
-			{
-				throw new NotSupportedException();
-			}
-
-			public IText DescribeFalse()
-			{
-				throw new NotSupportedException();
-			}
-
-			public IText DescribeQuestion()
-			{
-				throw new NotSupportedException();
-			}
-
 			public Task<bool> CheckUniqueAsync(IEnumerable<IStatement> statements)
 			{
 				throw new NotSupportedException();
