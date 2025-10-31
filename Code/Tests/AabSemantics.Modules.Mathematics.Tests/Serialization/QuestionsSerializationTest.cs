@@ -13,13 +13,21 @@ namespace AabSemantics.Modules.Mathematics.Tests.Serialization
 	[TestFixture]
 	public class QuestionsSerializationTest
 	{
-		private static readonly ILanguage _language;
-		private static readonly ISemanticNetwork _semanticNetwork;
-		private static readonly ConceptIdResolver _conceptIdResolver;
-		private static readonly StatementIdResolver _statementIdResolver;
+		private static ILanguage _language;
+		private static ISemanticNetwork _semanticNetwork;
+		private static ConceptIdResolver _conceptIdResolver;
+		private static StatementIdResolver _statementIdResolver;
 
-		static QuestionsSerializationTest()
+		[OneTimeSetUp]
+		public void OneTimeSetUp()
 		{
+			Initialize();
+		}
+
+		private static void Initialize()
+		{
+			if (_language != null) return;
+
 			_language = Language.Default;
 
 			_semanticNetwork = new SemanticNetwork(_language);
@@ -47,6 +55,8 @@ namespace AabSemantics.Modules.Mathematics.Tests.Serialization
 
 		public static IEnumerable<IQuestion> CreateQuestions()
 		{
+			Initialize();
+
 			var testConcept1 = _semanticNetwork.Concepts.First();
 			var testConcept2 = _semanticNetwork.Concepts.Last();
 

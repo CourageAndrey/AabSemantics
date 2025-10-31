@@ -18,13 +18,21 @@ namespace AabSemantics.IntegrationTests.Serialization
 	[TestFixture]
 	public class AnswersSerializationTest
 	{
-		private static readonly ILanguage _language;
-		private static readonly ISemanticNetwork _semanticNetwork;
-		private static readonly ConceptIdResolver _conceptIdResolver;
-		private static readonly StatementIdResolver _statementIdResolver;
+		private static ILanguage _language;
+		private static ISemanticNetwork _semanticNetwork;
+		private static ConceptIdResolver _conceptIdResolver;
+		private static StatementIdResolver _statementIdResolver;
 
-		static AnswersSerializationTest()
+		[OneTimeSetUp]
+		public void OneTimeSetUp()
 		{
+			Initialize();
+		}
+
+		private static void Initialize()
+		{
+			if (_language != null) return;
+
 			_language = AabSemantics.Localization.Language.Default;
 
 			_semanticNetwork = new SemanticNetwork(_language);
@@ -77,6 +85,8 @@ namespace AabSemantics.IntegrationTests.Serialization
 
 		public static IEnumerable<IAnswer> CreateAnswers()
 		{
+			Initialize();
+
 			var text = new FormattedText(
 				language => "_#A#_",
 				new Dictionary<string, IKnowledge>{ { "A", _semanticNetwork.Concepts.First() } });

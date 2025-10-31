@@ -21,13 +21,27 @@ namespace AabSemantics.Tests.Serialization
 	[TestFixture]
 	public class QuestionsSerializationTest
 	{
-		private static readonly ILanguage _language;
-		private static readonly ISemanticNetwork _semanticNetwork;
-		private static readonly ConceptIdResolver _conceptIdResolver;
-		private static readonly StatementIdResolver _statementIdResolver;
+		private static ILanguage _language;
+		private static ISemanticNetwork _semanticNetwork;
+		private static ConceptIdResolver _conceptIdResolver;
+		private static StatementIdResolver _statementIdResolver;
 
-		static QuestionsSerializationTest()
+		[OneTimeSetUp]
+		public void OneTimeSetUp()
 		{
+			Initialize();
+		}
+
+		[OneTimeTearDown]
+		public void OneTimeTearDown()
+		{
+			Repositories.Reset();
+		}
+
+		private static void Initialize()
+		{
+			if (_language != null) return;
+
 			_language = Language.Default;
 
 			new BooleanModule().RegisterMetadata();
@@ -56,11 +70,7 @@ namespace AabSemantics.Tests.Serialization
 				l => string.Empty,
 				l => string.Empty,
 				l => string.Empty);
-		}
 
-		[SetUp]
-		public void SetUp()
-		{
 			Repositories.RegisterCustomStatement(
 				"type",
 				new[] { "concept1", "concept2" },
@@ -85,6 +95,8 @@ namespace AabSemantics.Tests.Serialization
 
 		public static IEnumerable<IQuestion> CreateQuestions()
 		{
+			Initialize();
+
 			var testStatement = _semanticNetwork.Statements.First();
 			var testConcept1 = _semanticNetwork.Concepts.GetItem("a");
 			var testConcept2 = _semanticNetwork.Concepts.GetItem("d");
