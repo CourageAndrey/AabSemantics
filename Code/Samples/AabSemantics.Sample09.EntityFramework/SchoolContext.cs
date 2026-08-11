@@ -7,6 +7,7 @@ using AabSemantics.Sample09.EntityFramework.Models;
 
 namespace AabSemantics.Sample09.EntityFramework
 {
+	[DbConfigurationType(typeof(SchoolContextConfiguration))]
 	public class SchoolContext : DbContext
 	{
 		public SchoolContext() : base("SchoolContext")

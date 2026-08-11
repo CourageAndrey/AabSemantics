@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Runtime.Serialization.Formatters.Binary;
+using System.Runtime.Serialization;
 using System.Threading.Tasks;
 
 using NUnit.Framework;
@@ -340,26 +340,24 @@ namespace AabSemantics.Tests.Utils
 		}
 
 		[Test]
+#pragma warning disable SYSLIB0050, SYSLIB0051
 		public void GivenItemsCantBeRemovedException_WhenSerializeAdDeserialize_ThenSucceed()
 		{
 			// arrange
 			var exception = new ItemsCantBeRemovedException<int>(new[] { 123, 987, 465 });
 
-			var formatter = new BinaryFormatter();
+			var info = new SerializationInfo(typeof(ItemsCantBeRemovedException<int>), new FormatterConverter());
+			var context = new StreamingContext(StreamingContextStates.All);
 
-			using (var stream = new MemoryStream(new byte[8096]))
-			{
-				// act
-				formatter.Serialize(stream, exception);
+			// act
+			exception.GetObjectData(info, context);
 
-				stream.Seek(0, SeekOrigin.Begin);
+			var deserialized = new ItemsCantBeRemovedException<int>(info, context);
 
-				var deserialized = (ItemsCantBeRemovedException<int>) formatter.Deserialize(stream);
-
-				// assert
-				Assert.That(exception.Items.SequenceEqual(deserialized.Items), Is.True);
-			}
+			// assert
+			Assert.That(exception.Items.SequenceEqual(deserialized.Items), Is.True);
 		}
+#pragma warning restore SYSLIB0050, SYSLIB0051
 
 		private class TestRepository : IRepository<SimpleIdentifiable>
 		{
