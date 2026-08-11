@@ -23,8 +23,8 @@ namespace AabSemantics.SimpleRestClient.Controllers
 		{
 			var semanticNetwork = _dataService.GetSemanticNetwork();
 
-			var statements = string.IsNullOrEmpty(id)
-				? semanticNetwork.Statements as ICollection<IStatement>
+			IEnumerable<IStatement> statements = string.IsNullOrEmpty(id)
+				? semanticNetwork.Statements
 				: new[] { semanticNetwork.Statements.GetItem(id) };
 
 			return statements.Select(statement => Statement.Load(statement));
