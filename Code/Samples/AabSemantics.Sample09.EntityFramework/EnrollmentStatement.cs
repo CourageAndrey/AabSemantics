@@ -1,6 +1,9 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
+using AabSemantics.Concepts;
 using AabSemantics.Localization;
+using AabSemantics.Metadata;
 using AabSemantics.Statements;
 
 using AabSemantics.Sample09.EntityFramework.Models;
@@ -9,6 +12,16 @@ namespace AabSemantics.Sample09.EntityFramework
 {
 	internal class EnrollmentStatement : Statement<EnrollmentStatement>
 	{
+		#region Description parameters
+
+		private const String ParamStudent = "#STUDENT#";
+		private const String ParamCourse = "#COURSE#";
+		private const String ParamGrade = "#GRADE#";
+
+		private const String NoGrade = "none";
+
+		#endregion
+
 		#region Properties
 
 		public IConcept Course
@@ -51,36 +64,35 @@ namespace AabSemantics.Sample09.EntityFramework
 			yield return Student;
 		}
 
-		/*protected override string GetDescriptionTrueText(ILanguage language)
-		{
-			return Grade.HasValue
-				? $"{Student.Name.GetValue(language)} has {Course.Name.GetValue(language)} enrollment grade {Grade}."
-				: $"{Student.Name.GetValue(language)} is enrolled to {Course.Name.GetValue(language)}.";
-		}
-
-		protected override string GetDescriptionFalseText(ILanguage language)
-		{
-			return Grade.HasValue
-				? $"{Student.Name.GetValue(language)} has not {Course.Name.GetValue(language)} enrollment grade {Grade}."
-				: $"{Student.Name.GetValue(language)} isn't enrolled to {Course.Name.GetValue(language)}.";
-		}
-
-		protected override string GetDescriptionQuestionText(ILanguage language)
-		{
-			return Grade.HasValue
-				? $"Has {Student.Name.GetValue(language)} {Course.Name.GetValue(language)} enrollment grade {Grade}?"
-				: $"Is {Student.Name.GetValue(language)} enrolled to {Course.Name.GetValue(language)}?";
-		}
-
-		protected override IDictionary<string, IKnowledge> GetDescriptionParameters()
-		{
-			return new Dictionary<string, IKnowledge>();
-		}*/
-
 		public override bool Equals(EnrollmentStatement other)
 		{
-			// This simplicity is enough here.
 			return ID == other.ID;
+		}
+
+		#endregion
+
+		#region Metadata
+
+		public static void RegisterMetadata()
+		{
+			Repositories.RegisterStatement(
+				typeof(EnrollmentStatement),
+				language => "Enrollment",
+				language => $"{ParamStudent} is enrolled to {ParamCourse} with grade {ParamGrade}.",
+				language => $"{ParamStudent} is not enrolled to {ParamCourse} with grade {ParamGrade}.",
+				language => $"Is {ParamStudent} enrolled to {ParamCourse} with grade {ParamGrade}?",
+				statement => ((EnrollmentStatement) statement).getDescriptionParameters(),
+				StatementDefinition.NoConsistencyCheck);
+		}
+
+		private IDictionary<String, IKnowledge> getDescriptionParameters()
+		{
+			return new Dictionary<String, IKnowledge>
+			{
+				{ ParamStudent, Student },
+				{ ParamCourse, Course },
+				{ ParamGrade, new Concept($"G{Grade?.ToString() ?? NoGrade}", new LocalizedStringConstant(language => Grade?.ToString() ?? NoGrade)) },
+			};
 		}
 
 		#endregion

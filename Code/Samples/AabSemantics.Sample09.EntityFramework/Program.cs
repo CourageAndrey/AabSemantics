@@ -13,6 +13,8 @@ namespace AabSemantics.Sample09.EntityFramework
 		{
 			var language = Language.Default;
 
+			EnrollmentStatement.RegisterMetadata();
+
 			Console.WriteLine("Initialize DB Context.");
 			using (var dbContext = SchoolContext.GenerateSample())
 			{
