@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 
+using AabSemantics.Utils;
+
 namespace AabSemantics.Contexts
 {
 	public abstract class Context : IContext
@@ -33,7 +35,7 @@ namespace AabSemantics.Contexts
 		{
 			Language = language;
 			Scope = new List<IStatement>();
-			Children = new List<IContext>();
+			Children = new SynchronizedCollection<IContext>();
 
 			Parent = parent;
 			if (parent != null)
