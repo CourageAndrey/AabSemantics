@@ -9,15 +9,20 @@ This document provides a high-level description of the AabSemantics repository a
 
 - **Core**: `Code/Core/AabSemantics`
   - The main semantics engine: concepts, contexts, modules, statements, questions, answers, text, serialization, and utilities.
+  - Published to NuGet as the `AabSemantics` package; it is currently the only packable project in the solution.
   - Subfolders of note:
     - `Interfaces/`: Public contracts; treat as API surface.
-    - `Modules/`: Built-in modules and composition points.
-    - `Serialization/`: DTOs and persistence wire formats; backwards compatibility matters.
+    - `Modules/`: Built-in `Boolean` and `Classification` modules and composition points.
+    - `Serialization/`: `Xml` and `Json` DTOs and persistence wire formats; backwards compatibility matters.
     - `Text/`, `Localization/`: Text generation, localization, and structured text.
+    - `Mutations/`, `Questions/`, `Statements/`: Inference, question processing, and consistency checking.
+
+- **Core**: `Code/Core/Inventor.Algorithms`
+  - Standalone graph and coding algorithms (Dijkstra, Ford-Fulkerson, Huffman) used independently of the semantics engine.
 
 - **Modules**: `Code/Modules/*`
-  - Optional domain modules (e.g., Set, Processes, Mathematics, NaturalSciense) that extend the core engine.
-  - Some module-specific sample and integration projects exist under `Inventor.Semantics.*` and `Samples.*`.
+  - Optional domain modules that extend the core engine: `AabSemantics.Modules.Set`, `AabSemantics.Modules.Processes`, `AabSemantics.Modules.Mathematics`.
+  - Each module has a matching test project under `Code/Tests/AabSemantics.Modules.<Name>.Tests`.
 
 - **Extensions**: `Code/Extensions/*`
   - EF integration (`AabSemantics.Extensions.EF`) and WPF integration helpers (`AabSemantics.Extensions.WPF`).
@@ -27,23 +32,30 @@ This document provides a high-level description of the AabSemantics repository a
   - `AabSemantics.SimpleWpfClient`: WPF showcase UI.
 
 - **Samples**: `Code/Samples/*`
-  - Small console or UI samples demonstrating statements, questions, modules, customizations, productions, and EF usage.
+  - Small console samples named `AabSemantics.Sample01..09`, demonstrating statements, questions, modules, customizations, productions, and EF usage.
 
 - **Tests**: `Code/Tests/*`
   - Unit and integration tests across core and modules. Use them to verify behavioral compatibility.
+  - `AabSemantics.TestCore` holds shared test infrastructure and fixture data reused by the other test projects.
 
 ### Build and run
 
-- Open `Code/AabSemantics.sln` in Visual Studio 2019/2022 with the .NET development workload.
-- Restore NuGet packages (automatic on build). Packages are managed via `packages.config` in several projects; keep using that unless migrating the entire solution.
-- Build the solution (Any CPU is generally supported; prefer Debug while iterating).
+- Requires the **.NET 8 SDK**. Visual Studio 2022 (with the .NET desktop development workload) or the `dotnet` CLI both work; Visual Studio 2019 cannot build the `net8.0` projects.
+- Build: `dotnet build Code/AabSemantics.sln`. NuGet restore happens automatically.
+- Test: `dotnet test Code/AabSemantics.sln`.
 - Run samples from `Code/Samples/*` to validate expected behavior after changes.
+- Building the WPF client and WPF extension requires Windows; the rest of the solution is cross-platform.
 
 ### Technology notes
 
-- This repository uses C# and .NET (some projects use classic `packages.config`).
-- Entity Framework 6.x is used in EF-related projects (`Code/packages/EntityFramework.*`). Avoid uncoordinated major upgrades.
-- WPF client targets .NET Framework; do not assume .NET (Core) WPF unless explicitly migrated.
+- All projects use the SDK-style project format with `PackageReference`. There is no `packages.config` and no `Code/packages` folder.
+- Target frameworks by layer:
+  - `netstandard2.0`: core (`AabSemantics`, `Inventor.Algorithms`) and all modules — keep them portable.
+  - `net8.0`: EF extension, REST client, samples, and tests.
+  - `net8.0-windows`: WPF client and WPF extension.
+- Entity Framework 6.5.2 is referenced by `AabSemantics.Extensions.EF` and `Sample09`. Avoid uncoordinated major upgrades.
+- The WPF client targets `net8.0-windows`, **not** .NET Framework.
+- Package versions are declared per project; there is currently no `Directory.Build.props` or central package management.
 
 ### Architectural overview
 
@@ -64,7 +76,7 @@ Breaking changes must be isolated behind adapters or versioned DTOs. Prefer addi
 
 ### Testing expectations
 
-- Run unit tests under `Code/Tests/*` after any non-trivial change.
+- Tests use **NUnit 4**. Run them with `dotnet test Code/AabSemantics.sln` after any non-trivial change; the full suite is fast (a few seconds) and is expected to be green.
 - Add tests when changing behavior, fixing bugs, or adding features.
 - Keep tests deterministic; avoid time- or randomness-dependent assertions.
 
@@ -103,7 +115,7 @@ Follow these rules strictly when making changes:
 - Keep comments concise and only for non-obvious context.
 - Do not upgrade third-party packages without an explicit instruction.
 - Avoid introducing long-lived feature flags unless specified; keep configuration simple.
-- For REST work, document new endpoints and payloads inline and in the client project README or controllers' XML docs.
+- For REST work, document new endpoints and payloads in the controllers' XML docs; they surface through the Swagger UI, which is enabled in the Development environment.
 
 When uncertain:
 
@@ -112,10 +124,10 @@ When uncertain:
 
 ### How to add a new module (quick checklist)
 
-1. Create a project under `Code/Modules/<YourModuleName>` following existing module csproj patterns.
+1. Create a project under `Code/Modules/AabSemantics.Modules.<YourModuleName>` following existing module csproj patterns (`netstandard2.0`).
 2. Define statements, questions, and answers types extending core abstractions.
 3. Register module with the semantic network composition where needed.
-4. Add unit tests under `Code/Tests/<YourModuleName>.Tests`.
+4. Add unit tests under `Code/Tests/AabSemantics.Modules.<YourModuleName>.Tests`, reusing `AabSemantics.TestCore`.
 5. Add a minimal sample under `Code/Samples/` if appropriate.
 
 ### How to extend the REST client (quick checklist)
@@ -123,7 +135,7 @@ When uncertain:
 1. Add a new controller under `Code/Clients/AabSemantics.SimpleRestClient/Controllers`.
 2. Reuse core/module services; avoid duplicating business logic.
 3. Ensure request/response models are versioned or additive.
-4. Add sample requests to `README.md` or controller XML docs.
+4. Add sample requests to the controller's XML docs so they appear in Swagger.
 
 ### License and provenance
 
