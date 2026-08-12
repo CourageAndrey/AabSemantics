@@ -60,11 +60,11 @@ namespace AabSemantics.Statements
 					{
 						if (row != column)
 						{
-							combinationsUpdated |= await UpdateInferredCombinationsFromCellAsync(row, column);
+							combinationsUpdated |= await UpdateInferredCombinationsFromCellAsync(row, column).ConfigureAwait(false);
 						}
 					}
 				}
-			});
+			}).ConfigureAwait(false);
 			return combinationsUpdated;
 		}
 

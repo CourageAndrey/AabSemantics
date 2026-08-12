@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Threading.Tasks;
 
 namespace AabSemantics.Utils
 {
@@ -12,6 +13,16 @@ namespace AabSemantics.Utils
 		public static void Await(this Task task)
 		{
 			task.ConfigureAwait(false).GetAwaiter().GetResult();
+		}
+
+		public static T AwaitDetached<T>(Func<Task<T>> asyncOperation)
+		{
+			return Task.Run(asyncOperation).ConfigureAwait(false).GetAwaiter().GetResult();
+		}
+
+		public static void AwaitDetached(Func<Task> asyncOperation)
+		{
+			Task.Run(asyncOperation).ConfigureAwait(false).GetAwaiter().GetResult();
 		}
 	}
 }

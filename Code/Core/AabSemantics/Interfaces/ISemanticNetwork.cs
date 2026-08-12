@@ -36,7 +36,7 @@ namespace AabSemantics
 				{
 					result.Append(statement.DescribeTrue());
 				}
-			});
+			}).ConfigureAwait(false);
 
 			return result;
 		}
@@ -46,26 +46,26 @@ namespace AabSemantics
 			var result = new UnstructuredContainer();
 
 			// 1. check all duplicates
-			await CheckStatementDuplicatesAsync(semanticNetwork, result);
+			await CheckStatementDuplicatesAsync(semanticNetwork, result).ConfigureAwait(false);
 
 			// 2. check specific statements
 			foreach (var statementDefinition in Repositories.Statements.Definitions.Values)
 			{
-				await statementDefinition.CheckConsistencyAsync(semanticNetwork, result);
+				await statementDefinition.CheckConsistencyAsync(semanticNetwork, result).ConfigureAwait(false);
 			}
 
 			if (result.Items.Count == 0)
 			{
 				result.Append(language => language.Statements.Consistency.CheckOk);
 			}
-			return await Task.FromResult(result);
+			return result;
 		}
 
 		private static async Task CheckStatementDuplicatesAsync(ISemanticNetwork semanticNetwork, ITextContainer result)
 		{
 			foreach (var statement in semanticNetwork.Statements)
 			{
-				if (! await statement.CheckUniqueAsync(semanticNetwork.Statements))
+				if (! await statement.CheckUniqueAsync(semanticNetwork.Statements).ConfigureAwait(false))
 				{
 					result.Append(
 						language => language.Statements.Consistency.ErrorDuplicate,
@@ -76,12 +76,12 @@ namespace AabSemantics
 		
 		public static IText DescribeRules(this ISemanticNetwork semanticNetwork)
 		{
-			return DescribeRulesAsync(semanticNetwork).Await();
+			return TaskHelper.AwaitDetached(() => DescribeRulesAsync(semanticNetwork));
 		}
 
 		public static IText CheckConsistency(this ISemanticNetwork semanticNetwork)
 		{
-			return CheckConsistencyAsync(semanticNetwork).Await();
+			return TaskHelper.AwaitDetached(() => CheckConsistencyAsync(semanticNetwork));
 		}
 	}
 }

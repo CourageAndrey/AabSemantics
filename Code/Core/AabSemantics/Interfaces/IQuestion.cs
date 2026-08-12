@@ -17,7 +17,7 @@ namespace AabSemantics
 	{
 		public static IAnswer Ask(this IQuestion question, ISemanticNetworkContext context, ILanguage language = null)
 		{
-			return question.AskAsync(context, language).Await();
+			return TaskHelper.AwaitDetached(() => question.AskAsync(context, language));
 		}
 	}
 }

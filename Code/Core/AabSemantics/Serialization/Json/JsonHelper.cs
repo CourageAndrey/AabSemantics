@@ -59,26 +59,26 @@ namespace AabSemantics.Serialization.Json
 			using (var memoryStream = new MemoryStream())
 			{
 				var serializer = AcquireJsonSerializer(entity.GetType());
-				await Task.Run(() => serializer.WriteObject(memoryStream, entity));
-				jsonBytes = await Task.Run(() => memoryStream.ToArray());
+				await Task.Run(() => serializer.WriteObject(memoryStream, entity)).ConfigureAwait(false);
+				jsonBytes = await Task.Run(() => memoryStream.ToArray()).ConfigureAwait(false);
 			}
-			return await Task.Run(() => Encoding.GetString(jsonBytes, 0, jsonBytes.Length));
+			return await Task.Run(() => Encoding.GetString(jsonBytes, 0, jsonBytes.Length)).ConfigureAwait(false);
 		}
 
 		public static async Task SerializeToJsonFileAsync(this Object entity, String fileName)
 		{
 			string json = await entity.SerializeToJsonStringAsync();
-			await Task.Run(() => File.WriteAllText(fileName, json));
+			await Task.Run(() => File.WriteAllText(fileName, json)).ConfigureAwait(false);
 		}
 
 		public static String SerializeToJsonString(this Object entity)
 		{
-			return SerializeToJsonStringAsync(entity).Await();
+			return TaskHelper.AwaitDetached(() => SerializeToJsonStringAsync(entity));
 		}
 
 		public static void SerializeToJsonFile(this Object entity, String fileName)
 		{
-			SerializeToJsonFileAsync(entity, fileName).Await();
+			TaskHelper.AwaitDetached(() => SerializeToJsonFileAsync(entity, fileName));
 		}
 
 		#endregion
@@ -88,7 +88,7 @@ namespace AabSemantics.Serialization.Json
 		public static async Task<T> DeserializeFromJsonStreamAsync<T>(this Stream stream)
 		{
 			var serializer = AcquireJsonSerializer<T>();
-			return await Task.Run(() => (T) serializer.ReadObject(stream));
+			return await Task.Run(() => (T) serializer.ReadObject(stream)).ConfigureAwait(false);
 		}
 
 		public static async Task<T> DeserializeFromJsonBytesAsync<T>(this Byte[] bytes)
@@ -111,22 +111,22 @@ namespace AabSemantics.Serialization.Json
 
 		public static T DeserializeFromJsonStream<T>(this Stream stream)
 		{
-			return DeserializeFromJsonStreamAsync<T>(stream).Await();
+			return TaskHelper.AwaitDetached(() => DeserializeFromJsonStreamAsync<T>(stream));
 		}
 
 		public static T DeserializeFromJsonBytes<T>(this Byte[] bytes)
 		{
-			return DeserializeFromJsonBytesAsync<T>(bytes).Await();
+			return TaskHelper.AwaitDetached(() => DeserializeFromJsonBytesAsync<T>(bytes));
 		}
 
 		public static T DeserializeFromJsonFile<T>(this String file)
 		{
-			return DeserializeFromJsonFileAsync<T>(file).Await();
+			return TaskHelper.AwaitDetached(() => DeserializeFromJsonFileAsync<T>(file));
 		}
 
 		public static T DeserializeFromJsonString<T>(this String json)
 		{
-			return DeserializeFromJsonStringAsync<T>(json).Await();
+			return TaskHelper.AwaitDetached(() => DeserializeFromJsonStringAsync<T>(json));
 		}
 
 		#endregion

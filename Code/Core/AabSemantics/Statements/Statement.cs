@@ -85,7 +85,7 @@ namespace AabSemantics.Statements
 				}
 
 				return Task.FromResult(true);
-			});
+			}).ConfigureAwait(false);
 		}
 
 		public abstract Boolean Equals(StatementT other);
