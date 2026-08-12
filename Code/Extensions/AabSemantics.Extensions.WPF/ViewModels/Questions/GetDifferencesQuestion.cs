@@ -1,6 +1,5 @@
 ﻿namespace AabSemantics.Extensions.WPF.ViewModels.Questions
 {
-	[QuestionDescriptor]
 	public class GetDifferencesQuestion : QuestionViewModel<Modules.Set.Questions.GetDifferencesQuestion>
 	{
 		[PropertyDescriptor(true, "Set\\Questions.Parameters.Concept1")]

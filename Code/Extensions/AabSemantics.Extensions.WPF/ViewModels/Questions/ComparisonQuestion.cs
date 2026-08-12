@@ -1,6 +1,5 @@
 ﻿namespace AabSemantics.Extensions.WPF.ViewModels.Questions
 {
-	[QuestionDescriptor]
 	public class ComparisonQuestion : QuestionViewModel<Modules.Mathematics.Questions.ComparisonQuestion>
 	{
 		[PropertyDescriptor(true, "Mathematics\\Questions.Parameters.LeftValue")]

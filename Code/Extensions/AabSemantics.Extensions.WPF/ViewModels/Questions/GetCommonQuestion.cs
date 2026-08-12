@@ -1,6 +1,5 @@
 ﻿namespace AabSemantics.Extensions.WPF.ViewModels.Questions
 {
-	[QuestionDescriptor]
 	public class GetCommonQuestion : QuestionViewModel<Modules.Set.Questions.GetCommonQuestion>
 	{
 		[PropertyDescriptor(true, "Set\\Questions.Parameters.Concept1")]

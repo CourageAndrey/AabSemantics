@@ -1,6 +1,5 @@
 ﻿namespace AabSemantics.Extensions.WPF.ViewModels.Questions
 {
-	[QuestionDescriptor]
 	public class IsPartOfQuestion : QuestionViewModel<Modules.Set.Questions.IsPartOfQuestion>
 	{
 		[PropertyDescriptor(true, "Questions.Parameters.Parent")]

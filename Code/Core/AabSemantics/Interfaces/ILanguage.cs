@@ -135,7 +135,8 @@ namespace AabSemantics
 			else // if (pathParts.Length >= 2) because this expression is always true (zero is impossible)
 			{
 				String moduleName = pathParts[0];
-				languageObject = language.Extensions.FirstOrDefault(e => e.GetType().Name == $"Language{moduleName}Module");
+				languageObject = language.Extensions.FirstOrDefault(e => e.GetType().Name == $"Language{moduleName}Module")
+					?? language.Extensions.FirstOrDefault(e => e.GetType().Name == moduleName); // the WPF UI extension is named WpfUiModule
 
 				propertyPath = pathParts[1].Split('.');
 			}
@@ -148,6 +149,10 @@ namespace AabSemantics
 				}
 
 				var property = languageObject.GetType().GetProperty(member, BindingFlags.Instance | BindingFlags.Public | BindingFlags.GetProperty);
+				if (property == null)
+				{
+					return null;
+				}
 
 				languageObject = property.GetValue(languageObject);
 			}

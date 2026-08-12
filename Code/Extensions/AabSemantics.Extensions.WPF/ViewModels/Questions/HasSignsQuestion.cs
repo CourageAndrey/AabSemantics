@@ -1,6 +1,5 @@
 ﻿namespace AabSemantics.Extensions.WPF.ViewModels.Questions
 {
-	[QuestionDescriptor]
 	public class HasSignsQuestion : QuestionViewModel<Modules.Set.Questions.HasSignsQuestion>
 	{
 		[PropertyDescriptor(true, "Questions.Parameters.Concept")]

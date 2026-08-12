@@ -29,9 +29,6 @@ namespace AabSemantics.Extensions.WPF.Localization
 		String CreateNewStatement
 		{ get; }
 
-		String CreateNewQuestion
-		{ get; }
-
 		ILanguageMainForm MainForm
 		{ get; }
 
@@ -90,10 +87,6 @@ namespace AabSemantics.Extensions.WPF.Localization
 		public String CreateNewStatement
 		{ get; set; }
 
-		[XmlElement]
-		public String CreateNewQuestion
-		{ get; set; }
-
 		[XmlElement(ElementMainForm)]
 		public LanguageMainForm MainFormXml
 		{ get; set; }
@@ -132,7 +125,6 @@ namespace AabSemantics.Extensions.WPF.Localization
 				SelectModulesDialogHeader = "Modules",
 				GraphDialogHeader = "Graph",
 				CreateNewStatement = "Create new statement? (No - edit existing)",
-				CreateNewQuestion = "Create new question? (No - edit existing)",
 				QuestionDialogXml = LanguageQuestionDialog.CreateDefault(),
 				MainFormXml = LanguageMainForm.CreateDefault(),
 				EditingXml = LanguageEditing.CreateDefault(),

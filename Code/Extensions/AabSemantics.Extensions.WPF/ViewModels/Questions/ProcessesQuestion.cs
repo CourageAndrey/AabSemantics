@@ -1,6 +1,5 @@
 ﻿namespace AabSemantics.Extensions.WPF.ViewModels.Questions
 {
-	[QuestionDescriptor]
 	public class ProcessesQuestion : QuestionViewModel<Modules.Processes.Questions.ProcessesQuestion>
 	{
 		[PropertyDescriptor(true, "Processes\\Questions.Parameters.ProcessA")]

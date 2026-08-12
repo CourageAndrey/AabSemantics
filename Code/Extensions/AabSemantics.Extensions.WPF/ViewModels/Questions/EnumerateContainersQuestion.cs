@@ -1,6 +1,5 @@
 ﻿namespace AabSemantics.Extensions.WPF.ViewModels.Questions
 {
-	[QuestionDescriptor]
 	public class EnumerateContainersQuestion : QuestionViewModel<Modules.Set.Questions.EnumerateContainersQuestion>
 	{
 		[PropertyDescriptor(true, "Questions.Parameters.Concept")]

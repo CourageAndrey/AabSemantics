@@ -273,7 +273,7 @@ namespace AabSemantics.Modules.Set.Localization
 				CompareConceptsResult = $"Result of {Strings.ParamConcept1} and {Strings.ParamConcept2} comparison:",
 				CompareConceptsCommon = $"Both have {Strings.ParamSign} sign value equal to {Strings.ParamValue}.",
 				CompareConceptsNoCommon = "No common found according to existing information.",
-				CompareConceptsCommonNotSet = "{Strings.ParamSign} sign value is not set for both concepts.",
+				CompareConceptsCommonNotSet = $"{Strings.ParamSign} sign value is not set for both concepts.",
 				CompareConceptsDifference = $"First have {Strings.ParamSign} sign value equal to {Strings.ParamConcept1}, and second one equal to {Strings.ParamConcept2}.",
 				CompareConceptsFirstNotSet = $"First have {Strings.ParamSign} sign value not set, and second one equal to {Strings.ParamConcept2}.",
 				CompareConceptsSecondNotSet = $"First have {Strings.ParamSign} sign value equal to {Strings.ParamConcept1}, and second one not set.",

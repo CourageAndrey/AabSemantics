@@ -1,6 +1,5 @@
 ﻿namespace AabSemantics.Extensions.WPF.ViewModels.Questions
 {
-	[QuestionDescriptor]
 	public class IsQuestion : QuestionViewModel<Modules.Classification.Questions.IsQuestion>
 	{
 		[PropertyDescriptor(true, "Questions.Parameters.Child")]

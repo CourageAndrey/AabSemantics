@@ -22,8 +22,8 @@ namespace AabSemantics.Extensions.WPF.Controls
 
 			var languageEditing = language.GetExtension<IWpfUiModule>().Ui.Editing;
 			_groupID.Header = languageEditing.PropertyID;
-			_groupWhole.Header = languageEditing.PropertyAncestor;
-			_groupPart.Header = languageEditing.PropertyDescendant;
+			_groupWhole.Header = languageEditing.PropertyWhole;
+			_groupPart.Header = languageEditing.PropertyPart;
 		}
 
 		public StatementViewModel Statement

@@ -1,6 +1,5 @@
 ﻿namespace AabSemantics.Extensions.WPF.ViewModels.Questions
 {
-	[QuestionDescriptor]
 	public class CheckStatementQuestion : QuestionViewModel<Modules.Boolean.Questions.CheckStatementQuestion>
 	{
 		[PropertyDescriptor(true, "Boolean\\Questions.Parameters.Statement")]

@@ -1,6 +1,5 @@
 ﻿namespace AabSemantics.Extensions.WPF.ViewModels.Questions
 {
-	[QuestionDescriptor]
 	public class EnumerateDescendantsQuestion : QuestionViewModel<Modules.Classification.Questions.EnumerateDescendantsQuestion>
 	{
 		[PropertyDescriptor(true, "Questions.Parameters.Concept")]

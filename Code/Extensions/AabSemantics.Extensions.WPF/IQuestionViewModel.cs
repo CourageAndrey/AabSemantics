@@ -25,7 +25,7 @@ namespace AabSemantics.Extensions.WPF
 	public abstract class QuestionViewModel<QuestionT> : IQuestionViewModel<QuestionT>
 		where QuestionT : IQuestion
 	{
-		[PropertyDescriptor(true, "Names.Conditions")]
+		[PropertyDescriptor(true, "Questions.Parameters.Conditions")]
 		public ICollection<StatementViewModel> Preconditions
 		{ get; } = new ObservableCollection<StatementViewModel>();
 

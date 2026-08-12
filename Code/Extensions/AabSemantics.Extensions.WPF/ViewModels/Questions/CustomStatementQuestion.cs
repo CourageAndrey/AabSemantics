@@ -3,14 +3,13 @@ using System.Linq;
 
 namespace AabSemantics.Extensions.WPF.ViewModels.Questions
 {
-	[QuestionDescriptor]
 	public class CustomStatementQuestion : QuestionViewModel<AabSemantics.Questions.CustomStatementQuestion>
 	{
-		[PropertyDescriptor(true, "Editing.PropertyConcepts")]
+		[PropertyDescriptor(true, "WpfUiModule\\Ui.Editing.PropertyType")]
 		public string Type
 		{ get; set; }
 
-		[PropertyDescriptor(true, "Editing.PropertyConcepts")]
+		[PropertyDescriptor(true, "WpfUiModule\\Ui.Editing.PropertyConcepts")]
 		public ObservableCollection<ConceptWithKey> Concepts
 		{ get; set; }
 
