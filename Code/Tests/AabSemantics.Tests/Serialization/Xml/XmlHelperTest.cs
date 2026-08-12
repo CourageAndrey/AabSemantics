@@ -331,6 +331,11 @@ namespace AabSemantics.Tests.Serialization.Xml
 			{
 				return Equals(obj as SerializationParent);
 			}
+
+			public override int GetHashCode()
+			{
+				return base.GetHashCode();
+			}
 		}
 
 		[XmlType]
@@ -344,6 +349,11 @@ namespace AabSemantics.Tests.Serialization.Xml
 			public override bool Equals(object obj)
 			{
 				return Equals(obj as SerializationChildA);
+			}
+
+			public override int GetHashCode()
+			{
+				return base.GetHashCode();
 			}
 		}
 
@@ -370,6 +380,11 @@ namespace AabSemantics.Tests.Serialization.Xml
 			public override bool Equals(object obj)
 			{
 				return Equals(obj as SerializationChildB);
+			}
+
+			public override int GetHashCode()
+			{
+				return base.GetHashCode();
 			}
 		}
 

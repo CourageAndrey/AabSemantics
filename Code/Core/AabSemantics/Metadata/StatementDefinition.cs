@@ -151,7 +151,7 @@ namespace AabSemantics.Metadata
 			consistencyChecker.EnsureNotNull(nameof(consistencyChecker));
 		}
 
-		public static readonly StatementConsistencyCheckerDelegate<StatementT> NoConsistencyCheck = (semanticNetwork, result, statements) => Task.CompletedTask;
+		public new static readonly StatementConsistencyCheckerDelegate<StatementT> NoConsistencyCheck = (semanticNetwork, result, statements) => Task.CompletedTask;
 	}
 
 	public static class StatementDefinitionExtensions
