@@ -1,0 +1,30 @@
+<Project>
+
+  <!--
+    Central Package Management: every version lives here, and PackageReference
+    elements in projects carry only Include (plus metadata such as PrivateAssets).
+  -->
+
+  <PropertyGroup>
+    <ManagePackageVersionsCentrally>true</ManagePackageVersionsCentrally>
+  </PropertyGroup>
+
+  <!-- Persistence: Entity Framework 6.x. Avoid uncoordinated major upgrades. -->
+  <ItemGroup>
+    <PackageVersion Include="EntityFramework" Version="6.5.2" />
+    <PackageVersion Include="System.Data.SqlClient" Version="4.9.1" />
+  </ItemGroup>
+
+  <!-- REST client. -->
+  <ItemGroup>
+    <PackageVersion Include="Swashbuckle.AspNetCore" Version="10.2.3" />
+  </ItemGroup>
+
+  <!-- Test projects; referenced from Code/Tests/Directory.Build.props. -->
+  <ItemGroup>
+    <PackageVersion Include="Microsoft.NET.Test.Sdk" Version="18.8.1" />
+    <PackageVersion Include="NUnit" Version="4.5.1" />
+    <PackageVersion Include="NUnit3TestAdapter" Version="6.2.0" />
+  </ItemGroup>
+
+</Project>

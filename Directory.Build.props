@@ -1,0 +1,23 @@
+<Project>
+
+  <!--
+    Solution-wide metadata. Individual projects override only what is genuinely
+    project-specific (e.g. the core library's PackageId, Version and Description).
+  -->
+
+  <PropertyGroup>
+    <Authors>Andrei Bychko</Authors>
+    <Company>Andrei Bychko</Company>
+    <Product>AabSemantics</Product>
+    <Copyright>Copyright © Andrei Bychko 2014-2026</Copyright>
+    <Version>1.0.0</Version>
+    <Description>$(MSBuildProjectName)</Description>
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <RepositoryUrl>https://github.com/CourageAndrey/AabSemantics</RepositoryUrl>
+    <RepositoryType>git</RepositoryType>
+  </PropertyGroup>
+
+</Project>

@@ -55,7 +55,11 @@ This document provides a high-level description of the AabSemantics repository a
   - `net8.0-windows`: WPF client and WPF extension.
 - Entity Framework 6.5.2 is referenced by `AabSemantics.Extensions.EF` and `Sample09`. Avoid uncoordinated major upgrades.
 - The WPF client targets `net8.0-windows`, **not** .NET Framework.
-- Package versions are declared per project; there is currently no `Directory.Build.props` or central package management.
+- Shared metadata (`Authors`, `Company`, `Product`, `Copyright`, `Version`, license, repository URL) lives in the root `Directory.Build.props`. Do not repeat it in individual projects; override a property only when a project genuinely differs (as the core library does for `PackageId`, `Version` and `Description`).
+- `Code/Tests/Directory.Build.props` adds `IsPackable=false` and the NUnit / test SDK package references to every test project. It explicitly imports the root file, because MSBuild only applies the nearest `Directory.Build.props`.
+- The solution uses **Central Package Management**: every package version is declared once as a `PackageVersion` in the root `Directory.Packages.props`. A `PackageReference` in a project carries only `Include` (plus metadata such as `PrivateAssets`) and must **not** specify `Version` — doing so is an error under CPM.
+- To add a package: add a `PackageVersion` to `Directory.Packages.props`, then reference it without a version from the project that needs it.
+- Transitive pinning (`CentralPackageTransitivePinningEnabled`) is deliberately off, so transitive dependencies still resolve to whatever their parent package requires.
 
 ### Architectural overview
 

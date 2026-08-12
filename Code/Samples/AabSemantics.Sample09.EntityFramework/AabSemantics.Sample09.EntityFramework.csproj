@@ -7,17 +7,9 @@
     <AssemblyName>AabSemantics.Sample09.EntityFramework</AssemblyName>
   </PropertyGroup>
 
-  <PropertyGroup>
-    <Description>AabSemantics.Sample09.EntityFramework</Description>
-    <Company>Andrei Bychko</Company>
-    <Product>AabSemantics</Product>
-    <Copyright>Copyright © Andrei Bychko 2014-2026</Copyright>
-    <Version>1.0.0</Version>
-  </PropertyGroup>
-
   <ItemGroup>
-    <PackageReference Include="EntityFramework" Version="6.5.2" />
-    <PackageReference Include="System.Data.SqlClient" Version="4.9.1" />
+    <PackageReference Include="EntityFramework" />
+    <PackageReference Include="System.Data.SqlClient" />
   </ItemGroup>
 
   <ItemGroup>

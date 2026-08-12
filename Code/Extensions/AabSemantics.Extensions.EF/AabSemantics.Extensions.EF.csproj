@@ -6,16 +6,8 @@
     <AssemblyName>AabSemantics.Extensions.EF</AssemblyName>
   </PropertyGroup>
 
-  <PropertyGroup>
-    <Description>AabSemantics.Extensions.EF</Description>
-    <Company>Andrei Bychko</Company>
-    <Product>AabSemantics</Product>
-    <Copyright>Copyright © Andrei Bychko 2014-2026</Copyright>
-    <Version>1.0.0</Version>
-  </PropertyGroup>
-
   <ItemGroup>
-    <PackageReference Include="EntityFramework" Version="6.5.2" />
+    <PackageReference Include="EntityFramework" />
   </ItemGroup>
 
   <ItemGroup>
