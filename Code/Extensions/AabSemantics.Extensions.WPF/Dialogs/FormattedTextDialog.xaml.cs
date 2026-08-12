@@ -12,7 +12,12 @@ namespace AabSemantics.Extensions.WPF.Dialogs
 		{
 			InitializeComponent();
 
-			_parameters = text.GetParameters();
+			_knowledgeById = new Dictionary<string, IKnowledge>();
+			foreach (var knowledge in text.GetParameters().Values)
+			{
+				_knowledgeById[knowledge.ID] = knowledge;
+			}
+
 			_linkClicked = linkClicked;
 
 			var browser = (WebBrowser) windowsFormsHost.Child;
@@ -24,15 +29,16 @@ namespace AabSemantics.Extensions.WPF.Dialogs
 
 		private void browserNavigating(object sender, WebBrowserNavigatingEventArgs webBrowserNavigatingEventArgs)
 		{
-			if (_linkClicked != null)
-			{
-				string key = webBrowserNavigatingEventArgs.Url.LocalPath;
-				_linkClicked(_parameters[key]);
-			}
 			webBrowserNavigatingEventArgs.Cancel = true;
+
+			IKnowledge knowledge;
+			if (_linkClicked != null && _knowledgeById.TryGetValue(webBrowserNavigatingEventArgs.Url.LocalPath, out knowledge))
+			{
+				_linkClicked(knowledge);
+			}
 		}
 
-		private readonly IDictionary<string, IKnowledge> _parameters;
+		private readonly IDictionary<string, IKnowledge> _knowledgeById;
 		private readonly Action<IKnowledge> _linkClicked;
 
 		private void dialogLoaded(object sender, RoutedEventArgs e)
