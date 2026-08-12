@@ -17,12 +17,12 @@ namespace AabSemantics.Utils
 
 		public static T AwaitDetached<T>(Func<Task<T>> asyncOperation)
 		{
-			return Task.Run(asyncOperation).ConfigureAwait(false).GetAwaiter().GetResult();
+			return Task.Run(asyncOperation).Await();
 		}
 
 		public static void AwaitDetached(Func<Task> asyncOperation)
 		{
-			Task.Run(asyncOperation).ConfigureAwait(false).GetAwaiter().GetResult();
+			Task.Run(asyncOperation).Await();
 		}
 	}
 }
