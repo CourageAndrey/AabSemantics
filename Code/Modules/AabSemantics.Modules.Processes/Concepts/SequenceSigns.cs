@@ -297,7 +297,7 @@ namespace AabSemantics.Modules.Processes.Concepts
 
 		public static System.Boolean Contradicts(this ICollection<IConcept> signs)
 		{
-			return ContradictsAsync(signs).Await();
+			return TaskHelper.AwaitDetached(() => ContradictsAsync(signs));
 		}
 
 		public static ICollection<IConcept> Consequently(this IConcept sign)

@@ -75,7 +75,7 @@ namespace AabSemantics.Modules.Classification.Statements
 	{
 		public static System.Boolean CheckCyclic(this IsStatement statement, IEnumerable<IsStatement> statements)
 		{
-			return statement.CheckCyclicAsync(statements).Await();
+			return TaskHelper.AwaitDetached(() => statement.CheckCyclicAsync(statements));
 		}
 	}
 }

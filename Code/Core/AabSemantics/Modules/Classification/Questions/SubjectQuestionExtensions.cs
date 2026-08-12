@@ -27,17 +27,17 @@ namespace AabSemantics.Modules.Classification.Questions
 
 		public static IAnswer WhichAncestorsHas(this QuestionBuilder builder, IConcept concept)
 		{
-			return builder.WhichAncestorsHasAsync(concept).Await();
+			return TaskHelper.AwaitDetached(() => builder.WhichAncestorsHasAsync(concept));
 		}
 
 		public static IAnswer WhichDescendantsHas(this QuestionBuilder builder, IConcept concept)
 		{
-			return builder.WhichDescendantsHasAsync(concept).Await();
+			return TaskHelper.AwaitDetached(() => builder.WhichDescendantsHasAsync(concept));
 		}
 
 		public static IAnswer IfIs(this QuestionBuilder builder, IConcept child, IConcept parent)
 		{
-			return builder.IfIsAsync(child, parent).Await();
+			return TaskHelper.AwaitDetached(() => builder.IfIsAsync(child, parent));
 		}
 	}
 }

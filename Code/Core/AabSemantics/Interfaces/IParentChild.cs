@@ -66,7 +66,7 @@ namespace AabSemantics
 			where RelationshipT : IParentChild<T>
 			where T : class
 		{
-			return GetParentsAllLevelsAsync<T, RelationshipT>(statements, item, involvedRelationships).Await();
+			return TaskHelper.AwaitDetached(() => GetParentsAllLevelsAsync<T, RelationshipT>(statements, item, involvedRelationships));
 		}
 
 		public static async Task<List<T>> GetParentsAllLevelsAsync<T, RelationshipT>(this IEnumerable<IStatement> statements, T item, List<RelationshipT> involvedRelationships = null)
@@ -80,7 +80,7 @@ namespace AabSemantics
 			where RelationshipT : IParentChild<T>
 			where T : class
 		{
-			return GetChildrenAllLevelsAsync<T, RelationshipT>(statements, item, involvedRelationships).Await();
+			return TaskHelper.AwaitDetached(() => GetChildrenAllLevelsAsync<T, RelationshipT>(statements, item, involvedRelationships));
 		}
 
 		public static async Task<List<T>> GetChildrenAllLevelsAsync<T, RelationshipT>(this IEnumerable<IStatement> statements, T item, List<RelationshipT> involvedRelationships = null)
@@ -94,7 +94,7 @@ namespace AabSemantics
 			where RelationshipT : IParentChild<T>
 			where T : class
 		{
-			return GetParentsOneLevelAsync<T, RelationshipT>(statements, item, involvedRelationships).Await();
+			return TaskHelper.AwaitDetached(() => GetParentsOneLevelAsync<T, RelationshipT>(statements, item, involvedRelationships));
 		}
 
 		public static async Task<List<T>> GetParentsOneLevelAsync<T, RelationshipT>(this IEnumerable<IStatement> statements, T item, List<RelationshipT> involvedRelationships = null)
@@ -108,7 +108,7 @@ namespace AabSemantics
 			where RelationshipT : IParentChild<T>
 			where T : class
 		{
-			return GetChildrenOneLevelAsync<T, RelationshipT>(statements, item, involvedRelationships).Await();
+			return TaskHelper.AwaitDetached(() => GetChildrenOneLevelAsync<T, RelationshipT>(statements, item, involvedRelationships));
 		}
 
 		public static async Task<List<T>> GetChildrenOneLevelAsync<T, RelationshipT>(this IEnumerable<IStatement> statements, T item, List<RelationshipT> involvedRelationships = null)
@@ -122,7 +122,7 @@ namespace AabSemantics
 			where RelationshipT : IParentChild<T>
 			where T : class
 		{
-			return GetChildrenTreeAsync<T, RelationshipT>(statements, item, involvedRelationships).Await();
+			return TaskHelper.AwaitDetached(() => GetChildrenTreeAsync<T, RelationshipT>(statements, item, involvedRelationships));
 		}
 
 		public static async Task<ParentChild<T>> GetChildrenTreeAsync<T, RelationshipT>(this IEnumerable<IStatement> statements, T item, List<RelationshipT> involvedRelationships = null)
@@ -135,7 +135,7 @@ namespace AabSemantics
 		public static ICollection<IStatement> FindPath<T>(this IEnumerable<IStatement> statements, Type statementType, T parent, T child)
 			where T : class
 		{
-			return FindPathAsync<T>(statements, statementType, parent, child).Await();
+			return TaskHelper.AwaitDetached(() => FindPathAsync<T>(statements, statementType, parent, child));
 		}
 
 		public static async Task<ICollection<IStatement>> FindPathAsync<T>(this IEnumerable<IStatement> statements, Type statementType, T parent, T child)
@@ -170,7 +170,7 @@ namespace AabSemantics
 			where RelationshipT : IParentChild<T>
 			where T : class
 		{
-			return GetParentsAllLevelsAsync<T, RelationshipT>(relationships, item, involvedRelationships).Await();
+			return TaskHelper.AwaitDetached(() => GetParentsAllLevelsAsync<T, RelationshipT>(relationships, item, involvedRelationships));
 		}
 
 		public static async Task<List<T>> GetParentsAllLevelsAsync<T, RelationshipT>(this IEnumerable<RelationshipT> relationships, T item, List<RelationshipT> involvedRelationships = null)
@@ -184,7 +184,7 @@ namespace AabSemantics
 			where RelationshipT : IParentChild<T>
 			where T : class
 		{
-			return GetChildrenAllLevelsAsync<T, RelationshipT>(relationships, item, involvedRelationships).Await();
+			return TaskHelper.AwaitDetached(() => GetChildrenAllLevelsAsync<T, RelationshipT>(relationships, item, involvedRelationships));
 		}
 
 		public static async Task<List<T>> GetChildrenAllLevelsAsync<T, RelationshipT>(this IEnumerable<RelationshipT> relationships, T item, List<RelationshipT> involvedRelationships = null)
@@ -214,7 +214,7 @@ namespace AabSemantics
 			where RelationshipT : IParentChild<T>
 			where T : class
 		{
-			return GetParentsOneLevelAsync<T, RelationshipT>(relationships, item, involvedRelationships).Await();
+			return TaskHelper.AwaitDetached(() => GetParentsOneLevelAsync<T, RelationshipT>(relationships, item, involvedRelationships));
 		}
 
 		public static async Task<List<T>> GetParentsOneLevelAsync<T, RelationshipT>(this IEnumerable<RelationshipT> relationships, T item, List<RelationshipT> involvedRelationships = null)
@@ -233,7 +233,7 @@ namespace AabSemantics
 			where RelationshipT : IParentChild<T>
 			where T : class
 		{
-			return GetChildrenOneLevelAsync<T, RelationshipT>(relationships, item, involvedRelationships).Await();
+			return TaskHelper.AwaitDetached(() => GetChildrenOneLevelAsync<T, RelationshipT>(relationships, item, involvedRelationships));
 		}
 
 		public static async Task<List<T>> GetChildrenOneLevelAsync<T, RelationshipT>(this IEnumerable<RelationshipT> relationships, T item, List<RelationshipT> involvedRelationships = null)
@@ -252,7 +252,7 @@ namespace AabSemantics
 			where RelationshipT : IParentChild<T>
 			where T : class
 		{
-			return GetChildrenTreeAsync<T, RelationshipT>(relationships, item, involvedRelationships).Await();
+			return TaskHelper.AwaitDetached(() => GetChildrenTreeAsync<T, RelationshipT>(relationships, item, involvedRelationships));
 		}*/
 
 		public static async Task<ParentChild<T>> GetChildrenTreeAsync<T, RelationshipT>(this IEnumerable<RelationshipT> relationships, T item, List<RelationshipT> involvedRelationships = null)

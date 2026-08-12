@@ -122,7 +122,7 @@ namespace AabSemantics.Metadata
 
 		public void CheckConsistency(ISemanticNetwork semanticNetwork, ITextContainer result)
 		{
-			CheckConsistencyAsync(semanticNetwork, result).Await();
+			TaskHelper.AwaitDetached(() => CheckConsistencyAsync(semanticNetwork, result));
 		}
 
 		public static readonly StatementConsistencyCheckerDelegate NoConsistencyCheck = (semanticNetwork, result) => Task.CompletedTask;

@@ -90,7 +90,7 @@ namespace AabSemantics.Modules.Mathematics.Statements
 
 		public static List<Contradiction> CheckForContradictions(this IEnumerable<ComparisonStatement> statements)
 		{
-			return CheckForContradictionsAsync(statements).Await();
+			return TaskHelper.AwaitDetached(() => CheckForContradictionsAsync(statements));
 		}
 	}
 }

@@ -15,7 +15,7 @@ namespace AabSemantics.Modules.Processes.Questions
 
 		public static IAnswer WhatIsMutualSequenceOfProcesses(this QuestionBuilder builder, IConcept processA, IConcept processB)
 		{
-			return builder.WhatIsMutualSequenceOfProcessesAsync(processA, processB).Await();
+			return TaskHelper.AwaitDetached(() => builder.WhatIsMutualSequenceOfProcessesAsync(processA, processB));
 		}
 	}
 }

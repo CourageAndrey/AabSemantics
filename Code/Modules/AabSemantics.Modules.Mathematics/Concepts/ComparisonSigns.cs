@@ -79,7 +79,7 @@ namespace AabSemantics.Modules.Mathematics.Concepts
 
 		public static System.Boolean Contradicts(this IConcept sign1, IConcept sign2)
 		{
-			return ContradictsAsync(sign1, sign2).Await();
+			return TaskHelper.AwaitDetached(() => ContradictsAsync(sign1, sign2));
 		}
 
 		private static void EnsureSuits(this IConcept sign)

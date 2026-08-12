@@ -50,7 +50,7 @@ namespace AabSemantics.Extensions.EF
 		{
 			foreach (var mapping in _mappings)
 			{
-				foreach (var item in mapping.GetAllItemsAsync().Await())
+				foreach (var item in TaskHelper.AwaitDetached(() => mapping.GetAllItemsAsync()))
 				{
 					yield return item;
 				}

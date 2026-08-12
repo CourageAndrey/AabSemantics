@@ -15,7 +15,7 @@ namespace AabSemantics.Modules.Boolean.Questions
 
 		public static IAnswer IsTrueThat(this QuestionBuilder builder, IStatement statement)
 		{
-			return builder.IsTrueThatAsync(statement).Await();
+			return TaskHelper.AwaitDetached(() => builder.IsTrueThatAsync(statement));
 		}
 	}
 }

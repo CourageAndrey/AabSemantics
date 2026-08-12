@@ -89,7 +89,7 @@ namespace AabSemantics.Modules.Processes.Statements
 
 		public static List<Contradiction> CheckForContradictions(this IEnumerable<ProcessesStatement> statements)
 		{
-			return CheckForContradictionsAsync(statements).Await();
+			return TaskHelper.AwaitDetached(() => CheckForContradictionsAsync(statements));
 		}
 	}
 }

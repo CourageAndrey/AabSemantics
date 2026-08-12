@@ -38,7 +38,7 @@ namespace AabSemantics
 			}
 			else
 			{
-				collection.AddAsync(item).Await();
+				TaskHelper.AwaitDetached(() => collection.AddAsync(item));
 			}
 		}
 
@@ -48,7 +48,7 @@ namespace AabSemantics
 			var inMemory = collection as Repository<T>;
 			return inMemory != null
 				? inMemory.Remove(item)
-				: collection.RemoveAsync(item).Await();
+				: TaskHelper.AwaitDetached(() => collection.RemoveAsync(item));
 		}
 
 		public static void Clear<T>(this IRepository<T> collection)
@@ -61,7 +61,7 @@ namespace AabSemantics
 			}
 			else
 			{
-				collection.ClearAsync().Await();
+				TaskHelper.AwaitDetached(() => collection.ClearAsync());
 			}
 		}
 
@@ -71,7 +71,7 @@ namespace AabSemantics
 			var inMemory = collection as Repository<T>;
 			return inMemory != null
 				? inMemory.Count
-				: collection.GetCountAsync().Await();
+				: TaskHelper.AwaitDetached(() => collection.GetCountAsync());
 		}
 
 		public static T GetItem<T>(this IRepository<T> collection, String key)
@@ -80,7 +80,7 @@ namespace AabSemantics
 			var inMemory = collection as Repository<T>;
 			return inMemory != null
 				? inMemory[key]
-				: collection.GetItemAsync(key).Await();
+				: TaskHelper.AwaitDetached(() => collection.GetItemAsync(key));
 		}
 
 		public static IEnumerable<String> GetKeys<T>(this IRepository<T> collection)
@@ -89,7 +89,7 @@ namespace AabSemantics
 			var inMemory = collection as Repository<T>;
 			return inMemory != null
 				? inMemory.Keys
-				: collection.GetKeysAsync().Await();
+				: TaskHelper.AwaitDetached(() => collection.GetKeysAsync());
 		}
 
 		public static Boolean Contains<T>(this IRepository<T> collection, String key)
@@ -98,7 +98,7 @@ namespace AabSemantics
 			var inMemory = collection as Repository<T>;
 			return inMemory != null
 				? inMemory.Contains(key)
-				: collection.ContainsAsync(key).Await();
+				: TaskHelper.AwaitDetached(() => collection.ContainsAsync(key));
 		}
 
 		public static Boolean TryGetValue<T>(this IRepository<T> collection, String key, out T value)
@@ -111,7 +111,7 @@ namespace AabSemantics
 			}
 			else
 			{
-				var result = collection.TryGetValueAsync(key).Await();
+				var result = TaskHelper.AwaitDetached(() => collection.TryGetValueAsync(key));
 				if (result.Key)
 				{
 					value = result.Value;

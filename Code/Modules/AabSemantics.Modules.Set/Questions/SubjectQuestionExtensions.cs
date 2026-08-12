@@ -99,77 +99,77 @@ namespace AabSemantics.Modules.Set.Questions
 
 		public static IAnswer WhichConceptsBelongToSubjectArea(this QuestionBuilder builder, IConcept area)
 		{
-			return builder.WhichConceptsBelongToSubjectAreaAsync(area).Await();
+			return TaskHelper.AwaitDetached(() => builder.WhichConceptsBelongToSubjectAreaAsync(area));
 		}
 
 		public static IAnswer WhichContainersInclude(this QuestionBuilder builder, IConcept concept)
 		{
-			return builder.WhichContainersIncludeAsync(concept).Await();
+			return TaskHelper.AwaitDetached(() => builder.WhichContainersIncludeAsync(concept));
 		}
 
 		public static IAnswer WhichPartsHas(this QuestionBuilder builder, IConcept concept)
 		{
-			return builder.WhichPartsHasAsync(concept).Await();
+			return TaskHelper.AwaitDetached(() => builder.WhichPartsHasAsync(concept));
 		}
 
 		public static IAnswer WhichSignsHas(this QuestionBuilder builder, IConcept concept)
 		{
-			return builder.WhichSignsHasAsync(concept).Await();
+			return TaskHelper.AwaitDetached(() => builder.WhichSignsHasAsync(concept));
 		}
 
 		public static IAnswer ToWhichSubjectAreasBelongs(this QuestionBuilder builder, IConcept concept)
 		{
-			return builder.ToWhichSubjectAreasBelongsAsync(concept).Await();
+			return TaskHelper.AwaitDetached(() => builder.ToWhichSubjectAreasBelongsAsync(concept));
 		}
 
 		public static IAnswer IfHasSign(this QuestionBuilder builder, IConcept concept, IConcept sign)
 		{
-			return builder.IfHasSignAsync(concept, sign).Await();
+			return TaskHelper.AwaitDetached(() => builder.IfHasSignAsync(concept, sign));
 		}
 
 		public static IAnswer IfHasSigns(this QuestionBuilder builder, IConcept concept)
 		{
-			return builder.IfHasSignsAsync(concept).Await();
+			return TaskHelper.AwaitDetached(() => builder.IfHasSignsAsync(concept));
 		}
 
 		public static IAnswer IfIsPartOf(this QuestionBuilder builder, IConcept child, IConcept parent)
 		{
-			return builder.IfIsPartOfAsync(child, parent).Await();
+			return TaskHelper.AwaitDetached(() => builder.IfIsPartOfAsync(child, parent));
 		}
 
 		public static IAnswer IfIsSign(this QuestionBuilder builder, IConcept concept)
 		{
-			return builder.IfIsSignAsync(concept).Await();
+			return TaskHelper.AwaitDetached(() => builder.IfIsSignAsync(concept));
 		}
 
 		public static IAnswer IfConceptBelongsToSubjectArea(this QuestionBuilder builder, IConcept concept, IConcept area)
 		{
-			return builder.IfConceptBelongsToSubjectAreaAsync(concept, area).Await();
+			return TaskHelper.AwaitDetached(() => builder.IfConceptBelongsToSubjectAreaAsync(concept, area));
 		}
 
 		public static IAnswer IfIsValue(this QuestionBuilder builder, IConcept concept)
 		{
-			return builder.IfIsValueAsync(concept).Await();
+			return TaskHelper.AwaitDetached(() => builder.IfIsValueAsync(concept));
 		}
 
 		public static IAnswer WhatIsSignValue(this QuestionBuilder builder, IConcept concept, IConcept sign)
 		{
-			return builder.WhatIsSignValueAsync(concept, sign).Await();
+			return TaskHelper.AwaitDetached(() => builder.WhatIsSignValueAsync(concept, sign));
 		}
 
 		public static IAnswer WhatIs(this QuestionBuilder builder, IConcept concept)
 		{
-			return builder.WhatIsAsync(concept).Await();
+			return TaskHelper.AwaitDetached(() => builder.WhatIsAsync(concept));
 		}
 
 		public static IAnswer WhatInCommon(this QuestionBuilder builder, IConcept concept1, IConcept concept2)
 		{
-			return builder.WhatInCommonAsync(concept1, concept2).Await();
+			return TaskHelper.AwaitDetached(() => builder.WhatInCommonAsync(concept1, concept2));
 		}
 
 		public static IAnswer WhatIsTheDifference(this QuestionBuilder builder, IConcept concept1, IConcept concept2)
 		{
-			return builder.WhatIsTheDifferenceAsync(concept1, concept2).Await();
+			return TaskHelper.AwaitDetached(() => builder.WhatIsTheDifferenceAsync(concept1, concept2));
 		}
 	}
 }

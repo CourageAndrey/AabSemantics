@@ -15,7 +15,7 @@ namespace AabSemantics.Modules.Mathematics.Questions
 
 		public static IAnswer HowCompared(this QuestionBuilder builder, IConcept leftValue, IConcept rightValue)
 		{
-			return builder.HowComparedAsync(leftValue, rightValue).Await();
+			return TaskHelper.AwaitDetached(() => builder.HowComparedAsync(leftValue, rightValue));
 		}
 	}
 }

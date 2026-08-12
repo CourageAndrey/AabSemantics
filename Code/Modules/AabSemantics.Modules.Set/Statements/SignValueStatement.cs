@@ -121,17 +121,17 @@ namespace AabSemantics.Modules.Set.Statements
 
 		public System.Boolean CheckHasSign(IEnumerable<IStatement> statements)
 		{
-			return CheckHasSignAsync(statements).Await();
+			return TaskHelper.AwaitDetached(() => CheckHasSignAsync(statements));
 		}
 
 		public static SignValueStatement GetSignValue(IEnumerable<IStatement> statements, IConcept concept, IConcept sign)
 		{
-			return GetSignValueAsync(statements, concept, sign).Await();
+			return TaskHelper.AwaitDetached(() => GetSignValueAsync(statements, concept, sign));
 		}
 
 		public static List<SignValueStatement> GetSignValues(IEnumerable<IStatement> statements, IConcept concept, System.Boolean recursive)
 		{
-			return GetSignValuesAsync(statements, concept, recursive).Await();
+			return TaskHelper.AwaitDetached(() => GetSignValuesAsync(statements, concept, recursive));
 		}
 	}
 }
