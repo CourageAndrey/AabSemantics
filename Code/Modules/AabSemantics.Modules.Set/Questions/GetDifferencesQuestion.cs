@@ -6,17 +6,27 @@ using AabSemantics.Modules.Set.Localization;
 
 namespace AabSemantics.Modules.Set.Questions
 {
+	/// <summary>Asks which properties two concepts differ in.</summary>
 	public class GetDifferencesQuestion : CompareConceptPropertiesQuestion
 	{
+		/// <summary>Creates the question.</summary>
+		/// <param name="concept1">First compared concept.</param>
+		/// <param name="concept2">Second compared concept.</param>
+		/// <param name="preconditions">Hypothetical statements to assume while answering.</param>
+		/// <exception cref="System.ArgumentNullException">A required concept is <c>null</c>.</exception>
 		public GetDifferencesQuestion(IConcept concept1, IConcept concept2, IEnumerable<IStatement> preconditions = null)
 			: base(concept1, concept2, preconditions)
 		{ }
 
+		/// <inheritdoc/>
+		/// <remarks>Keeps only pairs where the two concepts define different values.</remarks>
 		protected override System.Boolean NeedToTakeIntoAccount(IConcept value1, IConcept value2)
 		{
 			return value1 != value2;
 		}
 
+		/// <inheritdoc/>
+		/// <remarks>Appends a line naming a property and the two differing values.</remarks>
 		protected override void WriteOneLine(ITextContainer text, IConcept sign, IConcept value1, IConcept value2)
 		{
 			var formatString = value1 != null && value2 != null
@@ -41,11 +51,15 @@ namespace AabSemantics.Modules.Set.Questions
 			text.Append(formatString, parameters);
 		}
 
+		/// <inheritdoc/>
+		/// <remarks>Appends the "no differences" caption.</remarks>
 		protected override void WriteNotEmptyResultWithoutData(ITextContainer text)
 		{
 			text.Append(language => language.GetQuestionsExtension<ILanguageSetModule, ILanguageQuestions>().Answers.CompareConceptsNoDifference);
 		}
 
+		/// <inheritdoc/>
+		/// <remarks>Appends how the two hierarchies diverge.</remarks>
 		protected override void FormatParentsDiff(
 			ITextContainer text,
 			ICollection<IConcept> parents,

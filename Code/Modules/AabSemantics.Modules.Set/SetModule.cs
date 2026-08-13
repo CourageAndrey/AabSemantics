@@ -13,22 +13,33 @@ using AabSemantics.Utils;
 
 namespace AabSemantics.Modules.Set
 {
+	/// <summary>
+	/// Built-in module supplying the set-theoretic relations: subject-area membership, part-of
+	/// composition, signs and their values, together with the questions over them.
+	/// Depends on the boolean and classification modules.
+	/// </summary>
 	public class SetModule : ExtensionModule
 	{
+		/// <summary>Name the module is registered under.</summary>
 		public const String ModuleName = "System.Sets";
 
+		/// <summary>Creates the module, declaring its dependencies.</summary>
 		public SetModule()
 			: base(ModuleName, new[] { BooleanModule.ModuleName, Classification.ClassificationModule.ModuleName })
 		{ }
 
+		/// <summary>Seeds the network with the module's own knowledge.</summary>
+		/// <param name="semanticNetwork">Network being extended.</param>
 		protected override void Attach(ISemanticNetwork semanticNetwork)
 		{ }
 
+		/// <summary>Adds the module's English texts to the built-in default language.</summary>
 		protected override void RegisterLanguage()
 		{
 			AabSemantics.Localization.Language.Default.Extensions.Add(LanguageSetModule.CreateDefault());
 		}
 
+		/// <summary>Registers the "is a sign" attribute.</summary>
 		protected override void RegisterAttributes()
 		{
 			Repositories.RegisterAttribute(IsSignAttribute.Value, language => language.GetAttributesExtension<ILanguageSetModule, ILanguageAttributes>().IsSign)
@@ -36,6 +47,7 @@ namespace AabSemantics.Modules.Set
 				.SerializeToJson(new Xml.IsSignAttribute());
 		}
 
+		/// <summary>Registers the module's four statement types with their consistency checks and custom-statement forms.</summary>
 		protected override void RegisterStatements()
 		{
 			Repositories.RegisterStatement<HasPartStatement, ILanguageSetModule, ILanguageStatements, ILanguageStatementsPart>(
@@ -96,6 +108,7 @@ namespace AabSemantics.Modules.Set
 				language => language.SignValue);
 		}
 
+		/// <summary>Registers the module's questions and their persistence.</summary>
 		protected override void RegisterQuestions()
 		{
 			Repositories.RegisterQuestion<DescribeSubjectAreaQuestion>(language => language.GetQuestionsExtension<ILanguageSetModule, ILanguageQuestions>().Names.DescribeSubjectAreaQuestion)
@@ -148,6 +161,8 @@ namespace AabSemantics.Modules.Set
 				.SerializeToJson(question => new Json.WhatQuestion(question));
 		}
 
+		/// <summary>Declares the module's string bundle type for the XML serializer.</summary>
+		/// <returns>A single entry mapping the module name to its bundle type.</returns>
 		public override IDictionary<String, Type> GetLanguageExtensions()
 		{
 			return new Dictionary<String, Type>

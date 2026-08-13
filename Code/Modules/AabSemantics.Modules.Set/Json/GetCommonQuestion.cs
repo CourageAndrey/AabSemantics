@@ -6,15 +6,18 @@ using AabSemantics.Serialization;
 
 namespace AabSemantics.Modules.Set.Json
 {
+	/// <summary>JSON surrogate of a <see cref="Questions.GetCommonQuestion"/>.</summary>
 	[DataContract]
 	public class GetCommonQuestion : Serialization.Json.Question<Questions.GetCommonQuestion>
 	{
 		#region Properties
 
+		/// <summary>Identifier of the first compared concept.</summary>
 		[DataMember]
 		public String Concept1
 		{ get; set; }
 
+		/// <summary>Identifier of the second compared concept.</summary>
 		[DataMember]
 		public String Concept2
 		{ get; set; }
@@ -23,10 +26,13 @@ namespace AabSemantics.Modules.Set.Json
 
 		#region Constructors
 
+		/// <summary>Creates an empty surrogate, as required by the JSON serializer.</summary>
 		public GetCommonQuestion()
 			: base()
 		{ }
 
+		/// <summary>Converts a question into its surrogate.</summary>
+		/// <param name="question">Question to convert.</param>
 		public GetCommonQuestion(Questions.GetCommonQuestion question)
 			: base(question)
 		{
@@ -36,6 +42,11 @@ namespace AabSemantics.Modules.Set.Json
 
 		#endregion
 
+		/// <summary>Restores the question from the surrogate.</summary>
+		/// <param name="conceptIdResolver">Resolves concept identifiers to concepts.</param>
+		/// <param name="statementIdResolver">Resolves statement identifiers to statements.</param>
+		/// <param name="preconditions">Preconditions already restored by the base class.</param>
+		/// <returns>The restored question.</returns>
 		protected override Questions.GetCommonQuestion SaveImplementation(ConceptIdResolver conceptIdResolver, StatementIdResolver statementIdResolver, IEnumerable<IStatement> preconditions)
 		{
 			return new Questions.GetCommonQuestion(

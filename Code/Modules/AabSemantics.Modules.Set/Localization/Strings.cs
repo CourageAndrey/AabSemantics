@@ -2,6 +2,7 @@
 
 namespace AabSemantics.Modules.Set.Localization
 {
+	/// <summary>Fixed, non-localized anchor tokens the module's format strings substitute knowledge items under.</summary>
 	internal static class Strings
 	{
 		public const String ParamConcept1 = "#CONCEPT1#";
