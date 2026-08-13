@@ -12,14 +12,22 @@ using AabSemantics.Serialization;
 
 namespace AabSemantics.Modules.Processes
 {
+	/// <summary>
+	/// Built-in module supplying the fifteen sequence signs, the process sequence statement with
+	/// its contradiction check, and the sequence question. Depends on the boolean module.
+	/// </summary>
 	public class ProcessesModule : ExtensionModule
 	{
+		/// <summary>Name the module is registered under.</summary>
 		public const String ModuleName = "System.Processes";
 
+		/// <summary>Creates the module, declaring its dependency on the boolean module.</summary>
 		public ProcessesModule()
 			: base(ModuleName)
 		{ }
 
+		/// <summary>Adds the sequence sign concepts to the network.</summary>
+		/// <param name="semanticNetwork">Network being extended.</param>
 		protected override void Attach(ISemanticNetwork semanticNetwork)
 		{
 			foreach (var sign in SequenceSigns.All)
@@ -28,11 +36,13 @@ namespace AabSemantics.Modules.Processes
 			}
 		}
 
+		/// <summary>Adds the module's English texts to the built-in default language.</summary>
 		protected override void RegisterLanguage()
 		{
 			AabSemantics.Localization.Language.Default.Extensions.Add(LanguageProcessesModule.CreateDefault());
 		}
 
+		/// <summary>Registers the "is a process" and "is a sequence sign" attributes.</summary>
 		protected override void RegisterAttributes()
 		{
 			Repositories.RegisterAttribute(IsProcessAttribute.Value, language => language.GetAttributesExtension<ILanguageProcessesModule, ILanguageAttributes>().IsProcess)
@@ -43,11 +53,13 @@ namespace AabSemantics.Modules.Processes
 				.SerializeToJson(new Xml.IsSequenceSignAttribute());
 		}
 
+		/// <summary>Makes the sequence sign concepts resolvable by identifier during deserialization.</summary>
 		protected override void RegisterConcepts()
 		{
 			ConceptIdResolver.RegisterEnumType(typeof(SequenceSigns));
 		}
 
+		/// <summary>Registers the process sequence statement, its contradiction check and its custom-statement form.</summary>
 		protected override void RegisterStatements()
 		{
 			Repositories.RegisterStatement<ProcessesStatement, ILanguageProcessesModule, ILanguageStatements, ILanguageStatementsPart>(
@@ -66,6 +78,7 @@ namespace AabSemantics.Modules.Processes
 				language => language.Processes);
 		}
 
+		/// <summary>Registers the process sequence question and its persistence.</summary>
 		protected override void RegisterQuestions()
 		{
 			Repositories.RegisterQuestion<ProcessesQuestion>(language => language.GetQuestionsExtension<ILanguageProcessesModule, ILanguageQuestions>().Names.ProcessesQuestion)
@@ -73,6 +86,8 @@ namespace AabSemantics.Modules.Processes
 				.SerializeToJson(question => new Json.ProcessesQuestion(question));
 		}
 
+		/// <summary>Declares the module's string bundle type for the XML serializer.</summary>
+		/// <returns>A single entry mapping the module name to its bundle type.</returns>
 		public override IDictionary<String, Type> GetLanguageExtensions()
 		{
 			return new Dictionary<String, Type>

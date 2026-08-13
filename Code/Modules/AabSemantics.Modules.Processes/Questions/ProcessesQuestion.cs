@@ -12,18 +12,26 @@ using AabSemantics.Utils;
 
 namespace AabSemantics.Modules.Processes.Questions
 {
+	/// <summary>Asks how two processes relate in time.</summary>
 	public class ProcessesQuestion : Question
 	{
 		#region Properties
 
+		/// <summary>The first process; must carry the "is a process" attribute.</summary>
 		public IConcept ProcessA
 		{ get; set; }
 
+		/// <summary>The second process; must carry the "is a process" attribute.</summary>
 		public IConcept ProcessB
 		{ get; set; }
 
 		#endregion
 
+		/// <summary>Creates the question.</summary>
+		/// <param name="processA">The first process.</param>
+		/// <param name="processB">The second process.</param>
+		/// <param name="preconditions">Hypothetical statements to assume while answering.</param>
+		/// <exception cref="System.ArgumentNullException">Either process is <c>null</c>.</exception>
 		public ProcessesQuestion(IConcept processA, IConcept processB, IEnumerable<IStatement> preconditions = null)
 			: base(preconditions)
 		{
@@ -31,6 +39,12 @@ namespace AabSemantics.Modules.Processes.Questions
 			ProcessB = processB.EnsureNotNull(nameof(processB));
 		}
 
+		/// <summary>
+		/// Finds the temporal relations between the two processes, normalising each matched statement
+		/// to the asked operand order and recursing through the processes' ancestors when nothing matches.
+		/// </summary>
+		/// <param name="context">Context to search.</param>
+		/// <returns>An answer listing the sequence signs, or the "unknown" answer.</returns>
 		public override async Task<IAnswer> ProcessAsync(IQuestionProcessingContext context)
 		{
 			return await context
