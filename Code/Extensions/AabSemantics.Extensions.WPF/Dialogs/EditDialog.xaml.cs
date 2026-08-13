@@ -4,6 +4,7 @@ namespace AabSemantics.Extensions.WPF.Dialogs
 {
 	public partial class EditDialog
 	{
+		/// <summary>Creates the dialog.</summary>
 		public EditDialog()
 		{
 			InitializeComponent();
@@ -11,6 +12,7 @@ namespace AabSemantics.Extensions.WPF.Dialogs
 
 		private UIElement _editor;
 
+		/// <summary>The hosted editor control.</summary>
 		public UIElement Editor
 		{
 			get { return _editor; }
@@ -38,6 +40,8 @@ namespace AabSemantics.Extensions.WPF.Dialogs
 			DialogResult = false;
 		}
 
+		/// <summary>Applies the language's captions to this element.</summary>
+		/// <param name="language">Language to localize in.</param>
 		public void Localize(ILanguage language)
 		{
 			_buttonOk.Content = language.GetExtension<IWpfUiModule>().Common.Ok;

@@ -12,6 +12,7 @@ namespace AabSemantics.Extensions.WPF.Dialogs
 {
 	public partial class GraphDialog
 	{
+		/// <summary>Creates the dialog.</summary>
 		public GraphDialog()
 		{
 			InitializeComponent();
@@ -37,6 +38,7 @@ namespace AabSemantics.Extensions.WPF.Dialogs
 		private readonly IDictionary<IStatement, ICollection<FrameworkElement>> _visibleStatements = new Dictionary<IStatement, ICollection<FrameworkElement>>();
 		private readonly IDictionary<Type, Brush> _statementColors;
 
+		/// <summary>The hosting application.</summary>
 		public IInventorApplication Application
 		{
 			get { return _application; }
@@ -49,15 +51,18 @@ namespace AabSemantics.Extensions.WPF.Dialogs
 			}
 		}
 
+		/// <summary>Concept the graph is centred on.</summary>
 		public IConcept SelectedConcept
 		{
 			get { return _selectedConcept; }
 			set { selectConcept(value); }
 		}
 
+		/// <summary>Concepts drawn around the selected one.</summary>
 		public ICollection<IConcept> RelatedConcepts
 		{ get { return _relatedConcepts.Keys; } }
 
+		/// <summary>Statements drawn as edges of the graph.</summary>
 		public ICollection<IStatement> VisibleStatements
 		{ get { return _visibleStatements.Keys; } }
 

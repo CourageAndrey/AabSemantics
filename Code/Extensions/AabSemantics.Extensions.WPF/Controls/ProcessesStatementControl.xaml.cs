@@ -5,8 +5,10 @@ using AabSemantics.Extensions.WPF.ViewModels;
 
 namespace AabSemantics.Extensions.WPF.Controls
 {
+	/// <summary>Editor control for processes statements.</summary>
 	public partial class ProcessesStatementControl : IStatementEditor
 	{
+		/// <summary>Creates the control.</summary>
 		public ProcessesStatementControl()
 		{
 			InitializeComponent();
@@ -16,6 +18,9 @@ namespace AabSemantics.Extensions.WPF.Controls
 			_comboBoxSequenceSign.MakeAutoComplete();
 		}
 
+		/// <summary>Fills the control's pick lists and localizes its captions.</summary>
+		/// <param name="semanticNetwork">Network supplying the selectable concepts.</param>
+		/// <param name="language">Language the control is localized in.</param>
 		public void Initialize(ISemanticNetwork semanticNetwork, ILanguage language)
 		{
 			var wrappedConcepts = semanticNetwork.Concepts.Where(c => c.HasAttribute<IsProcessAttribute>()).Select(c => new ConceptItem(c, language)).ToList();
@@ -30,6 +35,7 @@ namespace AabSemantics.Extensions.WPF.Controls
 			_groupSequenceSign.Header = languageEditing.PropertySequenceSign;
 		}
 
+		/// <summary>The statement being edited.</summary>
 		public StatementViewModel Statement
 		{
 			get { return _contextControl.DataContext as ViewModels.Statements.ProcessesStatement; }

@@ -4,8 +4,10 @@ using AabSemantics.Extensions.WPF.ViewModels;
 
 namespace AabSemantics.Extensions.WPF.Controls
 {
+	/// <summary>Editor control for has part statements.</summary>
 	public partial class HasPartStatementControl : IStatementEditor
 	{
+		/// <summary>Creates the control.</summary>
 		public HasPartStatementControl()
 		{
 			InitializeComponent();
@@ -14,6 +16,9 @@ namespace AabSemantics.Extensions.WPF.Controls
 			_comboBoxPart.MakeAutoComplete();
 		}
 
+		/// <summary>Fills the control's pick lists and localizes its captions.</summary>
+		/// <param name="semanticNetwork">Network supplying the selectable concepts.</param>
+		/// <param name="language">Language the control is localized in.</param>
 		public void Initialize(ISemanticNetwork semanticNetwork, ILanguage language)
 		{
 			var wrappedConcepts = semanticNetwork.Concepts.Select(c => new ConceptItem(c, language)).ToList();
@@ -26,6 +31,7 @@ namespace AabSemantics.Extensions.WPF.Controls
 			_groupPart.Header = languageEditing.PropertyPart;
 		}
 
+		/// <summary>The statement being edited.</summary>
 		public StatementViewModel Statement
 		{
 			get { return _contextControl.DataContext as ViewModels.Statements.HasPartStatement; }

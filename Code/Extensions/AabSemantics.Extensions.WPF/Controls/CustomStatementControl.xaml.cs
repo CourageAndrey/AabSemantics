@@ -6,8 +6,10 @@ using AabSemantics.Metadata;
 
 namespace AabSemantics.Extensions.WPF.Controls
 {
+	/// <summary>Editor control for custom statements.</summary>
 	public partial class CustomStatementControl : IStatementEditor
 	{
+		/// <summary>Creates the control.</summary>
 		public CustomStatementControl()
 		{
 			InitializeComponent();
@@ -15,6 +17,9 @@ namespace AabSemantics.Extensions.WPF.Controls
 			_comboBoxType.MakeAutoComplete();
 		}
 
+		/// <summary>Fills the control's pick lists and localizes its captions.</summary>
+		/// <param name="semanticNetwork">Network supplying the selectable concepts.</param>
+		/// <param name="language">Language the control is localized in.</param>
 		public void Initialize(ISemanticNetwork semanticNetwork, ILanguage language)
 		{
 			_comboBoxType.ItemsSource = Repositories.CustomStatements.Values;
@@ -30,6 +35,7 @@ namespace AabSemantics.Extensions.WPF.Controls
 			_columnConcept.Header = languageEditing.PropertyConcept;
 		}
 
+		/// <summary>The statement being edited.</summary>
 		public StatementViewModel Statement
 		{
 			get { return _contextControl.DataContext as ViewModels.Statements.CustomStatement; }

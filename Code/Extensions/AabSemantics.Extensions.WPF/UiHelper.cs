@@ -9,8 +9,16 @@ using System.Windows.Media;
 
 namespace AabSemantics.Extensions.WPF
 {
+	/// <summary>Assorted WPF helpers used across the extension's controls and dialogs.</summary>
 	public static class UiHelper
 	{
+		/// <summary>
+		/// Walks a path of data items down a tree, expanding each level so the next container is
+		/// generated, and runs an action on the item the path ends at.
+		/// </summary>
+		/// <param name="parentContainer">Container the path starts from.</param>
+		/// <param name="path">Data items leading to the target, outermost first.</param>
+		/// <param name="code">Action to run on the target item.</param>
 		public static void ExecuteWithItem(this ItemsControl parentContainer, List<object> path, Action<TreeViewItem> code)
 		{
 			if (path.Count > 0)
@@ -40,6 +48,10 @@ namespace AabSemantics.Extensions.WPF
 			}
 		}
 
+		/// <summary>Assigns each item a visually distinct brush, for colouring a graph or a legend.</summary>
+		/// <typeparam name="T">Item type.</typeparam>
+		/// <param name="items">Items to colour.</param>
+		/// <returns>One brush per item.</returns>
 		public static IDictionary<T, Brush> GetDifferentColors<T>(this ICollection<T> items)
 		{
 			var colors = new Dictionary<T, Brush>();
@@ -87,6 +99,8 @@ namespace AabSemantics.Extensions.WPF
 
 		#region ComboBox autocomplete
 
+		/// <summary>Turns a combo box into a type-to-filter one.</summary>
+		/// <param name="comboBox">Combo box to modify in place.</param>
 		public static void MakeAutoComplete(this ComboBox comboBox)
 		{
 			comboBox.IsEditable = true;
@@ -181,6 +195,10 @@ namespace AabSemantics.Extensions.WPF
 
 		#endregion
 
+		/// <summary>Measures the size a control would like, capped at a maximum.</summary>
+		/// <param name="control">Control to measure.</param>
+		/// <param name="maxSize">Upper bound on the result.</param>
+		/// <returns>The desired size.</returns>
 		public static Size GetDesiredSize(this FrameworkElement control, Size maxSize)
 		{
 			control.Measure(maxSize);

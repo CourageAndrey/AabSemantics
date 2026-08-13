@@ -8,6 +8,10 @@ namespace AabSemantics.Extensions.WPF.Dialogs
 {
 	public partial class FormattedTextDialog
 	{
+		/// <summary>Creates a dialog showing structured text with clickable knowledge links.</summary>
+		/// <param name="language">Language to render in.</param>
+		/// <param name="text">Text to show.</param>
+		/// <param name="linkClicked">Called when the user clicks a link to a knowledge item.</param>
 		public FormattedTextDialog(ILanguage language, IText text, Action<IKnowledge> linkClicked)
 		{
 			InitializeComponent();
@@ -86,8 +90,14 @@ namespace AabSemantics.Extensions.WPF.Dialogs
 		}
 	}
 
+	/// <summary>Ready-made ways of showing structured text to the user.</summary>
 	public static class FormattedTextDialogUseCases
 	{
+		/// <summary>Shows an answer together with its explanation.</summary>
+		/// <param name="answer">Answer to show.</param>
+		/// <param name="ownerWindow">Window the dialog belongs to.</param>
+		/// <param name="language">Language to render in.</param>
+		/// <param name="knowledgeObjectPicked">Called when the user clicks a link to a knowledge item.</param>
 		public static void Display(this IAnswer answer, Window ownerWindow, ILanguage language, Action<IKnowledge> knowledgeObjectPicked)
 		{
 			new FormattedTextDialog(
@@ -100,6 +110,11 @@ namespace AabSemantics.Extensions.WPF.Dialogs
 			}.Show();
 		}
 
+		/// <summary>Shows every statement the network holds.</summary>
+		/// <param name="semanticNetwork">Network to describe.</param>
+		/// <param name="ownerWindow">Window the dialog belongs to.</param>
+		/// <param name="language">Language to render in.</param>
+		/// <param name="knowledgeObjectPicked">Called when the user clicks a link to a knowledge item.</param>
 		public static void DisplayRulesDescription(this ISemanticNetwork semanticNetwork, Window ownerWindow, ILanguage language, Action<IKnowledge> knowledgeObjectPicked)
 		{
 			new FormattedTextDialog(
@@ -112,6 +127,11 @@ namespace AabSemantics.Extensions.WPF.Dialogs
 			}.Show();
 		}
 
+		/// <summary>Runs the consistency check and shows its findings.</summary>
+		/// <param name="semanticNetwork">Network to validate.</param>
+		/// <param name="ownerWindow">Window the dialog belongs to.</param>
+		/// <param name="language">Language to render in.</param>
+		/// <param name="knowledgeObjectPicked">Called when the user clicks a link to a knowledge item.</param>
 		public static void DisplayConsistencyCheckResult(this ISemanticNetwork semanticNetwork, Window ownerWindow, ILanguage language, Action<IKnowledge> knowledgeObjectPicked)
 		{
 			new FormattedTextDialog(

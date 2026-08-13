@@ -21,6 +21,7 @@ namespace AabSemantics.Extensions.WPF.Dialogs
 	{
 		#region Properties
 
+		/// <summary>View model of the question the user has built.</summary>
 		public IQuestionViewModel Question
 		{ get; private set; }
 
@@ -30,6 +31,10 @@ namespace AabSemantics.Extensions.WPF.Dialogs
 
 		#endregion
 
+		/// <summary>Creates the dialog listing every registered question.</summary>
+		/// <param name="semanticNetwork">Network the question will be asked of.</param>
+		/// <param name="language">Language the dialog is localized in.</param>
+		/// <param name="viewModelFactory">Creates the view models for the question parameters.</param>
 		public QuestionDialog(ISemanticNetwork semanticNetwork, ILanguage language, IViewModelFactory viewModelFactory)
 		{
 			_language = language;

@@ -9,11 +9,15 @@ namespace AabSemantics.Extensions.WPF.Dialogs
 {
 	public partial class SelectStatementTypeDialog
 	{
+		/// <summary>Creates the dialog.</summary>
 		public SelectStatementTypeDialog()
 		{
 			InitializeComponent();
 		}
 
+		/// <summary>Fills the type list with the statement types the network's modules provide.</summary>
+		/// <param name="language">Language the dialog is localized in.</param>
+		/// <param name="semanticNetwork">Network whose modules supply the types.</param>
 		public void Initialize(ILanguage language, ISemanticNetwork semanticNetwork)
 		{
 			_radioGroup.Children.Clear();
@@ -33,6 +37,7 @@ namespace AabSemantics.Extensions.WPF.Dialogs
 			_buttonCancel.Content = language.GetExtension<IWpfUiModule>().Common.Cancel;
 		}
 
+		/// <summary>Statement type the user has chosen.</summary>
 		public Type SelectedType
 		{
 			get { return _radioGroup.Children.OfType<RadioButton>().FirstOrDefault(radioButton => radioButton.IsChecked == true)?.Tag as Type; }

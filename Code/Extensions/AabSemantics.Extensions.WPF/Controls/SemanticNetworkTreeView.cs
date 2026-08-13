@@ -9,8 +9,10 @@ using AabSemantics.Extensions.WPF.TreeNodes;
 
 namespace AabSemantics.Extensions.WPF.Controls
 {
+	/// <summary>Tree view over a knowledge base, with the add, edit and delete commands wired in.</summary>
 	public class SemanticNetworkTreeView : TreeView
 	{
+		/// <summary>Creates the control.</summary>
 		public SemanticNetworkTreeView()
 		{
 			_contextMenu = new ContextMenu();
@@ -37,6 +39,14 @@ namespace AabSemantics.Extensions.WPF.Controls
 
 		#region Public API
 
+		/// <summary>
+		/// Wires the control to the application and builds the initial tree. Must be called before
+		/// the control is used, since the collaborators are not injected through the constructor.
+		/// </summary>
+		/// <param name="application">The hosting application.</param>
+		/// <param name="changeController">Undo/redo stack the edit commands are pushed onto.</param>
+		/// <param name="viewModelFactory">Creates the view models for the edit dialogs.</param>
+		/// <param name="commandsFactory">Creates the undoable commands behind the edit actions.</param>
 		public void Initialize(
 			IInventorApplication application,
 			ChangeController changeController,
@@ -59,12 +69,15 @@ namespace AabSemantics.Extensions.WPF.Controls
 			Reload();
 		}
 
+		/// <summary>Whether editing commands are disabled.</summary>
 		public bool IsReadOnly
 		{
 			get { return ContextMenu == null; }
 			set { ContextMenu = !value ? _contextMenu : null; }
 		}
 
+		/// <summary>Expands the tree down to an item and selects it.</summary>
+		/// <param name="entity">Item to reveal.</param>
 		public void Select(IKnowledge entity)
 		{
 			var path = _semanticNetworkNode.Find(entity).OfType<object>().ToList();
@@ -78,6 +91,7 @@ namespace AabSemantics.Extensions.WPF.Controls
 			}
 		}
 
+		/// <summary>Rebuilds the whole tree from the current knowledge base.</summary>
 		public void Reload()
 		{
 			Items.Clear();

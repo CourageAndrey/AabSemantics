@@ -5,17 +5,35 @@ using AabSemantics.Extensions.WPF.ViewModels.Statements;
 
 namespace AabSemantics.Extensions.WPF.ViewModels
 {
+	/// <summary>Creates the view models the editing dialogs bind to.</summary>
 	public interface IViewModelFactory
 	{
+		/// <summary>Creates an empty view model for a knowledge type, ready to define a new item.</summary>
+		/// <param name="type">Concept or statement type to create a view model for.</param>
+		/// <param name="language">Language the dialog is localized in.</param>
+		/// <returns>The view model.</returns>
 		IKnowledgeViewModel CreateByCoreType(Type type, ILanguage language);
 
+		/// <summary>Creates a view model bound to an existing statement.</summary>
+		/// <param name="statement">Statement to edit.</param>
+		/// <param name="language">Language the dialog is localized in.</param>
+		/// <returns>The view model.</returns>
 		StatementViewModel CreateStatementByInstance(IStatement statement, ILanguage language);
 
+		/// <summary>Creates a view model bound to the item a tree node stands for.</summary>
+		/// <param name="treeNode">Tree node whose item is edited.</param>
+		/// <param name="language">Language the dialog is localized in.</param>
+		/// <returns>The view model.</returns>
 		IKnowledgeViewModel CreateByTreeNode(ExtendedTreeNode treeNode, ILanguage language);
 	}
 
+	/// <summary>Default <see cref="IViewModelFactory"/>; override its methods to support custom types.</summary>
 	public class ViewModelFactory : IViewModelFactory
 	{
+		/// <summary>Creates an empty view model for a knowledge type, ready to define a new item.</summary>
+		/// <param name="type">Concept or statement type to create a view model for.</param>
+		/// <param name="language">Language the dialog is localized in.</param>
+		/// <returns>The view model.</returns>
 		public virtual IKnowledgeViewModel CreateByCoreType(Type type, ILanguage language)
 		{
 			if (type == typeof(Concepts.Concept))
@@ -60,6 +78,10 @@ namespace AabSemantics.Extensions.WPF.ViewModels
 			}
 		}
 
+		/// <summary>Creates a view model bound to an existing statement.</summary>
+		/// <param name="statement">Statement to edit.</param>
+		/// <param name="language">Language the dialog is localized in.</param>
+		/// <returns>The view model.</returns>
 		public virtual StatementViewModel CreateStatementByInstance(IStatement statement, ILanguage language)
 		{
 			if (statement is Modules.Set.Statements.HasPartStatement)
@@ -100,6 +122,10 @@ namespace AabSemantics.Extensions.WPF.ViewModels
 			}
 		}
 
+		/// <summary>Creates a view model bound to the item a tree node stands for.</summary>
+		/// <param name="treeNode">Tree node whose item is edited.</param>
+		/// <param name="language">Language the dialog is localized in.</param>
+		/// <returns>The view model.</returns>
 		public virtual IKnowledgeViewModel CreateByTreeNode(ExtendedTreeNode treeNode, ILanguage language)
 		{
 			var conceptNode = treeNode as ConceptNode;

@@ -7,11 +7,15 @@ namespace AabSemantics.Extensions.WPF.Controls
 {
 	public partial class ConceptControl
 	{
+		/// <summary>Creates the control.</summary>
 		public ConceptControl()
 		{
 			InitializeComponent();
 		}
 
+		/// <summary>Fills the control's pick lists and localizes its captions.</summary>
+		/// <param name="semanticNetwork">Network supplying the selectable concepts.</param>
+		/// <param name="language">Language the control is localized in.</param>
 		public void Initialize(ISemanticNetwork semanticNetwork, ILanguage language)
 		{
 			var languageEditing = language.GetExtension<IWpfUiModule>().Ui.Editing;
@@ -24,6 +28,7 @@ namespace AabSemantics.Extensions.WPF.Controls
 			_hintControl.Localize(language);
 		}
 
+		/// <summary>The value being edited.</summary>
 		public Concept EditValue
 		{
 			get { return _concept; }

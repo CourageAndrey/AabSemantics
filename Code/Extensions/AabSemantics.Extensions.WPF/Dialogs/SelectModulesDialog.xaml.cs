@@ -9,11 +9,13 @@ namespace AabSemantics.Extensions.WPF.Dialogs
 {
 	public partial class SelectModulesDialog
 	{
+		/// <summary>Creates the dialog.</summary>
 		public SelectModulesDialog()
 		{
 			InitializeComponent();
 		}
 
+		/// <summary>Whether editing commands are disabled.</summary>
 		public bool IsReadOnly
 		{
 			get { return !_groupBox.IsEnabled; }
@@ -26,6 +28,8 @@ namespace AabSemantics.Extensions.WPF.Dialogs
 			}
 		}
 
+		/// <summary>Fills the module list and localizes the captions.</summary>
+		/// <param name="language">Language the dialog is localized in.</param>
 		public void Initialize(ILanguage language)
 		{
 			_groupBox.Children.Clear();
@@ -81,6 +85,7 @@ namespace AabSemantics.Extensions.WPF.Dialogs
 			}
 		}
 
+		/// <summary>Modules the user has ticked.</summary>
 		public ICollection<IExtensionModule> SelectedModules
 		{
 			get

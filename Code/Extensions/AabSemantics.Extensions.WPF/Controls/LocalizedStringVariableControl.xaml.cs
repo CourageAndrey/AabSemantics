@@ -5,17 +5,20 @@ namespace AabSemantics.Extensions.WPF.Controls
 {
 	public partial class LocalizedStringVariableControl
 	{
+		/// <summary>Creates the control.</summary>
 		public LocalizedStringVariableControl()
 		{
 			InitializeComponent();
 		}
 
+		/// <summary>The localized string being edited.</summary>
 		public ViewModels.LocalizedString EditValue
 		{
 			get { return GetValue(EditValueProperty) as ViewModels.LocalizedString; }
 			set { SetValue(EditValueProperty, value); }
 		}
 
+		/// <summary>Backing dependency property of <see cref="EditValue"/>.</summary>
 		public static readonly DependencyProperty EditValueProperty = DependencyProperty.Register(
 			nameof(EditValue),
 			typeof(ViewModels.LocalizedString),
@@ -25,6 +28,8 @@ namespace AabSemantics.Extensions.WPF.Controls
 				FrameworkPropertyMetadataOptions.AffectsMeasure | FrameworkPropertyMetadataOptions.AffectsRender,
 				(dependencyObject, e) => ((LocalizedStringVariableControl) dependencyObject).applyEditValue(e.NewValue as ViewModels.LocalizedString)));
 
+		/// <summary>Applies the language's captions to this element.</summary>
+		/// <param name="language">Language to localize in.</param>
 		public void Localize(ILanguage language)
 		{
 			_language = language;

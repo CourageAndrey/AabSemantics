@@ -8,11 +8,16 @@ using AabSemantics.Serialization.Xml;
 
 namespace AabSemantics.Extensions.WPF.Dialogs
 {
+	/// <summary>How the exception dialog should present a failure.</summary>
 	public enum ExceptionDialogMode
 	{
+		/// <summary>A previously captured report, shown for inspection only.</summary>
 		ViewOnly,
+		/// <summary>A nested exception, shown from within another report.</summary>
 		ShowInnerExeption,
+		/// <summary>An ordinary error the user may ignore or abort on.</summary>
 		ProcessError,
+		/// <summary>An error the application cannot recover from.</summary>
 		ProcessFatalError
 	}
 
@@ -24,6 +29,10 @@ namespace AabSemantics.Extensions.WPF.Dialogs
 
 		#region Constructor
 
+		/// <summary>Shows a report in an explicitly chosen mode.</summary>
+		/// <param name="exception">Report to show.</param>
+		/// <param name="mode">How the failure should be presented.</param>
+		/// <param name="language">Language the dialog is localized in.</param>
 		public ExceptionDialog(IExceptionWrapper exception, ExceptionDialogMode mode, ILanguage language)
 		{
 			_mode = mode;
@@ -58,10 +67,18 @@ namespace AabSemantics.Extensions.WPF.Dialogs
 			gridData.DataContext = _exception = exception;
 		}
 
+		/// <summary>Shows an already captured report.</summary>
+		/// <param name="exception">Report to show.</param>
+		/// <param name="viewOnly">When <c>true</c>, no abort or ignore choice is offered.</param>
+		/// <param name="language">Language the dialog is localized in.</param>
 		public ExceptionDialog(IExceptionWrapper exception, System.Boolean viewOnly, ILanguage language)
 			: this(exception, viewOnly ? ExceptionDialogMode.ViewOnly : ExceptionDialogMode.ProcessError, language)
 		{ }
 
+		/// <summary>Captures an exception and shows it.</summary>
+		/// <param name="exception">Exception to report.</param>
+		/// <param name="viewOnly">When <c>true</c>, no abort or ignore choice is offered.</param>
+		/// <param name="language">Language the dialog is localized in.</param>
 		public ExceptionDialog(Exception exception, System.Boolean viewOnly, ILanguage language)
 			: this(new ExceptionWrapper(exception), viewOnly, language)
 		{ }
