@@ -537,6 +537,25 @@ namespace AabSemantics.Tests.Utils
 		}
 
 		[Test]
+		public void CheckContainsByKeyExtension()
+		{
+			// arrange
+			// note: the overload taking a key is the extension itself, while the one taking an item
+			// binds to LINQ's Enumerable.Contains - both are checked, in this test and the one above.
+			var items = new SimpleIdentifiable[] { "1", "2", "3" };
+
+			IRepository<SimpleIdentifiable> inMemoryRepository = new Repository<SimpleIdentifiable>(items);
+			IRepository<SimpleIdentifiable> testRepository = new TestRepository(items);
+
+			// act & assert
+			Assert.That(inMemoryRepository.Contains("2"), Is.True);
+			Assert.That(testRepository.Contains("2"), Is.True);
+
+			Assert.That(inMemoryRepository.Contains("4"), Is.False);
+			Assert.That(testRepository.Contains("4"), Is.False);
+		}
+
+		[Test]
 		public void CheckTryGetValueExtension()
 		{
 			// arrange

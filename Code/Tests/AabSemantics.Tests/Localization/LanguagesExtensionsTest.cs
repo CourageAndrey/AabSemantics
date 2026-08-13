@@ -84,6 +84,31 @@ namespace AabSemantics.Tests.Localization
 			Assert.That(text, Is.EqualTo(language.GetExtension<ILanguageBooleanModule>().Attributes.IsBoolean));
 		}
 
+		/// <summary>
+		/// An extension named without the <c>Language{Module}Module</c> pattern, like the WPF UI one.
+		/// </summary>
+		private class WpfUiModule : LanguageExtension
+		{
+			public string Caption
+			{ get; set; }
+		}
+
+		[Test]
+		public void GivenPathWithPlainlyNamedModule_WhenGetBoundText_ThenReturnText()
+		{
+			// arrange
+			var extension = new WpfUiModule { Caption = "Semantic network" };
+
+			var language = new Language();
+			language.Extensions.Add(extension);
+
+			// act
+			string text = language.GetBoundText("WpfUiModule\\Caption");
+
+			// assert
+			Assert.That(text, Is.EqualTo(extension.Caption));
+		}
+
 		[Test]
 		public void GivenPathWithNullInMiddle_WhenGetBoundText_ThenReturnNull()
 		{
@@ -95,6 +120,17 @@ namespace AabSemantics.Tests.Localization
 
 			// assert
 			Assert.That(text, Is.Null);
+		}
+
+		[Test]
+		public void GivenPathWithMissingProperty_WhenGetBoundText_ThenReturnNull()
+		{
+			// arrange
+			var language = Language.Default;
+
+			// act & assert
+			Assert.That(language.GetBoundText("NoSuchProperty"), Is.Null);
+			Assert.That(language.GetBoundText("Attributes.NoSuchProperty"), Is.Null);
 		}
 	}
 }
