@@ -7,3 +7,7 @@ Code/*/*/*.csproj.user
 Code/*/*/*/bin
 Code/*/*/*/obj
 Code/packages
+.claude
+.cursorrules
+.vscode
+Code/TestResults
