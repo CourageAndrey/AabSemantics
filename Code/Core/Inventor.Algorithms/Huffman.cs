@@ -4,8 +4,22 @@ using System.Linq;
 
 namespace Inventor.Algorithms
 {
+	/// <summary>Huffman coding.</summary>
 	public static class Huffman
 	{
+		/// <summary>Builds prefix-free codes, giving shorter codes to heavier items.</summary>
+		/// <typeparam name="ItemT">Type of the encoded items.</typeparam>
+		/// <typeparam name="TCode">Type representing a code.</typeparam>
+		/// <param name="items">Items to encode.</param>
+		/// <param name="getWeight">Returns an item's weight, e.g. its frequency.</param>
+		/// <param name="emptyCode">The zero-length code every code is built from.</param>
+		/// <param name="appendLeft">Appends a "left" symbol to a code.</param>
+		/// <param name="appendRight">Appends a "right" symbol to a code.</param>
+		/// <returns>
+		/// A code per item. Zero, one and two items are special-cased and do not build a tree,
+		/// so weights are ignored in those cases.
+		/// </returns>
+		/// <exception cref="ArgumentNullException">Any argument except <paramref name="emptyCode"/> is <c>null</c>.</exception>
 		public static Dictionary<ItemT, TCode> HuffmanEncode<ItemT, TCode>(
 			this ICollection<ItemT> items,
 			Func<ItemT, UInt64> getWeight,

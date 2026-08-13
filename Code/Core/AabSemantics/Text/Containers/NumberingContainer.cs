@@ -2,18 +2,24 @@
 
 namespace AabSemantics.Text.Containers
 {
+	/// <summary>Renders its items as a numbered list.</summary>
 	public class NumberingContainer : TextContainerBase
 	{
 		#region Constructors
 
+		/// <summary>Creates a list over an existing collection, used directly rather than copied.</summary>
+		/// <param name="items">List entries.</param>
 		public NumberingContainer(IList<IText> items)
 			: base(items)
 		{ }
 
+		/// <summary>Creates a single-entry list.</summary>
+		/// <param name="item">The only entry.</param>
 		public NumberingContainer(IText item)
 			: this(new List<IText> { item })
 		{ }
 
+		/// <summary>Creates an empty list, to be filled afterwards.</summary>
 		public NumberingContainer()
 			: this(new List<IText>())
 		{ }

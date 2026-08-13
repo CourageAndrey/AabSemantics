@@ -9,27 +9,40 @@ using AabSemantics.Utils;
 
 namespace AabSemantics
 {
+	/// <summary>
+	/// Default in-memory <see cref="ISemanticNetwork"/>. Its constructor wires up the rules that
+	/// keep the network coherent: removing a concept removes the statements about it, adding a
+	/// statement adopts any concept it mentions, and statements owned by the system context
+	/// cannot be added or removed.
+	/// </summary>
 	public class SemanticNetwork : ISemanticNetwork
 	{
 		#region Properties
 
+		/// <summary>Localized name of the network.</summary>
 		public ILocalizedString Name
 		{ get; }
 
+		/// <summary>Context the network's knowledge lives in.</summary>
 		public ISemanticNetworkContext Context
 		{ get; }
 
+		/// <summary>Concepts known to the network.</summary>
 		public IRepository<IConcept> Concepts
 		{ get; }
 
+		/// <summary>Statements known to the network.</summary>
 		public IRepository<IStatement> Statements
 		{ get; }
 
+		/// <summary>Extension modules attached to the network, keyed by module name.</summary>
 		public IDictionary<String, IExtensionModule> Modules
 		{ get; }
 
 		#endregion
 
+		/// <summary>Creates an empty network with no modules attached.</summary>
+		/// <param name="language">Language for text the network produces.</param>
 		public SemanticNetwork(ILanguage language)
 		{
 			Modules = new Dictionary<String, IExtensionModule>();
@@ -91,6 +104,8 @@ namespace AabSemantics
 			statements.ItemRemoving += systemStatementProtector;
 		}
 
+		/// <summary>Formats the network as a caption followed by its name.</summary>
+		/// <returns>Diagnostic string.</returns>
 		public override String ToString()
 		{
 			return String.Format(CultureInfo.InvariantCulture, "{0} : {1}", Strings.TostringSemanticNetwork, Name);

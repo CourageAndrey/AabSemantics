@@ -6,8 +6,21 @@ using AabSemantics.Utils;
 
 namespace AabSemantics.Mutations
 {
+	/// <summary>Drives inference by applying mutations until none of them fires any more.</summary>
 	public static class MutationHelper
 	{
+		/// <summary>
+		/// Repeatedly applies the first mutation that fires, until a whole pass finds none —
+		/// that is, until the network reaches a fixed point.
+		/// </summary>
+		/// <param name="semanticNetwork">Network to grow.</param>
+		/// <param name="mutations">Rules to apply, tried in order.</param>
+		/// <param name="updateMutationsCollections">
+		/// Recomputes the rule set after each successful application, e.g. to drop one-shot rules.
+		/// Keeps the set unchanged when <c>null</c>.
+		/// </param>
+		/// <returns>The mutations that fired, in the order they were applied; the same rule may appear repeatedly.</returns>
+		/// <exception cref="ArgumentNullException"><paramref name="semanticNetwork"/> or <paramref name="mutations"/> is <c>null</c>.</exception>
 		public static ICollection<IMutation> Mutate(
 			this ISemanticNetwork semanticNetwork,
 			ICollection<IMutation> mutations,

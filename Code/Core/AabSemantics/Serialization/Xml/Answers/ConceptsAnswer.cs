@@ -8,11 +8,13 @@ using AabSemantics.Text.Primitives;
 
 namespace AabSemantics.Serialization.Xml.Answers
 {
+	/// <summary>XML surrogate of the <see cref="AabSemantics.Answers.ConceptsAnswer"/>.</summary>
 	[XmlType]
 	public class ConceptsAnswer : Answer
 	{
 		#region Properties
 
+		/// <summary>Identifiers of the concepts the answer lists.</summary>
 		[XmlArray(nameof(Concepts))]
 		[XmlArrayItem(nameof(Concept))]
 		public List<String> Concepts
@@ -22,12 +24,16 @@ namespace AabSemantics.Serialization.Xml.Answers
 
 		#region Constructors
 
+		/// <summary>Creates a surrogate of the "unknown" answer, as required by the XML serializer.</summary>
 		public ConceptsAnswer()
 			: base(AabSemantics.Answers.Answer.CreateUnknown(), Language.Default)
 		{
 			Concepts = new List<String>();
 		}
 
+		/// <summary>Converts an answer into its surrogate.</summary>
+		/// <param name="answer">Answer to convert.</param>
+		/// <param name="language">Language its text is rendered in.</param>
 		public ConceptsAnswer(AabSemantics.Answers.ConceptsAnswer answer, ILanguage language)
 			: base(answer, language)
 		{
@@ -36,6 +42,10 @@ namespace AabSemantics.Serialization.Xml.Answers
 
 		#endregion
 
+		/// <summary>Restores the answer from the surrogate. Its text comes back as a plain string, not as structured text.</summary>
+		/// <param name="conceptIdResolver">Resolves concept identifiers to concepts.</param>
+		/// <param name="statementIdResolver">Reuses the network's existing statements where possible.</param>
+		/// <returns>The restored answer.</returns>
 		public override IAnswer Save(ConceptIdResolver conceptIdResolver, StatementIdResolver statementIdResolver)
 		{
 			return new AabSemantics.Answers.ConceptsAnswer(

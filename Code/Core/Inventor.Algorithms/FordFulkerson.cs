@@ -4,8 +4,16 @@ using System.Linq;
 
 namespace Inventor.Algorithms
 {
+	/// <summary>Ford-Fulkerson maximum flow algorithm.</summary>
 	public static class FordFulkerson
 	{
+		/// <summary>Computes the maximum flow between two given nodes.</summary>
+		/// <typeparam name="NodeT">Node type.</typeparam>
+		/// <param name="arcs">Graph arcs with their capacities; the collection is copied, not modified.</param>
+		/// <param name="sourceNode">Node the flow originates at.</param>
+		/// <param name="destinationNode">Node the flow drains into.</param>
+		/// <returns>The maximum flow value, or zero when no path exists.</returns>
+		/// <exception cref="ArgumentNullException">Any argument is <c>null</c>.</exception>
 		public static Double FindMaximumFlow<NodeT>(this ICollection<IArcWithFlow<NodeT>> arcs, NodeT sourceNode, NodeT destinationNode)
 			where NodeT : class
 		{
@@ -71,6 +79,12 @@ namespace Inventor.Algorithms
 			return null;
 		}
 
+		/// <summary>Computes the maximum flow, inferring source and destination from the graph shape.</summary>
+		/// <typeparam name="NodeT">Node type.</typeparam>
+		/// <param name="arcs">Graph arcs with their capacities.</param>
+		/// <returns>The maximum flow value.</returns>
+		/// <exception cref="ArgumentNullException"><paramref name="arcs"/> is <c>null</c>.</exception>
+		/// <exception cref="ArgumentException">The graph does not have exactly one node without inputs and one without outputs.</exception>
 		public static Double FindMaximumFlow<NodeT>(this ICollection<IArcWithFlow<NodeT>> arcs)
 			where NodeT : class
 		{
@@ -120,27 +134,39 @@ namespace Inventor.Algorithms
 		}
 	}
 
+	/// <summary>Graph arc with a flow capacity.</summary>
+	/// <typeparam name="NodeT">Node type.</typeparam>
 	public interface IArcWithFlow<out NodeT> : IArc<NodeT>
 	{
+		/// <summary>Capacity of the arc.</summary>
 		Double Flow
 		{ get; }
 	}
 
+	/// <summary>Default <see cref="IArcWithFlow{NodeT}"/> implementation.</summary>
+	/// <typeparam name="NodeT">Node type.</typeparam>
 	public class SimpleArcWithFlow<NodeT> : IArcWithFlow<NodeT>
 	{
 		#region Properties
 
+		/// <summary>Node the arc starts at.</summary>
 		public NodeT From
 		{ get; }
 
+		/// <summary>Node the arc leads to.</summary>
 		public NodeT To
 		{ get; }
 
+		/// <summary>Capacity of the arc.</summary>
 		public Double Flow
 		{ get; }
 
 		#endregion
 
+		/// <summary>Creates an arc with a capacity.</summary>
+		/// <param name="from">Node the arc starts at.</param>
+		/// <param name="to">Node the arc leads to.</param>
+		/// <param name="flow">Capacity of the arc.</param>
 		public SimpleArcWithFlow(NodeT from, NodeT to, Double flow)
 		{
 			From = from;
@@ -148,6 +174,9 @@ namespace Inventor.Algorithms
 			Flow = flow;
 		}
 
+		/// <summary>Creates an arc connecting the same nodes as an existing one, with a different capacity.</summary>
+		/// <param name="arc">Arc to copy the endpoints from.</param>
+		/// <param name="flow">Capacity of the new arc.</param>
 		public SimpleArcWithFlow(IArcWithFlow<NodeT> arc, Double flow)
 		{
 			From = arc.From;

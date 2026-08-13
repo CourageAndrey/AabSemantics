@@ -5,12 +5,24 @@ using AabSemantics.Utils;
 
 namespace AabSemantics.Statements
 {
+	/// <summary>
+	/// Finds contradictions among comparison-like statements. It builds a matrix of the known
+	/// relation signs between every pair of values, repeatedly infers new cells from existing
+	/// ones until nothing changes, and then reports the pairs that ended up with mutually
+	/// exclusive signs.
+	/// </summary>
+	/// <typeparam name="StatementT">Statement type expressing a relation between two values.</typeparam>
 	public abstract class ContradictionsChecker<StatementT>
 		where StatementT : IStatement
 	{
+		/// <summary>Every value mentioned by the statements.</summary>
 		protected readonly HashSet<IConcept> AllValues; // all unique involved values
+
+		/// <summary>Signs known for each ordered pair of values, indexed row then column.</summary>
 		protected readonly Dictionary<IConcept, Dictionary<IConcept, HashSet<IConcept>>> AllSigns; // matrix of known signs
 
+		/// <summary>Seeds the matrix from the given statements.</summary>
+		/// <param name="statements">Statements to analyse.</param>
 		protected ContradictionsChecker(IEnumerable<StatementT> statements)
 		{
 			AllValues = new HashSet<IConcept>();
@@ -29,18 +41,45 @@ namespace AabSemantics.Statements
 			}
 		}
 
+		/// <summary>Reads the left-hand value of a statement.</summary>
+		/// <param name="statement">Statement to read.</param>
+		/// <returns>The left value.</returns>
 		protected abstract IConcept GetLeftValue(StatementT statement);
 
+		/// <summary>Reads the right-hand value of a statement.</summary>
+		/// <param name="statement">Statement to read.</param>
+		/// <returns>The right value.</returns>
 		protected abstract IConcept GetRightValue(StatementT statement);
 
+		/// <summary>Reads the relation sign of a statement.</summary>
+		/// <param name="statement">Statement to read.</param>
+		/// <returns>The sign.</returns>
 		protected abstract IConcept GetSign(StatementT statement);
 
+		/// <summary>Records a sign for a pair, plus whatever the sign's own semantics imply.</summary>
+		/// <param name="valueRow">Row value.</param>
+		/// <param name="valueColumn">Column value.</param>
+		/// <param name="sign">Sign to record.</param>
+		/// <returns><c>true</c> if the matrix changed.</returns>
 		protected abstract Boolean SetCombinationWithDescendants(IConcept valueRow, IConcept valueColumn, IConcept sign);
 
+		/// <summary>Decides whether a set of signs recorded for one pair is self-contradictory.</summary>
+		/// <param name="signs">Signs recorded for the pair.</param>
+		/// <param name="left">Left value of the pair.</param>
+		/// <param name="right">Right value of the pair.</param>
+		/// <returns><c>true</c> if the signs cannot hold together.</returns>
 		protected abstract Task<Boolean> ContradictsAsync(HashSet<IConcept> signs, IConcept left, IConcept right);
 
+		/// <summary>Infers the sign between two values from the signs linking each of them to a third.</summary>
+		/// <param name="valueRow">First value.</param>
+		/// <param name="signRow">Sign between the first value and the intermediate one.</param>
+		/// <param name="signColumn">Sign between the intermediate value and the second one.</param>
+		/// <param name="valueColumn">Second value.</param>
+		/// <returns><c>true</c> if the matrix changed.</returns>
 		protected abstract Boolean TryToUpdateCombinations(IConcept valueRow, IConcept signRow, IConcept signColumn, IConcept valueColumn);
 
+		/// <summary>Infers everything derivable, then reports the contradictions found.</summary>
+		/// <returns>One entry per contradicting pair of values; empty when the statements are consistent.</returns>
 		public async Task<List<Contradiction>> CheckForContradictionsAsync()
 		{
 			while (await UpdateInferredCombinationsAsync())
@@ -120,6 +159,11 @@ namespace AabSemantics.Statements
 			return foundContradictions;
 		}
 
+		/// <summary>Records a single sign for a pair, creating the matrix row and cell as needed.</summary>
+		/// <param name="left">Row value.</param>
+		/// <param name="right">Column value.</param>
+		/// <param name="sign">Sign to record.</param>
+		/// <returns><c>true</c> if the matrix changed; <c>false</c> when the sign was already recorded.</returns>
 		protected Boolean SetCombination(IConcept left, IConcept right, IConcept sign)
 		{
 			Boolean updated = false;

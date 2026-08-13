@@ -6,30 +6,54 @@ using AabSemantics.Utils;
 
 namespace AabSemantics.Mutations
 {
+	/// <summary>How unmatched statements are treated when joining two patterns, as in SQL joins.</summary>
 	public enum JoinType
 	{
+		/// <summary>Only pairs where both sides share a concept.</summary>
 		IntersectJoin,
+
+		/// <summary>Every left statement, paired with a right one where a shared concept exists.</summary>
 		LeftJoin,
+
+		/// <summary>Every right statement, paired with a left one where a shared concept exists.</summary>
 		RightJoin,
+
+		/// <summary>Every statement from both sides, paired up wherever a shared concept exists.</summary>
 		FullJoin,
 	}
 
+	/// <summary>
+	/// Pattern matching pairs of statements that meet at a common concept — the way an
+	/// "A is B" and a "B is C" statement combine to justify "A is C".
+	/// </summary>
+	/// <typeparam name="LeftStatementT">Statement type on the left of the join.</typeparam>
+	/// <typeparam name="RightStatementT">Statement type on the right of the join.</typeparam>
 	public class JoinSearchPattern<LeftStatementT, RightStatementT> : IsomorphicSearchPattern
 		where LeftStatementT : class, IStatement
 		where RightStatementT : class, IStatement
 	{
+		/// <summary>Pattern the left statements must match.</summary>
 		public StatementSearchPattern<LeftStatementT> Left
 		{ get; }
 
+		/// <summary>Pattern the right statements must match.</summary>
 		public StatementSearchPattern<RightStatementT> Right
 		{ get; }
 
+		/// <summary>How unmatched statements are treated.</summary>
 		public JoinType JoinType
 		{ get; }
 
 		private readonly StatementConceptSelector<LeftStatementT> _leftConceptSelector;
 		private readonly StatementConceptSelector<RightStatementT> _rightConceptSelector;
 
+		/// <summary>Creates a join pattern.</summary>
+		/// <param name="left">Pattern the left statements must match.</param>
+		/// <param name="right">Pattern the right statements must match.</param>
+		/// <param name="joinType">How unmatched statements are treated.</param>
+		/// <param name="leftConceptSelector">Picks the concept a left statement joins on.</param>
+		/// <param name="rightConceptSelector">Picks the concept a right statement joins on.</param>
+		/// <exception cref="ArgumentNullException">Any argument except <paramref name="joinType"/> is <c>null</c>.</exception>
 		public JoinSearchPattern(
 			StatementSearchPattern<LeftStatementT> left,
 			StatementSearchPattern<RightStatementT> right,
@@ -44,6 +68,15 @@ namespace AabSemantics.Mutations
 			_rightConceptSelector = rightConceptSelector.EnsureNotNull(nameof(rightConceptSelector));
 		}
 
+		/// <summary>
+		/// Finds every pair of statements sharing a join concept. Depending on
+		/// <see cref="JoinType"/>, a match may have a <c>null</c> statement on one side.
+		/// </summary>
+		/// <param name="semanticNetwork">Network to search.</param>
+		/// <returns>
+		/// Lazily evaluated matches, each binding the left pattern, the right pattern and this
+		/// pattern to the shared concept.
+		/// </returns>
 		public override IEnumerable<KnowledgeStructure> FindMatches(ISemanticNetwork semanticNetwork)
 		{
 			var leftStatements = new Dictionary<IConcept, ICollection<LeftStatementT>>();

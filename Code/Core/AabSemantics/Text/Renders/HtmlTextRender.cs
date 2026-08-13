@@ -8,8 +8,13 @@ using AabSemantics.Text.Primitives;
 
 namespace AabSemantics.Text.Renders
 {
+	/// <summary>Renders text as an HTML fragment, mapping each node kind to the matching tags.</summary>
 	public class HtmlTextRender : IStructuredTextRender
 	{
+		/// <summary>Renders a text tree as HTML.</summary>
+		/// <param name="text">Text to render.</param>
+		/// <param name="language">Language to resolve localizable strings in.</param>
+		/// <returns>The rendered output.</returns>
 		public virtual StringBuilder RenderText(IText text, ILanguage language)
 		{
 			var result = new StringBuilder(@"<html><head><title>Inventor</title></head><body>");
@@ -20,6 +25,10 @@ namespace AabSemantics.Text.Renders
 
 		#region Regular primitives
 
+		/// <summary>Renders a localizable sentence, substituting its parameters.</summary>
+		/// <param name="text">Node to render.</param>
+		/// <param name="language">Language to resolve localizable strings in.</param>
+		/// <returns>The rendered output.</returns>
 		public virtual StringBuilder Render(FormattedText text, ILanguage language)
 		{
 			String result = text.Formatter(language);
@@ -32,11 +41,19 @@ namespace AabSemantics.Text.Renders
 			return new StringBuilder(result + "<br/>");
 		}
 
+		/// <summary>Renders a line break.</summary>
+		/// <param name="text">Node to render.</param>
+		/// <param name="language">Language to resolve localizable strings in.</param>
+		/// <returns>The rendered output.</returns>
 		public virtual StringBuilder Render(LineBreakText text, ILanguage language)
 		{
 			return new StringBuilder("<br/><br/>");
 		}
 
+		/// <summary>Renders a space.</summary>
+		/// <param name="text">Node to render.</param>
+		/// <param name="language">Language to resolve localizable strings in.</param>
+		/// <returns>The rendered output.</returns>
 		public virtual StringBuilder Render(SpaceText text, ILanguage language)
 		{
 			return new StringBuilder(" &nbsp; ");
@@ -46,6 +63,10 @@ namespace AabSemantics.Text.Renders
 
 		#region Containers
 
+		/// <summary>Renders an unordered list.</summary>
+		/// <param name="text">Node to render.</param>
+		/// <param name="language">Language to resolve localizable strings in.</param>
+		/// <returns>The rendered output.</returns>
 		public virtual StringBuilder Render(BulletsContainer text, ILanguage language)
 		{
 			return renderContainer(
@@ -57,6 +78,10 @@ namespace AabSemantics.Text.Renders
 				"</li>");
 		}
 
+		/// <summary>Renders a numbered list.</summary>
+		/// <param name="text">Node to render.</param>
+		/// <param name="language">Language to resolve localizable strings in.</param>
+		/// <returns>The rendered output.</returns>
 		public virtual StringBuilder Render(NumberingContainer text, ILanguage language)
 		{
 			return renderContainer(
@@ -68,6 +93,10 @@ namespace AabSemantics.Text.Renders
 				"</li>");
 		}
 
+		/// <summary>Renders a plain sequence of nested texts.</summary>
+		/// <param name="text">Node to render.</param>
+		/// <param name="language">Language to resolve localizable strings in.</param>
+		/// <returns>The rendered output.</returns>
 		public virtual StringBuilder Render(UnstructuredContainer text, ILanguage language)
 		{
 			return renderContainer(
@@ -102,41 +131,73 @@ namespace AabSemantics.Text.Renders
 
 		#region Decorators
 
+		/// <summary>Renders bold text.</summary>
+		/// <param name="text">Node to render.</param>
+		/// <param name="language">Language to resolve localizable strings in.</param>
+		/// <returns>The rendered output.</returns>
 		public virtual StringBuilder Render(BoldDecorator text, ILanguage language)
 		{
 			return renderDecorator(text, language, "<b>", "</b>");
 		}
 
+		/// <summary>Renders italic text.</summary>
+		/// <param name="text">Node to render.</param>
+		/// <param name="language">Language to resolve localizable strings in.</param>
+		/// <returns>The rendered output.</returns>
 		public virtual StringBuilder Render(ItalicDecorator text, ILanguage language)
 		{
 			return renderDecorator(text, language, "<i>", "</i>");
 		}
 
+		/// <summary>Renders underlined text.</summary>
+		/// <param name="text">Node to render.</param>
+		/// <param name="language">Language to resolve localizable strings in.</param>
+		/// <returns>The rendered output.</returns>
 		public virtual StringBuilder Render(UnderlineDecorator text, ILanguage language)
 		{
 			return renderDecorator(text, language, "<u>", "</u>");
 		}
 
+		/// <summary>Renders struck-out text.</summary>
+		/// <param name="text">Node to render.</param>
+		/// <param name="language">Language to resolve localizable strings in.</param>
+		/// <returns>The rendered output.</returns>
 		public virtual StringBuilder Render(StrikeoutDecorator text, ILanguage language)
 		{
 			return renderDecorator(text, language, "<s>", "</s>");
 		}
 
+		/// <summary>Renders subscript text.</summary>
+		/// <param name="text">Node to render.</param>
+		/// <param name="language">Language to resolve localizable strings in.</param>
+		/// <returns>The rendered output.</returns>
 		public virtual StringBuilder Render(SubscriptDecorator text, ILanguage language)
 		{
 			return renderDecorator(text, language, "<sub>", "</sub>");
 		}
 
+		/// <summary>Renders superscript text.</summary>
+		/// <param name="text">Node to render.</param>
+		/// <param name="language">Language to resolve localizable strings in.</param>
+		/// <returns>The rendered output.</returns>
 		public virtual StringBuilder Render(SuperscriptDecorator text, ILanguage language)
 		{
 			return renderDecorator(text, language, "<sup>", "</sup>");
 		}
 
+		/// <summary>Renders a heading.</summary>
+		/// <param name="text">Node to render.</param>
+		/// <param name="language">Language to resolve localizable strings in.</param>
+		/// <returns>The rendered output.</returns>
 		public virtual StringBuilder Render(HeaderDecorator text, ILanguage language)
 		{
 			return renderDecorator(text, language, $"<h{text.Level}>", $"</h{text.Level}>");
 		}
 
+		/// <summary>Renders a paragraph.</summary>
+		/// <param name="text">Node to render.</param>
+		/// <param name="language">Language to resolve localizable strings in.</param>
+		/// <returns>The rendered output.</returns>
 		public virtual StringBuilder Render(ParagraphDecorator text, ILanguage language)
 		{
 			return renderDecorator(text, language, "<p>", "</p>");
