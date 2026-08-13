@@ -4,24 +4,30 @@ using AabSemantics.Localization;
 
 namespace AabSemantics.Modules.Mathematics.Localization
 {
+	/// <summary>Concept texts contributed by the mathematics module.</summary>
 	public interface ILanguageConcepts : ILanguageExtensionConcepts
 	{
+		/// <summary>Display names of the comparison sign concepts.</summary>
 		ILanguageSystemConcepts SystemConceptNames
 		{ get; }
 
+		/// <summary>Tooltip texts of the comparison sign concepts.</summary>
 		ILanguageSystemConcepts SystemConceptHints
 		{ get; }
 	}
 
+	/// <summary>Serializable <see cref="ILanguageConcepts"/>, loaded from a language file.</summary>
 	[XmlType("MathematicsConcepts")]
 	public class LanguageConcepts : ILanguageConcepts
 	{
 		#region Xml Properties
 
+		/// <summary>Display names of the comparison sign concepts. In serializable form.</summary>
 		[XmlElement(nameof(SystemConceptNames))]
 		public LanguageSystemConcepts SystemConceptNamesXml
 		{ get; set; }
 
+		/// <summary>Tooltip texts of the comparison sign concepts. In serializable form.</summary>
 		[XmlElement(nameof(SystemConceptHints))]
 		public LanguageSystemConcepts SystemConceptHintsXml
 		{ get; set; }
@@ -30,16 +36,20 @@ namespace AabSemantics.Modules.Mathematics.Localization
 
 		#region Interface Properties
 
+		/// <summary>Display names of the comparison sign concepts.</summary>
 		[XmlIgnore]
 		public ILanguageSystemConcepts SystemConceptNames
 		{ get { return SystemConceptNamesXml; } }
 
+		/// <summary>Tooltip texts of the comparison sign concepts.</summary>
 		[XmlIgnore]
 		public ILanguageSystemConcepts SystemConceptHints
 		{ get { return SystemConceptHintsXml; } }
 
 		#endregion
 
+		/// <summary>Builds this bundle with its built-in English texts.</summary>
+		/// <returns>A populated bundle.</returns>
 		internal static LanguageConcepts CreateDefault()
 		{
 			return new LanguageConcepts

@@ -12,14 +12,22 @@ using AabSemantics.Serialization;
 
 namespace AabSemantics.Modules.Mathematics
 {
+	/// <summary>
+	/// Built-in module supplying the six comparison signs, the comparison statement with its
+	/// contradiction check, and the comparison question. Depends on the boolean module.
+	/// </summary>
 	public class MathematicsModule : ExtensionModule
 	{
+		/// <summary>Name the module is registered under.</summary>
 		public const String ModuleName = "System.Mathematics";
 
+		/// <summary>Creates the module, declaring its dependency on the boolean module.</summary>
 		public MathematicsModule()
 			: base(ModuleName)
 		{ }
 
+		/// <summary>Adds the comparison sign concepts to the network.</summary>
+		/// <param name="semanticNetwork">Network being extended.</param>
 		protected override void Attach(ISemanticNetwork semanticNetwork)
 		{
 			foreach (var sign in ComparisonSigns.All)
@@ -28,11 +36,13 @@ namespace AabSemantics.Modules.Mathematics
 			}
 		}
 
+		/// <summary>Adds the module's English texts to the built-in default language.</summary>
 		protected override void RegisterLanguage()
 		{
 			AabSemantics.Localization.Language.Default.Extensions.Add(LanguageMathematicsModule.CreateDefault());
 		}
 
+		/// <summary>Registers the "is a comparison sign" attribute.</summary>
 		protected override void RegisterAttributes()
 		{
 			Repositories.RegisterAttribute(IsComparisonSignAttribute.Value, language => language.GetAttributesExtension<ILanguageMathematicsModule, ILanguageAttributes>().IsComparisonSign)
@@ -40,11 +50,13 @@ namespace AabSemantics.Modules.Mathematics
 				.SerializeToJson(new Xml.IsComparisonSignAttribute());
 		}
 
+		/// <summary>Makes the comparison sign concepts resolvable by identifier during deserialization.</summary>
 		protected override void RegisterConcepts()
 		{
 			ConceptIdResolver.RegisterEnumType(typeof(ComparisonSigns));
 		}
 
+		/// <summary>Registers the comparison statement, its contradiction check and its custom-statement form.</summary>
 		protected override void RegisterStatements()
 		{
 			Repositories.RegisterStatement<ComparisonStatement, ILanguageMathematicsModule, ILanguageStatements, ILanguageStatementsPart>(
@@ -63,6 +75,7 @@ namespace AabSemantics.Modules.Mathematics
 				language => language.Comparison);
 		}
 
+		/// <summary>Registers the comparison question and its persistence.</summary>
 		protected override void RegisterQuestions()
 		{
 			Repositories.RegisterQuestion<ComparisonQuestion>(language => language.GetQuestionsExtension<ILanguageMathematicsModule, ILanguageQuestions>().Names.ComparisonQuestion)
@@ -70,6 +83,8 @@ namespace AabSemantics.Modules.Mathematics
 				.SerializeToJson(question => new Json.ComparisonQuestion(question));
 		}
 
+		/// <summary>Declares the module's string bundle type for the XML serializer.</summary>
+		/// <returns>A single entry mapping the module name to its bundle type.</returns>
 		public override IDictionary<String, Type> GetLanguageExtensions()
 		{
 			return new Dictionary<String, Type>

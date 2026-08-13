@@ -11,18 +11,26 @@ using AabSemantics.Utils;
 
 namespace AabSemantics.Modules.Mathematics.Questions
 {
+	/// <summary>Asks how two values compare.</summary>
 	public class ComparisonQuestion : Question
 	{
 		#region Properties
 
+		/// <summary>The left-hand value.</summary>
 		public IConcept LeftValue
 		{ get; set; }
 
+		/// <summary>The right-hand value.</summary>
 		public IConcept RightValue
 		{ get; set; }
 
 		#endregion
 
+		/// <summary>Creates the question.</summary>
+		/// <param name="leftValue">The left-hand value.</param>
+		/// <param name="rightValue">The right-hand value.</param>
+		/// <param name="preconditions">Hypothetical statements to assume while answering.</param>
+		/// <exception cref="System.ArgumentNullException">Either value is <c>null</c>.</exception>
 		public ComparisonQuestion(IConcept leftValue, IConcept rightValue, IEnumerable<IStatement> preconditions = null)
 			: base(preconditions)
 		{
@@ -30,6 +38,12 @@ namespace AabSemantics.Modules.Mathematics.Questions
 			RightValue = rightValue.EnsureNotNull(nameof(rightValue));
 		}
 
+		/// <summary>
+		/// Finds the comparison between the two values, normalising each matched statement to the
+		/// asked operand order and recursing through the values' ancestors when nothing matches directly.
+		/// </summary>
+		/// <param name="context">Context to search.</param>
+		/// <returns>An answer naming the comparison sign, or the "unknown" answer.</returns>
 		public override async Task<IAnswer> ProcessAsync(IQuestionProcessingContext context)
 		{
 			return await context

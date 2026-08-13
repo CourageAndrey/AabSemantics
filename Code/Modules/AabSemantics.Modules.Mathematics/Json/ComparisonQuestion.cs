@@ -6,15 +6,18 @@ using AabSemantics.Serialization;
 
 namespace AabSemantics.Modules.Mathematics.Json
 {
+	/// <summary>JSON surrogate of a <see cref="Questions.ComparisonQuestion"/>.</summary>
 	[DataContract]
 	public class ComparisonQuestion : Serialization.Json.Question<Questions.ComparisonQuestion>
 	{
 		#region Properties
 
+		/// <summary>Identifier of the left-hand value.</summary>
 		[DataMember]
 		public String LeftValue
 		{ get; set; }
 
+		/// <summary>Identifier of the right-hand value.</summary>
 		[DataMember]
 		public String RightValue
 		{ get; set; }
@@ -23,10 +26,13 @@ namespace AabSemantics.Modules.Mathematics.Json
 
 		#region Constructors
 
+		/// <summary>Creates an empty surrogate, as required by the JSON serializer.</summary>
 		public ComparisonQuestion()
 			: base()
 		{ }
 
+		/// <summary>Converts a question into its surrogate.</summary>
+		/// <param name="question">Question to convert.</param>
 		public ComparisonQuestion(Questions.ComparisonQuestion question)
 			: base(question)
 		{
@@ -36,6 +42,11 @@ namespace AabSemantics.Modules.Mathematics.Json
 
 		#endregion
 
+		/// <summary>Restores the question from the surrogate.</summary>
+		/// <param name="conceptIdResolver">Resolves concept identifiers to concepts.</param>
+		/// <param name="statementIdResolver">Resolves statement identifiers to statements.</param>
+		/// <param name="preconditions">Preconditions already restored by the base class.</param>
+		/// <returns>The restored question.</returns>
 		protected override Questions.ComparisonQuestion SaveImplementation(ConceptIdResolver conceptIdResolver, StatementIdResolver statementIdResolver, IEnumerable<IStatement> preconditions)
 		{
 			return new Questions.ComparisonQuestion(

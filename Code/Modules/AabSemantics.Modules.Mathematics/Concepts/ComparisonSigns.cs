@@ -11,40 +11,53 @@ using AabSemantics.Utils;
 
 namespace AabSemantics.Modules.Mathematics.Concepts
 {
+	/// <summary>
+	/// The six comparison signs as concepts, plus the algebra over them: which pairs contradict,
+	/// how a sign reverts when the operands swap, and how two signs compose across a shared value.
+	/// Each sign is a system concept carrying both <see cref="IsValueAttribute"/> and
+	/// <see cref="IsComparisonSignAttribute"/>.
+	/// </summary>
 	public static class ComparisonSigns
 	{
 		#region Properties
 
+		/// <summary>The "equal to" comparison sign.</summary>
 		public static readonly IConcept IsEqualTo = new SystemConcept(
 			$"{{{nameof(ComparisonSigns)}.{nameof(IsEqualTo)}}}",
 			new LocalizedStringConstant(lang => lang.GetConceptsExtension<ILanguageMathematicsModule, ILanguageConcepts>().SystemConceptNames.IsEqualTo),
 			new LocalizedStringConstant(lang => lang.GetConceptsExtension<ILanguageMathematicsModule, ILanguageConcepts>().SystemConceptHints.IsEqualTo));
 
+		/// <summary>The "not equal to" comparison sign.</summary>
 		public static readonly IConcept IsNotEqualTo = new SystemConcept(
 			$"{{{nameof(ComparisonSigns)}.{nameof(IsNotEqualTo)}}}",
 			new LocalizedStringConstant(lang => lang.GetConceptsExtension<ILanguageMathematicsModule, ILanguageConcepts>().SystemConceptNames.IsNotEqualTo),
 			new LocalizedStringConstant(lang => lang.GetConceptsExtension<ILanguageMathematicsModule, ILanguageConcepts>().SystemConceptHints.IsNotEqualTo));
 
+		/// <summary>The "greater than or equal to" comparison sign.</summary>
 		public static readonly IConcept IsGreaterThanOrEqualTo = new SystemConcept(
 			$"{{{nameof(ComparisonSigns)}.{nameof(IsGreaterThanOrEqualTo)}}}",
 			new LocalizedStringConstant(lang => lang.GetConceptsExtension<ILanguageMathematicsModule, ILanguageConcepts>().SystemConceptNames.IsGreaterThanOrEqualTo),
 			new LocalizedStringConstant(lang => lang.GetConceptsExtension<ILanguageMathematicsModule, ILanguageConcepts>().SystemConceptHints.IsGreaterThanOrEqualTo));
 
+		/// <summary>The "greater than" comparison sign.</summary>
 		public static readonly IConcept IsGreaterThan = new SystemConcept(
 			$"{{{nameof(ComparisonSigns)}.{nameof(IsGreaterThan)}}}",
 			new LocalizedStringConstant(lang => lang.GetConceptsExtension<ILanguageMathematicsModule, ILanguageConcepts>().SystemConceptNames.IsGreaterThan),
 			new LocalizedStringConstant(lang => lang.GetConceptsExtension<ILanguageMathematicsModule, ILanguageConcepts>().SystemConceptHints.IsGreaterThan));
 
+		/// <summary>The "less than or equal to" comparison sign.</summary>
 		public static readonly IConcept IsLessThanOrEqualTo = new SystemConcept(
 			$"{{{nameof(ComparisonSigns)}.{nameof(IsLessThanOrEqualTo)}}}",
 			new LocalizedStringConstant(lang => lang.GetConceptsExtension<ILanguageMathematicsModule, ILanguageConcepts>().SystemConceptNames.IsLessThanOrEqualTo),
 			new LocalizedStringConstant(lang => lang.GetConceptsExtension<ILanguageMathematicsModule, ILanguageConcepts>().SystemConceptHints.IsLessThanOrEqualTo));
 
+		/// <summary>The "less than" comparison sign.</summary>
 		public static readonly IConcept IsLessThan = new SystemConcept(
 			$"{{{nameof(ComparisonSigns)}.{nameof(IsLessThan)}}}",
 			new LocalizedStringConstant(lang => lang.GetConceptsExtension<ILanguageMathematicsModule, ILanguageConcepts>().SystemConceptNames.IsLessThan),
 			new LocalizedStringConstant(lang => lang.GetConceptsExtension<ILanguageMathematicsModule, ILanguageConcepts>().SystemConceptHints.IsLessThan));
 
+		/// <summary>All six signs; every helper below rejects concepts outside this set.</summary>
 		public static readonly ICollection<IConcept> All = new HashSet<IConcept>
 		{
 			IsEqualTo,
@@ -55,6 +68,7 @@ namespace AabSemantics.Modules.Mathematics.Concepts
 			IsLessThan,
 		};
 
+		/// <summary>Sign pairs that cannot hold for the same two values. Order-insensitive when tested through <see cref="Contradicts"/>.</summary>
 		public static readonly ICollection<Tuple<IConcept, IConcept>> Contradictions = new List<Tuple<IConcept, IConcept>>
 		{
 			new Tuple<IConcept, IConcept>(IsEqualTo, IsNotEqualTo),
@@ -67,6 +81,11 @@ namespace AabSemantics.Modules.Mathematics.Concepts
 
 		#endregion
 
+		/// <summary>Determines whether two signs contradict each other, in either order.</summary>
+		/// <param name="sign1">First sign.</param>
+		/// <param name="sign2">Second sign.</param>
+		/// <returns><c>true</c> if the two cannot both hold.</returns>
+		/// <exception cref="InvalidOperationException">Either argument is not a comparison sign.</exception>
 		public static async Task<System.Boolean> ContradictsAsync(this IConcept sign1, IConcept sign2)
 		{
 			EnsureSuits(sign1);
@@ -77,6 +96,10 @@ namespace AabSemantics.Modules.Mathematics.Concepts
 				tuple.Item1 == sign1 && tuple.Item2 == sign2);
 		}
 
+		/// <summary>Blocking counterpart of <see cref="ContradictsAsync"/>.</summary>
+		/// <param name="sign1">First sign.</param>
+		/// <param name="sign2">Second sign.</param>
+		/// <returns><c>true</c> if the two cannot both hold.</returns>
 		public static System.Boolean Contradicts(this IConcept sign1, IConcept sign2)
 		{
 			return TaskHelper.AwaitDetached(() => ContradictsAsync(sign1, sign2));
@@ -90,6 +113,10 @@ namespace AabSemantics.Modules.Mathematics.Concepts
 			}
 		}
 
+		/// <summary>Returns the sign that holds when the two compared values swap places.</summary>
+		/// <param name="sign">Sign to revert.</param>
+		/// <returns>The mirrored sign; the symmetric signs are returned unchanged.</returns>
+		/// <exception cref="InvalidOperationException"><paramref name="sign"/> is not a comparison sign.</exception>
 		public static IConcept Revert(this IConcept sign)
 		{
 			EnsureSuits(sign);
@@ -116,6 +143,10 @@ namespace AabSemantics.Modules.Mathematics.Concepts
 			}
 		}
 
+		/// <summary>Reports whether reverting the sign actually changes it.</summary>
+		/// <param name="sign">Sign to test.</param>
+		/// <returns><c>false</c> for the symmetric signs, equal and not-equal.</returns>
+		/// <exception cref="InvalidOperationException"><paramref name="sign"/> is not a comparison sign.</exception>
 		public static System.Boolean CanBeReverted(this IConcept sign)
 		{
 			EnsureSuits(sign);
@@ -123,6 +154,17 @@ namespace AabSemantics.Modules.Mathematics.Concepts
 			return sign != IsEqualTo && sign != IsNotEqualTo;
 		}
 
+		/// <summary>
+		/// Composes two comparisons sharing a middle value into one comparison of the outer values,
+		/// which is how the module derives new comparisons transitively.
+		/// </summary>
+		/// <param name="firstSign">Sign relating the first value to the middle one.</param>
+		/// <param name="secondSign">Sign relating the middle value to the last one.</param>
+		/// <returns>
+		/// The derived sign, or <c>null</c> when nothing follows — for instance from
+		/// "greater than" combined with "less than", or from any pair involving not-equal.
+		/// </returns>
+		/// <exception cref="InvalidOperationException">Either argument is not a comparison sign.</exception>
 		public static IConcept CompareThreeValues(IConcept firstSign, IConcept secondSign)
 		{
 			EnsureSuits(firstSign);
