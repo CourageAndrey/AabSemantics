@@ -16,7 +16,7 @@ namespace AabSemantics.Modules.Processes.Questions
 		public static async Task<IAnswer> WhatIsMutualSequenceOfProcessesAsync(this QuestionBuilder builder, IConcept processA, IConcept processB)
 		{
 			var question = new ProcessesQuestion(processA, processB, builder.Preconditions);
-			return await question.AskAsync(builder.SemanticNetwork.Context).ConfigureAwait(false);
+			return await question.AskAsync(builder.SemanticNetwork.Context, null, builder.CancellationToken).ConfigureAwait(false);
 		}
 
 		/// <summary>Blocking counterpart of <see cref="WhatIsMutualSequenceOfProcessesAsync"/>.</summary>

@@ -15,7 +15,7 @@ namespace AabSemantics.Modules.Classification.Questions
 		public static async Task<IAnswer> WhichAncestorsHasAsync(this QuestionBuilder builder, IConcept concept)
 		{
 			var question = new EnumerateAncestorsQuestion(concept, builder.Preconditions);
-			return await question.AskAsync(builder.SemanticNetwork.Context);
+			return await question.AskAsync(builder.SemanticNetwork.Context, null, builder.CancellationToken);
 		}
 
 		/// <summary>Asks which concepts are a kind of the given one.</summary>
@@ -25,7 +25,7 @@ namespace AabSemantics.Modules.Classification.Questions
 		public static async Task<IAnswer> WhichDescendantsHasAsync(this QuestionBuilder builder, IConcept concept)
 		{
 			var question = new EnumerateDescendantsQuestion(concept, builder.Preconditions);
-			return await question.AskAsync(builder.SemanticNetwork.Context);
+			return await question.AskAsync(builder.SemanticNetwork.Context, null, builder.CancellationToken);
 		}
 
 		/// <summary>Asks whether one concept is a kind of another.</summary>
@@ -36,7 +36,7 @@ namespace AabSemantics.Modules.Classification.Questions
 		public static async Task<IAnswer> IfIsAsync(this QuestionBuilder builder, IConcept child, IConcept parent)
 		{
 			var question = new IsQuestion(child, parent, builder.Preconditions);
-			return await question.AskAsync(builder.SemanticNetwork.Context);
+			return await question.AskAsync(builder.SemanticNetwork.Context, null, builder.CancellationToken);
 		}
 
 		/// <summary>Blocking counterpart of <see cref="WhichAncestorsHasAsync"/>.</summary>

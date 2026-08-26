@@ -19,7 +19,7 @@ namespace AabSemantics.SimpleRestClient.Controllers
 		}
 
 		[HttpGet(Name = "GetAskQuestion")]
-		public String Get([FromBody] Question question)
+		public async Task<String> Get([FromBody] Question question, CancellationToken cancellationToken)
 		{
 			var semanticNetwork = _dataService.GetSemanticNetwork();
 
@@ -32,7 +32,7 @@ namespace AabSemantics.SimpleRestClient.Controllers
 			var statementIdResolver = new StatementIdResolver(semanticNetwork);
 
 			var deserializedQuestion = question.Save(conceptIdResolver, statementIdResolver);
-			var answer = deserializedQuestion.Ask(semanticNetwork.Context);
+			var answer = await deserializedQuestion.AskAsync(semanticNetwork.Context, null, cancellationToken);
 
 			var snapshot = Answer.Load(answer, semanticNetwork.Context.Language);
 

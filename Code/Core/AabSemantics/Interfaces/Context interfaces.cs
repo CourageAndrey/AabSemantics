@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Threading;
 
 namespace AabSemantics
 {
@@ -81,8 +82,12 @@ namespace AabSemantics
 		/// </summary>
 		/// <param name="question">Question about to be answered.</param>
 		/// <param name="language">Language for the answer's text; defaults to this context's language when <c>null</c>.</param>
+		/// <param name="cancellationToken">
+		/// Cancels answering the question. The token is carried by the new context, which is how
+		/// it reaches the question processors and every nested question asked below them.
+		/// </param>
 		/// <returns>A child context that the caller must dispose once the answer is produced.</returns>
-		IQuestionProcessingContext CreateQuestionContext(IQuestion question, ILanguage language = null);
+		IQuestionProcessingContext CreateQuestionContext(IQuestion question, ILanguage language = null, CancellationToken cancellationToken = default);
 	}
 
 	/// <summary>
@@ -95,6 +100,14 @@ namespace AabSemantics
 		/// The question being answered.
 		/// </summary>
 		IQuestion Question
+		{ get; }
+
+		/// <summary>
+		/// Cancels answering the question. Question processors observe it while filtering
+		/// statements and traversing hierarchies, and pass it on to nested questions, so
+		/// cancelling it unwinds the whole inference below this context.
+		/// </summary>
+		CancellationToken CancellationToken
 		{ get; }
 	}
 

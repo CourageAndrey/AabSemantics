@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace AabSemantics.Questions
@@ -29,10 +30,17 @@ namespace AabSemantics.Questions
 		/// <summary>Creates a question context, answers within it, and disposes it afterwards.</summary>
 		/// <param name="context">Context to search.</param>
 		/// <param name="language">Language for the answer's text; defaults to the context's language when <c>null</c>.</param>
+		/// <param name="cancellationToken">
+		/// Cancels the inference. It is handed to the question context, which is what carries it
+		/// down to the question processors and to every nested question.
+		/// </param>
 		/// <returns>The answer.</returns>
-		public async Task<IAnswer> AskAsync(ISemanticNetworkContext context, ILanguage language = null)
+		/// <exception cref="OperationCanceledException">The token was cancelled before the answer was ready.</exception>
+		public async Task<IAnswer> AskAsync(ISemanticNetworkContext context, ILanguage language = null, CancellationToken cancellationToken = default)
 		{
-			using (var questionContext = context.CreateQuestionContext(this, language))
+			cancellationToken.ThrowIfCancellationRequested();
+
+			using (var questionContext = context.CreateQuestionContext(this, language, cancellationToken))
 			{
 				return await ProcessAsync(questionContext).ConfigureAwait(false);
 			}

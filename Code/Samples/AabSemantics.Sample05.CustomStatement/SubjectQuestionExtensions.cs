@@ -10,19 +10,19 @@ namespace AabSemantics.Sample05.CustomStatement
 		public static async Task<IAnswer> WhoIsTallerThanAsync(this QuestionBuilder builder, IConcept person)
 		{
 			var question = new GetTallerQuestion(person);
-			return await question.AskAsync(builder.SemanticNetwork.Context);
+			return await question.AskAsync(builder.SemanticNetwork.Context, null, builder.CancellationToken);
 		}
 
 		public static async Task<IAnswer> WhoIsShorterThanAsync(this QuestionBuilder builder, IConcept person)
 		{
 			var question = new GetShorterQuestion(person);
-			return await question.AskAsync(builder.SemanticNetwork.Context);
+			return await question.AskAsync(builder.SemanticNetwork.Context, null, builder.CancellationToken);
 		}
 
 		public static async Task<IAnswer> IsTallerThanAsync(this QuestionBuilder builder, IConcept taller, IConcept shorter)
 		{
 			var question = new IsTallerQuestion(taller, shorter);
-			return await question.AskAsync(builder.SemanticNetwork.Context);
+			return await question.AskAsync(builder.SemanticNetwork.Context, null, builder.CancellationToken);
 		}
 
 		public static IAnswer WhoIsTallerThan(this QuestionBuilder builder, IConcept person)

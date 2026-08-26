@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 
 using AabSemantics.Answers;
@@ -56,6 +57,13 @@ namespace AabSemantics.Questions
 		protected Boolean NeedToAggregateTransitivesToStatements
 		{ get; private set; }
 
+		/// <summary>
+		/// Cancels this query, taken from the question context. Observed while filtering statements
+		/// and passed on to every nested question.
+		/// </summary>
+		protected CancellationToken CancellationToken
+		{ get { return Context.CancellationToken; } }
+
 		private Task<List<StatementT>> _whereTask;
 
 		#endregion
@@ -85,7 +93,7 @@ namespace AabSemantics.Questions
 			_whereTask = Context.SemanticNetwork.Statements
 				.Enumerate<StatementT>(Context.ActiveContexts)
 				.Where(match)
-				.ToListAsync();
+				.ToListAsync(CancellationToken);
 
 			return this;
 		}
@@ -165,14 +173,14 @@ namespace AabSemantics.Questions
 
 			await ProcessChildrenIfNeedAsync().ConfigureAwait(false);
 
-			if (await Statements.AnyAsync().ConfigureAwait(false))
+			if (await Statements.AnyAsync(cancellationToken: CancellationToken).ConfigureAwait(false))
 			{
 				if (conceptsFilter == null)
 				{
 					conceptsFilter = concepts => concepts;
 				}
 
-				var resultConcepts = await conceptsFilter(Statements.Select(resultConceptSelector)).ToListAsync().ConfigureAwait(false);
+				var resultConcepts = await conceptsFilter(Statements.Select(resultConceptSelector)).ToListAsync(CancellationToken).ConfigureAwait(false);
 
 				var format = new UnstructuredContainer(new FormattedText(
 					language => answerFormat(Context.Language),
@@ -215,7 +223,7 @@ namespace AabSemantics.Questions
 
 			IAnswer answer = null;
 
-			var statement = await Statements.FirstOrDefaultAsync().ConfigureAwait(false);
+			var statement = await Statements.FirstOrDefaultAsync(cancellationToken: CancellationToken).ConfigureAwait(false);
 			if (statement != null)
 			{
 				answer = new ConceptAnswer(
@@ -230,7 +238,7 @@ namespace AabSemantics.Questions
 
 			if (answer == null)
 			{
-				var childAnswer = await ChildAnswers.FirstOrDefaultAsync().ConfigureAwait(false);
+				var childAnswer = await ChildAnswers.FirstOrDefaultAsync(cancellationToken: CancellationToken).ConfigureAwait(false);
 				if (childAnswer != null)
 				{
 					childAnswer.Answer.Explanation.Expand(childAnswer.TransitiveStatements);
@@ -288,7 +296,7 @@ namespace AabSemantics.Questions
 		{
 			Statements = await _whereTask.ConfigureAwait(false);
 
-			await ProcessChildrenIfNeedAsync();
+			await ProcessChildrenIfNeedAsync().ConfigureAwait(false);
 
 			Boolean result = false;
 			var explanation = new List<IStatement>(Statements.OfType<IStatement>());
@@ -346,12 +354,15 @@ namespace AabSemantics.Questions
 		/// </summary>
 		protected virtual async Task ProcessChildrenIfNeedAsync()
 		{
+			CancellationToken.ThrowIfCancellationRequested();
+
 			if (await NeedToProcessTransitives(Statements).ConfigureAwait(false))
 			{
 				var transitives = new Dictionary<NestedQuestion, Task<IAnswer>>();
 				foreach (var transitive in GetTransitiveQuestions(Context))
 				{
-					transitives[transitive] = transitive.Question.AskAsync(Context);
+					CancellationToken.ThrowIfCancellationRequested();
+					transitives[transitive] = transitive.Question.AskAsync(Context, null, CancellationToken);
 				}
 
 				await Task.WhenAll(transitives.Values).ConfigureAwait(false);
@@ -359,7 +370,7 @@ namespace AabSemantics.Questions
 				ChildAnswers = new List<ChildAnswer>();
 				foreach (var transitive in transitives)
 				{
-					var answer = transitive.Value.Await();
+					var answer = await transitive.Value.ConfigureAwait(false);
 					if (!answer.IsEmpty)
 					{
 						ChildAnswers.Add(new ChildAnswer(transitive.Key.Question, answer, transitive.Key.TransitiveStatements));

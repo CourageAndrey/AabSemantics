@@ -49,16 +49,16 @@ namespace AabSemantics.Modules.Boolean.Questions
 			var parentChild = Statement as IParentChild<IConcept>;
 			if (parentChild != null)
 			{
-				statements = await allStatements.FindPathAsync(Statement.GetType(), parentChild.Parent, parentChild.Child);
+				statements = await allStatements.FindPathAsync(Statement.GetType(), parentChild.Parent, parentChild.Child, context.CancellationToken);
 			}
 			else
 			{
-				var statement = await allStatements.FirstOrDefaultAsync(p => p.Equals(Statement));
+				var statement = await allStatements.FirstOrDefaultAsync(p => p.Equals(Statement), context.CancellationToken);
 				statements = statement != null ? new[] { statement } : Array.Empty<IStatement>();
 			}
 
 			var result = new UnstructuredContainer();
-			System.Boolean isTrue = await statements.AnyAsync();
+			System.Boolean isTrue = await statements.AnyAsync(cancellationToken: context.CancellationToken);
 			result.Append(
 				language => Strings.ParamAnswer,
 				new Dictionary<String, IKnowledge> { { Strings.ParamAnswer, isTrue.ToLogicalValue() } });

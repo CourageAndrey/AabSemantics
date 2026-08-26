@@ -15,7 +15,7 @@ namespace AabSemantics.Modules.Boolean.Questions
 		public static async Task<IAnswer> IsTrueThatAsync(this QuestionBuilder builder, IStatement statement)
 		{
 			var question = new CheckStatementQuestion(statement, builder.Preconditions);
-			return await question.AskAsync(builder.SemanticNetwork.Context);
+			return await question.AskAsync(builder.SemanticNetwork.Context, null, builder.CancellationToken);
 		}
 
 		/// <summary>Blocking counterpart of <see cref="IsTrueThatAsync"/>.</summary>

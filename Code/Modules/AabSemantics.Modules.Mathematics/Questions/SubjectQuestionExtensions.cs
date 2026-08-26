@@ -16,7 +16,7 @@ namespace AabSemantics.Modules.Mathematics.Questions
 		public static async Task<IAnswer> HowComparedAsync(this QuestionBuilder builder, IConcept leftValue, IConcept rightValue)
 		{
 			var question = new ComparisonQuestion(leftValue, rightValue, builder.Preconditions);
-			return await question.AskAsync(builder.SemanticNetwork.Context).ConfigureAwait(false);
+			return await question.AskAsync(builder.SemanticNetwork.Context, null, builder.CancellationToken).ConfigureAwait(false);
 		}
 
 		/// <summary>Blocking counterpart of <see cref="HowComparedAsync"/>.</summary>

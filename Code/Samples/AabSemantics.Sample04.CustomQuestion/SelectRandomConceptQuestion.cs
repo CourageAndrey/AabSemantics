@@ -28,7 +28,7 @@ namespace AabSemantics.Sample04.CustomQuestion
 		public static IAnswer ForRandomConcept(this QuestionBuilder builder)
 		{
 			var question = new SelectRandomConceptQuestion();
-			return question.Ask(builder.SemanticNetwork.Context);
+			return question.Ask(builder.SemanticNetwork.Context, null, builder.CancellationToken);
 		}
 	}
 }

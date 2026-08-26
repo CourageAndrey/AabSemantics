@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 
 using AabSemantics.Answers;
@@ -47,7 +48,7 @@ namespace AabSemantics.Modules.Set.Questions
 				var explanation = new List<SignValueStatement>();
 				foreach (var statement in isStatements)
 				{
-					var difference = await GetDifferenceBetweenAncestorAndDescendantAsync(allStatements, statement);
+					var difference = await GetDifferenceBetweenAncestorAndDescendantAsync(allStatements, statement, context.CancellationToken);
 					explanation.AddRange(difference);
 
 					if (difference.Count > 0)
@@ -69,12 +70,12 @@ namespace AabSemantics.Modules.Set.Questions
 			}
 		}
 
-		private async Task<List<SignValueStatement>> GetDifferenceBetweenAncestorAndDescendantAsync(List<IStatement> allStatements, IsStatement isStatement)
+		private async Task<List<SignValueStatement>> GetDifferenceBetweenAncestorAndDescendantAsync(List<IStatement> allStatements, IsStatement isStatement, CancellationToken cancellationToken)
 		{
 			var difference = new List<SignValueStatement>();
-			foreach (var sign in await HasSignStatement.GetSignsAsync(allStatements, isStatement.Ancestor, false))
+			foreach (var sign in await HasSignStatement.GetSignsAsync(allStatements, isStatement.Ancestor, false, cancellationToken))
 			{
-				var signValue = await SignValueStatement.GetSignValueAsync(allStatements, Concept, sign.Sign);
+				var signValue = await SignValueStatement.GetSignValueAsync(allStatements, Concept, sign.Sign, cancellationToken);
 				if (signValue != null)
 				{
 					difference.Add(signValue);

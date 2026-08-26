@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 
 using AabSemantics.Modules.Classification.Statements;
@@ -103,17 +104,19 @@ namespace AabSemantics.Modules.Set.Statements
 		/// <param name="statements">Statements to search.</param>
 		/// <param name="concept">Concept whose signs are wanted.</param>
 		/// <param name="recursive">When <c>true</c>, signs inherited from ancestors are included.</param>
+		/// <param name="cancellationToken">Cancels the search; a recursive one walks the whole hierarchy above the concept.</param>
 		/// <returns>The matching sign declarations.</returns>
-		public static async Task<List<HasSignStatement>> GetSignsAsync(IEnumerable<IStatement> statements, IConcept concept, System.Boolean recursive)
+		/// <exception cref="OperationCanceledException">The token was cancelled.</exception>
+		public static async Task<List<HasSignStatement>> GetSignsAsync(IEnumerable<IStatement> statements, IConcept concept, System.Boolean recursive, CancellationToken cancellationToken = default)
 		{
 			var result = new List<HasSignStatement>();
-			var hasSigns = await statements.OfType<HasSignStatement>().ToListAsync();
+			var hasSigns = await statements.OfType<HasSignStatement>().ToListAsync(cancellationToken);
 			result.AddRange(hasSigns.Where(sv => sv.Concept == concept));
 			if (recursive)
 			{
-				foreach (var parent in await statements.GetParentsOneLevelAsync<IConcept, IsStatement>(concept))
+				foreach (var parent in await statements.GetParentsOneLevelAsync<IConcept, IsStatement>(concept, cancellationToken: cancellationToken))
 				{
-					var parentSigns = await GetSignsAsync(statements, parent, true);
+					var parentSigns = await GetSignsAsync(statements, parent, true, cancellationToken);
 					result.AddRange(parentSigns);
 				}
 			}

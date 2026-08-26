@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 
 using AabSemantics.Modules.Boolean.Attributes;
@@ -101,20 +102,22 @@ namespace AabSemantics.Modules.Set.Statements
 		/// <param name="statements">Statements to search.</param>
 		/// <param name="concept">Concept whose sign value is wanted.</param>
 		/// <param name="sign">Sign whose value is wanted.</param>
+		/// <param name="cancellationToken">Cancels the search, which walks the whole hierarchy above the concept.</param>
 		/// <returns>The matching statement, or <c>null</c> when the value is undefined.</returns>
-		public static async Task<SignValueStatement> GetSignValueAsync(IEnumerable<IStatement> statements, IConcept concept, IConcept sign)
+		/// <exception cref="OperationCanceledException">The token was cancelled.</exception>
+		public static async Task<SignValueStatement> GetSignValueAsync(IEnumerable<IStatement> statements, IConcept concept, IConcept sign, CancellationToken cancellationToken = default)
 		{
-			var signValues = await statements.OfType<SignValueStatement>().ToListAsync();
-			var signValue = await signValues.FirstOrDefaultAsync(sv => sv.Concept == concept && sv.Sign == sign);
+			var signValues = await statements.OfType<SignValueStatement>().ToListAsync(cancellationToken);
+			var signValue = await signValues.FirstOrDefaultAsync(sv => sv.Concept == concept && sv.Sign == sign, cancellationToken);
 			if (signValue != null)
 			{
 				return signValue;
 			}
 			else
 			{
-				foreach (var parent in await statements.GetParentsOneLevelAsync<IConcept, IsStatement>(concept))
+				foreach (var parent in await statements.GetParentsOneLevelAsync<IConcept, IsStatement>(concept, cancellationToken: cancellationToken))
 				{
-					var parentValue = await GetSignValueAsync(statements, parent, sign);
+					var parentValue = await GetSignValueAsync(statements, parent, sign, cancellationToken);
 					if (parentValue != null)
 					{
 						return parentValue;
@@ -129,21 +132,23 @@ namespace AabSemantics.Modules.Set.Statements
 		/// <param name="statements">Statements to search.</param>
 		/// <param name="concept">Concept whose sign values are wanted.</param>
 		/// <param name="recursive">When <c>true</c>, values inherited from ancestors are included.</param>
+		/// <param name="cancellationToken">Cancels the search; a recursive one walks the whole hierarchy above the concept.</param>
 		/// <returns>The matching sign value statements.</returns>
-		public static async Task<List<SignValueStatement>> GetSignValuesAsync(IEnumerable<IStatement> statements, IConcept concept, System.Boolean recursive)
+		/// <exception cref="OperationCanceledException">The token was cancelled.</exception>
+		public static async Task<List<SignValueStatement>> GetSignValuesAsync(IEnumerable<IStatement> statements, IConcept concept, System.Boolean recursive, CancellationToken cancellationToken = default)
 		{
 			var result = new List<SignValueStatement>();
-			var signValues = await statements.OfType<SignValueStatement>().ToListAsync();
+			var signValues = await statements.OfType<SignValueStatement>().ToListAsync(cancellationToken);
 			result.AddRange(signValues.Where(sv => sv.Concept == concept));
 
 			if (recursive)
 			{
-				foreach (var parent in await statements.GetParentsOneLevelAsync<IConcept, IsStatement>(concept))
+				foreach (var parent in await statements.GetParentsOneLevelAsync<IConcept, IsStatement>(concept, cancellationToken: cancellationToken))
 				{
-					var parentSignValues = await GetSignValuesAsync(statements, parent, true);
+					var parentSignValues = await GetSignValuesAsync(statements, parent, true, cancellationToken);
 					foreach (var signValue in parentSignValues)
 					{
-						if (! await result.AnyAsync(sv => sv.Sign == signValue.Sign))
+						if (! await result.AnyAsync(sv => sv.Sign == signValue.Sign, cancellationToken))
 						{
 							result.AddRange(parentSignValues);
 						}
@@ -165,20 +170,22 @@ namespace AabSemantics.Modules.Set.Statements
 		/// <param name="statements">Statements to search.</param>
 		/// <param name="concept">Concept whose sign value is wanted.</param>
 		/// <param name="sign">Sign whose value is wanted.</param>
+		/// <param name="cancellationToken">Cancels the search.</param>
 		/// <returns>The matching statement, or <c>null</c> when the value is undefined.</returns>
-		public static SignValueStatement GetSignValue(IEnumerable<IStatement> statements, IConcept concept, IConcept sign)
+		public static SignValueStatement GetSignValue(IEnumerable<IStatement> statements, IConcept concept, IConcept sign, CancellationToken cancellationToken = default)
 		{
-			return TaskHelper.AwaitDetached(() => GetSignValueAsync(statements, concept, sign));
+			return TaskHelper.AwaitDetached(() => GetSignValueAsync(statements, concept, sign, cancellationToken));
 		}
 
 		/// <summary>Blocking counterpart of <see cref="GetSignValuesAsync"/>.</summary>
 		/// <param name="statements">Statements to search.</param>
 		/// <param name="concept">Concept whose sign values are wanted.</param>
 		/// <param name="recursive">When <c>true</c>, values inherited from ancestors are included.</param>
+		/// <param name="cancellationToken">Cancels the search.</param>
 		/// <returns>The matching sign value statements.</returns>
-		public static List<SignValueStatement> GetSignValues(IEnumerable<IStatement> statements, IConcept concept, System.Boolean recursive)
+		public static List<SignValueStatement> GetSignValues(IEnumerable<IStatement> statements, IConcept concept, System.Boolean recursive, CancellationToken cancellationToken = default)
 		{
-			return TaskHelper.AwaitDetached(() => GetSignValuesAsync(statements, concept, recursive));
+			return TaskHelper.AwaitDetached(() => GetSignValuesAsync(statements, concept, recursive, cancellationToken));
 		}
 	}
 }
