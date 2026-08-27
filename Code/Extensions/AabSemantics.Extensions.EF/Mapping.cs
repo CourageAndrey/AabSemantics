@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
@@ -19,7 +19,7 @@ namespace AabSemantics.Extensions.EF
 		/// <returns>All keys in the mapped table.</returns>
 		Task<IEnumerable<string>> GetKeysAsync();
 
-		/// <summary>Deletes every row from the mapped table.</summary>
+		/// <summary>Stages the deletion of every row of the mapped table.</summary>
 		Task ClearAsync();
 	}
 
@@ -37,14 +37,14 @@ namespace AabSemantics.Extensions.EF
 		/// <returns>A pair whose key reports success and whose value holds the item.</returns>
 		Task<KeyValuePair<bool, ItemT>> TryGetItemAsync(string key);
 
-		/// <summary>Inserts an item as a new row.</summary>
+		/// <summary>Stages an item as a new row.</summary>
 		/// <param name="item">Item to store.</param>
-		/// <returns><c>true</c> when the row was added.</returns>
+		/// <returns><c>true</c> when the row was staged.</returns>
 		Task<bool> AddAsync(ItemT item);
 
-		/// <summary>Deletes the row matching an item's identifier.</summary>
+		/// <summary>Stages the deletion of the row matching an item's identifier.</summary>
 		/// <param name="item">Item to remove.</param>
-		/// <returns><c>true</c> when a matching row was found and deleted.</returns>
+		/// <returns><c>true</c> when a matching row was found and staged for deletion.</returns>
 		Task<bool> RemoveAsync(ItemT item);
 	}
 
@@ -61,8 +61,13 @@ namespace AabSemantics.Extensions.EF
 	}
 
 	/// <summary>
-	/// Default table mapping. Lookups enumerate the whole table client-side rather than
-	/// translating the key comparison into SQL, so this does not scale to large tables.
+	/// Default table mapping. Every database access goes through the asynchronous Entity Framework
+	/// API, so the calling thread is released for the duration of the round trip. Writes are only
+	/// staged in the change tracker: they reach the database when the owning
+	/// <see cref="DbSemanticNetwork{ContextT}"/> saves them, and reads report them meanwhile.
+	/// Lookups still enumerate the whole table client-side rather than translating the key
+	/// comparison into SQL, because the key is produced by a delegate that LINQ to Entities cannot
+	/// translate, so this does not scale to large tables.
 	/// </summary>
 	/// <typeparam name="ItemT">Item type the rows represent.</typeparam>
 	/// <typeparam name="EntityT">Entity type stored in the table.</typeparam>
@@ -78,6 +83,7 @@ namespace AabSemantics.Extensions.EF
 		public DbSet<EntityT> DbSet
 		{ get; }
 
+		private readonly DbContext _dbContext;
 		private readonly Func<EntityT, ItemT> _map;
 		private readonly Func<ItemT, EntityT> _mapBack;
 		private readonly Func<EntityT, string> _getKey;
@@ -85,102 +91,113 @@ namespace AabSemantics.Extensions.EF
 		#endregion
 
 		/// <summary>Creates a mapping between a table and an item type.</summary>
+		/// <param name="dbContext">Context owning the table; changes are saved through it.</param>
 		/// <param name="dbSet">Table to map.</param>
 		/// <param name="map">Converts an entity into an item.</param>
 		/// <param name="mapBack">Converts an item into an entity.</param>
 		/// <param name="getKey">Returns an entity's identifier.</param>
 		/// <exception cref="ArgumentNullException">Any argument is <c>null</c>.</exception>
 		public Mapping(
+			DbContext dbContext,
 			DbSet<EntityT> dbSet,
 			Func<EntityT, ItemT> map,
 			Func<ItemT, EntityT> mapBack,
 			Func<EntityT, string> getKey)
 		{
+			_dbContext = dbContext.EnsureNotNull(nameof(dbContext));
 			DbSet = dbSet.EnsureNotNull(nameof(dbSet));
 			_map = map.EnsureNotNull(nameof(map));
 			_mapBack = mapBack.EnsureNotNull(nameof(mapBack));
 			_getKey = getKey.EnsureNotNull(nameof(getKey));
 		}
 
-		/// <summary>Counts the rows in the mapped table.</summary>
+		/// <summary>Counts the rows in the mapped table, pending changes included.</summary>
 		/// <returns>Number of rows.</returns>
 		public async Task<int> GetCountAsync()
 		{
-			return await Task.FromResult(DbSet.Count());
+			// as long as nothing is staged, the count can be left to the database
+			return _dbContext.ChangeTracker.HasChanges()
+				? (await ReadEntitiesAsync().ConfigureAwait(false)).Count
+				: await DbSet.CountAsync().ConfigureAwait(false);
 		}
 
-		/// <summary>Lists the identifiers of every row.</summary>
+		/// <summary>Lists the identifiers of every row, pending changes included.</summary>
 		/// <returns>All keys in the mapped table.</returns>
-		public Task<IEnumerable<string>> GetKeysAsync()
+		public async Task<IEnumerable<string>> GetKeysAsync()
 		{
-			return Task.Run(() => DbSet.AsEnumerable().Select(item => _getKey(item)));
+			var entities = await ReadEntitiesAsync().ConfigureAwait(false);
+			return entities.Select(entity => _getKey(entity)).ToList();
 		}
 
-		/// <summary>Reads every row as an item.</summary>
+		/// <summary>Reads every row as an item, pending changes included.</summary>
 		/// <returns>All mapped items.</returns>
-		public Task<IEnumerable<ItemT>> GetAllItemsAsync()
+		public async Task<IEnumerable<ItemT>> GetAllItemsAsync()
 		{
-			return Task.Run(() => DbSet.AsEnumerable().Select(item => _map(item)));
+			var entities = await ReadEntitiesAsync().ConfigureAwait(false);
+			return entities.Select(entity => _map(entity)).ToList();
 		}
 
-		/// <summary>Reads a single item by key.</summary>
+		/// <summary>Reads a single item by key, pending changes included.</summary>
 		/// <param name="key">Identifier to look for.</param>
 		/// <returns>A pair whose key reports success and whose value holds the item.</returns>
-		public Task<KeyValuePair<bool, ItemT>> TryGetItemAsync(string key)
+		public async Task<KeyValuePair<bool, ItemT>> TryGetItemAsync(string key)
 		{
-			return Task.Run(() =>
-			{
-				var search = DbSet.AsEnumerable().Where(i => _getKey(i) == key);
-				if (search.Any())
-				{
-					return new KeyValuePair<bool, ItemT>(true, _map(search.First()));
-				}
-				else
-				{
-					return new KeyValuePair<bool, ItemT>(false, default);
-				}
-			});
+			var entity = await FindEntityAsync(key).ConfigureAwait(false);
+			return entity != null
+				? new KeyValuePair<bool, ItemT>(true, _map(entity))
+				: new KeyValuePair<bool, ItemT>(false, default);
 		}
 
-		/// <summary>Inserts an item as a new row.</summary>
+		/// <summary>Stages an item as a new row. Nothing is written until the changes are saved.</summary>
 		/// <param name="item">Item to store.</param>
 		/// <returns>Always <c>true</c>.</returns>
 		public Task<bool> AddAsync(ItemT item)
 		{
+			// staging touches the change tracker only, so there is no round trip to await here
 			DbSet.Add(_mapBack(item));
 			return Task.FromResult(true);
 		}
 
-		/// <summary>Deletes the row matching an item's identifier.</summary>
+		/// <summary>Stages the deletion of the row matching an item's identifier.</summary>
 		/// <param name="item">Item to remove.</param>
-		/// <returns><c>true</c> when a matching row was found and deleted.</returns>
-		public Task<bool> RemoveAsync(ItemT item)
+		/// <returns><c>true</c> when a matching row was found and staged for deletion.</returns>
+		public async Task<bool> RemoveAsync(ItemT item)
 		{
-			return Task.Run(() =>
+			var entity = await FindEntityAsync(item.ID).ConfigureAwait(false);
+			if (entity == null)
 			{
-				foreach (var entity in DbSet)
-				{
-					if (_getKey(entity) == item.ID)
-					{
-						DbSet.Remove(entity);
-						return true;
-					}
-				}
-
 				return false;
-			});
+			}
+
+			DbSet.Remove(entity);
+			return true;
 		}
 
-		/// <summary>Deletes every row from the mapped table.</summary>
-		public Task ClearAsync()
+		/// <summary>Stages the deletion of every row of the mapped table.</summary>
+		public async Task ClearAsync()
 		{
-			return Task.Run(() =>
-			{
-				foreach (var entity in DbSet.ToList())
-				{
-					DbSet.Remove(entity);
-				}
-			});
+			DbSet.RemoveRange(await ReadEntitiesAsync().ConfigureAwait(false));
+		}
+
+		/// <summary>
+		/// Finds the entity a key belongs to. The whole table has to be materialized first, as the
+		/// key is calculated in memory.
+		/// </summary>
+		/// <param name="key">Identifier to look for.</param>
+		/// <returns>The matching entity, or <c>null</c> when nothing matched.</returns>
+		private async Task<EntityT> FindEntityAsync(string key)
+		{
+			var entities = await ReadEntitiesAsync().ConfigureAwait(false);
+			return entities.FirstOrDefault(entity => _getKey(entity) == key);
+		}
+
+		private async Task<List<EntityT>> ReadEntitiesAsync()
+		{
+			var stored = await DbSet.ToListAsync().ConfigureAwait(false);
+
+			var entities = stored.Where(entity => _dbContext.Entry(entity).State != EntityState.Deleted).ToList();
+			entities.AddRange(DbSet.Local.Where(entity => _dbContext.Entry(entity).State == EntityState.Added));
+			return entities;
 		}
 	}
 }

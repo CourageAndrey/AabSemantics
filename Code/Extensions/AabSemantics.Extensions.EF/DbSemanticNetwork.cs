@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data.Entity;
+using System.Threading;
+using System.Threading.Tasks;
 
 using AabSemantics.Contexts;
 using AabSemantics.Utils;
@@ -10,6 +12,9 @@ namespace AabSemantics.Extensions.EF
 	/// <summary>
 	/// Semantic network backed by an Entity Framework context instead of memory. Concepts and
 	/// statements are read from and written to the mapped <see cref="DbSet{TEntity}"/>s.
+	/// Writes are deferred: adding and removing knowledge only stages the change, and
+	/// <see cref="SaveChangesAsync"/> commits everything staged so far in a single transaction.
+	/// Until then the changes are visible through this network alone.
 	/// </summary>
 	/// <typeparam name="ContextT">Entity Framework context type.</typeparam>
 	public class DbSemanticNetwork<ContextT> : ISemanticNetwork
@@ -73,6 +78,7 @@ namespace AabSemantics.Extensions.EF
 			where EntityT : class
 		{
 			_concepts.Map(
+				_dbContext,
 				dbSet,
 				map,
 				mapBack,
@@ -97,11 +103,24 @@ namespace AabSemantics.Extensions.EF
 			where StatementT : IStatement
 		{
 			_statements.Map(
+				_dbContext,
 				dbSet,
 				statementEntity => map(statementEntity),
 				statement => mapBack((StatementT) statement),
 				getKey);
 			return this;
+		}
+
+		/// <summary>
+		/// Writes every change staged since the last save. Entity Framework sends them as one
+		/// transaction, so either the whole batch reaches the database or none of it does.
+		/// </summary>
+		/// <param name="cancellationToken">Cancels waiting for the database.</param>
+		/// <returns>Number of affected rows.</returns>
+		/// <exception cref="OperationCanceledException">The token was cancelled.</exception>
+		public async Task<Int32> SaveChangesAsync(CancellationToken cancellationToken = default)
+		{
+			return await _dbContext.SaveChangesAsync(cancellationToken).ConfigureAwait(false);
 		}
 	}
 }

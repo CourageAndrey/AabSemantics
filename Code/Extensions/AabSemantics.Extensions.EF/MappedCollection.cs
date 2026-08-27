@@ -19,7 +19,8 @@ namespace AabSemantics.Extensions.EF
 
 	/// <summary>
 	/// Repository combining several table mappings into one collection. Reads span every
-	/// mapping; writes go to the one picked by <see cref="MappingSelector"/>.
+	/// mapping; writes go to the one picked by <see cref="MappingSelector"/> and are staged
+	/// until the owning network saves them.
 	/// </summary>
 	/// <typeparam name="ItemT">Item type.</typeparam>
 	internal class MappedCollection<ItemT> : IRepository<ItemT>
@@ -51,12 +52,14 @@ namespace AabSemantics.Extensions.EF
 
 		/// <summary>Adds a table mapping to the collection.</summary>
 		/// <typeparam name="EntityT">Entity type stored in the table.</typeparam>
+		/// <param name="dbContext">Context owning the table; changes are saved through it.</param>
 		/// <param name="dbSet">Table to map.</param>
 		/// <param name="map">Converts an entity into an item.</param>
 		/// <param name="mapBack">Converts an item into an entity.</param>
 		/// <param name="getKey">Returns an entity's identifier.</param>
 		/// <param name="mappingSelector">Unused; the collection-wide <see cref="MappingSelector"/> applies.</param>
 		public void Map<EntityT>(
+			DbContext dbContext,
 			DbSet<EntityT> dbSet,
 			Func<EntityT, ItemT> map,
 			Func<ItemT, EntityT> mapBack,
@@ -64,7 +67,7 @@ namespace AabSemantics.Extensions.EF
 			MappingSelectorDelegate<ItemT> mappingSelector = null)
 			where EntityT : class
 		{
-			_mappings.Add(new Mapping<ItemT, EntityT>(dbSet, map, mapBack, getKey));
+			_mappings.Add(new Mapping<ItemT, EntityT>(dbContext, dbSet, map, mapBack, getKey));
 		}
 
 		#region Implementation of IRepository
@@ -87,16 +90,16 @@ namespace AabSemantics.Extensions.EF
 			return GetEnumerator();
 		}
 
-		/// <summary>Stores an item through the mapping chosen by <see cref="MappingSelector"/>.</summary>
+		/// <summary>Stages an item through the mapping chosen by <see cref="MappingSelector"/>.</summary>
 		/// <param name="item">Item to store.</param>
 		public async Task AddAsync(ItemT item)
 		{
-			await _mappingSelector(_mappings, item).AddAsync(item);
+			await _mappingSelector(_mappings, item).AddAsync(item).ConfigureAwait(false);
 		}
 
-		/// <summary>Removes an item, trying each mapping until one reports success.</summary>
+		/// <summary>Stages an item's deletion, trying each mapping until one reports success.</summary>
 		/// <param name="item">Item to remove.</param>
-		/// <returns><c>true</c> when some mapping deleted it.</returns>
+		/// <returns><c>true</c> when some mapping found it.</returns>
 		/// <exception cref="ArgumentNullException"><paramref name="item"/> is <c>null</c>.</exception>
 		public async Task<bool> RemoveAsync(ItemT item)
 		{
@@ -104,7 +107,7 @@ namespace AabSemantics.Extensions.EF
 
 			foreach (var mapping in _mappings)
 			{
-				if (await mapping.RemoveAsync(item))
+				if (await mapping.RemoveAsync(item).ConfigureAwait(false))
 				{
 					return true;
 				}
@@ -113,12 +116,12 @@ namespace AabSemantics.Extensions.EF
 			return false;
 		}
 
-		/// <summary>Empties every mapped table.</summary>
+		/// <summary>Stages the emptying of every mapped table.</summary>
 		public async Task ClearAsync()
 		{
 			foreach (var mapping in _mappings)
 			{
-				await mapping.ClearAsync();
+				await mapping.ClearAsync().ConfigureAwait(false);
 			}
 		}
 
@@ -126,7 +129,13 @@ namespace AabSemantics.Extensions.EF
 		/// <returns>Total number of items.</returns>
 		public async Task<int> GetCountAsync()
 		{
-			return await Task.FromResult(_mappings.Sum(mapping => mapping.GetCountAsync().Await()));
+			int count = 0;
+			foreach (var mapping in _mappings)
+			{
+				count += await mapping.GetCountAsync().ConfigureAwait(false);
+			}
+
+			return count;
 		}
 
 		/// <summary>Looks an item up by key.</summary>
@@ -134,21 +143,20 @@ namespace AabSemantics.Extensions.EF
 		/// <returns>The matching item, or <c>null</c> when nothing matched.</returns>
 		public async Task<ItemT> GetItemAsync(string key)
 		{
-			return (await TryGetValueAsync(key)).Value;
+			return (await TryGetValueAsync(key).ConfigureAwait(false)).Value;
 		}
 
 		/// <summary>Lists the identifiers of every item across all mappings.</summary>
 		/// <returns>All keys currently in use.</returns>
 		public async Task<ICollection<string>> GetKeysAsync()
 		{
-			return await Task.FromResult(_mappings.Aggregate(
-					new List<string>(),
-					(list, items) =>
-					{
-						list.AddRange(items.GetKeysAsync().Await());
-						return list;
-					},
-					list => list));
+			var keys = new List<string>();
+			foreach (var mapping in _mappings)
+			{
+				keys.AddRange(await mapping.GetKeysAsync().ConfigureAwait(false));
+			}
+
+			return keys;
 		}
 
 		/// <summary>Determines whether an item with the given key exists in any mapping.</summary>
@@ -156,7 +164,7 @@ namespace AabSemantics.Extensions.EF
 		/// <returns><c>true</c> if such an item exists.</returns>
 		public async Task<bool> ContainsAsync(string key)
 		{
-			return (await TryGetValueAsync(key)).Key;
+			return (await TryGetValueAsync(key).ConfigureAwait(false)).Key;
 		}
 
 		/// <summary>Looks an item up across every mapping, returning the first match.</summary>
@@ -166,7 +174,7 @@ namespace AabSemantics.Extensions.EF
 		{
 			foreach (var mapping in _mappings)
 			{
-				var result = await mapping.TryGetItemAsync(key);
+				var result = await mapping.TryGetItemAsync(key).ConfigureAwait(false);
 				if (result.Key)
 				{
 					return result;
