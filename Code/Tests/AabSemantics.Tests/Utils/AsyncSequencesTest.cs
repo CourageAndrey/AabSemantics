@@ -1,6 +1,6 @@
-﻿using System;
-using System.Collections;
+using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -13,119 +13,103 @@ namespace AabSemantics.Tests.Utils
 	[TestFixture]
 	public class AsyncSequencesTest
 	{
-		private async Task CheckMethodWorks<T>(int count, Func<LongEnumerable, Task<T>> method, Action<T> assert)
+		private static readonly int[] _empty = new int[0];
+		private static readonly int[] _items = { 1, 2, 3 };
+
+		private static async Task CheckMethodWorks<T>(Task<T> task, Action<T> assert)
 		{
-			// arrange
-			var enumerable = new LongEnumerable(count);
-
-			// act & assert
-			var task = method(enumerable);
-
-			Thread.Sleep(100);
-			Assert.That(task.IsCompleted, Is.False);
-
-			enumerable.Return();
-
-			var result = await task;
+			// the operators enumerate in-memory sequences, so there is nothing left to await
 			Assert.That(task.IsCompleted, Is.True);
-			assert(result);
+
+			assert(await task);
 		}
 
-		private void CheckMethodFails<T, ErrorT>(int count, Func<LongEnumerable, Task<T>> method)
+		private static void CheckMethodFails<ErrorT>(Task task)
 			where ErrorT : Exception
 		{
-			// arrange
-			var enumerable = new LongEnumerable(count);
-
-			// act & assert
-			var task = method(enumerable);
-
-			Thread.Sleep(100);
-			Assert.That(task.IsCompleted, Is.False);
-
-			enumerable.Return();
-
-			Assert.ThrowsAsync<ErrorT>(async () => await task);
+			// failures are reported through the task, not thrown at the call site
+			Assert.That(task.IsFaulted, Is.True);
+			Assert.That(task.Exception.InnerException, Is.InstanceOf<ErrorT>());
 		}
 
 		[Test]
-		public async Task GivenLongSequence_CheckFirstAsync()
+		public async Task GivenSequence_CheckFirstAsync()
 		{
-			CheckMethodFails<int, InvalidOperationException>(0, enumerable => enumerable.FirstAsync());
-			await CheckMethodWorks<int>(3, enumerable => enumerable.FirstAsync(), result => Assert.That(result, Is.EqualTo(1)));
+			CheckMethodFails<InvalidOperationException>(_empty.FirstAsync());
+			await CheckMethodWorks(_items.FirstAsync(), result => Assert.That(result, Is.EqualTo(1)));
 
-			await CheckMethodWorks<int>(3, enumerable => enumerable.FirstAsync(i => i == 1), result => Assert.That(result, Is.EqualTo(1)));
-			await CheckMethodWorks<int>(3, enumerable => enumerable.FirstAsync(i => i == 3), result => Assert.That(result, Is.EqualTo(3)));
+			await CheckMethodWorks(_items.FirstAsync(i => i == 1), result => Assert.That(result, Is.EqualTo(1)));
+			await CheckMethodWorks(_items.FirstAsync(i => i == 3), result => Assert.That(result, Is.EqualTo(3)));
 
-			CheckMethodFails<int, InvalidOperationException>(0, enumerable => enumerable.FirstAsync(i => i == 1));
-			CheckMethodFails<int, InvalidOperationException>(3, enumerable => enumerable.FirstAsync(i => i == 0));
+			CheckMethodFails<InvalidOperationException>(_empty.FirstAsync(i => i == 1));
+			CheckMethodFails<InvalidOperationException>(_items.FirstAsync(i => i == 0));
 		}
 
 		[Test]
-		public async Task GivenLongSequence_CheckFirstOrDefaultAsync()
+		public async Task GivenSequence_CheckFirstOrDefaultAsync()
 		{
-			await CheckMethodWorks<int>(0, enumerable => enumerable.FirstOrDefaultAsync(), result => Assert.That(result, Is.EqualTo(0)));
-			await CheckMethodWorks<int>(3, enumerable => enumerable.FirstOrDefaultAsync(), result => Assert.That(result, Is.EqualTo(1)));
+			await CheckMethodWorks(_empty.FirstOrDefaultAsync(), result => Assert.That(result, Is.EqualTo(0)));
+			await CheckMethodWorks(_items.FirstOrDefaultAsync(), result => Assert.That(result, Is.EqualTo(1)));
 
-			await CheckMethodWorks<int>(3, enumerable => enumerable.FirstOrDefaultAsync(i => i == 1), result => Assert.That(result, Is.EqualTo(1)));
-			await CheckMethodWorks<int>(3, enumerable => enumerable.FirstOrDefaultAsync(i => i == 3), result => Assert.That(result, Is.EqualTo(3)));
+			await CheckMethodWorks(_items.FirstOrDefaultAsync(i => i == 1), result => Assert.That(result, Is.EqualTo(1)));
+			await CheckMethodWorks(_items.FirstOrDefaultAsync(i => i == 3), result => Assert.That(result, Is.EqualTo(3)));
 
-			await CheckMethodWorks<int>(0, enumerable => enumerable.FirstOrDefaultAsync(i => i == 1), result => Assert.That(result, Is.EqualTo(0)));
-			await CheckMethodWorks<int>(3, enumerable => enumerable.FirstOrDefaultAsync(i => i == 0), result => Assert.That(result, Is.EqualTo(0)));
+			await CheckMethodWorks(_empty.FirstOrDefaultAsync(i => i == 1), result => Assert.That(result, Is.EqualTo(0)));
+			await CheckMethodWorks(_items.FirstOrDefaultAsync(i => i == 0), result => Assert.That(result, Is.EqualTo(0)));
 		}
 
 		[Test]
-		public async Task GivenLongSequence_CheckLastAsync()
+		public async Task GivenSequence_CheckLastAsync()
 		{
-			CheckMethodFails<int, InvalidOperationException>(0, enumerable => enumerable.LastAsync());
-			await CheckMethodWorks<int>(3, enumerable => enumerable.LastAsync(), result => Assert.That(result, Is.EqualTo(3)));
+			CheckMethodFails<InvalidOperationException>(_empty.LastAsync());
+			await CheckMethodWorks(_items.LastAsync(), result => Assert.That(result, Is.EqualTo(3)));
 
-			await CheckMethodWorks<int>(3, enumerable => enumerable.LastAsync(i => i == 1), result => Assert.That(result, Is.EqualTo(1)));
-			await CheckMethodWorks<int>(3, enumerable => enumerable.LastAsync(i => i == 3), result => Assert.That(result, Is.EqualTo(3)));
+			await CheckMethodWorks(_items.LastAsync(i => i == 1), result => Assert.That(result, Is.EqualTo(1)));
+			await CheckMethodWorks(_items.LastAsync(i => i == 3), result => Assert.That(result, Is.EqualTo(3)));
 
-			CheckMethodFails<int, InvalidOperationException>(0, enumerable => enumerable.LastAsync(i => i == 1));
-			CheckMethodFails<int, InvalidOperationException>(3, enumerable => enumerable.LastAsync(i => i == 0));
+			CheckMethodFails<InvalidOperationException>(_empty.LastAsync(i => i == 1));
+			CheckMethodFails<InvalidOperationException>(_items.LastAsync(i => i == 0));
 		}
 
 		[Test]
-		public async Task GivenLongSequence_CheckLastOrDefaultAsync()
+		public async Task GivenSequence_CheckLastOrDefaultAsync()
 		{
-			await CheckMethodWorks<int>(0, enumerable => enumerable.LastOrDefaultAsync(), result => Assert.That(result, Is.EqualTo(0)));
-			await CheckMethodWorks<int>(3, enumerable => enumerable.LastOrDefaultAsync(), result => Assert.That(result, Is.EqualTo(3)));
+			await CheckMethodWorks(_empty.LastOrDefaultAsync(), result => Assert.That(result, Is.EqualTo(0)));
+			await CheckMethodWorks(_items.LastOrDefaultAsync(), result => Assert.That(result, Is.EqualTo(3)));
 
-			await CheckMethodWorks<int>(3, enumerable => enumerable.LastOrDefaultAsync(i => i == 1), result => Assert.That(result, Is.EqualTo(1)));
-			await CheckMethodWorks<int>(3, enumerable => enumerable.LastOrDefaultAsync(i => i == 3), result => Assert.That(result, Is.EqualTo(3)));
+			await CheckMethodWorks(_items.LastOrDefaultAsync(i => i == 1), result => Assert.That(result, Is.EqualTo(1)));
+			await CheckMethodWorks(_items.LastOrDefaultAsync(i => i == 3), result => Assert.That(result, Is.EqualTo(3)));
 
-			await CheckMethodWorks<int>(0, enumerable => enumerable.LastOrDefaultAsync(i => i == 1), result => Assert.That(result, Is.EqualTo(0)));
-			await CheckMethodWorks<int>(3, enumerable => enumerable.LastOrDefaultAsync(i => i == 0), result => Assert.That(result, Is.EqualTo(0)));
+			await CheckMethodWorks(_empty.LastOrDefaultAsync(i => i == 1), result => Assert.That(result, Is.EqualTo(0)));
+			await CheckMethodWorks(_items.LastOrDefaultAsync(i => i == 0), result => Assert.That(result, Is.EqualTo(0)));
 		}
 
 		[Test]
-		public async Task GivenLongSequence_CheckAnyAsync()
+		public async Task GivenSequence_CheckAnyAsync()
 		{
-			await CheckMethodWorks<bool>(0, enumerable => enumerable.AnyAsync(), result => Assert.That(result, Is.False));
-			await CheckMethodWorks<bool>(3, enumerable => enumerable.AnyAsync(), result => Assert.That(result, Is.True));
+			await CheckMethodWorks(_empty.AnyAsync(), result => Assert.That(result, Is.False));
+			await CheckMethodWorks(_items.AnyAsync(), result => Assert.That(result, Is.True));
 
-			await CheckMethodWorks<bool>(3, enumerable => enumerable.AnyAsync(i => i == 0), result => Assert.That(result, Is.False));
-			await CheckMethodWorks<bool>(3, enumerable => enumerable.AnyAsync(i => i == 2), result => Assert.That(result, Is.True));
+			await CheckMethodWorks(_items.AnyAsync(i => i == 0), result => Assert.That(result, Is.False));
+			await CheckMethodWorks(_items.AnyAsync(i => i == 2), result => Assert.That(result, Is.True));
 		}
 
 		[Test]
-		public async Task GivenLongSequence_CheckAllAsync()
+		public async Task GivenSequence_CheckAllAsync()
 		{
-			await CheckMethodWorks<bool>(0, enumerable => enumerable.AllAsync(i => i < 3), result => Assert.That(result, Is.True));
-			await CheckMethodWorks<bool>(3, enumerable => enumerable.AllAsync(i => i == 3), result => Assert.That(result, Is.False));
-			await CheckMethodWorks<bool>(3, enumerable => enumerable.AllAsync(i => i < 4), result => Assert.That(result, Is.True));
+			await CheckMethodWorks(_empty.AllAsync(i => i < 3), result => Assert.That(result, Is.True));
+			await CheckMethodWorks(_items.AllAsync(i => i == 3), result => Assert.That(result, Is.False));
+			await CheckMethodWorks(_items.AllAsync(i => i < 4), result => Assert.That(result, Is.True));
 		}
 
 		[Test]
-		public async Task GivenLongSequence_CheckToArrayAsync()
+		public async Task GivenSequence_CheckToArrayAsync()
 		{
-			await CheckMethodWorks<int[]>(0, enumerable => enumerable.ToArrayAsync(), result =>
+			await CheckMethodWorks(_empty.ToArrayAsync(), result =>
 			{
 				Assert.That(result.Length, Is.EqualTo(0));
 			});
-			await CheckMethodWorks<int[]>(3, enumerable => enumerable.ToArrayAsync(), result =>
+			await CheckMethodWorks(_items.ToArrayAsync(), result =>
 			{
 				Assert.That(result.Length, Is.EqualTo(3));
 				Assert.That(result[0], Is.EqualTo(1));
@@ -135,13 +119,13 @@ namespace AabSemantics.Tests.Utils
 		}
 
 		[Test]
-		public async Task GivenLongSequence_CheckToListAsync()
+		public async Task GivenSequence_CheckToListAsync()
 		{
-			await CheckMethodWorks<List<int>>(0, enumerable => enumerable.ToListAsync(), result =>
+			await CheckMethodWorks(_empty.ToListAsync(), result =>
 			{
 				Assert.That(result.Count, Is.EqualTo(0));
 			});
-			await CheckMethodWorks<List<int>>(3, enumerable => enumerable.ToListAsync(), result =>
+			await CheckMethodWorks(_items.ToListAsync(), result =>
 			{
 				Assert.That(result.Count, Is.EqualTo(3));
 				Assert.That(result[0], Is.EqualTo(1));
@@ -150,38 +134,84 @@ namespace AabSemantics.Tests.Utils
 			});
 		}
 
-		private class LongEnumerable : IEnumerable<int>
+		[Test]
+		public void GivenSequence_WhenEnumerate_ThenDoNotLeaveCallingThread()
 		{
-			private bool sleep = true;
-			private readonly int _count;
-
-			public LongEnumerable(int count)
+			// arrange
+			int callingThread = Thread.CurrentThread.ManagedThreadId;
+			var enumerationThreads = new List<int>();
+			var sequence = _items.Select(item =>
 			{
-				_count = count;
+				enumerationThreads.Add(Thread.CurrentThread.ManagedThreadId);
+				return item;
+			});
+
+			// act
+			var task = sequence.ToListAsync();
+
+			// assert
+			Assert.That(task.IsCompleted, Is.True);
+			Assert.That(enumerationThreads, Is.EqualTo(new[] { callingThread, callingThread, callingThread }));
+		}
+
+		[Test]
+		public void GivenCancelledToken_WhenEnumerate_ThenDoNotStartAtAll()
+		{
+			// arrange
+			bool enumerated = false;
+			var sequence = _items.Select(item =>
+			{
+				enumerated = true;
+				return item;
+			});
+
+			using (var cancellation = new CancellationTokenSource())
+			{
+				cancellation.Cancel();
+
+				// act
+				var task = sequence.ToListAsync(cancellation.Token);
+
+				// assert
+				Assert.That(task.IsCanceled, Is.True);
+				Assert.That(enumerated, Is.False);
 			}
+		}
 
-			public IEnumerator<int> GetEnumerator()
+		[Test]
+		public void GivenTokenCancelledDuringEnumeration_WhenEnumerate_ThenStopAtOnce()
+		{
+			// arrange
+			using (var cancellation = new CancellationTokenSource())
 			{
-				while (sleep)
+				var enumeratedItems = new List<int>();
+				var sequence = _items.Select(item =>
 				{
-					Thread.Sleep(50);
-				}
+					enumeratedItems.Add(item);
+					if (item == 2)
+					{
+						cancellation.Cancel();
+					}
+					return item;
+				});
 
-				for (int i = 1; i <= _count; i++)
-				{
-					yield return i;
-				}
-			}
+				// act
+				var task = sequence.ToListAsync(cancellation.Token);
 
-			IEnumerator IEnumerable.GetEnumerator()
-			{
-				return GetEnumerator();
+				// assert
+				Assert.That(task.IsCanceled, Is.True);
+				Assert.That(enumeratedItems, Is.EqualTo(new[] { 1, 2 }));
 			}
+		}
 
-			public void Return()
-			{
-				sleep = false;
-			}
+		[Test]
+		public void GivenFailingPredicate_WhenEnumerate_ThenReportErrorThroughTask()
+		{
+			// act
+			var task = _items.AllAsync(_ => throw new NotSupportedException("boom"));
+
+			// assert
+			CheckMethodFails<NotSupportedException>(task);
 		}
 	}
 }
