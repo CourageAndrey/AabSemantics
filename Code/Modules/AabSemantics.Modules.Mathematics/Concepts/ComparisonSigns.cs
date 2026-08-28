@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 using AabSemantics.Concepts;
@@ -86,23 +87,24 @@ namespace AabSemantics.Modules.Mathematics.Concepts
 		/// <param name="sign2">Second sign.</param>
 		/// <returns><c>true</c> if the two cannot both hold.</returns>
 		/// <exception cref="InvalidOperationException">Either argument is not a comparison sign.</exception>
-		public static async Task<System.Boolean> ContradictsAsync(this IConcept sign1, IConcept sign2)
+		public static System.Boolean Contradicts(this IConcept sign1, IConcept sign2)
 		{
 			EnsureSuits(sign1);
 			EnsureSuits(sign2);
 
-			return await Contradictions.AnyAsync(tuple =>
+			return Contradictions.Any(tuple =>
 				tuple.Item1 == sign2 && tuple.Item2 == sign1 ||
 				tuple.Item1 == sign1 && tuple.Item2 == sign2);
 		}
 
-		/// <summary>Blocking counterpart of <see cref="ContradictsAsync"/>.</summary>
+		/// <summary>Asynchronous counterpart of <see cref="Contradicts"/>.</summary>
 		/// <param name="sign1">First sign.</param>
 		/// <param name="sign2">Second sign.</param>
 		/// <returns><c>true</c> if the two cannot both hold.</returns>
-		public static System.Boolean Contradicts(this IConcept sign1, IConcept sign2)
+		/// <exception cref="InvalidOperationException">Either argument is not a comparison sign.</exception>
+		public static Task<System.Boolean> ContradictsAsync(this IConcept sign1, IConcept sign2)
 		{
-			return TaskHelper.AwaitDetached(() => ContradictsAsync(sign1, sign2));
+			return TaskHelper.FromSynchronous(() => sign1.Contradicts(sign2));
 		}
 
 		private static void EnsureSuits(this IConcept sign)

@@ -325,17 +325,17 @@ namespace AabSemantics.Modules.Processes.Concepts
 		/// <param name="signs">Signs recorded for one pair of processes.</param>
 		/// <returns><c>true</c> if the signs cannot all hold together.</returns>
 		/// <exception cref="InvalidOperationException">One of the signs is not a sequence sign.</exception>
-		public static async Task<System.Boolean> ContradictsAsync(this ICollection<IConcept> signs)
+		public static System.Boolean Contradicts(this ICollection<IConcept> signs)
 		{
 			foreach (var sign in signs)
 			{
 				EnsureSuits(sign);
 			}
 
-			var foundStartToStartSigns = await signs.Where(s => StartSigns.Contains(s) && RelatedToStartSigns.Contains(s)).Distinct().ToListAsync();
-			var foundStartToFinishSigns = await signs.Where(s => StartSigns.Contains(s) && RelatedToFinishSigns.Contains(s)).Distinct().ToListAsync();
-			var foundFinishToStartSigns = await signs.Where(s => FinishSigns.Contains(s) && RelatedToStartSigns.Contains(s)).Distinct().ToListAsync();
-			var foundFinishToFinishSigns = await signs.Where(s => FinishSigns.Contains(s) && RelatedToFinishSigns.Contains(s)).Distinct().ToListAsync();
+			var foundStartToStartSigns = signs.Where(s => StartSigns.Contains(s) && RelatedToStartSigns.Contains(s)).Distinct().ToList();
+			var foundStartToFinishSigns = signs.Where(s => StartSigns.Contains(s) && RelatedToFinishSigns.Contains(s)).Distinct().ToList();
+			var foundFinishToStartSigns = signs.Where(s => FinishSigns.Contains(s) && RelatedToStartSigns.Contains(s)).Distinct().ToList();
+			var foundFinishToFinishSigns = signs.Where(s => FinishSigns.Contains(s) && RelatedToFinishSigns.Contains(s)).Distinct().ToList();
 			return	(signs.Contains(StartsBeforeOtherStarted) && signs.Contains(StartsAfterOtherFinished)) ||
 					(signs.Contains(FinishesBeforeOtherStarted) && signs.Contains(FinishesAfterOtherFinished)) ||
 					foundStartToStartSigns.Count > 1 ||
@@ -344,12 +344,13 @@ namespace AabSemantics.Modules.Processes.Concepts
 					foundFinishToFinishSigns.Count > 1;
 		}
 
-		/// <summary>Blocking counterpart of <see cref="ContradictsAsync"/>.</summary>
+		/// <summary>Asynchronous counterpart of <see cref="Contradicts"/>.</summary>
 		/// <param name="signs">Signs recorded for one pair of processes.</param>
 		/// <returns><c>true</c> if the signs cannot all hold together.</returns>
-		public static System.Boolean Contradicts(this ICollection<IConcept> signs)
+		/// <exception cref="InvalidOperationException">One of the signs is not a sequence sign.</exception>
+		public static Task<System.Boolean> ContradictsAsync(this ICollection<IConcept> signs)
 		{
-			return TaskHelper.AwaitDetached(() => ContradictsAsync(signs));
+			return TaskHelper.FromSynchronous(() => signs.Contradicts());
 		}
 
 		/// <summary>Returns the signs implied by a given one, e.g. "finishes before B starts" implies "starts before B starts".</summary>

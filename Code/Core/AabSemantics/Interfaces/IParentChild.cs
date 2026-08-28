@@ -137,11 +137,11 @@ namespace AabSemantics
 			where RelationshipT : IParentChild<T>
 			where T : class
 		{
-			return TaskHelper.AwaitDetached(() => GetParentsAllLevelsAsync<T, RelationshipT>(statements, item, involvedRelationships, cancellationToken));
+			return GetParentsAllLevels(statements.OfType<RelationshipT>(), item, involvedRelationships, cancellationToken);
 		}
 
 		/// <summary>
-		/// Asynchronously returns every ancestor of <paramref name="item"/>, at all levels.
+		/// Asynchronous counterpart of <see cref="GetParentsAllLevels{T, RelationshipT}(IEnumerable{IStatement}, T, List{RelationshipT}, CancellationToken)"/>.
 		/// </summary>
 		/// <typeparam name="T">Type of the related items.</typeparam>
 		/// <typeparam name="RelationshipT">Relationship statement type to follow.</typeparam>
@@ -151,11 +151,13 @@ namespace AabSemantics
 		/// <param name="cancellationToken">Cancels the traversal.</param>
 		/// <returns>All ancestors, nearest generation first. <paramref name="item"/> itself is not included.</returns>
 		/// <exception cref="OperationCanceledException">The token was cancelled.</exception>
-		public static async Task<List<T>> GetParentsAllLevelsAsync<T, RelationshipT>(this IEnumerable<IStatement> statements, T item, List<RelationshipT> involvedRelationships = null, CancellationToken cancellationToken = default)
+		public static Task<List<T>> GetParentsAllLevelsAsync<T, RelationshipT>(this IEnumerable<IStatement> statements, T item, List<RelationshipT> involvedRelationships = null, CancellationToken cancellationToken = default)
 			where RelationshipT : IParentChild<T>
 			where T : class
 		{
-			return await GetParentsAllLevelsAsync(statements.OfType<RelationshipT>(), item, involvedRelationships, cancellationToken);
+			return TaskHelper.FromSynchronous(
+				() => statements.GetParentsAllLevels<T, RelationshipT>(item, involvedRelationships, cancellationToken),
+				cancellationToken);
 		}
 
 		/// <summary>
@@ -173,11 +175,11 @@ namespace AabSemantics
 			where RelationshipT : IParentChild<T>
 			where T : class
 		{
-			return TaskHelper.AwaitDetached(() => GetChildrenAllLevelsAsync<T, RelationshipT>(statements, item, involvedRelationships, cancellationToken));
+			return GetChildrenAllLevels(statements.OfType<RelationshipT>(), item, involvedRelationships, cancellationToken);
 		}
 
 		/// <summary>
-		/// Asynchronously returns every descendant of <paramref name="item"/>, at all levels.
+		/// Asynchronous counterpart of <see cref="GetChildrenAllLevels{T, RelationshipT}(IEnumerable{IStatement}, T, List{RelationshipT}, CancellationToken)"/>.
 		/// </summary>
 		/// <typeparam name="T">Type of the related items.</typeparam>
 		/// <typeparam name="RelationshipT">Relationship statement type to follow.</typeparam>
@@ -187,11 +189,13 @@ namespace AabSemantics
 		/// <param name="cancellationToken">Cancels the traversal.</param>
 		/// <returns>All descendants, nearest generation first. <paramref name="item"/> itself is not included.</returns>
 		/// <exception cref="OperationCanceledException">The token was cancelled.</exception>
-		public static async Task<List<T>> GetChildrenAllLevelsAsync<T, RelationshipT>(this IEnumerable<IStatement> statements, T item, List<RelationshipT> involvedRelationships = null, CancellationToken cancellationToken = default)
+		public static Task<List<T>> GetChildrenAllLevelsAsync<T, RelationshipT>(this IEnumerable<IStatement> statements, T item, List<RelationshipT> involvedRelationships = null, CancellationToken cancellationToken = default)
 			where RelationshipT : IParentChild<T>
 			where T : class
 		{
-			return await GetChildrenAllLevelsAsync(statements.OfType<RelationshipT>(), item, involvedRelationships, cancellationToken);
+			return TaskHelper.FromSynchronous(
+				() => statements.GetChildrenAllLevels<T, RelationshipT>(item, involvedRelationships, cancellationToken),
+				cancellationToken);
 		}
 
 		/// <summary>
@@ -208,11 +212,11 @@ namespace AabSemantics
 			where RelationshipT : IParentChild<T>
 			where T : class
 		{
-			return TaskHelper.AwaitDetached(() => GetParentsOneLevelAsync<T, RelationshipT>(statements, item, involvedRelationships, cancellationToken));
+			return GetParentsOneLevel(statements.OfType<RelationshipT>(), item, involvedRelationships, cancellationToken);
 		}
 
 		/// <summary>
-		/// Asynchronously returns the direct parents of <paramref name="item"/>.
+		/// Asynchronous counterpart of <see cref="GetParentsOneLevel{T, RelationshipT}(IEnumerable{IStatement}, T, List{RelationshipT}, CancellationToken)"/>.
 		/// </summary>
 		/// <typeparam name="T">Type of the related items.</typeparam>
 		/// <typeparam name="RelationshipT">Relationship statement type to follow.</typeparam>
@@ -222,11 +226,13 @@ namespace AabSemantics
 		/// <param name="cancellationToken">Cancels the traversal.</param>
 		/// <returns>The immediate parents.</returns>
 		/// <exception cref="OperationCanceledException">The token was cancelled.</exception>
-		public static async Task<List<T>> GetParentsOneLevelAsync<T, RelationshipT>(this IEnumerable<IStatement> statements, T item, List<RelationshipT> involvedRelationships = null, CancellationToken cancellationToken = default)
+		public static Task<List<T>> GetParentsOneLevelAsync<T, RelationshipT>(this IEnumerable<IStatement> statements, T item, List<RelationshipT> involvedRelationships = null, CancellationToken cancellationToken = default)
 			where RelationshipT : IParentChild<T>
 			where T : class
 		{
-			return await GetParentsOneLevelAsync(statements.OfType<RelationshipT>(), item, involvedRelationships, cancellationToken);
+			return TaskHelper.FromSynchronous(
+				() => statements.GetParentsOneLevel<T, RelationshipT>(item, involvedRelationships, cancellationToken),
+				cancellationToken);
 		}
 
 		/// <summary>
@@ -243,11 +249,11 @@ namespace AabSemantics
 			where RelationshipT : IParentChild<T>
 			where T : class
 		{
-			return TaskHelper.AwaitDetached(() => GetChildrenOneLevelAsync<T, RelationshipT>(statements, item, involvedRelationships, cancellationToken));
+			return GetChildrenOneLevel(statements.OfType<RelationshipT>(), item, involvedRelationships, cancellationToken);
 		}
 
 		/// <summary>
-		/// Asynchronously returns the direct children of <paramref name="item"/>.
+		/// Asynchronous counterpart of <see cref="GetChildrenOneLevel{T, RelationshipT}(IEnumerable{IStatement}, T, List{RelationshipT}, CancellationToken)"/>.
 		/// </summary>
 		/// <typeparam name="T">Type of the related items.</typeparam>
 		/// <typeparam name="RelationshipT">Relationship statement type to follow.</typeparam>
@@ -257,11 +263,13 @@ namespace AabSemantics
 		/// <param name="cancellationToken">Cancels the traversal.</param>
 		/// <returns>The immediate children.</returns>
 		/// <exception cref="OperationCanceledException">The token was cancelled.</exception>
-		public static async Task<List<T>> GetChildrenOneLevelAsync<T, RelationshipT>(this IEnumerable<IStatement> statements, T item, List<RelationshipT> involvedRelationships = null, CancellationToken cancellationToken = default)
+		public static Task<List<T>> GetChildrenOneLevelAsync<T, RelationshipT>(this IEnumerable<IStatement> statements, T item, List<RelationshipT> involvedRelationships = null, CancellationToken cancellationToken = default)
 			where RelationshipT : IParentChild<T>
 			where T : class
 		{
-			return await GetChildrenOneLevelAsync(statements.OfType<RelationshipT>(), item, involvedRelationships, cancellationToken);
+			return TaskHelper.FromSynchronous(
+				() => statements.GetChildrenOneLevel<T, RelationshipT>(item, involvedRelationships, cancellationToken),
+				cancellationToken);
 		}
 
 		/// <summary>
@@ -279,11 +287,11 @@ namespace AabSemantics
 			where RelationshipT : IParentChild<T>
 			where T : class
 		{
-			return TaskHelper.AwaitDetached(() => GetChildrenTreeAsync<T, RelationshipT>(statements, item, involvedRelationships, cancellationToken));
+			return BuildChildrenTree(statements.OfType<RelationshipT>(), item, involvedRelationships, cancellationToken);
 		}
 
 		/// <summary>
-		/// Asynchronously builds the full subtree rooted at <paramref name="item"/>.
+		/// Asynchronous counterpart of <see cref="GetChildrenTree{T, RelationshipT}(IEnumerable{IStatement}, T, List{RelationshipT}, CancellationToken)"/>.
 		/// </summary>
 		/// <typeparam name="T">Type of the related items.</typeparam>
 		/// <typeparam name="RelationshipT">Relationship statement type to follow.</typeparam>
@@ -293,16 +301,20 @@ namespace AabSemantics
 		/// <param name="cancellationToken">Cancels the traversal.</param>
 		/// <returns>The root node, with descendants attached.</returns>
 		/// <exception cref="OperationCanceledException">The token was cancelled.</exception>
-		public static async Task<ParentChild<T>> GetChildrenTreeAsync<T, RelationshipT>(this IEnumerable<IStatement> statements, T item, List<RelationshipT> involvedRelationships = null, CancellationToken cancellationToken = default)
+		public static Task<ParentChild<T>> GetChildrenTreeAsync<T, RelationshipT>(this IEnumerable<IStatement> statements, T item, List<RelationshipT> involvedRelationships = null, CancellationToken cancellationToken = default)
 			where RelationshipT : IParentChild<T>
 			where T : class
 		{
-			return await GetChildrenTreeAsync(statements.OfType<RelationshipT>(), item, involvedRelationships, cancellationToken);
+			return TaskHelper.FromSynchronous(
+				() => statements.GetChildrenTree<T, RelationshipT>(item, involvedRelationships, cancellationToken),
+				cancellationToken);
 		}
 
 		/// <summary>
 		/// Finds a chain of relationships connecting <paramref name="parent"/> down to
 		/// <paramref name="child"/>, which is what proves that the two are related at all.
+		/// Searches upwards from the child, because that side of the hierarchy is normally
+		/// the narrower one.
 		/// </summary>
 		/// <typeparam name="T">Type of the related items.</typeparam>
 		/// <param name="statements">Statements to search.</param>
@@ -314,29 +326,10 @@ namespace AabSemantics
 		public static ICollection<IStatement> FindPath<T>(this IEnumerable<IStatement> statements, Type statementType, T parent, T child, CancellationToken cancellationToken = default)
 			where T : class
 		{
-			return TaskHelper.AwaitDetached(() => FindPathAsync<T>(statements, statementType, parent, child, cancellationToken));
-		}
-
-		/// <summary>
-		/// Asynchronously finds a chain of relationships connecting <paramref name="parent"/>
-		/// down to <paramref name="child"/>. Searches upwards from the child, because that
-		/// side of the hierarchy is normally the narrower one.
-		/// </summary>
-		/// <typeparam name="T">Type of the related items.</typeparam>
-		/// <param name="statements">Statements to search.</param>
-		/// <param name="statementType">Exact relationship type to follow; subtypes are not matched.</param>
-		/// <param name="parent">Item the path starts from.</param>
-		/// <param name="child">Item the path leads to.</param>
-		/// <param name="cancellationToken">Cancels the search.</param>
-		/// <returns>The connecting statements, or an empty collection when no path exists.</returns>
-		/// <exception cref="OperationCanceledException">The token was cancelled.</exception>
-		public static async Task<ICollection<IStatement>> FindPathAsync<T>(this IEnumerable<IStatement> statements, Type statementType, T parent, T child, CancellationToken cancellationToken = default)
-			where T : class
-		{
-			var typedStatements = await statements.OfType<IParentChild<T>>().Where(statement => statement.GetType() == statementType).ToListAsync(cancellationToken);
+			var typedStatements = statements.OfType<IParentChild<T>>().Where(statement => statement.GetType() == statementType).Observing(cancellationToken).ToList();
 
 			// search up (child > parent), because search tree has to be smaller in this case
-			var pathsToCheck = await typedStatements.Where(statement => statement.Child == child).Select(statement => new List<IParentChild<T>> { statement }).ToListAsync(cancellationToken);
+			var pathsToCheck = typedStatements.Where(statement => statement.Child == child).Select(statement => new List<IParentChild<T>> { statement }).Observing(cancellationToken).ToList();
 			while (pathsToCheck.Any())
 			{
 				cancellationToken.ThrowIfCancellationRequested();
@@ -351,13 +344,32 @@ namespace AabSemantics
 					}
 					else if (!path.Select(statement => statement.Child).Contains(lastParent))
 					{
-						nextStep.AddRange(await typedStatements.Where(statement => statement.Child == lastParent).Select(statement => new List<IParentChild<T>>(path) { statement }).ToListAsync(cancellationToken));
+						nextStep.AddRange(typedStatements.Where(statement => statement.Child == lastParent).Select(statement => new List<IParentChild<T>>(path) { statement }).Observing(cancellationToken));
 					}
 				}
 				pathsToCheck = nextStep;
 			}
 
 			return Array.Empty<IStatement>();
+		}
+
+		/// <summary>
+		/// Asynchronous counterpart of <see cref="FindPath{T}"/>.
+		/// </summary>
+		/// <typeparam name="T">Type of the related items.</typeparam>
+		/// <param name="statements">Statements to search.</param>
+		/// <param name="statementType">Exact relationship type to follow; subtypes are not matched.</param>
+		/// <param name="parent">Item the path starts from.</param>
+		/// <param name="child">Item the path leads to.</param>
+		/// <param name="cancellationToken">Cancels the search.</param>
+		/// <returns>The connecting statements, or an empty collection when no path exists.</returns>
+		/// <exception cref="OperationCanceledException">The token was cancelled.</exception>
+		public static Task<ICollection<IStatement>> FindPathAsync<T>(this IEnumerable<IStatement> statements, Type statementType, T parent, T child, CancellationToken cancellationToken = default)
+			where T : class
+		{
+			return TaskHelper.FromSynchronous(
+				() => statements.FindPath(statementType, parent, child, cancellationToken),
+				cancellationToken);
 		}
 
 		/// <summary>
@@ -375,11 +387,11 @@ namespace AabSemantics
 			where RelationshipT : IParentChild<T>
 			where T : class
 		{
-			return TaskHelper.AwaitDetached(() => GetParentsAllLevelsAsync<T, RelationshipT>(relationships, item, involvedRelationships, cancellationToken));
+			return GetRelatedAllLevels(relationships, item, involvedRelationships, GetParentsOneLevel, cancellationToken);
 		}
 
 		/// <summary>
-		/// Asynchronously returns every ancestor of <paramref name="item"/>, at all levels.
+		/// Asynchronous counterpart of <see cref="GetParentsAllLevels{T, RelationshipT}(IEnumerable{RelationshipT}, T, List{RelationshipT}, CancellationToken)"/>.
 		/// </summary>
 		/// <typeparam name="T">Type of the related items.</typeparam>
 		/// <typeparam name="RelationshipT">Relationship statement type to follow.</typeparam>
@@ -389,11 +401,13 @@ namespace AabSemantics
 		/// <param name="cancellationToken">Cancels the traversal.</param>
 		/// <returns>All ancestors, nearest generation first. <paramref name="item"/> itself is not included.</returns>
 		/// <exception cref="OperationCanceledException">The token was cancelled.</exception>
-		public static async Task<List<T>> GetParentsAllLevelsAsync<T, RelationshipT>(this IEnumerable<RelationshipT> relationships, T item, List<RelationshipT> involvedRelationships = null, CancellationToken cancellationToken = default)
+		public static Task<List<T>> GetParentsAllLevelsAsync<T, RelationshipT>(this IEnumerable<RelationshipT> relationships, T item, List<RelationshipT> involvedRelationships = null, CancellationToken cancellationToken = default)
 			where RelationshipT : IParentChild<T>
 			where T : class
 		{
-			return await GetRelatedAllLevels(relationships, item, involvedRelationships, GetParentsOneLevelAsync, cancellationToken);
+			return TaskHelper.FromSynchronous(
+				() => relationships.GetParentsAllLevels(item, involvedRelationships, cancellationToken),
+				cancellationToken);
 		}
 
 		/// <summary>
@@ -411,11 +425,11 @@ namespace AabSemantics
 			where RelationshipT : IParentChild<T>
 			where T : class
 		{
-			return TaskHelper.AwaitDetached(() => GetChildrenAllLevelsAsync<T, RelationshipT>(relationships, item, involvedRelationships, cancellationToken));
+			return GetRelatedAllLevels(relationships, item, involvedRelationships, GetChildrenOneLevel, cancellationToken);
 		}
 
 		/// <summary>
-		/// Asynchronously returns every descendant of <paramref name="item"/>, at all levels.
+		/// Asynchronous counterpart of <see cref="GetChildrenAllLevels{T, RelationshipT}(IEnumerable{RelationshipT}, T, List{RelationshipT}, CancellationToken)"/>.
 		/// </summary>
 		/// <typeparam name="T">Type of the related items.</typeparam>
 		/// <typeparam name="RelationshipT">Relationship statement type to follow.</typeparam>
@@ -425,16 +439,18 @@ namespace AabSemantics
 		/// <param name="cancellationToken">Cancels the traversal.</param>
 		/// <returns>All descendants, nearest generation first. <paramref name="item"/> itself is not included.</returns>
 		/// <exception cref="OperationCanceledException">The token was cancelled.</exception>
-		public static async Task<List<T>> GetChildrenAllLevelsAsync<T, RelationshipT>(this IEnumerable<RelationshipT> relationships, T item, List<RelationshipT> involvedRelationships = null, CancellationToken cancellationToken = default)
+		public static Task<List<T>> GetChildrenAllLevelsAsync<T, RelationshipT>(this IEnumerable<RelationshipT> relationships, T item, List<RelationshipT> involvedRelationships = null, CancellationToken cancellationToken = default)
 			where RelationshipT : IParentChild<T>
 			where T : class
 		{
-			return await GetRelatedAllLevels(relationships, item, involvedRelationships, GetChildrenOneLevelAsync, cancellationToken);
+			return TaskHelper.FromSynchronous(
+				() => relationships.GetChildrenAllLevels(item, involvedRelationships, cancellationToken),
+				cancellationToken);
 		}
 
-		private delegate Task<List<T>> GetRelativesDelegate<T, RelationshipT>(IEnumerable<RelationshipT> relationships, T item, List<RelationshipT> involvedRelationships = null, CancellationToken cancellationToken = default);
+		private delegate List<T> GetRelativesDelegate<T, RelationshipT>(IEnumerable<RelationshipT> relationships, T item, List<RelationshipT> involvedRelationships = null, CancellationToken cancellationToken = default);
 
-		private static async Task<List<T>> GetRelatedAllLevels<T, RelationshipT>(this IEnumerable<RelationshipT> relationships, T item, List<RelationshipT> involvedRelationships, GetRelativesDelegate<T, RelationshipT> getRelatives, CancellationToken cancellationToken)
+		private static List<T> GetRelatedAllLevels<T, RelationshipT>(this IEnumerable<RelationshipT> relationships, T item, List<RelationshipT> involvedRelationships, GetRelativesDelegate<T, RelationshipT> getRelatives, CancellationToken cancellationToken)
 		{
 			var result = new List<T>();
 			var relativesToCheck = new List<T> { item };
@@ -445,11 +461,11 @@ namespace AabSemantics
 				var nextGeneration = new List<T>();
 				foreach (var relative in relativesToCheck)
 				{
-					nextGeneration.AddRange(await getRelatives(relationships, relative, involvedRelationships, cancellationToken).ConfigureAwait(false));
+					nextGeneration.AddRange(getRelatives(relationships, relative, involvedRelationships, cancellationToken));
 				}
 
 				nextGeneration.RemoveAll(result.Contains);
-				relativesToCheck = await nextGeneration.Distinct().ToListAsync(cancellationToken);
+				relativesToCheck = nextGeneration.Distinct().Observing(cancellationToken).ToList();
 				result.AddRange(relativesToCheck);
 			}
 			return result;
@@ -470,12 +486,16 @@ namespace AabSemantics
 			where RelationshipT : IParentChild<T>
 			where T : class
 		{
-			return TaskHelper.AwaitDetached(() => GetParentsOneLevelAsync<T, RelationshipT>(relationships, item, involvedRelationships, cancellationToken));
+			var foundRelationships = relationships.Where(c => c.Child == item).Observing(cancellationToken).ToList();
+			if (involvedRelationships != null)
+			{
+				involvedRelationships.AddRange(foundRelationships);
+			}
+			return foundRelationships.Select(c => c.Parent).ToList();
 		}
 
 		/// <summary>
-		/// Asynchronously returns the direct parents of <paramref name="item"/>: the parent side
-		/// of every relationship whose child is that item.
+		/// Asynchronous counterpart of <see cref="GetParentsOneLevel{T, RelationshipT}(IEnumerable{RelationshipT}, T, List{RelationshipT}, CancellationToken)"/>.
 		/// </summary>
 		/// <typeparam name="T">Type of the related items.</typeparam>
 		/// <typeparam name="RelationshipT">Relationship statement type to follow.</typeparam>
@@ -485,16 +505,13 @@ namespace AabSemantics
 		/// <param name="cancellationToken">Cancels the traversal.</param>
 		/// <returns>The immediate parents.</returns>
 		/// <exception cref="OperationCanceledException">The token was cancelled.</exception>
-		public static async Task<List<T>> GetParentsOneLevelAsync<T, RelationshipT>(this IEnumerable<RelationshipT> relationships, T item, List<RelationshipT> involvedRelationships = null, CancellationToken cancellationToken = default)
+		public static Task<List<T>> GetParentsOneLevelAsync<T, RelationshipT>(this IEnumerable<RelationshipT> relationships, T item, List<RelationshipT> involvedRelationships = null, CancellationToken cancellationToken = default)
 			where RelationshipT : IParentChild<T>
 			where T : class
 		{
-			var foundRelationships = await relationships.Where(c => c.Child == item).ToListAsync(cancellationToken);
-			if (involvedRelationships != null)
-			{
-				involvedRelationships.AddRange(foundRelationships);
-			}
-			return await foundRelationships.Select(c => c.Parent).ToListAsync(cancellationToken);
+			return TaskHelper.FromSynchronous(
+				() => relationships.GetParentsOneLevel(item, involvedRelationships, cancellationToken),
+				cancellationToken);
 		}
 
 		/// <summary>
@@ -512,12 +529,16 @@ namespace AabSemantics
 			where RelationshipT : IParentChild<T>
 			where T : class
 		{
-			return TaskHelper.AwaitDetached(() => GetChildrenOneLevelAsync<T, RelationshipT>(relationships, item, involvedRelationships, cancellationToken));
+			var foundRelationships = relationships.Where(c => c.Parent == item).Observing(cancellationToken).ToList();
+			if (involvedRelationships != null)
+			{
+				involvedRelationships.AddRange(foundRelationships);
+			}
+			return foundRelationships.Select(c => c.Child).ToList();
 		}
 
 		/// <summary>
-		/// Asynchronously returns the direct children of <paramref name="item"/>: the child side
-		/// of every relationship whose parent is that item.
+		/// Asynchronous counterpart of <see cref="GetChildrenOneLevel{T, RelationshipT}(IEnumerable{RelationshipT}, T, List{RelationshipT}, CancellationToken)"/>.
 		/// </summary>
 		/// <typeparam name="T">Type of the related items.</typeparam>
 		/// <typeparam name="RelationshipT">Relationship statement type to follow.</typeparam>
@@ -527,30 +548,18 @@ namespace AabSemantics
 		/// <param name="cancellationToken">Cancels the traversal.</param>
 		/// <returns>The immediate children.</returns>
 		/// <exception cref="OperationCanceledException">The token was cancelled.</exception>
-		public static async Task<List<T>> GetChildrenOneLevelAsync<T, RelationshipT>(this IEnumerable<RelationshipT> relationships, T item, List<RelationshipT> involvedRelationships = null, CancellationToken cancellationToken = default)
+		public static Task<List<T>> GetChildrenOneLevelAsync<T, RelationshipT>(this IEnumerable<RelationshipT> relationships, T item, List<RelationshipT> involvedRelationships = null, CancellationToken cancellationToken = default)
 			where RelationshipT : IParentChild<T>
 			where T : class
 		{
-			var foundRelationships = await relationships.Where(c => c.Parent == item).ToListAsync(cancellationToken);
-			if (involvedRelationships != null)
-			{
-				involvedRelationships.AddRange(foundRelationships);
-			}
-			return await foundRelationships.Select(c => c.Child).ToListAsync(cancellationToken);
+			return TaskHelper.FromSynchronous(
+				() => relationships.GetChildrenOneLevel(item, involvedRelationships, cancellationToken),
+				cancellationToken);
 		}
 
-		/*public static ParentChild<T> GetChildrenTree<T, RelationshipT>(this IEnumerable<RelationshipT> relationships, T item, List<RelationshipT> involvedRelationships = null)
-			where RelationshipT : IParentChild<T>
-			where T : class
-		{
-			return TaskHelper.AwaitDetached(() => GetChildrenTreeAsync<T, RelationshipT>(relationships, item, involvedRelationships));
-		}*/
-
 		/// <summary>
-		/// Asynchronously builds the full subtree rooted at <paramref name="item"/>, expanding it
-		/// breadth-first. Cyclic relationships would make this recurse forever, so the data is
-		/// expected to be acyclic — supply a <paramref name="cancellationToken"/> when it cannot
-		/// be trusted to be.
+		/// Asynchronous counterpart of <see cref="GetChildrenTree{T, RelationshipT}(IEnumerable{IStatement}, T, List{RelationshipT}, CancellationToken)"/>,
+		/// working on an already filtered sequence of relationships.
 		/// </summary>
 		/// <typeparam name="T">Type of the related items.</typeparam>
 		/// <typeparam name="RelationshipT">Relationship statement type to follow.</typeparam>
@@ -560,7 +569,29 @@ namespace AabSemantics
 		/// <param name="cancellationToken">Cancels the traversal.</param>
 		/// <returns>The root node, with descendants attached.</returns>
 		/// <exception cref="OperationCanceledException">The token was cancelled.</exception>
-		public static async Task<ParentChild<T>> GetChildrenTreeAsync<T, RelationshipT>(this IEnumerable<RelationshipT> relationships, T item, List<RelationshipT> involvedRelationships = null, CancellationToken cancellationToken = default)
+		public static Task<ParentChild<T>> GetChildrenTreeAsync<T, RelationshipT>(this IEnumerable<RelationshipT> relationships, T item, List<RelationshipT> involvedRelationships = null, CancellationToken cancellationToken = default)
+			where RelationshipT : IParentChild<T>
+			where T : class
+		{
+			return TaskHelper.FromSynchronous(
+				() => BuildChildrenTree(relationships, item, involvedRelationships, cancellationToken),
+				cancellationToken);
+		}
+
+		/// <summary>
+		/// Builds the full subtree rooted at <paramref name="item"/>, expanding it breadth-first.
+		/// Cyclic relationships would make this walk forever, so the data is expected to be
+		/// acyclic — supply a <paramref name="cancellationToken"/> when it cannot be trusted to be.
+		/// </summary>
+		/// <typeparam name="T">Type of the related items.</typeparam>
+		/// <typeparam name="RelationshipT">Relationship statement type to follow.</typeparam>
+		/// <param name="relationships">Relationships to traverse.</param>
+		/// <param name="item">Item to use as the tree's root.</param>
+		/// <param name="involvedRelationships">Optional accumulator receiving every relationship traversed.</param>
+		/// <param name="cancellationToken">Cancels the traversal.</param>
+		/// <returns>The root node, with descendants attached.</returns>
+		/// <exception cref="OperationCanceledException">The token was cancelled.</exception>
+		private static ParentChild<T> BuildChildrenTree<T, RelationshipT>(IEnumerable<RelationshipT> relationships, T item, List<RelationshipT> involvedRelationships, CancellationToken cancellationToken)
 			where RelationshipT : IParentChild<T>
 			where T : class
 		{
@@ -574,7 +605,7 @@ namespace AabSemantics
 				cancellationToken.ThrowIfCancellationRequested();
 
 				var currentItem = itemsToFill.Dequeue();
-				foreach (var child in await GetChildrenOneLevelAsync(relationships, currentItem.Value, involvedRelationships, cancellationToken))
+				foreach (var child in GetChildrenOneLevel(relationships, currentItem.Value, involvedRelationships, cancellationToken))
 				{
 					itemsToFill.Enqueue(new ParentChild<T>(child, currentItem));
 				}

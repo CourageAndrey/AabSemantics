@@ -83,10 +83,10 @@ namespace AabSemantics.Modules.Set.Statements
 		/// <param name="cancellationToken">Cancels the search, which walks the whole hierarchy above the concept.</param>
 		/// <returns><c>true</c> when the sign is declared more than once along the chain.</returns>
 		/// <exception cref="OperationCanceledException">The token was cancelled.</exception>
-		public async Task<System.Boolean> CheckSignDuplicationAsync(IEnumerable<HasSignStatement> hasSigns, IEnumerable<IsStatement> classifications, CancellationToken cancellationToken = default)
+		public System.Boolean CheckSignDuplication(IEnumerable<HasSignStatement> hasSigns, IEnumerable<IsStatement> classifications, CancellationToken cancellationToken = default)
 		{
-			var signs = await hasSigns.Where(hs => hs.Concept == Concept).Select(hs => hs.Sign).ToListAsync(cancellationToken).ConfigureAwait(false);
-			foreach (var parent in await classifications.GetParentsAllLevelsAsync(Concept, cancellationToken: cancellationToken).ConfigureAwait(false))
+			var signs = hasSigns.Where(hs => hs.Concept == Concept).Select(hs => hs.Sign).Observing(cancellationToken).ToList();
+			foreach (var parent in classifications.GetParentsAllLevels(Concept, cancellationToken: cancellationToken))
 			{
 				foreach (var parentSign in hasSigns.Where(hs => hs.Concept == parent).Select(hs => hs.Sign))
 				{
@@ -100,6 +100,17 @@ namespace AabSemantics.Modules.Set.Statements
 			return true;
 		}
 
+		/// <summary>Asynchronous counterpart of <see cref="CheckSignDuplication"/>.</summary>
+		/// <param name="hasSigns">Sign declarations to inspect.</param>
+		/// <param name="classifications">Classification statements defining the hierarchy.</param>
+		/// <param name="cancellationToken">Cancels the search.</param>
+		/// <returns><c>true</c> when the sign is declared more than once along the chain.</returns>
+		/// <exception cref="OperationCanceledException">The token was cancelled.</exception>
+		public Task<System.Boolean> CheckSignDuplicationAsync(IEnumerable<HasSignStatement> hasSigns, IEnumerable<IsStatement> classifications, CancellationToken cancellationToken = default)
+		{
+			return TaskHelper.FromSynchronous(() => CheckSignDuplication(hasSigns, classifications, cancellationToken), cancellationToken);
+		}
+
 		#endregion
 
 		/// <summary>Collects the signs declared for a concept.</summary>
@@ -109,33 +120,46 @@ namespace AabSemantics.Modules.Set.Statements
 		/// <param name="cancellationToken">Cancels the search; a recursive one walks the whole hierarchy above the concept.</param>
 		/// <returns>The matching sign declarations.</returns>
 		/// <exception cref="OperationCanceledException">The token was cancelled.</exception>
-		public static async Task<List<HasSignStatement>> GetSignsAsync(IEnumerable<IStatement> statements, IConcept concept, System.Boolean recursive, CancellationToken cancellationToken = default)
+		public static List<HasSignStatement> GetSigns(IEnumerable<IStatement> statements, IConcept concept, System.Boolean recursive, CancellationToken cancellationToken = default)
 		{
-			var hasSigns = await statements.OfType<HasSignStatement>().ToListAsync(cancellationToken).ConfigureAwait(false);
+			// the statements are filtered once here rather than at every level of the hierarchy
+			var hasSigns = statements.OfType<HasSignStatement>().Observing(cancellationToken).ToList();
 
 			var result = new List<HasSignStatement>(hasSigns.Where(sv => sv.Concept == concept));
 
 			if (recursive)
 			{
-				var classifications = await statements.OfType<IsStatement>().ToListAsync(cancellationToken).ConfigureAwait(false);
-				await InheritSignsAsync(result, hasSigns, classifications, concept, cancellationToken).ConfigureAwait(false);
+				var classifications = statements.OfType<IsStatement>().Observing(cancellationToken).ToList();
+				InheritSigns(result, hasSigns, classifications, concept, cancellationToken);
 			}
 
 			return result;
 		}
 
-		private static async Task InheritSignsAsync(
+		/// <summary>Asynchronous counterpart of <see cref="GetSigns"/>.</summary>
+		/// <param name="statements">Statements to search.</param>
+		/// <param name="concept">Concept whose signs are wanted.</param>
+		/// <param name="recursive">When <c>true</c>, signs inherited from ancestors are included.</param>
+		/// <param name="cancellationToken">Cancels the search.</param>
+		/// <returns>The matching sign declarations.</returns>
+		/// <exception cref="OperationCanceledException">The token was cancelled.</exception>
+		public static Task<List<HasSignStatement>> GetSignsAsync(IEnumerable<IStatement> statements, IConcept concept, System.Boolean recursive, CancellationToken cancellationToken = default)
+		{
+			return TaskHelper.FromSynchronous(() => GetSigns(statements, concept, recursive, cancellationToken), cancellationToken);
+		}
+
+		private static void InheritSigns(
 			List<HasSignStatement> result,
 			ICollection<HasSignStatement> hasSigns,
 			ICollection<IsStatement> classifications,
 			IConcept concept,
 			CancellationToken cancellationToken)
 		{
-			foreach (var parent in await classifications.GetParentsOneLevelAsync(concept, cancellationToken: cancellationToken).ConfigureAwait(false))
+			foreach (var parent in classifications.GetParentsOneLevel(concept, cancellationToken: cancellationToken))
 			{
 				result.AddRange(hasSigns.Where(sv => sv.Concept == parent));
 
-				await InheritSignsAsync(result, hasSigns, classifications, parent, cancellationToken).ConfigureAwait(false);
+				InheritSigns(result, hasSigns, classifications, parent, cancellationToken);
 			}
 		}
 	}

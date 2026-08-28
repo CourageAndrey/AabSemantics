@@ -64,9 +64,9 @@ namespace AabSemantics.Modules.Processes.Statements
 		/// <param name="left">First process.</param>
 		/// <param name="right">Second process.</param>
 		/// <returns><c>true</c> if the signs conflict.</returns>
-		protected override async Task<System.Boolean> ContradictsAsync(HashSet<IConcept> signs, IConcept left, IConcept right)
+		protected override System.Boolean Contradicts(HashSet<IConcept> signs, IConcept left, IConcept right)
 		{
-			return await signs.ContradictsAsync();
+			return signs.Contradicts();
 		}
 
 		/// <summary>Derives the sign between two processes from their signs against a shared middle process.</summary>

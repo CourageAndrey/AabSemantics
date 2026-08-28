@@ -148,7 +148,16 @@ namespace AabSemantics.Utils
 			}
 		}
 
-		private static IEnumerable<T> Observing<T>(this IEnumerable<T> sequence, CancellationToken cancellationToken)
+		/// <summary>
+		/// Wraps a sequence so that the token is checked before every item is handed out. This is
+		/// what the operators above use, and what a synchronous traversal needs to stay cancellable.
+		/// </summary>
+		/// <typeparam name="T">Item type.</typeparam>
+		/// <param name="sequence">Sequence to enumerate.</param>
+		/// <param name="cancellationToken">Token to observe; one that cannot be cancelled adds no wrapper at all.</param>
+		/// <returns>The sequence, observing the token.</returns>
+		/// <exception cref="OperationCanceledException">The token was cancelled while enumerating.</exception>
+		public static IEnumerable<T> Observing<T>(this IEnumerable<T> sequence, CancellationToken cancellationToken)
 		{
 			return cancellationToken.CanBeCanceled
 				? ObservingIterator(sequence, cancellationToken)

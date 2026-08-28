@@ -92,10 +92,20 @@ namespace AabSemantics.Modules.Set.Statements
 		/// <param name="cancellationToken">Cancels the search, which walks the whole hierarchy above the concept.</param>
 		/// <returns><c>true</c> when a matching declaration exists.</returns>
 		/// <exception cref="OperationCanceledException">The token was cancelled.</exception>
-		public async Task<System.Boolean> CheckHasSignAsync(IEnumerable<IStatement> statements, CancellationToken cancellationToken = default)
+		public System.Boolean CheckHasSign(IEnumerable<IStatement> statements, CancellationToken cancellationToken = default)
 		{
-			var signs = await HasSignStatement.GetSignsAsync(statements, Concept, true, cancellationToken).ConfigureAwait(false);
-			return (await signs.Select(hs => hs.Sign).ToListAsync(cancellationToken).ConfigureAwait(false)).Contains(Sign);
+			var signs = HasSignStatement.GetSigns(statements, Concept, true, cancellationToken);
+			return signs.Select(hs => hs.Sign).Observing(cancellationToken).Contains(Sign);
+		}
+
+		/// <summary>Asynchronous counterpart of <see cref="CheckHasSign"/>.</summary>
+		/// <param name="statements">Statements to search for the sign declaration.</param>
+		/// <param name="cancellationToken">Cancels the search.</param>
+		/// <returns><c>true</c> when a matching declaration exists.</returns>
+		/// <exception cref="OperationCanceledException">The token was cancelled.</exception>
+		public Task<System.Boolean> CheckHasSignAsync(IEnumerable<IStatement> statements, CancellationToken cancellationToken = default)
+		{
+			return TaskHelper.FromSynchronous(() => CheckHasSign(statements, cancellationToken), cancellationToken);
 		}
 
 		#endregion
@@ -107,30 +117,43 @@ namespace AabSemantics.Modules.Set.Statements
 		/// <param name="cancellationToken">Cancels the search, which walks the whole hierarchy above the concept.</param>
 		/// <returns>The matching statement, or <c>null</c> when the value is undefined.</returns>
 		/// <exception cref="OperationCanceledException">The token was cancelled.</exception>
-		public static async Task<SignValueStatement> GetSignValueAsync(IEnumerable<IStatement> statements, IConcept concept, IConcept sign, CancellationToken cancellationToken = default)
+		public static SignValueStatement GetSignValue(IEnumerable<IStatement> statements, IConcept concept, IConcept sign, CancellationToken cancellationToken = default)
 		{
-			var signValues = await statements.OfType<SignValueStatement>().ToListAsync(cancellationToken).ConfigureAwait(false);
-			var classifications = await statements.OfType<IsStatement>().ToListAsync(cancellationToken).ConfigureAwait(false);
+			// the statements are filtered once here rather than at every level of the hierarchy
+			var signValues = statements.OfType<SignValueStatement>().Observing(cancellationToken).ToList();
+			var classifications = statements.OfType<IsStatement>().Observing(cancellationToken).ToList();
 
-			return await FindSignValueAsync(signValues, classifications, concept, sign, cancellationToken).ConfigureAwait(false);
+			return FindSignValue(signValues, classifications, concept, sign, cancellationToken);
 		}
 
-		private static async Task<SignValueStatement> FindSignValueAsync(
+		/// <summary>Asynchronous counterpart of <see cref="GetSignValue"/>.</summary>
+		/// <param name="statements">Statements to search.</param>
+		/// <param name="concept">Concept whose sign value is wanted.</param>
+		/// <param name="sign">Sign whose value is wanted.</param>
+		/// <param name="cancellationToken">Cancels the search.</param>
+		/// <returns>The matching statement, or <c>null</c> when the value is undefined.</returns>
+		/// <exception cref="OperationCanceledException">The token was cancelled.</exception>
+		public static Task<SignValueStatement> GetSignValueAsync(IEnumerable<IStatement> statements, IConcept concept, IConcept sign, CancellationToken cancellationToken = default)
+		{
+			return TaskHelper.FromSynchronous(() => GetSignValue(statements, concept, sign, cancellationToken), cancellationToken);
+		}
+
+		private static SignValueStatement FindSignValue(
 			ICollection<SignValueStatement> signValues,
 			ICollection<IsStatement> classifications,
 			IConcept concept,
 			IConcept sign,
 			CancellationToken cancellationToken)
 		{
-			var signValue = await signValues.FirstOrDefaultAsync(sv => sv.Concept == concept && sv.Sign == sign, cancellationToken).ConfigureAwait(false);
+			var signValue = signValues.Observing(cancellationToken).FirstOrDefault(sv => sv.Concept == concept && sv.Sign == sign);
 			if (signValue != null)
 			{
 				return signValue;
 			}
 
-			foreach (var parent in await classifications.GetParentsOneLevelAsync(concept, cancellationToken: cancellationToken).ConfigureAwait(false))
+			foreach (var parent in classifications.GetParentsOneLevel(concept, cancellationToken: cancellationToken))
 			{
-				var parentValue = await FindSignValueAsync(signValues, classifications, parent, sign, cancellationToken).ConfigureAwait(false);
+				var parentValue = FindSignValue(signValues, classifications, parent, sign, cancellationToken);
 				if (parentValue != null)
 				{
 					return parentValue;
@@ -147,73 +170,55 @@ namespace AabSemantics.Modules.Set.Statements
 		/// <param name="cancellationToken">Cancels the search; a recursive one walks the whole hierarchy above the concept.</param>
 		/// <returns>The matching sign value statements.</returns>
 		/// <exception cref="OperationCanceledException">The token was cancelled.</exception>
-		public static async Task<List<SignValueStatement>> GetSignValuesAsync(IEnumerable<IStatement> statements, IConcept concept, System.Boolean recursive, CancellationToken cancellationToken = default)
+		public static List<SignValueStatement> GetSignValues(IEnumerable<IStatement> statements, IConcept concept, System.Boolean recursive, CancellationToken cancellationToken = default)
 		{
 			// the statements are filtered once here rather than at every level of the hierarchy
-			var signValues = await statements.OfType<SignValueStatement>().ToListAsync(cancellationToken).ConfigureAwait(false);
+			var signValues = statements.OfType<SignValueStatement>().Observing(cancellationToken).ToList();
 
 			var result = new List<SignValueStatement>(signValues.Where(sv => sv.Concept == concept));
 
 			if (recursive)
 			{
-				var classifications = await statements.OfType<IsStatement>().ToListAsync(cancellationToken).ConfigureAwait(false);
-				await InheritSignValuesAsync(result, signValues, classifications, concept, cancellationToken).ConfigureAwait(false);
+				var classifications = statements.OfType<IsStatement>().Observing(cancellationToken).ToList();
+				InheritSignValues(result, signValues, classifications, concept, cancellationToken);
 			}
 
 			return result;
 		}
 
-		private static async Task InheritSignValuesAsync(
+		/// <summary>Asynchronous counterpart of <see cref="GetSignValues"/>.</summary>
+		/// <param name="statements">Statements to search.</param>
+		/// <param name="concept">Concept whose sign values are wanted.</param>
+		/// <param name="recursive">When <c>true</c>, values inherited from ancestors are included.</param>
+		/// <param name="cancellationToken">Cancels the search.</param>
+		/// <returns>The matching sign value statements.</returns>
+		/// <exception cref="OperationCanceledException">The token was cancelled.</exception>
+		public static Task<List<SignValueStatement>> GetSignValuesAsync(IEnumerable<IStatement> statements, IConcept concept, System.Boolean recursive, CancellationToken cancellationToken = default)
+		{
+			return TaskHelper.FromSynchronous(() => GetSignValues(statements, concept, recursive, cancellationToken), cancellationToken);
+		}
+
+		private static void InheritSignValues(
 			List<SignValueStatement> result,
 			ICollection<SignValueStatement> signValues,
 			ICollection<IsStatement> classifications,
 			IConcept concept,
 			CancellationToken cancellationToken)
 		{
-			foreach (var parent in await classifications.GetParentsOneLevelAsync(concept, cancellationToken: cancellationToken).ConfigureAwait(false))
+			foreach (var parent in classifications.GetParentsOneLevel(concept, cancellationToken: cancellationToken))
 			{
 				foreach (var signValue in signValues.Where(sv => sv.Concept == parent))
 				{
 					// a sign already valued by the concept itself, or by a nearer ancestor, is not inherited again
-					if (! await result.AnyAsync(sv => sv.Sign == signValue.Sign, cancellationToken).ConfigureAwait(false))
+					if (!result.Any(sv => sv.Sign == signValue.Sign))
 					{
 						result.Add(signValue);
 					}
 				}
 
-				await InheritSignValuesAsync(result, signValues, classifications, parent, cancellationToken).ConfigureAwait(false);
+				InheritSignValues(result, signValues, classifications, parent, cancellationToken);
 			}
 		}
 
-		/// <summary>Blocking counterpart of <see cref="CheckHasSignAsync"/>.</summary>
-		/// <param name="statements">Statements to search for the sign declaration.</param>
-		/// <param name="cancellationToken">Cancels the search.</param>
-		/// <returns><c>true</c> when a matching declaration exists.</returns>
-		public System.Boolean CheckHasSign(IEnumerable<IStatement> statements, CancellationToken cancellationToken = default)
-		{
-			return TaskHelper.AwaitDetached(() => CheckHasSignAsync(statements, cancellationToken));
-		}
-
-		/// <summary>Blocking counterpart of <see cref="GetSignValueAsync"/>.</summary>
-		/// <param name="statements">Statements to search.</param>
-		/// <param name="concept">Concept whose sign value is wanted.</param>
-		/// <param name="sign">Sign whose value is wanted.</param>
-		/// <param name="cancellationToken">Cancels the search.</param>
-		/// <returns>The matching statement, or <c>null</c> when the value is undefined.</returns>
-		public static SignValueStatement GetSignValue(IEnumerable<IStatement> statements, IConcept concept, IConcept sign, CancellationToken cancellationToken = default)
-		{
-			return TaskHelper.AwaitDetached(() => GetSignValueAsync(statements, concept, sign, cancellationToken));
-		}
-
-		/// <summary>Blocking counterpart of <see cref="GetSignValuesAsync"/>.</summary>
-		/// <param name="statements">Statements to search.</param>
-		/// <param name="concept">Concept whose sign values are wanted.</param>
-		/// <param name="recursive">When <c>true</c>, values inherited from ancestors are included.</param>
-		/// <param name="cancellationToken">Cancels the search.</param>
-		/// <returns>The matching sign value statements.</returns>
-		public static List<SignValueStatement> GetSignValues(IEnumerable<IStatement> statements, IConcept concept, System.Boolean recursive, CancellationToken cancellationToken = default)
-		{
-			return TaskHelper.AwaitDetached(() => GetSignValuesAsync(statements, concept, recursive, cancellationToken));
-		}
 	}
 }

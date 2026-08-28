@@ -1,5 +1,5 @@
 ﻿using System.Collections.Generic;
-using System.Threading.Tasks;
+using System.Linq;
 
 using AabSemantics.Modules.Mathematics.Concepts;
 using AabSemantics.Statements;
@@ -69,9 +69,9 @@ namespace AabSemantics.Modules.Mathematics.Statements
 		/// <param name="left">Left value of the pair.</param>
 		/// <param name="right">Right value of the pair.</param>
 		/// <returns><c>true</c> if the signs cannot hold together.</returns>
-		protected override async Task<System.Boolean> ContradictsAsync(HashSet<IConcept> signs, IConcept left, IConcept right)
+		protected override System.Boolean Contradicts(HashSet<IConcept> signs, IConcept left, IConcept right)
 		{
-			return await DoesOneOrMoreContradictedSignsPairExistAsync(signs) || await DoesValueContradictToItselfAsync(signs, left, right);
+			return DoesOneOrMoreContradictedSignsPairExist(signs) || DoesValueContradictToItself(signs, left, right);
 		}
 
 		private void MakeAllValuesAlwaysEqualToThemselves()
@@ -82,13 +82,13 @@ namespace AabSemantics.Modules.Mathematics.Statements
 			}
 		}
 
-		private static async Task<System.Boolean> DoesOneOrMoreContradictedSignsPairExistAsync(ICollection<IConcept> signs)
+		private static System.Boolean DoesOneOrMoreContradictedSignsPairExist(ICollection<IConcept> signs)
 		{
 			foreach (var sign1 in signs)
 			{
 				foreach (var sign2 in signs)
 				{
-					if (await sign1.ContradictsAsync(sign2))
+					if (sign1.Contradicts(sign2))
 					{
 						return true;
 					}
@@ -97,9 +97,9 @@ namespace AabSemantics.Modules.Mathematics.Statements
 			return false;
 		}
 
-		private static async Task<System.Boolean> DoesValueContradictToItselfAsync(HashSet<IConcept> signs, IConcept left, IConcept right)
+		private static System.Boolean DoesValueContradictToItself(HashSet<IConcept> signs, IConcept left, IConcept right)
 		{
-			return left == right && await signs.AnyAsync(s => s != ComparisonSigns.IsEqualTo);
+			return left == right && signs.Any(s => s != ComparisonSigns.IsEqualTo);
 		}
 
 		/// <summary>Derives the sign between two values from their signs against a shared middle value.</summary>

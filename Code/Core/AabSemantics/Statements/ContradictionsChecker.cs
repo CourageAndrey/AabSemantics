@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using AabSemantics.Utils;
@@ -69,7 +70,7 @@ namespace AabSemantics.Statements
 		/// <param name="left">Left value of the pair.</param>
 		/// <param name="right">Right value of the pair.</param>
 		/// <returns><c>true</c> if the signs cannot hold together.</returns>
-		protected abstract Task<Boolean> ContradictsAsync(HashSet<IConcept> signs, IConcept left, IConcept right);
+		protected abstract Boolean Contradicts(HashSet<IConcept> signs, IConcept left, IConcept right);
 
 		/// <summary>Infers the sign between two values from the signs linking each of them to a third.</summary>
 		/// <param name="valueRow">First value.</param>
@@ -86,15 +87,24 @@ namespace AabSemantics.Statements
 		/// </param>
 		/// <returns>One entry per contradicting pair of values; empty when the statements are consistent.</returns>
 		/// <exception cref="OperationCanceledException">The token was cancelled.</exception>
-		public async Task<List<Contradiction>> CheckForContradictionsAsync(CancellationToken cancellationToken = default)
+		public List<Contradiction> CheckForContradictions(CancellationToken cancellationToken = default)
 		{
-			while (await UpdateInferredCombinationsAsync(cancellationToken).ConfigureAwait(false))
+			while (UpdateInferredCombinations(cancellationToken))
 			{ }
 
-			return await FindContradictionsInMatrixAsync(cancellationToken).ConfigureAwait(false);
+			return FindContradictionsInMatrix(cancellationToken);
 		}
 
-		private async Task<Boolean> UpdateInferredCombinationsAsync(CancellationToken cancellationToken)
+		/// <summary>Asynchronous counterpart of <see cref="CheckForContradictions"/>.</summary>
+		/// <param name="cancellationToken">Cancels the analysis.</param>
+		/// <returns>One entry per contradicting pair of values; empty when the statements are consistent.</returns>
+		/// <exception cref="OperationCanceledException">The token was cancelled.</exception>
+		public Task<List<Contradiction>> CheckForContradictionsAsync(CancellationToken cancellationToken = default)
+		{
+			return TaskHelper.FromSynchronous(() => CheckForContradictions(cancellationToken), cancellationToken);
+		}
+
+		private Boolean UpdateInferredCombinations(CancellationToken cancellationToken)
 		{
 			Boolean combinationsUpdated = false;
 			foreach (var row in AllValues)
@@ -105,14 +115,14 @@ namespace AabSemantics.Statements
 				{
 					if (row != column)
 					{
-						combinationsUpdated |= await UpdateInferredCombinationsFromCellAsync(row, column).ConfigureAwait(false);
+						combinationsUpdated |= UpdateInferredCombinationsFromCell(row, column);
 					}
 				}
 			}
 			return combinationsUpdated;
 		}
 
-		private async Task<Boolean> UpdateInferredCombinationsFromCellAsync(IConcept row, IConcept column)
+		private Boolean UpdateInferredCombinationsFromCell(IConcept row, IConcept column)
 		{
 			Dictionary<IConcept, HashSet<IConcept>> combinationsRow;
 			HashSet<IConcept> signsRow;
@@ -121,10 +131,10 @@ namespace AabSemantics.Statements
 			return	AllSigns.TryGetValue(row, out combinationsRow) &&
 					combinationsRow.TryGetValue(column, out signsRow) && // if value in current cell is set
 					AllSigns.TryGetValue(column, out combinationsColumn) && // if current value has comparisons with other values
-					await UpdateAllInferredCombinationsWithinCellAsync(row, combinationsColumn, signsRow);
+					UpdateAllInferredCombinationsWithinCell(row, combinationsColumn, signsRow);
 		}
 
-		private async Task<Boolean> UpdateAllInferredCombinationsWithinCellAsync(
+		private Boolean UpdateAllInferredCombinationsWithinCell(
 			IConcept valueRow,
 			Dictionary<IConcept, HashSet<IConcept>> combinationsColumn,
 			HashSet<IConcept> signsRow)
@@ -135,9 +145,10 @@ namespace AabSemantics.Statements
 				var valueColumn = kvp.Key;
 				var signsColumn = kvp.Value;
 
-				foreach (var signRow in await signsRow.ToListAsync())
+				// the cells are copied, because inferring new signs writes into the very same matrix
+				foreach (var signRow in signsRow.ToList())
 				{
-					foreach (var signColumn in await signsColumn.ToListAsync())
+					foreach (var signColumn in signsColumn.ToList())
 					{
 						combinationsUpdated |= TryToUpdateCombinations(valueRow, signRow, signColumn, valueColumn);
 					}
@@ -146,7 +157,7 @@ namespace AabSemantics.Statements
 			return combinationsUpdated;
 		}
 
-		private async Task<List<Contradiction>> FindContradictionsInMatrixAsync(CancellationToken cancellationToken)
+		private List<Contradiction> FindContradictionsInMatrix(CancellationToken cancellationToken)
 		{
 			var foundContradictions = new List<Contradiction>();
 
@@ -159,7 +170,7 @@ namespace AabSemantics.Statements
 				{
 					var right = rightCombinations.Key;
 					var signs = rightCombinations.Value;
-					await FindContradictionsInCellAsync(signs, left, right, foundContradictions);
+					FindContradictionsInCell(signs, left, right, foundContradictions);
 				}
 			}
 
@@ -294,11 +305,11 @@ namespace AabSemantics.Statements
 			return matrix.ToString();
 		}*/
 
-		private async Task FindContradictionsInCellAsync(HashSet<IConcept> signs, IConcept left, IConcept right, List<Contradiction> foundContradictions)
+		private void FindContradictionsInCell(HashSet<IConcept> signs, IConcept left, IConcept right, List<Contradiction> foundContradictions)
 		{
-			if (await ContradictsAsync(signs, left, right))
+			if (Contradicts(signs, left, right))
 			{
-				if (! await foundContradictions.AnyAsync(c => c.Value1 == right && c.Value2 == left))
+				if (!foundContradictions.Any(c => c.Value1 == right && c.Value2 == left))
 				{
 					foundContradictions.Add(new Contradiction(left, right, signs));
 				}

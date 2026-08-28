@@ -94,25 +94,22 @@ namespace AabSemantics.Modules.Classification.Statements
 		/// <param name="cancellationToken">Cancels the search, which walks the whole hierarchy.</param>
 		/// <returns><c>true</c> when no such reverse path exists, i.e. the hierarchy stays acyclic.</returns>
 		/// <exception cref="OperationCanceledException">The token was cancelled.</exception>
-		public async Task<System.Boolean> CheckCyclicAsync(IEnumerable<IsStatement> statements, CancellationToken cancellationToken = default)
+		public System.Boolean CheckCyclic(IEnumerable<IsStatement> statements, CancellationToken cancellationToken = default)
 		{
-			var path = await statements.FindPathAsync(typeof(IsStatement), Child, Parent, cancellationToken).ConfigureAwait(false);
-			return !path.Any();
+			return !statements.FindPath(typeof(IsStatement), Child, Parent, cancellationToken).Any();
+		}
+
+		/// <summary>Asynchronous counterpart of <see cref="CheckCyclic"/>.</summary>
+		/// <param name="statements">Statements to search, normally all "is a" statements of the network.</param>
+		/// <param name="cancellationToken">Cancels the search, which walks the whole hierarchy.</param>
+		/// <returns><c>true</c> when the hierarchy stays acyclic.</returns>
+		/// <exception cref="OperationCanceledException">The token was cancelled.</exception>
+		public Task<System.Boolean> CheckCyclicAsync(IEnumerable<IsStatement> statements, CancellationToken cancellationToken = default)
+		{
+			return TaskHelper.FromSynchronous(() => CheckCyclic(statements, cancellationToken), cancellationToken);
 		}
 
 		#endregion
 	}
 
-	/// <summary>Blocking wrappers over <see cref="IsStatement"/>.</summary>
-	public static class IsStatementExtensions
-	{
-		/// <summary>Blocking counterpart of <see cref="IsStatement.CheckCyclicAsync"/>.</summary>
-		/// <param name="statement">Statement to check.</param>
-		/// <param name="statements">Statements to search.</param>
-		/// <returns><c>true</c> when the hierarchy stays acyclic.</returns>
-		public static System.Boolean CheckCyclic(this IsStatement statement, IEnumerable<IsStatement> statements)
-		{
-			return TaskHelper.AwaitDetached(() => statement.CheckCyclicAsync(statements));
-		}
-	}
 }
