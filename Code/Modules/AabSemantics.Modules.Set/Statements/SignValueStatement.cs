@@ -109,25 +109,35 @@ namespace AabSemantics.Modules.Set.Statements
 		/// <exception cref="OperationCanceledException">The token was cancelled.</exception>
 		public static async Task<SignValueStatement> GetSignValueAsync(IEnumerable<IStatement> statements, IConcept concept, IConcept sign, CancellationToken cancellationToken = default)
 		{
-			var signValues = await statements.OfType<SignValueStatement>().ToListAsync(cancellationToken);
-			var signValue = await signValues.FirstOrDefaultAsync(sv => sv.Concept == concept && sv.Sign == sign, cancellationToken);
+			var signValues = await statements.OfType<SignValueStatement>().ToListAsync(cancellationToken).ConfigureAwait(false);
+			var classifications = await statements.OfType<IsStatement>().ToListAsync(cancellationToken).ConfigureAwait(false);
+
+			return await FindSignValueAsync(signValues, classifications, concept, sign, cancellationToken).ConfigureAwait(false);
+		}
+
+		private static async Task<SignValueStatement> FindSignValueAsync(
+			ICollection<SignValueStatement> signValues,
+			ICollection<IsStatement> classifications,
+			IConcept concept,
+			IConcept sign,
+			CancellationToken cancellationToken)
+		{
+			var signValue = await signValues.FirstOrDefaultAsync(sv => sv.Concept == concept && sv.Sign == sign, cancellationToken).ConfigureAwait(false);
 			if (signValue != null)
 			{
 				return signValue;
 			}
-			else
-			{
-				foreach (var parent in await statements.GetParentsOneLevelAsync<IConcept, IsStatement>(concept, cancellationToken: cancellationToken))
-				{
-					var parentValue = await GetSignValueAsync(statements, parent, sign, cancellationToken);
-					if (parentValue != null)
-					{
-						return parentValue;
-					}
-				}
 
-				return null;
+			foreach (var parent in await classifications.GetParentsOneLevelAsync(concept, cancellationToken: cancellationToken).ConfigureAwait(false))
+			{
+				var parentValue = await FindSignValueAsync(signValues, classifications, parent, sign, cancellationToken).ConfigureAwait(false);
+				if (parentValue != null)
+				{
+					return parentValue;
+				}
 			}
+
+			return null;
 		}
 
 		/// <summary>Collects the sign values defined for a concept.</summary>
@@ -139,25 +149,40 @@ namespace AabSemantics.Modules.Set.Statements
 		/// <exception cref="OperationCanceledException">The token was cancelled.</exception>
 		public static async Task<List<SignValueStatement>> GetSignValuesAsync(IEnumerable<IStatement> statements, IConcept concept, System.Boolean recursive, CancellationToken cancellationToken = default)
 		{
-			var result = new List<SignValueStatement>();
-			var signValues = await statements.OfType<SignValueStatement>().ToListAsync(cancellationToken);
-			result.AddRange(signValues.Where(sv => sv.Concept == concept));
+			// the statements are filtered once here rather than at every level of the hierarchy
+			var signValues = await statements.OfType<SignValueStatement>().ToListAsync(cancellationToken).ConfigureAwait(false);
+
+			var result = new List<SignValueStatement>(signValues.Where(sv => sv.Concept == concept));
 
 			if (recursive)
 			{
-				foreach (var parent in await statements.GetParentsOneLevelAsync<IConcept, IsStatement>(concept, cancellationToken: cancellationToken))
+				var classifications = await statements.OfType<IsStatement>().ToListAsync(cancellationToken).ConfigureAwait(false);
+				await InheritSignValuesAsync(result, signValues, classifications, concept, cancellationToken).ConfigureAwait(false);
+			}
+
+			return result;
+		}
+
+		private static async Task InheritSignValuesAsync(
+			List<SignValueStatement> result,
+			ICollection<SignValueStatement> signValues,
+			ICollection<IsStatement> classifications,
+			IConcept concept,
+			CancellationToken cancellationToken)
+		{
+			foreach (var parent in await classifications.GetParentsOneLevelAsync(concept, cancellationToken: cancellationToken).ConfigureAwait(false))
+			{
+				foreach (var signValue in signValues.Where(sv => sv.Concept == parent))
 				{
-					var parentSignValues = await GetSignValuesAsync(statements, parent, true, cancellationToken);
-					foreach (var signValue in parentSignValues)
+					// a sign already valued by the concept itself, or by a nearer ancestor, is not inherited again
+					if (! await result.AnyAsync(sv => sv.Sign == signValue.Sign, cancellationToken).ConfigureAwait(false))
 					{
-						if (! await result.AnyAsync(sv => sv.Sign == signValue.Sign, cancellationToken))
-						{
-							result.Add(signValue);
-						}
+						result.Add(signValue);
 					}
 				}
+
+				await InheritSignValuesAsync(result, signValues, classifications, parent, cancellationToken).ConfigureAwait(false);
 			}
-			return result;
 		}
 
 		/// <summary>Blocking counterpart of <see cref="CheckHasSignAsync"/>.</summary>

@@ -12,10 +12,10 @@ namespace AabSemantics.Modules.Boolean.Questions
 		/// <param name="builder">Builder carrying the network and any preconditions.</param>
 		/// <param name="statement">Statement to check.</param>
 		/// <returns>A yes/no answer.</returns>
-		public static async Task<IAnswer> IsTrueThatAsync(this QuestionBuilder builder, IStatement statement)
+		public static Task<IAnswer> IsTrueThatAsync(this QuestionBuilder builder, IStatement statement)
 		{
 			var question = new CheckStatementQuestion(statement, builder.Preconditions);
-			return await question.AskAsync(builder.SemanticNetwork.Context, null, builder.CancellationToken);
+			return question.AskAsync(builder.SemanticNetwork.Context, null, builder.CancellationToken);
 		}
 
 		/// <summary>Blocking counterpart of <see cref="IsTrueThatAsync"/>.</summary>

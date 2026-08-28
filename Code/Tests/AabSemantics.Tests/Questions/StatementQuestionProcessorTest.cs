@@ -22,7 +22,7 @@ namespace AabSemantics.Tests.Questions
 	public class StatementQuestionProcessorTest
 	{
 		[Test]
-		public void GivenCustomQuestionProcessor_WhenProcess_ThenSucceed()
+		public async Task GivenCustomQuestionProcessor_WhenProcess_ThenSucceed()
 		{
 			// arrange
 			var semanticNetwork = new SemanticNetwork(Language.Default);
@@ -35,7 +35,7 @@ namespace AabSemantics.Tests.Questions
 			Assert.That(processor.GetStatements(), Is.Not.Null);
 			Assert.That(processor.GetChildAnswers(), Is.Not.Null);
 			Assert.That(processor.GetAdditionalTransitives(), Is.Not.Null);
-			Assert.That(processor.IsItNecessaryToProcessTransitives(Array.Empty<IsStatement>()), Is.Not.Null);
+			Assert.That(await processor.IsItNecessaryToProcessTransitivesAsync(Array.Empty<IsStatement>()), Is.False);
 			Assert.That(processor.EnumerateTransitiveQuestions(questionContext), Is.Not.Null);
 			Assert.DoesNotThrow(() => processor.IsItNecessaryToAggregateTransitivesToStatements());
 		}
@@ -185,9 +185,9 @@ namespace AabSemantics.Tests.Questions
 				return AdditionalTransitives;
 			}
 
-			public Boolean IsItNecessaryToProcessTransitives(ICollection<IsStatement> statements)
+			public Task<Boolean> IsItNecessaryToProcessTransitivesAsync(ICollection<IsStatement> statements)
 			{
-				return NeedToProcessTransitives(statements).Result;
+				return NeedToProcessTransitives(statements);
 			}
 
 			public IEnumerable<NestedQuestion> EnumerateTransitiveQuestions(IQuestionProcessingContext<IsQuestion> context)

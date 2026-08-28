@@ -111,19 +111,32 @@ namespace AabSemantics.Modules.Set.Statements
 		/// <exception cref="OperationCanceledException">The token was cancelled.</exception>
 		public static async Task<List<HasSignStatement>> GetSignsAsync(IEnumerable<IStatement> statements, IConcept concept, System.Boolean recursive, CancellationToken cancellationToken = default)
 		{
-			var result = new List<HasSignStatement>();
-			var hasSigns = await statements.OfType<HasSignStatement>().ToListAsync(cancellationToken);
-			result.AddRange(hasSigns.Where(sv => sv.Concept == concept));
+			var hasSigns = await statements.OfType<HasSignStatement>().ToListAsync(cancellationToken).ConfigureAwait(false);
+
+			var result = new List<HasSignStatement>(hasSigns.Where(sv => sv.Concept == concept));
+
 			if (recursive)
 			{
-				foreach (var parent in await statements.GetParentsOneLevelAsync<IConcept, IsStatement>(concept, cancellationToken: cancellationToken))
-				{
-					var parentSigns = await GetSignsAsync(statements, parent, true, cancellationToken);
-					result.AddRange(parentSigns);
-				}
+				var classifications = await statements.OfType<IsStatement>().ToListAsync(cancellationToken).ConfigureAwait(false);
+				await InheritSignsAsync(result, hasSigns, classifications, concept, cancellationToken).ConfigureAwait(false);
 			}
 
 			return result;
+		}
+
+		private static async Task InheritSignsAsync(
+			List<HasSignStatement> result,
+			ICollection<HasSignStatement> hasSigns,
+			ICollection<IsStatement> classifications,
+			IConcept concept,
+			CancellationToken cancellationToken)
+		{
+			foreach (var parent in await classifications.GetParentsOneLevelAsync(concept, cancellationToken: cancellationToken).ConfigureAwait(false))
+			{
+				result.AddRange(hasSigns.Where(sv => sv.Concept == parent));
+
+				await InheritSignsAsync(result, hasSigns, classifications, parent, cancellationToken).ConfigureAwait(false);
+			}
 		}
 	}
 }

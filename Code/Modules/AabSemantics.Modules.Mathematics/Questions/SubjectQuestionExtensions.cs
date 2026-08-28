@@ -13,10 +13,10 @@ namespace AabSemantics.Modules.Mathematics.Questions
 		/// <param name="leftValue">The left-hand value.</param>
 		/// <param name="rightValue">The right-hand value.</param>
 		/// <returns>An answer naming the comparison sign.</returns>
-		public static async Task<IAnswer> HowComparedAsync(this QuestionBuilder builder, IConcept leftValue, IConcept rightValue)
+		public static Task<IAnswer> HowComparedAsync(this QuestionBuilder builder, IConcept leftValue, IConcept rightValue)
 		{
 			var question = new ComparisonQuestion(leftValue, rightValue, builder.Preconditions);
-			return await question.AskAsync(builder.SemanticNetwork.Context, null, builder.CancellationToken).ConfigureAwait(false);
+			return question.AskAsync(builder.SemanticNetwork.Context, null, builder.CancellationToken);
 		}
 
 		/// <summary>Blocking counterpart of <see cref="HowComparedAsync"/>.</summary>
