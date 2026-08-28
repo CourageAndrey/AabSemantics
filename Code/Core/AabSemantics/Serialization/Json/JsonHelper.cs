@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Runtime.Serialization.Json;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
 using AabSemantics.Utils;
@@ -79,9 +80,11 @@ namespace AabSemantics.Serialization.Json
 		/// <summary>Blocking counterpart of <see cref="SerializeToJsonFileAsync"/>.</summary>
 		/// <param name="entity">Object to serialize.</param>
 		/// <param name="fileName">Path to write to.</param>
-		public static void SerializeToJsonFile(this Object entity, String fileName)
+		/// <param name="cancellationToken">Cancels waiting for the disk.</param>
+		/// <exception cref="OperationCanceledException">The token was cancelled.</exception>
+		public static void SerializeToJsonFile(this Object entity, String fileName, CancellationToken cancellationToken = default)
 		{
-			TaskHelper.AwaitDetached(() => SerializeToJsonFileAsync(entity, fileName));
+			TaskHelper.AwaitDetached(() => SerializeToJsonFileAsync(entity, fileName, cancellationToken));
 		}
 
 		/// <summary>
@@ -89,18 +92,28 @@ namespace AabSemantics.Serialization.Json
 		/// asynchronous API and nothing but memory is touched, so the returned task is completed.
 		/// </summary>
 		/// <param name="entity">Object to serialize.</param>
+		/// <param name="cancellationToken">Cancels the call before the serializer is started.</param>
 		/// <returns>The JSON text.</returns>
-		public static Task<String> SerializeToJsonStringAsync(this Object entity)
+		/// <exception cref="OperationCanceledException">The token was cancelled.</exception>
+		public static Task<String> SerializeToJsonStringAsync(this Object entity, CancellationToken cancellationToken = default)
 		{
-			return TaskHelper.FromSynchronous(() => entity.SerializeToJsonString());
+			return TaskHelper.FromSynchronous(() => entity.SerializeToJsonString(), cancellationToken);
 		}
 
-		/// <summary>Serializes an object to a file, overwriting it.</summary>
+		/// <summary>
+		/// Serializes an object to a file, overwriting it. The text is produced by the serializer,
+		/// which cannot be interrupted, so the token is observed before that and then while the
+		/// bytes are written.
+		/// </summary>
 		/// <param name="entity">Object to serialize.</param>
 		/// <param name="fileName">Path to write to.</param>
-		public static async Task SerializeToJsonFileAsync(this Object entity, String fileName)
+		/// <param name="cancellationToken">Cancels the call and waiting for the disk.</param>
+		/// <exception cref="OperationCanceledException">The token was cancelled.</exception>
+		public static async Task SerializeToJsonFileAsync(this Object entity, String fileName, CancellationToken cancellationToken = default)
 		{
-			await AsyncFile.WriteAllBytesAsync(fileName, entity.SerializeToJsonBytes()).ConfigureAwait(false);
+			cancellationToken.ThrowIfCancellationRequested();
+
+			await AsyncFile.WriteAllBytesAsync(fileName, entity.SerializeToJsonBytes(), cancellationToken).ConfigureAwait(false);
 		}
 
 		/// <summary>Serializes an object to JSON bytes in the <see cref="Encoding"/> of this helper.</summary>
@@ -142,12 +155,19 @@ namespace AabSemantics.Serialization.Json
 			}
 		}
 
-		/// <summary>Blocking counterpart of <see cref="DeserializeFromJsonFileAsync{T}"/>.</summary>
+		/// <summary>
+		/// Blocking counterpart of <see cref="DeserializeFromJsonFileAsync{T}"/>. Reading and parsing
+		/// cannot be interrupted, so the token is only observed before they start.
+		/// </summary>
 		/// <typeparam name="T">Type of the object.</typeparam>
 		/// <param name="file">Path to read from.</param>
+		/// <param name="cancellationToken">Cancels the call before the file is read.</param>
 		/// <returns>The deserialized object.</returns>
-		public static T DeserializeFromJsonFile<T>(this String file)
+		/// <exception cref="OperationCanceledException">The token was cancelled.</exception>
+		public static T DeserializeFromJsonFile<T>(this String file, CancellationToken cancellationToken = default)
 		{
+			cancellationToken.ThrowIfCancellationRequested();
+
 			return File.ReadAllBytes(file).DeserializeFromJsonBytes<T>();
 		}
 
@@ -167,10 +187,12 @@ namespace AabSemantics.Serialization.Json
 		/// </summary>
 		/// <typeparam name="T">Type of the object.</typeparam>
 		/// <param name="stream">Stream to read from.</param>
+		/// <param name="cancellationToken">Cancels the call before the stream is drained.</param>
 		/// <returns>The deserialized object.</returns>
-		public static Task<T> DeserializeFromJsonStreamAsync<T>(this Stream stream)
+		/// <exception cref="OperationCanceledException">The token was cancelled.</exception>
+		public static Task<T> DeserializeFromJsonStreamAsync<T>(this Stream stream, CancellationToken cancellationToken = default)
 		{
-			return TaskHelper.FromSynchronous(() => stream.DeserializeFromJsonStream<T>());
+			return TaskHelper.FromSynchronous(() => stream.DeserializeFromJsonStream<T>(), cancellationToken);
 		}
 
 		/// <summary>
@@ -179,20 +201,27 @@ namespace AabSemantics.Serialization.Json
 		/// </summary>
 		/// <typeparam name="T">Type of the object.</typeparam>
 		/// <param name="bytes">JSON text.</param>
+		/// <param name="cancellationToken">Cancels the call before the serializer is started.</param>
 		/// <returns>The deserialized object.</returns>
-		public static Task<T> DeserializeFromJsonBytesAsync<T>(this Byte[] bytes)
+		/// <exception cref="OperationCanceledException">The token was cancelled.</exception>
+		public static Task<T> DeserializeFromJsonBytesAsync<T>(this Byte[] bytes, CancellationToken cancellationToken = default)
 		{
-			return TaskHelper.FromSynchronous(() => bytes.DeserializeFromJsonBytes<T>());
+			return TaskHelper.FromSynchronous(() => bytes.DeserializeFromJsonBytes<T>(), cancellationToken);
 		}
 
-		/// <summary>Deserializes an object from a JSON file.</summary>
+		/// <summary>
+		/// Deserializes an object from a JSON file. The token is observed while the file is read;
+		/// parsing it afterwards cannot be interrupted.
+		/// </summary>
 		/// <typeparam name="T">Type of the object.</typeparam>
 		/// <param name="file">Path to read from.</param>
+		/// <param name="cancellationToken">Cancels waiting for the disk.</param>
 		/// <returns>The deserialized object.</returns>
-		public static async Task<T> DeserializeFromJsonFileAsync<T>(this String file)
+		/// <exception cref="OperationCanceledException">The token was cancelled.</exception>
+		public static async Task<T> DeserializeFromJsonFileAsync<T>(this String file, CancellationToken cancellationToken = default)
 		{
 			// the file is read into memory first, as the serializer itself cannot read asynchronously
-			var bytes = await AsyncFile.ReadAllBytesAsync(file).ConfigureAwait(false);
+			var bytes = await AsyncFile.ReadAllBytesAsync(file, cancellationToken).ConfigureAwait(false);
 			return bytes.DeserializeFromJsonBytes<T>();
 		}
 
@@ -202,10 +231,12 @@ namespace AabSemantics.Serialization.Json
 		/// </summary>
 		/// <typeparam name="T">Type of the object.</typeparam>
 		/// <param name="json">JSON text.</param>
+		/// <param name="cancellationToken">Cancels the call before the serializer is started.</param>
 		/// <returns>The deserialized object.</returns>
-		public static Task<T> DeserializeFromJsonStringAsync<T>(this String json)
+		/// <exception cref="OperationCanceledException">The token was cancelled.</exception>
+		public static Task<T> DeserializeFromJsonStringAsync<T>(this String json, CancellationToken cancellationToken = default)
 		{
-			return TaskHelper.FromSynchronous(() => json.DeserializeFromJsonString<T>());
+			return TaskHelper.FromSynchronous(() => json.DeserializeFromJsonString<T>(), cancellationToken);
 		}
 
 		#endregion

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Reflection;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Xml;
 using System.Xml.Serialization;
@@ -183,6 +184,52 @@ namespace AabSemantics.Tests.Serialization.Xml
 			Assert.That(deserializedFromBytes, Is.EqualTo(test));
 			Assert.That(deserializedFromFile, Is.EqualTo(test));
 			Assert.That(deserializedFromString, Is.EqualTo(test));
+		}
+
+		[Test]
+		public void GivenCancelledToken_WhenSerializeOrDeserialize_ThenThrow()
+		{
+			// arrange
+			var test = Test.Create();
+			string tempFileName = Path.GetTempFileName();
+
+			try
+			{
+				test.SerializeToXmlFile(tempFileName);
+				string serializedString = test.SerializeToXmlString();
+				byte[] serializedBytes = File.ReadAllBytes(tempFileName);
+
+				using (var tokenSource = new CancellationTokenSource())
+				{
+					tokenSource.Cancel();
+					var token = tokenSource.Token;
+
+					// act & assert
+					Assert.That(async () => await test.SerializeToXmlStringAsync(token), Throws.InstanceOf<OperationCanceledException>());
+					Assert.That(async () => await test.SerializeToXmlDocumentAsync(token), Throws.InstanceOf<OperationCanceledException>());
+					Assert.That(async () => await test.SerializeToXmlElementAsync(token), Throws.InstanceOf<OperationCanceledException>());
+					Assert.That(async () => await test.SerializeToXmlFileAsync(tempFileName, token), Throws.InstanceOf<OperationCanceledException>());
+					Assert.That(async () => await serializedBytes.DeserializeFromXmlBytesAsync<Test>(token), Throws.InstanceOf<OperationCanceledException>());
+					Assert.That(async () => await tempFileName.DeserializeFromXmlFileAsync<Test>(token), Throws.InstanceOf<OperationCanceledException>());
+					Assert.That(async () => await serializedString.DeserializeFromXmlStringAsync<Test>(token), Throws.InstanceOf<OperationCanceledException>());
+
+					using (var xmlReader = new XmlTextReader(tempFileName))
+					{
+						Assert.That(async () => await xmlReader.DeserializeFromXmlStreamAsync<Test>(token), Throws.InstanceOf<OperationCanceledException>());
+					}
+
+					// the blocking wrappers report cancellation just as the asynchronous ones do
+					Assert.That(() => test.SerializeToXmlFile(tempFileName, token), Throws.InstanceOf<OperationCanceledException>());
+					Assert.That(() => tempFileName.DeserializeFromXmlFile<Test>(token), Throws.InstanceOf<OperationCanceledException>());
+				}
+			}
+			finally
+			{
+				if (File.Exists(tempFileName))
+				{
+					File.Delete(tempFileName);
+				}
+			}
 		}
 
 		[Test]

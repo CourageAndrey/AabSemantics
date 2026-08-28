@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Xml;
 using System.Xml.Serialization;
@@ -192,9 +193,11 @@ namespace AabSemantics.Serialization.Xml
 		/// <summary>Blocking counterpart of <see cref="SerializeToXmlFileAsync"/>.</summary>
 		/// <param name="entity">Object to serialize.</param>
 		/// <param name="fileName">Path to write to.</param>
-		public static void SerializeToXmlFile(this Object entity, String fileName)
+		/// <param name="cancellationToken">Cancels waiting for the disk.</param>
+		/// <exception cref="OperationCanceledException">The token was cancelled.</exception>
+		public static void SerializeToXmlFile(this Object entity, String fileName, CancellationToken cancellationToken = default)
 		{
-			TaskHelper.AwaitDetached(() => SerializeToXmlFileAsync(entity, fileName));
+			TaskHelper.AwaitDetached(() => SerializeToXmlFileAsync(entity, fileName, cancellationToken));
 		}
 
 		/// <summary>
@@ -202,10 +205,12 @@ namespace AabSemantics.Serialization.Xml
 		/// asynchronous API and nothing but memory is touched, so the returned task is completed.
 		/// </summary>
 		/// <param name="entity">Object to serialize.</param>
+		/// <param name="cancellationToken">Cancels the call before the serializer is started.</param>
 		/// <returns>The XML markup.</returns>
-		public static Task<String> SerializeToXmlStringAsync(this Object entity)
+		/// <exception cref="OperationCanceledException">The token was cancelled.</exception>
+		public static Task<String> SerializeToXmlStringAsync(this Object entity, CancellationToken cancellationToken = default)
 		{
-			return TaskHelper.FromSynchronous(() => entity.SerializeToXmlString());
+			return TaskHelper.FromSynchronous(() => entity.SerializeToXmlString(), cancellationToken);
 		}
 
 		/// <summary>
@@ -213,10 +218,12 @@ namespace AabSemantics.Serialization.Xml
 		/// asynchronous API and nothing but memory is touched, so the returned task is completed.
 		/// </summary>
 		/// <param name="entity">Object to serialize.</param>
+		/// <param name="cancellationToken">Cancels the call before the serializer is started.</param>
 		/// <returns>The document.</returns>
-		public static Task<XmlDocument> SerializeToXmlDocumentAsync(this Object entity)
+		/// <exception cref="OperationCanceledException">The token was cancelled.</exception>
+		public static Task<XmlDocument> SerializeToXmlDocumentAsync(this Object entity, CancellationToken cancellationToken = default)
 		{
-			return TaskHelper.FromSynchronous(() => entity.SerializeToXmlDocument());
+			return TaskHelper.FromSynchronous(() => entity.SerializeToXmlDocument(), cancellationToken);
 		}
 
 		/// <summary>
@@ -224,24 +231,34 @@ namespace AabSemantics.Serialization.Xml
 		/// asynchronous API and nothing but memory is touched, so the returned task is completed.
 		/// </summary>
 		/// <param name="entity">Object to serialize.</param>
+		/// <param name="cancellationToken">Cancels the call before the serializer is started.</param>
 		/// <returns>The document element.</returns>
-		public static Task<XmlElement> SerializeToXmlElementAsync(this Object entity)
+		/// <exception cref="OperationCanceledException">The token was cancelled.</exception>
+		public static Task<XmlElement> SerializeToXmlElementAsync(this Object entity, CancellationToken cancellationToken = default)
 		{
-			return TaskHelper.FromSynchronous(() => entity.SerializeToXmlElement());
+			return TaskHelper.FromSynchronous(() => entity.SerializeToXmlElement(), cancellationToken);
 		}
 
-		/// <summary>Serializes an object to a file, overwriting it.</summary>
+		/// <summary>
+		/// Serializes an object to a file, overwriting it. The markup is produced by the serializer,
+		/// which cannot be interrupted, so the token is observed before that and then while the
+		/// bytes are written.
+		/// </summary>
 		/// <param name="entity">Object to serialize.</param>
 		/// <param name="fileName">Path to write to.</param>
-		public static async Task SerializeToXmlFileAsync(this Object entity, String fileName)
+		/// <param name="cancellationToken">Cancels the call and waiting for the disk.</param>
+		/// <exception cref="OperationCanceledException">The token was cancelled.</exception>
+		public static async Task SerializeToXmlFileAsync(this Object entity, String fileName, CancellationToken cancellationToken = default)
 		{
+			cancellationToken.ThrowIfCancellationRequested();
+
 			var document = entity.SerializeToXmlDocument();
 
 			// the document is written to memory first, as XmlDocument itself cannot save asynchronously
 			using (var buffer = new MemoryStream())
 			{
 				document.Save(buffer);
-				await AsyncFile.WriteAllBytesAsync(fileName, buffer.ToArray()).ConfigureAwait(false);
+				await AsyncFile.WriteAllBytesAsync(fileName, buffer.ToArray(), cancellationToken).ConfigureAwait(false);
 			}
 		}
 
@@ -274,12 +291,19 @@ namespace AabSemantics.Serialization.Xml
 			}
 		}
 
-		/// <summary>Blocking counterpart of <see cref="DeserializeFromXmlFileAsync{T}"/>.</summary>
+		/// <summary>
+		/// Blocking counterpart of <see cref="DeserializeFromXmlFileAsync{T}"/>. Reading and parsing
+		/// cannot be interrupted, so the token is only observed before they start.
+		/// </summary>
 		/// <typeparam name="T">Type of the object.</typeparam>
 		/// <param name="file">Path to read from.</param>
+		/// <param name="cancellationToken">Cancels the call before the file is opened.</param>
 		/// <returns>The deserialized object.</returns>
-		public static T DeserializeFromXmlFile<T>(this String file)
+		/// <exception cref="OperationCanceledException">The token was cancelled.</exception>
+		public static T DeserializeFromXmlFile<T>(this String file, CancellationToken cancellationToken = default)
 		{
+			cancellationToken.ThrowIfCancellationRequested();
+
 			using (var xmlFile = new XmlTextReader(file))
 			{
 				return xmlFile.DeserializeFromXmlStream<T>();
@@ -308,10 +332,12 @@ namespace AabSemantics.Serialization.Xml
 		/// </summary>
 		/// <typeparam name="T">Type of the object.</typeparam>
 		/// <param name="reader">Reader positioned at the object.</param>
+		/// <param name="cancellationToken">Cancels the call before the reader is drained.</param>
 		/// <returns>The deserialized object.</returns>
-		public static Task<T> DeserializeFromXmlStreamAsync<T>(this XmlReader reader)
+		/// <exception cref="OperationCanceledException">The token was cancelled.</exception>
+		public static Task<T> DeserializeFromXmlStreamAsync<T>(this XmlReader reader, CancellationToken cancellationToken = default)
 		{
-			return TaskHelper.FromSynchronous(() => reader.DeserializeFromXmlStream<T>());
+			return TaskHelper.FromSynchronous(() => reader.DeserializeFromXmlStream<T>(), cancellationToken);
 		}
 
 		/// <summary>
@@ -320,20 +346,27 @@ namespace AabSemantics.Serialization.Xml
 		/// </summary>
 		/// <typeparam name="T">Type of the object.</typeparam>
 		/// <param name="bytes">XML markup.</param>
+		/// <param name="cancellationToken">Cancels the call before the serializer is started.</param>
 		/// <returns>The deserialized object.</returns>
-		public static Task<T> DeserializeFromXmlBytesAsync<T>(this Byte[] bytes)
+		/// <exception cref="OperationCanceledException">The token was cancelled.</exception>
+		public static Task<T> DeserializeFromXmlBytesAsync<T>(this Byte[] bytes, CancellationToken cancellationToken = default)
 		{
-			return TaskHelper.FromSynchronous(() => bytes.DeserializeFromXmlBytes<T>());
+			return TaskHelper.FromSynchronous(() => bytes.DeserializeFromXmlBytes<T>(), cancellationToken);
 		}
 
-		/// <summary>Deserializes an object from an XML file.</summary>
+		/// <summary>
+		/// Deserializes an object from an XML file. The token is observed while the file is read;
+		/// parsing it afterwards cannot be interrupted.
+		/// </summary>
 		/// <typeparam name="T">Type of the object.</typeparam>
 		/// <param name="file">Path to read from.</param>
+		/// <param name="cancellationToken">Cancels waiting for the disk.</param>
 		/// <returns>The deserialized object.</returns>
-		public static async Task<T> DeserializeFromXmlFileAsync<T>(this String file)
+		/// <exception cref="OperationCanceledException">The token was cancelled.</exception>
+		public static async Task<T> DeserializeFromXmlFileAsync<T>(this String file, CancellationToken cancellationToken = default)
 		{
 			// the file is read into memory first, as the serializer itself cannot read asynchronously
-			var bytes = await AsyncFile.ReadAllBytesAsync(file).ConfigureAwait(false);
+			var bytes = await AsyncFile.ReadAllBytesAsync(file, cancellationToken).ConfigureAwait(false);
 			return bytes.DeserializeFromXmlBytes<T>();
 		}
 
@@ -343,10 +376,12 @@ namespace AabSemantics.Serialization.Xml
 		/// </summary>
 		/// <typeparam name="T">Type of the object.</typeparam>
 		/// <param name="xml">XML markup.</param>
+		/// <param name="cancellationToken">Cancels the call before the serializer is started.</param>
 		/// <returns>The deserialized object.</returns>
-		public static Task<T> DeserializeFromXmlStringAsync<T>(this String xml)
+		/// <exception cref="OperationCanceledException">The token was cancelled.</exception>
+		public static Task<T> DeserializeFromXmlStringAsync<T>(this String xml, CancellationToken cancellationToken = default)
 		{
-			return TaskHelper.FromSynchronous(() => xml.DeserializeFromXmlString<T>());
+			return TaskHelper.FromSynchronous(() => xml.DeserializeFromXmlString<T>(), cancellationToken);
 		}
 
 		#endregion

@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Runtime.Serialization;
 using System.Runtime.Serialization.Json;
+using System.Threading;
 using System.Threading.Tasks;
 
 using NUnit.Framework;
@@ -145,6 +146,50 @@ namespace AabSemantics.Tests.Serialization.Json
 			Assert.That(deserializedFromBytes, Is.EqualTo(test));
 			Assert.That(deserializedFromFile, Is.EqualTo(test));
 			Assert.That(deserializedFromText, Is.EqualTo(test));
+		}
+
+		[Test]
+		public void GivenCancelledToken_WhenSerializeOrDeserialize_ThenThrow()
+		{
+			// arrange
+			var test = Test.Create();
+			string tempFileName = Path.GetTempFileName();
+
+			try
+			{
+				test.SerializeToJsonFile(tempFileName);
+				string serializedText = test.SerializeToJsonString();
+				byte[] serializedBytes = File.ReadAllBytes(tempFileName);
+
+				using (var tokenSource = new CancellationTokenSource())
+				{
+					tokenSource.Cancel();
+					var token = tokenSource.Token;
+
+					// act & assert
+					Assert.That(async () => await test.SerializeToJsonStringAsync(token), Throws.InstanceOf<OperationCanceledException>());
+					Assert.That(async () => await test.SerializeToJsonFileAsync(tempFileName, token), Throws.InstanceOf<OperationCanceledException>());
+					Assert.That(async () => await serializedBytes.DeserializeFromJsonBytesAsync<Test>(token), Throws.InstanceOf<OperationCanceledException>());
+					Assert.That(async () => await tempFileName.DeserializeFromJsonFileAsync<Test>(token), Throws.InstanceOf<OperationCanceledException>());
+					Assert.That(async () => await serializedText.DeserializeFromJsonStringAsync<Test>(token), Throws.InstanceOf<OperationCanceledException>());
+
+					using (var fileReader = File.OpenRead(tempFileName))
+					{
+						Assert.That(async () => await fileReader.DeserializeFromJsonStreamAsync<Test>(token), Throws.InstanceOf<OperationCanceledException>());
+					}
+
+					// the blocking wrappers report cancellation just as the asynchronous ones do
+					Assert.That(() => test.SerializeToJsonFile(tempFileName, token), Throws.InstanceOf<OperationCanceledException>());
+					Assert.That(() => tempFileName.DeserializeFromJsonFile<Test>(token), Throws.InstanceOf<OperationCanceledException>());
+				}
+			}
+			finally
+			{
+				if (File.Exists(tempFileName))
+				{
+					File.Delete(tempFileName);
+				}
+			}
 		}
 
 		[Test]
