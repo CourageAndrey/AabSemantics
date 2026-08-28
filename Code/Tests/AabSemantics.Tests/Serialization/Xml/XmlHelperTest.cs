@@ -132,6 +132,93 @@ namespace AabSemantics.Tests.Serialization.Xml
 		}
 
 		[Test]
+		public async Task GivenDifferentAsyncWays_WhenCheckSerialization_ThenAllWorkTheSame()
+		{
+			// arrange
+			var test = Test.Create();
+			string tempFileName = Path.GetTempFileName();
+
+			// act
+			string serializedString;
+			XmlDocument serializedDocument;
+			XmlElement serializedElement;
+			Test deserializedFromStream, deserializedFromBytes, deserializedFromFile, deserializedFromString;
+			try
+			{
+				var serializedStringTask = test.SerializeToXmlStringAsync();
+				var serializedDocumentTask = test.SerializeToXmlDocumentAsync();
+				var serializedElementTask = test.SerializeToXmlElementAsync();
+
+				// in-memory serialization has nothing to await
+				Assert.That(serializedStringTask.IsCompleted, Is.True);
+				Assert.That(serializedDocumentTask.IsCompleted, Is.True);
+				Assert.That(serializedElementTask.IsCompleted, Is.True);
+
+				serializedString = await serializedStringTask;
+				serializedDocument = await serializedDocumentTask;
+				serializedElement = await serializedElementTask;
+
+				await test.SerializeToXmlFileAsync(tempFileName);
+
+				using (var xmlReader = new XmlTextReader(tempFileName))
+				{
+					deserializedFromStream = await xmlReader.DeserializeFromXmlStreamAsync<Test>();
+				}
+				deserializedFromBytes = await File.ReadAllBytes(tempFileName).DeserializeFromXmlBytesAsync<Test>();
+				deserializedFromFile = await tempFileName.DeserializeFromXmlFileAsync<Test>();
+				deserializedFromString = await serializedString.DeserializeFromXmlStringAsync<Test>();
+			}
+			finally
+			{
+				if (File.Exists(tempFileName))
+				{
+					File.Delete(tempFileName);
+				}
+			}
+
+			// assert
+			Assert.That(serializedString, Is.EqualTo(test.SerializeToXmlString()));
+			Assert.That(serializedElement.OuterXml, Is.EqualTo(serializedDocument.DocumentElement.OuterXml));
+			Assert.That(deserializedFromStream, Is.EqualTo(test));
+			Assert.That(deserializedFromBytes, Is.EqualTo(test));
+			Assert.That(deserializedFromFile, Is.EqualTo(test));
+			Assert.That(deserializedFromString, Is.EqualTo(test));
+		}
+
+		[Test]
+		public void GivenAsyncSerializationToFile_WhenCompare_ThenWriteTheSameBytesAsXmlDocumentWould()
+		{
+			// arrange
+			var test = Test.Create();
+			string tempFileName = Path.GetTempFileName();
+			string referenceFileName = Path.GetTempFileName();
+
+			// act
+			byte[] written, reference;
+			try
+			{
+				test.SerializeToXmlFile(tempFileName);
+				test.SerializeToXmlDocument().Save(referenceFileName);
+
+				written = File.ReadAllBytes(tempFileName);
+				reference = File.ReadAllBytes(referenceFileName);
+			}
+			finally
+			{
+				foreach (string fileName in new[] { tempFileName, referenceFileName })
+				{
+					if (File.Exists(fileName))
+					{
+						File.Delete(fileName);
+					}
+				}
+			}
+
+			// assert
+			Assert.That(written, Is.EqualTo(reference));
+		}
+
+		[Test]
 		public void GivenOverridenAttributes_WhenSerializeDeserialize_ThenSucceed()
 		{
 			// arrange

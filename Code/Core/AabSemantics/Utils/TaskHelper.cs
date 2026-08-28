@@ -4,9 +4,11 @@ using System.Threading.Tasks;
 namespace AabSemantics.Utils
 {
 	/// <summary>
-	/// Bridges asynchronous code into synchronous callers. The <c>Detached</c> variants start the
-	/// work on the thread pool first, which is what keeps them from deadlocking when called from
-	/// a thread with a synchronization context, such as the WPF UI thread.
+	/// Bridges synchronous and asynchronous code in both directions. The <c>Detached</c> variants
+	/// start the work on the thread pool first, which is what keeps them from deadlocking when
+	/// called from a thread with a synchronization context, such as the WPF UI thread;
+	/// <see cref="FromSynchronous{T}"/> goes the other way, giving work that has nothing to await
+	/// an asynchronous signature.
 	/// </summary>
 	public static class TaskHelper
 	{
@@ -40,6 +42,26 @@ namespace AabSemantics.Utils
 		public static void AwaitDetached(Func<Task> asyncOperation)
 		{
 			Task.Run(asyncOperation).Await();
+		}
+
+		/// <summary>
+		/// Runs an operation that has nothing to await on the calling thread and reports its outcome
+		/// through a completed task. Failures reach the caller the same way they would if the work
+		/// had really been asynchronous, instead of being thrown before the task is returned.
+		/// </summary>
+		/// <typeparam name="T">Result type.</typeparam>
+		/// <param name="operation">Operation to run.</param>
+		/// <returns>A completed or faulted task.</returns>
+		public static Task<T> FromSynchronous<T>(Func<T> operation)
+		{
+			try
+			{
+				return Task.FromResult(operation());
+			}
+			catch (Exception error)
+			{
+				return Task.FromException<T>(error);
+			}
 		}
 	}
 }

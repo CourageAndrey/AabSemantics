@@ -156,23 +156,22 @@ namespace AabSemantics.Serialization.Xml
 		/// <summary>Serializes an object to an XML string.</summary>
 		/// <param name="entity">Object to serialize.</param>
 		/// <returns>The XML markup.</returns>
-		public static async Task<String> SerializeToXmlStringAsync(this Object entity)
+		public static String SerializeToXmlString(this Object entity)
 		{
-			var document = await entity.SerializeToXmlDocumentAsync();
-			return await Task.Run(() => document.OuterXml).ConfigureAwait(false);
+			return entity.SerializeToXmlDocument().OuterXml;
 		}
 
 		/// <summary>Serializes an object to an XML document, stripping the xsd and xsi namespace declarations.</summary>
 		/// <param name="entity">Object to serialize.</param>
 		/// <returns>The document.</returns>
-		public static async Task<XmlDocument> SerializeToXmlDocumentAsync(this Object entity)
+		public static XmlDocument SerializeToXmlDocument(this Object entity)
 		{
 			var serializer = AcquireXmlSerializer(entity.GetType());
 			var document = new XmlDocument();
 			using (var writer = new StringWriter())
 			{
-				await Task.Run(() => serializer.Serialize(writer, entity)).ConfigureAwait(false);
-				await Task.Run(() => document.LoadXml(writer.ToString())).ConfigureAwait(false);
+				serializer.Serialize(writer, entity);
+				document.LoadXml(writer.ToString());
 			}
 			if (document.DocumentElement != null)
 			{
@@ -185,43 +184,9 @@ namespace AabSemantics.Serialization.Xml
 		/// <summary>Serializes an object to an XML element.</summary>
 		/// <param name="entity">Object to serialize.</param>
 		/// <returns>The document element.</returns>
-		public static async Task<XmlElement> SerializeToXmlElementAsync(this Object entity)
-		{
-			var document = await entity.SerializeToXmlDocumentAsync();
-			return document.DocumentElement;
-		}
-
-		/// <summary>Serializes an object to a file, overwriting it.</summary>
-		/// <param name="entity">Object to serialize.</param>
-		/// <param name="fileName">Path to write to.</param>
-		public static async Task SerializeToXmlFileAsync(this Object entity, String fileName)
-		{
-			var document = await entity.SerializeToXmlDocumentAsync();
-			await Task.Run(() => document.Save(fileName)).ConfigureAwait(false);
-		}
-
-		/// <summary>Blocking counterpart of <see cref="SerializeToXmlStringAsync"/>.</summary>
-		/// <param name="entity">Object to serialize.</param>
-		/// <returns>The XML markup.</returns>
-		public static String SerializeToXmlString(this Object entity)
-		{
-			return TaskHelper.AwaitDetached(() => SerializeToXmlStringAsync(entity));
-		}
-
-		/// <summary>Blocking counterpart of <see cref="SerializeToXmlDocumentAsync"/>.</summary>
-		/// <param name="entity">Object to serialize.</param>
-		/// <returns>The document.</returns>
-		public static XmlDocument SerializeToXmlDocument(this Object entity)
-		{
-			return TaskHelper.AwaitDetached(() => SerializeToXmlDocumentAsync(entity));
-		}
-
-		/// <summary>Blocking counterpart of <see cref="SerializeToXmlElementAsync"/>.</summary>
-		/// <param name="entity">Object to serialize.</param>
-		/// <returns>The document element.</returns>
 		public static XmlElement SerializeToXmlElement(this Object entity)
 		{
-			return TaskHelper.AwaitDetached(() => SerializeToXmlElementAsync(entity));
+			return entity.SerializeToXmlDocument().DocumentElement;
 		}
 
 		/// <summary>Blocking counterpart of <see cref="SerializeToXmlFileAsync"/>.</summary>
@@ -232,6 +197,54 @@ namespace AabSemantics.Serialization.Xml
 			TaskHelper.AwaitDetached(() => SerializeToXmlFileAsync(entity, fileName));
 		}
 
+		/// <summary>
+		/// Asynchronous counterpart of <see cref="SerializeToXmlString"/>. The serializer has no
+		/// asynchronous API and nothing but memory is touched, so the returned task is completed.
+		/// </summary>
+		/// <param name="entity">Object to serialize.</param>
+		/// <returns>The XML markup.</returns>
+		public static Task<String> SerializeToXmlStringAsync(this Object entity)
+		{
+			return TaskHelper.FromSynchronous(() => entity.SerializeToXmlString());
+		}
+
+		/// <summary>
+		/// Asynchronous counterpart of <see cref="SerializeToXmlDocument"/>. The serializer has no
+		/// asynchronous API and nothing but memory is touched, so the returned task is completed.
+		/// </summary>
+		/// <param name="entity">Object to serialize.</param>
+		/// <returns>The document.</returns>
+		public static Task<XmlDocument> SerializeToXmlDocumentAsync(this Object entity)
+		{
+			return TaskHelper.FromSynchronous(() => entity.SerializeToXmlDocument());
+		}
+
+		/// <summary>
+		/// Asynchronous counterpart of <see cref="SerializeToXmlElement"/>. The serializer has no
+		/// asynchronous API and nothing but memory is touched, so the returned task is completed.
+		/// </summary>
+		/// <param name="entity">Object to serialize.</param>
+		/// <returns>The document element.</returns>
+		public static Task<XmlElement> SerializeToXmlElementAsync(this Object entity)
+		{
+			return TaskHelper.FromSynchronous(() => entity.SerializeToXmlElement());
+		}
+
+		/// <summary>Serializes an object to a file, overwriting it.</summary>
+		/// <param name="entity">Object to serialize.</param>
+		/// <param name="fileName">Path to write to.</param>
+		public static async Task SerializeToXmlFileAsync(this Object entity, String fileName)
+		{
+			var document = entity.SerializeToXmlDocument();
+
+			// the document is written to memory first, as XmlDocument itself cannot save asynchronously
+			using (var buffer = new MemoryStream())
+			{
+				document.Save(buffer);
+				await AsyncFile.WriteAllBytesAsync(fileName, buffer.ToArray()).ConfigureAwait(false);
+			}
+		}
+
 		#endregion
 
 		#region Deserialization
@@ -240,70 +253,25 @@ namespace AabSemantics.Serialization.Xml
 		/// <typeparam name="T">Type of the object.</typeparam>
 		/// <param name="reader">Reader positioned at the object.</param>
 		/// <returns>The deserialized object.</returns>
-		public static async Task<T> DeserializeFromXmlStreamAsync<T>(this XmlReader reader)
+		public static T DeserializeFromXmlStream<T>(this XmlReader reader)
 		{
 			var serializer = AcquireXmlSerializer<T>();
-			return await Task.Run(() => (T) serializer.Deserialize(reader)).ConfigureAwait(false);
+			return (T) serializer.Deserialize(reader);
 		}
 
 		/// <summary>Deserializes an object from XML held in memory.</summary>
 		/// <typeparam name="T">Type of the object.</typeparam>
 		/// <param name="bytes">XML markup.</param>
 		/// <returns>The deserialized object.</returns>
-		public static async Task<T> DeserializeFromXmlBytesAsync<T>(this Byte[] bytes)
+		public static T DeserializeFromXmlBytes<T>(this Byte[] bytes)
 		{
 			using (var stream = new MemoryStream(bytes))
 			{
 				using (var reader = XmlReader.Create(stream))
 				{
-					return await reader.DeserializeFromXmlStreamAsync<T>();
+					return reader.DeserializeFromXmlStream<T>();
 				}
 			}
-		}
-
-		/// <summary>Deserializes an object from an XML file.</summary>
-		/// <typeparam name="T">Type of the object.</typeparam>
-		/// <param name="file">Path to read from.</param>
-		/// <returns>The deserialized object.</returns>
-		public static async Task<T> DeserializeFromXmlFileAsync<T>(this String file)
-		{
-			using (var xmlFile = new XmlTextReader(file))
-			{
-				return await DeserializeFromXmlStreamAsync<T>(xmlFile);
-			}
-		}
-
-		/// <summary>Deserializes an object from an XML string.</summary>
-		/// <typeparam name="T">Type of the object.</typeparam>
-		/// <param name="xml">XML markup.</param>
-		/// <returns>The deserialized object.</returns>
-		public static async Task<T> DeserializeFromXmlStringAsync<T>(this String xml)
-		{
-			using (var stringReader = new StringReader(xml))
-			{
-				using (var xmlStringReader = new XmlTextReader(stringReader))
-				{
-					return await xmlStringReader.DeserializeFromXmlStreamAsync<T>();
-				}
-			}
-		}
-
-		/// <summary>Blocking counterpart of <see cref="DeserializeFromXmlStreamAsync{T}"/>.</summary>
-		/// <typeparam name="T">Type of the object.</typeparam>
-		/// <param name="reader">Reader positioned at the object.</param>
-		/// <returns>The deserialized object.</returns>
-		public static T DeserializeFromXmlStream<T>(this XmlReader reader)
-		{
-			return TaskHelper.AwaitDetached(() => DeserializeFromXmlStreamAsync<T>(reader));
-		}
-
-		/// <summary>Blocking counterpart of <see cref="DeserializeFromXmlBytesAsync{T}"/>.</summary>
-		/// <typeparam name="T">Type of the object.</typeparam>
-		/// <param name="bytes">XML markup.</param>
-		/// <returns>The deserialized object.</returns>
-		public static T DeserializeFromXmlBytes<T>(this Byte[] bytes)
-		{
-			return TaskHelper.AwaitDetached(() => DeserializeFromXmlBytesAsync<T>(bytes));
 		}
 
 		/// <summary>Blocking counterpart of <see cref="DeserializeFromXmlFileAsync{T}"/>.</summary>
@@ -312,16 +280,73 @@ namespace AabSemantics.Serialization.Xml
 		/// <returns>The deserialized object.</returns>
 		public static T DeserializeFromXmlFile<T>(this String file)
 		{
-			return TaskHelper.AwaitDetached(() => DeserializeFromXmlFileAsync<T>(file));
+			using (var xmlFile = new XmlTextReader(file))
+			{
+				return xmlFile.DeserializeFromXmlStream<T>();
+			}
 		}
 
-		/// <summary>Blocking counterpart of <see cref="DeserializeFromXmlStringAsync{T}"/>.</summary>
+		/// <summary>Deserializes an object from an XML string.</summary>
 		/// <typeparam name="T">Type of the object.</typeparam>
 		/// <param name="xml">XML markup.</param>
 		/// <returns>The deserialized object.</returns>
 		public static T DeserializeFromXmlString<T>(this String xml)
 		{
-			return TaskHelper.AwaitDetached(() => DeserializeFromXmlStringAsync<T>(xml));
+			using (var stringReader = new StringReader(xml))
+			{
+				using (var xmlStringReader = new XmlTextReader(stringReader))
+				{
+					return xmlStringReader.DeserializeFromXmlStream<T>();
+				}
+			}
+		}
+
+		/// <summary>
+		/// Asynchronous counterpart of <see cref="DeserializeFromXmlStream{T}"/>. The serializer has
+		/// no asynchronous API, so the reader is drained on the calling thread and the returned task
+		/// is completed.
+		/// </summary>
+		/// <typeparam name="T">Type of the object.</typeparam>
+		/// <param name="reader">Reader positioned at the object.</param>
+		/// <returns>The deserialized object.</returns>
+		public static Task<T> DeserializeFromXmlStreamAsync<T>(this XmlReader reader)
+		{
+			return TaskHelper.FromSynchronous(() => reader.DeserializeFromXmlStream<T>());
+		}
+
+		/// <summary>
+		/// Asynchronous counterpart of <see cref="DeserializeFromXmlBytes{T}"/>. The serializer has
+		/// no asynchronous API and nothing but memory is touched, so the returned task is completed.
+		/// </summary>
+		/// <typeparam name="T">Type of the object.</typeparam>
+		/// <param name="bytes">XML markup.</param>
+		/// <returns>The deserialized object.</returns>
+		public static Task<T> DeserializeFromXmlBytesAsync<T>(this Byte[] bytes)
+		{
+			return TaskHelper.FromSynchronous(() => bytes.DeserializeFromXmlBytes<T>());
+		}
+
+		/// <summary>Deserializes an object from an XML file.</summary>
+		/// <typeparam name="T">Type of the object.</typeparam>
+		/// <param name="file">Path to read from.</param>
+		/// <returns>The deserialized object.</returns>
+		public static async Task<T> DeserializeFromXmlFileAsync<T>(this String file)
+		{
+			// the file is read into memory first, as the serializer itself cannot read asynchronously
+			var bytes = await AsyncFile.ReadAllBytesAsync(file).ConfigureAwait(false);
+			return bytes.DeserializeFromXmlBytes<T>();
+		}
+
+		/// <summary>
+		/// Asynchronous counterpart of <see cref="DeserializeFromXmlString{T}"/>. The serializer has
+		/// no asynchronous API and nothing but memory is touched, so the returned task is completed.
+		/// </summary>
+		/// <typeparam name="T">Type of the object.</typeparam>
+		/// <param name="xml">XML markup.</param>
+		/// <returns>The deserialized object.</returns>
+		public static Task<T> DeserializeFromXmlStringAsync<T>(this String xml)
+		{
+			return TaskHelper.FromSynchronous(() => xml.DeserializeFromXmlString<T>());
 		}
 
 		#endregion

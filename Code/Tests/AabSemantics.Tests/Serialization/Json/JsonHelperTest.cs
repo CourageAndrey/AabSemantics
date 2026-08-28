@@ -102,6 +102,80 @@ namespace AabSemantics.Tests.Serialization.Json
 			Assert.That(deserializedFromText, Is.EqualTo(test));
 		}
 
+		[Test]
+		public async Task GivenDifferentAsyncWays_WhenCheckSerialization_ThenAllWorkTheSame()
+		{
+			// arrange
+			var test = Test.Create();
+			string tempFileName = Path.GetTempFileName();
+
+			// act
+			string serializedText;
+			Test deserializedFromStream, deserializedFromBytes, deserializedFromFile, deserializedFromText;
+			try
+			{
+				var serializedTextTask = test.SerializeToJsonStringAsync();
+
+				// in-memory serialization has nothing to await
+				Assert.That(serializedTextTask.IsCompleted, Is.True);
+
+				serializedText = await serializedTextTask;
+
+				await test.SerializeToJsonFileAsync(tempFileName);
+
+				using (var fileReader = File.OpenRead(tempFileName))
+				{
+					deserializedFromStream = await fileReader.DeserializeFromJsonStreamAsync<Test>();
+				}
+				deserializedFromBytes = await File.ReadAllBytes(tempFileName).DeserializeFromJsonBytesAsync<Test>();
+				deserializedFromFile = await tempFileName.DeserializeFromJsonFileAsync<Test>();
+				deserializedFromText = await serializedText.DeserializeFromJsonStringAsync<Test>();
+			}
+			finally
+			{
+				if (File.Exists(tempFileName))
+				{
+					File.Delete(tempFileName);
+				}
+			}
+
+			// assert
+			Assert.That(serializedText, Is.EqualTo(test.SerializeToJsonString()));
+			Assert.That(deserializedFromStream, Is.EqualTo(test));
+			Assert.That(deserializedFromBytes, Is.EqualTo(test));
+			Assert.That(deserializedFromFile, Is.EqualTo(test));
+			Assert.That(deserializedFromText, Is.EqualTo(test));
+		}
+
+		[Test]
+		public void GivenSerializationToFile_WhenCompare_ThenWriteTheTextAsIsWithoutPreamble()
+		{
+			// arrange
+			var test = Test.Create();
+			string tempFileName = Path.GetTempFileName();
+
+			// act
+			byte[] written;
+			string serializedText;
+			try
+			{
+				serializedText = test.SerializeToJsonString();
+				test.SerializeToJsonFile(tempFileName);
+
+				written = File.ReadAllBytes(tempFileName);
+			}
+			finally
+			{
+				if (File.Exists(tempFileName))
+				{
+					File.Delete(tempFileName);
+				}
+			}
+
+			// assert
+			Assert.That(written, Is.EqualTo(JsonHelper.Encoding.GetBytes(serializedText)));
+		}
+
 		#region Serializable classes
 
 		[DataContract]

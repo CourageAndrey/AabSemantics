@@ -185,6 +185,38 @@ namespace AabSemantics.TestCore
 			}
 		}
 
+		[Test]
+		public void FromSynchronous_RunsOnCallingThread_AndCompletesAtOnce()
+		{
+			// arrange
+			int callingThread = Thread.CurrentThread.ManagedThreadId;
+			int operationThread = 0;
+
+			// act
+			var task = TaskHelper.FromSynchronous(() =>
+			{
+				operationThread = Thread.CurrentThread.ManagedThreadId;
+				return 123;
+			});
+
+			// assert
+			Assert.That(task.IsCompleted, Is.True);
+			Assert.That(task.Result, Is.EqualTo(123));
+			Assert.That(operationThread, Is.EqualTo(callingThread));
+		}
+
+		[Test]
+		public void FromSynchronous_ReportsFailureThroughTask()
+		{
+			// act
+			var task = TaskHelper.FromSynchronous(new Func<int>(() => throw new NotSupportedException("boom")));
+
+			// assert
+			Assert.That(task.IsFaulted, Is.True);
+			Assert.That(task.Exception.InnerException, Is.InstanceOf<NotSupportedException>());
+			Assert.That(task.Exception.InnerException.Message, Is.EqualTo("boom"));
+		}
+
 		private sealed class SingleThreadSynchronizationContext : SynchronizationContext
 		{
 			private readonly BlockingCollection<(SendOrPostCallback d, object state)> _queue = new BlockingCollection<(SendOrPostCallback, object)>();
