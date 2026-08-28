@@ -7,7 +7,7 @@
 
   <PropertyGroup>
     <PackageId>AabSemantics</PackageId>
-    <Version>2.1.0</Version>
+    <Version>2.1.1</Version>
     <Description>This project represents semantic network engine written in C#. Please, see more details in project Wiki.</Description>
     <PackageTags>AI;semantic network</PackageTags>
     <PackageReadmeFile>README.md</PackageReadmeFile>
