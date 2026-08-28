@@ -53,7 +53,7 @@ namespace AabSemantics.Modules.Classification.Questions
 			return await context
 				.From<IsQuestion, IsStatement>()
 				.WithTransitives(
-					async statements => await Task.FromResult(statements.Count == 0),
+					statements => Task.FromResult(statements.Count == 0),
 					question => question.Child,
 					newSubject => new IsQuestion(newSubject, Parent))
 				.Where(s => s.Parent == Parent && s.Child == Child)
