@@ -7,9 +7,9 @@ namespace AabSemantics.Utils
 	/// <summary>
 	/// Bridges synchronous and asynchronous code in both directions. The <c>Detached</c> variants
 	/// start the work on the thread pool first, which is what keeps them from deadlocking when
-	/// called from a thread with a synchronization context, such as the WPF UI thread;
-	/// <see cref="FromSynchronous{T}"/> goes the other way, giving work that has nothing to await
-	/// an asynchronous signature.
+	/// called from a thread with a synchronization context, such as the WPF UI thread; the
+	/// <c>FromSynchronous</c> ones go the other way, giving work that has nothing to await an
+	/// asynchronous signature.
 	/// </summary>
 	public static class TaskHelper
 	{
