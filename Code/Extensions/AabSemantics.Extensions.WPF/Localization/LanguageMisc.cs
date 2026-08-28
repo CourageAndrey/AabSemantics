@@ -22,6 +22,14 @@ namespace AabSemantics.Extensions.WPF.Localization
 		String Rules
 		{ get; }
 
+		/// <summary>Caption shown while the rules listing is being collected.</summary>
+		String DescribingRules
+		{ get; }
+
+		/// <summary>Caption shown while the knowledge base is being validated.</summary>
+		String CheckingConsistency
+		{ get; }
+
 		/// <summary>Caption of an answer.</summary>
 		String Answer
 		{ get; }
@@ -73,6 +81,16 @@ namespace AabSemantics.Extensions.WPF.Localization
 		public String Rules
 		{ get; set; }
 
+		/// <summary>Caption shown while the rules listing is being collected.</summary>
+		[XmlElement]
+		public String DescribingRules
+		{ get; set; }
+
+		/// <summary>Caption shown while the knowledge base is being validated.</summary>
+		[XmlElement]
+		public String CheckingConsistency
+		{ get; set; }
+
 		/// <summary>Caption of an answer.</summary>
 		[XmlElement]
 		public String Answer
@@ -116,6 +134,8 @@ namespace AabSemantics.Extensions.WPF.Localization
 				NameCategoryConcepts = "Concepts",
 				NameCategoryStatements = "Statements",
 				Rules = "All semantic network rules:",
+				DescribingRules = "Collecting the rules...",
+				CheckingConsistency = "Checking the knowledge base...",
 				Answer = "Answer:",
 				Required = "required",
 				DialogKbOpenTitle = "Open semantic network",

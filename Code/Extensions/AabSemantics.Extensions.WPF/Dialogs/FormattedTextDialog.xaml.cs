@@ -110,38 +110,64 @@ namespace AabSemantics.Extensions.WPF.Dialogs
 			}.Show();
 		}
 
-		/// <summary>Shows every statement the network holds.</summary>
+		/// <summary>
+		/// Shows every statement the network holds. Collecting them can take a while on a large
+		/// network, so it runs behind a dialog offering to cancel it; nothing is shown when the
+		/// user does cancel.
+		/// </summary>
 		/// <param name="semanticNetwork">Network to describe.</param>
 		/// <param name="ownerWindow">Window the dialog belongs to.</param>
 		/// <param name="language">Language to render in.</param>
 		/// <param name="knowledgeObjectPicked">Called when the user clicks a link to a knowledge item.</param>
 		public static void DisplayRulesDescription(this ISemanticNetwork semanticNetwork, Window ownerWindow, ILanguage language, Action<IKnowledge> knowledgeObjectPicked)
 		{
-			new FormattedTextDialog(
+			IText rules;
+			if (ProcessingDialog.TryRun(
+				ownerWindow,
 				language,
-				semanticNetwork.DescribeRules(),
-				knowledgeObjectPicked)
+				language.GetExtension<IWpfUiModule>().Misc.DescribingRules,
+				cancellationToken => semanticNetwork.DescribeRulesAsync(cancellationToken),
+				out rules))
 			{
-				Owner = ownerWindow,
-				Title = language.GetExtension<IWpfUiModule>().Misc.Rules,
-			}.Show();
+				new FormattedTextDialog(
+					language,
+					rules,
+					knowledgeObjectPicked)
+				{
+					Owner = ownerWindow,
+					Title = language.GetExtension<IWpfUiModule>().Misc.Rules,
+				}.Show();
+			}
 		}
 
-		/// <summary>Runs the consistency check and shows its findings.</summary>
+		/// <summary>
+		/// Runs the consistency check and shows its findings. The check walks the whole network,
+		/// so it runs behind a dialog offering to cancel it; nothing is shown when the user does
+		/// cancel.
+		/// </summary>
 		/// <param name="semanticNetwork">Network to validate.</param>
 		/// <param name="ownerWindow">Window the dialog belongs to.</param>
 		/// <param name="language">Language to render in.</param>
 		/// <param name="knowledgeObjectPicked">Called when the user clicks a link to a knowledge item.</param>
 		public static void DisplayConsistencyCheckResult(this ISemanticNetwork semanticNetwork, Window ownerWindow, ILanguage language, Action<IKnowledge> knowledgeObjectPicked)
 		{
-			new FormattedTextDialog(
+			IText checkResult;
+			if (ProcessingDialog.TryRun(
+				ownerWindow,
 				language,
-				semanticNetwork.CheckConsistency(),
-				knowledgeObjectPicked)
+				language.GetExtension<IWpfUiModule>().Misc.CheckingConsistency,
+				cancellationToken => semanticNetwork.CheckConsistencyAsync(cancellationToken),
+				out checkResult))
 			{
-				Owner = ownerWindow,
-				Title = language.Statements.Consistency.CheckResult,
-			}.Show();
+				new FormattedTextDialog(
+					language,
+					checkResult,
+					knowledgeObjectPicked)
+				{
+					Owner = ownerWindow,
+					Title = language.Statements.Consistency.CheckResult,
+				}.Show();
+			}
 		}
 	}
 }
