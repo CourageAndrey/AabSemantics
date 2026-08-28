@@ -157,6 +157,90 @@ namespace AabSemantics.Modules.Set.Tests.Statements
 		}
 
 		[Test]
+		public void GivenValueInheritedByBothParentsFromCommonAncestor_WhenCheckMultiValues_ThenSucceed()
+		{
+			// arrange
+			var statementDefinition = Repositories.Statements.Definitions[typeof(SignValueStatement)];
+
+			var language = Language.Default;
+			var semanticNetwork = new SemanticNetwork(language)
+				.WithModules(_modules);
+
+			var concept = ConceptCreationHelper.CreateEmptyConcept();
+			var parent1 = ConceptCreationHelper.CreateEmptyConcept();
+			var parent2 = ConceptCreationHelper.CreateEmptyConcept();
+			var grandParent = ConceptCreationHelper.CreateEmptyConcept();
+			var sign = ConceptCreationHelper.CreateEmptyConcept().WithAttribute(IsSignAttribute.Value);
+			var value1 = ConceptCreationHelper.CreateEmptyConcept().WithAttribute(IsValueAttribute.Value);
+			semanticNetwork.Concepts.Add(concept);
+			semanticNetwork.Concepts.Add(parent1);
+			semanticNetwork.Concepts.Add(parent2);
+			semanticNetwork.Concepts.Add(grandParent);
+			semanticNetwork.Concepts.Add(sign);
+			semanticNetwork.Concepts.Add(value1);
+			semanticNetwork.DeclareThat(grandParent).HasSign(sign);
+
+			// both parents reach the very same value, as neither of them defines its own
+			semanticNetwork.DeclareThat(parent1).IsDescendantOf(grandParent);
+			semanticNetwork.DeclareThat(parent2).IsDescendantOf(grandParent);
+			semanticNetwork.DeclareThat(concept).IsDescendantOf(parent1);
+			semanticNetwork.DeclareThat(concept).IsDescendantOf(parent2);
+			semanticNetwork.DeclareThat(grandParent).HasSignValue(sign, value1);
+
+			var result = new UnstructuredContainer();
+
+			var render = TextRenders.PlainString;
+
+			// act
+			statementDefinition.CheckConsistency(semanticNetwork, result);
+			var text = render.RenderText(result, language).ToString();
+
+			// assert
+			Assert.That(text.Contains(" concept is uncertain, because many ancestors define their own values."), Is.False);
+		}
+
+		[Test]
+		public void GivenTheSameValueOnPreviousLevels_WhenCheckMultiValues_ThenSucceed()
+		{
+			// arrange
+			var statementDefinition = Repositories.Statements.Definitions[typeof(SignValueStatement)];
+
+			var language = Language.Default;
+			var semanticNetwork = new SemanticNetwork(language)
+				.WithModules(_modules);
+
+			var concept = ConceptCreationHelper.CreateEmptyConcept();
+			var parent1 = ConceptCreationHelper.CreateEmptyConcept();
+			var parent2 = ConceptCreationHelper.CreateEmptyConcept();
+			var sign = ConceptCreationHelper.CreateEmptyConcept().WithAttribute(IsSignAttribute.Value);
+			var value1 = ConceptCreationHelper.CreateEmptyConcept().WithAttribute(IsValueAttribute.Value);
+			semanticNetwork.Concepts.Add(concept);
+			semanticNetwork.Concepts.Add(parent1);
+			semanticNetwork.Concepts.Add(parent2);
+			semanticNetwork.Concepts.Add(sign);
+			semanticNetwork.Concepts.Add(value1);
+			semanticNetwork.DeclareThat(parent1).HasSign(sign);
+			semanticNetwork.DeclareThat(parent2).HasSign(sign);
+			semanticNetwork.DeclareThat(concept).IsDescendantOf(parent1);
+			semanticNetwork.DeclareThat(concept).IsDescendantOf(parent2);
+
+			// both ancestors define the value, but they agree on it
+			semanticNetwork.DeclareThat(parent1).HasSignValue(sign, value1);
+			semanticNetwork.DeclareThat(parent2).HasSignValue(sign, value1);
+
+			var result = new UnstructuredContainer();
+
+			var render = TextRenders.PlainString;
+
+			// act
+			statementDefinition.CheckConsistency(semanticNetwork, result);
+			var text = render.RenderText(result, language).ToString();
+
+			// assert
+			Assert.That(text.Contains(" concept is uncertain, because many ancestors define their own values."), Is.False);
+		}
+
+		[Test]
 		public void GivenNoSign_WhenCheckValuesWithoutSign_ThenFail()
 		{
 			// arrange

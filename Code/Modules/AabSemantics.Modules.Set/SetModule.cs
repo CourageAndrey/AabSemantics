@@ -242,7 +242,7 @@ namespace AabSemantics.Modules.Set
 						continue;
 					}
 
-					if (await CountParentsDefiningValueAsync(semanticNetwork, parents, sign.Sign) > 1)
+					if (await CountDifferentInheritedValuesAsync(semanticNetwork, parents, sign.Sign) > 1)
 					{
 						result.Append(
 							language => language.GetStatementsExtension<ILanguageSetModule, ILanguageStatements>().Consistency.ErrorMultipleSignValueParents,
@@ -256,18 +256,23 @@ namespace AabSemantics.Modules.Set
 			}
 		}
 
-		private static async Task<Int32> CountParentsDefiningValueAsync(ISemanticNetwork semanticNetwork, IEnumerable<IConcept> parents, IConcept sign)
+		private static async Task<Int32> CountDifferentInheritedValuesAsync(ISemanticNetwork semanticNetwork, IEnumerable<IConcept> parents, IConcept sign)
 		{
-			Int32 count = 0;
+			// what makes an inherited value uncertain is the ancestors disagreeing about it, so the
+			// values are counted rather than the ancestors: several of them can resolve to the very
+			// same value, either by inheriting it from a common ancestor or by simply agreeing on it
+			var values = new HashSet<IConcept>();
+
 			foreach (var parent in parents)
 			{
-				if (await SignValueStatement.GetSignValueAsync(semanticNetwork.Statements, parent, sign) != null)
+				var signValue = await SignValueStatement.GetSignValueAsync(semanticNetwork.Statements, parent, sign);
+				if (signValue != null)
 				{
-					count++;
+					values.Add(signValue.Value);
 				}
 			}
 
-			return count;
+			return values.Count;
 		}
 
 		private static async Task CheckValuesWithoutSign(
