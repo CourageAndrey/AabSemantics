@@ -237,8 +237,12 @@ namespace AabSemantics.Modules.Set
 				var parents = await classifications.GetParentsOneLevelAsync(concept);
 				foreach (var sign in await HasSignStatement.GetSignsAsync(semanticNetwork.Statements, concept, true))
 				{
-					if (statements.FirstOrDefault(sv => sv.Concept == concept && sv.Sign == sign.Sign) == null &&
-						parents.Select(async p => await SignValueStatement.GetSignValueAsync(semanticNetwork.Statements, p, sign.Sign)).Count(r => r != null) > 1)
+					if (statements.FirstOrDefault(sv => sv.Concept == concept && sv.Sign == sign.Sign) != null)
+					{
+						continue;
+					}
+
+					if (await CountParentsDefiningValueAsync(semanticNetwork, parents, sign.Sign) > 1)
 					{
 						result.Append(
 							language => language.GetStatementsExtension<ILanguageSetModule, ILanguageStatements>().Consistency.ErrorMultipleSignValueParents,
@@ -250,6 +254,20 @@ namespace AabSemantics.Modules.Set
 					}
 				}
 			}
+		}
+
+		private static async Task<Int32> CountParentsDefiningValueAsync(ISemanticNetwork semanticNetwork, IEnumerable<IConcept> parents, IConcept sign)
+		{
+			Int32 count = 0;
+			foreach (var parent in parents)
+			{
+				if (await SignValueStatement.GetSignValueAsync(semanticNetwork.Statements, parent, sign) != null)
+				{
+					count++;
+				}
+			}
+
+			return count;
 		}
 
 		private static async Task CheckValuesWithoutSign(
