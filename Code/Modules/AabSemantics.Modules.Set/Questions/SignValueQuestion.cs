@@ -57,7 +57,7 @@ namespace AabSemantics.Modules.Set.Questions
 						{ Strings.ParamSign, statement.Sign },
 						{ Strings.ParamValue, statement.Value },
 						{ Strings.ParamDefined, statement.Concept },
-					});
+					}).ConfigureAwait(false);
 		}
 	}
 }

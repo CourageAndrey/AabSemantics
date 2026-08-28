@@ -45,7 +45,7 @@ namespace AabSemantics.Modules.Classification.Questions
 					statement => statement.Ancestor,
 					question => question.Concept,
 					Strings.ParamChild,
-					language => language.GetQuestionsExtension<ILanguageClassificationModule, Localization.ILanguageQuestions>().Answers.EnumerateAncestors);
+					language => language.GetQuestionsExtension<ILanguageClassificationModule, Localization.ILanguageQuestions>().Answers.EnumerateAncestors).ConfigureAwait(false);
 		}
 	}
 }

@@ -335,7 +335,7 @@ namespace AabSemantics.Questions
 		/// <returns>A statement-list answer; empty when nothing matched.</returns>
 		public async Task<StatementsAnswer<StatementT>> SelectStatementsAsync()
 		{
-			Statements = await _whereTask;
+			Statements = await _whereTask.ConfigureAwait(false);
 
 			var format = new UnstructuredContainer(new FormattedText(
 				language => language.Statements.FoundStatements,

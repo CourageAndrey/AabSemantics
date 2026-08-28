@@ -54,7 +54,7 @@ namespace AabSemantics.Modules.Set.Questions
 					{
 						{ Strings.ParamArea, Area },
 						{ AabSemantics.Localization.Strings.ParamConcept, Concept },
-					});
+					}).ConfigureAwait(false);
 		}
 	}
 }

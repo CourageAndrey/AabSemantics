@@ -65,7 +65,7 @@ namespace AabSemantics.Modules.Classification.Questions
 					{
 						{ Strings.ParamParent, Parent },
 						{ Strings.ParamChild, Child },
-					});
+					}).ConfigureAwait(false);
 		}
 	}
 }

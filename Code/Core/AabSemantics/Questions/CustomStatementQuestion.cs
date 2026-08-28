@@ -59,7 +59,7 @@ namespace AabSemantics.Questions
 
 					return true;
 				})
-				.SelectStatementsAsync();
+				.SelectStatementsAsync().ConfigureAwait(false);
 		}
 	}
 }

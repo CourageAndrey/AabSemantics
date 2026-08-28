@@ -55,8 +55,8 @@ namespace AabSemantics.Modules.Set.Questions
 			// get hierarchies
 			var isStatements1 = new List<IsStatement>();
 			var isStatements2 = new List<IsStatement>();
-			var parents1 = await allStatements.GetParentsAllLevelsAsync(Concept1, isStatements1, context.CancellationToken);
-			var parents2 = await allStatements.GetParentsAllLevelsAsync(Concept2, isStatements2, context.CancellationToken);
+			var parents1 = await allStatements.GetParentsAllLevelsAsync(Concept1, isStatements1, context.CancellationToken).ConfigureAwait(false);
+			var parents2 = await allStatements.GetParentsAllLevelsAsync(Concept2, isStatements2, context.CancellationToken).ConfigureAwait(false);
 
 			// intersect parents
 			var isStatements = new List<IsStatement>();
@@ -91,8 +91,8 @@ namespace AabSemantics.Modules.Set.Questions
 			var signValueStatements = new List<SignValueStatement>();
 			foreach (var sign in signs)
 			{
-				var valueStatement1 = await SignValueStatement.GetSignValueAsync(allStatements, Concept1, sign, context.CancellationToken);
-				var valueStatement2 = await SignValueStatement.GetSignValueAsync(allStatements, Concept2, sign, context.CancellationToken);
+				var valueStatement1 = await SignValueStatement.GetSignValueAsync(allStatements, Concept1, sign, context.CancellationToken).ConfigureAwait(false);
+				var valueStatement2 = await SignValueStatement.GetSignValueAsync(allStatements, Concept2, sign, context.CancellationToken).ConfigureAwait(false);
 				var value1 = valueStatement1?.Value;
 				var value2 = valueStatement2?.Value;
 

@@ -54,7 +54,7 @@ namespace AabSemantics.Modules.Set.Questions
 					{
 						{ AabSemantics.Localization.Strings.ParamParent, Parent },
 						{ AabSemantics.Localization.Strings.ParamChild, Child },
-					});
+					}).ConfigureAwait(false);
 		}
 	}
 }

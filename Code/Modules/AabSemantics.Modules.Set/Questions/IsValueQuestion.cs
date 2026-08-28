@@ -46,7 +46,7 @@ namespace AabSemantics.Modules.Set.Questions
 					new Dictionary<String, IKnowledge>
 					{
 						{ AabSemantics.Localization.Strings.ParamConcept, Concept },
-					});
+					}).ConfigureAwait(false);
 		}
 	}
 }

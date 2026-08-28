@@ -62,7 +62,7 @@ namespace AabSemantics.Modules.Set.Questions
 					{
 						{ AabSemantics.Localization.Strings.ParamConcept, Concept },
 						{ Strings.ParamSign, Sign },
-					});
+					}).ConfigureAwait(false);
 		}
 	}
 }

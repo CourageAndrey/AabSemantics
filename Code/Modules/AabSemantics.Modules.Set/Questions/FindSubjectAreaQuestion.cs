@@ -41,7 +41,7 @@ namespace AabSemantics.Modules.Set.Questions
 					statement => statement.Area,
 					question => question.Concept,
 					AabSemantics.Localization.Strings.ParamConcept,
-					language => language.GetQuestionsExtension<ILanguageSetModule, ILanguageQuestions>().Answers.SubjectArea);
+					language => language.GetQuestionsExtension<ILanguageSetModule, ILanguageQuestions>().Answers.SubjectArea).ConfigureAwait(false);
 		}
 	}
 }
