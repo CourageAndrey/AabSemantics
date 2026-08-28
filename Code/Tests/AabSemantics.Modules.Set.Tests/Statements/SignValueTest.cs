@@ -151,6 +151,34 @@ namespace AabSemantics.Modules.Set.Tests.Statements
 			Assert.That(withRecursion.SequenceEqual(statements), Is.True);
 		}
 
+		[Test]
+		public void GivenPartlyOverridenSignValues_WhenGetSignValues_ThenInheritOnlyTheSignsWhichAreNotOverriden()
+		{
+			// arrange
+			var language = Language.Default;
+			var semanticNetwork = CreateTest(language);
+
+			var conceptMiddle = semanticNetwork.Concepts.GetItem(ConceptId_MiddleLevel);
+			var concept = semanticNetwork.Concepts.GetItem(ConceptId_DownLevel);
+
+			var sign1 = semanticNetwork.Concepts.GetItem(ConceptId_Sign1);
+			var sign2 = semanticNetwork.Concepts.GetItem(ConceptId_Sign2);
+
+			// the parent defines two signs, of which the descendant overrides only the first one
+			semanticNetwork.DeclareThat(conceptMiddle).HasSignValue(sign1, semanticNetwork.Concepts.GetItem(ConceptId_ValueA));
+			var inherited = semanticNetwork.DeclareThat(conceptMiddle).HasSignValue(sign2, semanticNetwork.Concepts.GetItem(ConceptId_ValueB));
+			var own = semanticNetwork.DeclareThat(concept).HasSignValue(sign1, semanticNetwork.Concepts.GetItem(ConceptId_ValueC));
+
+			var expected = new List<SignValueStatement> { own, inherited }.OrderBy(s => s.ID).ToList();
+
+			// act
+			var withRecursion = SignValueStatement.GetSignValues(semanticNetwork.Statements, concept, true).OrderBy(s => s.ID).ToList();
+
+			// assert
+			Assert.That(withRecursion.SequenceEqual(expected), Is.True);
+			Assert.That(withRecursion.Count(signValue => signValue.Sign == sign1), Is.EqualTo(1));
+		}
+
 		private static ISemanticNetwork CreateTest(ILanguage language)
 		{
 			var semanticNetwork = new SemanticNetwork(language);

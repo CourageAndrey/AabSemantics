@@ -150,7 +150,7 @@ namespace AabSemantics.Modules.Set.Statements
 					{
 						if (! await result.AnyAsync(sv => sv.Sign == signValue.Sign, cancellationToken))
 						{
-							result.AddRange(parentSignValues);
+							result.Add(signValue);
 						}
 					}
 				}
