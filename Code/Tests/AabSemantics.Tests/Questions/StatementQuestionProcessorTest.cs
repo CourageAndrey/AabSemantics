@@ -87,6 +87,61 @@ namespace AabSemantics.Tests.Questions
 			Assert.That(answer.Explanation.Statements.Contains(additionalStatement), Is.True);
 		}
 
+		[Test]
+		public void GivenFailingTransitiveQuestion_WhenProcess_ThenReportItsFailureAndAskNoFurtherQuestions()
+		{
+			// arrange
+			var semanticNetwork = new SemanticNetwork(Language.Default);
+			var question = new IsQuestion(1.CreateConceptByObject(), 2.CreateConceptByObject());
+			var questionContext = new QuestionProcessingContext<IsQuestion>(semanticNetwork.Context, question);
+
+			var first = new FailingQuestion("first");
+			var second = new FailingQuestion("second");
+
+			var questionProcessor = new TestQuestionProcessor(questionContext, null);
+			questionProcessor
+				.WithTransitives(
+					statements => Task.FromResult(true),
+					context => new[]
+					{
+						new NestedQuestion(first, Array.Empty<IStatement>()),
+						new NestedQuestion(second, Array.Empty<IStatement>()),
+					})
+				.Where(s => true);
+
+			// act
+			var error = Assert.ThrowsAsync<NotSupportedException>(async () => await questionProcessor
+				.SelectBooleanIncludingChildrenAsync(
+					statements => statements.Count > 0,
+					language => string.Empty,
+					language => string.Empty,
+					new Dictionary<String, IKnowledge>()));
+
+			// assert: the failure is reported as it is, and the lookup stops at the question which failed
+			Assert.That(error.Message, Is.EqualTo("first"));
+			Assert.That(first.WasAsked, Is.True);
+			Assert.That(second.WasAsked, Is.False);
+		}
+
+		private class FailingQuestion : Question
+		{
+			private readonly String _message;
+
+			public Boolean WasAsked
+			{ get; private set; }
+
+			public FailingQuestion(String message)
+			{
+				_message = message;
+			}
+
+			public override Task<IAnswer> ProcessAsync(IQuestionProcessingContext context)
+			{
+				WasAsked = true;
+				throw new NotSupportedException(_message);
+			}
+		}
+
 		public class TestQuestionProcessor : StatementQuestionProcessor<IsQuestion, IsStatement>
 		{
 			private readonly IStatement _additionalStatement;

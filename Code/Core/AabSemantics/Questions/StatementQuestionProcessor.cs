@@ -349,8 +349,9 @@ namespace AabSemantics.Questions
 		}
 
 		/// <summary>
-		/// Asks the nested questions when transitive lookup is needed, running them concurrently
-		/// and keeping only the non-empty answers.
+		/// Asks the nested questions when transitive lookup is needed, one after another, and keeps
+		/// only the non-empty answers. The first question that fails ends the whole lookup: its
+		/// failure is what the caller gets, and the remaining questions are not asked at all.
 		/// </summary>
 		protected virtual async Task ProcessChildrenIfNeedAsync()
 		{
@@ -358,24 +359,18 @@ namespace AabSemantics.Questions
 
 			if (await NeedToProcessTransitives(Statements).ConfigureAwait(false))
 			{
-				var transitives = new Dictionary<NestedQuestion, Task<IAnswer>>();
+				var childAnswers = new List<ChildAnswer>();
 				foreach (var transitive in GetTransitiveQuestions(Context))
 				{
 					CancellationToken.ThrowIfCancellationRequested();
-					transitives[transitive] = transitive.Question.AskAsync(Context, null, CancellationToken);
-				}
 
-				await Task.WhenAll(transitives.Values).ConfigureAwait(false);
-
-				ChildAnswers = new List<ChildAnswer>();
-				foreach (var transitive in transitives)
-				{
-					var answer = await transitive.Value.ConfigureAwait(false);
+					var answer = await transitive.Question.AskAsync(Context, null, CancellationToken).ConfigureAwait(false);
 					if (!answer.IsEmpty)
 					{
-						ChildAnswers.Add(new ChildAnswer(transitive.Key.Question, answer, transitive.Key.TransitiveStatements));
+						childAnswers.Add(new ChildAnswer(transitive.Question, answer, transitive.TransitiveStatements));
 					}
 				}
+				ChildAnswers = childAnswers;
 
 				if (NeedToAggregateTransitivesToStatements)
 				{
