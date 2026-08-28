@@ -13,6 +13,10 @@ namespace AabSemantics.Extensions.WPF.Localization
 		/// <summary>Caption prompting the user to pick a question.</summary>
 		String SelectQuestion
 		{ get; }
+
+		/// <summary>Caption shown while the answer is being inferred.</summary>
+		String Processing
+		{ get; }
 	}
 
 	/// <summary>Serializable <see cref="ILanguageQuestionDialog"/>, loaded from a language file.</summary>
@@ -31,6 +35,11 @@ namespace AabSemantics.Extensions.WPF.Localization
 		public String SelectQuestion
 		{ get; set; }
 
+		/// <summary>Caption shown while the answer is being inferred.</summary>
+		[XmlElement]
+		public String Processing
+		{ get; set; }
+
 		#endregion
 
 		/// <summary>Builds this bundle with its built-in English texts.</summary>
@@ -41,6 +50,7 @@ namespace AabSemantics.Extensions.WPF.Localization
 			{
 				Title = "New question",
 				SelectQuestion = "Chose question: ",
+				Processing = "Looking for the answer...",
 			};
 		}
 	}

@@ -66,8 +66,18 @@ namespace AabSemantics.SimpleWpfClient
 			if (dialog.ShowDialog() == true)
 			{
 				var question = dialog.Question.BuildQuestion();
-				var answer = question.Ask(_application.SemanticNetwork.Context, _application.CurrentLanguage);
-				answer.Display(this, _application.CurrentLanguage, knowledgeObjectPicked);
+				var language = _application.CurrentLanguage;
+
+				IAnswer answer;
+				if (ProcessingDialog.TryRun(
+					this,
+					language,
+					language.GetExtension<IWpfUiModule>().Ui.QuestionDialog.Processing,
+					cancellationToken => question.AskAsync(_application.SemanticNetwork.Context, language, cancellationToken),
+					out answer))
+				{
+					answer.Display(this, language, knowledgeObjectPicked);
+				}
 			}
 		}
 

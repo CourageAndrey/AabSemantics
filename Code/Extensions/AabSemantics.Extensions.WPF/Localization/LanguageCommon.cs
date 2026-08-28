@@ -20,6 +20,10 @@ namespace AabSemantics.Extensions.WPF.Localization
 		String Cancel
 		{ get; }
 
+		/// <summary>Caption shown while a cancelled operation is still unwinding.</summary>
+		String Cancelling
+		{ get; }
+
 		/// <summary>Caption of the abort button.</summary>
 		String Abort
 		{ get; }
@@ -66,6 +70,11 @@ namespace AabSemantics.Extensions.WPF.Localization
 		public String Cancel
 		{ get; set; }
 
+		/// <summary>Caption shown while a cancelled operation is still unwinding.</summary>
+		[XmlElement]
+		public String Cancelling
+		{ get; set; }
+
 		/// <summary>Caption of the abort button.</summary>
 		[XmlElement]
 		public String Abort
@@ -104,6 +113,7 @@ namespace AabSemantics.Extensions.WPF.Localization
 				Close = "Close",
 				Ok = "OK",
 				Cancel = "Cancel",
+				Cancelling = "Cancelling...",
 				Abort = "Abort",
 				Ignore = "Ignore",
 				Save = "Save",
