@@ -57,66 +57,64 @@ namespace AabSemantics.Utils
 
 		/// <summary>Stores an item.</summary>
 		/// <param name="item">Item to store.</param>
-		public async Task AddAsync(T item)
+		public Task AddAsync(T item)
 		{
-			Add(item);
-			await Task.CompletedTask;
+			return TaskHelper.FromSynchronous(() => Add(item));
 		}
 
 		/// <summary>Removes an item.</summary>
 		/// <param name="item">Item to remove.</param>
 		/// <returns><c>true</c> if the item was present and has been removed.</returns>
-		public async Task<Boolean> RemoveAsync(T item)
+		public Task<Boolean> RemoveAsync(T item)
 		{
-			return await Task.FromResult(Remove(item));
+			return TaskHelper.FromSynchronous(() => Remove(item));
 		}
 
 		/// <summary>Removes every item.</summary>
-		public async Task ClearAsync()
+		public Task ClearAsync()
 		{
-			Clear();
-			await Task.CompletedTask;
+			return TaskHelper.FromSynchronous(() => Clear());
 		}
 
 		/// <summary>Counts the stored items.</summary>
 		/// <returns>Number of items.</returns>
-		public async Task<Int32> GetCountAsync()
+		public Task<Int32> GetCountAsync()
 		{
-			return await Task.FromResult(Count);
+			return Task.FromResult(Count);
 		}
 
 		/// <summary>Looks an item up by key.</summary>
 		/// <param name="key">Identifier of the wanted item.</param>
 		/// <returns>The matching item.</returns>
 		/// <exception cref="KeyNotFoundException">No item has that identifier.</exception>
-		public async Task<T> GetItemAsync(String key)
+		public Task<T> GetItemAsync(String key)
 		{
-			return await Task.FromResult(this[key]);
+			return TaskHelper.FromSynchronous(() => this[key]);
 		}
 
 		/// <summary>Lists the identifiers of every stored item.</summary>
 		/// <returns>All keys currently in use.</returns>
-		public async Task<ICollection<String>> GetKeysAsync()
+		public Task<ICollection<String>> GetKeysAsync()
 		{
-			return await Task.FromResult(Keys);
+			return Task.FromResult(Keys);
 		}
 
 		/// <summary>Determines whether an item with the given key is stored.</summary>
 		/// <param name="key">Identifier to look for.</param>
 		/// <returns><c>true</c> if such an item exists.</returns>
-		public async Task<Boolean> ContainsAsync(String key)
+		public Task<Boolean> ContainsAsync(String key)
 		{
-			return await Task.FromResult(Contains(key));
+			return Task.FromResult(Contains(key));
 		}
 
 		/// <summary>Looks an item up without throwing when it is absent.</summary>
 		/// <param name="key">Identifier of the wanted item.</param>
 		/// <returns>A pair whose key reports success and whose value holds the item.</returns>
-		public async Task<KeyValuePair<Boolean, T>> TryGetValueAsync(String key)
+		public Task<KeyValuePair<Boolean, T>> TryGetValueAsync(String key)
 		{
 			T result;
 			Boolean found = _collection.TryGetValue(key, out result);
-			return await Task.FromResult(new KeyValuePair<Boolean, T>(
+			return Task.FromResult(new KeyValuePair<Boolean, T>(
 				found,
 				found ? result : default(T)));
 		}

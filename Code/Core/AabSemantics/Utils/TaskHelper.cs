@@ -63,5 +63,24 @@ namespace AabSemantics.Utils
 				return Task.FromException<T>(error);
 			}
 		}
+
+		/// <summary>
+		/// Runs an operation that has nothing to await and produces no result on the calling thread,
+		/// and reports its outcome through a completed task.
+		/// </summary>
+		/// <param name="operation">Operation to run.</param>
+		/// <returns>A completed or faulted task.</returns>
+		public static Task FromSynchronous(Action operation)
+		{
+			try
+			{
+				operation();
+				return Task.CompletedTask;
+			}
+			catch (Exception error)
+			{
+				return Task.FromException(error);
+			}
+		}
 	}
 }
