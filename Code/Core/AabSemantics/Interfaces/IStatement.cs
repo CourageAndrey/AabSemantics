@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 
 using AabSemantics.Metadata;
@@ -32,8 +33,10 @@ namespace AabSemantics
 		/// Checks that the statement does not duplicate any of the given ones.
 		/// </summary>
 		/// <param name="statements">Statements to compare against, typically those already in the network.</param>
+		/// <param name="cancellationToken">Cancels the comparison, which scans the whole collection.</param>
 		/// <returns><c>true</c> if the statement carries new information.</returns>
-		Task<Boolean> CheckUniqueAsync(IEnumerable<IStatement> statements);
+		/// <exception cref="OperationCanceledException">The token was cancelled.</exception>
+		Task<Boolean> CheckUniqueAsync(IEnumerable<IStatement> statements, CancellationToken cancellationToken = default);
 	}
 
 	/// <summary>

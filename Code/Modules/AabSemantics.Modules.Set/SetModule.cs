@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 
 using AabSemantics.Metadata;
@@ -174,13 +175,14 @@ namespace AabSemantics.Modules.Set
 		private static async Task CheckSignDuplicationsAsync(
 			ISemanticNetwork semanticNetwork,
 			ITextContainer result,
-			ICollection<HasSignStatement> statements)
+			ICollection<HasSignStatement> statements,
+			CancellationToken cancellationToken)
 		{
-			var classifications = await semanticNetwork.Statements.OfType<Classification.Statements.IsStatement>().ToListAsync();
+			var classifications = await semanticNetwork.Statements.OfType<Classification.Statements.IsStatement>().ToListAsync(cancellationToken).ConfigureAwait(false);
 
 			foreach (var hasSign in statements)
 			{
-				if (! await hasSign.CheckSignDuplicationAsync(statements, classifications))
+				if (! await hasSign.CheckSignDuplicationAsync(statements, classifications, cancellationToken).ConfigureAwait(false))
 				{
 					result.Append(
 						language => language.GetStatementsExtension<ILanguageSetModule, ILanguageStatements>().Consistency.ErrorMultipleSign,
@@ -192,16 +194,18 @@ namespace AabSemantics.Modules.Set
 		private static async Task CheckSignValuesAsync(
 			ISemanticNetwork semanticNetwork,
 			ITextContainer result,
-			ICollection<SignValueStatement> statements)
+			ICollection<SignValueStatement> statements,
+			CancellationToken cancellationToken)
 		{
-			await CheckMultiValues(statements, result, semanticNetwork);
-			await CheckValuesWithoutSign(statements, result, semanticNetwork);
+			await CheckMultiValues(statements, result, semanticNetwork, cancellationToken).ConfigureAwait(false);
+			await CheckValuesWithoutSign(statements, result, semanticNetwork, cancellationToken).ConfigureAwait(false);
 		}
 
 		private static async Task CheckMultiValues(
 			ICollection<SignValueStatement> statements,
 			ITextContainer result,
-			ISemanticNetwork semanticNetwork)
+			ISemanticNetwork semanticNetwork,
+			CancellationToken cancellationToken)
 		{
 			var conceptValues = new Dictionary<IConcept, ICollection<IConcept>>();
 			foreach (var statement in statements)
@@ -230,19 +234,21 @@ namespace AabSemantics.Modules.Set
 				}
 			}
 
-			var classifications = await semanticNetwork.Statements.OfType<Classification.Statements.IsStatement>().ToListAsync();
+			var classifications = await semanticNetwork.Statements.OfType<Classification.Statements.IsStatement>().ToListAsync(cancellationToken).ConfigureAwait(false);
 
 			foreach (var concept in semanticNetwork.Concepts)
 			{
-				var parents = await classifications.GetParentsOneLevelAsync(concept);
-				foreach (var sign in await HasSignStatement.GetSignsAsync(semanticNetwork.Statements, concept, true))
+				cancellationToken.ThrowIfCancellationRequested();
+
+				var parents = await classifications.GetParentsOneLevelAsync(concept, cancellationToken: cancellationToken).ConfigureAwait(false);
+				foreach (var sign in await HasSignStatement.GetSignsAsync(semanticNetwork.Statements, concept, true, cancellationToken).ConfigureAwait(false))
 				{
 					if (statements.FirstOrDefault(sv => sv.Concept == concept && sv.Sign == sign.Sign) != null)
 					{
 						continue;
 					}
 
-					if (await CountDifferentInheritedValuesAsync(semanticNetwork, parents, sign.Sign) > 1)
+					if (await CountDifferentInheritedValuesAsync(semanticNetwork, parents, sign.Sign, cancellationToken).ConfigureAwait(false) > 1)
 					{
 						result.Append(
 							language => language.GetStatementsExtension<ILanguageSetModule, ILanguageStatements>().Consistency.ErrorMultipleSignValueParents,
@@ -256,7 +262,7 @@ namespace AabSemantics.Modules.Set
 			}
 		}
 
-		private static async Task<Int32> CountDifferentInheritedValuesAsync(ISemanticNetwork semanticNetwork, IEnumerable<IConcept> parents, IConcept sign)
+		private static async Task<Int32> CountDifferentInheritedValuesAsync(ISemanticNetwork semanticNetwork, IEnumerable<IConcept> parents, IConcept sign, CancellationToken cancellationToken)
 		{
 			// what makes an inherited value uncertain is the ancestors disagreeing about it, so the
 			// values are counted rather than the ancestors: several of them can resolve to the very
@@ -265,7 +271,7 @@ namespace AabSemantics.Modules.Set
 
 			foreach (var parent in parents)
 			{
-				var signValue = await SignValueStatement.GetSignValueAsync(semanticNetwork.Statements, parent, sign);
+				var signValue = await SignValueStatement.GetSignValueAsync(semanticNetwork.Statements, parent, sign, cancellationToken).ConfigureAwait(false);
 				if (signValue != null)
 				{
 					values.Add(signValue.Value);
@@ -278,11 +284,12 @@ namespace AabSemantics.Modules.Set
 		private static async Task CheckValuesWithoutSign(
 			ICollection<SignValueStatement> statements,
 			ITextContainer result,
-			ISemanticNetwork semanticNetwork)
+			ISemanticNetwork semanticNetwork,
+			CancellationToken cancellationToken)
 		{
 			foreach (var signValue in statements)
 			{
-				if (! await signValue.CheckHasSignAsync(semanticNetwork.Statements))
+				if (! await signValue.CheckHasSignAsync(semanticNetwork.Statements, cancellationToken).ConfigureAwait(false))
 				{
 					result.Append(
 						language => language.GetStatementsExtension<ILanguageSetModule, ILanguageStatements>().Consistency.ErrorSignWithoutValue,

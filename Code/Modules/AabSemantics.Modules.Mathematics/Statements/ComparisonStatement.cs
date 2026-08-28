@@ -8,6 +8,7 @@ using AabSemantics.Utils;
 
 using System;
 using System.Collections.Generic;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace AabSemantics.Modules.Mathematics.Statements
@@ -125,19 +126,22 @@ namespace AabSemantics.Modules.Mathematics.Statements
 	{
 		/// <summary>Infers everything derivable from the statements and reports the contradictions found.</summary>
 		/// <param name="statements">Statements to analyse.</param>
+		/// <param name="cancellationToken">Cancels the analysis.</param>
 		/// <returns>One entry per contradicting pair of values; empty when the set is consistent.</returns>
-		public static async Task<List<Contradiction>> CheckForContradictionsAsync(this IEnumerable<ComparisonStatement> statements)
+		/// <exception cref="OperationCanceledException">The token was cancelled.</exception>
+		public static async Task<List<Contradiction>> CheckForContradictionsAsync(this IEnumerable<ComparisonStatement> statements, CancellationToken cancellationToken = default)
 		{
 			var checker = new ComparisonStatementContradictionsChecker(statements);
-			return await checker.CheckForContradictionsAsync();
+			return await checker.CheckForContradictionsAsync(cancellationToken).ConfigureAwait(false);
 		}
 
 		/// <summary>Blocking counterpart of <see cref="CheckForContradictionsAsync"/>.</summary>
 		/// <param name="statements">Statements to analyse.</param>
+		/// <param name="cancellationToken">Cancels the analysis.</param>
 		/// <returns>One entry per contradicting pair of values.</returns>
-		public static List<Contradiction> CheckForContradictions(this IEnumerable<ComparisonStatement> statements)
+		public static List<Contradiction> CheckForContradictions(this IEnumerable<ComparisonStatement> statements, CancellationToken cancellationToken = default)
 		{
-			return TaskHelper.AwaitDetached(() => CheckForContradictionsAsync(statements));
+			return TaskHelper.AwaitDetached(() => CheckForContradictionsAsync(statements, cancellationToken));
 		}
 	}
 }

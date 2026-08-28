@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Threading;
 using System.Threading.Tasks;
 
 using AabSemantics.Metadata;
@@ -99,9 +100,10 @@ namespace AabSemantics.Modules.Processes
 		private static async Task CheckProcessSequenceSystemsAsync(
 			ISemanticNetwork semanticNetwork,
 			ITextContainer result,
-			ICollection<ProcessesStatement> statements)
+			ICollection<ProcessesStatement> statements,
+			CancellationToken cancellationToken)
 		{
-			foreach (var contradiction in await statements.CheckForContradictionsAsync())
+			foreach (var contradiction in await statements.CheckForContradictionsAsync(cancellationToken).ConfigureAwait(false))
 			{
 				result
 					.Append(

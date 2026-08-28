@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Threading;
 using System.Threading.Tasks;
 
 using AabSemantics.Metadata;
@@ -96,9 +97,10 @@ namespace AabSemantics.Modules.Mathematics
 		private static async Task CheckComparisonValueSystemsAsync(
 			ISemanticNetwork semanticNetwork,
 			ITextContainer result,
-			ICollection<ComparisonStatement> statements)
+			ICollection<ComparisonStatement> statements,
+			CancellationToken cancellationToken)
 		{
-			foreach (var contradiction in await statements.CheckForContradictionsAsync())
+			foreach (var contradiction in await statements.CheckForContradictionsAsync(cancellationToken).ConfigureAwait(false))
 			{
 				result
 					.Append(

@@ -81,7 +81,7 @@ namespace AabSemantics.Tests.Metadata
 				l => string.Empty,
 				l => string.Empty,
 				s => new Dictionary<string, IKnowledge>(),
-				(semanticNetwork, result) => Task.CompletedTask);
+				(semanticNetwork, result, cancellationToken) => Task.CompletedTask);
 			var questionDefinition = Repositories.RegisterQuestion(typeof(CheckStatementQuestion), l => string.Empty);
 			var answerDefinition = Repositories.RegisterAnswer(typeof(BooleanAnswer));
 
@@ -94,7 +94,7 @@ namespace AabSemantics.Tests.Metadata
 			var statementDefinitionT = Repositories.RegisterStatement<IsStatement, Modules.Classification.Localization.ILanguageClassificationModule, Modules.Classification.Localization.ILanguageStatements, Modules.Classification.Localization.ILanguageStatementsPart>(
 				l => string.Empty,
 				s => new Dictionary<string, IKnowledge>(),
-				(statements, result, semanticNetwork) => Task.CompletedTask);
+				(statements, result, semanticNetwork, cancellationToken) => Task.CompletedTask);
 			var questionDefinitionT = Repositories.RegisterQuestion<CheckStatementQuestion>(l => string.Empty);
 			var answerDefinitionT = Repositories.RegisterAnswer<BooleanAnswer>();
 

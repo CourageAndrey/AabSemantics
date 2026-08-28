@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 
 using NUnit.Framework;
@@ -290,7 +291,7 @@ namespace AabSemantics.Tests.Contexts
 				throw new NotSupportedException();
 			}
 
-			public Task<bool> CheckUniqueAsync(IEnumerable<IStatement> statements)
+			public Task<bool> CheckUniqueAsync(IEnumerable<IStatement> statements, CancellationToken cancellationToken = default)
 			{
 				throw new NotSupportedException();
 			}

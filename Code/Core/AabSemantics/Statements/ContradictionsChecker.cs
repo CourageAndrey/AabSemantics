@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Threading;
 using System.Threading.Tasks;
 using AabSemantics.Utils;
 
@@ -79,31 +80,35 @@ namespace AabSemantics.Statements
 		protected abstract Boolean TryToUpdateCombinations(IConcept valueRow, IConcept signRow, IConcept signColumn, IConcept valueColumn);
 
 		/// <summary>Infers everything derivable, then reports the contradictions found.</summary>
+		/// <param name="cancellationToken">
+		/// Cancels the analysis. Inference repeats over every pair of values until nothing changes,
+		/// so the token is observed once per pair rather than only between passes.
+		/// </param>
 		/// <returns>One entry per contradicting pair of values; empty when the statements are consistent.</returns>
-		public async Task<List<Contradiction>> CheckForContradictionsAsync()
+		/// <exception cref="OperationCanceledException">The token was cancelled.</exception>
+		public async Task<List<Contradiction>> CheckForContradictionsAsync(CancellationToken cancellationToken = default)
 		{
-			while (await UpdateInferredCombinationsAsync())
+			while (await UpdateInferredCombinationsAsync(cancellationToken).ConfigureAwait(false))
 			{ }
 
-			return await FindContradictionsInMatrixAsync();
+			return await FindContradictionsInMatrixAsync(cancellationToken).ConfigureAwait(false);
 		}
 
-		private async Task<Boolean> UpdateInferredCombinationsAsync()
+		private async Task<Boolean> UpdateInferredCombinationsAsync(CancellationToken cancellationToken)
 		{
 			Boolean combinationsUpdated = false;
-			await Task.Run(async () =>
+			foreach (var row in AllValues)
 			{
-				foreach (var row in AllValues)
+				cancellationToken.ThrowIfCancellationRequested();
+
+				foreach (var column in AllValues)
 				{
-					foreach (var column in AllValues)
+					if (row != column)
 					{
-						if (row != column)
-						{
-							combinationsUpdated |= await UpdateInferredCombinationsFromCellAsync(row, column).ConfigureAwait(false);
-						}
+						combinationsUpdated |= await UpdateInferredCombinationsFromCellAsync(row, column).ConfigureAwait(false);
 					}
 				}
-			}).ConfigureAwait(false);
+			}
 			return combinationsUpdated;
 		}
 
@@ -141,12 +146,14 @@ namespace AabSemantics.Statements
 			return combinationsUpdated;
 		}
 
-		private async Task<List<Contradiction>> FindContradictionsInMatrixAsync()
+		private async Task<List<Contradiction>> FindContradictionsInMatrixAsync(CancellationToken cancellationToken)
 		{
 			var foundContradictions = new List<Contradiction>();
 
 			foreach (var leftCombinations in AllSigns)
 			{
+				cancellationToken.ThrowIfCancellationRequested();
+
 				var left = leftCombinations.Key;
 				foreach (var rightCombinations in leftCombinations.Value)
 				{

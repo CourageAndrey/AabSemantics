@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 
 using AabSemantics.Localization;
@@ -15,7 +16,8 @@ namespace AabSemantics.Metadata
 	/// </summary>
 	/// <param name="semanticNetwork">Network to validate.</param>
 	/// <param name="result">Container problem descriptions are appended to.</param>
-	public delegate Task StatementConsistencyCheckerDelegate(ISemanticNetwork semanticNetwork, ITextContainer result);
+	/// <param name="cancellationToken">Cancels the check, which may walk the whole network.</param>
+	public delegate Task StatementConsistencyCheckerDelegate(ISemanticNetwork semanticNetwork, ITextContainer result, CancellationToken cancellationToken);
 
 	/// <summary>
 	/// Strongly typed counterpart of <see cref="StatementConsistencyCheckerDelegate"/>: receives
@@ -25,7 +27,8 @@ namespace AabSemantics.Metadata
 	/// <param name="semanticNetwork">Network to validate.</param>
 	/// <param name="result">Container problem descriptions are appended to.</param>
 	/// <param name="statements">The network's statements of type <typeparamref name="StatementT"/>.</param>
-	public delegate Task StatementConsistencyCheckerDelegate<StatementT>(ISemanticNetwork semanticNetwork, ITextContainer result, ICollection<StatementT> statements)
+	/// <param name="cancellationToken">Cancels the check, which may walk the whole network.</param>
+	public delegate Task StatementConsistencyCheckerDelegate<StatementT>(ISemanticNetwork semanticNetwork, ITextContainer result, ICollection<StatementT> statements, CancellationToken cancellationToken)
 		where StatementT : IStatement;
 
 	/// <summary>
@@ -206,9 +209,11 @@ namespace AabSemantics.Metadata
 		/// </summary>
 		/// <param name="semanticNetwork">Network to validate.</param>
 		/// <param name="result">Container problem descriptions are appended to.</param>
-		public async Task CheckConsistencyAsync(ISemanticNetwork semanticNetwork, ITextContainer result)
+		/// <param name="cancellationToken">Cancels the check.</param>
+		/// <exception cref="OperationCanceledException">The token was cancelled.</exception>
+		public async Task CheckConsistencyAsync(ISemanticNetwork semanticNetwork, ITextContainer result, CancellationToken cancellationToken = default)
 		{
-			await _consistencyChecker(semanticNetwork, result);
+			await _consistencyChecker(semanticNetwork, result, cancellationToken).ConfigureAwait(false);
 		}
 
 		/// <summary>
@@ -216,16 +221,18 @@ namespace AabSemantics.Metadata
 		/// </summary>
 		/// <param name="semanticNetwork">Network to validate.</param>
 		/// <param name="result">Container problem descriptions are appended to.</param>
-		public void CheckConsistency(ISemanticNetwork semanticNetwork, ITextContainer result)
+		/// <param name="cancellationToken">Cancels the check.</param>
+		/// <exception cref="OperationCanceledException">The token was cancelled.</exception>
+		public void CheckConsistency(ISemanticNetwork semanticNetwork, ITextContainer result, CancellationToken cancellationToken = default)
 		{
-			TaskHelper.AwaitDetached(() => CheckConsistencyAsync(semanticNetwork, result));
+			TaskHelper.AwaitDetached(() => CheckConsistencyAsync(semanticNetwork, result, cancellationToken));
 		}
 
 		/// <summary>
 		/// A checker that reports nothing, for statement types with no consistency rules.
 		/// The constructor rejects a <c>null</c> checker, so pass this instead.
 		/// </summary>
-		public static readonly StatementConsistencyCheckerDelegate NoConsistencyCheck = (semanticNetwork, result) => Task.CompletedTask;
+		public static readonly StatementConsistencyCheckerDelegate NoConsistencyCheck = (semanticNetwork, result, cancellationToken) => Task.CompletedTask;
 	}
 
 	/// <summary>
@@ -259,7 +266,7 @@ namespace AabSemantics.Metadata
 				language => partGetter(language.GetStatementsExtension<ModuleT, LanguageStatementsT>().FalseFormatStrings),
 				language => partGetter(language.GetStatementsExtension<ModuleT, LanguageStatementsT>().QuestionFormatStrings),
 				statement => getDescriptionParameters(statement as StatementT),
-				(semanticNetwork, result) => consistencyChecker(semanticNetwork, result, semanticNetwork.Statements.OfType<StatementT>().ToList()))
+				(semanticNetwork, result, cancellationToken) => consistencyChecker(semanticNetwork, result, semanticNetwork.Statements.OfType<StatementT>().ToList(), cancellationToken))
 		{
 			partGetter.EnsureNotNull(nameof(partGetter));
 			getDescriptionParameters.EnsureNotNull(nameof(getDescriptionParameters));
@@ -270,7 +277,7 @@ namespace AabSemantics.Metadata
 		/// A typed checker that reports nothing, for statement types with no consistency rules.
 		/// Hides the untyped <see cref="StatementDefinition.NoConsistencyCheck"/>.
 		/// </summary>
-		public new static readonly StatementConsistencyCheckerDelegate<StatementT> NoConsistencyCheck = (semanticNetwork, result, statements) => Task.CompletedTask;
+		public new static readonly StatementConsistencyCheckerDelegate<StatementT> NoConsistencyCheck = (semanticNetwork, result, statements, cancellationToken) => Task.CompletedTask;
 	}
 
 	/// <summary>

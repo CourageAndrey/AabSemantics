@@ -89,11 +89,13 @@ namespace AabSemantics.Modules.Set.Statements
 
 		/// <summary>Verifies that the sign this statement assigns a value to is actually declared for the concept.</summary>
 		/// <param name="statements">Statements to search for the sign declaration.</param>
+		/// <param name="cancellationToken">Cancels the search, which walks the whole hierarchy above the concept.</param>
 		/// <returns><c>true</c> when a matching declaration exists.</returns>
-		public async Task<System.Boolean> CheckHasSignAsync(IEnumerable<IStatement> statements)
+		/// <exception cref="OperationCanceledException">The token was cancelled.</exception>
+		public async Task<System.Boolean> CheckHasSignAsync(IEnumerable<IStatement> statements, CancellationToken cancellationToken = default)
 		{
-			var signs = await HasSignStatement.GetSignsAsync(statements, Concept, true);
-			return (await signs.Select(hs => hs.Sign).ToListAsync()).Contains(Sign);
+			var signs = await HasSignStatement.GetSignsAsync(statements, Concept, true, cancellationToken).ConfigureAwait(false);
+			return (await signs.Select(hs => hs.Sign).ToListAsync(cancellationToken).ConfigureAwait(false)).Contains(Sign);
 		}
 
 		#endregion
@@ -160,10 +162,11 @@ namespace AabSemantics.Modules.Set.Statements
 
 		/// <summary>Blocking counterpart of <see cref="CheckHasSignAsync"/>.</summary>
 		/// <param name="statements">Statements to search for the sign declaration.</param>
+		/// <param name="cancellationToken">Cancels the search.</param>
 		/// <returns><c>true</c> when a matching declaration exists.</returns>
-		public System.Boolean CheckHasSign(IEnumerable<IStatement> statements)
+		public System.Boolean CheckHasSign(IEnumerable<IStatement> statements, CancellationToken cancellationToken = default)
 		{
-			return TaskHelper.AwaitDetached(() => CheckHasSignAsync(statements));
+			return TaskHelper.AwaitDetached(() => CheckHasSignAsync(statements, cancellationToken));
 		}
 
 		/// <summary>Blocking counterpart of <see cref="GetSignValueAsync"/>.</summary>

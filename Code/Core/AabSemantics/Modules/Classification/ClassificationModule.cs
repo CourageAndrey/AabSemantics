@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Threading;
 using System.Threading.Tasks;
 
 using AabSemantics.Localization;
@@ -79,11 +80,12 @@ namespace AabSemantics.Modules.Classification
 		private static async Task CheckCyclicParentsAsync(
 			ISemanticNetwork semanticNetwork,
 			ITextContainer result,
-			ICollection<IsStatement> statements)
+			ICollection<IsStatement> statements,
+			CancellationToken cancellationToken)
 		{
 			foreach (var classification in statements)
 			{
-				if (! await classification.CheckCyclicAsync(statements))
+				if (! await classification.CheckCyclicAsync(statements, cancellationToken).ConfigureAwait(false))
 				{
 					result.Append(
 						language => language.GetStatementsExtension<ILanguageClassificationModule, Localization.ILanguageStatements>().Consistency.ErrorCyclic,

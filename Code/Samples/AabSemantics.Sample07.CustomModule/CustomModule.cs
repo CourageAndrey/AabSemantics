@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Threading;
 using System.Threading.Tasks;
 
 using AabSemantics.Localization;
@@ -79,7 +80,8 @@ namespace AabSemantics.Sample07.CustomModule
 		private static Task checkSelfRelations(
 			ISemanticNetwork semanticNetwork,
 			ITextContainer result,
-			ICollection<CustomStatement> statements)
+			ICollection<CustomStatement> statements,
+			CancellationToken cancellationToken)
 		{
 			foreach (var statement in statements)
 			{

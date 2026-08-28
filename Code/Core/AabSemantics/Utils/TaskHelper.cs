@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace AabSemantics.Utils
@@ -57,6 +58,32 @@ namespace AabSemantics.Utils
 			try
 			{
 				return Task.FromResult(operation());
+			}
+			catch (Exception error)
+			{
+				return Task.FromException<T>(error);
+			}
+		}
+
+		/// <summary>
+		/// Runs a cancellable operation that has nothing to await on the calling thread and reports
+		/// its outcome through a completed task. A cancelled operation yields a cancelled task, and
+		/// any other failure a faulted one, just as if the work had really been asynchronous.
+		/// </summary>
+		/// <typeparam name="T">Result type.</typeparam>
+		/// <param name="operation">Operation to run; it is expected to observe the token itself.</param>
+		/// <param name="cancellationToken">Token the operation observes.</param>
+		/// <returns>A completed, cancelled or faulted task.</returns>
+		public static Task<T> FromSynchronous<T>(Func<T> operation, CancellationToken cancellationToken)
+		{
+			try
+			{
+				cancellationToken.ThrowIfCancellationRequested();
+				return Task.FromResult(operation());
+			}
+			catch (OperationCanceledException) when (cancellationToken.IsCancellationRequested)
+			{
+				return Task.FromCanceled<T>(cancellationToken);
 			}
 			catch (Exception error)
 			{

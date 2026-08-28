@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 
 using AabSemantics.Localization;
@@ -66,8 +67,10 @@ namespace AabSemantics.Statements
 
 		/// <summary>Checks that the statement does not duplicate any of the given ones.</summary>
 		/// <param name="statements">Statements to compare against.</param>
+		/// <param name="cancellationToken">Cancels the comparison.</param>
 		/// <returns><c>true</c> if the statement carries new information.</returns>
-		public abstract Task<Boolean> CheckUniqueAsync(IEnumerable<IStatement> statements);
+		/// <exception cref="OperationCanceledException">The token was cancelled.</exception>
+		public abstract Task<Boolean> CheckUniqueAsync(IEnumerable<IStatement> statements, CancellationToken cancellationToken = default);
 
 #pragma warning disable 659
 		/// <summary>Compares the statement with another object by value.</summary>
@@ -110,26 +113,33 @@ namespace AabSemantics.Statements
 		/// a duplicate.
 		/// </summary>
 		/// <param name="statements">Statements to compare against.</param>
+		/// <param name="cancellationToken">Cancels the comparison.</param>
 		/// <returns><c>false</c> once a second equal statement is found.</returns>
-		public sealed override async Task<Boolean> CheckUniqueAsync(IEnumerable<IStatement> statements)
+		/// <exception cref="OperationCanceledException">The token was cancelled.</exception>
+		public sealed override Task<Boolean> CheckUniqueAsync(IEnumerable<IStatement> statements, CancellationToken cancellationToken = default)
 		{
-			return await Task.Run(() =>
-			{
-				bool found = false;
-				foreach (var _ in statements.OfType<StatementT>().Where(s => Equals(s)))
+			return TaskHelper.FromSynchronous(
+				() =>
 				{
-					if (!found)
+					Boolean found = false;
+					foreach (var statement in statements.OfType<StatementT>())
 					{
-						found = true;
-					}
-					else
-					{
-						return Task.FromResult(false);
-					}
-				}
+						cancellationToken.ThrowIfCancellationRequested();
 
-				return Task.FromResult(true);
-			}).ConfigureAwait(false);
+						if (Equals(statement))
+						{
+							if (found)
+							{
+								return false;
+							}
+
+							found = true;
+						}
+					}
+
+					return true;
+				},
+				cancellationToken);
 		}
 
 		/// <summary>Compares the statement with another of the same type by value.</summary>

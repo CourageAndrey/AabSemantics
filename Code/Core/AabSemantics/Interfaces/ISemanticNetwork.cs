@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Threading;
 using System.Threading.Tasks;
 
 using AabSemantics.Localization;
@@ -52,20 +53,26 @@ namespace AabSemantics
 		/// Renders every statement in the network as an affirmative sentence.
 		/// </summary>
 		/// <param name="semanticNetwork">Network to describe.</param>
+		/// <param name="cancellationToken">Cancels the rendering, which walks every statement.</param>
 		/// <returns>Text containing one sentence per statement.</returns>
-		public static async Task<IText> DescribeRulesAsync(this ISemanticNetwork semanticNetwork)
+		/// <exception cref="OperationCanceledException">The token was cancelled.</exception>
+		public static Task<IText> DescribeRulesAsync(this ISemanticNetwork semanticNetwork, CancellationToken cancellationToken = default)
 		{
-			var result = new UnstructuredContainer();
-
-			await Task.Run(() =>
-			{
-				foreach (var statement in semanticNetwork.Statements)
+			return TaskHelper.FromSynchronous<IText>(
+				() =>
 				{
-					result.Append(statement.DescribeTrue());
-				}
-			}).ConfigureAwait(false);
+					var result = new UnstructuredContainer();
 
-			return result;
+					foreach (var statement in semanticNetwork.Statements)
+					{
+						cancellationToken.ThrowIfCancellationRequested();
+
+						result.Append(statement.DescribeTrue());
+					}
+
+					return result;
+				},
+				cancellationToken);
 		}
 
 		/// <summary>
@@ -74,21 +81,25 @@ namespace AabSemantics
 		/// in parent-child relations, and so on).
 		/// </summary>
 		/// <param name="semanticNetwork">Network to validate.</param>
+		/// <param name="cancellationToken">Cancels the validation, which walks the whole network.</param>
 		/// <returns>
 		/// Text describing every problem found, or a single "check OK" line when the
 		/// network is consistent.
 		/// </returns>
-		public static async Task<IText> CheckConsistencyAsync(this ISemanticNetwork semanticNetwork)
+		/// <exception cref="OperationCanceledException">The token was cancelled.</exception>
+		public static async Task<IText> CheckConsistencyAsync(this ISemanticNetwork semanticNetwork, CancellationToken cancellationToken = default)
 		{
 			var result = new UnstructuredContainer();
 
 			// 1. check all duplicates
-			await CheckStatementDuplicatesAsync(semanticNetwork, result).ConfigureAwait(false);
+			await CheckStatementDuplicatesAsync(semanticNetwork, result, cancellationToken).ConfigureAwait(false);
 
 			// 2. check specific statements
 			foreach (var statementDefinition in Repositories.Statements.Definitions.Values)
 			{
-				await statementDefinition.CheckConsistencyAsync(semanticNetwork, result).ConfigureAwait(false);
+				cancellationToken.ThrowIfCancellationRequested();
+
+				await statementDefinition.CheckConsistencyAsync(semanticNetwork, result, cancellationToken).ConfigureAwait(false);
 			}
 
 			if (result.Items.Count == 0)
@@ -98,11 +109,11 @@ namespace AabSemantics
 			return result;
 		}
 
-		private static async Task CheckStatementDuplicatesAsync(ISemanticNetwork semanticNetwork, ITextContainer result)
+		private static async Task CheckStatementDuplicatesAsync(ISemanticNetwork semanticNetwork, ITextContainer result, CancellationToken cancellationToken)
 		{
 			foreach (var statement in semanticNetwork.Statements)
 			{
-				if (! await statement.CheckUniqueAsync(semanticNetwork.Statements).ConfigureAwait(false))
+				if (! await statement.CheckUniqueAsync(semanticNetwork.Statements, cancellationToken).ConfigureAwait(false))
 				{
 					result.Append(
 						language => language.Statements.Consistency.ErrorDuplicate,
@@ -115,20 +126,24 @@ namespace AabSemantics
 		/// Blocking counterpart of <see cref="DescribeRulesAsync"/>, for callers that cannot await.
 		/// </summary>
 		/// <param name="semanticNetwork">Network to describe.</param>
+		/// <param name="cancellationToken">Cancels the rendering.</param>
 		/// <returns>Text containing one sentence per statement.</returns>
-		public static IText DescribeRules(this ISemanticNetwork semanticNetwork)
+		/// <exception cref="OperationCanceledException">The token was cancelled.</exception>
+		public static IText DescribeRules(this ISemanticNetwork semanticNetwork, CancellationToken cancellationToken = default)
 		{
-			return TaskHelper.AwaitDetached(() => DescribeRulesAsync(semanticNetwork));
+			return TaskHelper.AwaitDetached(() => DescribeRulesAsync(semanticNetwork, cancellationToken));
 		}
 
 		/// <summary>
 		/// Blocking counterpart of <see cref="CheckConsistencyAsync"/>, for callers that cannot await.
 		/// </summary>
 		/// <param name="semanticNetwork">Network to validate.</param>
+		/// <param name="cancellationToken">Cancels the validation.</param>
 		/// <returns>Text describing every problem found, or a single "check OK" line.</returns>
-		public static IText CheckConsistency(this ISemanticNetwork semanticNetwork)
+		/// <exception cref="OperationCanceledException">The token was cancelled.</exception>
+		public static IText CheckConsistency(this ISemanticNetwork semanticNetwork, CancellationToken cancellationToken = default)
 		{
-			return TaskHelper.AwaitDetached(() => CheckConsistencyAsync(semanticNetwork));
+			return TaskHelper.AwaitDetached(() => CheckConsistencyAsync(semanticNetwork, cancellationToken));
 		}
 	}
 }

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 
 using AabSemantics.Modules.Classification.Localization;
@@ -90,10 +91,12 @@ namespace AabSemantics.Modules.Classification.Statements
 		/// the descendant back down to the ancestor, which would mean the two are each other's kind.
 		/// </summary>
 		/// <param name="statements">Statements to search, normally all "is a" statements of the network.</param>
+		/// <param name="cancellationToken">Cancels the search, which walks the whole hierarchy.</param>
 		/// <returns><c>true</c> when no such reverse path exists, i.e. the hierarchy stays acyclic.</returns>
-		public async Task<System.Boolean> CheckCyclicAsync(IEnumerable<IsStatement> statements)
+		/// <exception cref="OperationCanceledException">The token was cancelled.</exception>
+		public async Task<System.Boolean> CheckCyclicAsync(IEnumerable<IsStatement> statements, CancellationToken cancellationToken = default)
 		{
-			var path = await statements.FindPathAsync(typeof(IsStatement), Child, Parent);
+			var path = await statements.FindPathAsync(typeof(IsStatement), Child, Parent, cancellationToken).ConfigureAwait(false);
 			return !path.Any();
 		}
 
