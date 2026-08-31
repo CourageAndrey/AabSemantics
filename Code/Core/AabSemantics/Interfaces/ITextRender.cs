@@ -174,12 +174,18 @@ namespace AabSemantics
 		public static readonly HtmlTextRender Html = new HtmlTextRender();
 
 		/// <summary>
+		/// Renders text as Markdown.
+		/// </summary>
+		public static readonly MakefileTextRender Markdown = new MakefileTextRender();
+
+		/// <summary>
 		/// Every built-in render.
 		/// </summary>
 		public static readonly ICollection<ITextRender> All = new ITextRender[]
 		{
 			PlainString,
 			Html,
+			Markdown,
 		};
 
 		#endregion
