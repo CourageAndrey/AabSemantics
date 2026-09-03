@@ -12,8 +12,9 @@ namespace AabSemantics.Utils
 {
 	/// <summary>
 	/// In-memory <see cref="IRepository{T}"/> keyed by item identifier, raising events around
-	/// every modification. The asynchronous methods complete synchronously; the collection itself
-	/// is not thread-safe.
+	/// every modification. The asynchronous methods complete synchronously and have nothing to wait
+	/// for, so they observe the cancellation token before they start and then run to completion;
+	/// the collection itself is not thread-safe.
 	/// </summary>
 	/// <typeparam name="T">Item type.</typeparam>
 	public class Repository<T> : IRepository<T>, IEventCollection<T>, ICollection<T>
@@ -57,66 +58,87 @@ namespace AabSemantics.Utils
 
 		/// <summary>Stores an item.</summary>
 		/// <param name="item">Item to store.</param>
-		public Task AddAsync(T item)
+		/// <param name="cancellationToken">Cancels the call before the item is stored.</param>
+		/// <exception cref="OperationCanceledException">The token was cancelled.</exception>
+		public Task AddAsync(T item, CancellationToken cancellationToken = default)
 		{
-			return TaskHelper.FromSynchronous(() => Add(item));
+			return TaskHelper.FromSynchronous(() => Add(item), cancellationToken);
 		}
 
 		/// <summary>Removes an item.</summary>
 		/// <param name="item">Item to remove.</param>
+		/// <param name="cancellationToken">Cancels the call before the item is removed.</param>
 		/// <returns><c>true</c> if the item was present and has been removed.</returns>
-		public Task<Boolean> RemoveAsync(T item)
+		/// <exception cref="OperationCanceledException">The token was cancelled.</exception>
+		public Task<Boolean> RemoveAsync(T item, CancellationToken cancellationToken = default)
 		{
-			return TaskHelper.FromSynchronous(() => Remove(item));
+			return TaskHelper.FromSynchronous(() => Remove(item), cancellationToken);
 		}
 
 		/// <summary>Removes every item.</summary>
-		public Task ClearAsync()
+		/// <param name="cancellationToken">Cancels the call before anything is removed.</param>
+		/// <exception cref="OperationCanceledException">The token was cancelled.</exception>
+		public Task ClearAsync(CancellationToken cancellationToken = default)
 		{
-			return TaskHelper.FromSynchronous(() => Clear());
+			return TaskHelper.FromSynchronous(() => Clear(), cancellationToken);
 		}
 
 		/// <summary>Counts the stored items.</summary>
+		/// <param name="cancellationToken">Cancels the call before the items are counted.</param>
 		/// <returns>Number of items.</returns>
-		public Task<Int32> GetCountAsync()
+		/// <exception cref="OperationCanceledException">The token was cancelled.</exception>
+		public Task<Int32> GetCountAsync(CancellationToken cancellationToken = default)
 		{
-			return Task.FromResult(Count);
+			return TaskHelper.FromSynchronous(() => Count, cancellationToken);
 		}
 
 		/// <summary>Looks an item up by key.</summary>
 		/// <param name="key">Identifier of the wanted item.</param>
+		/// <param name="cancellationToken">Cancels the call before the item is looked up.</param>
 		/// <returns>The matching item.</returns>
 		/// <exception cref="KeyNotFoundException">No item has that identifier.</exception>
-		public Task<T> GetItemAsync(String key)
+		/// <exception cref="OperationCanceledException">The token was cancelled.</exception>
+		public Task<T> GetItemAsync(String key, CancellationToken cancellationToken = default)
 		{
-			return TaskHelper.FromSynchronous(() => this[key]);
+			return TaskHelper.FromSynchronous(() => this[key], cancellationToken);
 		}
 
 		/// <summary>Lists the identifiers of every stored item.</summary>
+		/// <param name="cancellationToken">Cancels the call before the keys are listed.</param>
 		/// <returns>All keys currently in use.</returns>
-		public Task<ICollection<String>> GetKeysAsync()
+		/// <exception cref="OperationCanceledException">The token was cancelled.</exception>
+		public Task<ICollection<String>> GetKeysAsync(CancellationToken cancellationToken = default)
 		{
-			return Task.FromResult(Keys);
+			return TaskHelper.FromSynchronous(() => Keys, cancellationToken);
 		}
 
 		/// <summary>Determines whether an item with the given key is stored.</summary>
 		/// <param name="key">Identifier to look for.</param>
+		/// <param name="cancellationToken">Cancels the call before the key is looked for.</param>
 		/// <returns><c>true</c> if such an item exists.</returns>
-		public Task<Boolean> ContainsAsync(String key)
+		/// <exception cref="OperationCanceledException">The token was cancelled.</exception>
+		public Task<Boolean> ContainsAsync(String key, CancellationToken cancellationToken = default)
 		{
-			return Task.FromResult(Contains(key));
+			return TaskHelper.FromSynchronous(() => Contains(key), cancellationToken);
 		}
 
 		/// <summary>Looks an item up without throwing when it is absent.</summary>
 		/// <param name="key">Identifier of the wanted item.</param>
+		/// <param name="cancellationToken">Cancels the call before the item is looked up.</param>
 		/// <returns>A pair whose key reports success and whose value holds the item.</returns>
-		public Task<KeyValuePair<Boolean, T>> TryGetValueAsync(String key)
+		/// <exception cref="OperationCanceledException">The token was cancelled.</exception>
+		public Task<KeyValuePair<Boolean, T>> TryGetValueAsync(String key, CancellationToken cancellationToken = default)
 		{
-			T result;
-			Boolean found = _collection.TryGetValue(key, out result);
-			return Task.FromResult(new KeyValuePair<Boolean, T>(
-				found,
-				found ? result : default(T)));
+			return TaskHelper.FromSynchronous(
+				() =>
+				{
+					T result;
+					Boolean found = _collection.TryGetValue(key, out result);
+					return new KeyValuePair<Boolean, T>(
+						found,
+						found ? result : default(T));
+				},
+				cancellationToken);
 		}
 
 		#endregion

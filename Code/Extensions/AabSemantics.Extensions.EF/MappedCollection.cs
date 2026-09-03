@@ -21,13 +21,10 @@ namespace AabSemantics.Extensions.EF
 	/// <summary>
 	/// Repository combining several table mappings into one collection. Reads span every
 	/// mapping; writes go to the one picked by <see cref="MappingSelector"/> and are staged
-	/// until the owning network saves them.
-	/// <para>
-	/// <see cref="IRepository{T}"/> knows nothing of cancellation, so every one of its members has a
-	/// counterpart here that takes a token and is the one to call when the wait for the database has
-	/// to be interruptible; the interface members delegate to it with
-	/// <see cref="CancellationToken.None"/>.
-	/// </para>
+	/// until the owning network saves them. Every member passes its cancellation token down to the
+	/// mappings, so waiting for the database can be cut short; the only exception is
+	/// <see cref="GetEnumerator"/>, which <see cref="IEnumerable{T}"/> gives no token to, so
+	/// <see cref="GetAllItemsAsync"/> is there for cancellable reads of everything.
 	/// </summary>
 	/// <typeparam name="ItemT">Item type.</typeparam>
 	internal class MappedCollection<ItemT> : IRepository<ItemT>
@@ -99,91 +96,23 @@ namespace AabSemantics.Extensions.EF
 
 		/// <summary>Stages an item through the mapping chosen by <see cref="MappingSelector"/>.</summary>
 		/// <param name="item">Item to store.</param>
-		public Task AddAsync(ItemT item)
-		{
-			return AddAsync(item, CancellationToken.None);
-		}
-
-		/// <summary>Stages an item's deletion, trying each mapping until one reports success.</summary>
-		/// <param name="item">Item to remove.</param>
-		/// <returns><c>true</c> when some mapping found it.</returns>
-		/// <exception cref="ArgumentNullException"><paramref name="item"/> is <c>null</c>.</exception>
-		public Task<bool> RemoveAsync(ItemT item)
-		{
-			return RemoveAsync(item, CancellationToken.None);
-		}
-
-		/// <summary>Stages the emptying of every mapped table.</summary>
-		public Task ClearAsync()
-		{
-			return ClearAsync(CancellationToken.None);
-		}
-
-		/// <summary>Counts the items across every mapping.</summary>
-		/// <returns>Total number of items.</returns>
-		public Task<int> GetCountAsync()
-		{
-			return GetCountAsync(CancellationToken.None);
-		}
-
-		/// <summary>Looks an item up by key.</summary>
-		/// <param name="key">Identifier of the wanted item.</param>
-		/// <returns>The matching item, or <c>null</c> when nothing matched.</returns>
-		public Task<ItemT> GetItemAsync(string key)
-		{
-			return GetItemAsync(key, CancellationToken.None);
-		}
-
-		/// <summary>Lists the identifiers of every item across all mappings.</summary>
-		/// <returns>All keys currently in use.</returns>
-		public Task<ICollection<string>> GetKeysAsync()
-		{
-			return GetKeysAsync(CancellationToken.None);
-		}
-
-		/// <summary>Determines whether an item with the given key exists in any mapping.</summary>
-		/// <param name="key">Identifier to look for.</param>
-		/// <returns><c>true</c> if such an item exists.</returns>
-		public Task<bool> ContainsAsync(string key)
-		{
-			return ContainsAsync(key, CancellationToken.None);
-		}
-
-		/// <summary>Looks an item up across every mapping, returning the first match.</summary>
-		/// <param name="key">Identifier of the wanted item.</param>
-		/// <returns>A pair whose key reports success and whose value holds the item.</returns>
-		public Task<KeyValuePair<bool, ItemT>> TryGetValueAsync(string key)
-		{
-			return TryGetValueAsync(key, CancellationToken.None);
-		}
-
-		#endregion
-
-		#region Cancellable counterparts
-
-		/// <summary>
-		/// Stages an item through the mapping chosen by <see cref="MappingSelector"/>.
-		/// Cancellable counterpart of <see cref="AddAsync(ItemT)"/>.
-		/// </summary>
-		/// <param name="item">Item to store.</param>
 		/// <param name="cancellationToken">Cancels the call before the item is staged.</param>
 		/// <exception cref="OperationCanceledException">The token was cancelled.</exception>
-		public async Task AddAsync(ItemT item, CancellationToken cancellationToken)
+		public async Task AddAsync(ItemT item, CancellationToken cancellationToken = default)
 		{
 			await _mappingSelector(_mappings, item).AddAsync(item, cancellationToken).ConfigureAwait(false);
 		}
 
 		/// <summary>
-		/// Stages an item's deletion, trying each mapping until one reports success. Cancellable
-		/// counterpart of <see cref="RemoveAsync(ItemT)"/>; whatever earlier mappings have staged
-		/// stays staged when the token is cancelled.
+		/// Stages an item's deletion, trying each mapping until one reports success. Whatever earlier
+		/// mappings have staged stays staged when the token is cancelled.
 		/// </summary>
 		/// <param name="item">Item to remove.</param>
 		/// <param name="cancellationToken">Cancels the search through the mappings.</param>
 		/// <returns><c>true</c> when some mapping found it.</returns>
 		/// <exception cref="ArgumentNullException"><paramref name="item"/> is <c>null</c>.</exception>
 		/// <exception cref="OperationCanceledException">The token was cancelled.</exception>
-		public async Task<bool> RemoveAsync(ItemT item, CancellationToken cancellationToken)
+		public async Task<bool> RemoveAsync(ItemT item, CancellationToken cancellationToken = default)
 		{
 			item.EnsureNotNull(nameof(item));
 
@@ -199,13 +128,12 @@ namespace AabSemantics.Extensions.EF
 		}
 
 		/// <summary>
-		/// Stages the emptying of every mapped table. Cancellable counterpart of
-		/// <see cref="ClearAsync()"/>; the tables already visited stay staged for emptying when the
-		/// token is cancelled.
+		/// Stages the emptying of every mapped table. The tables already visited stay staged for
+		/// emptying when the token is cancelled.
 		/// </summary>
 		/// <param name="cancellationToken">Cancels the walk through the mappings.</param>
 		/// <exception cref="OperationCanceledException">The token was cancelled.</exception>
-		public async Task ClearAsync(CancellationToken cancellationToken)
+		public async Task ClearAsync(CancellationToken cancellationToken = default)
 		{
 			foreach (var mapping in _mappings)
 			{
@@ -213,11 +141,11 @@ namespace AabSemantics.Extensions.EF
 			}
 		}
 
-		/// <summary>Cancellable counterpart of <see cref="GetCountAsync()"/>.</summary>
+		/// <summary>Counts the items across every mapping.</summary>
 		/// <param name="cancellationToken">Cancels the walk through the mappings.</param>
 		/// <returns>Total number of items.</returns>
 		/// <exception cref="OperationCanceledException">The token was cancelled.</exception>
-		public async Task<int> GetCountAsync(CancellationToken cancellationToken)
+		public async Task<int> GetCountAsync(CancellationToken cancellationToken = default)
 		{
 			int count = 0;
 			foreach (var mapping in _mappings)
@@ -228,21 +156,21 @@ namespace AabSemantics.Extensions.EF
 			return count;
 		}
 
-		/// <summary>Cancellable counterpart of <see cref="GetItemAsync(string)"/>.</summary>
+		/// <summary>Looks an item up by key.</summary>
 		/// <param name="key">Identifier of the wanted item.</param>
 		/// <param name="cancellationToken">Cancels the search through the mappings.</param>
 		/// <returns>The matching item, or <c>null</c> when nothing matched.</returns>
 		/// <exception cref="OperationCanceledException">The token was cancelled.</exception>
-		public async Task<ItemT> GetItemAsync(string key, CancellationToken cancellationToken)
+		public async Task<ItemT> GetItemAsync(string key, CancellationToken cancellationToken = default)
 		{
 			return (await TryGetValueAsync(key, cancellationToken).ConfigureAwait(false)).Value;
 		}
 
-		/// <summary>Cancellable counterpart of <see cref="GetKeysAsync()"/>.</summary>
+		/// <summary>Lists the identifiers of every item across all mappings.</summary>
 		/// <param name="cancellationToken">Cancels the walk through the mappings.</param>
 		/// <returns>All keys currently in use.</returns>
 		/// <exception cref="OperationCanceledException">The token was cancelled.</exception>
-		public async Task<ICollection<string>> GetKeysAsync(CancellationToken cancellationToken)
+		public async Task<ICollection<string>> GetKeysAsync(CancellationToken cancellationToken = default)
 		{
 			var keys = new List<string>();
 			foreach (var mapping in _mappings)
@@ -253,22 +181,22 @@ namespace AabSemantics.Extensions.EF
 			return keys;
 		}
 
-		/// <summary>Cancellable counterpart of <see cref="ContainsAsync(string)"/>.</summary>
+		/// <summary>Determines whether an item with the given key exists in any mapping.</summary>
 		/// <param name="key">Identifier to look for.</param>
 		/// <param name="cancellationToken">Cancels the search through the mappings.</param>
 		/// <returns><c>true</c> if such an item exists.</returns>
 		/// <exception cref="OperationCanceledException">The token was cancelled.</exception>
-		public async Task<bool> ContainsAsync(string key, CancellationToken cancellationToken)
+		public async Task<bool> ContainsAsync(string key, CancellationToken cancellationToken = default)
 		{
 			return (await TryGetValueAsync(key, cancellationToken).ConfigureAwait(false)).Key;
 		}
 
-		/// <summary>Cancellable counterpart of <see cref="TryGetValueAsync(string)"/>.</summary>
+		/// <summary>Looks an item up across every mapping, returning the first match.</summary>
 		/// <param name="key">Identifier of the wanted item.</param>
 		/// <param name="cancellationToken">Cancels the search through the mappings.</param>
 		/// <returns>A pair whose key reports success and whose value holds the item.</returns>
 		/// <exception cref="OperationCanceledException">The token was cancelled.</exception>
-		public async Task<KeyValuePair<bool, ItemT>> TryGetValueAsync(string key, CancellationToken cancellationToken)
+		public async Task<KeyValuePair<bool, ItemT>> TryGetValueAsync(string key, CancellationToken cancellationToken = default)
 		{
 			foreach (var mapping in _mappings)
 			{
@@ -282,15 +210,17 @@ namespace AabSemantics.Extensions.EF
 			return new KeyValuePair<bool, ItemT>(false, null);
 		}
 
+		#endregion
+
 		/// <summary>
-		/// Reads the items of every mapping in registration order. Cancellable counterpart of
-		/// <see cref="GetEnumerator"/>, which cannot take a token and reads one mapping at a time as
-		/// it is enumerated; this one materializes them all.
+		/// Reads the items of every mapping in registration order. This is the cancellable way to
+		/// read them all: <see cref="GetEnumerator"/> cannot take a token, and reads one mapping at a
+		/// time as it is enumerated.
 		/// </summary>
 		/// <param name="cancellationToken">Cancels the walk through the mappings.</param>
 		/// <returns>All mapped items.</returns>
 		/// <exception cref="OperationCanceledException">The token was cancelled.</exception>
-		public async Task<ICollection<ItemT>> GetAllItemsAsync(CancellationToken cancellationToken)
+		public async Task<ICollection<ItemT>> GetAllItemsAsync(CancellationToken cancellationToken = default)
 		{
 			var items = new List<ItemT>();
 			foreach (var mapping in _mappings)
@@ -300,7 +230,5 @@ namespace AabSemantics.Extensions.EF
 
 			return items;
 		}
-
-		#endregion
 	}
 }

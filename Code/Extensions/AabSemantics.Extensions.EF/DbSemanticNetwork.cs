@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Threading;
@@ -16,10 +16,11 @@ namespace AabSemantics.Extensions.EF
 	/// <see cref="SaveChangesAsync"/> commits everything staged so far in a single transaction.
 	/// Until then the changes are visible through this network alone.
 	/// <para>
-	/// <see cref="IRepository{T}"/> knows nothing of cancellation, so <see cref="Concepts"/> and
-	/// <see cref="Statements"/> wait for the database uninterruptibly. Where that wait has to be
-	/// cancellable, use the <c>...ConceptAsync</c> and <c>...StatementAsync</c> methods below
-	/// instead; they reach the same tables and take a token.
+	/// Waiting for the database can be cut short throughout: every <see cref="IRepository{T}"/>
+	/// member of <see cref="Concepts"/> and <see cref="Statements"/> takes a cancellation token.
+	/// Reading a collection whole is the one thing the interface cannot do cancellably, as it
+	/// offers no token to <see cref="System.Collections.Generic.IEnumerable{T}.GetEnumerator"/>;
+	/// <see cref="GetConceptsAsync"/> and <see cref="GetStatementsAsync"/> fill that gap.
 	/// </para>
 	/// </summary>
 	/// <typeparam name="ContextT">Entity Framework context type.</typeparam>
@@ -40,17 +41,11 @@ namespace AabSemantics.Extensions.EF
 		public ISemanticNetworkContext Context
 		{ get; }
 
-		/// <summary>
-		/// Concepts, read through the mappings registered by <see cref="MapConcepts"/>. Not
-		/// cancellable; see <see cref="GetConceptsAsync"/> and its neighbours.
-		/// </summary>
+		/// <summary>Concepts, read through the mappings registered by <see cref="MapConcepts"/>.</summary>
 		public IRepository<IConcept> Concepts
 		{ get { return _concepts; } }
 
-		/// <summary>
-		/// Statements, read through the mappings registered by <see cref="MapStatements"/>. Not
-		/// cancellable; see <see cref="GetStatementsAsync"/> and its neighbours.
-		/// </summary>
+		/// <summary>Statements, read through the mappings registered by <see cref="MapStatements"/>.</summary>
 		public IRepository<IStatement> Statements
 		{ get { return _statements; } }
 
@@ -135,18 +130,10 @@ namespace AabSemantics.Extensions.EF
 			return await _dbContext.SaveChangesAsync(cancellationToken).ConfigureAwait(false);
 		}
 
-		#region Cancellable access to concepts
-
-		/// <summary>Counts the concepts of every mapped table.</summary>
-		/// <param name="cancellationToken">Cancels waiting for the database.</param>
-		/// <returns>Number of concepts.</returns>
-		/// <exception cref="OperationCanceledException">The token was cancelled.</exception>
-		public Task<Int32> GetConceptCountAsync(CancellationToken cancellationToken = default)
-		{
-			return _concepts.GetCountAsync(cancellationToken);
-		}
-
-		/// <summary>Reads the concepts of every mapped table.</summary>
+		/// <summary>
+		/// Reads every mapped concept, pending changes included. Cancellable alternative to
+		/// enumerating <see cref="Concepts"/>.
+		/// </summary>
 		/// <param name="cancellationToken">Cancels waiting for the database.</param>
 		/// <returns>All mapped concepts.</returns>
 		/// <exception cref="OperationCanceledException">The token was cancelled.</exception>
@@ -155,91 +142,10 @@ namespace AabSemantics.Extensions.EF
 			return _concepts.GetAllItemsAsync(cancellationToken);
 		}
 
-		/// <summary>Lists the identifiers of every mapped concept.</summary>
-		/// <param name="cancellationToken">Cancels waiting for the database.</param>
-		/// <returns>All concept keys currently in use.</returns>
-		/// <exception cref="OperationCanceledException">The token was cancelled.</exception>
-		public Task<ICollection<String>> GetConceptKeysAsync(CancellationToken cancellationToken = default)
-		{
-			return _concepts.GetKeysAsync(cancellationToken);
-		}
-
-		/// <summary>Looks a concept up by key.</summary>
-		/// <param name="key">Identifier of the wanted concept.</param>
-		/// <param name="cancellationToken">Cancels waiting for the database.</param>
-		/// <returns>The matching concept, or <c>null</c> when nothing matched.</returns>
-		/// <exception cref="OperationCanceledException">The token was cancelled.</exception>
-		public Task<IConcept> GetConceptAsync(String key, CancellationToken cancellationToken = default)
-		{
-			return _concepts.GetItemAsync(key, cancellationToken);
-		}
-
-		/// <summary>Determines whether a concept with the given key is mapped.</summary>
-		/// <param name="key">Identifier to look for.</param>
-		/// <param name="cancellationToken">Cancels waiting for the database.</param>
-		/// <returns><c>true</c> if such a concept exists.</returns>
-		/// <exception cref="OperationCanceledException">The token was cancelled.</exception>
-		public Task<Boolean> ContainsConceptAsync(String key, CancellationToken cancellationToken = default)
-		{
-			return _concepts.ContainsAsync(key, cancellationToken);
-		}
-
-		/// <summary>Looks a concept up without throwing when it is absent.</summary>
-		/// <param name="key">Identifier of the wanted concept.</param>
-		/// <param name="cancellationToken">Cancels waiting for the database.</param>
-		/// <returns>A pair whose key reports success and whose value holds the concept.</returns>
-		/// <exception cref="OperationCanceledException">The token was cancelled.</exception>
-		public Task<KeyValuePair<Boolean, IConcept>> TryGetConceptAsync(String key, CancellationToken cancellationToken = default)
-		{
-			return _concepts.TryGetValueAsync(key, cancellationToken);
-		}
-
-		/// <summary>Stages a concept; it reaches the database when <see cref="SaveChangesAsync"/> is called.</summary>
-		/// <param name="concept">Concept to store.</param>
-		/// <param name="cancellationToken">Cancels the call before the concept is staged.</param>
-		/// <exception cref="OperationCanceledException">The token was cancelled.</exception>
-		public Task AddConceptAsync(IConcept concept, CancellationToken cancellationToken = default)
-		{
-			return _concepts.AddAsync(concept, cancellationToken);
-		}
-
-		/// <summary>Stages a concept's deletion; it reaches the database when <see cref="SaveChangesAsync"/> is called.</summary>
-		/// <param name="concept">Concept to remove.</param>
-		/// <param name="cancellationToken">Cancels waiting for the database; nothing is staged then.</param>
-		/// <returns><c>true</c> when some mapping found it.</returns>
-		/// <exception cref="ArgumentNullException"><paramref name="concept"/> is <c>null</c>.</exception>
-		/// <exception cref="OperationCanceledException">The token was cancelled.</exception>
-		public Task<Boolean> RemoveConceptAsync(IConcept concept, CancellationToken cancellationToken = default)
-		{
-			return _concepts.RemoveAsync(concept, cancellationToken);
-		}
-
 		/// <summary>
-		/// Stages the emptying of every table mapped as a source of concepts. Cancelling leaves the
-		/// tables visited so far staged for emptying; <see cref="SaveChangesAsync"/> would still
-		/// write those deletions.
+		/// Reads every mapped statement, pending changes included. Cancellable alternative to
+		/// enumerating <see cref="Statements"/>.
 		/// </summary>
-		/// <param name="cancellationToken">Cancels waiting for the database.</param>
-		/// <exception cref="OperationCanceledException">The token was cancelled.</exception>
-		public Task ClearConceptsAsync(CancellationToken cancellationToken = default)
-		{
-			return _concepts.ClearAsync(cancellationToken);
-		}
-
-		#endregion
-
-		#region Cancellable access to statements
-
-		/// <summary>Counts the statements of every mapped table.</summary>
-		/// <param name="cancellationToken">Cancels waiting for the database.</param>
-		/// <returns>Number of statements.</returns>
-		/// <exception cref="OperationCanceledException">The token was cancelled.</exception>
-		public Task<Int32> GetStatementCountAsync(CancellationToken cancellationToken = default)
-		{
-			return _statements.GetCountAsync(cancellationToken);
-		}
-
-		/// <summary>Reads the statements of every mapped table.</summary>
 		/// <param name="cancellationToken">Cancels waiting for the database.</param>
 		/// <returns>All mapped statements.</returns>
 		/// <exception cref="OperationCanceledException">The token was cancelled.</exception>
@@ -247,78 +153,5 @@ namespace AabSemantics.Extensions.EF
 		{
 			return _statements.GetAllItemsAsync(cancellationToken);
 		}
-
-		/// <summary>Lists the identifiers of every mapped statement.</summary>
-		/// <param name="cancellationToken">Cancels waiting for the database.</param>
-		/// <returns>All statement keys currently in use.</returns>
-		/// <exception cref="OperationCanceledException">The token was cancelled.</exception>
-		public Task<ICollection<String>> GetStatementKeysAsync(CancellationToken cancellationToken = default)
-		{
-			return _statements.GetKeysAsync(cancellationToken);
-		}
-
-		/// <summary>Looks a statement up by key.</summary>
-		/// <param name="key">Identifier of the wanted statement.</param>
-		/// <param name="cancellationToken">Cancels waiting for the database.</param>
-		/// <returns>The matching statement, or <c>null</c> when nothing matched.</returns>
-		/// <exception cref="OperationCanceledException">The token was cancelled.</exception>
-		public Task<IStatement> GetStatementAsync(String key, CancellationToken cancellationToken = default)
-		{
-			return _statements.GetItemAsync(key, cancellationToken);
-		}
-
-		/// <summary>Determines whether a statement with the given key is mapped.</summary>
-		/// <param name="key">Identifier to look for.</param>
-		/// <param name="cancellationToken">Cancels waiting for the database.</param>
-		/// <returns><c>true</c> if such a statement exists.</returns>
-		/// <exception cref="OperationCanceledException">The token was cancelled.</exception>
-		public Task<Boolean> ContainsStatementAsync(String key, CancellationToken cancellationToken = default)
-		{
-			return _statements.ContainsAsync(key, cancellationToken);
-		}
-
-		/// <summary>Looks a statement up without throwing when it is absent.</summary>
-		/// <param name="key">Identifier of the wanted statement.</param>
-		/// <param name="cancellationToken">Cancels waiting for the database.</param>
-		/// <returns>A pair whose key reports success and whose value holds the statement.</returns>
-		/// <exception cref="OperationCanceledException">The token was cancelled.</exception>
-		public Task<KeyValuePair<Boolean, IStatement>> TryGetStatementAsync(String key, CancellationToken cancellationToken = default)
-		{
-			return _statements.TryGetValueAsync(key, cancellationToken);
-		}
-
-		/// <summary>Stages a statement; it reaches the database when <see cref="SaveChangesAsync"/> is called.</summary>
-		/// <param name="statement">Statement to store.</param>
-		/// <param name="cancellationToken">Cancels the call before the statement is staged.</param>
-		/// <exception cref="OperationCanceledException">The token was cancelled.</exception>
-		public Task AddStatementAsync(IStatement statement, CancellationToken cancellationToken = default)
-		{
-			return _statements.AddAsync(statement, cancellationToken);
-		}
-
-		/// <summary>Stages a statement's deletion; it reaches the database when <see cref="SaveChangesAsync"/> is called.</summary>
-		/// <param name="statement">Statement to remove.</param>
-		/// <param name="cancellationToken">Cancels waiting for the database; nothing is staged then.</param>
-		/// <returns><c>true</c> when some mapping found it.</returns>
-		/// <exception cref="ArgumentNullException"><paramref name="statement"/> is <c>null</c>.</exception>
-		/// <exception cref="OperationCanceledException">The token was cancelled.</exception>
-		public Task<Boolean> RemoveStatementAsync(IStatement statement, CancellationToken cancellationToken = default)
-		{
-			return _statements.RemoveAsync(statement, cancellationToken);
-		}
-
-		/// <summary>
-		/// Stages the emptying of every table mapped as a source of statements. Cancelling leaves the
-		/// tables visited so far staged for emptying; <see cref="SaveChangesAsync"/> would still
-		/// write those deletions.
-		/// </summary>
-		/// <param name="cancellationToken">Cancels waiting for the database.</param>
-		/// <exception cref="OperationCanceledException">The token was cancelled.</exception>
-		public Task ClearStatementsAsync(CancellationToken cancellationToken = default)
-		{
-			return _statements.ClearAsync(cancellationToken);
-		}
-
-		#endregion
 	}
 }

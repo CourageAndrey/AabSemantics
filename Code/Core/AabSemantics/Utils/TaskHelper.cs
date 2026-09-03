@@ -109,5 +109,31 @@ namespace AabSemantics.Utils
 				return Task.FromException(error);
 			}
 		}
+
+		/// <summary>
+		/// Runs a cancellable operation that has nothing to await and produces no result on the
+		/// calling thread, and reports its outcome through a completed task. A cancelled operation
+		/// yields a cancelled task, and any other failure a faulted one.
+		/// </summary>
+		/// <param name="operation">Operation to run; it is expected to observe the token itself.</param>
+		/// <param name="cancellationToken">Token the operation observes.</param>
+		/// <returns>A completed, cancelled or faulted task.</returns>
+		public static Task FromSynchronous(Action operation, CancellationToken cancellationToken)
+		{
+			try
+			{
+				cancellationToken.ThrowIfCancellationRequested();
+				operation();
+				return Task.CompletedTask;
+			}
+			catch (OperationCanceledException) when (cancellationToken.IsCancellationRequested)
+			{
+				return Task.FromCanceled(cancellationToken);
+			}
+			catch (Exception error)
+			{
+				return Task.FromException(error);
+			}
+		}
 	}
 }

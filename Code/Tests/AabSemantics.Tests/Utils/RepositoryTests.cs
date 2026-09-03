@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Runtime.Serialization;
+using System.Threading;
 using System.Threading.Tasks;
 
 using NUnit.Framework;
@@ -382,44 +383,44 @@ namespace AabSemantics.Tests.Utils
 				return GetEnumerator();
 			}
 
-			public Task AddAsync(SimpleIdentifiable item)
+			public Task AddAsync(SimpleIdentifiable item, CancellationToken cancellationToken = default)
 			{
-				return _collection.AddAsync(item);
+				return _collection.AddAsync(item, cancellationToken);
 			}
 
-			public Task<bool> RemoveAsync(SimpleIdentifiable item)
+			public Task<bool> RemoveAsync(SimpleIdentifiable item, CancellationToken cancellationToken = default)
 			{
-				return _collection.RemoveAsync(item);
+				return _collection.RemoveAsync(item, cancellationToken);
 			}
 
-			public Task ClearAsync()
+			public Task ClearAsync(CancellationToken cancellationToken = default)
 			{
-				return _collection.ClearAsync();
+				return _collection.ClearAsync(cancellationToken);
 			}
 
-			public Task<int> GetCountAsync()
+			public Task<int> GetCountAsync(CancellationToken cancellationToken = default)
 			{
-				return _collection.GetCountAsync();
+				return _collection.GetCountAsync(cancellationToken);
 			}
 
-			public Task<SimpleIdentifiable> GetItemAsync(string key)
+			public Task<SimpleIdentifiable> GetItemAsync(string key, CancellationToken cancellationToken = default)
 			{
-				return _collection.GetItemAsync(key);
+				return _collection.GetItemAsync(key, cancellationToken);
 			}
 
-			public Task<ICollection<string>> GetKeysAsync()
+			public Task<ICollection<string>> GetKeysAsync(CancellationToken cancellationToken = default)
 			{
-				return _collection.GetKeysAsync();
+				return _collection.GetKeysAsync(cancellationToken);
 			}
 
-			public Task<bool> ContainsAsync(string key)
+			public Task<bool> ContainsAsync(string key, CancellationToken cancellationToken = default)
 			{
-				return _collection.ContainsAsync(key);
+				return _collection.ContainsAsync(key, cancellationToken);
 			}
 
-			public Task<KeyValuePair<bool, SimpleIdentifiable>> TryGetValueAsync(string key)
+			public Task<KeyValuePair<bool, SimpleIdentifiable>> TryGetValueAsync(string key, CancellationToken cancellationToken = default)
 			{
-				return _collection.TryGetValueAsync(key);
+				return _collection.TryGetValueAsync(key, cancellationToken);
 			}
 		}
 
