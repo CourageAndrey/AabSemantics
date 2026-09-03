@@ -46,35 +46,15 @@ namespace AabSemantics.Utils
 		}
 
 		/// <summary>
-		/// Runs an operation that has nothing to await on the calling thread and reports its outcome
-		/// through a completed task. Failures reach the caller the same way they would if the work
-		/// had really been asynchronous, instead of being thrown before the task is returned.
-		/// </summary>
-		/// <typeparam name="T">Result type.</typeparam>
-		/// <param name="operation">Operation to run.</param>
-		/// <returns>A completed or faulted task.</returns>
-		public static Task<T> FromSynchronous<T>(Func<T> operation)
-		{
-			try
-			{
-				return Task.FromResult(operation());
-			}
-			catch (Exception error)
-			{
-				return Task.FromException<T>(error);
-			}
-		}
-
-		/// <summary>
 		/// Runs a cancellable operation that has nothing to await on the calling thread and reports
 		/// its outcome through a completed task. A cancelled operation yields a cancelled task, and
 		/// any other failure a faulted one, just as if the work had really been asynchronous.
 		/// </summary>
 		/// <typeparam name="T">Result type.</typeparam>
 		/// <param name="operation">Operation to run; it is expected to observe the token itself.</param>
-		/// <param name="cancellationToken">Token the operation observes.</param>
+		/// <param name="cancellationToken">Token the operation observes; omitting it leaves the operation uncancellable.</param>
 		/// <returns>A completed, cancelled or faulted task.</returns>
-		public static Task<T> FromSynchronous<T>(Func<T> operation, CancellationToken cancellationToken)
+		public static Task<T> FromSynchronous<T>(Func<T> operation, CancellationToken cancellationToken = default)
 		{
 			try
 			{
@@ -92,33 +72,14 @@ namespace AabSemantics.Utils
 		}
 
 		/// <summary>
-		/// Runs an operation that has nothing to await and produces no result on the calling thread,
-		/// and reports its outcome through a completed task.
-		/// </summary>
-		/// <param name="operation">Operation to run.</param>
-		/// <returns>A completed or faulted task.</returns>
-		public static Task FromSynchronous(Action operation)
-		{
-			try
-			{
-				operation();
-				return Task.CompletedTask;
-			}
-			catch (Exception error)
-			{
-				return Task.FromException(error);
-			}
-		}
-
-		/// <summary>
 		/// Runs a cancellable operation that has nothing to await and produces no result on the
 		/// calling thread, and reports its outcome through a completed task. A cancelled operation
 		/// yields a cancelled task, and any other failure a faulted one.
 		/// </summary>
 		/// <param name="operation">Operation to run; it is expected to observe the token itself.</param>
-		/// <param name="cancellationToken">Token the operation observes.</param>
+		/// <param name="cancellationToken">Token the operation observes; omitting it leaves the operation uncancellable.</param>
 		/// <returns>A completed, cancelled or faulted task.</returns>
-		public static Task FromSynchronous(Action operation, CancellationToken cancellationToken)
+		public static Task FromSynchronous(Action operation, CancellationToken cancellationToken = default)
 		{
 			try
 			{
