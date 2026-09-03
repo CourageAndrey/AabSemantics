@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 
 using AabSemantics.Utils;
@@ -12,15 +13,21 @@ namespace AabSemantics.Extensions.EF
 	internal interface IMapping
 	{
 		/// <summary>Counts the rows in the mapped table.</summary>
+		/// <param name="cancellationToken">Cancels waiting for the database.</param>
 		/// <returns>Number of rows.</returns>
-		Task<int> GetCountAsync();
+		/// <exception cref="OperationCanceledException">The token was cancelled.</exception>
+		Task<int> GetCountAsync(CancellationToken cancellationToken = default);
 
 		/// <summary>Lists the identifiers of every row.</summary>
+		/// <param name="cancellationToken">Cancels waiting for the database.</param>
 		/// <returns>All keys in the mapped table.</returns>
-		Task<IEnumerable<string>> GetKeysAsync();
+		/// <exception cref="OperationCanceledException">The token was cancelled.</exception>
+		Task<IEnumerable<string>> GetKeysAsync(CancellationToken cancellationToken = default);
 
 		/// <summary>Stages the deletion of every row of the mapped table.</summary>
-		Task ClearAsync();
+		/// <param name="cancellationToken">Cancels waiting for the database; nothing is staged then.</param>
+		/// <exception cref="OperationCanceledException">The token was cancelled.</exception>
+		Task ClearAsync(CancellationToken cancellationToken = default);
 	}
 
 	/// <summary>Mapping between a database table and semantic network items.</summary>
@@ -29,23 +36,31 @@ namespace AabSemantics.Extensions.EF
 		where ItemT : IIdentifiable
 	{
 		/// <summary>Reads every row as an item.</summary>
+		/// <param name="cancellationToken">Cancels waiting for the database.</param>
 		/// <returns>All mapped items.</returns>
-		Task<IEnumerable<ItemT>> GetAllItemsAsync();
+		/// <exception cref="OperationCanceledException">The token was cancelled.</exception>
+		Task<IEnumerable<ItemT>> GetAllItemsAsync(CancellationToken cancellationToken = default);
 
 		/// <summary>Reads a single item by key.</summary>
 		/// <param name="key">Identifier to look for.</param>
+		/// <param name="cancellationToken">Cancels waiting for the database.</param>
 		/// <returns>A pair whose key reports success and whose value holds the item.</returns>
-		Task<KeyValuePair<bool, ItemT>> TryGetItemAsync(string key);
+		/// <exception cref="OperationCanceledException">The token was cancelled.</exception>
+		Task<KeyValuePair<bool, ItemT>> TryGetItemAsync(string key, CancellationToken cancellationToken = default);
 
 		/// <summary>Stages an item as a new row.</summary>
 		/// <param name="item">Item to store.</param>
+		/// <param name="cancellationToken">Cancels the call before the row is staged.</param>
 		/// <returns><c>true</c> when the row was staged.</returns>
-		Task<bool> AddAsync(ItemT item);
+		/// <exception cref="OperationCanceledException">The token was cancelled.</exception>
+		Task<bool> AddAsync(ItemT item, CancellationToken cancellationToken = default);
 
 		/// <summary>Stages the deletion of the row matching an item's identifier.</summary>
 		/// <param name="item">Item to remove.</param>
+		/// <param name="cancellationToken">Cancels waiting for the database; nothing is staged then.</param>
 		/// <returns><c>true</c> when a matching row was found and staged for deletion.</returns>
-		Task<bool> RemoveAsync(ItemT item);
+		/// <exception cref="OperationCanceledException">The token was cancelled.</exception>
+		Task<bool> RemoveAsync(ItemT item, CancellationToken cancellationToken = default);
 	}
 
 	/// <summary>Mapping that exposes the table it is bound to.</summary>
@@ -62,7 +77,8 @@ namespace AabSemantics.Extensions.EF
 
 	/// <summary>
 	/// Default table mapping. Every database access goes through the asynchronous Entity Framework
-	/// API, so the calling thread is released for the duration of the round trip. Writes are only
+	/// API, so the calling thread is released for the duration of the round trip and the wait can be
+	/// cut short by the cancellation token every method takes. Writes are only
 	/// staged in the change tracker: they reach the database when the owning
 	/// <see cref="DbSemanticNetwork{ContextT}"/> saves them, and reads report them meanwhile.
 	/// Lookups still enumerate the whole table client-side rather than translating the key
@@ -112,37 +128,45 @@ namespace AabSemantics.Extensions.EF
 		}
 
 		/// <summary>Counts the rows in the mapped table, pending changes included.</summary>
+		/// <param name="cancellationToken">Cancels waiting for the database.</param>
 		/// <returns>Number of rows.</returns>
-		public async Task<int> GetCountAsync()
+		/// <exception cref="OperationCanceledException">The token was cancelled.</exception>
+		public async Task<int> GetCountAsync(CancellationToken cancellationToken = default)
 		{
 			// as long as nothing is staged, the count can be left to the database
 			return _dbContext.ChangeTracker.HasChanges()
-				? (await ReadEntitiesAsync().ConfigureAwait(false)).Count
-				: await DbSet.CountAsync().ConfigureAwait(false);
+				? (await ReadEntitiesAsync(cancellationToken).ConfigureAwait(false)).Count
+				: await DbSet.CountAsync(cancellationToken).ConfigureAwait(false);
 		}
 
 		/// <summary>Lists the identifiers of every row, pending changes included.</summary>
+		/// <param name="cancellationToken">Cancels waiting for the database.</param>
 		/// <returns>All keys in the mapped table.</returns>
-		public async Task<IEnumerable<string>> GetKeysAsync()
+		/// <exception cref="OperationCanceledException">The token was cancelled.</exception>
+		public async Task<IEnumerable<string>> GetKeysAsync(CancellationToken cancellationToken = default)
 		{
-			var entities = await ReadEntitiesAsync().ConfigureAwait(false);
+			var entities = await ReadEntitiesAsync(cancellationToken).ConfigureAwait(false);
 			return entities.Select(entity => _getKey(entity)).ToList();
 		}
 
 		/// <summary>Reads every row as an item, pending changes included.</summary>
+		/// <param name="cancellationToken">Cancels waiting for the database.</param>
 		/// <returns>All mapped items.</returns>
-		public async Task<IEnumerable<ItemT>> GetAllItemsAsync()
+		/// <exception cref="OperationCanceledException">The token was cancelled.</exception>
+		public async Task<IEnumerable<ItemT>> GetAllItemsAsync(CancellationToken cancellationToken = default)
 		{
-			var entities = await ReadEntitiesAsync().ConfigureAwait(false);
+			var entities = await ReadEntitiesAsync(cancellationToken).ConfigureAwait(false);
 			return entities.Select(entity => _map(entity)).ToList();
 		}
 
 		/// <summary>Reads a single item by key, pending changes included.</summary>
 		/// <param name="key">Identifier to look for.</param>
+		/// <param name="cancellationToken">Cancels waiting for the database.</param>
 		/// <returns>A pair whose key reports success and whose value holds the item.</returns>
-		public async Task<KeyValuePair<bool, ItemT>> TryGetItemAsync(string key)
+		/// <exception cref="OperationCanceledException">The token was cancelled.</exception>
+		public async Task<KeyValuePair<bool, ItemT>> TryGetItemAsync(string key, CancellationToken cancellationToken = default)
 		{
-			var entity = await FindEntityAsync(key).ConfigureAwait(false);
+			var entity = await FindEntityAsync(key, cancellationToken).ConfigureAwait(false);
 			return entity != null
 				? new KeyValuePair<bool, ItemT>(true, _map(entity))
 				: new KeyValuePair<bool, ItemT>(false, default);
@@ -150,20 +174,30 @@ namespace AabSemantics.Extensions.EF
 
 		/// <summary>Stages an item as a new row. Nothing is written until the changes are saved.</summary>
 		/// <param name="item">Item to store.</param>
+		/// <param name="cancellationToken">Cancels the call before the row is staged.</param>
 		/// <returns>Always <c>true</c>.</returns>
-		public Task<bool> AddAsync(ItemT item)
+		/// <exception cref="OperationCanceledException">The token was cancelled.</exception>
+		public Task<bool> AddAsync(ItemT item, CancellationToken cancellationToken = default)
 		{
-			// staging touches the change tracker only, so there is no round trip to await here
-			DbSet.Add(_mapBack(item));
-			return Task.FromResult(true);
+			// staging touches the change tracker only, so there is no round trip to await here and
+			// the token can only be observed before the item is staged
+			return TaskHelper.FromSynchronous(
+				() =>
+				{
+					DbSet.Add(_mapBack(item));
+					return true;
+				},
+				cancellationToken);
 		}
 
 		/// <summary>Stages the deletion of the row matching an item's identifier.</summary>
 		/// <param name="item">Item to remove.</param>
+		/// <param name="cancellationToken">Cancels waiting for the database; nothing is staged then.</param>
 		/// <returns><c>true</c> when a matching row was found and staged for deletion.</returns>
-		public async Task<bool> RemoveAsync(ItemT item)
+		/// <exception cref="OperationCanceledException">The token was cancelled.</exception>
+		public async Task<bool> RemoveAsync(ItemT item, CancellationToken cancellationToken = default)
 		{
-			var entity = await FindEntityAsync(item.ID).ConfigureAwait(false);
+			var entity = await FindEntityAsync(item.ID, cancellationToken).ConfigureAwait(false);
 			if (entity == null)
 			{
 				return false;
@@ -174,9 +208,11 @@ namespace AabSemantics.Extensions.EF
 		}
 
 		/// <summary>Stages the deletion of every row of the mapped table.</summary>
-		public async Task ClearAsync()
+		/// <param name="cancellationToken">Cancels waiting for the database; nothing is staged then.</param>
+		/// <exception cref="OperationCanceledException">The token was cancelled.</exception>
+		public async Task ClearAsync(CancellationToken cancellationToken = default)
 		{
-			DbSet.RemoveRange(await ReadEntitiesAsync().ConfigureAwait(false));
+			DbSet.RemoveRange(await ReadEntitiesAsync(cancellationToken).ConfigureAwait(false));
 		}
 
 		/// <summary>
@@ -184,16 +220,25 @@ namespace AabSemantics.Extensions.EF
 		/// key is calculated in memory.
 		/// </summary>
 		/// <param name="key">Identifier to look for.</param>
+		/// <param name="cancellationToken">Cancels waiting for the database.</param>
 		/// <returns>The matching entity, or <c>null</c> when nothing matched.</returns>
-		private async Task<EntityT> FindEntityAsync(string key)
+		/// <exception cref="OperationCanceledException">The token was cancelled.</exception>
+		private async Task<EntityT> FindEntityAsync(string key, CancellationToken cancellationToken)
 		{
-			var entities = await ReadEntitiesAsync().ConfigureAwait(false);
+			var entities = await ReadEntitiesAsync(cancellationToken).ConfigureAwait(false);
 			return entities.FirstOrDefault(entity => _getKey(entity) == key);
 		}
 
-		private async Task<List<EntityT>> ReadEntitiesAsync()
+		/// <summary>
+		/// Materializes the table. Only the query itself is cancellable: once the rows have arrived,
+		/// merging the staged changes into them is in-memory work that runs to completion.
+		/// </summary>
+		/// <param name="cancellationToken">Cancels waiting for the database.</param>
+		/// <returns>The stored rows, pending changes applied.</returns>
+		/// <exception cref="OperationCanceledException">The token was cancelled.</exception>
+		private async Task<List<EntityT>> ReadEntitiesAsync(CancellationToken cancellationToken)
 		{
-			var stored = await DbSet.ToListAsync().ConfigureAwait(false);
+			var stored = await DbSet.ToListAsync(cancellationToken).ConfigureAwait(false);
 
 			var entities = stored.Where(entity => _dbContext.Entry(entity).State != EntityState.Deleted).ToList();
 			entities.AddRange(DbSet.Local.Where(entity => _dbContext.Entry(entity).State == EntityState.Added));
