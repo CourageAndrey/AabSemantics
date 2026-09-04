@@ -11,7 +11,7 @@
     <Description>This project represents semantic network engine written in C#. Please, see more details in project Wiki.</Description>
     <PackageTags>AI;semantic network</PackageTags>
     <PackageReadmeFile>README.md</PackageReadmeFile>
-    <PackageReleaseNotes>IRepository and Entity Framework extensions have been made cancellable.</PackageReleaseNotes>
+    <PackageReleaseNotes>See https://github.com/CourageAndrey/AabSemantics/releases/tag/v$(Version)</PackageReleaseNotes>
   </PropertyGroup>
 
   <ItemGroup>
